@@ -1,12 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { setLang } from "../utils/lang";
-import { type AppLang } from "../utils/locale";
+import type { AppLang } from "../utils/locale";
 
 export default function LangSwitcher() {
-	const choose = (l: AppLang) => setLang(l);
+	const router = useRouter();
+	const choose = (l: AppLang) => {
+		setLang(l);
+		router.refresh();
+	};
 	return (
-		<div className="mt-4 flex gap-2 text-sm">
+		<div className="flex gap-2 text-sm">
 			<button
 				className="border px-2 py-1"
 				onClick={() => choose("pt-BR")}
