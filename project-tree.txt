@@ -1,0 +1,50 @@
+./
+├── .git/
+├── .gitignore
+├── .next/
+├── .prettierignore
+├── .prettierrc
+├── .vscode/
+├── api/
+│   └── health/
+│       └── route.ts
+├── app/
+│   ├── demo/
+│   │   └── page.tsx
+│   ├── error.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── providers.tsx
+│   └── server-demo/
+│       └── page.tsx
+├── components/
+│   ├── HomeClient.tsx
+│   └── LangSwitcher.tsx
+├── eslint.config.mjs
+├── generate-dir-tree.sh
+├── next.config.ts
+├── next-env.d.ts
+├── node_modules/
+├── package.json
+├── package-lock.json
+├── postcss.config.mjs
+├── project-tree.txt
+├── public/
+│   └── locales/
+│       ├── en-US/
+│       │   └── common.json
+│       └── pt-BR/
+│           └── common.json
+├── README.md
+├── schemas/
+│   └── user.ts
+├── store/
+│   └── useAuth.ts
+├── tsconfig.json
+└── utils/
+    ├── api.ts
+    ├── i18n.ts
+    ├── lang.ts
+    ├── locale.ts
+    └── serverComponentsLocales.ts

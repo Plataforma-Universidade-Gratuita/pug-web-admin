@@ -8,7 +8,7 @@
 		"start": "next start",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"format": "prettier --write . && npm run lint:fix",
+		"format": "prettier --write . && npm run lint:fix && tsc --noEmit",
 		"format:check": "prettier --check . && npm run lint"
 	},
 	"dependencies": {
