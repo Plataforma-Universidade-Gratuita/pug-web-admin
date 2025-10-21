@@ -1,8 +1,244 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-html,
-body {
-	height: 100%;
+/* ===== System defaults (no data-theme) ===== */
+:root {
+	/* light */
+	--twc-text: theme(colors.neutral.950);
+	--twc-muted: theme(colors.neutral.800);
+	--twc-surface-1: theme(colors.neutral.200);
+	--twc-surface-2: theme(colors.neutral.100);
+	--twc-surface-3: theme(colors.neutral.50);
+	/* border token (light) */
+	--twc-border: theme(colors.neutral.300);
+
+	/* radii */
+	--twc-radius-square: 0rem;
+	--twc-radius-squircle: 1rem;
+	--twc-radius-circle: 999rem;
+
+	/* shadows (light) */
+	--twc-shadow-rgb: 0 0 0;
+	--twc-a-tight-weak: 0.12;
+	--twc-a-wide-weak: 0.06;
+	--twc-a-tight-norm: 0.14;
+	--twc-a-wide-norm: 0.08;
+	--twc-a-tight-strong: 0.16;
+	--twc-a-wide-strong: 0.1;
 }
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* dark */
+		--twc-text: theme(colors.neutral.50);
+		--twc-muted: theme(colors.neutral.200);
+		--twc-surface-1: theme(colors.neutral.950);
+		--twc-surface-2: theme(colors.neutral.900);
+		--twc-surface-3: theme(colors.neutral.800);
+		/* border token (dark) */
+		--twc-border: theme(colors.neutral.700);
+
+		/* shadows (dark, dimmer) */
+		--twc-shadow-rgb: 230 230 230;
+		--twc-a-tight-weak: 0.05;
+		--twc-a-wide-weak: 0.025;
+		--twc-a-tight-norm: 0.07;
+		--twc-a-wide-norm: 0.04;
+		--twc-a-tight-strong: 0.09;
+		--twc-a-wide-strong: 0.06;
+	}
+}
+
+/* ===== Explicit overrides (MUST come last) ===== */
+html[data-theme="light"] {
+	--twc-text: theme(colors.neutral.950);
+	--twc-muted: theme(colors.neutral.800);
+	--twc-surface-1: theme(colors.neutral.200);
+	--twc-surface-2: theme(colors.neutral.100);
+	--twc-surface-3: theme(colors.neutral.50);
+	--twc-border: theme(colors.neutral.300);
+
+	/* ensure light shadows when forced light */
+	--twc-shadow-rgb: 0 0 0;
+	--twc-a-tight-weak: 0.12;
+	--twc-a-wide-weak: 0.06;
+	--twc-a-tight-norm: 0.14;
+	--twc-a-wide-norm: 0.08;
+	--twc-a-tight-strong: 0.16;
+	--twc-a-wide-strong: 0.1;
+}
+html[data-theme="dark"] {
+	--twc-text: theme(colors.neutral.50);
+	--twc-muted: theme(colors.neutral.200);
+	--twc-surface-1: theme(colors.neutral.950);
+	--twc-surface-2: theme(colors.neutral.900);
+	--twc-surface-3: theme(colors.neutral.800);
+	--twc-border: theme(colors.neutral.700);
+
+	/* ensure dark shadows when forced dark */
+	--twc-shadow-rgb: 230 230 230;
+	--twc-a-tight-weak: 0.05;
+	--twc-a-wide-weak: 0.025;
+	--twc-a-tight-norm: 0.07;
+	--twc-a-wide-norm: 0.04;
+	--twc-a-tight-strong: 0.09;
+	--twc-a-wide-strong: 0.06;
+}
+
+/* base */
+@layer base {
+	body {
+		@apply text-base;
+		line-height: 1.6em;
+		color: var(--twc-text);
+	}
+	*, ::before, ::after { border-color: var(--twc-border); }
+}
+
+/* utilities — MUST be top-level (no nesting) */
+@utility text-muted {
+	color: var(--twc-muted);
+}
+
+/* explicit border utility when needed */
+@utility border-default {
+	border-color: var(--twc-border);
+}
+
+/* Radius utilities */
+@utility br-square {
+	border-radius: var(--twc-radius-square);
+}
+@utility br-squircle {
+	border-radius: var(--twc-radius-squircle);
+}
+@utility br-circle {
+	border-radius: var(--twc-radius-circle);
+}
+
+@utility surface-1 {
+	background-color: var(--twc-surface-1);
+}
+@utility surface-2 {
+	background-color: var(--twc-surface-2);
+}
+@utility surface-3 {
+	background-color: var(--twc-surface-3);
+}
+
+/* 16px body */
+@utility ty-body {
+	font-size: 1rem;
+	line-height: 1em;
+	font-weight: 400;
+	color: var(--twc-muted);
+}
+@utility ty-body-semibold {
+	font-size: 1rem;
+	line-height: 1.1em;
+	font-weight: 600;
+	color: var(--twc-text);
+}
+@utility ty-body-bold {
+	font-size: 1rem;
+	line-height: 1.1em;
+	font-weight: 700;
+	color: var(--twc-text);
+}
+
+/* 14px captions */
+@utility ty-sm {
+	font-size: 0.875rem;
+	line-height: 1.5em;
+	font-weight: 400;
+	color: var(--twc-muted);
+}
+@utility ty-sm-semibold {
+	font-size: 0.875rem;
+	line-height: 1.45em;
+	font-weight: 600;
+	color: var(--twc-text);
+}
+@utility ty-sm-bold {
+	font-size: 0.875rem;
+	line-height: 1.4em;
+	font-weight: 700;
+	color: var(--twc-text);
+}
+
+/* 18px titles */
+@utility ty-title {
+	font-size: 1.125rem;
+	line-height: 1.35em;
+	font-weight: 600;
+	color: var(--twc-text);
+}
+@utility ty-title-alt {
+	font-size: 1.125rem;
+	line-height: 1.4em;
+	font-weight: 400;
+	color: var(--twc-text);
+}
+
+/* 16px header + helper */
+@utility ty-header {
+	font-size: 1rem;
+	line-height: 1.3em;
+	font-weight: 600;
+	color: var(--twc-text);
+}
+@utility ty-helper {
+	font-size: 1rem;
+	line-height: 1.4em;
+	font-weight: 400;
+	color: var(--twc-muted);
+}
+
+/* Utilities: tight + wide stacked */
+@utility shadow-weak {
+	box-shadow:
+		0 0.125rem 0.25rem rgba(var(--twc-shadow-rgb) / var(--twc-a-tight-weak)),
+		0 0.75rem 1.5rem -0.75rem
+			rgba(var(--twc-shadow-rgb) / var(--twc-a-wide-weak));
+}
+@utility shadow-normal {
+	box-shadow:
+		0 0.25rem 0.5rem rgba(var(--twc-shadow-rgb) / var(--twc-a-tight-norm)),
+		0 1rem 2rem -1rem rgba(var(--twc-shadow-rgb) / var(--twc-a-wide-norm));
+}
+@utility shadow-strong {
+	box-shadow:
+		0 0.375rem 0.75rem rgba(var(--twc-shadow-rgb) / var(--twc-a-tight-strong)),
+		0 1.25rem 2.5rem -1.25rem
+		rgba(var(--twc-shadow-rgb) / var(--twc-a-wide-strong));
+	}
+	
+	/* brand & accent scales */
+	@theme {
+	--color-brand-50: oklch(0.98 0.06 18.17);
+	--color-brand-100: oklch(0.94 0.08 18.17);
+	--color-brand-200: oklch(0.88 0.1 18.17);
+	--color-brand-300: oklch(0.78 0.12 18.17);
+	--color-brand-400: oklch(0.66 0.14 18.17);
+	--color-brand-500: oklch(0.56 0.15 18.17);
+	--color-brand-600: oklch(0.4562 0.1556 18.17);
+	--color-brand-700: oklch(0.38 0.14 18.17);
+	--color-brand-800: oklch(0.3 0.12 18.17);
+	--color-brand-900: oklch(0.24 0.1 18.17);
+	--color-brand-950: oklch(0.18 0.08 18.17);
+	
+	--color-accent-50: oklch(0.98 0.04 180);
+	--color-accent-100: oklch(0.95 0.06 180);
+	--color-accent-200: oklch(0.9 0.075 180);
+	--color-accent-300: oklch(0.84 0.09 180);
+	--color-accent-400: oklch(0.74 0.1 180);
+	--color-accent-500: oklch(0.67 0.105 180);
+	--color-accent-600: oklch(0.6217 0.1049 180);
+	--color-accent-700: oklch(0.52 0.095 180);
+	--color-accent-800: oklch(0.44 0.08 180);
+	--color-accent-900: oklch(0.36 0.065 180);
+	--color-accent-950: oklch(0.28 0.05 180);
+	
+	--color-brand: var(--color-brand-600);
+	--color-accent: var(--color-accent-600);
+}
+
+:where(*, ::before, ::after) { border-color: var(--twc-border); }
