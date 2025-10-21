@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+@theme {
+	--color-brand-50: oklch(0.94 0.08 18.17);
+	--color-brand-100: oklch(0.88 0.1 18.17);
+	--color-brand-200: oklch(0.78 0.12 18.17);
+	--color-brand-300: oklch(0.66 0.14 18.17);
+	--color-brand-400: oklch(0.56 0.15 18.17);
+	--color-brand-500: oklch(0.4562 0.1556 18.17);
+	--color-brand-600: oklch(0.38 0.14 18.17);
+	--color-brand-700: oklch(0.3 0.12 18.17);
+	--color-brand-800: oklch(0.24 0.1 18.17);
+	--color-brand-900: oklch(0.18 0.08 18.17);
+	--color-brand-950: oklch(0.18 0.08 18.17);
+
+	--color-brand: var(--color-brand-500);
+}
+
+:root {
+	--color-brand-50: oklch(0.94 0.08 18.17);
+	--color-brand-100: oklch(0.88 0.1 18.17);
+	--color-brand-200: oklch(0.78 0.12 18.17);
+	--color-brand-300: oklch(0.66 0.14 18.17);
+	--color-brand-400: oklch(0.56 0.15 18.17);
+	--color-brand-500: oklch(0.4562 0.1556 18.17);
+	--color-brand-600: oklch(0.38 0.14 18.17);
+	--color-brand-700: oklch(0.3 0.12 18.17);
+	--color-brand-800: oklch(0.24 0.1 18.17);
+	--color-brand-900: oklch(0.18 0.08 18.17);
+	--color-brand-950: oklch(0.18 0.08 18.17);
+	--twc-text: theme(colors.neutral.950);
+	--twc-muted: theme(colors.neutral.800);
+	--twc-surface-1: theme(colors.neutral.200);
+	--twc-surface-2: theme(colors.neutral.100);
+	--twc-surface-3: theme(colors.neutral.50);
+	--twc-border: theme(colors.neutral.300);
+	--bg-success: theme(colors.lime.600);
+	--bg-warning: theme(colors.amber.600);
+	--bg-danger: theme(colors.red.700);
+	--bg-info: theme(colors.sky.600);
+	--twc-radius-square: 0rem;
+	--twc-radius-squircle: 0.5rem;
+	--twc-radius-circle: 999rem;
+}
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-brand-50: oklch(0.18 0.08 18.17);
+		--color-brand-100: oklch(0.18 0.08 18.17);
+		--color-brand-200: oklch(0.24 0.1 18.17);
+		--color-brand-300: oklch(0.3 0.12 18.17);
+		--color-brand-400: oklch(0.38 0.14 18.17);
+		--color-brand-500: oklch(0.4562 0.1556 18.17);
+		--color-brand-600: oklch(0.56 0.15 18.17);
+		--color-brand-700: oklch(0.66 0.14 18.17);
+		--color-brand-800: oklch(0.78 0.12 18.17);
+		--color-brand-900: oklch(0.88 0.1 18.17);
+		--color-brand-950: oklch(0.94 0.08 18.17);
+		--twc-text: theme(colors.neutral.50);
+		--twc-muted: theme(colors.neutral.200);
+		--twc-surface-1: theme(colors.neutral.950);
+		--twc-surface-2: theme(colors.neutral.900);
+		--twc-surface-3: theme(colors.neutral.800);
+		--twc-border: theme(colors.neutral.800);
+		--bg-success: theme(colors.lime.300);
+		--bg-warning: theme(colors.amber.300);
+		--bg-danger: theme(colors.red.400);
+		--bg-info: theme(colors.sky.400);
+	}
+}
+
+@layer base {
+	body {
+		@apply text-base;
+		line-height: 1.6em;
+		color: var(--twc-text);
+	}
+}
+
+html[data-theme="light"] {
+	--color-brand-50: oklch(0.94 0.08 18.17);
+	--color-brand-100: oklch(0.88 0.1 18.17);
+	--color-brand-200: oklch(0.78 0.12 18.17);
+	--color-brand-300: oklch(0.66 0.14 18.17);
+	--color-brand-400: oklch(0.56 0.15 18.17);
+	--color-brand-500: oklch(0.4562 0.1556 18.17);
+	--color-brand-600: oklch(0.38 0.14 18.17);
+	--color-brand-700: oklch(0.3 0.12 18.17);
+	--color-brand-800: oklch(0.24 0.1 18.17);
+	--color-brand-900: oklch(0.18 0.08 18.17);
+	--color-brand-950: oklch(0.18 0.08 18.17);
+	--color-brand: var(--color-brand-500);
+	--twc-text: theme(colors.neutral.950);
+	--twc-muted: theme(colors.neutral.800);
+	--twc-surface-1: theme(colors.neutral.200);
+	--twc-surface-2: theme(colors.neutral.100);
+	--twc-surface-3: theme(colors.neutral.50);
+	--twc-border: theme(colors.neutral.200);
+	--bg-success: theme(colors.lime.600);
+	--bg-warning: theme(colors.amber.600);
+	--bg-danger: theme(colors.red.700);
+	--bg-info: theme(colors.sky.600);
+}
+html[data-theme="dark"] {
+	--color-brand-50: oklch(0.18 0.08 18.17);
+	--color-brand-100: oklch(0.18 0.08 18.17);
+	--color-brand-200: oklch(0.24 0.1 18.17);
+	--color-brand-300: oklch(0.3 0.12 18.17);
+	--color-brand-400: oklch(0.38 0.14 18.17);
+	--color-brand-500: oklch(0.4562 0.1556 18.17);
+	--color-brand-600: oklch(0.56 0.15 18.17);
+	--color-brand-700: oklch(0.66 0.14 18.17);
+	--color-brand-800: oklch(0.78 0.12 18.17);
+	--color-brand-900: oklch(0.88 0.1 18.17);
+	--color-brand-950: oklch(0.94 0.08 18.17);
+	--color-brand: var(--color-brand-500);
+	--twc-text: theme(colors.neutral.50);
+	--twc-muted: theme(colors.neutral.200);
+	--twc-surface-1: theme(colors.neutral.950);
+	--twc-surface-2: theme(colors.neutral.900);
+	--twc-surface-3: theme(colors.neutral.800);
+	--twc-border: theme(colors.neutral.800);
+	--bg-success: theme(colors.lime.300);
+	--bg-warning: theme(colors.amber.300);
+	--bg-danger: theme(colors.red.400);
+	--bg-info: theme(colors.sky.400);
+}
+
+@layer components {
+	.shadow-weak {
+		@apply shadow-sm shadow-neutral-500/20;
+	}
+	.shadow-normal {
+		@apply shadow-md shadow-neutral-500/30;
+	}
+	.shadow-strong {
+		@apply shadow-lg shadow-neutral-500/40;
+	}
+}
+
+@layer utilities {
+	.bg-success {
+		--tw-bg-opacity: 1;
+		background-color: var(--bg-success) !important;
+	}
+	.bg-warning {
+		--tw-bg-opacity: 1;
+		background-color: var(--bg-warning) !important;
+	}
+	.bg-danger {
+		--tw-bg-opacity: 1;
+		background-color: var(--bg-danger) !important;
+	}
+	.bg-info {
+		--tw-bg-opacity: 1;
+		background-color: var(--bg-info) !important;
+	}
+}
+
+@utility border-default {
+	border-color: var(--twc-border);
+}
+
+@utility br-square {
+	border-radius: var(--twc-radius-square);
+}
+@utility br-squircle {
+	border-radius: var(--twc-radius-squircle);
+}
+@utility br-circle {
+	border-radius: var(--twc-radius-circle);
+}
+
+@utility surface-1 {
+	background-color: var(--twc-surface-1);
+}
+@utility surface-2 {
+	background-color: var(--twc-surface-2);
+}
+@utility surface-3 {
+	background-color: var(--twc-surface-3);
+}
+
+@utility ty-body {
+	font-size: 1rem;
+	line-height: 1em;
+	font-weight: 400;
+	color: var(--twc-muted);
+}
+@utility ty-body-semibold {
+	font-size: 1rem;
+	line-height: 1.1em;
+	font-weight: 600;
+	color: var(--twc-text);
+}
+@utility ty-body-bold {
+	font-size: 1rem;
+	line-height: 1.1em;
+	font-weight: 700;
+	color: var(--twc-text);
+}
+@utility ty-sm {
+	font-size: 0.875rem;
+	line-height: 1.5em;
+	font-weight: 400;
+	color: var(--twc-muted);
+}
+@utility ty-sm-semibold {
+	font-size: 0.875rem;
+	line-height: 1.45em;
+	font-weight: 600;
+	color: var(--twc-text);
+}
+@utility ty-sm-bold {
+	font-size: 0.875rem;
+	line-height: 1.4em;
+	font-weight: 700;
+	color: var(--twc-text);
+}
+@utility ty-title {
+	font-size: 1.125rem;
+	line-height: 1.35em;
+	font-weight: 600;
+	color: var(--twc-text);
+}
+@utility ty-title-alt {
+	font-size: 1.125rem;
+	line-height: 1.4em;
+	font-weight: 400;
+	color: var(--twc-text);
+}
+@utility ty-header {
+	font-size: 1rem;
+	line-height: 1.3em;
+	font-weight: 600;
+	color: var(--twc-text);
+}
+@utility ty-helper {
+	font-size: 1rem;
+	line-height: 1.4em;
+	font-weight: 400;
+	color: var(--twc-muted);
+}

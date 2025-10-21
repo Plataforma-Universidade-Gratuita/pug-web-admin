@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 
 import { Navbar } from "@/components/NavBar";
-import "@/styles/globals.css";
+import "@/app/globals.css";
 
 import { coerceLang, type AppLang } from "../utils/locale";
 import { Providers } from "./providers";

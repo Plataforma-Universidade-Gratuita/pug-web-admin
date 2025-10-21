@@ -7,15 +7,15 @@ export default function Page() {
 			<section className="space-y-3">
 				<h2 className="ty-title">Surfaces</h2>
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-					<div className="surface-1 br-squircle shadow-weak border border-neutral-200 p-4 dark:border-neutral-800">
+					<div className="surface-1 br-squircle shadow-weak border-default border p-4">
 						<p className="ty-caption">surface-1</p>
 						<p className="ty-helper">Page background layer</p>
 					</div>
-					<div className="surface-2 br-squircle shadow-normal border border-neutral-200 p-4 dark:border-neutral-800">
+					<div className="surface-2 br-squircle shadow-normal border-default border p-4">
 						<p className="ty-caption">surface-2</p>
 						<p className="ty-helper">Card layer</p>
 					</div>
-					<div className="surface-3 br-squircle shadow-strong border border-neutral-200 p-4 dark:border-neutral-800">
+					<div className="surface-3 br-squircle shadow-strong border-default border p-4">
 						<p className="ty-caption">surface-3</p>
 						<p className="ty-helper">Inset/closest layer</p>
 					</div>
@@ -23,7 +23,7 @@ export default function Page() {
 			</section>
 
 			{/* Typography */}
-			<section className="surface-2 br-squircle shadow-normal space-y-2 border border-neutral-200 p-6 dark:border-neutral-800">
+			<section className="surface-2 br-squircle shadow-normal border-default space-y-2 border p-6">
 				<h2 className="ty-title">Typography</h2>
 				<p className="ty-body">ty-body — regular 16px</p>
 				<p className="ty-body-semibold">ty-body-semibold — 16px</p>
@@ -38,19 +38,28 @@ export default function Page() {
 				<p className="text-muted">text-muted utility applied here</p>
 			</section>
 
-			{/* Brand / Accent Buttons */}
-			<section className="surface-2 br-squircle shadow-normal border border-neutral-200 p-6 dark:border-neutral-800">
-				<h2 className="ty-title">Brand / Accent</h2>
+			{/* Brand / brand Buttons */}
+			<section className="surface-2 br-squircle shadow-normal border-default border p-6">
+				<h2 className="ty-title">Brand / brand</h2>
 				<div className="mt-3 flex flex-wrap gap-3">
-					<button className="br-squircle ty-body-semibold bg-brand-600 hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600 px-4 py-2 text-neutral-50">
+					<button className="br-squircle ty-body-semibold bg-brand-500 muted px-4 py-2">
 						Brand
 					</button>
-					<button className="br-squircle ty-body-semibold bg-accent-600 hover:bg-accent-700 dark:bg-accent-500 dark:hover:bg-accent-600 px-4 py-2 text-neutral-50">
-						Accent
+					<button className="br-circle ty-body-semibold bg-success muted px-4 py-2">
+						Success
+					</button>
+					<button className="br-squircle ty-body-semibold bg-warning muted px-4 py-2">
+						Warning
+					</button>
+					<button className="br-squircle ty-body-semibold bg-danger muted px-4 py-2">
+						Error
+					</button>
+					<button className="br-squircle ty-body-semibold bg-info muted px-4 py-2">
+						Information
 					</button>
 					<a
 						href="#"
-						className="br-squircle ty-body-semibold bg-neutral-900 px-4 py-2 text-neutral-50 no-underline hover:bg-neutral-800 dark:bg-neutral-200 dark:text-neutral-900"
+						className="br-squircle ty-body-semibold bg-neutral-900 px-4 py-2 text-neutral-50 no-underline hover:bg-neutral-400 dark:bg-neutral-200 dark:text-neutral-900"
 					>
 						Neutral CTA
 					</a>
@@ -61,20 +70,20 @@ export default function Page() {
 			<section className="space-y-3">
 				<h2 className="ty-title">Radii + Shadows</h2>
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-					<div className="surface-2 br-square shadow-weak border border-neutral-200 p-6 dark:border-neutral-800">
+					<div className="surface-2 br-square shadow-weak border-default border p-6">
 						<p className="ty-caption">br-square + shadow-weak</p>
 					</div>
-					<div className="surface-2 br-squircle shadow-normal border border-neutral-200 p-6 dark:border-neutral-800">
+					<div className="surface-2 br-squircle shadow-normal border-default border p-6">
 						<p className="ty-caption">br-squircle + shadow-normal</p>
 					</div>
-					<div className="surface-2 br-circle shadow-strong border border-neutral-200 p-6 dark:border-neutral-800">
+					<div className="surface-2 br-circle shadow-strong border-default border p-6">
 						<p className="ty-caption">br-circle + shadow-strong</p>
 					</div>
 				</div>
 			</section>
 
 			{/* Combined example */}
-			<section className="surface-2 br-squircle shadow-strong space-y-3 border border-neutral-200 p-6 dark:border-neutral-800">
+			<section className="surface-2 br-squircle shadow-strong border-default space-y-3 border p-6">
 				<h2 className="ty-title">Card Example</h2>
 				<p className="ty-body">
 					This card uses <code>surface-2</code>, <code>br-squircle</code>, and{" "}

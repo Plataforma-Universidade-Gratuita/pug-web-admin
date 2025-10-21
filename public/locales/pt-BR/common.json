@@ -1,4 +1,8 @@
 {
-	"title": "PUG Admin",
-	"subtitle": "Plataforma Universidade Gratuita"
+	"Navbar": {
+		"title": "PUG Admin",
+		"subtitle": "Plataforma Universidade Gratuita",
+		"collapse": "Colapsar menu lateral de Navegação",
+		"expand": "Expandir menu lateral de Navegação"
+	}
 }

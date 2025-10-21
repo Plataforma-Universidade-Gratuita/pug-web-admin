@@ -11,6 +11,7 @@ import {
 	CircleHelp as CircleQuestionMark,
 } from "lucide-react";
 
+import { MenuItem } from "./MenuItem";
 import Settings from "./Settings";
 
 const items = [
@@ -41,43 +42,20 @@ export function Sidebar({ collapsed }: Props) {
 				<ul className="flex flex-col gap-2">
 					{items.map(({ href, label, Icon }) => {
 						const active = pathname === href || pathname.startsWith(href + "/");
-
 						return (
-							<li key={href}>
-								<Link
-									href={href}
-									title={label}
-									aria-current={active ? "page" : undefined}
-									className={[
-										"group relative flex h-10 w-full items-center",
-										"gap-3 rounded-2xl px-2",
-										"surface-2 hover:surface-3 shadow-weak no-underline",
-										active ? "surface-3" : "",
-									].join(" ")}
-								>
-									<Icon
-										size={18}
-										className={`shrink-0 ${active ? "text-accent-700 dark:text-accent-400" : ""}`}
-									/>
-									{!collapsed && (
-										<span
-											className={[
-												"ty-sm truncate",
-												"data-[collapsed=false]:inline",
-												`${active ? "text-accent-700 dark:text-accent-300" : ""}`,
-											].join(" ")}
-										>
-											{label}
-										</span>
-									)}
-								</Link>
-							</li>
+							<MenuItem
+								key={href}
+								collapsed={collapsed}
+								href={href}
+								label={label}
+								Icon={Icon}
+								active={active}
+							/>
 						);
 					})}
 				</ul>
 			</nav>
-
-			<Settings compact />
+			{!collapsed ? <Settings /> : <Settings compact />}
 		</aside>
 	);
 }
