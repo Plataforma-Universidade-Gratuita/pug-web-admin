@@ -1,4 +1,3 @@
-// components/NavBar/Sidebar/Sidebar.tsx
 "use client";
 
 import Link from "next/link";
@@ -10,14 +9,9 @@ import {
 	MessageCircleX,
 	Ban,
 	CircleHelp as CircleQuestionMark,
-	Settings as SettingsIcon,
 } from "lucide-react";
 
 import Settings from "./Settings";
-
-// components/NavBar/Sidebar/Sidebar.tsx
-
-// components/NavBar/Sidebar/Sidebar.tsx
 
 const items = [
 	{ href: "/", label: "Home", Icon: Home },
@@ -37,7 +31,7 @@ export function Sidebar({ collapsed }: Props) {
 			data-collapsed={collapsed}
 			className={[
 				"surface-2 border-r border-neutral-200 dark:border-neutral-800",
-				"sticky top-14 h-[calc(100dvh-3.5rem)]",
+				"sticky top-16 h-[calc(100dvh-4rem)]",
 				"flex flex-col",
 				"w-16 transition-[width] duration-200 data-[collapsed=false]:w-56",
 			].join(" ")}
@@ -61,28 +55,21 @@ export function Sidebar({ collapsed }: Props) {
 										active ? "surface-3" : "",
 									].join(" ")}
 								>
-									<span
-										className={[
-											"absolute top-1 bottom-1 left-0 w-1 rounded-r-full",
-											active ? "bg-brand" : "bg-transparent",
-										].join(" ")}
-										aria-hidden
-									/>
 									<Icon
 										size={18}
-										className="shrink-0"
+										className={`shrink-0 ${active ? "text-accent-700 dark:text-accent-400" : ""}`}
 									/>
-									<span
-										className={[
-											"ty-sm truncate",
-											"hidden data-[collapsed=false]:inline",
-										].join(" ")}
-									>
-										{label}
-									</span>
-									<span className="sr-only data-[collapsed=true]:inline">
-										{label}
-									</span>
+									{!collapsed && (
+										<span
+											className={[
+												"ty-sm truncate",
+												"data-[collapsed=false]:inline",
+												`${active ? "text-accent-700 dark:text-accent-300" : ""}`,
+											].join(" ")}
+										>
+											{label}
+										</span>
+									)}
 								</Link>
 							</li>
 						);
@@ -90,16 +77,7 @@ export function Sidebar({ collapsed }: Props) {
 				</ul>
 			</nav>
 
-			<div className="mt-auto p-2">
-				<div className="br-squircle surface-2 shadow-weak p-2">
-					<div className="mb-2 flex items-center gap-2">
-						<SettingsIcon size={16} />
-						{!collapsed && <span className="ty-sm-semibold">Settings</span>}
-					</div>
-
-					{collapsed ? <Settings compact /> : <Settings inline />}
-				</div>
-			</div>
+			<Settings compact />
 		</aside>
 	);
 }
