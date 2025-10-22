@@ -1,35 +1,35 @@
 "use client";
 
-export type AppTheme = 'light' | 'dark' | 'system';
+export type AppTheme = "light" | "dark" | "system";
 
 export function setTheme(mode: AppTheme) {
-  const html = document.documentElement;
-	const current =
-    html.getAttribute('data-theme') ?? 'system';
+	const html = document.documentElement;
+	const current = html.getAttribute("data-theme") ?? "system";
 
-  if (current === mode) return;
+	if (current === mode) return;
 
-  html.classList.add('theme-anim');
+	html.classList.add("theme-anim");
 
-  requestAnimationFrame(() => {
+	requestAnimationFrame(() => {
 		switch (mode) {
-			case 'dark':
-				html.classList.add('dark');
-				html.setAttribute('data-theme', 'dark');
-				document.cookie = 'theme=dark; Path=/; Max-Age=31536000; SameSite=Lax';
-			  break;
-			case 'light':
-				html.classList.remove('dark');
-				html.setAttribute('data-theme', 'light');
-				document.cookie = 'theme=light; Path=/; Max-Age=31536000; SameSite=Lax';
+			case "dark":
+				html.classList.add("dark");
+				html.setAttribute("data-theme", "dark");
+				document.cookie = "theme=dark; Path=/; Max-Age=31536000; SameSite=Lax";
+				break;
+			case "light":
+				html.classList.remove("dark");
+				html.setAttribute("data-theme", "light");
+				document.cookie = "theme=light; Path=/; Max-Age=31536000; SameSite=Lax";
 				break;
 			default:
-				html.classList.remove('dark');
-				html.removeAttribute('data-theme');
-				document.cookie = 'theme=system; Path=/; Max-Age=31536000; SameSite=Lax';
+				html.classList.remove("dark");
+				html.removeAttribute("data-theme");
+				document.cookie =
+					"theme=system; Path=/; Max-Age=31536000; SameSite=Lax";
 				break;
 		}
 
-    setTimeout(() => html.classList.remove('theme-anim'), 250);
-  });
+		setTimeout(() => html.classList.remove("theme-anim"), 250);
+	});
 }
