@@ -3,7 +3,6 @@
 import type { ForwardRefExoticComponent, RefAttributes } from "react";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import type { LucideProps } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -36,7 +35,7 @@ export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
 				<Icon
 					size={20}
 					strokeWidth={2}
-					className={`shrink-0 ${active ? "fill-brand-700/25 stroke-brand-700" : ""}`}
+					className={`shrink-0 ${active ? "fill-brand-700/25 stroke-brand-700" : "text-base-800"}`}
 				/>
 				{!collapsed && (
 					<span

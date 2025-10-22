@@ -96,7 +96,7 @@ export default function Settings({ compact = false }: Props) {
 					<Gear
 						size={20}
 						strokeWidth={2}
-						className={`shrink-0 ${isOpen ? "fill-brand-700/25 stroke-brand-700" : ""}`}
+						className={`shrink-0 ${isOpen ? "fill-brand-700/25 stroke-brand-700" : "text-base-800"}`}
 					/>
 					{!compact && (
 						<span
@@ -119,7 +119,7 @@ export default function Settings({ compact = false }: Props) {
 					onCloseAutoFocus={handleModalClose}
 					onEscapeKeyDown={handleModalClose}
 					collisionPadding={8}
-					sideOffset={20}
+					sideOffset={15}
 					className="surface-2 br-squircle shadow-weak border-default-3 z-50 border-1 p-2"
 				>
 					{Panel}
