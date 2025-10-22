@@ -4,6 +4,20 @@
 		"subtitle": "Universidade Gratuita Platform",
 		"collapse": "Collapse Sidebar Navigation",
 		"expand": "Expand Sidebar Navigation",
+		"settings": {
+			"title": "Settings",
+			"themes": {
+				"title": "Interface Theme:",
+				"light": "Light",
+				"dark": "Dark",
+				"system": "System"
+			},
+			"languages": {
+				"title": "Language:",
+				"en-US": "English (US)",
+				"pt-BR": "Portuguese (BR)"
+			}
+		},
 		"paths": {
 			"home": "Home",
 			"global": {

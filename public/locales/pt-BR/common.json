@@ -4,6 +4,20 @@
 		"subtitle": "Plataforma Universidade Gratuita",
 		"collapse": "Colapsar menu lateral de Navegação",
 		"expand": "Expandir menu lateral de Navegação",
+		"settings": {
+			"title": "Configurações",
+			"themes": {
+				"title": "Tema da Interface:",
+				"light": "Claro",
+				"dark": "Escuro",
+				"system": "Sistema"
+			},
+			"languages": {
+				"title": "Idioma:",
+				"en-US": "Inglês (EUA)",
+				"pt-BR": "Português (BR)"
+			}
+		},
 		"paths": {
 			"home": "Início",
 			"global": {

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import {
@@ -45,12 +44,12 @@ export function Sidebar({ collapsed }: Props) {
 			className={[
 				"surface-2 border-default-3 border-r",
 				"sticky top-15 h-[calc(100dvh-4rem)]",
-				"flex flex-col",
-				"w-16 transition-[width] duration-200 data-[collapsed=false]:w-56",
+				"flex flex-col px-2",
+				"w-15 transition-[width] duration-200 data-[collapsed=false]:w-56",
 			].join(" ")}
 			aria-label="Primary"
 		>
-			<nav className="scrollbar-hidden mt-2 min-h-0 flex-1 overflow-y-auto px-2 py-2">
+			<nav className="scrollbar-hidden my-2 min-h-0 flex-1 overflow-y-auto py-2">
 				<ul className="flex flex-col gap-2">
 					{items.map(({ href, label, Icon }) => {
 						const active = pathname === href || pathname.startsWith(href + "/");

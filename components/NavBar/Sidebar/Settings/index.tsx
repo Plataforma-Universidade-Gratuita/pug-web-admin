@@ -1,5 +1,11 @@
 "use client";
 
+import {
+	useState,
+	type ForwardRefExoticComponent,
+	type RefAttributes,
+} from "react";
+
 import { useRouter } from "next/navigation";
 
 import * as Popover from "@radix-ui/react-popover";
@@ -7,95 +13,75 @@ import {
 	Laptop,
 	Moon,
 	Sun,
-	ChevronDown,
-	LogOut,
 	Settings as Gear,
+	type LucideProps,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { setLang } from "@/utils/lang";
 import type { AppLang } from "@/utils/locale";
 import { setTheme, type AppTheme } from "@/utils/theme";
 
-type Props = { inline?: boolean; compact?: boolean };
+import SettingCard from "./SettingCard";
 
-export default function Settings({ inline = false, compact = false }: Props) {
+type Props = { compact?: boolean };
+
+export default function Settings({ compact = false }: Props) {
 	const router = useRouter();
+	const { t } = useTranslation();
 	const pickTheme = (v: AppTheme) => setTheme(v);
 	const pickLang = (l: AppLang) => {
 		setLang(l);
 		router.refresh();
 	};
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
-	const Row = ({ children }: { children: React.ReactNode }) => (
-		<div className="surface-2 br-squircle shadow-weak border px-3 py-3">
-			{children}
-		</div>
-	);
-	const Btn = ({
-		children,
-		onClick,
-	}: {
-		children: React.ReactNode;
-		onClick?: () => void;
-	}) => (
-		<button
-			onClick={onClick}
-			className="surface-2 hover:surface-3 br-squircle ty-sm w-full border px-3 py-2 text-left"
-		>
-			{children}
-		</button>
-	);
+	const handleModalClose = () => {
+		setIsOpen(false);
+	};
 
 	const Panel = (
-		<div className="w-72">
-			<div className="ty-header mb-2">Tema da Interface:</div>
-			<Row>
-				<div className="grid grid-cols-3 gap-2">
-					<Btn onClick={() => pickTheme("light")}>
-						<span className="inline-flex items-center gap-2">
-							<Sun size={16} />
-							Light
-						</span>
-					</Btn>
-					<Btn onClick={() => pickTheme("dark")}>
-						<span className="inline-flex items-center gap-2">
-							<Moon size={16} />
-							Dark
-						</span>
-					</Btn>
-					<Btn onClick={() => pickTheme("system")}>
-						<span className="inline-flex items-center gap-2">
-							<Laptop size={16} />
-							System
-						</span>
-					</Btn>
-				</div>
-			</Row>
-
-			<div className="ty-header mt-3 mb-2">Idioma:</div>
-			<Row>
-				<div className="space-y-2">
-					<Btn onClick={() => pickLang("en-US")}>🇺🇸 Inglês</Btn>
-					<Btn onClick={() => pickLang("pt-BR")}>🇧🇷 Português</Btn>
-				</div>
-			</Row>
-
-			<div className="mt-3">
-				<Btn
-					onClick={() => {
-						/* TODO: logout */
-					}}
-				>
-					<span className="inline-flex items-center gap-2">
-						<LogOut size={16} />
-						Logout
-					</span>
-				</Btn>
-			</div>
+		<div className="w-56">
+			<SettingCard
+				title="Navbar.settings.themes.title"
+				options={[
+					{
+						Icon: Sun,
+						label: "Navbar.settings.themes.light",
+						value: "light",
+						onClick: () => pickTheme("light"),
+					},
+					{
+						Icon: Moon,
+						label: "Navbar.settings.themes.dark",
+						value: "dark",
+						onClick: () => pickTheme("dark"),
+					},
+					{
+						Icon: Laptop,
+						label: "Navbar.settings.themes.system",
+						value: "system",
+						onClick: () => pickTheme("system"),
+					},
+				]}
+			/>
+			<SettingCard
+				title="Navbar.settings.languages.title"
+				options={[
+					{
+						label: "Navbar.settings.languages.en-US",
+						value: "en-US",
+						onClick: () => pickLang("en-US"),
+					},
+					{
+						label: "Navbar.settings.languages.pt-BR",
+						value: "pt-BR",
+						onClick: () => pickLang("pt-BR"),
+					},
+				]}
+			/>
 		</div>
 	);
-
-	if (inline) return <div className="space-y-2">{Panel}</div>;
 
 	return (
 		<Popover.Root>
@@ -103,24 +89,44 @@ export default function Settings({ inline = false, compact = false }: Props) {
 				<button
 					className={[
 						"group relative flex h-10 w-full items-center",
-						"gap-3 rounded-2xl px-2",
+						"mb-2 gap-3 rounded-2xl px-[0.725rem]",
 						"surface-2 hover:surface-3 shadow-weak no-underline",
-						true ? "surface-3" : "",
+						isOpen ? "bg-brand/15!" : "",
 					].join(" ")}
 					aria-label="Open settings"
+					onClick={() => setIsOpen(v => !v)}
 				>
-					<Gear size={16} />
-					{!compact && <span className="ty-sm-semibold">Settings</span>}
+					<Gear
+						size={20}
+						strokeWidth={2}
+						className={`shrink-0 ${isOpen ? "fill-brand-700/25 stroke-brand-700" : ""}`}
+					/>
+					{!compact && (
+						<span
+							className={[
+								"ty-sm truncate",
+								"data-[collapsed=false]:inline",
+								`${isOpen ? "text-brand-700 font-semibold" : ""}`,
+							].join(" ")}
+						>
+							{t("Navbar.settings.title")}
+						</span>
+					)}
 				</button>
 			</Popover.Trigger>
 
 			<Popover.Portal>
 				<Popover.Content
-					sideOffset={8}
-					className="surface-2 br-squircle shadow-strong z-50 border p-2"
+					side="right"
+					align="end"
+					onCloseAutoFocus={handleModalClose}
+					onEscapeKeyDown={handleModalClose}
+					collisionPadding={8}
+					sideOffset={20}
+					className="surface-2 br-squircle shadow-weak border-default-3 z-50 border-1 p-2"
 				>
 					{Panel}
-					<Popover.Arrow className="fill-[color:var(--twc-border)]" />
+					<Popover.Arrow className="fill-base-100" />
 				</Popover.Content>
 			</Popover.Portal>
 		</Popover.Root>

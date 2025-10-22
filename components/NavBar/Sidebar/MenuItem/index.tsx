@@ -28,9 +28,9 @@ export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
 				aria-current={active ? "page" : undefined}
 				className={[
 					"group relative flex h-10 w-full items-center",
-					"gap-3 rounded-2xl px-[0.8rem]",
+					"gap-2 rounded-2xl px-[0.725rem]",
 					"surface-2 hover:surface-3 shadow-weak no-underline",
-					active ? "surface-3" : "",
+					active ? "bg-brand/15!" : "",
 				].join(" ")}
 			>
 				<Icon
@@ -43,7 +43,7 @@ export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
 						className={[
 							"ty-sm truncate",
 							"data-[collapsed=false]:inline",
-							`${active ? "text-brand-700" : ""}`,
+							`${active ? "text-brand-700 font-semibold" : ""}`,
 						].join(" ")}
 					>
 						{t(label)}
