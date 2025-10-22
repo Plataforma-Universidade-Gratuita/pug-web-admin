@@ -1,4 +1,3 @@
-// components/NavBar/Sidebar/Settings.tsx
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -16,14 +15,6 @@ import {
 import { setLang } from "@/utils/lang";
 import type { AppLang } from "@/utils/locale";
 import { setTheme, type AppTheme } from "@/utils/theme";
-
-// components/NavBar/Sidebar/Settings.tsx
-
-// components/NavBar/Sidebar/Settings.tsx
-
-// components/NavBar/Sidebar/Settings.tsx
-
-// components/NavBar/Sidebar/Settings.tsx
 
 type Props = { inline?: boolean; compact?: boolean };
 

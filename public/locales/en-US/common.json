@@ -3,6 +3,75 @@
 		"title": "PUG Admin",
 		"subtitle": "Universidade Gratuita Platform",
 		"collapse": "Collapse Sidebar Navigation",
-		"expand": "Expand Sidebar Navigation"
+		"expand": "Expand Sidebar Navigation",
+		"paths": {
+			"home": "Home",
+			"global": {
+				"title": "Global",
+				"error": "Error Page",
+				"loading": "Loading Page",
+				"not-found": "404 Not Found Page",
+				"forbidden": "403 Forbidden Page"
+			},
+			"docs": {
+				"title": "Documentation",
+				"theme": "Theme Guide",
+				"components": "Components Guide"
+			}
+		}
+	},
+	"Docs": {
+		"Background": {
+			"title": "Background Colors",
+			"description": "Background colors are used to set the backdrop for various UI elements. They help in creating visual hierarchy and improving readability.",
+			"surface-1": "Page Background layer",
+			"surface-2": "Card layer",
+			"surface-3": "Inset Card layer"
+		},
+		"Typography": {
+			"title": "Typography",
+			"description": "Our typography system is designed to provide clear and consistent text styles across the application. Below are the different text styles available for use.",
+			"font-family": "Font Family",
+			"ty-body": "Body Text",
+			"ty-body-semibold": "Body Semibold Text",
+			"ty-body-bold": "Body Bold Text",
+			"ty-sm-body": "Small Body Text",
+			"ty-sm-semibold": "Small Semibold Text",
+			"ty-sm-bold": "Small Bold Text",
+			"ty-title": "Title Text",
+			"ty-title-alt": "Title Alt Text",
+			"ty-header": "Header Text",
+			"ty-helper": "Helper Text"
+		},
+		"Colors": {
+			"title": "Color Palette",
+			"description": "Our color palette consists of primary, secondary, and neutral colors that can be used to create a cohesive and visually appealing interface.",
+			"brand": "Brand Color",
+			"success": "Success Color",
+			"info": "Info Color",
+			"danger": "Danger Color",
+			"warning": "Warning Color",
+			"base": "Base Color"
+		},
+		"Radii": {
+			"title": "Border Radius",
+			"description": "Border radius values are used to create rounded corners on UI elements, enhancing the visual appeal and user experience.",
+			"square": "Sharp Corners",
+			"squircle": "Normal Rounded Corners",
+			"circle": "Circular Corners"
+		},
+		"Shadows": {
+			"title": "Box Shadows",
+			"description": "Box shadows are used to create depth and hierarchy in the UI by adding shadows to elements, making them stand out against the background.",
+			"weak": "Subtle Shadow",
+			"normal": "Clear Shadow",
+			"strong": "Prominent Shadow"
+		},
+		"CardExample": {
+			"title": "Card Example",
+			"description": "This is an example of a card that uses the background colors, typography, borders, and shadows defined in our design system.",
+			"inset-text": "This is an inset card.",
+			"cta": "Call to Action"
+		}
 	}
 }

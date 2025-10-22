@@ -15,7 +15,7 @@ export function TopBar({ collapsed, onToggleSidebar }: Props) {
 	return (
 		<header className="bg-brand shadow-brand-200 sticky top-0 z-50 shadow-md/50">
 			<div className="mx-auto px-3">
-				<div className="flex h-16 items-center justify-between">
+				<div className="flex h-15 items-center justify-between">
 					<button
 						onClick={onToggleSidebar}
 						title={collapsed ? t("Navbar.expand") : t("Navbar.collapse")}

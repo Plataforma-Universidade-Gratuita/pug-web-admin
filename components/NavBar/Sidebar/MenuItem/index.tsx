@@ -1,35 +1,34 @@
 "use client";
 
-import type { LucideProps } from "lucide-react";
+import type { ForwardRefExoticComponent, RefAttributes } from "react";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ForwardRefExoticComponent, RefAttributes } from "react";
+
+import type { LucideProps } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
 	collapsed: boolean;
 	href: string;
 	label: string;
-	Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
+	Icon: ForwardRefExoticComponent<
+		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+	>;
 	active: boolean;
 };
 
-export function MenuItem({ 
-	collapsed,
-	href,
-	label,
-	Icon,
-	active, 
-}: Props) {
-	const pathname = usePathname();
+export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
+	const { t } = useTranslation();
 	return (
 		<li key={href}>
 			<Link
 				href={href}
-				title={label}
+				title={t(label)}
 				aria-current={active ? "page" : undefined}
 				className={[
 					"group relative flex h-10 w-full items-center",
-					"gap-3 rounded-2xl px-2",
+					"gap-3 rounded-2xl px-[0.8rem]",
 					"surface-2 hover:surface-3 shadow-weak no-underline",
 					active ? "surface-3" : "",
 				].join(" ")}
@@ -47,7 +46,7 @@ export function MenuItem({
 							`${active ? "text-brand-700" : ""}`,
 						].join(" ")}
 					>
-						{label}
+						{t(label)}
 					</span>
 				)}
 			</Link>

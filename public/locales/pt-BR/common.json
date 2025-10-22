@@ -3,6 +3,75 @@
 		"title": "PUG Admin",
 		"subtitle": "Plataforma Universidade Gratuita",
 		"collapse": "Colapsar menu lateral de Navegação",
-		"expand": "Expandir menu lateral de Navegação"
+		"expand": "Expandir menu lateral de Navegação",
+		"paths": {
+			"home": "Início",
+			"global": {
+				"title": "Global",
+				"error": "Erro",
+				"loading": "Carregamento",
+				"not-found": "404 Não Encontrada",
+				"forbidden": "403 Proibida"
+			},
+			"docs": {
+				"title": "Documentação",
+				"theme": "Guia de Tema",
+				"components": "Guia de Componentes"
+			}
+		}
+	},
+	"Docs": {
+		"Background": {
+			"title": "Cores de Fundo",
+			"description": "As cores de fundo são usadas para definir o pano de fundo de vários elementos da interface. Elas ajudam a criar hierarquia visual e melhorar a legibilidade.",
+			"surface-1": "Camada de Fundo da Página",
+			"surface-2": "Camada de Card",
+			"surface-3": "Camada de Card Interno"
+		},
+		"Typography": {
+			"title": "Tipografia",
+			"description": "Nosso sistema de tipografia foi projetado para fornecer estilos de texto claros e consistentes em toda a aplicação. Abaixo estão os diferentes estilos de texto disponíveis para uso.",
+			"font-family": "Família de Fonte",
+			"ty-body": "Texto do Corpo",
+			"ty-body-semibold": "Texto do Corpo Seminegrito",
+			"ty-body-bold": "Texto do Corpo Negrito",
+			"ty-sm-body": "Texto Pequeno do Corpo",
+			"ty-sm-semibold": "Texto Pequeno Seminegrito",
+			"ty-sm-bold": "Texto Pequeno Negrito",
+			"ty-title": "Texto de Título",
+			"ty-title-alt": "Texto de Título Alternativo",
+			"ty-header": "Texto de Cabeçalho",
+			"ty-helper": "Texto de Ajuda"
+		},
+		"Colors": {
+			"title": "Paleta de Cores",
+			"description": "Nossa paleta de cores consiste em cores primárias, secundárias e neutras que podem ser usadas para criar uma interface coesa e visualmente atraente.",
+			"brand": "Cor da Marca",
+			"success": "Cor de Sucesso",
+			"info": "Cor de Informação",
+			"danger": "Cor de Perigo",
+			"warning": "Cor de Aviso",
+			"base": "Cor Base"
+		},
+		"Radii": {
+			"title": "Raio da Borda",
+			"description": "Os valores de raio de borda são usados para criar cantos arredondados nos elementos da interface, melhorando o apelo visual e a experiência do usuário.",
+			"square": "Cantos Retos",
+			"squircle": "Cantos Arredondados Normais",
+			"circle": "Cantos Circulares"
+		},
+		"Shadows": {
+			"title": "Sombras de Caixa",
+			"description": "As sombras de caixa são usadas para criar profundidade e hierarquia na interface, adicionando sombras aos elementos e destacando-os do fundo.",
+			"weak": "Sombra Sutil",
+			"normal": "Sombra Nítida",
+			"strong": "Sombra Proeminente"
+		},
+		"CardExample": {
+			"title": "Exemplo de Card",
+			"description": "Este é um exemplo de um card que utiliza as cores de fundo, tipografia, bordas e sombras definidas em nosso sistema de design.",
+			"inset-text": "Este é um card interno.",
+			"cta": "Chamada para Ação"
+		}
 	}
 }
