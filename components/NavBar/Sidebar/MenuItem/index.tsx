@@ -42,7 +42,7 @@ export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
 						className={[
 							"ty-sm truncate",
 							"data-[collapsed=false]:inline",
-							`${active ? "text-brand-700 font-semibold" : ""}`,
+							`${active ? "font-semibold" : ""}`,
 						].join(" ")}
 					>
 						{t(label)}
