@@ -29,8 +29,14 @@ export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
 					"group relative flex h-10 w-full items-center",
 					"gap-2 rounded-2xl px-[0.725rem]",
 					"surface-2 hover:surface-3 shadow-weak no-underline",
-					active ? "bg-brand/15!" : "",
+					active ? "bg-brand/15! cursor-default" : "",
 				].join(" ")}
+				onClick={e => {
+					if (active) {
+						e.preventDefault();
+						return;
+					}
+				}}
 			>
 				<Icon
 					size={20}
