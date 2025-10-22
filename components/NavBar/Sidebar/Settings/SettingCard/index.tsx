@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { ChevronDown, type LucideProps } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -27,7 +27,7 @@ export default function SettingCard({
 	const [open, setOpen] = useState(false);
 
 	return (
-		<div className="surface-2 br-squircle border-default-2 shadow-weak border">
+		<div className="surface-2 br-squircle border-default-3 shadow-weak border">
 			<button
 				type="button"
 				aria-haspopup="listbox"
@@ -52,11 +52,8 @@ export default function SettingCard({
 			<div
 				className={`overflow-hidden transition-[max-height,opacity,transform] duration-200 ${open ? "max-h-96 translate-y-0 opacity-100" : "max-h-0 -translate-y-1 opacity-0"}`}
 			>
-				<ul
-					role="listbox"
-					className="space-y-1 px-2 pt-1 pb-2"
-				>
-					{options.map(({ Icon, label, value, onClick }) => {
+				<ul role="listbox">
+					{options.map(({ Icon, label, value, onClick }, i) => {
 						const active = value === selectedOption.value;
 						return (
 							<li key={value}>
@@ -68,11 +65,12 @@ export default function SettingCard({
 										setOpen(false);
 									}}
 									className={[
-										"ty-sm br-squircle w-full border px-3 py-2 text-left",
-										"surface-1 hover:surface-3",
+										"ty-sm br-square border-default-3 w-full border-t-1 px-3 py-2 text-left",
+										"surface-2 hover:surface-3",
 										active
 											? "bg-brand-500/15 border-brand-500/30 ty-sm-semibold"
 											: "",
+										i === options.length - 1 ? "rounded-b-lg" : "",
 									].join(" ")}
 								>
 									{Icon ? (

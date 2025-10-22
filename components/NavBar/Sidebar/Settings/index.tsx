@@ -2,8 +2,6 @@
 
 import {
 	useState,
-	type ForwardRefExoticComponent,
-	type RefAttributes,
 } from "react";
 
 import { useRouter } from "next/navigation";
@@ -14,7 +12,6 @@ import {
 	Moon,
 	Sun,
 	Settings as Gear,
-	type LucideProps,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -41,7 +38,7 @@ export default function Settings({ compact = false }: Props) {
 	};
 
 	const Panel = (
-		<div className="w-56">
+		<div className="flex w-56 flex-col gap-2">
 			<SettingCard
 				title="Navbar.settings.themes.title"
 				options={[
