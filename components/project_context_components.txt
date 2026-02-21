@@ -1,0 +1,726 @@
+PROJECT CONTEXT DUMP
+Project Name: components
+Root Path: /c/Users/e-mateusf/Documents/college/PUG portfolio/pug-web-admin/components
+================================================================================
+
+
+================================================================================
+FILE: NavBar/index.tsx
+================================================================================
+"use client";
+
+import { useEffect, useState } from "react";
+
+import { Sidebar } from "@/components/NavBar/Sidebar";
+import { TopBar } from "@/components/NavBar/Topbar";
+
+export function Navbar({ children }: { children: React.ReactNode }) {
+	const [collapsed, setCollapsed] = useState(true);
+
+	useEffect(() => {
+		const saved = localStorage.getItem("pug.sidebar");
+		if (saved) setCollapsed(saved === "1");
+	}, []);
+	useEffect(() => {
+		localStorage.setItem("pug.sidebar", collapsed ? "1" : "0");
+	}, [collapsed]);
+
+	return (
+		<div className="min-h-dvh">
+			<TopBar
+				collapsed={collapsed}
+				onToggleSidebar={() => setCollapsed(v => !v)}
+			/>
+			<div className="flex">
+				<Sidebar collapsed={collapsed} />
+				<main className="mx-auto max-w-6xl min-w-0 flex-1 px-4 py-6">
+					{children}
+				</main>
+			</div>
+		</div>
+	);
+}
+
+
+================================================================================
+FILE: NavBar/Sidebar/index.tsx
+================================================================================
+"use client";
+
+import { usePathname } from "next/navigation";
+
+import {
+	Home,
+	Loader,
+	MessageCircleX,
+	Ban,
+	CircleHelp as CircleQuestionMark,
+	Globe,
+	FileText,
+	SwatchBook,
+	Puzzle,
+} from "lucide-react";
+
+import { MenuGroup } from "./MenuGroup";
+import { MenuItem } from "./MenuItem";
+import Settings from "./Settings";
+
+export const singles = [{ href: "/", label: "Navbar.paths.home", Icon: Home }];
+
+export const groups = [
+	{
+		label: "Navbar.paths.global.title",
+		Icon: Globe,
+		children: [
+			{
+				href: "/error",
+				label: "Navbar.paths.global.error",
+				Icon: MessageCircleX,
+			},
+			{ href: "/loading", label: "Navbar.paths.global.loading", Icon: Loader },
+			{
+				href: "/not-found",
+				label: "Navbar.paths.global.not-found",
+				Icon: CircleQuestionMark,
+			},
+			{ href: "/forbidden", label: "Navbar.paths.global.forbidden", Icon: Ban },
+		],
+	},
+	{
+		label: "Navbar.paths.docs.title",
+		Icon: FileText,
+		children: [
+			{ href: "/theme", label: "Navbar.paths.docs.theme", Icon: SwatchBook },
+			{
+				href: "/components",
+				label: "Navbar.paths.docs.components",
+				Icon: Puzzle,
+			},
+		],
+	},
+];
+
+type Props = { collapsed: boolean };
+
+export function Sidebar({ collapsed }: Props) {
+	const pathname = usePathname();
+
+	return (
+		<aside
+			data-collapsed={collapsed}
+			className={[
+				"surface-2 border-default-3 border-r",
+				"sticky top-15 h-[calc(100dvh-4rem)]",
+				"flex flex-col px-2",
+				"w-15 transition-[width] duration-200 data-[collapsed=false]:w-56",
+			].join(" ")}
+			aria-label="Primary"
+		>
+			<nav className="scrollbar-none my-2 min-h-0 flex-1 overflow-y-auto py-2">
+				<ul className="flex flex-col gap-2">
+					{singles.map(({ href, label, Icon }) => (
+						<MenuItem
+							key={href}
+							collapsed={collapsed}
+							href={href}
+							label={label}
+							Icon={Icon}
+							active={pathname === href || pathname.startsWith(href + "/")}
+						/>
+					))}
+
+					{groups.map(({ label, Icon, children }) => (
+						<MenuGroup
+							key={label}
+							collapsed={collapsed}
+							label={label}
+							Icon={Icon}
+							childrenItems={children}
+						/>
+					))}
+				</ul>
+			</nav>
+			{!collapsed ? <Settings /> : <Settings compact />}
+		</aside>
+	);
+}
+
+
+================================================================================
+FILE: NavBar/Sidebar/MenuGroup/index.tsx
+================================================================================
+"use client";
+
+import {
+	useEffect,
+	useMemo,
+	useState,
+	type ForwardRefExoticComponent,
+	type RefAttributes,
+} from "react";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import * as Popover from "@radix-ui/react-popover";
+import { ChevronDown, type LucideProps } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+type IconType = ForwardRefExoticComponent<
+	Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+>;
+type Child = { href: string; label: string; Icon: IconType };
+
+export function MenuGroup({
+	collapsed,
+	label,
+	Icon,
+	childrenItems,
+}: {
+	collapsed: boolean;
+	label: string;
+	Icon: IconType;
+	childrenItems: Child[];
+}) {
+	const { t } = useTranslation();
+	const pathname = usePathname();
+
+	const hasActiveChild = useMemo(
+		() =>
+			childrenItems.some(
+				({ href }) => pathname === href || pathname.startsWith(href + "/"),
+			),
+		[pathname, childrenItems],
+	);
+
+	const [overrideOpen, setOverrideOpen] = useState<null | boolean>(null);
+	const [manualOpen, setManualOpen] = useState(false);
+
+	const openExpanded = overrideOpen ?? hasActiveChild;
+	const open = collapsed ? manualOpen : openExpanded;
+
+	useEffect(() => {
+		setOverrideOpen(null);
+	}, [pathname]);
+
+	const onHeaderClick = () => {
+		if (collapsed) setManualOpen(v => !v);
+		else setOverrideOpen(v => (v === null ? !openExpanded : !v));
+	};
+
+	const Header = (
+		<button
+			type="button"
+			aria-expanded={open}
+			onClick={onHeaderClick}
+			className={[
+				"group relative flex h-10 w-full items-center gap-2 rounded-2xl px-[0.725rem]",
+				"surface-2 hover:surface-3 shadow-weak cursor-pointer",
+				hasActiveChild ? "hover:surface-2! surface-3!" : "",
+			].join(" ")}
+		>
+			<Icon
+				size={20}
+				strokeWidth={2}
+				className={`shrink-0 ${hasActiveChild ? "fill-brand-700/25 stroke-brand-700" : "text-base-800"}`}
+			/>
+			{!collapsed && (
+				<>
+					<span
+						className={`ty-sm truncate ${hasActiveChild ? "text-brand-700 font-semibold" : ""}`}
+					>
+						{t(label)}
+					</span>
+					<ChevronDown
+						size={16}
+						className={`ml-auto transition-transform ${open ? "rotate-180" : ""}`}
+					/>
+				</>
+			)}
+		</button>
+	);
+
+	const ChildrenList = (
+		<ul className="mt-2 space-y-2 pb-2 pl-2">
+			{childrenItems.map(({ href, label, Icon }) => {
+				const active = pathname === href || pathname.startsWith(href + "/");
+				return (
+					<li key={href}>
+						<Link
+							href={href}
+							title={t(label)}
+							aria-current={active ? "page" : undefined}
+							className={[
+								"group relative flex h-10 w-full items-center gap-2 rounded-2xl px-[0.725rem]",
+								"surface-2 hover:surface-3 shadow-weak no-underline",
+								active ? "bg-brand/15! cursor-default!" : "",
+							].join(" ")}
+							onClick={(e) => {
+								setManualOpen(false);
+								if (active) {
+									e.preventDefault();
+									return;
+								}
+							}}
+						>
+							<Icon
+								size={18}
+								strokeWidth={2}
+								className={`shrink-0 ${active ? "fill-brand-700/25 stroke-brand-700" : ""}`}
+							/>
+							<span
+								className={`ty-sm truncate ${active ? "font-semibold" : ""}`}
+							>
+								{t(label)}
+							</span>
+						</Link>
+					</li>
+				);
+			})}
+		</ul>
+	);
+
+	if (!collapsed) {
+		return (
+			<li>
+				{Header}
+				<div
+					className={[
+						"overflow-hidden transition-[max-height,opacity,transform] duration-200",
+						open
+							? "max-h-96 translate-y-0 opacity-100"
+							: "max-h-0 -translate-y-1 opacity-0",
+					].join(" ")}
+				>
+					{ChildrenList}
+				</div>
+			</li>
+		);
+	}
+
+	return (
+		<li>
+			<Popover.Root
+				open={manualOpen}
+				onOpenChange={setManualOpen}
+				modal={false}
+			>
+				<Popover.Trigger asChild>{Header}</Popover.Trigger>
+				<Popover.Portal>
+					<Popover.Content
+						side="right"
+						align="start"
+						sideOffset={15}
+						collisionPadding={8}
+						onCloseAutoFocus={() => setManualOpen(false)}
+						onEscapeKeyDown={() => setManualOpen(false)}
+						className="surface-2 br-squircle shadow-weak border-default z-50 p-2"
+					>
+						<div className="ty-sm-semibold mb-1 px-2">{t(label)}</div>
+						<ul className="w-48 space-y-1">
+							{childrenItems.map(({ href, label, Icon }) => {
+								const active =
+									pathname === href || pathname.startsWith(href + "/");
+								return (
+									<li key={href}>
+										<Link
+											href={href}
+											title={t(label)}
+											aria-current={active ? "page" : undefined}
+											className={[
+												"ty-sm br-squircle shadow-weak w-full px-3 py-2 text-left",
+												"surface-2 hover:surface-3 flex items-center gap-2 no-underline",
+												active ? "bg-brand-500/15! ty-sm-semibold cursor-default!" : "",
+											].join(" ")}
+											onClick={(e) => {
+												setManualOpen(false);
+												if (active) {
+													e.preventDefault();
+													return;
+												}
+											}}	
+										>
+											<Icon
+												size={16}
+												strokeWidth={2}
+												className={`shrink-0 ${active ? "fill-brand-700/25 stroke-brand-700" : ""}`}
+											/>
+											<span className="truncate">{t(label)}</span>
+										</Link>
+									</li>
+								);
+							})}
+						</ul>
+						<Popover.Arrow className="fill-base-100" />
+					</Popover.Content>
+				</Popover.Portal>
+			</Popover.Root>
+		</li>
+	);
+}
+
+
+================================================================================
+FILE: NavBar/Sidebar/MenuItem/index.tsx
+================================================================================
+"use client";
+
+import type { ForwardRefExoticComponent, RefAttributes } from "react";
+
+import Link from "next/link";
+
+import type { LucideProps } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+type Props = {
+	collapsed: boolean;
+	href: string;
+	label: string;
+	Icon: ForwardRefExoticComponent<
+		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+	>;
+	active: boolean;
+};
+
+export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
+	const { t } = useTranslation();
+	return (
+		<li key={href}>
+			<Link
+				href={href}
+				title={t(label)}
+				aria-current={active ? "page" : undefined}
+				className={[
+					"group relative flex h-10 w-full items-center",
+					"gap-2 rounded-2xl px-[0.725rem]",
+					"surface-2 hover:surface-3 shadow-weak no-underline",
+					active ? "bg-brand/15! cursor-default" : "",
+				].join(" ")}
+				onClick={e => {
+					if (active) {
+						e.preventDefault();
+						return;
+					}
+				}}
+			>
+				<Icon
+					size={20}
+					strokeWidth={2}
+					className={`shrink-0 ${active ? "fill-brand-700/25 stroke-brand-700" : "text-base-800"}`}
+				/>
+				{!collapsed && (
+					<span
+						className={[
+							"ty-sm truncate",
+							"data-[collapsed=false]:inline",
+							`${active ? "font-semibold" : ""}`,
+						].join(" ")}
+					>
+						{t(label)}
+					</span>
+				)}
+			</Link>
+		</li>
+	);
+}
+
+
+================================================================================
+FILE: NavBar/Sidebar/Settings/index.tsx
+================================================================================
+"use client";
+
+import { useState } from "react";
+
+import { useRouter } from "next/navigation";
+
+import * as Popover from "@radix-ui/react-popover";
+import { Laptop, Moon, Sun, Settings as Gear } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+import { useLocale } from "@/contexts/locale";
+import { useTheme } from "@/contexts/theme";
+import type { AppLang } from "@/utils/locale";
+
+import SettingCard from "./SettingCard";
+
+type Props = { compact?: boolean };
+
+export default function Settings({ compact = false }: Props) {
+	const { mode, setMode } = useTheme();
+	const { lang, setLang } = useLocale();
+	const router = useRouter();
+	const { t } = useTranslation();
+
+	const [open, setOpen] = useState(false);
+
+	const selectTheme = (v: "light" | "dark" | "system") => {
+		setMode(v);
+		setOpen(false);
+	};
+	const selectLang = (l: AppLang) => {
+		setLang(l);
+		router.refresh();
+		setOpen(false);
+	};
+
+	const themeSelected = {
+		label:
+			mode === "light"
+				? "Navbar.settings.themes.light"
+				: mode === "dark"
+					? "Navbar.settings.themes.dark"
+					: "Navbar.settings.themes.system",
+		value: mode,
+		Icon: mode === "light" ? Sun : mode === "dark" ? Moon : Laptop,
+	} as const;
+
+	const langSelected = {
+		label:
+			lang === "en-US"
+				? "Navbar.settings.languages.en-US"
+				: "Navbar.settings.languages.pt-BR",
+		value: lang,
+	} as const;
+
+	return (
+		<Popover.Root
+			open={open}
+			onOpenChange={setOpen}
+		>
+			<Popover.Trigger asChild>
+				<button
+					className={[
+						"group relative flex h-10 w-full items-center",
+						"mb-2 gap-3 rounded-2xl px-[0.725rem]",
+						"surface-2 hover:surface-3 shadow-weak no-underline",
+						open ? "bg-brand/15!" : "",
+					].join(" ")}
+					aria-label="Open settings"
+				>
+					<Gear
+						size={20}
+						strokeWidth={2}
+						className={`shrink-0 ${open ? "fill-brand-700/25 stroke-brand-700" : "text-base-800"}`}
+					/>
+					{!compact && (
+						<span
+							className={[
+								"ty-sm truncate",
+								"data-[collapsed=false]:inline",
+								open ? "text-brand-700 font-semibold" : "",
+							].join(" ")}
+						>
+							{t("Navbar.settings.title")}
+						</span>
+					)}
+				</button>
+			</Popover.Trigger>
+
+			<Popover.Portal>
+				<Popover.Content
+					side="right"
+					align="end"
+					collisionPadding={8}
+					sideOffset={15}
+					onEscapeKeyDown={() => setOpen(false)}
+					onCloseAutoFocus={() => setOpen(false)}
+					className="surface-2 br-squircle shadow-weak border-default-3 z-50 border-1 p-2"
+				>
+					<div className="flex w-62 flex-col gap-2">
+						<SettingCard
+							title="Navbar.settings.themes.title"
+							selectedOption={themeSelected}
+							options={[
+								{
+									Icon: Sun,
+									label: "Navbar.settings.themes.light",
+									value: "light",
+									onClick: () => selectTheme("light"),
+								},
+								{
+									Icon: Moon,
+									label: "Navbar.settings.themes.dark",
+									value: "dark",
+									onClick: () => selectTheme("dark"),
+								},
+								{
+									Icon: Laptop,
+									label: "Navbar.settings.themes.system",
+									value: "system",
+									onClick: () => selectTheme("system"),
+								},
+							]}
+						/>
+						<SettingCard
+							title="Navbar.settings.languages.title"
+							selectedOption={langSelected}
+							options={[
+								{
+									label: "Navbar.settings.languages.en-US",
+									value: "en-US",
+									onClick: () => selectLang("en-US"),
+								},
+								{
+									label: "Navbar.settings.languages.pt-BR",
+									value: "pt-BR",
+									onClick: () => selectLang("pt-BR"),
+								},
+							]}
+						/>
+					</div>
+					<Popover.Arrow className="fill-base-100" />
+				</Popover.Content>
+			</Popover.Portal>
+		</Popover.Root>
+	);
+}
+
+
+================================================================================
+FILE: NavBar/Sidebar/Settings/SettingCard/index.tsx
+================================================================================
+import { useState } from "react";
+
+import { ChevronDown, type LucideProps } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+type IconType = React.ForwardRefExoticComponent<
+	Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
+>;
+
+type Option = {
+	Icon?: IconType;
+	label: string;
+	value: string;
+	onClick: () => void;
+};
+
+export default function SettingCard({
+	title,
+	selectedOption = { label: "", value: "" },
+	options,
+}: {
+	title: string;
+	selectedOption?: { label: string; value: string; Icon?: IconType };
+	options: Option[];
+}) {
+	const { t } = useTranslation();
+	const [open, setOpen] = useState(false);
+
+	return (
+		<div className="surface-2 br-squircle border-default-3 shadow-weak border">
+			<button
+				type="button"
+				aria-haspopup="listbox"
+				aria-expanded={open}
+				onClick={() => setOpen(v => !v)}
+				className="hover:surface-3 flex w-full items-center gap-2 rounded-t-[inherit] px-3 py-2 focus:outline-none"
+			>
+				<span className="ty-sm whitespace-nowrap">{t(title)}</span>
+				<span className="mx-2 h-[1px] flex-1 bg-[color:var(--twc-surface-3)]" />
+				{selectedOption.Icon ? (
+					<selectedOption.Icon
+						size={15}
+						className="text-brand-800! shrink-0"
+					/>
+				) : null}
+				<span className="ty-sm-semibold text-brand-800! text-xs! whitespace-nowrap">
+					{t(selectedOption.label)}
+				</span>
+				<ChevronDown
+					size={16}
+					className={`ml-1 transition-transform ${open ? "rotate-180" : ""}`}
+				/>
+			</button>
+			<div
+				className={`overflow-hidden transition-[max-height,opacity,transform] duration-200 ${open ? "max-h-96 translate-y-0 opacity-100" : "max-h-0 -translate-y-1 opacity-0"}`}
+			>
+				<ul role="listbox">
+					{options.map(({ Icon, label, value, onClick }, i) => {
+						const active = label === selectedOption.label;
+						return (
+							<li key={value}>
+								<button
+									role="option"
+									aria-selected={active}
+									onClick={() => {
+										onClick();
+										setOpen(false);
+									}}
+									className={[
+										"ty-sm br-square border-default-3 w-full border-t-1 px-3 py-2 text-left",
+										"surface-2 hover:surface-3",
+										active ? "bg-brand-500/5! ty-sm-semibold!" : "",
+										i === options.length - 1 ? "rounded-b-lg" : "",
+									].join(" ")}
+								>
+									{Icon ? (
+										<Icon
+											size={16}
+											className="mr-2 inline-block"
+										/>
+									) : null}
+									{t(label)}
+								</button>
+							</li>
+						);
+					})}
+				</ul>
+			</div>
+		</div>
+	);
+}
+
+
+================================================================================
+FILE: NavBar/Topbar/index.tsx
+================================================================================
+"use client";
+
+import Link from "next/link";
+
+import { PanelLeftClose, PanelsTopLeft } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+type Props = {
+	collapsed: boolean;
+	onToggleSidebar: () => void;
+};
+
+export function TopBar({ collapsed, onToggleSidebar }: Props) {
+	const { t } = useTranslation();
+	return (
+		<header className="bg-brand shadow-brand-200 sticky top-0 z-50 shadow-md/50">
+			<div className="mx-auto px-3">
+				<div className="flex h-15 items-center justify-between">
+					<button
+						onClick={onToggleSidebar}
+						title={collapsed ? t("Navbar.expand") : t("Navbar.collapse")}
+						className="br-squircle bg-brand hover:bg-brand-600 shadow-brand-400 flex h-10 w-10 cursor-pointer items-center justify-center text-neutral-200 shadow-xs"
+						aria-label={collapsed ? t("Navbar.expand") : t("Navbar.collapse")}
+					>
+						{collapsed ? (
+							<PanelsTopLeft size={22} />
+						) : (
+							<PanelLeftClose size={22} />
+						)}
+					</button>
+					<div className="flex items-baseline gap-2">
+						<Link
+							href="/"
+							className="ty-title text-neutral-50 no-underline"
+						>
+							{t("Navbar.title")}
+						</Link>
+						<p className="ty-sm text-muted text-neutral-200">
+							{t("Navbar.subtitle")}
+						</p>
+					</div>
+					<div className="ty-helper mr-5 text-neutral-200">LOGO</div>
+				</div>
+			</div>
+		</header>
+	);
+}
+

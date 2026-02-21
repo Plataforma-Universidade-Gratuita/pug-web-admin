@@ -1,0 +1,5 @@
+PROJECT CONTEXT DUMP
+Project Name: schemas
+Root Path: /c/Users/e-mateusf/Documents/college/PUG portfolio/pug-web-admin/schemas
+================================================================================
+

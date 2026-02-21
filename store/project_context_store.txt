@@ -1,0 +1,5 @@
+PROJECT CONTEXT DUMP
+Project Name: store
+Root Path: /c/Users/e-mateusf/Documents/college/PUG portfolio/pug-web-admin/store
+================================================================================
+

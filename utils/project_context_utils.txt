@@ -1,0 +1,129 @@
+PROJECT CONTEXT DUMP
+Project Name: utils
+Root Path: /c/Users/e-mateusf/Documents/college/PUG portfolio/pug-web-admin/utils
+================================================================================
+
+
+================================================================================
+FILE: api.ts
+================================================================================
+import { z } from "zod";
+
+export async function zfetch<T extends z.ZodTypeAny>(
+	input: RequestInfo,
+	init: RequestInit,
+	schema: T,
+): Promise<z.infer<T>> {
+	const r = await fetch(input, init);
+	if (!r.ok) throw new Error(`HTTP ${r.status}`);
+	return schema.parse(await r.json());
+}
+
+
+================================================================================
+FILE: i18n.ts
+================================================================================
+import i18n from "i18next";
+import HttpBackend from "i18next-http-backend";
+import { initReactI18next } from "react-i18next";
+
+import { type AppLang, supportedLngs, defaultLang } from "./locale";
+
+export function initI18n(initial: AppLang) {
+	if (i18n.isInitialized) return i18n;
+
+	i18n
+		.use(HttpBackend)
+		.use(initReactI18next)
+		.init({
+			lng: initial,
+			fallbackLng: defaultLang,
+			supportedLngs,
+			load: "currentOnly",
+			ns: ["common"],
+			defaultNS: "common",
+			interpolation: { escapeValue: false },
+			backend: { loadPath: "/locales/{{lng}}/{{ns}}.json" },
+			initImmediate: false,
+			react: { useSuspense: false },
+		});
+
+	return i18n;
+}
+
+
+================================================================================
+FILE: lang.ts
+================================================================================
+"use client";
+
+import { initI18n } from "./i18n";
+import { type AppLang } from "./locale";
+
+export function setLang(lang: AppLang) {
+	document.cookie = `lang=${lang}; Path=/; Max-Age=31536000; SameSite=Lax`;
+	initI18n(lang).changeLanguage(lang);
+	document.documentElement.lang = lang;
+}
+
+
+================================================================================
+FILE: locale.ts
+================================================================================
+export const supportedLngs = ["pt-BR", "en-US"] as const;
+export type AppLang = (typeof supportedLngs)[number];
+export const defaultLang: AppLang = "pt-BR";
+
+export function isAppLang(x: unknown): x is AppLang {
+	return (
+		typeof x === "string" && (supportedLngs as readonly string[]).includes(x)
+	);
+}
+
+export function coerceLang(x: unknown): AppLang {
+	if (isAppLang(x)) return x;
+	if (x === "en") return "en-US";
+	if (x === "pt") return "pt-BR";
+	return defaultLang;
+}
+
+
+================================================================================
+FILE: theme.ts
+================================================================================
+"use client";
+
+export type AppTheme = "light" | "dark" | "system";
+
+export function setTheme(mode: AppTheme) {
+	const html = document.documentElement;
+	const current = html.getAttribute("data-theme") ?? "system";
+
+	if (current === mode) return;
+
+	html.classList.add("theme-anim");
+
+	requestAnimationFrame(() => {
+		switch (mode) {
+			case "dark":
+				html.classList.add("dark");
+				html.setAttribute("data-theme", "dark");
+				document.cookie = "theme=dark; Path=/; Max-Age=31536000; SameSite=Lax";
+				break;
+			case "light":
+				html.classList.remove("dark");
+				html.setAttribute("data-theme", "light");
+				document.cookie = "theme=light; Path=/; Max-Age=31536000; SameSite=Lax";
+				break;
+			default:
+				html.classList.remove("dark");
+				html.removeAttribute("data-theme");
+				document.cookie =
+					"theme=system; Path=/; Max-Age=31536000; SameSite=Lax";
+				break;
+		}
+
+		setTimeout(() => html.classList.remove("theme-anim"), 250);
+	});
+}
+

@@ -6,21 +6,47 @@
 ├── .prettierrc
 ├── .vscode/
 ├── api/
-│   └── health/
-│       └── route.ts
 ├── app/
-│   ├── demo/
-│   │   └── page.tsx
-│   ├── error.tsx
+│   ├── (docs)/
+│   │   ├── components/
+│   │   │   └── page.tsx
+│   │   └── theme/
+│   │       └── page.tsx
+│   ├── (global)/
+│   │   ├── error/
+│   │   │   └── page.tsx
+│   │   ├── forbidden/
+│   │   │   └── page.tsx
+│   │   ├── loading/
+│   │   │   └── page.tsx
+│   │   └── not-found/
+│   │       └── page.tsx
+│   ├── generate-context.sh
 │   ├── globals.css
 │   ├── layout.tsx
 │   ├── page.tsx
-│   ├── providers.tsx
-│   └── server-demo/
-│       └── page.tsx
+│   └── providers.tsx
 ├── components/
-│   ├── HomeClient.tsx
-│   └── LangSwitcher.tsx
+│   ├── generate-context.sh
+│   ├── NavBar/
+│   │   ├── index.tsx
+│   │   ├── Sidebar/
+│   │   │   ├── index.tsx
+│   │   │   ├── MenuGroup/
+│   │   │   │   └── index.tsx
+│   │   │   ├── MenuItem/
+│   │   │   │   └── index.tsx
+│   │   │   └── Settings/
+│   │   │       ├── index.tsx
+│   │   │       └── SettingCard/
+│   │   │           └── index.tsx
+│   │   └── Topbar/
+│   │       └── index.tsx
+│   └── wrappers/
+├── contexts/
+│   ├── generate-context.sh
+│   ├── locale.tsx
+│   └── theme.tsx
 ├── eslint.config.mjs
 ├── generate-dir-tree.sh
 ├── next.config.ts
@@ -31,6 +57,7 @@
 ├── postcss.config.mjs
 ├── project-tree.txt
 ├── public/
+│   ├── generate-context.sh
 │   └── locales/
 │       ├── en-US/
 │       │   └── common.json
@@ -38,13 +65,15 @@
 │           └── common.json
 ├── README.md
 ├── schemas/
-│   └── user.ts
+│   └── generate-context.sh
 ├── store/
-│   └── useAuth.ts
+│   └── generate-context.sh
 ├── tsconfig.json
+├── tsconfig.tsbuildinfo
 └── utils/
     ├── api.ts
+    ├── generate-context.sh
     ├── i18n.ts
     ├── lang.ts
     ├── locale.ts
-    └── serverComponentsLocales.ts
+    └── theme.ts

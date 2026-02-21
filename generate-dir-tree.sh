@@ -2,44 +2,16 @@
 set -euo pipefail
 
 OUT="project-tree.txt"
-# names to ignore at top-level (exact match)
-IGNORE_TOP="(.git|.idea|target|node_modules|.mvn|build|.DS_Store|project-tree.txt|.vscode|.next)"
 
-# produce a tree-like listing using find + awk
-# - exclude common ignored dirs
-find . \
-  \( -path "./.git" -o -path "./.idea" -o -path "./target" -o -path "./node_modules" -o -path "./.mvn" -o -path "./build" -o -name ".DS_Store" -o -name "project-tree.txt" -o -path "./.vscode" -o -path "./.next" \) -prune -o -print \
-| sed 's#^\./##' \
-| awk -F'/' '
-  BEGIN{
-    OFS="/";
-    print "./"
-  }
-  {
-    n = NF;
-    # build prefix
-    prefix="";
-    for(i=1;i<n;i++){
-      parent = $i;
-      # store counts per level to determine pipe/space - use array counts[level]
-      counts[i]++;
-    }
-    # accumulate path to determine if entry is last among siblings
-    path = $0;
-    arr[path]=1;
-    list[n,path]=$0;
-    items[n, ++idx[n]] = $0;
-  }
-  END{
-    # simpler second pass: build tree by iterating sorted entries
-    PROCINFO["sorted_in"] = "@ind_str_asc";
-    # collect all entries again using getline from find output is complex in awk end; instead, re-run find
-  }'
+# 1. TREE GENERATION
+# ---------------------------------------------------------
+echo "Generating project tree..."
 
-# fallback simpler working approach using recursion in shell
 generate() {
   local dir="$1"
   local prefix="$2"
+  
+  # Read files into an array safely
   local items=()
   while IFS= read -r -d $'\0' entry; do
     items+=( "$entry" )
@@ -47,33 +19,77 @@ generate() {
 
   local total=${#items[@]}
   local i=0
+  
   for e in "${items[@]}"; do
     i=$((i+1))
     local name
     name="$(basename "$e")"
     local isdir=0
     [ -d "$e" ] && isdir=1
+    
+    # Determine connector style
     local connector="├── "
     local newprefix="${prefix}│   "
     if [ "$i" -eq "$total" ]; then
       connector="└── "
       newprefix="${prefix}    "
     fi
+
+    # Print current item
     printf "%s%s%s%s\n" "$prefix" "$connector" "$name" "$( [ $isdir -eq 1 ] && printf "/" )"
+
+    # Recursion logic
     if [ $isdir -eq 1 ]; then
-      # skip ignored top-level names when recursion depth is 1
-      if [ "$dir" = "." ] && [[ "$name" =~ ^(.git|.idea|target|node_modules|.mvn|build|.DS_Store|project-tree.txt|.vscode|.next)$ ]]; then
+      # IGNORE LIST: Added .next, .vscode, node_modules, etc.
+      if [[ "$name" =~ ^(.git|.idea|.next|.vscode|node_modules|build|dist|.DS_Store)$ ]]; then
         continue
       fi
+      # Do not recurse into the output file itself if it appears nicely in the list
+      if [ "$name" == "$OUT" ]; then
+        continue
+      fi
+      
       generate "$e" "$newprefix"
     fi
   done
 }
 
-# write header and run
+# Write header and run tree generation
 {
   echo "./"
   generate "." ""
 } > "$OUT"
 
-echo "Wrote $OUT"
+echo "Wrote tree to $OUT"
+
+
+# 2. RUN GENERATE-CONTEXT SCRIPTS
+# ---------------------------------------------------------
+echo "Searching for context generation scripts in project root..."
+
+# Find 'generate-context.sh' files starting from root (.)
+# We use -prune to completely skip searching inside node_modules, .next, and .git
+find . -type d \( -name "node_modules" -o -name ".next" -o -name ".git" \) -prune -o -type f -name "generate-context.sh" -print0 | while IFS= read -r -d $'\0' script_path; do
+
+    script_dir=$(dirname "$script_path")
+    script_name=$(basename "$script_path")
+
+    echo ""
+    echo "Found script: $script_path"
+    echo "--------------------------------------------------"
+
+    # Execute in a subshell
+    (
+        cd "$script_dir" || exit
+        echo "Running $script_name in $(pwd)..."
+
+        # Ensure it is executable
+        chmod +x "$script_name" 2>/dev/null || true
+
+        # Run using bash explicitly
+        bash "$script_name"
+    )
+    echo "--------------------------------------------------"
+done
+
+echo "All operations completed."
