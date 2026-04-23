@@ -2,17 +2,20 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 
 import "@/app/globals.css";
-import { Navbar } from "@/components/NavBar";
 import { LANG_COOKIE_NAME } from "@/constants/locale";
 import { THEME_COOKIE_NAME } from "@/constants/theme";
 import { coerceLang } from "@/utils/lang";
 import { coerceTheme } from "@/utils/theme-value";
 
 import { Providers } from "./providers";
+import { ThemeScript } from "./theme-script";
 
 export const metadata: Metadata = {
-	title: "PUG Admin",
-	description: "UG — Admin",
+	title: {
+		default: "PUG Admin",
+		template: "%s | PUG Admin",
+	},
+	description: "Admin interface for the PUG platform.",
 };
 
 export default async function RootLayout({
@@ -43,34 +46,14 @@ export default async function RootLayout({
 			suppressHydrationWarning
 		>
 			<head>
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `
-							(function () {
-								var match = document.cookie.match(/(?:^|; )theme=([^;]+)/);
-								var mode = match ? decodeURIComponent(match[1]) : "system";
-								var resolved = mode === "system"
-									? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
-									: mode;
-								document.documentElement.classList.remove("light", "dark");
-								document.documentElement.classList.add(resolved);
-								if (mode === "system") {
-									document.documentElement.removeAttribute("data-theme");
-								} else {
-									document.documentElement.setAttribute("data-theme", mode);
-								}
-								document.documentElement.style.colorScheme = mode === "system" ? resolved : mode;
-							})();
-						`,
-					}}
-				/>
+				<ThemeScript />
 			</head>
 			<body className="surface-1 w-full antialiased">
 				<Providers
 					initialLangCookieValue={initialLangCookieValue}
 					initialThemeCookieValue={initialThemeCookieValue}
 				>
-					<Navbar>{children}</Navbar>
+					{children}
 				</Providers>
 			</body>
 		</html>

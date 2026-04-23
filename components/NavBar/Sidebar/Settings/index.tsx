@@ -74,7 +74,7 @@ export default function Settings({ compact = false }: Props) {
 					<Gear
 						size={20}
 						strokeWidth={2}
-						className={`shrink-0 ${open ? "fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)] stroke-brand" : "text-base-800"}`}
+						className={`shrink-0 ${open ? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]" : "text-base-800"}`}
 					/>
 					{!compact && (
 						<span

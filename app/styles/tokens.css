@@ -81,12 +81,9 @@
 	--color-base-950: var(--slate-12);
 	--color-base: var(--slate-9);
 
-	--twc-font-sans:
-		"Geist", "Inter", "Segoe UI", sans-serif;
-	--twc-font-display:
-		"Geist", "Inter", "Segoe UI", sans-serif;
-	--twc-font-mono:
-		"JetBrains Mono", "Fira Code", "SFMono-Regular", monospace;
+	--twc-font-sans: "Geist", "Inter", "Segoe UI", sans-serif;
+	--twc-font-display: "Geist", "Inter", "Segoe UI", sans-serif;
+	--twc-font-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", monospace;
 
 	--twc-text-xs: 0.75rem;
 	--twc-text-sm: 0.875rem;

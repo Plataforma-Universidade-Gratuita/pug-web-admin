@@ -14,17 +14,17 @@ export function TopBar({ collapsed, onToggleSidebar }: Props) {
 	const { t } = useTranslation();
 	return (
 		<header
-			className="sticky top-0 z-50 shadow-md/50"
+			className="border-default-2 z-50 border-b"
 			style={{ backgroundColor: "var(--twc-chrome-bg)" }}
 		>
 			<div className="mx-auto px-3">
-				<div className="flex h-15 items-center justify-between">
+				<div className="flex h-[3.75rem] items-center justify-between gap-4">
 					<button
+						type="button"
 						onClick={onToggleSidebar}
 						title={collapsed ? t("Navbar.expand") : t("Navbar.collapse")}
-						className="br-squircle flex h-10 w-10 cursor-pointer items-center justify-center shadow-xs transition"
+						className="br-squircle border-default-2 focus-ring surface-2 flex h-10 w-10 cursor-pointer items-center justify-center border transition"
 						style={{
-							backgroundColor: "var(--twc-chrome-bg-hover)",
 							color: "var(--twc-chrome-fg)",
 						}}
 						aria-label={collapsed ? t("Navbar.expand") : t("Navbar.collapse")}
@@ -54,7 +54,7 @@ export function TopBar({ collapsed, onToggleSidebar }: Props) {
 						className="ty-helper mr-5"
 						style={{ color: "var(--twc-chrome-muted)" }}
 					>
-						LOGO
+						PUG
 					</div>
 				</div>
 			</div>

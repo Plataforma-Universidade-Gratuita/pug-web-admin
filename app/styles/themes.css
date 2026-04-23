@@ -14,8 +14,16 @@ html[data-theme="light"] {
 	--twc-shadow-color: var(--slate-a3);
 	--twc-focus-ring: var(--color-brand);
 	--twc-focus-halo: color-mix(in oklab, var(--color-brand) 24%, transparent);
-	--twc-chrome-bg: color-mix(in oklab, var(--color-brand) 92%, var(--color-base-950));
-	--twc-chrome-bg-hover: color-mix(in oklab, var(--color-brand) 84%, var(--color-base-950));
+	--twc-chrome-bg: color-mix(
+		in oklab,
+		var(--color-brand) 92%,
+		var(--color-base-950)
+	);
+	--twc-chrome-bg-hover: color-mix(
+		in oklab,
+		var(--color-brand) 84%,
+		var(--color-base-950)
+	);
 	--twc-chrome-fg: var(--white-a12);
 	--twc-chrome-muted: var(--white-a11);
 }
@@ -35,14 +43,24 @@ html[data-theme="dark"] {
 	--twc-shadow-color: black;
 	--twc-focus-ring: var(--color-brand);
 	--twc-focus-halo: color-mix(in oklab, var(--color-brand) 30%, transparent);
-	--twc-chrome-bg: color-mix(in oklab, var(--color-brand) 40%, var(--color-base-50));
-	--twc-chrome-bg-hover: color-mix(in oklab, var(--color-brand) 48%, var(--color-base-50));
+	--twc-chrome-bg: color-mix(
+		in oklab,
+		var(--color-brand) 40%,
+		var(--color-base-50)
+	);
+	--twc-chrome-bg-hover: color-mix(
+		in oklab,
+		var(--color-brand) 48%,
+		var(--color-base-50)
+	);
 	--twc-chrome-fg: var(--white-a12);
 	--twc-chrome-muted: var(--white-a11);
 }
 
 @media (prefers-color-scheme: dark) {
-	html:not(.light):not(.light-theme):not([data-theme="light"]):not(.dark):not(.dark-theme):not([data-theme="dark"]) {
+	html:not(.light):not(.light-theme):not([data-theme="light"]):not(.dark):not(
+			.dark-theme
+		):not([data-theme="dark"]) {
 		--twc-text: var(--color-base-950);
 		--twc-muted: var(--color-base-900);
 		--twc-surface-1: var(--color-base-50);
@@ -55,8 +73,16 @@ html[data-theme="dark"] {
 		--twc-shadow-color: black;
 		--twc-focus-ring: var(--color-brand);
 		--twc-focus-halo: color-mix(in oklab, var(--color-brand) 30%, transparent);
-		--twc-chrome-bg: color-mix(in oklab, var(--color-brand) 40%, var(--color-base-50));
-		--twc-chrome-bg-hover: color-mix(in oklab, var(--color-brand) 48%, var(--color-base-50));
+		--twc-chrome-bg: color-mix(
+			in oklab,
+			var(--color-brand) 40%,
+			var(--color-base-50)
+		);
+		--twc-chrome-bg-hover: color-mix(
+			in oklab,
+			var(--color-brand) 48%,
+			var(--color-base-50)
+		);
 		--twc-chrome-fg: var(--white-a12);
 		--twc-chrome-muted: var(--white-a11);
 	}

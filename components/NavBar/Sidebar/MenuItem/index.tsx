@@ -30,7 +30,7 @@ export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
 					"gap-2 rounded-2xl px-[0.725rem]",
 					"surface-2 hover:surface-3 shadow-weak no-underline transition-colors",
 					active
-						? "bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)] cursor-default"
+						? "cursor-default bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)]"
 						: "",
 				].join(" ")}
 				onClick={e => {
@@ -43,7 +43,7 @@ export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
 				<Icon
 					size={20}
 					strokeWidth={2}
-					className={`shrink-0 ${active ? "fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)] stroke-brand" : "text-base-800"}`}
+					className={`shrink-0 ${active ? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]" : "text-base-800"}`}
 				/>
 				{!collapsed && (
 					<span

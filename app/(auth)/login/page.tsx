@@ -52,85 +52,65 @@ export default function Page() {
 		});
 	}
 
+	const securityHighlights = [
+		"Administrator-only access",
+		"Session continuity with secure cookies",
+		"Token refresh handled automatically",
+	];
+
 	return (
-		<section className="br-squircle border-default-2 surface-2 shadow-normal relative isolate overflow-hidden border">
+		<main className="surface-1 relative isolate min-h-dvh overflow-hidden">
 			<div
 				className="pointer-events-none absolute inset-0"
 				style={{
 					background:
-						"radial-gradient(circle at top left, color-mix(in oklab, var(--color-brand) 20%, transparent), transparent 28%), radial-gradient(circle at bottom right, color-mix(in oklab, var(--color-brand) 14%, transparent), transparent 24%)",
+						"radial-gradient(circle at top left, color-mix(in oklab, var(--color-brand) 18%, transparent), transparent 28%), radial-gradient(circle at bottom right, color-mix(in oklab, var(--color-brand) 12%, transparent), transparent 24%)",
 				}}
 			/>
 
-			<div className="grid min-h-[calc(100dvh-8rem)] gap-8 p-4 sm:p-6 lg:grid-cols-[1.15fr_0.85fr] lg:p-8">
+			<div className="relative mx-auto grid min-h-dvh w-full max-w-7xl items-center gap-8 px-4 py-6 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-10">
 				<div
-					className="flex flex-col justify-between gap-8 rounded-[calc(var(--twc-radius-squircle)+0.25rem)] border p-6 shadow-lg sm:p-8"
+					className="shadow-strong hidden min-h-[38rem] flex-col justify-between overflow-hidden rounded-[calc(var(--twc-radius-xl)+0.25rem)] border p-8 lg:flex"
 					style={{
-						borderColor:
-							"color-mix(in oklab, var(--color-base-50) 10%, transparent)",
+						borderColor: "color-mix(in oklab, white 12%, transparent)",
 						background:
-							"linear-gradient(140deg, color-mix(in oklab, var(--twc-surface-1) 74%, var(--color-brand)), color-mix(in oklab, var(--twc-surface-1) 82%, black))",
-						color: "var(--color-base-50)",
+							"linear-gradient(155deg, color-mix(in oklab, var(--color-brand) 42%, #0f1115), #0f1115 58%, color-mix(in oklab, var(--color-brand) 16%, #0b0d10))",
+						color: "rgba(255,255,255,0.96)",
 					}}
 				>
-					<div className="space-y-5">
+					<div className="space-y-6">
 						<div
-							className="inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium"
+							className="inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1.5"
 							style={{
-								borderColor:
-									"color-mix(in oklab, var(--color-base-50) 14%, transparent)",
-								backgroundColor:
-									"color-mix(in oklab, var(--color-base-50) 8%, transparent)",
-								color:
-									"color-mix(in oklab, var(--color-base-50) 80%, transparent)",
+								borderColor: "rgba(255,255,255,0.18)",
+								backgroundColor: "color-mix(in oklab, white 7%, transparent)",
+								color: "rgba(255,255,255,0.86)",
 							}}
 						>
 							<ShieldCheck className="h-4 w-4" />
 							Admin access
 						</div>
 
-						<div className="space-y-3">
-							<p
-								className="text-sm font-medium tracking-[0.28em] uppercase"
-								style={{
-									color:
-										"color-mix(in oklab, var(--color-base-50) 56%, transparent)",
-								}}
-							>
-								PUG Web Admin
-							</p>
-							<h1 className="max-w-md text-4xl leading-tight font-semibold text-balance sm:text-5xl">
-								Sign in to manage sessions, people, and project data.
-							</h1>
-							<p
-								className="max-w-xl text-base leading-7"
-								style={{
-									color:
-										"color-mix(in oklab, var(--color-base-50) 72%, transparent)",
-								}}
-							>
-								Use an administrator account. The session cookie flow is handled
-								after authentication, so you only need to sign in once here.
-							</p>
-						</div>
+						<p
+							className="text-xs font-medium tracking-[0.32em] uppercase"
+							style={{ color: "rgba(255,255,255,0.58)" }}
+						>
+							PUG Web Admin
+						</p>
+						<h1 className="max-w-xl text-5xl leading-[1.02] font-semibold tracking-[-0.04em] text-balance">
+							Sign in to manage academic operations with clarity.
+						</h1>
 					</div>
 
-					<div className="grid gap-3 sm:grid-cols-3">
-						{[
-							"JWT validation for ADMIN accounts",
-							"Refresh token rotation through middleware",
-							"HTTP-only cookies for session continuity",
-						].map(item => (
+					<div className="grid gap-3">
+						{securityHighlights.map(item => (
 							<div
 								key={item}
-								className="rounded-2xl border p-4 text-sm leading-6 backdrop-blur-sm"
+								className="rounded-[var(--twc-radius-lg)] border px-4 py-3 text-sm leading-6 backdrop-blur-sm"
 								style={{
-									borderColor:
-										"color-mix(in oklab, var(--color-base-50) 12%, transparent)",
-									backgroundColor:
-										"color-mix(in oklab, var(--color-base-50) 7%, transparent)",
-									color:
-										"color-mix(in oklab, var(--color-base-50) 74%, transparent)",
+									borderColor: "rgba(255,255,255,0.12)",
+									backgroundColor: "color-mix(in oklab, white 6%, transparent)",
+									color: "rgba(255,255,255,0.74)",
 								}}
 							>
 								{item}
@@ -139,9 +119,21 @@ export default function Page() {
 					</div>
 				</div>
 
-				<div className="flex items-center">
-					<div className="border-default-2 shadow-strong mx-auto w-full max-w-md rounded-[calc(var(--twc-radius-squircle)+0.25rem)] border bg-[color:var(--twc-surface-3)] p-6 sm:p-8">
-						<div className="mb-8 space-y-2">
+				<div className="flex items-center justify-center">
+					<div className="border-default-2 surface-2 shadow-strong w-full max-w-lg rounded-[calc(var(--twc-radius-xl)+0.25rem)] border p-6 sm:p-8">
+						<div className="mb-8 space-y-4">
+							<div className="flex items-center gap-3 lg:hidden">
+								<div className="flex h-11 w-11 items-center justify-center rounded-[var(--twc-radius-lg)] bg-[color:color-mix(in_oklab,var(--color-brand)_16%,transparent)]">
+									<ShieldCheck
+										className="h-5 w-5"
+										style={{ color: "var(--color-brand)" }}
+									/>
+								</div>
+								<div>
+									<p className="ty-sm-semibold">PUG Web Admin</p>
+									<p className="ty-sm">Administrator access</p>
+								</div>
+							</div>
 							<h2 className="text-3xl leading-tight font-semibold text-[color:var(--twc-text)]">
 								Login
 							</h2>
@@ -180,7 +172,7 @@ export default function Page() {
 								>
 									Password
 								</label>
-								<div className="border-default-2 focus-ring flex items-center rounded-2xl border transition-colors">
+								<div className="border-default-2 surface-1 focus-ring flex items-center rounded-[var(--twc-radius-lg)] border transition-colors">
 									<input
 										id="password"
 										type={showPassword ? "text" : "password"}
@@ -228,6 +220,6 @@ export default function Page() {
 					</div>
 				</div>
 			</div>
-		</section>
+		</main>
 	);
 }

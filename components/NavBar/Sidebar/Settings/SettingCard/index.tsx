@@ -40,10 +40,10 @@ export default function SettingCard({
 				{selectedOption.Icon ? (
 					<selectedOption.Icon
 						size={15}
-						className="text-brand-400! shrink-0"
+						className="text-brand! shrink-0"
 					/>
 				) : null}
-				<span className="ty-sm-semibold text-brand-400! text-xs! whitespace-nowrap">
+				<span className="ty-sm-semibold text-brand! text-xs! whitespace-nowrap">
 					{t(selectedOption.label)}
 				</span>
 				<ChevronDown
@@ -69,7 +69,9 @@ export default function SettingCard({
 									className={[
 										"ty-sm br-square border-default-3 w-full border-t-1 px-3 py-2 text-left",
 										"surface-2 hover:surface-3 focus-ring transition-colors",
-										active ? "bg-brand-500/10! text-brand-400 ty-sm-semibold!" : "",
+										active
+											? "text-brand ty-sm-semibold! bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)]"
+											: "",
 										i === options.length - 1 ? "rounded-b-lg" : "",
 									].join(" ")}
 								>

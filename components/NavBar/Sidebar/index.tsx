@@ -2,55 +2,14 @@
 
 import { usePathname } from "next/navigation";
 
-import {
-	Home,
-	Loader,
-	MessageCircleX,
-	Ban,
-	CircleHelp as CircleQuestionMark,
-	Globe,
-	FileText,
-	SwatchBook,
-	Puzzle,
-} from "lucide-react";
+import { Home, LogIn } from "lucide-react";
 
-import { MenuGroup } from "./MenuGroup";
 import { MenuItem } from "./MenuItem";
 import Settings from "./Settings";
 
-export const singles = [{ href: "/", label: "Navbar.paths.home", Icon: Home }];
-
-export const groups = [
-	{
-		label: "Navbar.paths.global.title",
-		Icon: Globe,
-		children: [
-			{
-				href: "/error",
-				label: "Navbar.paths.global.error",
-				Icon: MessageCircleX,
-			},
-			{ href: "/loading", label: "Navbar.paths.global.loading", Icon: Loader },
-			{
-				href: "/not-found",
-				label: "Navbar.paths.global.not-found",
-				Icon: CircleQuestionMark,
-			},
-			{ href: "/forbidden", label: "Navbar.paths.global.forbidden", Icon: Ban },
-		],
-	},
-	{
-		label: "Navbar.paths.docs.title",
-		Icon: FileText,
-		children: [
-			{ href: "/theme", label: "Navbar.paths.docs.theme", Icon: SwatchBook },
-			{
-				href: "/components",
-				label: "Navbar.paths.docs.components",
-				Icon: Puzzle,
-			},
-		],
-	},
+export const singles = [
+	{ href: "/", label: "Navbar.paths.home", Icon: Home },
+	{ href: "/login", label: "Navbar.paths.login", Icon: LogIn },
 ];
 
 type Props = { collapsed: boolean };
@@ -79,16 +38,6 @@ export function Sidebar({ collapsed }: Props) {
 							label={label}
 							Icon={Icon}
 							active={pathname === href || pathname.startsWith(href + "/")}
-						/>
-					))}
-
-					{groups.map(({ label, Icon, children }) => (
-						<MenuGroup
-							key={label}
-							collapsed={collapsed}
-							label={label}
-							Icon={Icon}
-							childrenItems={children}
 						/>
 					))}
 				</ul>

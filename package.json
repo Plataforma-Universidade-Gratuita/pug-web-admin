@@ -3,8 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
-		"dev:mock": "node --env-file=mock-api.env ./node_modules/next/dist/bin/next dev --turbopack",
+		"dev": "next dev",
+		"dev:mock": "node --env-file=mock-api.env ./node_modules/next/dist/bin/next dev",
+		"dev:turbo": "next dev --turbopack",
+		"dev:mock:turbo": "node --env-file=mock-api.env ./node_modules/next/dist/bin/next dev --turbopack",
 		"build": "next build --turbopack",
 		"mock:api": "node --env-file=mock-api.env ./scripts/mock-api.mjs",
 		"start": "next start",

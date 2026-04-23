@@ -112,7 +112,7 @@
 @utility btn-primary {
 	border-radius: var(--twc-radius-lg);
 	background-color: var(--color-brand);
-	color: var(--color-base-50);
+	color: var(--white-a12);
 	font-family: var(--twc-font-sans);
 	font-size: var(--twc-text-sm);
 	font-weight: var(--twc-weight-semibold);
@@ -168,7 +168,7 @@
 @utility btn-danger {
 	border-radius: var(--twc-radius-lg);
 	background-color: var(--color-danger-500);
-	color: var(--color-base-50);
+	color: var(--white-a12);
 	font-family: var(--twc-font-sans);
 	font-size: var(--twc-text-sm);
 	font-weight: var(--twc-weight-semibold);
