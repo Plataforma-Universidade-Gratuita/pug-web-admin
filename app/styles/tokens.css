@@ -80,4 +80,12 @@
 	--twc-radius-square: 0rem;
 	--twc-radius-squircle: 0.5rem;
 	--twc-radius-circle: 999rem;
+
+	--twc-space-1: 0.25rem;
+	--twc-space-2: 0.5rem;
+	--twc-space-3: 0.75rem;
+	--twc-space-4: 1rem;
+	--twc-space-5: 1.5rem;
+	--twc-space-6: 2rem;
+	--twc-space-7: 3rem;
 }

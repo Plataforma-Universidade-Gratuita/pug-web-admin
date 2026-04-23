@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-import { useRouter } from "next/navigation";
-
 import * as Popover from "@radix-ui/react-popover";
 import { Laptop, Moon, Sun, Settings as Gear } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -19,7 +17,6 @@ type Props = { compact?: boolean };
 export default function Settings({ compact = false }: Props) {
 	const { mode, setMode } = useTheme();
 	const { lang, setLang } = useLocale();
-	const router = useRouter();
 	const { t } = useTranslation();
 
 	const [open, setOpen] = useState(false);
@@ -29,8 +26,12 @@ export default function Settings({ compact = false }: Props) {
 		setOpen(false);
 	};
 	const selectLang = (l: AppLang) => {
+		if (l === lang) {
+			setOpen(false);
+			return;
+		}
+
 		setLang(l);
-		router.refresh();
 		setOpen(false);
 	};
 

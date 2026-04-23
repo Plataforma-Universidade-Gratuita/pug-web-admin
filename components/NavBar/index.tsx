@@ -17,15 +17,15 @@ export function Navbar({ children }: { children: React.ReactNode }) {
 	}, [collapsed]);
 
 	return (
-		<div className="min-h-dvh">
+		<div className="flex h-dvh flex-col overflow-hidden">
 			<TopBar
 				collapsed={collapsed}
 				onToggleSidebar={() => setCollapsed(v => !v)}
 			/>
-			<div className="flex">
+			<div className="flex min-h-0 flex-1 overflow-hidden">
 				<Sidebar collapsed={collapsed} />
-				<main className="mx-auto max-w-6xl min-w-0 flex-1 px-4 py-6">
-					{children}
+				<main className="min-w-0 flex-1 overflow-y-auto">
+					<div className="mx-auto max-w-6xl px-4 py-6">{children}</div>
 				</main>
 			</div>
 		</div>

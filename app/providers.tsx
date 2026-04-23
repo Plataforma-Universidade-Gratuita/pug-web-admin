@@ -8,20 +8,25 @@ import { Toaster } from "sonner";
 
 import { LocaleProvider } from "@/contexts/locale";
 import { ThemeProvider } from "@/contexts/theme";
-import type { AppLang, AppTheme } from "@/types/client";
+import { coerceLang } from "@/utils/lang";
 import { initI18n } from "@/utils/locale";
+import { coerceTheme } from "@/utils/theme-value";
+
+export interface ProvidersProps {
+	children: React.ReactNode;
+	initialLangCookieValue: unknown;
+	initialThemeCookieValue: unknown;
+}
 
 export function Providers({
 	children,
-	initialLang,
-	initialTheme,
-}: {
-	children: React.ReactNode;
-	initialLang: AppLang;
-	initialTheme: AppTheme;
-}) {
+	initialLangCookieValue,
+	initialThemeCookieValue,
+}: ProvidersProps) {
+	const initialLang = coerceLang(initialLangCookieValue);
 	const [qc] = useState(() => new QueryClient());
 	const [i18n] = useState(() => initI18n(initialLang));
+	const initialTheme = coerceTheme(initialThemeCookieValue);
 
 	return (
 		<I18nextProvider i18n={i18n}>

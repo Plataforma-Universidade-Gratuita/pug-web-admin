@@ -1,20 +1,12 @@
 "use client";
 
 import {
-	APP_THEMES,
 	THEME_ANIMATION_CLASS,
 	THEME_COOKIE_MAX_AGE,
 	THEME_COOKIE_NAME,
 } from "@/constants/theme";
 import type { AppTheme } from "@/types/client";
-
-export function isAppTheme(x: unknown): x is AppTheme {
-	return typeof x === "string" && APP_THEMES.includes(x as AppTheme);
-}
-
-export function coerceTheme(x: unknown): AppTheme {
-	return isAppTheme(x) ? x : "system";
-}
+import { coerceTheme } from "@/utils/theme-value";
 
 function resolveTheme(mode: AppTheme): Exclude<AppTheme, "system"> {
 	if (mode !== "system") return mode;

@@ -48,6 +48,150 @@
 	background-color: var(--twc-surface-3);
 }
 
+@utility focus-ring {
+	outline: none;
+
+	&:focus-visible {
+		box-shadow:
+			0 0 0 1px var(--color-brand-400),
+			0 0 0 4px color-mix(in oklab, var(--color-brand-100) 70%, transparent);
+	}
+}
+
+@utility interactive-surface {
+	transition:
+		background-color 180ms ease,
+		border-color 180ms ease,
+		box-shadow 180ms ease,
+		transform 180ms ease;
+
+	&:hover {
+		background-color: var(--twc-surface-3);
+	}
+
+	&:active {
+		transform: translateY(1px);
+	}
+}
+
+@utility field-base {
+	border: 1px solid var(--twc-surface-2);
+	border-radius: calc(var(--twc-radius-squircle) * 1.25);
+	background-color: transparent;
+	color: var(--twc-text);
+	padding: 0.75rem 1rem;
+	transition:
+		border-color 180ms ease,
+		box-shadow 180ms ease,
+		background-color 180ms ease;
+
+	&::placeholder {
+		color: var(--twc-muted);
+	}
+
+	&:hover {
+		border-color: var(--color-base-400);
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
+
+	&[aria-invalid="true"] {
+		border-color: var(--color-danger-400);
+		box-shadow: 0 0 0 3px
+			color-mix(in oklab, var(--color-danger-100) 65%, transparent);
+	}
+}
+
+@utility btn-primary {
+	border-radius: calc(var(--twc-radius-squircle) * 1.25);
+	background-color: var(--color-brand-500);
+	color: var(--color-base-50);
+	font-size: 0.875rem;
+	font-weight: 600;
+	padding: 0.75rem 1rem;
+	transition:
+		background-color 180ms ease,
+		box-shadow 180ms ease,
+		transform 180ms ease;
+
+	&:hover {
+		background-color: var(--color-brand-600);
+	}
+
+	&:active {
+		transform: translateY(1px);
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.7;
+	}
+}
+
+@utility btn-secondary {
+	border: 1px solid var(--twc-surface-2);
+	border-radius: calc(var(--twc-radius-squircle) * 1.25);
+	background-color: var(--twc-surface-2);
+	color: var(--twc-text);
+	font-size: 0.875rem;
+	font-weight: 600;
+	padding: 0.75rem 1rem;
+	transition:
+		background-color 180ms ease,
+		border-color 180ms ease,
+		box-shadow 180ms ease,
+		transform 180ms ease;
+
+	&:hover {
+		background-color: var(--twc-surface-3);
+		border-color: var(--color-base-400);
+	}
+
+	&:active {
+		transform: translateY(1px);
+	}
+}
+
+@utility btn-danger {
+	border-radius: calc(var(--twc-radius-squircle) * 1.25);
+	background-color: var(--color-danger-500);
+	color: var(--color-base-50);
+	font-size: 0.875rem;
+	font-weight: 600;
+	padding: 0.75rem 1rem;
+	transition:
+		background-color 180ms ease,
+		box-shadow 180ms ease,
+		transform 180ms ease;
+
+	&:hover {
+		background-color: var(--color-danger-600);
+	}
+
+	&:active {
+		transform: translateY(1px);
+	}
+}
+
+@utility pad-card {
+	padding: var(--twc-space-5);
+}
+
+@utility gap-stack-1 {
+	gap: var(--twc-space-2);
+}
+
+@utility gap-stack-2 {
+	gap: var(--twc-space-3);
+}
+
+@utility gap-stack-3 {
+	gap: var(--twc-space-4);
+}
+
 @utility ty-body {
 	font-size: 1rem;
 	line-height: 1em;

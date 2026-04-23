@@ -2,8 +2,8 @@
 	"Navbar": {
 		"title": "PUG Admin",
 		"subtitle": "Plataforma Universidade Gratuita",
-		"collapse": "Colapsar menu lateral de Navegação",
-		"expand": "Expandir menu lateral de Navegação",
+		"collapse": "Colapsar navegação lateral",
+		"expand": "Expandir navegação lateral",
 		"settings": {
 			"title": "Configurações",
 			"themes": {
@@ -22,10 +22,10 @@
 			"home": "Início",
 			"global": {
 				"title": "Global",
-				"error": "Erro",
-				"loading": "Carregamento",
-				"not-found": "404 Não Encontrada",
-				"forbidden": "403 Proibida"
+				"error": "Página de Erro",
+				"loading": "Página de Carregamento",
+				"not-found": "Página 404 Não Encontrada",
+				"forbidden": "Página 403 Proibida"
 			},
 			"docs": {
 				"title": "Documentação",
@@ -34,32 +34,67 @@
 			}
 		}
 	},
+	"home": {
+		"welcome": "Bem-vindo de volta",
+		"subtitle": "Gerencie horas de contrapartida e relatórios em um só lugar.",
+		"primaryCta": "Começar",
+		"customizeTheme": "Personalizar tema",
+		"viewDocs": "Ver documentação",
+		"cards": {
+			"hours": {
+				"title": "Horas de Contrapartida",
+				"desc": "Revise e aprove as horas dos estudantes."
+			},
+			"reports": {
+				"title": "Relatórios",
+				"desc": "Gere relatórios mensais e sob demanda."
+			},
+			"ui": {
+				"title": "Componentes de UI",
+				"desc": "Navegue por blocos prontos para uso."
+			}
+		},
+		"recent": {
+			"title": "Atividade recente",
+			"empty": "Ainda não há itens recentes."
+		}
+	},
 	"Docs": {
 		"Background": {
 			"title": "Cores de Fundo",
-			"description": "As cores de fundo são usadas para definir o pano de fundo de vários elementos da interface. Elas ajudam a criar hierarquia visual e melhorar a legibilidade.",
-			"surface-1": "Camada de Fundo da Página",
-			"surface-2": "Camada de Card",
-			"surface-3": "Camada de Card Interno"
+			"description": "As cores de fundo são usadas para definir a base visual de vários elementos da interface. Elas ajudam a criar hierarquia visual e melhorar a legibilidade.",
+			"surface-1": "Camada de fundo da página",
+			"surface-2": "Camada de card",
+			"surface-3": "Camada de card interno"
 		},
 		"Typography": {
 			"title": "Tipografia",
 			"description": "Nosso sistema de tipografia foi projetado para fornecer estilos de texto claros e consistentes em toda a aplicação. Abaixo estão os diferentes estilos de texto disponíveis para uso.",
 			"font-family": "Família de Fonte",
-			"ty-body": "Texto do Corpo",
-			"ty-body-semibold": "Texto do Corpo Seminegrito",
-			"ty-body-bold": "Texto do Corpo Negrito",
-			"ty-sm-body": "Texto Pequeno do Corpo",
+			"ty-body": "Texto de Corpo",
+			"ty-body-semibold": "Texto de Corpo Seminegrito",
+			"ty-body-bold": "Texto de Corpo Negrito",
+			"ty-sm": "Texto Pequeno",
+			"ty-sm-body": "Texto Pequeno",
 			"ty-sm-semibold": "Texto Pequeno Seminegrito",
 			"ty-sm-bold": "Texto Pequeno Negrito",
 			"ty-title": "Texto de Título",
 			"ty-title-alt": "Texto de Título Alternativo",
 			"ty-header": "Texto de Cabeçalho",
-			"ty-helper": "Texto de Ajuda"
+			"ty-helper": "Texto de Apoio"
+		},
+		"Spacing": {
+			"title": "Escala de Espaçamento",
+			"description": "Use os tokens de espaçamento para manter o ritmo vertical, o padding dos cards e a densidade dos controles consistentes entre as telas.",
+			"card": "Padding de card",
+			"cardDescription": "O padding padrão de contêineres maiores deve usar space-5.",
+			"stackTight": "Empilhamento compacto",
+			"stackComfortable": "Empilhamento confortável",
+			"stackComfortableBody": "Use gaps maiores entre grupos de conteúdo ou seções separadas."
 		},
 		"Colors": {
 			"title": "Paleta de Cores",
-			"description": "Nossa paleta de cores consiste em cores primárias, secundárias e neutras que podem ser usadas para criar uma interface coesa e visualmente atraente.",
+			"description": "Nossa paleta de cores consiste em cores primárias, de feedback e neutras que podem ser usadas para criar uma interface coesa e visualmente atraente.",
 			"brand": "Cor da Marca",
 			"success": "Cor de Sucesso",
 			"info": "Cor de Informação",
@@ -67,25 +102,58 @@
 			"warning": "Cor de Aviso",
 			"base": "Cor Base"
 		},
+		"Semantics": {
+			"title": "Regras de Uso",
+			"description": "Essas regras semânticas mantêm as telas consistentes mesmo quando componentes diferentes são criados por pessoas diferentes.",
+			"surfaces": {
+				"title": "Hierarquia de superfícies",
+				"page": "Use surface-1 para áreas de fundo da página.",
+				"card": "Use surface-2 para cards e painéis principais.",
+				"inset": "Use surface-3 para cards aninhados, filtros e grupos embutidos."
+			},
+			"feedback": {
+				"title": "Cores de feedback",
+				"brand": "Brand é para ações primárias e estados selecionados.",
+				"success": "Success confirma estados concluídos ou saudáveis.",
+				"warning": "Warning sinaliza cautela, mas não falha.",
+				"danger": "Danger é reservado para ações destrutivas e erros."
+			}
+		},
 		"Radii": {
 			"title": "Raio da Borda",
 			"description": "Os valores de raio de borda são usados para criar cantos arredondados nos elementos da interface, melhorando o apelo visual e a experiência do usuário.",
-			"square": "Cantos Retos",
-			"squircle": "Cantos Arredondados Normais",
-			"circle": "Cantos Circulares"
+			"square": "Cantos retos",
+			"squircle": "Cantos arredondados normais",
+			"circle": "Cantos circulares"
+		},
+		"States": {
+			"title": "Estados Interativos",
+			"description": "Inputs e ações precisam de comportamento consistente para hover, foco, seleção, desabilitado e erro. Estes exemplos devem orientar a implementação dos componentes.",
+			"primaryAction": "Ação Primária",
+			"secondaryAction": "Ação Secundária",
+			"destructiveAction": "Ação Destrutiva",
+			"fieldDefault": "Campo padrão",
+			"fieldError": "Campo com erro",
+			"fieldDisabled": "Campo desabilitado",
+			"placeholder": "Digite algo...",
+			"feedbackPreview": "Prévia de feedback",
+			"successMessage": "Salvo com sucesso. Isso confirma uma ação concluída.",
+			"infoMessage": "Avisos informativos não devem competir com mensagens de erro.",
+			"warningMessage": "Avisos indicam cautela antes de uma etapa arriscada.",
+			"dangerMessage": "Erros e confirmações destrutivas devem usar danger."
 		},
 		"Shadows": {
 			"title": "Sombras de Caixa",
-			"description": "As sombras de caixa são usadas para criar profundidade e hierarquia na interface, adicionando sombras aos elementos e destacando-os do fundo.",
-			"weak": "Sombra Sutil",
-			"normal": "Sombra Nítida",
-			"strong": "Sombra Proeminente"
+			"description": "As sombras de caixa são usadas para criar profundidade e hierarquia na interface, adicionando sombra aos elementos e destacando-os do fundo.",
+			"weak": "Sombra sutil",
+			"normal": "Sombra nítida",
+			"strong": "Sombra proeminente"
 		},
 		"CardExample": {
 			"title": "Exemplo de Card",
 			"description": "Este é um exemplo de um card que utiliza as cores de fundo, tipografia, bordas e sombras definidas em nosso sistema de design.",
 			"inset-text": "Este é um card interno.",
-			"cta": "Chamada para Ação"
+			"cta": "Chamada para ação"
 		}
 	}
 }

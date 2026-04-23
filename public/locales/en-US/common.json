@@ -2,8 +2,8 @@
 	"Navbar": {
 		"title": "PUG Admin",
 		"subtitle": "Universidade Gratuita Platform",
-		"collapse": "Collapse Sidebar Navigation",
-		"expand": "Expand Sidebar Navigation",
+		"collapse": "Collapse sidebar navigation",
+		"expand": "Expand sidebar navigation",
 		"settings": {
 			"title": "Settings",
 			"themes": {
@@ -34,13 +34,38 @@
 			}
 		}
 	},
+	"home": {
+		"welcome": "Welcome back",
+		"subtitle": "Manage counterpart hours and reports from one place.",
+		"primaryCta": "Get started",
+		"customizeTheme": "Customize theme",
+		"viewDocs": "View docs",
+		"cards": {
+			"hours": {
+				"title": "Counterpart Hours",
+				"desc": "Review and approve student hours."
+			},
+			"reports": {
+				"title": "Reports",
+				"desc": "Generate monthly and ad-hoc reports."
+			},
+			"ui": {
+				"title": "UI Components",
+				"desc": "Browse ready-to-use building blocks."
+			}
+		},
+		"recent": {
+			"title": "Recent activity",
+			"empty": "No recent items yet."
+		}
+	},
 	"Docs": {
 		"Background": {
 			"title": "Background Colors",
-			"description": "Background colors are used to set the backdrop for various UI elements. They help in creating visual hierarchy and improving readability.",
-			"surface-1": "Page Background layer",
+			"description": "Background colors are used to set the backdrop for various UI elements. They help create visual hierarchy and improve readability.",
+			"surface-1": "Page background layer",
 			"surface-2": "Card layer",
-			"surface-3": "Inset Card layer"
+			"surface-3": "Inset card layer"
 		},
 		"Typography": {
 			"title": "Typography",
@@ -49,6 +74,7 @@
 			"ty-body": "Body Text",
 			"ty-body-semibold": "Body Semibold Text",
 			"ty-body-bold": "Body Bold Text",
+			"ty-sm": "Small Body Text",
 			"ty-sm-body": "Small Body Text",
 			"ty-sm-semibold": "Small Semibold Text",
 			"ty-sm-bold": "Small Bold Text",
@@ -56,6 +82,15 @@
 			"ty-title-alt": "Title Alt Text",
 			"ty-header": "Header Text",
 			"ty-helper": "Helper Text"
+		},
+		"Spacing": {
+			"title": "Spacing Scale",
+			"description": "Use the spacing tokens to keep vertical rhythm, card padding, and control density consistent across screens.",
+			"card": "Card padding",
+			"cardDescription": "Default large container padding should use space-5.",
+			"stackTight": "Tight stack",
+			"stackComfortable": "Comfortable stack",
+			"stackComfortableBody": "Use larger gaps between separate content groups or sections."
 		},
 		"Colors": {
 			"title": "Color Palette",
@@ -67,12 +102,45 @@
 			"warning": "Warning Color",
 			"base": "Base Color"
 		},
+		"Semantics": {
+			"title": "Usage Rules",
+			"description": "These semantic rules keep screens consistent even when different components are built by different people.",
+			"surfaces": {
+				"title": "Surface hierarchy",
+				"page": "Use surface-1 for page background zones.",
+				"card": "Use surface-2 for primary cards and panels.",
+				"inset": "Use surface-3 for nested cards, filters, and embedded groups."
+			},
+			"feedback": {
+				"title": "Feedback colors",
+				"brand": "Brand is for primary actions and selected states.",
+				"success": "Success confirms completed or healthy states.",
+				"warning": "Warning signals caution, but not failure.",
+				"danger": "Danger is reserved for destructive actions and errors."
+			}
+		},
 		"Radii": {
 			"title": "Border Radius",
 			"description": "Border radius values are used to create rounded corners on UI elements, enhancing the visual appeal and user experience.",
 			"square": "Sharp Corners",
 			"squircle": "Normal Rounded Corners",
 			"circle": "Circular Corners"
+		},
+		"States": {
+			"title": "Interactive States",
+			"description": "Inputs and actions need consistent hover, focus, selected, disabled, and error behavior. These examples should drive component implementation.",
+			"primaryAction": "Primary Action",
+			"secondaryAction": "Secondary Action",
+			"destructiveAction": "Destructive Action",
+			"fieldDefault": "Default field",
+			"fieldError": "Error field",
+			"fieldDisabled": "Disabled field",
+			"placeholder": "Type something...",
+			"feedbackPreview": "Feedback previews",
+			"successMessage": "Saved successfully. This confirms a completed action.",
+			"infoMessage": "Informational notices should not compete with errors.",
+			"warningMessage": "Warnings indicate caution before a risky step.",
+			"dangerMessage": "Errors and destructive confirmations should use danger."
 		},
 		"Shadows": {
 			"title": "Box Shadows",

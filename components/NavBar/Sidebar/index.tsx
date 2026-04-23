@@ -63,7 +63,7 @@ export function Sidebar({ collapsed }: Props) {
 			data-collapsed={collapsed}
 			className={[
 				"surface-2 border-default-3 border-r",
-				"sticky top-15 h-[calc(100dvh-4rem)]",
+				"h-full",
 				"flex flex-col px-2",
 				"w-15 transition-[width] duration-200 data-[collapsed=false]:w-56",
 			].join(" ")}
