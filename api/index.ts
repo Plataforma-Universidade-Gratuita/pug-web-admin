@@ -21,4 +21,5 @@ export * as attendances from "./project/attendances";
 
 // Geo
 export * as cities from "./geo/cities";
+export * as web from "./web";
 

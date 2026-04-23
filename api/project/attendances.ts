@@ -7,23 +7,24 @@ import type { AttendanceCreateRequest, AttendanceResponse, AttendanceValidateReq
 
 const BASE = "/projects/attendances";
 
-export async function get(id: string, token: string): Promise<AttendanceResponse> {
+export async function get(id: string, token?: string): Promise<AttendanceResponse> {
   return zfetch(`${BASE}/${id}`, { method: "GET" }, AttendanceResponseSchema, token);
 }
 
-export async function list(token: string, projectId?: string, studentId?: string): Promise<AttendanceResponse[]> {
+export async function list(token?: string, projectId?: string, studentId?: string): Promise<AttendanceResponse[]> {
   return zfetch(`${BASE}${qs({ projectId, studentId })}`, { method: "GET" }, z.array(AttendanceResponseSchema), token);
 }
 
-export async function create(body: AttendanceCreateRequest, token: string): Promise<AttendanceResponse> {
+export async function create(body: AttendanceCreateRequest, token?: string): Promise<AttendanceResponse> {
   return zfetch(`${BASE}`, { method: "POST", body: JSON.stringify(body) }, AttendanceResponseSchema, token);
 }
 
-export async function validate(id: string, body: AttendanceValidateRequest, token: string): Promise<AttendanceResponse> {
+export async function validate(id: string, body: AttendanceValidateRequest, token?: string): Promise<AttendanceResponse> {
   return zfetch(`${BASE}/${id}/validate`, { method: "PATCH", body: JSON.stringify(body) }, AttendanceResponseSchema, token);
 }
 
-export async function remove(id: string, token: string): Promise<void> {
+export async function remove(id: string, token?: string): Promise<void> {
   return zvoid(`${BASE}/${id}`, { method: "DELETE" }, token);
 }
+
 

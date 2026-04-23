@@ -7,23 +7,24 @@ import type { AccountResponse } from "@/types/api";
 
 const BASE = "/identity/accounts";
 
-export async function get(id: string, token: string): Promise<AccountResponse> {
+export async function get(id: string, token?: string): Promise<AccountResponse> {
   return zfetch(`${BASE}/${id}`, { method: "GET" }, AccountResponseSchema, token);
 }
 
-export async function getByEmail(email: string, token: string): Promise<AccountResponse> {
+export async function getByEmail(email: string, token?: string): Promise<AccountResponse> {
   return zfetch(`${BASE}/by-email/${email}`, { method: "GET" }, AccountResponseSchema, token);
 }
 
-export async function getMe(token: string): Promise<AccountResponse> {
+export async function getMe(token?: string): Promise<AccountResponse> {
   return zfetch(`${BASE}/me`, { method: "GET" }, AccountResponseSchema, token);
 }
 
-export async function list(token: string, q?: string): Promise<AccountResponse[]> {
+export async function list(token?: string, q?: string): Promise<AccountResponse[]> {
   return zfetch(`${BASE}${qs({ q })}`, { method: "GET" }, z.array(AccountResponseSchema), token);
 }
 
-export async function listByCpf(cpf: string, token: string): Promise<AccountResponse[]> {
+export async function listByCpf(cpf: string, token?: string): Promise<AccountResponse[]> {
   return zfetch(`${BASE}/by-cpf/${cpf}`, { method: "GET" }, z.array(AccountResponseSchema), token);
 }
+
 

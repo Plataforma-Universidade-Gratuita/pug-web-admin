@@ -7,15 +7,16 @@ import type { CityResponse } from "@/types/api";
 
 const BASE = "/geo/cities";
 
-export async function get(id: string, token: string): Promise<CityResponse> {
+export async function get(id: string, token?: string): Promise<CityResponse> {
   return zfetch(`${BASE}/${id}`, { method: "GET" }, CityResponseSchema, token);
 }
 
-export async function getByIbge(ibgeCode: string, token: string): Promise<CityResponse> {
+export async function getByIbge(ibgeCode: string, token?: string): Promise<CityResponse> {
   return zfetch(`${BASE}/by-ibge/${ibgeCode}`, { method: "GET" }, CityResponseSchema, token);
 }
 
-export async function list(token: string, q?: string): Promise<CityResponse[]> {
+export async function list(token?: string, q?: string): Promise<CityResponse[]> {
   return zfetch(`${BASE}${qs({ q })}`, { method: "GET" }, z.array(CityResponseSchema), token);
 }
+
 

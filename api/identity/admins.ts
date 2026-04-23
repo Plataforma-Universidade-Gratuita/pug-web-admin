@@ -11,39 +11,40 @@ import type { AdminCreateRequest, AdminResponse, AdminUpdateRequest } from "@/ty
 
 const BASE = "/identity/admins";
 
-export async function get(id: string, token: string): Promise<AdminResponse> {
+export async function get(id: string, token?: string): Promise<AdminResponse> {
   return zfetch(`${BASE}/${id}`, { method: "GET" }, AdminResponseSchema, token);
 }
 
-export async function getByEmail(email: string, token: string): Promise<AdminResponse> {
+export async function getByEmail(email: string, token?: string): Promise<AdminResponse> {
   return zfetch(`${BASE}/by-email/${email}`, { method: "GET" }, AdminResponseSchema, token);
 }
 
-export async function getMe(token: string): Promise<AdminResponse> {
+export async function getMe(token?: string): Promise<AdminResponse> {
   return zfetch(`${BASE}/me`, { method: "GET" }, AdminResponseSchema, token);
 }
 
-export async function list(token: string, q?: string): Promise<AdminResponse[]> {
+export async function list(token?: string, q?: string): Promise<AdminResponse[]> {
   return zfetch(`${BASE}${qs({ q })}`, { method: "GET" }, z.array(AdminResponseSchema), token);
 }
 
-export async function listByCpf(cpf: string, token: string): Promise<AdminResponse[]> {
+export async function listByCpf(cpf: string, token?: string): Promise<AdminResponse[]> {
   return zfetch(`${BASE}/by-cpf/${cpf}`, { method: "GET" }, z.array(AdminResponseSchema), token);
 }
 
-export async function create(body: AdminCreateRequest, token: string): Promise<AdminResponse> {
+export async function create(body: AdminCreateRequest, token?: string): Promise<AdminResponse> {
   return zfetch(`${BASE}`, { method: "POST", body: JSON.stringify(body) }, AdminResponseSchema, token);
 }
 
-export async function update(id: string, body: AdminUpdateRequest, token: string): Promise<AdminResponse> {
+export async function update(id: string, body: AdminUpdateRequest, token?: string): Promise<AdminResponse> {
   return zfetch(`${BASE}/${id}`, { method: "PUT", body: JSON.stringify(body) }, AdminResponseSchema, token);
 }
 
-export async function deactivate(id: string, token: string): Promise<void> {
+export async function deactivate(id: string, token?: string): Promise<void> {
   return zvoid(`${BASE}/${id}/deactivate`, { method: "PATCH" }, token);
 }
 
-export async function remove(id: string, token: string): Promise<void> {
+export async function remove(id: string, token?: string): Promise<void> {
   return zvoid(`${BASE}/${id}`, { method: "DELETE" }, token);
 }
+
 

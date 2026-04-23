@@ -24,7 +24,8 @@ export async function logout(body: LogoutRequest): Promise<void> {
   return zvoid(`${BASE}/logout`, { method: "POST", body: JSON.stringify(body) });
 }
 
-export async function logoutAll(token: string): Promise<void> {
+export async function logoutAll(token?: string): Promise<void> {
   return zvoid(`${BASE}/logout-all`, { method: "POST" }, token);
 }
+
 

@@ -3,6 +3,7 @@ import { z } from "zod";
 // ─── Base URL ────────────────────────────────────────────────────────────────
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
+const ACCESS_TOKEN_COOKIE = "accessToken";
 
 // ─── API Error Types & Schema ────────────────────────────────────────────────
 
@@ -74,6 +75,18 @@ function authHeaders(token?: string): HeadersInit {
 	return headers;
 }
 
+async function resolveAccessToken(explicitToken?: string): Promise<string | undefined> {
+	if (explicitToken) return explicitToken;
+	if (typeof window !== "undefined") return undefined;
+
+	try {
+		const { cookies } = await import("next/headers");
+		return (await cookies()).get(ACCESS_TOKEN_COOKIE)?.value;
+	} catch {
+		return undefined;
+	}
+}
+
 // ─── Error Handling ──────────────────────────────────────────────────────────
 
 async function handleError(r: Response): Promise<never> {
@@ -103,9 +116,10 @@ export async function zfetch<T extends z.ZodTypeAny>(
 	schema: T,
 	token?: string,
 ): Promise<z.infer<T>> {
+	const accessToken = await resolveAccessToken(token);
 	const r = await fetch(`${BASE_URL}${path}`, {
 		...init,
-		headers: { ...authHeaders(token), ...init.headers },
+		headers: { ...authHeaders(accessToken), ...init.headers },
 	});
 	if (!r.ok) return handleError(r);
 	const json = await r.json();
@@ -123,9 +137,10 @@ export async function zvoid(
 	init: RequestInit,
 	token?: string,
 ): Promise<void> {
+	const accessToken = await resolveAccessToken(token);
 	const r = await fetch(`${BASE_URL}${path}`, {
 		...init,
-		headers: { ...authHeaders(token), ...init.headers },
+		headers: { ...authHeaders(accessToken), ...init.headers },
 	});
 	if (!r.ok) return handleError(r);
 }
