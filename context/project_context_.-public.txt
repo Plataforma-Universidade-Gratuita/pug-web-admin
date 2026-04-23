@@ -1,5 +1,5 @@
 PROJECT CONTEXT DUMP
-Project Name: public
+Base: project_context_.-public
 Root Path: /c/Users/e-mateusf/Documents/college/PUG portfolio/pug-web-admin/public
 ================================================================================
 

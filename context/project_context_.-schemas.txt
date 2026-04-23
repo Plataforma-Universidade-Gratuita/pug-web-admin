@@ -1,0 +1,523 @@
+PROJECT CONTEXT DUMP
+Base: project_context_.-schemas
+Root Path: /c/Users/e-mateusf/Documents/college/PUG portfolio/pug-web-admin/schemas
+================================================================================
+
+
+================================================================================
+FILE: api/academic/course.ts
+================================================================================
+import { z } from "zod";
+
+import { AuditInfoResponseSchema, SchoolResponseSchema } from "@/schemas/api";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const CourseResponseSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  school: SchoolResponseSchema,
+  auditInfo: AuditInfoResponseSchema,
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const CourseCreateRequestSchema = z.object({
+  name: z.string(),
+  schoolId: z.string(),
+});
+
+export const CourseUpdateRequestSchema = z.object({
+  name: z.string().nullable().optional(),
+  schoolId: z.string().nullable().optional(),
+});
+
+
+
+================================================================================
+FILE: api/academic/school.ts
+================================================================================
+import { z } from "zod";
+
+import { AuditInfoResponseSchema } from "@/schemas/api";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const SchoolResponseSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  auditInfo: AuditInfoResponseSchema,
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const SchoolCreateRequestSchema = z.object({
+  name: z.string(),
+});
+
+export const SchoolUpdateRequestSchema = z.object({
+  name: z.string().nullable().optional(),
+});
+
+
+
+================================================================================
+FILE: api/academic/student.ts
+================================================================================
+import { z } from "zod";
+
+import {
+  AuditInfoResponseSchema,
+  CampiEnum,
+  CampusResponseSchema,
+} from "@/schemas/api";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const StudentResponseSchema = z.object({
+  accountId: z.string(),
+  academicRegistration: z.string(),
+  campus: CampusResponseSchema,
+  courseId: z.string(),
+  requiredHours: z.number(),
+  completedHours: z.number(),
+  missingHours: z.number(),
+  startDate: z.string(),
+  startDateFormatted: z.string(),
+  dueDate: z.string(),
+  dueDateFormatted: z.string(),
+  remainingDays: z.number(),
+  remainingDaysFormatted: z.string(),
+  auditInfo: AuditInfoResponseSchema,
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const StudentCreateRequestSchema = z.object({
+  cpf: z.string(),
+  name: z.string(),
+  email: z.string(),
+  password: z.string(),
+  academicRegistration: z.string(),
+  campus: CampiEnum,
+  courseId: z.string(),
+  requiredHours: z.number(),
+  startDate: z.string(),
+  dueDate: z.string(),
+});
+
+export const StudentUpdateRequestSchema = z.object({
+  name: z.string().nullable().optional(),
+  cpf: z.string().nullable().optional(),
+  email: z.string().nullable().optional(),
+  password: z.string().nullable().optional(),
+  academicRegistration: z.string().nullable().optional(),
+  campus: CampiEnum.nullable().optional(),
+  courseId: z.string().nullable().optional(),
+  requiredHours: z.number().nullable().optional(),
+  startDate: z.string().nullable().optional(),
+  dueDate: z.string().nullable().optional(),
+});
+
+
+
+================================================================================
+FILE: api/geo/city.ts
+================================================================================
+import { z } from "zod";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const CityResponseSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  ibgeCode: z.string(),
+});
+
+
+
+================================================================================
+FILE: api/identity/account.ts
+================================================================================
+import { z } from "zod";
+
+import {
+  AccountTypeEnum,
+  AuditInfoResponseSchema,
+} from "@/schemas/api";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const AccountResponseSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  email: z.string(),
+  accountType: AccountTypeEnum,
+  accountTypeFormatted: z.string(),
+  auditInfo: AuditInfoResponseSchema,
+  active: z.boolean(),
+});
+
+
+
+================================================================================
+FILE: api/identity/admin.ts
+================================================================================
+import { z } from "zod";
+
+import { CampiEnum, CampusResponseSchema, AccountResponseSchema } from "@/schemas/api";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const AdminResponseSchema = z.object({
+  accountResponse: AccountResponseSchema,
+  campus: CampusResponseSchema,
+  grantedAt: z.string(),
+  grantedAtFormatted: z.string(),
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const AdminCreateRequestSchema = z.object({
+  cpf: z.string(),
+  name: z.string(),
+  email: z.string(),
+  password: z.string(),
+  campus: CampiEnum,
+});
+
+export const AdminUpdateRequestSchema = z.object({
+  name: z.string().nullable().optional(),
+  email: z.string().nullable().optional(),
+  password: z.string().nullable().optional(),
+  campus: CampiEnum.nullable().optional(),
+});
+
+
+
+================================================================================
+FILE: api/identity/auth.ts
+================================================================================
+import { z } from "zod";
+
+import { AccountTypeEnum } from "@/schemas/api";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const TokenResponseSchema = z.object({
+  token: z.string(),
+  refreshToken: z.string(),
+  accountId: z.string(),
+  accountType: AccountTypeEnum,
+  expiresIn: z.number(),
+  refreshExpiresIn: z.number(),
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const LoginRequestSchema = z.object({
+  email: z.string(),
+  password: z.string(),
+});
+
+export const RefreshRequestSchema = z.object({
+  refreshToken: z.string(),
+});
+
+export const LogoutRequestSchema = z.object({
+  refreshToken: z.string(),
+});
+
+
+
+================================================================================
+FILE: api/identity/user.ts
+================================================================================
+import { z } from "zod";
+
+import {
+    AuditInfoResponseSchema,
+} from "@/schemas/api";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const UserResponseSchema = z.object({
+    id: z.string(),
+    cpf: z.string(),
+    cpfFormatted: z.string(),
+    name: z.string(),
+    auditInfo: AuditInfoResponseSchema,
+});
+
+================================================================================
+FILE: api/index.ts
+================================================================================
+// Shared
+export * from "./shared/shared";
+
+// Geo
+export * from "./geo/city";
+
+// Academic
+export * from "./academic/school";
+export * from "./academic/course";
+export * from "./academic/student";
+
+// Identity
+export * from "./identity/account";
+export * from "./identity/admin";
+export * from "./identity/auth";
+export * from "./identity/user";
+
+// Partner
+export * from "./partner/entity";
+export * from "./partner/staff";
+
+// Project
+export * from "./project/project";
+export * from "./project/enrollment";
+export * from "./project/attendance";
+
+
+
+================================================================================
+FILE: api/partner/entity.ts
+================================================================================
+import { z } from "zod";
+
+import { AuditInfoResponseSchema } from "@/schemas/api";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const EntityResponseSchema = z.object({
+  id: z.string(),
+  cnpj: z.string(),
+  cnpjFormatted: z.string(),
+  name: z.string(),
+  address: z.string(),
+  cityId: z.string(),
+  auditInfo: AuditInfoResponseSchema,
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const EntityCreateRequestSchema = z.object({
+  cnpj: z.string(),
+  name: z.string(),
+  cityId: z.string(),
+  address: z.string().nullable().optional(),
+});
+
+export const EntityUpdateRequestSchema = z.object({
+  name: z.string().nullable().optional(),
+  cityId: z.string().nullable().optional(),
+  address: z.string().nullable().optional(),
+});
+
+
+
+================================================================================
+FILE: api/partner/staff.ts
+================================================================================
+import { z } from "zod";
+
+import { AccountResponseSchema } from "@/schemas/api";
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const StaffResponseSchema = z.object({
+  account: AccountResponseSchema,
+  entityId: z.string(),
+  cityId: z.string(),
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const StaffCreateRequestSchema = z.object({
+  cpf: z.string(),
+  name: z.string(),
+  email: z.string(),
+  password: z.string(),
+  entityId: z.string(),
+});
+
+export const StaffUpdateRequestSchema = z.object({
+  name: z.string().nullable().optional(),
+  email: z.string().nullable().optional(),
+  password: z.string().nullable().optional(),
+});
+
+
+
+================================================================================
+FILE: api/project/attendance.ts
+================================================================================
+import { z } from "zod";
+
+import { AuditInfoResponseSchema } from "@/schemas/api";
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+export const AttendanceStatusEnum = z.enum([
+  "ABSENT",
+  "PRESENT",
+  "WAITING",
+]);
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const AttendanceResponseSchema = z.object({
+  id: z.string(),
+  projectId: z.string(),
+  studentId: z.string(),
+  duration: z.number(),
+  qrValidationHash: z.string(),
+  status: AttendanceStatusEnum,
+  statusFormatted: z.string(),
+  validatedById: z.string().nullable(),
+  validatedAt: z.string().nullable(),
+  validatedAtFormatted: z.string(),
+  auditInfo: AuditInfoResponseSchema,
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const AttendanceCreateRequestSchema = z.object({
+  projectId: z.string(),
+  studentId: z.string(),
+  duration: z.number(),
+});
+
+export const AttendanceValidateRequestSchema = z.object({
+  status: AttendanceStatusEnum,
+  qrValidationHash: z.string(),
+});
+
+
+
+================================================================================
+FILE: api/project/enrollment.ts
+================================================================================
+import { z } from "zod";
+
+import { AuditInfoResponseSchema } from "@/schemas/api";
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+export const EnrollmentStatusEnum = z.enum([
+  "APPROVED",
+  "CANCELED",
+  "COMPLETED",
+  "EXITED",
+  "PENDING",
+  "REJECTED",
+  "REMOVED",
+]);
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const EnrollmentResponseSchema = z.object({
+  projectId: z.string(),
+  studentId: z.string(),
+  status: EnrollmentStatusEnum,
+  statusFormatted: z.string(),
+  acceptedAt: z.string().nullable(),
+  acceptedAtFormatted: z.string(),
+  closingStatusAt: z.string().nullable(),
+  closingStatusAtFormatted: z.string(),
+  auditInfo: AuditInfoResponseSchema,
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const EnrollmentCreateRequestSchema = z.object({
+  projectId: z.string(),
+});
+
+
+
+================================================================================
+FILE: api/project/project.ts
+================================================================================
+import { z } from "zod";
+
+import { AuditInfoResponseSchema } from "@/schemas/api";
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+export const ProjectStatusEnum = z.enum([
+  "CANCELED",
+  "COMPLETED",
+  "IN_PROGRESS",
+  "ON_HOLD",
+  "PLANNED",
+]);
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const ProjectResponseSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  entityId: z.string(),
+  description: z.string(),
+  createdBy: z.string(),
+  maxParticipants: z.number().nullable(),
+  offeredHours: z.number(),
+  completedHours: z.number(),
+  status: ProjectStatusEnum,
+  statusFormatted: z.string(),
+  closedAt: z.string().nullable(),
+  closedAtFormatted: z.string(),
+  auditInfo: AuditInfoResponseSchema,
+});
+
+// ─── Requests ────────────────────────────────────────────────────────────────
+
+export const ProjectCreateRequestSchema = z.object({
+  name: z.string(),
+  entityId: z.string(),
+  description: z.string().nullable().optional(),
+  maxParticipants: z.number().nullable().optional(),
+  offeredHours: z.number(),
+});
+
+export const ProjectUpdateRequestSchema = z.object({
+  name: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  maxParticipants: z.number().nullable().optional(),
+  offeredHours: z.number().nullable().optional(),
+});
+
+export const ProjectSchoolRequestSchema = z.object({
+  projectId: z.string(),
+  schoolIds: z.array(z.string()),
+});
+
+
+
+================================================================================
+FILE: api/shared/shared.ts
+================================================================================
+import { z } from "zod";
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+export const CampiEnum = z.enum(["JARAGUA_DO_SUL", "JOINVILLE"]);
+
+export const AccountTypeEnum = z.enum(["ADMIN", "PARTNER", "STUDENT"]);
+
+// ─── Responses ───────────────────────────────────────────────────────────────
+
+export const AuditInfoResponseSchema = z.object({
+  createdAt: z.string(),
+  createdAtFormatted: z.string(),
+  updatedAt: z.string(),
+  updatedAtFormatted: z.string(),
+});
+
+export const CampusResponseSchema = z.object({
+  campus: CampiEnum,
+  campusFormatted: z.string(),
+});
+
+

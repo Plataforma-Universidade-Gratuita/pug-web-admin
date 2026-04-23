@@ -1,0 +1,148 @@
+./
+├── .env
+├── .env.example
+├── .git/
+├── .gitignore
+├── .next/
+├── .prettierignore
+├── .prettierrc
+├── .vscode/
+├── README.md
+├── api/
+│   ├── academic/
+│   │   ├── courses.ts
+│   │   ├── schools.ts
+│   │   └── students.ts
+│   ├── geo/
+│   │   └── cities.ts
+│   ├── identity/
+│   │   ├── accounts.ts
+│   │   ├── admins.ts
+│   │   ├── auth.ts
+│   │   └── users.ts
+│   ├── index.ts
+│   ├── partner/
+│   │   ├── entities.ts
+│   │   └── staff.ts
+│   └── project/
+│       ├── attendances.ts
+│       ├── enrollments.ts
+│       ├── project-schools.ts
+│       └── projects.ts
+├── app/
+│   ├── (docs)/
+│   │   ├── components/
+│   │   │   └── page.tsx
+│   │   └── theme/
+│   │       └── page.tsx
+│   ├── (global)/
+│   │   ├── error/
+│   │   │   └── page.tsx
+│   │   ├── forbidden/
+│   │   │   └── page.tsx
+│   │   ├── loading/
+│   │   │   └── page.tsx
+│   │   └── not-found/
+│   │       └── page.tsx
+│   ├── generate-context.sh
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── providers.tsx
+├── components/
+│   ├── NavBar/
+│   │   ├── Sidebar/
+│   │   │   ├── MenuGroup/
+│   │   │   │   └── index.tsx
+│   │   │   ├── MenuItem/
+│   │   │   │   └── index.tsx
+│   │   │   ├── Settings/
+│   │   │   │   ├── SettingCard/
+│   │   │   │   │   └── index.tsx
+│   │   │   │   └── index.tsx
+│   │   │   └── index.tsx
+│   │   ├── Topbar/
+│   │   │   └── index.tsx
+│   │   └── index.tsx
+│   └── wrappers/
+├── context/
+├── contexts/
+│   └── generate-context.sh
+├── eslint.config.mjs
+├── generate-dir-tree.sh
+├── next-env.d.ts
+├── next.config.ts
+├── node_modules/
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── project-tree.txt
+├── public/
+│   ├── generate-context.sh
+│   └── locales/
+│       ├── en-US/
+│       │   └── common.json
+│       └── pt-BR/
+│           └── common.json
+├── pug-web-admin.iml
+├── schemas/
+│   ├── api/
+│   │   ├── academic/
+│   │   │   ├── course.ts
+│   │   │   ├── school.ts
+│   │   │   └── student.ts
+│   │   ├── geo/
+│   │   │   └── city.ts
+│   │   ├── identity/
+│   │   │   ├── account.ts
+│   │   │   ├── admin.ts
+│   │   │   ├── auth.ts
+│   │   │   └── user.ts
+│   │   ├── index.ts
+│   │   ├── partner/
+│   │   │   ├── entity.ts
+│   │   │   └── staff.ts
+│   │   ├── project/
+│   │   │   ├── attendance.ts
+│   │   │   ├── enrollment.ts
+│   │   │   └── project.ts
+│   │   └── shared/
+│   │       └── shared.ts
+│   ├── client/
+│   └── generate-context.sh
+├── store/
+│   └── generate-context.sh
+├── tsconfig.json
+├── tsconfig.tsbuildinfo
+├── types/
+│   ├── api/
+│   │   ├── academic/
+│   │   │   ├── course.ts
+│   │   │   ├── school.ts
+│   │   │   └── student.ts
+│   │   ├── geo/
+│   │   │   └── city.ts
+│   │   ├── identity/
+│   │   │   ├── account.ts
+│   │   │   ├── admin.ts
+│   │   │   ├── auth.ts
+│   │   │   └── user.ts
+│   │   ├── index.ts
+│   │   ├── partner/
+│   │   │   ├── entity.ts
+│   │   │   └── staff.ts
+│   │   ├── project/
+│   │   │   ├── attendance.ts
+│   │   │   ├── enrollment.ts
+│   │   │   └── project.ts
+│   │   └── shared/
+│   │       └── shared.ts
+│   ├── client/
+│   └── generate-context.sh
+└── utils/
+    ├── api.ts
+    ├── generate-context.sh
+    ├── i18n.ts
+    ├── lang.ts
+    ├── locale.ts
+    └── theme.ts

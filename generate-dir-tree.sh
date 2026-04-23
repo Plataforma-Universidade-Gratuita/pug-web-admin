@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-OUT="project-tree.txt"
+# Determine absolute path to the root context directory
+ROOT_DIR="$PWD"
+CONTEXT_DIR="$ROOT_DIR/context"
+
+# Create the context directory if it doesn't exist
+mkdir -p "$CONTEXT_DIR"
+
+OUT="$CONTEXT_DIR/project-tree.txt"
 
 # 1. TREE GENERATION
-# ---------------------------------------------------------
 echo "Generating project tree..."
 
 generate() {
   local dir="$1"
   local prefix="$2"
-  
-  # Read files into an array safely
   local items=()
   while IFS= read -r -d $'\0' entry; do
     items+=( "$entry" )
@@ -19,42 +23,28 @@ generate() {
 
   local total=${#items[@]}
   local i=0
-  
   for e in "${items[@]}"; do
     i=$((i+1))
     local name
     name="$(basename "$e")"
     local isdir=0
     [ -d "$e" ] && isdir=1
-    
-    # Determine connector style
     local connector="├── "
     local newprefix="${prefix}│   "
     if [ "$i" -eq "$total" ]; then
       connector="└── "
       newprefix="${prefix}    "
     fi
-
-    # Print current item
     printf "%s%s%s%s\n" "$prefix" "$connector" "$name" "$( [ $isdir -eq 1 ] && printf "/" )"
-
-    # Recursion logic
     if [ $isdir -eq 1 ]; then
-      # IGNORE LIST: Added .next, .vscode, node_modules, etc.
-      if [[ "$name" =~ ^(.git|.idea|.next|.vscode|node_modules|build|dist|.DS_Store)$ ]]; then
+      if [ "$dir" = "." ] && [[ "$name" =~ ^(\.git|\.next|\.vscode|\.idea|target|node_modules|\.mvn|build|\.DS_Store|project-tree\.txt|context)$ ]]; then
         continue
       fi
-      # Do not recurse into the output file itself if it appears nicely in the list
-      if [ "$name" == "$OUT" ]; then
-        continue
-      fi
-      
       generate "$e" "$newprefix"
     fi
   done
 }
 
-# Write header and run tree generation
 {
   echo "./"
   generate "." ""
@@ -62,34 +52,28 @@ generate() {
 
 echo "Wrote tree to $OUT"
 
-
 # 2. RUN GENERATE-CONTEXT SCRIPTS
-# ---------------------------------------------------------
-echo "Searching for context generation scripts in project root..."
+for target_dir in "./"; do
+    if [ -d "$target_dir" ]; then
+        find "$target_dir" -type f -name "generate-context.sh" -print0 | while IFS= read -r -d $'\0' script_path; do
+            script_dir=$(dirname "$script_path")
+            script_name=$(basename "$script_path")
 
-# Find 'generate-context.sh' files starting from root (.)
-# We use -prune to completely skip searching inside node_modules, .next, and .git
-find . -type d \( -name "node_modules" -o -name ".next" -o -name ".git" \) -prune -o -type f -name "generate-context.sh" -print0 | while IFS= read -r -d $'\0' script_path; do
+            # Gera um sufixo amigável baseado no caminho (ex: academic-domain-enums)
+            DIR_SUFFIX=$(echo "$script_dir" | tr '/' '-')
 
-    script_dir=$(dirname "$script_path")
-    script_name=$(basename "$script_path")
-
-    echo ""
-    echo "Found script: $script_path"
-    echo "--------------------------------------------------"
-
-    # Execute in a subshell
-    (
-        cd "$script_dir" || exit
-        echo "Running $script_name in $(pwd)..."
-
-        # Ensure it is executable
-        chmod +x "$script_name" 2>/dev/null || true
-
-        # Run using bash explicitly
-        bash "$script_name"
-    )
-    echo "--------------------------------------------------"
+            echo ""
+            echo "Found script: $script_path"
+            echo "--------------------------------------------------"
+            (
+                cd "$script_dir" || exit
+                chmod +x "$script_name" 2>/dev/null || true
+                bash "$script_name" "$CONTEXT_DIR" "$DIR_SUFFIX"
+            )
+            echo "--------------------------------------------------"
+        done
+    fi
 done
 
-echo "All operations completed."
+echo ""
+echo "All operations completed. Check the ./context folder for outputs."
