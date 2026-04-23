@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 
 import { useLocale } from "@/contexts/locale";
 import { useTheme } from "@/contexts/theme";
-import type { AppLang } from "@/utils/locale";
+import type { AppLang, AppTheme } from "@/types/client";
 
 import SettingCard from "./SettingCard";
 
@@ -24,7 +24,7 @@ export default function Settings({ compact = false }: Props) {
 
 	const [open, setOpen] = useState(false);
 
-	const selectTheme = (v: "light" | "dark" | "system") => {
+	const selectTheme = (v: AppTheme) => {
 		setMode(v);
 		setOpen(false);
 	};

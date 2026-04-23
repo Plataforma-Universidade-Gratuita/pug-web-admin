@@ -8,7 +8,8 @@ import { Toaster } from "sonner";
 
 import { LocaleProvider } from "@/contexts/locale";
 import { ThemeProvider } from "@/contexts/theme";
-import { initI18n } from "@/utils/i18n";
+import type { AppLang, AppTheme } from "@/types/client";
+import { initI18n } from "@/utils/locale";
 
 export function Providers({
 	children,
@@ -16,8 +17,8 @@ export function Providers({
 	initialTheme,
 }: {
 	children: React.ReactNode;
-	initialLang: "pt-BR" | "en-US";
-	initialTheme: "light" | "dark" | "system";
+	initialLang: AppLang;
+	initialTheme: AppTheme;
 }) {
 	const [qc] = useState(() => new QueryClient());
 	const [i18n] = useState(() => initI18n(initialLang));

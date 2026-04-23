@@ -1,35 +1,49 @@
 "use client";
 
-export type AppTheme = "light" | "dark" | "system";
+import {
+	APP_THEMES,
+	THEME_ANIMATION_CLASS,
+	THEME_COOKIE_MAX_AGE,
+	THEME_COOKIE_NAME,
+} from "@/constants/theme";
 
-export function setTheme(mode: AppTheme) {
+import type { AppTheme } from "@/types/client";
+
+export function isAppTheme(x: unknown): x is AppTheme {
+	return typeof x === "string" && APP_THEMES.includes(x as AppTheme);
+}
+
+export function coerceTheme(x: unknown): AppTheme {
+	return isAppTheme(x) ? x : "system";
+}
+
+function resolveTheme(mode: AppTheme): Exclude<AppTheme, "system"> {
+	if (mode !== "system") return mode;
+	return window.matchMedia("(prefers-color-scheme: dark)").matches
+		? "dark"
+		: "light";
+}
+
+export function applyClientTheme(mode: AppTheme) {
 	const html = document.documentElement;
-	const current = html.getAttribute("data-theme") ?? "system";
+	const current = coerceTheme(html.getAttribute("data-theme"));
 
 	if (current === mode) return;
 
-	html.classList.add("theme-anim");
+	const resolvedTheme = resolveTheme(mode);
+
+	html.classList.add(THEME_ANIMATION_CLASS);
 
 	requestAnimationFrame(() => {
-		switch (mode) {
-			case "dark":
-				html.classList.add("dark");
-				html.setAttribute("data-theme", "dark");
-				document.cookie = "theme=dark; Path=/; Max-Age=31536000; SameSite=Lax";
-				break;
-			case "light":
-				html.classList.remove("dark");
-				html.setAttribute("data-theme", "light");
-				document.cookie = "theme=light; Path=/; Max-Age=31536000; SameSite=Lax";
-				break;
-			default:
-				html.classList.remove("dark");
-				html.removeAttribute("data-theme");
-				document.cookie =
-					"theme=system; Path=/; Max-Age=31536000; SameSite=Lax";
-				break;
+		if (mode === "system") {
+			html.removeAttribute("data-theme");
+		} else {
+			html.setAttribute("data-theme", mode);
 		}
 
-		setTimeout(() => html.classList.remove("theme-anim"), 250);
+		html.style.colorScheme = resolvedTheme;
+		document.cookie = `${THEME_COOKIE_NAME}=${mode}; Path=/; Max-Age=${THEME_COOKIE_MAX_AGE}; SameSite=Lax`;
+
+		setTimeout(() => html.classList.remove(THEME_ANIMATION_CLASS), 250);
 	});
 }
