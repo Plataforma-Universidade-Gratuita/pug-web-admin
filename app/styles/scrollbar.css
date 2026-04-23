@@ -1,0 +1,65 @@
+:where(*, *::before, *::after) {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-brand-700) transparent;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: color-mix(in oklab, var(--color-brand-700) 70%, transparent);
+	border: 3px solid transparent;
+	border-radius: 999px;
+	background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+.scrollbar-none {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+
+.scrollbar-reset {
+	scrollbar-width: auto;
+	scrollbar-color: auto;
+}
+
+.scrollbar-reset::-webkit-scrollbar,
+.scrollbar-reset::-webkit-scrollbar-track,
+.scrollbar-reset::-webkit-scrollbar-thumb,
+.scrollbar-reset::-webkit-scrollbar-corner {
+	all: unset;
+}
+
+::-webkit-scrollbar-button {
+	display: none;
+	width: 0;
+	height: 0;
+}
+
+::-webkit-scrollbar-button:single-button:start,
+::-webkit-scrollbar-button:single-button:end,
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+	display: none;
+	width: 0;
+	height: 0;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+	background: color-mix(in oklab, var(--twc-surface-1) 90%, transparent);
+}

@@ -1,0 +1,7 @@
+@layer base {
+	body {
+		@apply text-base;
+		line-height: 1.6em;
+		color: var(--twc-text);
+	}
+}
