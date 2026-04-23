@@ -64,19 +64,19 @@ export function MenuGroup({
 			onClick={onHeaderClick}
 			className={[
 				"group relative flex h-10 w-full items-center gap-2 rounded-2xl px-[0.725rem]",
-				"surface-2 hover:surface-3 shadow-weak cursor-pointer",
-				hasActiveChild ? "hover:surface-2! surface-3!" : "",
+				"surface-2 hover:surface-3 shadow-weak cursor-pointer transition-colors",
+				hasActiveChild ? "bg-brand-500/10 hover:bg-brand-500/10" : "",
 			].join(" ")}
 		>
 			<Icon
 				size={20}
 				strokeWidth={2}
-				className={`shrink-0 ${hasActiveChild ? "fill-brand-700/25 stroke-brand-700" : "text-base-800"}`}
+				className={`shrink-0 ${hasActiveChild ? "fill-brand-400/18 stroke-brand-400" : "text-base-800"}`}
 			/>
 			{!collapsed && (
 				<>
 					<span
-						className={`ty-sm truncate ${hasActiveChild ? "text-brand-700 font-semibold" : ""}`}
+						className={`ty-sm truncate ${hasActiveChild ? "text-brand-400 font-semibold" : ""}`}
 					>
 						{t(label)}
 					</span>
@@ -101,8 +101,8 @@ export function MenuGroup({
 							aria-current={active ? "page" : undefined}
 							className={[
 								"group relative flex h-10 w-full items-center gap-2 rounded-2xl px-[0.725rem]",
-								"surface-2 hover:surface-3 shadow-weak no-underline",
-								active ? "bg-brand/15! cursor-default!" : "",
+								"surface-2 hover:surface-3 shadow-weak no-underline transition-colors",
+								active ? "bg-brand-500/12! cursor-default!" : "",
 							].join(" ")}
 							onClick={e => {
 								setManualOpen(false);
@@ -115,10 +115,10 @@ export function MenuGroup({
 							<Icon
 								size={18}
 								strokeWidth={2}
-								className={`shrink-0 ${active ? "fill-brand-700/25 stroke-brand-700" : ""}`}
+								className={`shrink-0 ${active ? "fill-brand-400/18 stroke-brand-400" : ""}`}
 							/>
 							<span
-								className={`ty-sm truncate ${active ? "font-semibold" : ""}`}
+								className={`ty-sm truncate ${active ? "text-brand-400 font-semibold" : ""}`}
 							>
 								{t(label)}
 							</span>
@@ -163,7 +163,7 @@ export function MenuGroup({
 						collisionPadding={8}
 						onCloseAutoFocus={() => setManualOpen(false)}
 						onEscapeKeyDown={() => setManualOpen(false)}
-						className="surface-2 br-squircle shadow-weak border-default z-50 p-2"
+						className="surface-2 br-squircle shadow-weak border-default-3 z-50 border p-2"
 					>
 						<div className="ty-sm-semibold mb-1 px-2">{t(label)}</div>
 						<ul className="w-48 space-y-1">
@@ -180,7 +180,7 @@ export function MenuGroup({
 												"ty-sm br-squircle shadow-weak w-full px-3 py-2 text-left",
 												"surface-2 hover:surface-3 flex items-center gap-2 no-underline",
 												active
-													? "bg-brand-500/15! ty-sm-semibold cursor-default!"
+													? "bg-brand-500/12! text-brand-400 ty-sm-semibold cursor-default!"
 													: "",
 											].join(" ")}
 											onClick={e => {
@@ -194,7 +194,7 @@ export function MenuGroup({
 											<Icon
 												size={16}
 												strokeWidth={2}
-												className={`shrink-0 ${active ? "fill-brand-700/25 stroke-brand-700" : ""}`}
+												className={`shrink-0 ${active ? "fill-brand-400/18 stroke-brand-400" : ""}`}
 											/>
 											<span className="truncate">{t(label)}</span>
 										</Link>

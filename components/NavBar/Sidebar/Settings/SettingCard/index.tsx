@@ -33,17 +33,17 @@ export default function SettingCard({
 				aria-haspopup="listbox"
 				aria-expanded={open}
 				onClick={() => setOpen(v => !v)}
-				className="hover:surface-3 flex w-full items-center gap-2 rounded-t-[inherit] px-3 py-2 focus:outline-none"
+				className="hover:surface-3 focus-ring flex w-full items-center gap-2 rounded-t-[inherit] px-3 py-2"
 			>
 				<span className="ty-sm whitespace-nowrap">{t(title)}</span>
 				<span className="mx-2 h-[1px] flex-1 bg-[color:var(--twc-surface-3)]" />
 				{selectedOption.Icon ? (
 					<selectedOption.Icon
 						size={15}
-						className="text-brand-800! shrink-0"
+						className="text-brand-400! shrink-0"
 					/>
 				) : null}
-				<span className="ty-sm-semibold text-brand-800! text-xs! whitespace-nowrap">
+				<span className="ty-sm-semibold text-brand-400! text-xs! whitespace-nowrap">
 					{t(selectedOption.label)}
 				</span>
 				<ChevronDown
@@ -68,8 +68,8 @@ export default function SettingCard({
 									}}
 									className={[
 										"ty-sm br-square border-default-3 w-full border-t-1 px-3 py-2 text-left",
-										"surface-2 hover:surface-3",
-										active ? "bg-brand-500/5! ty-sm-semibold!" : "",
+										"surface-2 hover:surface-3 focus-ring transition-colors",
+										active ? "bg-brand-500/10! text-brand-400 ty-sm-semibold!" : "",
 										i === options.length - 1 ? "rounded-b-lg" : "",
 									].join(" ")}
 								>

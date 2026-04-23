@@ -83,21 +83,30 @@ html[data-theme="light"] {
 	--twc-surface-1: var(--color-base-200);
 	--twc-surface-2: var(--color-base-100);
 	--twc-surface-3: var(--color-base-50);
+	--twc-border-1: color-mix(in oklab, var(--twc-text) 10%, var(--twc-surface-1));
+	--twc-border-2: color-mix(in oklab, var(--twc-text) 12%, var(--twc-surface-2));
+	--twc-border-3: color-mix(in oklab, var(--twc-text) 10%, var(--twc-surface-3));
+	--twc-focus-ring: var(--color-brand-500);
+	--twc-focus-halo: color-mix(in oklab, var(--color-brand-100) 78%, transparent);
+	--twc-chrome-bg: var(--color-brand-500);
+	--twc-chrome-bg-hover: var(--color-brand-600);
+	--twc-chrome-fg: var(--color-base-50);
+	--twc-chrome-muted: color-mix(in oklab, var(--color-base-50) 82%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--color-brand-50: oklch(0.18 0.08 18.17);
-		--color-brand-100: oklch(0.18 0.08 18.17);
-		--color-brand-200: oklch(0.24 0.1 18.17);
-		--color-brand-300: oklch(0.3 0.12 18.17);
-		--color-brand-400: oklch(0.38 0.14 18.17);
+		--color-brand-50: oklch(0.94 0.08 18.17);
+		--color-brand-100: oklch(0.88 0.1 18.17);
+		--color-brand-200: oklch(0.78 0.12 18.17);
+		--color-brand-300: oklch(0.66 0.14 18.17);
+		--color-brand-400: oklch(0.56 0.15 18.17);
 		--color-brand-500: oklch(0.4562 0.1556 18.17);
-		--color-brand-600: oklch(0.56 0.15 18.17);
-		--color-brand-700: oklch(0.66 0.14 18.17);
-		--color-brand-800: oklch(0.78 0.12 18.17);
-		--color-brand-900: oklch(0.88 0.1 18.17);
-		--color-brand-950: oklch(0.94 0.08 18.17);
+		--color-brand-600: oklch(0.38 0.14 18.17);
+		--color-brand-700: oklch(0.3 0.12 18.17);
+		--color-brand-800: oklch(0.24 0.1 18.17);
+		--color-brand-900: oklch(0.18 0.08 18.17);
+		--color-brand-950: oklch(0.18 0.08 18.17);
 		--color-brand: var(--color-brand-500);
 
 		--color-success-50: theme(colors.lime.950);
@@ -170,21 +179,30 @@ html[data-theme="light"] {
 		--twc-surface-1: var(--color-base-50);
 		--twc-surface-2: var(--color-base-100);
 		--twc-surface-3: var(--color-base-200);
+		--twc-border-1: color-mix(in oklab, var(--twc-text) 18%, var(--twc-surface-1));
+		--twc-border-2: color-mix(in oklab, var(--twc-text) 16%, var(--twc-surface-2));
+		--twc-border-3: color-mix(in oklab, var(--twc-text) 14%, var(--twc-surface-3));
+		--twc-focus-ring: var(--color-brand-300);
+		--twc-focus-halo: color-mix(in oklab, var(--color-brand-400) 34%, transparent);
+		--twc-chrome-bg: color-mix(in oklab, var(--color-brand-700) 76%, var(--twc-surface-1));
+		--twc-chrome-bg-hover: color-mix(in oklab, var(--color-brand-600) 74%, var(--twc-surface-1));
+		--twc-chrome-fg: var(--color-base-950);
+		--twc-chrome-muted: color-mix(in oklab, var(--color-base-900) 78%, transparent);
 	}
 }
 
 html[data-theme="dark"] {
-	--color-brand-50: oklch(0.18 0.08 18.17);
-	--color-brand-100: oklch(0.18 0.08 18.17);
-	--color-brand-200: oklch(0.24 0.1 18.17);
-	--color-brand-300: oklch(0.3 0.12 18.17);
-	--color-brand-400: oklch(0.38 0.14 18.17);
+	--color-brand-50: oklch(0.94 0.08 18.17);
+	--color-brand-100: oklch(0.88 0.1 18.17);
+	--color-brand-200: oklch(0.78 0.12 18.17);
+	--color-brand-300: oklch(0.66 0.14 18.17);
+	--color-brand-400: oklch(0.56 0.15 18.17);
 	--color-brand-500: oklch(0.4562 0.1556 18.17);
-	--color-brand-600: oklch(0.56 0.15 18.17);
-	--color-brand-700: oklch(0.66 0.14 18.17);
-	--color-brand-800: oklch(0.78 0.12 18.17);
-	--color-brand-900: oklch(0.88 0.1 18.17);
-	--color-brand-950: oklch(0.94 0.08 18.17);
+	--color-brand-600: oklch(0.38 0.14 18.17);
+	--color-brand-700: oklch(0.3 0.12 18.17);
+	--color-brand-800: oklch(0.24 0.1 18.17);
+	--color-brand-900: oklch(0.18 0.08 18.17);
+	--color-brand-950: oklch(0.18 0.08 18.17);
 	--color-brand: var(--color-brand-500);
 
 	--color-success-50: theme(colors.lime.950);
@@ -257,4 +275,13 @@ html[data-theme="dark"] {
 	--twc-surface-1: var(--color-base-50);
 	--twc-surface-2: var(--color-base-100);
 	--twc-surface-3: var(--color-base-200);
+	--twc-border-1: color-mix(in oklab, var(--twc-text) 18%, var(--twc-surface-1));
+	--twc-border-2: color-mix(in oklab, var(--twc-text) 16%, var(--twc-surface-2));
+	--twc-border-3: color-mix(in oklab, var(--twc-text) 14%, var(--twc-surface-3));
+	--twc-focus-ring: var(--color-brand-300);
+	--twc-focus-halo: color-mix(in oklab, var(--color-brand-400) 34%, transparent);
+	--twc-chrome-bg: color-mix(in oklab, var(--color-brand-700) 76%, var(--twc-surface-1));
+	--twc-chrome-bg-hover: color-mix(in oklab, var(--color-brand-600) 74%, var(--twc-surface-1));
+	--twc-chrome-fg: var(--color-base-950);
+	--twc-chrome-muted: color-mix(in oklab, var(--color-base-900) 78%, transparent);
 }

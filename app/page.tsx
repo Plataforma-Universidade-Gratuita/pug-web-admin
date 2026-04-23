@@ -23,25 +23,25 @@ export default function Page() {
 							})}
 						</p>
 					</div>
-					<Sparkles className="text-brand-700 h-6 w-6" />
+					<Sparkles className="text-brand-400 h-6 w-6" />
 				</div>
 
 				<div className="mt-6 flex flex-wrap gap-3">
 					<Link
 						href="/components"
-						className="bg-brand-500 hover:bg-brand-600 br-squircle ty-sm-semibold px-4 py-2 text-neutral-50 no-underline"
+						className="btn-primary focus-ring no-underline"
 					>
 						{t("home.primaryCta", { defaultValue: "Get started" })}
 					</Link>
 					<Link
 						href="/theme"
-						className="surface-2 hover:surface-3 br-squircle ty-sm-semibold border px-4 py-2 no-underline"
+						className="btn-secondary focus-ring no-underline"
 					>
 						{t("home.customizeTheme", { defaultValue: "Customize theme" })}
 					</Link>
 					<Link
 						href="/docs"
-						className="surface-2 hover:surface-3 br-squircle ty-sm-semibold border px-4 py-2 no-underline"
+						className="btn-secondary focus-ring no-underline"
 					>
 						{t("home.viewDocs", { defaultValue: "View docs" })}
 					</Link>
@@ -83,7 +83,7 @@ export default function Page() {
 						className="surface-2 hover:surface-3 br-squircle shadow-weak border-default-2 border p-4 no-underline"
 					>
 						<div className="flex items-start gap-3">
-							<Icon className="text-brand-700 h-5 w-5" />
+							<Icon className="text-brand-400 h-5 w-5" />
 							<div className="min-w-0">
 								<h3 className="ty-body-semibold truncate">{title}</h3>
 								<p className="ty-sm mt-1">{desc}</p>

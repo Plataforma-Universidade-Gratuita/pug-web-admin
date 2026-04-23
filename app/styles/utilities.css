@@ -13,15 +13,15 @@
 }
 
 @utility border-default-1 {
-	border-color: var(--twc-surface-1);
+	border-color: var(--twc-border-1);
 }
 
 @utility border-default-2 {
-	border-color: var(--twc-surface-2);
+	border-color: var(--twc-border-2);
 }
 
 @utility border-default-3 {
-	border-color: var(--twc-surface-3);
+	border-color: var(--twc-border-3);
 }
 
 @utility br-square {
@@ -53,8 +53,8 @@
 
 	&:focus-visible {
 		box-shadow:
-			0 0 0 1px var(--color-brand-400),
-			0 0 0 4px color-mix(in oklab, var(--color-brand-100) 70%, transparent);
+			0 0 0 1px var(--twc-focus-ring),
+			0 0 0 4px var(--twc-focus-halo);
 	}
 }
 
@@ -194,21 +194,21 @@
 
 @utility ty-body {
 	font-size: 1rem;
-	line-height: 1em;
+	line-height: 1.55em;
 	font-weight: 400;
 	color: var(--twc-muted);
 }
 
 @utility ty-body-semibold {
 	font-size: 1rem;
-	line-height: 1.1em;
+	line-height: 1.45em;
 	font-weight: 600;
 	color: var(--twc-text);
 }
 
 @utility ty-body-bold {
 	font-size: 1rem;
-	line-height: 1.1em;
+	line-height: 1.45em;
 	font-weight: 700;
 	color: var(--twc-text);
 }
@@ -235,8 +235,8 @@
 }
 
 @utility ty-title {
-	font-size: 1.125rem;
-	line-height: 1.35em;
+	font-size: 1.25rem;
+	line-height: 1.3em;
 	font-weight: 600;
 	color: var(--twc-text);
 }
@@ -249,16 +249,20 @@
 }
 
 @utility ty-header {
-	font-size: 1rem;
-	line-height: 1.3em;
+	font-size: 1.125rem;
+	line-height: 1.35em;
 	font-weight: 600;
 	color: var(--twc-text);
 }
 
 @utility ty-helper {
-	font-size: 1rem;
-	line-height: 1.4em;
+	font-size: 0.95rem;
+	line-height: 1.55em;
 	font-weight: 400;
+	color: var(--twc-muted);
+}
+
+@utility ty-muted {
 	color: var(--twc-muted);
 }
 

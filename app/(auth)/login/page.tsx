@@ -54,24 +54,61 @@ export default function Page() {
 
 	return (
 		<section className="br-squircle border-default-2 surface-2 shadow-normal relative isolate overflow-hidden border">
-			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(180,45,34,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(180,45,34,0.12),transparent_24%)]" />
+			<div
+				className="pointer-events-none absolute inset-0"
+				style={{
+					background:
+						"radial-gradient(circle at top left, color-mix(in oklab, var(--color-brand-400) 20%, transparent), transparent 28%), radial-gradient(circle at bottom right, color-mix(in oklab, var(--color-brand-500) 14%, transparent), transparent 24%)",
+				}}
+			/>
 
 			<div className="grid min-h-[calc(100dvh-8rem)] gap-8 p-4 sm:p-6 lg:grid-cols-[1.15fr_0.85fr] lg:p-8">
-				<div className="flex flex-col justify-between gap-8 rounded-[calc(var(--twc-radius-squircle)+0.25rem)] border border-white/10 bg-[linear-gradient(140deg,rgba(18,18,18,0.92),rgba(59,19,15,0.88))] p-6 text-neutral-50 shadow-lg sm:p-8">
+				<div
+					className="flex flex-col justify-between gap-8 rounded-[calc(var(--twc-radius-squircle)+0.25rem)] border p-6 shadow-lg sm:p-8"
+					style={{
+						borderColor:
+							"color-mix(in oklab, var(--color-base-50) 10%, transparent)",
+						background:
+							"linear-gradient(140deg, color-mix(in oklab, var(--twc-surface-1) 74%, var(--color-brand-900)), color-mix(in oklab, var(--twc-surface-1) 78%, var(--color-brand-700)))",
+						color: "var(--color-base-50)",
+					}}
+				>
 					<div className="space-y-5">
-						<div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-sm font-medium text-white/80">
+						<div
+							className="inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium"
+							style={{
+								borderColor:
+									"color-mix(in oklab, var(--color-base-50) 14%, transparent)",
+								backgroundColor:
+									"color-mix(in oklab, var(--color-base-50) 8%, transparent)",
+								color:
+									"color-mix(in oklab, var(--color-base-50) 80%, transparent)",
+							}}
+						>
 							<ShieldCheck className="h-4 w-4" />
 							Admin access
 						</div>
 
 						<div className="space-y-3">
-							<p className="text-sm font-medium tracking-[0.28em] text-white/55 uppercase">
+							<p
+								className="text-sm font-medium tracking-[0.28em] uppercase"
+								style={{
+									color:
+										"color-mix(in oklab, var(--color-base-50) 56%, transparent)",
+								}}
+							>
 								PUG Web Admin
 							</p>
 							<h1 className="max-w-md text-4xl leading-tight font-semibold text-balance sm:text-5xl">
 								Sign in to manage sessions, people, and project data.
 							</h1>
-							<p className="max-w-xl text-base leading-7 text-white/72">
+							<p
+								className="max-w-xl text-base leading-7"
+								style={{
+									color:
+										"color-mix(in oklab, var(--color-base-50) 72%, transparent)",
+								}}
+							>
 								Use an administrator account. The session cookie flow is handled
 								after authentication, so you only need to sign in once here.
 							</p>
@@ -86,7 +123,15 @@ export default function Page() {
 						].map(item => (
 							<div
 								key={item}
-								className="rounded-2xl border border-white/12 bg-white/7 p-4 text-sm leading-6 text-white/75 backdrop-blur-sm"
+								className="rounded-2xl border p-4 text-sm leading-6 backdrop-blur-sm"
+								style={{
+									borderColor:
+										"color-mix(in oklab, var(--color-base-50) 12%, transparent)",
+									backgroundColor:
+										"color-mix(in oklab, var(--color-base-50) 7%, transparent)",
+									color:
+										"color-mix(in oklab, var(--color-base-50) 74%, transparent)",
+								}}
 							>
 								{item}
 							</div>
@@ -123,7 +168,7 @@ export default function Page() {
 									required
 									value={form.email}
 									onChange={event => updateField("email", event.target.value)}
-									className="border-default-2 w-full rounded-2xl border bg-transparent px-4 py-3 text-base text-[color:var(--twc-text)] transition outline-none focus:border-[color:var(--color-brand-400)] focus:ring-2 focus:ring-[color:var(--color-brand-100)]"
+									className="field-base focus-ring w-full"
 									placeholder="admin@pug.edu.br"
 								/>
 							</div>
@@ -135,7 +180,7 @@ export default function Page() {
 								>
 									Password
 								</label>
-								<div className="border-default-2 flex items-center rounded-2xl border focus-within:border-[color:var(--color-brand-400)] focus-within:ring-2 focus-within:ring-[color:var(--color-brand-100)]">
+								<div className="border-default-2 focus-ring flex items-center rounded-2xl border transition-colors">
 									<input
 										id="password"
 										type={showPassword ? "text" : "password"}
@@ -151,7 +196,7 @@ export default function Page() {
 									<button
 										type="button"
 										onClick={() => setShowPassword(current => !current)}
-										className="mr-2 inline-flex h-10 w-10 items-center justify-center rounded-full text-[color:var(--twc-muted)] transition hover:bg-black/5 hover:text-[color:var(--twc-text)]"
+										className="mr-2 inline-flex h-10 w-10 items-center justify-center rounded-full text-[color:var(--twc-muted)] transition hover:bg-[color:var(--twc-surface-2)] hover:text-[color:var(--twc-text)]"
 										aria-label={
 											showPassword ? "Hide password" : "Show password"
 										}
@@ -174,7 +219,7 @@ export default function Page() {
 							<button
 								type="submit"
 								disabled={isPending}
-								className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[color:var(--color-brand-500)] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[color:var(--color-brand-600)] disabled:cursor-not-allowed disabled:opacity-70"
+								className="btn-primary focus-ring inline-flex w-full items-center justify-center gap-2"
 							>
 								{isPending ? "Signing in..." : "Continue"}
 								<ArrowRight className="h-4 w-4" />
