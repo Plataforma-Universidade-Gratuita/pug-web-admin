@@ -1,5 +1,0 @@
-PROJECT CONTEXT DUMP
-Base: project_context_.-contexts
-Root Path: /c/Users/e-mateusf/Documents/college/PUG portfolio/pug-web-admin/contexts
-================================================================================
-
