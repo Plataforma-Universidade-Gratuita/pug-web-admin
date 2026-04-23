@@ -29,11 +29,42 @@ export default async function RootLayout({
 	return (
 		<html
 			lang={initialLang}
+			className={
+				initialTheme === "dark"
+					? "dark"
+					: initialTheme === "light"
+						? "light"
+						: undefined
+			}
 			data-theme={initialTheme !== "system" ? initialTheme : undefined}
 			style={{
 				colorScheme: initialTheme === "system" ? undefined : initialTheme,
 			}}
+			suppressHydrationWarning
 		>
+			<head>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
+							(function () {
+								var match = document.cookie.match(/(?:^|; )theme=([^;]+)/);
+								var mode = match ? decodeURIComponent(match[1]) : "system";
+								var resolved = mode === "system"
+									? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+									: mode;
+								document.documentElement.classList.remove("light", "dark");
+								document.documentElement.classList.add(resolved);
+								if (mode === "system") {
+									document.documentElement.removeAttribute("data-theme");
+								} else {
+									document.documentElement.setAttribute("data-theme", mode);
+								}
+								document.documentElement.style.colorScheme = mode === "system" ? resolved : mode;
+							})();
+						`,
+					}}
+				/>
+			</head>
 			<body className="surface-1 w-full antialiased">
 				<Providers
 					initialLangCookieValue={initialLangCookieValue}

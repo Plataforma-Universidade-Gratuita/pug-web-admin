@@ -23,7 +23,7 @@ export default function Page() {
 							})}
 						</p>
 					</div>
-					<Sparkles className="text-brand-400 h-6 w-6" />
+					<Sparkles className="text-brand h-6 w-6" />
 				</div>
 
 				<div className="mt-6 flex flex-wrap gap-3">
@@ -83,7 +83,7 @@ export default function Page() {
 						className="surface-2 hover:surface-3 br-squircle shadow-weak border-default-2 border p-4 no-underline"
 					>
 						<div className="flex items-start gap-3">
-							<Icon className="text-brand-400 h-5 w-5" />
+							<Icon className="text-brand h-5 w-5" />
 							<div className="min-w-0">
 								<h3 className="ty-body-semibold truncate">{title}</h3>
 								<p className="ty-sm mt-1">{desc}</p>

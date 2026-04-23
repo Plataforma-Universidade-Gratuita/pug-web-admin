@@ -1,6 +1,6 @@
 :where(*, *::before, *::after) {
 	scrollbar-width: thin;
-	scrollbar-color: var(--color-brand-700) transparent;
+	scrollbar-color: var(--color-base-700) transparent;
 }
 
 ::-webkit-scrollbar {
@@ -13,7 +13,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-	background: color-mix(in oklab, var(--color-brand-700) 70%, transparent);
+	background: color-mix(in oklab, var(--color-base-800) 72%, transparent);
 	border: 3px solid transparent;
 	border-radius: 999px;
 	background-clip: padding-box;
@@ -61,5 +61,5 @@
 }
 
 *:hover::-webkit-scrollbar-thumb {
-	background: color-mix(in oklab, var(--twc-surface-1) 90%, transparent);
+	background: color-mix(in oklab, var(--color-base-900) 78%, transparent);
 }

@@ -65,21 +65,23 @@ export default function Settings({ compact = false }: Props) {
 						"group relative flex h-10 w-full items-center",
 						"mb-2 gap-3 rounded-2xl px-[0.725rem]",
 						"surface-2 hover:surface-3 shadow-weak no-underline transition-colors",
-						open ? "bg-brand-500/12!" : "",
+						open
+							? "bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)]"
+							: "",
 					].join(" ")}
 					aria-label="Open settings"
 				>
 					<Gear
 						size={20}
 						strokeWidth={2}
-						className={`shrink-0 ${open ? "fill-brand-400/18 stroke-brand-400" : "text-base-800"}`}
+						className={`shrink-0 ${open ? "fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)] stroke-brand" : "text-base-800"}`}
 					/>
 					{!compact && (
 						<span
 							className={[
 								"ty-sm truncate",
 								"data-[collapsed=false]:inline",
-								open ? "text-brand-400 font-semibold" : "",
+								open ? "text-brand font-semibold" : "",
 							].join(" ")}
 						>
 							{t("Navbar.settings.title")}

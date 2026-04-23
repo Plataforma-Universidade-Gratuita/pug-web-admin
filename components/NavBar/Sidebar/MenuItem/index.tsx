@@ -29,7 +29,9 @@ export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
 					"group relative flex h-10 w-full items-center",
 					"gap-2 rounded-2xl px-[0.725rem]",
 					"surface-2 hover:surface-3 shadow-weak no-underline transition-colors",
-					active ? "bg-brand-500/12! cursor-default" : "",
+					active
+						? "bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)] cursor-default"
+						: "",
 				].join(" ")}
 				onClick={e => {
 					if (active) {
@@ -41,14 +43,14 @@ export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
 				<Icon
 					size={20}
 					strokeWidth={2}
-					className={`shrink-0 ${active ? "fill-brand-400/18 stroke-brand-400" : "text-base-800"}`}
+					className={`shrink-0 ${active ? "fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)] stroke-brand" : "text-base-800"}`}
 				/>
 				{!collapsed && (
 					<span
 						className={[
 							"ty-sm truncate",
 							"data-[collapsed=false]:inline",
-							active ? "text-brand-400 font-semibold" : "",
+							active ? "text-brand font-semibold" : "",
 						].join(" ")}
 					>
 						{t(label)}

@@ -65,18 +65,20 @@ export function MenuGroup({
 			className={[
 				"group relative flex h-10 w-full items-center gap-2 rounded-2xl px-[0.725rem]",
 				"surface-2 hover:surface-3 shadow-weak cursor-pointer transition-colors",
-				hasActiveChild ? "bg-brand-500/10 hover:bg-brand-500/10" : "",
+				hasActiveChild
+					? "bg-[color:color-mix(in_oklab,var(--color-brand)_10%,transparent)] hover:bg-[color:color-mix(in_oklab,var(--color-brand)_10%,transparent)]"
+					: "",
 			].join(" ")}
 		>
 			<Icon
 				size={20}
 				strokeWidth={2}
-				className={`shrink-0 ${hasActiveChild ? "fill-brand-400/18 stroke-brand-400" : "text-base-800"}`}
+				className={`shrink-0 ${hasActiveChild ? "fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)] stroke-brand" : "text-base-800"}`}
 			/>
 			{!collapsed && (
 				<>
 					<span
-						className={`ty-sm truncate ${hasActiveChild ? "text-brand-400 font-semibold" : ""}`}
+						className={`ty-sm truncate ${hasActiveChild ? "text-brand font-semibold" : ""}`}
 					>
 						{t(label)}
 					</span>
@@ -102,7 +104,9 @@ export function MenuGroup({
 							className={[
 								"group relative flex h-10 w-full items-center gap-2 rounded-2xl px-[0.725rem]",
 								"surface-2 hover:surface-3 shadow-weak no-underline transition-colors",
-								active ? "bg-brand-500/12! cursor-default!" : "",
+								active
+									? "bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)] cursor-default!"
+									: "",
 							].join(" ")}
 							onClick={e => {
 								setManualOpen(false);
@@ -115,10 +119,10 @@ export function MenuGroup({
 							<Icon
 								size={18}
 								strokeWidth={2}
-								className={`shrink-0 ${active ? "fill-brand-400/18 stroke-brand-400" : ""}`}
+								className={`shrink-0 ${active ? "fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)] stroke-brand" : ""}`}
 							/>
 							<span
-								className={`ty-sm truncate ${active ? "text-brand-400 font-semibold" : ""}`}
+								className={`ty-sm truncate ${active ? "text-brand font-semibold" : ""}`}
 							>
 								{t(label)}
 							</span>
@@ -180,7 +184,7 @@ export function MenuGroup({
 												"ty-sm br-squircle shadow-weak w-full px-3 py-2 text-left",
 												"surface-2 hover:surface-3 flex items-center gap-2 no-underline",
 												active
-													? "bg-brand-500/12! text-brand-400 ty-sm-semibold cursor-default!"
+													? "bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)] text-brand ty-sm-semibold cursor-default!"
 													: "",
 											].join(" ")}
 											onClick={e => {
@@ -194,7 +198,7 @@ export function MenuGroup({
 											<Icon
 												size={16}
 												strokeWidth={2}
-												className={`shrink-0 ${active ? "fill-brand-400/18 stroke-brand-400" : ""}`}
+												className={`shrink-0 ${active ? "fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)] stroke-brand" : ""}`}
 											/>
 											<span className="truncate">{t(label)}</span>
 										</Link>

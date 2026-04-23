@@ -58,7 +58,7 @@ export default function Page() {
 				className="pointer-events-none absolute inset-0"
 				style={{
 					background:
-						"radial-gradient(circle at top left, color-mix(in oklab, var(--color-brand-400) 20%, transparent), transparent 28%), radial-gradient(circle at bottom right, color-mix(in oklab, var(--color-brand-500) 14%, transparent), transparent 24%)",
+						"radial-gradient(circle at top left, color-mix(in oklab, var(--color-brand) 20%, transparent), transparent 28%), radial-gradient(circle at bottom right, color-mix(in oklab, var(--color-brand) 14%, transparent), transparent 24%)",
 				}}
 			/>
 
@@ -69,7 +69,7 @@ export default function Page() {
 						borderColor:
 							"color-mix(in oklab, var(--color-base-50) 10%, transparent)",
 						background:
-							"linear-gradient(140deg, color-mix(in oklab, var(--twc-surface-1) 74%, var(--color-brand-900)), color-mix(in oklab, var(--twc-surface-1) 78%, var(--color-brand-700)))",
+							"linear-gradient(140deg, color-mix(in oklab, var(--twc-surface-1) 74%, var(--color-brand)), color-mix(in oklab, var(--twc-surface-1) 82%, black))",
 						color: "var(--color-base-50)",
 					}}
 				>
