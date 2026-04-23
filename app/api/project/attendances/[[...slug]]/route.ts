@@ -23,13 +23,13 @@ export async function GET(
 		const projectId = searchParams.get("projectId") ?? undefined;
 		const studentId = searchParams.get("studentId") ?? undefined;
 		return routeWithAuthRetry(
-			(token) => attendances.list(token, projectId, studentId),
+			token => attendances.list(token, projectId, studentId),
 			z.array(AttendanceResponseSchema),
 		);
 	}
 	if (slug.length === 1) {
 		return routeWithAuthRetry(
-			(token) => attendances.get(slug[0]!, token),
+			token => attendances.get(slug[0]!, token),
 			AttendanceResponseSchema,
 		);
 	}
@@ -39,7 +39,7 @@ export async function GET(
 export async function POST(request: Request) {
 	const body = await parseRouteBody(request, AttendanceCreateRequestSchema);
 	return routeWithAuthRetry(
-		(token) => attendances.create(body, token),
+		token => attendances.create(body, token),
 		AttendanceResponseSchema,
 	);
 }
@@ -52,7 +52,7 @@ export async function PATCH(
 	if (slug.length === 2 && slug[1] === "validate") {
 		const body = await parseRouteBody(request, AttendanceValidateRequestSchema);
 		return routeWithAuthRetry(
-			(token) => attendances.validate(slug[0]!, body, token),
+			token => attendances.validate(slug[0]!, body, token),
 			AttendanceResponseSchema,
 		);
 	}
@@ -65,5 +65,5 @@ export async function DELETE(
 ) {
 	const { slug = [] } = await params;
 	if (slug.length !== 1) return routeError(new Error("Not found"));
-	return routeVoidWithAuthRetry((token) => attendances.remove(slug[0]!, token));
+	return routeVoidWithAuthRetry(token => attendances.remove(slug[0]!, token));
 }

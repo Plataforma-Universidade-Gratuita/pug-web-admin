@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 import {
-  LoginRequestSchema,
-  LogoutRequestSchema,
-  RefreshRequestSchema,
-  TokenResponseSchema,
+	LoginRequestSchema,
+	LogoutRequestSchema,
+	RefreshRequestSchema,
+	TokenResponseSchema,
 } from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────

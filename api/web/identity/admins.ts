@@ -5,9 +5,12 @@ import {
 	AdminResponseSchema,
 	AdminUpdateRequestSchema,
 } from "@/schemas/api";
+import type {
+	AdminCreateRequest,
+	AdminResponse,
+	AdminUpdateRequest,
+} from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
-
-import type { AdminCreateRequest, AdminResponse, AdminUpdateRequest } from "@/types/api";
 
 const BASE = "/api/identity/admins";
 
@@ -39,7 +42,10 @@ export async function create(body: AdminCreateRequest): Promise<AdminResponse> {
 	});
 }
 
-export async function update(id: string, body: AdminUpdateRequest): Promise<AdminResponse> {
+export async function update(
+	id: string,
+	body: AdminUpdateRequest,
+): Promise<AdminResponse> {
 	return webFetch(`${BASE}/${id}`, AdminResponseSchema, {
 		method: "PUT",
 		body: JSON.stringify(AdminUpdateRequestSchema.parse(body)),

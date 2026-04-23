@@ -60,7 +60,9 @@ export async function POST(
 		}
 	}
 	if (slug.length === 1 && slug[0] === "logout-all") {
-		const response = await routeVoidWithAuthRetry((token) => auth.logoutAll(token));
+		const response = await routeVoidWithAuthRetry(token =>
+			auth.logoutAll(token),
+		);
 		return clearSessionCookies(response);
 	}
 	return routeError(new Error("Not found"));

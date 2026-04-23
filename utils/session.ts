@@ -1,16 +1,14 @@
-import { z } from "zod";
-
 import { API_BASE_URL, JSON_HEADERS } from "@/constants/api";
 import {
 	RefreshRequestSchema,
 	TokenResponseSchema,
 	createApiSuccessEnvelopeSchema,
 } from "@/schemas/api";
+import type { TokenResponse } from "@/types/api";
 import { validateAdminToken } from "@/utils/auth";
 
-import type { TokenResponse } from "@/types/api";
-
-const RefreshEnvelopeSchema = createApiSuccessEnvelopeSchema(TokenResponseSchema);
+const RefreshEnvelopeSchema =
+	createApiSuccessEnvelopeSchema(TokenResponseSchema);
 
 export async function refreshAdminSession(
 	refreshToken: string,

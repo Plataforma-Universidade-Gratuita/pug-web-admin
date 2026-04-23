@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import {
-  EnrollmentCreateRequestSchema,
-  EnrollmentResponseSchema,
-  EnrollmentStatusEnum,
+	EnrollmentCreateRequestSchema,
+	EnrollmentResponseSchema,
+	EnrollmentStatusEnum,
 } from "@/schemas/api";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────
@@ -16,4 +16,6 @@ export type EnrollmentResponse = z.infer<typeof EnrollmentResponseSchema>;
 
 // ─── Requests ────────────────────────────────────────────────────────────────
 
-export type EnrollmentCreateRequest = z.infer<typeof EnrollmentCreateRequestSchema>;
+export type EnrollmentCreateRequest = z.infer<
+	typeof EnrollmentCreateRequestSchema
+>;

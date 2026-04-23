@@ -24,4 +24,3 @@ export * from "./partner/staff";
 export * from "./project/project";
 export * from "./project/enrollment";
 export * from "./project/attendance";
-

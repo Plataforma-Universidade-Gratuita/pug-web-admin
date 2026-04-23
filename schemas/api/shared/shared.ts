@@ -9,14 +9,13 @@ export const AccountTypeEnum = z.enum(["ADMIN", "PARTNER", "STUDENT"]);
 // ─── Responses ───────────────────────────────────────────────────────────────
 
 export const AuditInfoResponseSchema = z.object({
-  createdAt: z.string(),
-  createdAtFormatted: z.string(),
-  updatedAt: z.string(),
-  updatedAtFormatted: z.string(),
+	createdAt: z.string(),
+	createdAtFormatted: z.string(),
+	updatedAt: z.string(),
+	updatedAtFormatted: z.string(),
 });
 
 export const CampusResponseSchema = z.object({
-  campus: CampiEnum,
-  campusFormatted: z.string(),
+	campus: CampiEnum,
+	campusFormatted: z.string(),
 });
-

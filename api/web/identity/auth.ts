@@ -1,7 +1,11 @@
 import { TokenResponseSchema } from "@/schemas/api";
+import type {
+	LoginRequest,
+	LogoutRequest,
+	RefreshRequest,
+	TokenResponse,
+} from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
-
-import type { LoginRequest, LogoutRequest, RefreshRequest, TokenResponse } from "@/types/api";
 
 const BASE = "/api/auth";
 

@@ -1,5 +1,6 @@
-import { z } from "zod";
 import { NextResponse } from "next/server";
+
+import { z } from "zod";
 
 import { REFRESH_TOKEN_COOKIE } from "@/constants/auth";
 import { ApiError } from "@/utils/api";

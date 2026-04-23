@@ -5,27 +5,26 @@ import { AuditInfoResponseSchema } from "@/schemas/api";
 // ─── Responses ───────────────────────────────────────────────────────────────
 
 export const EntityResponseSchema = z.object({
-  id: z.string(),
-  cnpj: z.string(),
-  cnpjFormatted: z.string(),
-  name: z.string(),
-  address: z.string(),
-  cityId: z.string(),
-  auditInfo: AuditInfoResponseSchema,
+	id: z.string(),
+	cnpj: z.string(),
+	cnpjFormatted: z.string(),
+	name: z.string(),
+	address: z.string(),
+	cityId: z.string(),
+	auditInfo: AuditInfoResponseSchema,
 });
 
 // ─── Requests ────────────────────────────────────────────────────────────────
 
 export const EntityCreateRequestSchema = z.object({
-  cnpj: z.string(),
-  name: z.string(),
-  cityId: z.string(),
-  address: z.string().nullable().optional(),
+	cnpj: z.string(),
+	name: z.string(),
+	cityId: z.string(),
+	address: z.string().nullable().optional(),
 });
 
 export const EntityUpdateRequestSchema = z.object({
-  name: z.string().nullable().optional(),
-  cityId: z.string().nullable().optional(),
-  address: z.string().nullable().optional(),
+	name: z.string().nullable().optional(),
+	cityId: z.string().nullable().optional(),
+	address: z.string().nullable().optional(),
 });
-

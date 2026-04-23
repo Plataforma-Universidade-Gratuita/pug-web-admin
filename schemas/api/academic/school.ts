@@ -5,18 +5,17 @@ import { AuditInfoResponseSchema } from "@/schemas/api";
 // ─── Responses ───────────────────────────────────────────────────────────────
 
 export const SchoolResponseSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  auditInfo: AuditInfoResponseSchema,
+	id: z.string(),
+	name: z.string(),
+	auditInfo: AuditInfoResponseSchema,
 });
 
 // ─── Requests ────────────────────────────────────────────────────────────────
 
 export const SchoolCreateRequestSchema = z.object({
-  name: z.string(),
+	name: z.string(),
 });
 
 export const SchoolUpdateRequestSchema = z.object({
-  name: z.string().nullable().optional(),
+	name: z.string().nullable().optional(),
 });
-

@@ -1,15 +1,13 @@
 import { z } from "zod";
 
-import {
-    AuditInfoResponseSchema,
-} from "@/schemas/api";
+import { AuditInfoResponseSchema } from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 
 export const UserResponseSchema = z.object({
-    id: z.string(),
-    cpf: z.string(),
-    cpfFormatted: z.string(),
-    name: z.string(),
-    auditInfo: AuditInfoResponseSchema,
+	id: z.string(),
+	cpf: z.string(),
+	cpfFormatted: z.string(),
+	name: z.string(),
+	auditInfo: AuditInfoResponseSchema,
 });

@@ -1,8 +1,6 @@
 import { z } from "zod";
 
-import {
-  AccountResponseSchema,
-} from "@/schemas/api";
+import { AccountResponseSchema } from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

@@ -104,7 +104,7 @@ export function MenuGroup({
 								"surface-2 hover:surface-3 shadow-weak no-underline",
 								active ? "bg-brand/15! cursor-default!" : "",
 							].join(" ")}
-							onClick={(e) => {
+							onClick={e => {
 								setManualOpen(false);
 								if (active) {
 									e.preventDefault();
@@ -179,15 +179,17 @@ export function MenuGroup({
 											className={[
 												"ty-sm br-squircle shadow-weak w-full px-3 py-2 text-left",
 												"surface-2 hover:surface-3 flex items-center gap-2 no-underline",
-												active ? "bg-brand-500/15! ty-sm-semibold cursor-default!" : "",
+												active
+													? "bg-brand-500/15! ty-sm-semibold cursor-default!"
+													: "",
 											].join(" ")}
-											onClick={(e) => {
+											onClick={e => {
 												setManualOpen(false);
 												if (active) {
 													e.preventDefault();
 													return;
 												}
-											}}	
+											}}
 										>
 											<Icon
 												size={16}

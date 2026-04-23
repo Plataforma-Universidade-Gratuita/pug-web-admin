@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import {
-  StudentCreateRequestSchema,
-  StudentResponseSchema,
-  StudentUpdateRequestSchema,
+	StudentCreateRequestSchema,
+	StudentResponseSchema,
+	StudentUpdateRequestSchema,
 } from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────

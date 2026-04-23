@@ -24,25 +24,25 @@ export async function GET(
 		const q = searchParams.get("q") ?? undefined;
 		const cityId = searchParams.get("cityId") ?? undefined;
 		return routeWithAuthRetry(
-			(token) => entities.list(token, q, cityId),
+			token => entities.list(token, q, cityId),
 			z.array(EntityResponseSchema),
 		);
 	}
 	if (slug.length === 1 && slug[0] === "cities") {
 		return routeWithAuthRetry(
-			(token) => entities.listCities(token),
+			token => entities.listCities(token),
 			z.array(CityResponseSchema),
 		);
 	}
 	if (slug.length === 2 && slug[0] === "by-cnpj") {
 		return routeWithAuthRetry(
-			(token) => entities.getByCnpj(slug[1]!, token),
+			token => entities.getByCnpj(slug[1]!, token),
 			EntityResponseSchema,
 		);
 	}
 	if (slug.length === 1) {
 		return routeWithAuthRetry(
-			(token) => entities.get(slug[0]!, token),
+			token => entities.get(slug[0]!, token),
 			EntityResponseSchema,
 		);
 	}
@@ -52,7 +52,7 @@ export async function GET(
 export async function POST(request: Request) {
 	const body = await parseRouteBody(request, EntityCreateRequestSchema);
 	return routeWithAuthRetry(
-		(token) => entities.create(body, token),
+		token => entities.create(body, token),
 		EntityResponseSchema,
 	);
 }
@@ -65,7 +65,7 @@ export async function PUT(
 	if (slug.length !== 1) return routeError(new Error("Not found"));
 	const body = await parseRouteBody(request, EntityUpdateRequestSchema);
 	return routeWithAuthRetry(
-		(token) => entities.update(slug[0]!, body, token),
+		token => entities.update(slug[0]!, body, token),
 		EntityResponseSchema,
 	);
 }
@@ -76,5 +76,5 @@ export async function DELETE(
 ) {
 	const { slug = [] } = await params;
 	if (slug.length !== 1) return routeError(new Error("Not found"));
-	return routeVoidWithAuthRetry((token) => entities.remove(slug[0]!, token));
+	return routeVoidWithAuthRetry(token => entities.remove(slug[0]!, token));
 }

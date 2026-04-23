@@ -24,4 +24,3 @@ export * as cities from "./geo/cities";
 
 // Client components safe api calls
 export * as web from "./web";
-

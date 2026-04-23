@@ -1,30 +1,33 @@
 import { z } from "zod";
 
-import { CampiEnum, CampusResponseSchema, AccountResponseSchema } from "@/schemas/api";
+import {
+	CampiEnum,
+	CampusResponseSchema,
+	AccountResponseSchema,
+} from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 
 export const AdminResponseSchema = z.object({
-  accountResponse: AccountResponseSchema,
-  campus: CampusResponseSchema,
-  grantedAt: z.string(),
-  grantedAtFormatted: z.string(),
+	accountResponse: AccountResponseSchema,
+	campus: CampusResponseSchema,
+	grantedAt: z.string(),
+	grantedAtFormatted: z.string(),
 });
 
 // ─── Requests ────────────────────────────────────────────────────────────────
 
 export const AdminCreateRequestSchema = z.object({
-  cpf: z.string(),
-  name: z.string(),
-  email: z.string(),
-  password: z.string(),
-  campus: CampiEnum,
+	cpf: z.string(),
+	name: z.string(),
+	email: z.string(),
+	password: z.string(),
+	campus: CampiEnum,
 });
 
 export const AdminUpdateRequestSchema = z.object({
-  name: z.string().nullable().optional(),
-  email: z.string().nullable().optional(),
-  password: z.string().nullable().optional(),
-  campus: CampiEnum.nullable().optional(),
+	name: z.string().nullable().optional(),
+	email: z.string().nullable().optional(),
+	password: z.string().nullable().optional(),
+	campus: CampiEnum.nullable().optional(),
 });
-

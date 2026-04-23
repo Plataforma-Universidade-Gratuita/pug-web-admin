@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import {
-  AdminCreateRequestSchema,
-  AdminResponseSchema,
-  AdminUpdateRequestSchema,
+	AdminCreateRequestSchema,
+	AdminResponseSchema,
+	AdminUpdateRequestSchema,
 } from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────

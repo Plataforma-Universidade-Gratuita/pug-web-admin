@@ -1,9 +1,8 @@
 import { z } from "zod";
 
 import { AccountResponseSchema } from "@/schemas/api";
-import { webFetch } from "@/utils/web-api";
-
 import type { AccountResponse } from "@/types/api";
+import { webFetch } from "@/utils/web-api";
 
 const BASE = "/api/identity/accounts";
 

@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 import {
-  AccountTypeEnum,
-  AuditInfoResponseSchema,
-  CampiEnum,
-  CampusResponseSchema,
+	AccountTypeEnum,
+	AuditInfoResponseSchema,
+	CampiEnum,
+	CampusResponseSchema,
 } from "@/schemas/api";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────

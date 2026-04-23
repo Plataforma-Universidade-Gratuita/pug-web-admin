@@ -21,34 +21,34 @@ export async function GET(
 	if (slug.length === 0) {
 		const q = new URL(request.url).searchParams.get("q") ?? undefined;
 		return routeWithAuthRetry(
-			(token) => staff.list(token, q),
+			token => staff.list(token, q),
 			z.array(StaffResponseSchema),
 		);
 	}
 	if (slug.length === 1 && slug[0] === "me") {
-		return routeWithAuthRetry((token) => staff.getMe(token), StaffResponseSchema);
+		return routeWithAuthRetry(token => staff.getMe(token), StaffResponseSchema);
 	}
 	if (slug.length === 2 && slug[0] === "by-email") {
 		return routeWithAuthRetry(
-			(token) => staff.getByEmail(slug[1]!, token),
+			token => staff.getByEmail(slug[1]!, token),
 			StaffResponseSchema,
 		);
 	}
 	if (slug.length === 2 && slug[0] === "by-cpf") {
 		return routeWithAuthRetry(
-			(token) => staff.listByCpf(slug[1]!, token),
+			token => staff.listByCpf(slug[1]!, token),
 			z.array(StaffResponseSchema),
 		);
 	}
 	if (slug.length === 2 && slug[0] === "by-entity") {
 		return routeWithAuthRetry(
-			(token) => staff.listByEntity(slug[1]!, token),
+			token => staff.listByEntity(slug[1]!, token),
 			z.array(StaffResponseSchema),
 		);
 	}
 	if (slug.length === 1) {
 		return routeWithAuthRetry(
-			(token) => staff.get(slug[0]!, token),
+			token => staff.get(slug[0]!, token),
 			StaffResponseSchema,
 		);
 	}
@@ -58,7 +58,7 @@ export async function GET(
 export async function POST(request: Request) {
 	const body = await parseRouteBody(request, StaffCreateRequestSchema);
 	return routeWithAuthRetry(
-		(token) => staff.create(body, token),
+		token => staff.create(body, token),
 		StaffResponseSchema,
 	);
 }
@@ -71,7 +71,7 @@ export async function PUT(
 	if (slug.length !== 1) return routeError(new Error("Not found"));
 	const body = await parseRouteBody(request, StaffUpdateRequestSchema);
 	return routeWithAuthRetry(
-		(token) => staff.update(slug[0]!, body, token),
+		token => staff.update(slug[0]!, body, token),
 		StaffResponseSchema,
 	);
 }
@@ -82,7 +82,7 @@ export async function PATCH(
 ) {
 	const { slug = [] } = await params;
 	if (slug.length === 2 && slug[1] === "deactivate") {
-		return routeVoidWithAuthRetry((token) => staff.deactivate(slug[0]!, token));
+		return routeVoidWithAuthRetry(token => staff.deactivate(slug[0]!, token));
 	}
 	return routeError(new Error("Not found"));
 }
@@ -93,5 +93,5 @@ export async function DELETE(
 ) {
 	const { slug = [] } = await params;
 	if (slug.length !== 1) return routeError(new Error("Not found"));
-	return routeVoidWithAuthRetry((token) => staff.remove(slug[0]!, token));
+	return routeVoidWithAuthRetry(token => staff.remove(slug[0]!, token));
 }

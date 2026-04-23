@@ -12,22 +12,22 @@ export async function GET(
 	if (slug.length === 0) {
 		const q = new URL(request.url).searchParams.get("q") ?? undefined;
 		return routeWithAuthRetry(
-			(token) => users.list(token, q),
+			token => users.list(token, q),
 			z.array(UserResponseSchema),
 		);
 	}
 	if (slug.length === 1 && slug[0] === "me") {
-		return routeWithAuthRetry((token) => users.getMe(token), UserResponseSchema);
+		return routeWithAuthRetry(token => users.getMe(token), UserResponseSchema);
 	}
 	if (slug.length === 2 && slug[0] === "by-cpf") {
 		return routeWithAuthRetry(
-			(token) => users.getByCpf(slug[1]!, token),
+			token => users.getByCpf(slug[1]!, token),
 			UserResponseSchema,
 		);
 	}
 	if (slug.length === 1) {
 		return routeWithAuthRetry(
-			(token) => users.get(slug[0]!, token),
+			token => users.get(slug[0]!, token),
 			UserResponseSchema,
 		);
 	}

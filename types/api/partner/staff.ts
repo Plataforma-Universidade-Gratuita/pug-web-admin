@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import {
-  StaffCreateRequestSchema,
-  StaffResponseSchema,
-  StaffUpdateRequestSchema,
+	StaffCreateRequestSchema,
+	StaffResponseSchema,
+	StaffUpdateRequestSchema,
 } from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────

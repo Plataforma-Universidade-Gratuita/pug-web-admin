@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 import {
-  ProjectCreateRequestSchema,
-  ProjectResponseSchema,
-  ProjectSchoolRequestSchema,
-  ProjectStatusEnum,
-  ProjectUpdateRequestSchema,
+	ProjectCreateRequestSchema,
+	ProjectResponseSchema,
+	ProjectSchoolRequestSchema,
+	ProjectStatusEnum,
+	ProjectUpdateRequestSchema,
 } from "@/schemas/api";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────

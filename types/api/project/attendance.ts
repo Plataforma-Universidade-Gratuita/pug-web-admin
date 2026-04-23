@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 import {
-  AttendanceCreateRequestSchema,
-  AttendanceResponseSchema,
-  AttendanceStatusEnum,
-  AttendanceValidateRequestSchema,
+	AttendanceCreateRequestSchema,
+	AttendanceResponseSchema,
+	AttendanceStatusEnum,
+	AttendanceValidateRequestSchema,
 } from "@/schemas/api";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────
@@ -17,5 +17,9 @@ export type AttendanceResponse = z.infer<typeof AttendanceResponseSchema>;
 
 // ─── Requests ────────────────────────────────────────────────────────────────
 
-export type AttendanceCreateRequest = z.infer<typeof AttendanceCreateRequestSchema>;
-export type AttendanceValidateRequest = z.infer<typeof AttendanceValidateRequestSchema>;
+export type AttendanceCreateRequest = z.infer<
+	typeof AttendanceCreateRequestSchema
+>;
+export type AttendanceValidateRequest = z.infer<
+	typeof AttendanceValidateRequestSchema
+>;

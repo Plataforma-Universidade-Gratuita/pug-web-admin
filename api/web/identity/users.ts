@@ -1,9 +1,8 @@
 import { z } from "zod";
 
 import { UserResponseSchema } from "@/schemas/api";
-import { webFetch } from "@/utils/web-api";
-
 import type { UserResponse } from "@/types/api";
+import { webFetch } from "@/utils/web-api";
 
 const BASE = "/api/identity/users";
 

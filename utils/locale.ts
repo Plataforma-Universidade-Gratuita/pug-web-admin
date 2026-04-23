@@ -11,7 +11,6 @@ import {
 	LANG_COOKIE_NAME,
 	SUPPORTED_LANGS,
 } from "@/constants/locale";
-
 import type { AppLang } from "@/types/client";
 
 export function isAppLang(x: unknown): x is AppLang {
@@ -49,10 +48,7 @@ export function initI18n(initial: AppLang) {
 	return i18n;
 }
 
-export function applyClientLanguage(
-	lang: AppLang,
-	instance = initI18n(lang),
-) {
+export function applyClientLanguage(lang: AppLang, instance = initI18n(lang)) {
 	document.cookie = `${LANG_COOKIE_NAME}=${lang}; Path=/; Max-Age=${LANG_COOKIE_MAX_AGE}; SameSite=Lax`;
 	void instance.changeLanguage(lang);
 	document.documentElement.lang = lang;

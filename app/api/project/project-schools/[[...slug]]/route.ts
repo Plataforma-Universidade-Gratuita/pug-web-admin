@@ -20,13 +20,13 @@ export async function GET(
 	const { slug = [] } = await params;
 	if (slug.length === 3 && slug[0] === "projects" && slug[2] === "schools") {
 		return routeWithAuthRetry(
-			(token) => projectSchools.listSchoolsByProject(slug[1]!, token),
+			token => projectSchools.listSchoolsByProject(slug[1]!, token),
 			z.array(SchoolResponseSchema),
 		);
 	}
 	if (slug.length === 3 && slug[0] === "schools" && slug[2] === "projects") {
 		return routeWithAuthRetry(
-			(token) => projectSchools.listProjectsBySchool(slug[1]!, token),
+			token => projectSchools.listProjectsBySchool(slug[1]!, token),
 			z.array(ProjectResponseSchema),
 		);
 	}
@@ -36,7 +36,7 @@ export async function GET(
 export async function POST(request: Request) {
 	const body = await parseRouteBody(request, ProjectSchoolRequestSchema);
 	return routeWithAuthRetry(
-		(token) => projectSchools.createAssociations(body, token),
+		token => projectSchools.createAssociations(body, token),
 		z.array(SchoolResponseSchema),
 	);
 }
@@ -47,17 +47,17 @@ export async function DELETE(
 ) {
 	const { slug = [] } = await params;
 	if (slug.length === 4 && slug[0] === "projects" && slug[2] === "schools") {
-		return routeVoidWithAuthRetry((token) =>
+		return routeVoidWithAuthRetry(token =>
 			projectSchools.deleteAssociation(slug[1]!, slug[3]!, token),
 		);
 	}
 	if (slug.length === 2 && slug[0] === "projects") {
-		return routeVoidWithAuthRetry((token) =>
+		return routeVoidWithAuthRetry(token =>
 			projectSchools.deleteAllByProject(slug[1]!, token),
 		);
 	}
 	if (slug.length === 2 && slug[0] === "schools") {
-		return routeVoidWithAuthRetry((token) =>
+		return routeVoidWithAuthRetry(token =>
 			projectSchools.deleteAllBySchool(slug[1]!, token),
 		);
 	}

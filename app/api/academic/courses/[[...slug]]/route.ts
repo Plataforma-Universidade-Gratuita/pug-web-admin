@@ -23,13 +23,13 @@ export async function GET(
 		const q = searchParams.get("q") ?? undefined;
 		const schoolId = searchParams.get("schoolId") ?? undefined;
 		return routeWithAuthRetry(
-			(token) => courses.list(token, q, schoolId),
+			token => courses.list(token, q, schoolId),
 			z.array(CourseResponseSchema),
 		);
 	}
 	if (slug.length === 1) {
 		return routeWithAuthRetry(
-			(token) => courses.get(slug[0]!, token),
+			token => courses.get(slug[0]!, token),
 			CourseResponseSchema,
 		);
 	}
@@ -39,7 +39,7 @@ export async function GET(
 export async function POST(request: Request) {
 	const body = await parseRouteBody(request, CourseCreateRequestSchema);
 	return routeWithAuthRetry(
-		(token) => courses.create(body, token),
+		token => courses.create(body, token),
 		CourseResponseSchema,
 	);
 }
@@ -52,7 +52,7 @@ export async function PUT(
 	if (slug.length !== 1) return routeError(new Error("Not found"));
 	const body = await parseRouteBody(request, CourseUpdateRequestSchema);
 	return routeWithAuthRetry(
-		(token) => courses.update(slug[0]!, body, token),
+		token => courses.update(slug[0]!, body, token),
 		CourseResponseSchema,
 	);
 }
@@ -63,5 +63,5 @@ export async function DELETE(
 ) {
 	const { slug = [] } = await params;
 	if (slug.length !== 1) return routeError(new Error("Not found"));
-	return routeVoidWithAuthRetry((token) => courses.remove(slug[0]!, token));
+	return routeVoidWithAuthRetry(token => courses.remove(slug[0]!, token));
 }

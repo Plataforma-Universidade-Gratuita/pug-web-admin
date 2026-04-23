@@ -2,7 +2,6 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/constants/auth";
-
 import type { TokenResponse } from "@/types/api";
 
 export function getAccessTokenFromRequest(request: {
@@ -17,7 +16,9 @@ export function getRefreshTokenFromRequest(request: {
 	return request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
 }
 
-export async function getServerCookie(name: string): Promise<string | undefined> {
+export async function getServerCookie(
+	name: string,
+): Promise<string | undefined> {
 	return (await cookies()).get(name)?.value;
 }
 

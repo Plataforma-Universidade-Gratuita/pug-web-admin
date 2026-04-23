@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import {
-  CourseCreateRequestSchema,
-  CourseResponseSchema,
-  CourseUpdateRequestSchema,
+	CourseCreateRequestSchema,
+	CourseResponseSchema,
+	CourseUpdateRequestSchema,
 } from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────

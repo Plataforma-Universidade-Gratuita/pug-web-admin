@@ -6,7 +6,6 @@ import {
 	THEME_COOKIE_MAX_AGE,
 	THEME_COOKIE_NAME,
 } from "@/constants/theme";
-
 import type { AppTheme } from "@/types/client";
 
 export function isAppTheme(x: unknown): x is AppTheme {
@@ -41,8 +40,7 @@ export function applyClientTheme(mode: AppTheme) {
 			html.setAttribute("data-theme", mode);
 		}
 
-		html.style.colorScheme =
-			mode === "system" ? "light dark" : resolvedTheme;
+		html.style.colorScheme = mode === "system" ? "light dark" : resolvedTheme;
 		document.cookie = `${THEME_COOKIE_NAME}=${mode}; Path=/; Max-Age=${THEME_COOKIE_MAX_AGE}; SameSite=Lax`;
 
 		setTimeout(() => html.classList.remove(THEME_ANIMATION_CLASS), 250);

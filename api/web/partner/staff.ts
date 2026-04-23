@@ -5,9 +5,12 @@ import {
 	StaffResponseSchema,
 	StaffUpdateRequestSchema,
 } from "@/schemas/api";
+import type {
+	StaffCreateRequest,
+	StaffResponse,
+	StaffUpdateRequest,
+} from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
-
-import type { StaffCreateRequest, StaffResponse, StaffUpdateRequest } from "@/types/api";
 
 const BASE = "/api/partner/staff";
 
@@ -33,7 +36,10 @@ export async function listByCpf(cpf: string): Promise<StaffResponse[]> {
 }
 
 export async function listByEntity(entityId: string): Promise<StaffResponse[]> {
-	return webFetch(`${BASE}/by-entity/${entityId}`, z.array(StaffResponseSchema));
+	return webFetch(
+		`${BASE}/by-entity/${entityId}`,
+		z.array(StaffResponseSchema),
+	);
 }
 
 export async function create(body: StaffCreateRequest): Promise<StaffResponse> {
@@ -43,7 +49,10 @@ export async function create(body: StaffCreateRequest): Promise<StaffResponse> {
 	});
 }
 
-export async function update(id: string, body: StaffUpdateRequest): Promise<StaffResponse> {
+export async function update(
+	id: string,
+	body: StaffUpdateRequest,
+): Promise<StaffResponse> {
 	return webFetch(`${BASE}/${id}`, StaffResponseSchema, {
 		method: "PUT",
 		body: JSON.stringify(StaffUpdateRequestSchema.parse(body)),

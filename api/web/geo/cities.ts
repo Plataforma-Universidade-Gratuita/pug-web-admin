@@ -1,9 +1,8 @@
 import { z } from "zod";
 
 import { CityResponseSchema } from "@/schemas/api";
-import { webFetch } from "@/utils/web-api";
-
 import type { CityResponse } from "@/types/api";
+import { webFetch } from "@/utils/web-api";
 
 const BASE = "/api/geo/cities";
 

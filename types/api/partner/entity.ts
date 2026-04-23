@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import {
-  EntityCreateRequestSchema,
-  EntityResponseSchema,
-  EntityUpdateRequestSchema,
+	EntityCreateRequestSchema,
+	EntityResponseSchema,
+	EntityUpdateRequestSchema,
 } from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────

@@ -3,7 +3,6 @@ import { z } from "zod";
 import { API_BASE_URL, JSON_HEADERS } from "@/constants/api";
 import { ACCESS_TOKEN_COOKIE } from "@/constants/auth";
 import { ApiEnvelopeErrorSchema } from "@/schemas/api";
-
 import type { ApiErrorBody, FieldError } from "@/types/api";
 
 export class ApiError extends Error {
@@ -28,7 +27,7 @@ export class ApiError extends Error {
 	get fieldErrors(): Record<string, string[]> {
 		if (!this.details) return {};
 		return Object.fromEntries(
-			this.details.map((f) => [f.field, f.errors.map((e) => e.message)]),
+			this.details.map(f => [f.field, f.errors.map(e => e.message)]),
 		);
 	}
 }
@@ -39,7 +38,9 @@ function authHeaders(token?: string): Record<string, string> {
 	return headers;
 }
 
-async function resolveAccessToken(explicitToken?: string): Promise<string | undefined> {
+async function resolveAccessToken(
+	explicitToken?: string,
+): Promise<string | undefined> {
 	if (explicitToken) return explicitToken;
 	if (typeof window !== "undefined") return undefined;
 

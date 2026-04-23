@@ -12,28 +12,31 @@ export async function GET(
 	if (slug.length === 0) {
 		const q = new URL(request.url).searchParams.get("q") ?? undefined;
 		return routeWithAuthRetry(
-			(token) => accounts.list(token, q),
+			token => accounts.list(token, q),
 			z.array(AccountResponseSchema),
 		);
 	}
 	if (slug.length === 1 && slug[0] === "me") {
-		return routeWithAuthRetry((token) => accounts.getMe(token), AccountResponseSchema);
+		return routeWithAuthRetry(
+			token => accounts.getMe(token),
+			AccountResponseSchema,
+		);
 	}
 	if (slug.length === 2 && slug[0] === "by-email") {
 		return routeWithAuthRetry(
-			(token) => accounts.getByEmail(slug[1]!, token),
+			token => accounts.getByEmail(slug[1]!, token),
 			AccountResponseSchema,
 		);
 	}
 	if (slug.length === 2 && slug[0] === "by-cpf") {
 		return routeWithAuthRetry(
-			(token) => accounts.listByCpf(slug[1]!, token),
+			token => accounts.listByCpf(slug[1]!, token),
 			z.array(AccountResponseSchema),
 		);
 	}
 	if (slug.length === 1) {
 		return routeWithAuthRetry(
-			(token) => accounts.get(slug[0]!, token),
+			token => accounts.get(slug[0]!, token),
 			AccountResponseSchema,
 		);
 	}

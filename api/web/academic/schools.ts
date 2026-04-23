@@ -5,9 +5,12 @@ import {
 	SchoolResponseSchema,
 	SchoolUpdateRequestSchema,
 } from "@/schemas/api";
+import type {
+	SchoolCreateRequest,
+	SchoolResponse,
+	SchoolUpdateRequest,
+} from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
-
-import type { SchoolCreateRequest, SchoolResponse, SchoolUpdateRequest } from "@/types/api";
 
 const BASE = "/api/academic/schools";
 
@@ -20,14 +23,19 @@ export async function list(q?: string): Promise<SchoolResponse[]> {
 	return webFetch(`${BASE}${search}`, z.array(SchoolResponseSchema));
 }
 
-export async function create(body: SchoolCreateRequest): Promise<SchoolResponse> {
+export async function create(
+	body: SchoolCreateRequest,
+): Promise<SchoolResponse> {
 	return webFetch(`${BASE}`, SchoolResponseSchema, {
 		method: "POST",
 		body: JSON.stringify(SchoolCreateRequestSchema.parse(body)),
 	});
 }
 
-export async function update(id: string, body: SchoolUpdateRequest): Promise<SchoolResponse> {
+export async function update(
+	id: string,
+	body: SchoolUpdateRequest,
+): Promise<SchoolResponse> {
 	return webFetch(`${BASE}/${id}`, SchoolResponseSchema, {
 		method: "PUT",
 		body: JSON.stringify(SchoolUpdateRequestSchema.parse(body)),

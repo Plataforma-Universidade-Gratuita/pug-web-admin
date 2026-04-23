@@ -12,19 +12,19 @@ export async function GET(
 	if (slug.length === 0) {
 		const q = new URL(request.url).searchParams.get("q") ?? undefined;
 		return routeWithAuthRetry(
-			(token) => cities.list(token, q),
+			token => cities.list(token, q),
 			z.array(CityResponseSchema),
 		);
 	}
 	if (slug.length === 2 && slug[0] === "by-ibge") {
 		return routeWithAuthRetry(
-			(token) => cities.getByIbge(slug[1]!, token),
+			token => cities.getByIbge(slug[1]!, token),
 			CityResponseSchema,
 		);
 	}
 	if (slug.length === 1) {
 		return routeWithAuthRetry(
-			(token) => cities.get(slug[0]!, token),
+			token => cities.get(slug[0]!, token),
 			CityResponseSchema,
 		);
 	}
