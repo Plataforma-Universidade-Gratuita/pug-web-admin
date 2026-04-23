@@ -21,5 +21,7 @@ export * as attendances from "./project/attendances";
 
 // Geo
 export * as cities from "./geo/cities";
+
+// Client components safe api calls
 export * as web from "./web";
 

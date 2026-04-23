@@ -1,15 +1,14 @@
 import { z } from "zod";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { refresh } from "@/api/identity/auth";
-import { validateAdminToken } from "@/utils/auth";
+import { REFRESH_TOKEN_COOKIE } from "@/constants/auth";
 import { ApiError } from "@/utils/api";
-
-import type { TokenResponse } from "@/types/api";
-
-const ACCESS_TOKEN_COOKIE = "accessToken";
-const REFRESH_TOKEN_COOKIE = "refreshToken";
+import {
+	applySessionCookies,
+	clearSessionCookies,
+	getServerCookie,
+} from "@/utils/cookies";
+import { refreshAdminSession } from "@/utils/session";
 
 export function routeData<T>(data: T, init?: ResponseInit): NextResponse<T> {
 	return NextResponse.json(data, init);
@@ -19,44 +18,10 @@ export function routeNoContent(init?: ResponseInit): NextResponse {
 	return new NextResponse(null, { status: 204, ...init });
 }
 
-export function applySessionCookies(
-	response: NextResponse,
-	tokens: TokenResponse,
-): NextResponse {
-	response.cookies.set(ACCESS_TOKEN_COOKIE, tokens.token, {
-		httpOnly: true,
-		secure: process.env.NODE_ENV === "production",
-		sameSite: "lax",
-		path: "/",
-		maxAge: tokens.expiresIn,
-	});
-	response.cookies.set(REFRESH_TOKEN_COOKIE, tokens.refreshToken, {
-		httpOnly: true,
-		secure: process.env.NODE_ENV === "production",
-		sameSite: "lax",
-		path: "/",
-		maxAge: tokens.refreshExpiresIn,
-	});
-	return response;
-}
-
-export function clearSessionCookies(response: NextResponse): NextResponse {
-	response.cookies.delete(ACCESS_TOKEN_COOKIE);
-	response.cookies.delete(REFRESH_TOKEN_COOKIE);
-	return response;
-}
-
-async function refreshSession(): Promise<TokenResponse | null> {
-	const refreshToken = (await cookies()).get(REFRESH_TOKEN_COOKIE)?.value;
+async function refreshSession() {
+	const refreshToken = await getServerCookie(REFRESH_TOKEN_COOKIE);
 	if (!refreshToken) return null;
-
-	try {
-		const tokens = await refresh({ refreshToken });
-		if (!validateAdminToken(tokens.token).isValid) return null;
-		return tokens;
-	} catch {
-		return null;
-	}
+	return refreshAdminSession(refreshToken);
 }
 
 export async function routeWithAuthRetry<T>(

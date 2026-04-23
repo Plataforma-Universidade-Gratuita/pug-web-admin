@@ -1,5 +1,7 @@
 // Shared
 export * from "./shared/shared";
+export * from "./shared/error";
+export * from "./shared/envelope";
 
 // Geo
 export * from "./geo/city";

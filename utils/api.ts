@@ -1,44 +1,11 @@
 import { z } from "zod";
 
-// ─── Base URL ────────────────────────────────────────────────────────────────
+import { API_BASE_URL, JSON_HEADERS } from "@/constants/api";
+import { ACCESS_TOKEN_COOKIE } from "@/constants/auth";
+import { ApiEnvelopeErrorSchema } from "@/schemas/api";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
-const ACCESS_TOKEN_COOKIE = "accessToken";
+import type { ApiErrorBody, FieldError } from "@/types/api";
 
-// ─── API Error Types & Schema ────────────────────────────────────────────────
-
-const FieldErrorDetailSchema = z.object({
-	code: z.string(),
-	message: z.string(),
-});
-
-const FieldErrorSchema = z.object({
-	field: z.string(),
-	errors: z.array(FieldErrorDetailSchema),
-});
-
-const ApiErrorSchema = z.object({
-	code: z.string(),
-	message: z.string(),
-	details: z.array(FieldErrorSchema).nullable().optional(),
-});
-
-const ApiEnvelopeErrorSchema = z.object({
-	success: z.literal(false),
-	data: z.null(),
-	error: ApiErrorSchema,
-	timestamp: z.string(),
-	correlationId: z.string().nullable(),
-});
-
-export type FieldErrorDetail = z.infer<typeof FieldErrorDetailSchema>;
-export type FieldError = z.infer<typeof FieldErrorSchema>;
-export type ApiErrorBody = z.infer<typeof ApiErrorSchema>;
-
-/**
- * Structured error thrown when the API returns a non-2xx response.
- * Contains the parsed error envelope with code, message, field errors, and correlation ID.
- */
 export class ApiError extends Error {
 	public readonly status: number;
 	public readonly code: string;
@@ -58,7 +25,6 @@ export class ApiError extends Error {
 		this.correlationId = correlationId;
 	}
 
-	/** Returns a flat map of field → error messages for easy form integration. */
 	get fieldErrors(): Record<string, string[]> {
 		if (!this.details) return {};
 		return Object.fromEntries(
@@ -67,11 +33,9 @@ export class ApiError extends Error {
 	}
 }
 
-// ─── Auth Header Helper ─────────────────────────────────────────────────────
-
-function authHeaders(token?: string): HeadersInit {
-	const headers: HeadersInit = { "Content-Type": "application/json" };
-	if (token) headers["Authorization"] = `Bearer ${token}`;
+function authHeaders(token?: string): Record<string, string> {
+	const headers: Record<string, string> = { ...JSON_HEADERS };
+	if (token) headers.Authorization = `Bearer ${token}`;
 	return headers;
 }
 
@@ -87,29 +51,18 @@ async function resolveAccessToken(explicitToken?: string): Promise<string | unde
 	}
 }
 
-// ─── Error Handling ──────────────────────────────────────────────────────────
-
-async function handleError(r: Response): Promise<never> {
+async function handleError(response: Response): Promise<never> {
 	try {
-		const json = await r.json();
+		const json = await response.json();
 		const envelope = ApiEnvelopeErrorSchema.parse(json);
-		throw new ApiError(r.status, envelope.error, envelope.correlationId);
-	} catch (e) {
-		if (e instanceof ApiError) throw e;
-		console.error("Failed to parse API error envelope:", e);
-		throw new Error(`HTTP ${r.status}`);
+		throw new ApiError(response.status, envelope.error, envelope.correlationId);
+	} catch (error) {
+		if (error instanceof ApiError) throw error;
+		console.error("Failed to parse API error envelope:", error);
+		throw new Error(`HTTP ${response.status}`);
 	}
 }
 
-// ─── Typed Fetch Helpers ─────────────────────────────────────────────────────
-
-/**
- * Performs a fetch request, validates the JSON response against the given
- * Zod schema, and returns the unwrapped `data` field from the API envelope.
- *
- * On error responses, throws an {@link ApiError} with the parsed code,
- * message, field-level details, and correlation ID from the backend.
- */
 export async function zfetch<T extends z.ZodTypeAny>(
 	path: string,
 	init: RequestInit,
@@ -117,35 +70,28 @@ export async function zfetch<T extends z.ZodTypeAny>(
 	token?: string,
 ): Promise<z.infer<T>> {
 	const accessToken = await resolveAccessToken(token);
-	const r = await fetch(`${BASE_URL}${path}`, {
+	const response = await fetch(`${API_BASE_URL}${path}`, {
 		...init,
 		headers: { ...authHeaders(accessToken), ...init.headers },
 	});
-	if (!r.ok) return handleError(r);
-	const json = await r.json();
+	if (!response.ok) return handleError(response);
+
+	const json = await response.json();
 	return schema.parse(json.data) as z.infer<T>;
 }
 
-/**
- * Performs a fetch request that expects no response body (204) or an envelope
- * with null data. Used for delete / deactivate / logout endpoints.
- *
- * On error responses, throws an {@link ApiError} with the parsed backend details.
- */
 export async function zvoid(
 	path: string,
 	init: RequestInit,
 	token?: string,
 ): Promise<void> {
 	const accessToken = await resolveAccessToken(token);
-	const r = await fetch(`${BASE_URL}${path}`, {
+	const response = await fetch(`${API_BASE_URL}${path}`, {
 		...init,
 		headers: { ...authHeaders(accessToken), ...init.headers },
 	});
-	if (!r.ok) return handleError(r);
+	if (!response.ok) return handleError(response);
 }
-
-// ─── Query String Helper ────────────────────────────────────────────────────
 
 export function qs(params: Record<string, string | undefined | null>): string {
 	const entries = Object.entries(params).filter(

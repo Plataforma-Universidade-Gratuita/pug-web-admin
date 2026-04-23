@@ -6,9 +6,8 @@ import {
 	TokenResponseSchema,
 } from "@/schemas/api";
 import { validateAdminToken } from "@/utils/auth";
+import { applySessionCookies, clearSessionCookies } from "@/utils/cookies";
 import {
-	applySessionCookies,
-	clearSessionCookies,
 	parseRouteBody,
 	routeData,
 	routeError,
