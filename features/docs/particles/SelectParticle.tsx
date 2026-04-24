@@ -110,51 +110,78 @@ export default function SelectParticle() {
 				title={t("docs.select.sections.groups.title")}
 				description={t("docs.select.sections.groups.description")}
 			>
-				<Card className="p-4">
-					<CardHeader>
-						<CardTitle>{t("docs.select.cards.grouped.title")}</CardTitle>
-						<CardDescription>
-							{t("docs.select.cards.grouped.description")}
-						</CardDescription>
-					</CardHeader>
-					<CardContent className="max-w-sm space-y-2">
-						<p className="ty-helper">{t("docs.select.cards.grouped.label")}</p>
-						<Select defaultValue="overview">
-							<SelectTrigger
-								placeholder={t("docs.select.cards.grouped.placeholder")}
-							/>
-							<SelectContent>
-								<SelectGroup>
-									<SelectLabel>
-										{t("docs.select.cards.grouped.groups.workspace")}
-									</SelectLabel>
-									{(["overview", "members"] as const).map(key => (
-										<SelectItem
-											key={key}
-											value={key}
-										>
-											{t(`docs.select.cards.grouped.options.${key}`)}
-										</SelectItem>
-									))}
-								</SelectGroup>
-								<SelectSeparator />
-								<SelectGroup>
-									<SelectLabel>
-										{t("docs.select.cards.grouped.groups.lifecycle")}
-									</SelectLabel>
-									{(["archive", "transfer"] as const).map(key => (
-										<SelectItem
-											key={key}
-											value={key}
-										>
-											{t(`docs.select.cards.grouped.options.${key}`)}
-										</SelectItem>
-									))}
-								</SelectGroup>
-							</SelectContent>
-						</Select>
-					</CardContent>
-				</Card>
+				<div className="grid gap-4 lg:grid-cols-2">
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>{t("docs.select.cards.grouped.title")}</CardTitle>
+							<CardDescription>
+								{t("docs.select.cards.grouped.description")}
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="max-w-sm space-y-2">
+							<p className="ty-helper">
+								{t("docs.select.cards.grouped.label")}
+							</p>
+							<Select defaultValue="overview">
+								<SelectTrigger
+									placeholder={t("docs.select.cards.grouped.placeholder")}
+								/>
+								<SelectContent>
+									<SelectGroup>
+										<SelectLabel>
+											{t("docs.select.cards.grouped.groups.workspace")}
+										</SelectLabel>
+										{(["overview", "members"] as const).map(key => (
+											<SelectItem
+												key={key}
+												value={key}
+											>
+												{t(`docs.select.cards.grouped.options.${key}`)}
+											</SelectItem>
+										))}
+									</SelectGroup>
+									<SelectSeparator />
+									<SelectGroup>
+										<SelectLabel>
+											{t("docs.select.cards.grouped.groups.lifecycle")}
+										</SelectLabel>
+										{(["archive", "transfer"] as const).map(key => (
+											<SelectItem
+												key={key}
+												value={key}
+											>
+												{t(`docs.select.cards.grouped.options.${key}`)}
+											</SelectItem>
+										))}
+									</SelectGroup>
+								</SelectContent>
+							</Select>
+						</CardContent>
+					</Card>
+
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>Disabled select</CardTitle>
+							<CardDescription>
+								Disabled selects should preserve the chosen value but stop
+								interaction.
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="max-w-sm space-y-2">
+							<p className="ty-helper">Project status</p>
+							<Select
+								disabled
+								defaultValue="active"
+							>
+								<SelectTrigger placeholder="Choose status" />
+								<SelectContent>
+									<SelectItem value="active">Active</SelectItem>
+									<SelectItem value="paused">Paused</SelectItem>
+								</SelectContent>
+							</Select>
+						</CardContent>
+					</Card>
+				</div>
 			</ParticleSection>
 		</ParticleContainer>
 	);

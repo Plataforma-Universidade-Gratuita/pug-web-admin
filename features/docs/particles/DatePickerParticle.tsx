@@ -36,7 +36,7 @@ export default function DatePickerParticle() {
 				title={t("docs.datePicker.sections.fields.title")}
 				description={t("docs.datePicker.sections.fields.description")}
 			>
-				<div className="grid gap-4 lg:grid-cols-2">
+				<div className="grid gap-4 lg:grid-cols-3">
 					<Card className="p-4">
 						<CardHeader>
 							<CardTitle>{t("docs.datePicker.cards.basic.title")}</CardTitle>
@@ -72,6 +72,24 @@ export default function DatePickerParticle() {
 								id="docs-date-constrained"
 								min="2026-04-01"
 								max="2026-04-30"
+								defaultValue="2026-04-24"
+							/>
+						</CardContent>
+					</Card>
+
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>Disabled date</CardTitle>
+							<CardDescription>
+								Use a disabled date picker when the date is fixed by surrounding
+								workflow.
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-2">
+							<Label htmlFor="docs-date-disabled">Enrollment date</Label>
+							<DatePicker
+								id="docs-date-disabled"
+								disabled
 								defaultValue="2026-04-24"
 							/>
 						</CardContent>

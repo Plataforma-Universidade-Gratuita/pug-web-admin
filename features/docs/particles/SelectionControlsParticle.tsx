@@ -74,6 +74,11 @@ export default function SelectionControlsParticle() {
 									"docs.selectionControls.cards.checkbox.items.two.description",
 								)}
 							/>
+							<Checkbox
+								disabled
+								label="Locked setting"
+								description="This option is unavailable in the current workflow."
+							/>
 						</CardContent>
 					</Card>
 
@@ -95,6 +100,7 @@ export default function SelectionControlsParticle() {
 									<RadioGroupItem
 										key={key}
 										value={key}
+										disabled={key === "silent"}
 										label={t(
 											`docs.selectionControls.cards.radio.items.${key}.label`,
 										)}
@@ -124,6 +130,12 @@ export default function SelectionControlsParticle() {
 								description={t(
 									"docs.selectionControls.cards.switch.item.description",
 								)}
+							/>
+							<Switch
+								disabled
+								checked={false}
+								label="System lock"
+								description="This preference is controlled by workspace policy."
 							/>
 						</CardContent>
 					</Card>

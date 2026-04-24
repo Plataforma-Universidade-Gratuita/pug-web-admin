@@ -57,6 +57,7 @@ export default function StructurePrimitivesParticle() {
 								<TabsTrigger
 									key={key}
 									value={key}
+									disabled={key === "history"}
 								>
 									{t(`docs.structurePrimitives.tabs.items.${key}.label`)}
 								</TabsTrigger>

@@ -42,7 +42,7 @@ export default function MultiSelectParticle() {
 				title={t("docs.multiSelect.sections.filters.title")}
 				description={t("docs.multiSelect.sections.filters.description")}
 			>
-				<div className="grid gap-4 lg:grid-cols-2">
+				<div className="grid gap-4 lg:grid-cols-3">
 					<Card className="p-4">
 						<CardHeader>
 							<CardTitle>{t("docs.multiSelect.cards.status.title")}</CardTitle>
@@ -93,6 +93,30 @@ export default function MultiSelectParticle() {
 										`docs.multiSelect.cards.owners.options.${key}.description`,
 									),
 								}))}
+							/>
+						</CardContent>
+					</Card>
+
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>Disabled multi-select</CardTitle>
+							<CardDescription>
+								Disabled multi-selects should keep their selected context but
+								prevent edits.
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-2">
+							<Label htmlFor="docs-multi-select-disabled">Tags</Label>
+							<MultiSelect
+								id="docs-multi-select-disabled"
+								disabled
+								defaultValue={["active", "archived"]}
+								options={(["active", "paused", "archived"] as const).map(
+									key => ({
+										value: key,
+										label: t(`docs.multiSelect.cards.status.options.${key}`),
+									}),
+								)}
 							/>
 						</CardContent>
 					</Card>

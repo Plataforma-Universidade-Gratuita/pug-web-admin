@@ -63,6 +63,7 @@ export default function ToggleControlsParticle() {
 								/>
 								<span>{t("docs.toggleControls.cards.single.label")}</span>
 							</Toggle>
+							<Toggle disabled>Locked</Toggle>
 						</CardContent>
 					</Card>
 
@@ -93,6 +94,7 @@ export default function ToggleControlsParticle() {
 								<ToggleGroupItem
 									value="list"
 									aria-label={t("docs.toggleControls.cards.view.items.list")}
+									disabled
 								>
 									<Icon
 										icon={List}
@@ -133,6 +135,7 @@ export default function ToggleControlsParticle() {
 								<ToggleGroupItem
 									key={key}
 									value={key}
+									disabled={key === "underline"}
 									aria-label={t(`docs.toggleControls.cards.multi.items.${key}`)}
 								>
 									<Icon

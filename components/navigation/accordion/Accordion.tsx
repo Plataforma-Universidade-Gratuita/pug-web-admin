@@ -91,7 +91,7 @@ export function AccordionTrigger({
 		<RadixAccordion.Header>
 			<RadixAccordion.Trigger
 				className={clsx(
-					"focus-ring group flex w-full items-center justify-between gap-4 p-4 text-left data-[state=open]:border-b data-[state=open]:border-[color:var(--twc-border-2)]",
+					"focus-ring group flex w-full items-center justify-between gap-4 p-4 text-left data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[state=open]:border-b data-[state=open]:border-[color:var(--twc-border-2)]",
 					className,
 				)}
 				{...props}

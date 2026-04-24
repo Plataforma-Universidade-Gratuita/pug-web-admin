@@ -43,7 +43,7 @@ export function TabsTrigger({
 	return (
 		<RadixTabs.Trigger
 			className={clsx(
-				"focus-ring rounded-[calc(var(--twc-radius-lg)-0.25rem)] px-3 py-2 text-sm font-medium transition-colors data-[state=active]:bg-[color:var(--twc-surface-2)] data-[state=active]:shadow-[var(--twc-shadow-sm)]",
+				"focus-ring rounded-[calc(var(--twc-radius-lg)-0.25rem)] px-3 py-2 text-sm font-medium transition-colors hover:bg-[color:var(--twc-surface-2)] disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-[color:var(--twc-surface-2)] data-[state=active]:shadow-[var(--twc-shadow-sm)]",
 				className,
 			)}
 			{...props}

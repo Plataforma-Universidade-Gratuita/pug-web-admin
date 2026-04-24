@@ -36,7 +36,7 @@ export default function TextAreaParticle() {
 				title={t("docs.textArea.sections.usage.title")}
 				description={t("docs.textArea.sections.usage.description")}
 			>
-				<div className="grid gap-4 lg:grid-cols-2">
+				<div className="grid gap-4 lg:grid-cols-3">
 					<Card className="p-4">
 						<CardHeader>
 							<CardTitle>{t("docs.textArea.cards.notes.title")}</CardTitle>
@@ -70,6 +70,23 @@ export default function TextAreaParticle() {
 								id="docs-textarea-feedback"
 								className="min-h-36"
 								placeholder={t("docs.textArea.cards.feedback.placeholder")}
+							/>
+						</CardContent>
+					</Card>
+
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>Disabled text area</CardTitle>
+							<CardDescription>
+								Longform fields should also expose an obvious disabled state.
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-2">
+							<Label htmlFor="docs-textarea-disabled">Audit note</Label>
+							<TextArea
+								id="docs-textarea-disabled"
+								disabled
+								defaultValue="This note is generated automatically."
 							/>
 						</CardContent>
 					</Card>

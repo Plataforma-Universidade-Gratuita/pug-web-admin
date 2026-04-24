@@ -39,7 +39,7 @@ export default function ComboboxParticle() {
 				title={t("docs.combobox.sections.examples.title")}
 				description={t("docs.combobox.sections.examples.description")}
 			>
-				<div className="grid gap-4 lg:grid-cols-2">
+				<div className="grid gap-4 lg:grid-cols-3">
 					<Card className="p-4">
 						<CardHeader>
 							<CardTitle>{t("docs.combobox.cards.people.title")}</CardTitle>
@@ -101,6 +101,28 @@ export default function ComboboxParticle() {
 										),
 									}),
 								)}
+							/>
+						</CardContent>
+					</Card>
+
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>Disabled combobox</CardTitle>
+							<CardDescription>
+								A disabled combobox should keep context without exposing
+								interactive affordances.
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-2">
+							<Label htmlFor="docs-combobox-disabled">Reviewer</Label>
+							<Combobox
+								id="docs-combobox-disabled"
+								disabled
+								defaultValue="maria"
+								options={(["maria", "joao"] as const).map(key => ({
+									value: key,
+									label: t(`docs.combobox.cards.people.options.${key}.label`),
+								}))}
 							/>
 						</CardContent>
 					</Card>

@@ -105,7 +105,9 @@ export function MultiSelect({
 										key={option.value}
 										tone="brand"
 										variant="soft"
-										onRemove={() => toggleValue(option.value)}
+										onRemove={
+											disabled ? undefined : () => toggleValue(option.value)
+										}
 										removeLabel={`Remove ${option.label}`}
 										className="max-w-full"
 									>

@@ -90,24 +90,45 @@ export default function InputParticle() {
 				title={t("docs.input.sections.search.title")}
 				description={t("docs.input.sections.search.description")}
 			>
-				<Card className="p-4">
-					<CardContent className="space-y-2">
-						<Label htmlFor="docs-input-search">
-							{t("docs.input.search.label")}
-						</Label>
-						<Input
-							id="docs-input-search"
-							type="search"
-							placeholder={t("docs.input.search.placeholder")}
-							leadingIcon={
-								<Icon
-									icon={Search}
-									className="h-4 w-4"
-								/>
-							}
-						/>
-					</CardContent>
-				</Card>
+				<div className="grid gap-4 lg:grid-cols-2">
+					<Card className="p-4">
+						<CardContent className="space-y-2">
+							<Label htmlFor="docs-input-search">
+								{t("docs.input.search.label")}
+							</Label>
+							<Input
+								id="docs-input-search"
+								type="search"
+								defaultValue="Project Atlas"
+								placeholder={t("docs.input.search.placeholder")}
+								leadingIcon={
+									<Icon
+										icon={Search}
+										className="h-4 w-4"
+									/>
+								}
+							/>
+						</CardContent>
+					</Card>
+
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>Disabled field</CardTitle>
+							<CardDescription>
+								Inputs should clearly show when they are unavailable.
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-2">
+							<Label htmlFor="docs-input-disabled">Workspace name</Label>
+							<Input
+								id="docs-input-disabled"
+								disabled
+								value="Atlas workspace"
+								readOnly
+							/>
+						</CardContent>
+					</Card>
+				</div>
 			</ParticleSection>
 		</ParticleContainer>
 	);
