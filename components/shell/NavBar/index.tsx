@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-import { Sidebar } from "@/components/NavBar/Sidebar";
-import { TopBar } from "@/components/NavBar/Topbar";
+import { Sidebar } from "./Sidebar";
+import { TopBar } from "./Topbar";
 
 export function Navbar({ children }: { children: React.ReactNode }) {
 	const [collapsed, setCollapsed] = useState(true);

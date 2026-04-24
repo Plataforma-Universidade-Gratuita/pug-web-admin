@@ -3,12 +3,11 @@
 import { useState } from "react";
 
 import * as Popover from "@radix-ui/react-popover";
+import { useLocale } from "contexts/locale";
+import { useTheme } from "contexts/theme";
 import { Laptop, Moon, Sun, Settings as Gear } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
-import { useLocale } from "@/contexts/locale";
-import { useTheme } from "@/contexts/theme";
-import type { AppLang, AppTheme } from "@/types/client";
+import type { AppLang, AppTheme } from "types/client";
 
 import SettingCard from "./SettingCard";
 

@@ -37,7 +37,7 @@ export function TopBar({ collapsed, onToggleSidebar }: Props) {
 					</button>
 					<div className="flex items-baseline gap-2">
 						<Link
-							href="/"
+							href="/public"
 							className="ty-title no-underline"
 							style={{ color: "var(--twc-chrome-fg)" }}
 						>
