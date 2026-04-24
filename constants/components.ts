@@ -19,4 +19,19 @@ export const BUTTON_SIZES = {
 	icon: "h-11 w-11 p-0",
 } as const;
 
+export const BADGE_TONES = {
+	neutral: "",
+	brand: "",
+	success: "",
+	info: "",
+	warning: "",
+	danger: "",
+} as const;
+
+export const BADGE_VARIANTS = {
+	soft: "",
+	solid: "",
+	outline: "",
+} as const;
+
 export const APP_TOPBAR_HEIGHT = "3.75rem";

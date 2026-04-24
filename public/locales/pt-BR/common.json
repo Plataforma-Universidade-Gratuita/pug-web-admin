@@ -1290,6 +1290,243 @@
 					"description": "Se a mensagem começar a soar como texto de onboarding, use texto auxiliar, um popover ou um dialog."
 				}
 			}
+		},
+		"badge": {
+			"title": "Badge",
+			"description": "Badges comunicam status, categoria ou metadado de ciclo de vida de forma compacta, sem dominar o layout. Use quando um rotulo curto precisa ficar visualmente destacado em cards, listas e cabecalhos de detalhe.",
+			"patternNotes": {
+				"items": {
+					"status": "Use badge para metadados curtos como status, etapa de revisao ou nivel de risco. Ele deve permanecer compacto e facil de escanear.",
+					"tone": "Escolha o tom pela semantica, nao pela decoracao. A cor deve reforcar o estado sem carregar sozinha toda a mensagem.",
+					"variant": "Use variantes mais suaves em superficies densas e variantes mais fortes apenas quando o badge precisar de um pouco mais de destaque.",
+					"compact": "Mantenha o texto curto. Se o conteudo exigir frase, texto auxiliar ou varias acoes, ja nao e mais um badge."
+				},
+				"snippet": "<Badge tone=\"success\">Aprovado</Badge>\n<Badge tone=\"brand\" variant=\"outline\">Destaque</Badge>"
+			},
+			"sections": {
+				"tones": {
+					"title": "Tons semanticos",
+					"description": "Badges funcionam melhor quando reforcam estado ou ciclo de vida com tratamento visual compacto e consistente."
+				},
+				"variants": {
+					"title": "Variantes",
+					"description": "Use variantes para ajustar enfase sem mudar o significado semantico."
+				}
+			},
+			"cards": {
+				"brand": {
+					"title": "Destaque de marca",
+					"description": "Util para entidades em destaque, filtros promovidos ou categorias controladas pelo produto.",
+					"label": "Destaque"
+				},
+				"success": {
+					"title": "Estado saudavel",
+					"description": "Um status positivo compacto dentro de cards, linhas e detalhes.",
+					"label": "Aprovado"
+				},
+				"warning": {
+					"title": "Pede atencao",
+					"description": "Um estado de cautela que deve permanecer visivel sem virar um alerta destrutivo.",
+					"label": "Revisar logo"
+				},
+				"danger": {
+					"title": "Sinal de risco",
+					"description": "Use badges de danger com parcimonia para estados bloqueados, falhos ou de alto risco.",
+					"label": "Bloqueado"
+				}
+			},
+			"variants": {
+				"soft": "Soft",
+				"solid": "Solid",
+				"outline": "Outline"
+			}
+		},
+		"breadcrumb": {
+			"title": "Breadcrumb",
+			"description": "Breadcrumbs comunicam a localizacao atual dentro de uma navegacao aninhada. Use quando a pessoa precisar de orientacao rapida e de um caminho leve de volta para areas pai.",
+			"patternNotes": {
+				"items": {
+					"location": "Use breadcrumbs para orientar a pessoa em hierarquias mais profundas, especialmente quando varios niveis pai importam para a tela atual.",
+					"depth": "Mantenha a trilha curta e significativa. Se o caminho ficar barulhento ou repetitivo, a arquitetura da informacao provavelmente precisa de ajuste.",
+					"current": "A pagina atual deve ficar visualmente distinta e nao deve se comportar como um link navegavel.",
+					"mobile": "Breadcrumbs sao contexto util, mas devem permanecer leves. Em layouts pequenos, evite transformalos em navegacao secundaria densa."
+				},
+				"snippet": "<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"#\">Projetos</BreadcrumbLink>\n      <BreadcrumbSeparator />\n    </BreadcrumbItem>\n    <BreadcrumbItem>\n      <BreadcrumbCurrent>Projeto Atlas</BreadcrumbCurrent>\n    </BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
+			},
+			"sections": {
+				"examples": {
+					"title": "Contexto de navegacao",
+					"description": "Breadcrumbs funcionam melhor quando reforcam a localizacao da pagina, e nao quando duplicam o menu principal."
+				}
+			},
+			"cards": {
+				"standard": {
+					"title": "Trilha padrao de pagina",
+					"description": "Um caminho simples para paginas que ficam um ou dois niveis abaixo de uma area maior.",
+					"items": {
+						"home": "Inicio",
+						"projects": "Projetos",
+						"detail": "Projeto Atlas"
+					}
+				},
+				"dense": {
+					"title": "Caminho admin mais profundo",
+					"description": "Use uma trilha um pouco mais densa quando a pessoa puder precisar voltar por algumas visoes pai relacionadas.",
+					"items": {
+						"admin": "Admin",
+						"partners": "Parceiros",
+						"entity": "Perfil da entidade",
+						"settings": "Configuracoes"
+					}
+				}
+			}
+		},
+		"combobox": {
+			"title": "Combobox",
+			"description": "Combobox combina um campo gatilho com busca e selecao de opcao. Use quando a pessoa precisa escolher um valor dentro de um conjunto definido, mas a lista ja e grande o bastante para que a busca melhore muito a navegacao.",
+			"patternNotes": {
+				"items": {
+					"search": "Use combobox quando busca ou filtragem fizer parte da interacao. Se a lista for curta e obvia, um select normal costuma bastar.",
+					"single": "Essa primitiva funciona melhor para um valor por vez. Se a pessoa precisar selecionar varios, prefira um padrao dedicado de multi-select.",
+					"metadata": "As opcoes podem carregar metadado curto de apoio, mas a lista ainda deve permanecer rapida de escanear.",
+					"scope": "Use para pessoas, lugares, categorias e outros conjuntos em que vale a pena reduzir a lista antes de escolher."
+				},
+				"snippet": "<Combobox\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Escolha o responsavel\"\n  searchPlaceholder=\"Buscar responsaveis\"\n  options={options}\n/>"
+			},
+			"sections": {
+				"examples": {
+					"title": "Selecao com busca",
+					"description": "Combobox e util quando o valor escolhido ainda deve se parecer com um campo, mas o conjunto de opcoes precisa de filtragem rapida."
+				}
+			},
+			"cards": {
+				"people": {
+					"title": "Atribuicao de responsavel",
+					"description": "Um padrao comum de admin em que pessoas sao escolhidas em uma lista cada vez maior.",
+					"label": "Responsavel",
+					"placeholder": "Escolha o responsavel",
+					"searchPlaceholder": "Buscar responsaveis",
+					"empty": "Nenhum responsavel encontrado.",
+					"options": {
+						"maria": {
+							"label": "Maria Souza",
+							"description": "Operacoes de identidade",
+							"role": "gerente"
+						},
+						"joao": {
+							"label": "Joao Lima",
+							"description": "Onboarding de parceiros",
+							"role": "revisor"
+						},
+						"ana": {
+							"label": "Ana Costa",
+							"description": "Saude de projetos",
+							"role": "analista"
+						}
+					}
+				},
+				"city": {
+					"title": "Busca de cidade",
+					"description": "Outro bom encaixe quando locais ou categorias ficam grandes demais para um select simples.",
+					"label": "Cidade",
+					"placeholder": "Escolha a cidade",
+					"searchPlaceholder": "Buscar cidades",
+					"empty": "Nenhuma cidade encontrada.",
+					"options": {
+						"campinas": {
+							"label": "Campinas",
+							"description": "Sao Paulo"
+						},
+						"osasco": {
+							"label": "Osasco",
+							"description": "Sao Paulo"
+						},
+						"santos": {
+							"label": "Santos",
+							"description": "Regiao litoranea"
+						}
+					}
+				}
+			}
+		},
+		"drawer": {
+			"title": "Drawer",
+			"description": "Drawers revelam paineis laterais focados mantendo a pagina atual visivel ao fundo. Use para fluxos de edicao, detalhes e paineis de filtro que devem preservar mais contexto do que um dialog centralizado.",
+			"patternNotes": {
+				"items": {
+					"context": "Use drawer quando a pagina atual deve continuar visivel e reconhecivel enquanto a pessoa resolve uma tarefa secundaria focada.",
+					"side": "Escolha o lado com base no layout e na tarefa. Paineis de detalhe a direita sao comuns, enquanto drawers a esquerda costumam funcionar bem para filtros e ferramentas de apoio.",
+					"footer": "Mantenha as acoes do footer concisas e previsiveis. Um drawer ainda deve parecer escopado, e nao uma pagina inteira escondida em um painel.",
+					"escalation": "Se o conteudo ficar muito interruptivo ou precisar de isolamento maior de foco, escale para dialog ou rota dedicada."
+				},
+				"snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent side=\"right\">\n    <DrawerHeader>\n      <DrawerTitle>Detalhes do projeto</DrawerTitle>\n      <DrawerDescription>Revise os metadados.</DrawerDescription>\n    </DrawerHeader>\n    <DrawerFooter>...</DrawerFooter>\n  </DrawerContent>\n</Drawer>"
+			},
+			"sections": {
+				"examples": {
+					"title": "Padroes de painel",
+					"description": "Drawers sao mais fortes quando o contexto da pagina deve permanecer visivel enquanto a pessoa revisa ou edita informacoes adjacentes."
+				}
+			},
+			"cards": {
+				"details": {
+					"title": "Painel de detalhes",
+					"description": "Um drawer a direita funciona bem para detalhes de registro e fluxos leves de edicao.",
+					"trigger": "Abrir drawer de detalhes"
+				},
+				"filters": {
+					"title": "Painel de filtros",
+					"description": "Um drawer a esquerda pode manter filtros de apoio disponiveis sem substituir a pagina inteira.",
+					"trigger": "Abrir drawer de filtros"
+				}
+			},
+			"examples": {
+				"details": {
+					"eyebrow": "Painel de detalhes",
+					"title": "Projeto Atlas",
+					"description": "Use o drawer para detalhe de registro enquanto a lista ou pagina original continua visivel ao fundo.",
+					"items": {
+						"owner": {
+							"title": "Responsavel",
+							"description": "Maria Souza coordena aprovacoes e checkpoints de entrega."
+						},
+						"status": {
+							"title": "Status",
+							"description": "Atualmente ativo com um ciclo de revisao pendente."
+						},
+						"updated": {
+							"title": "Ultima atualizacao",
+							"description": "Editado ha duas horas pela equipe de operacoes."
+						}
+					},
+					"footer": {
+						"secondary": "Fechar",
+						"primary": "Abrir registro completo"
+					}
+				},
+				"filters": {
+					"eyebrow": "Painel de filtros",
+					"title": "Refinar lista de projetos",
+					"description": "Um drawer de apoio pode conter filtros mais densos sem quebrar o contexto de navegacao ao redor.",
+					"items": {
+						"status": {
+							"title": "Status",
+							"description": "Visibilidade de ativos, pausados e arquivados."
+						},
+						"owner": {
+							"title": "Responsavel",
+							"description": "Filtrar por equipe responsavel ou revisor."
+						},
+						"period": {
+							"title": "Periodo",
+							"description": "Limita o conjunto de resultados a uma janela de tempo."
+						}
+					},
+					"footer": {
+						"secondary": "Limpar",
+						"primary": "Aplicar filtros"
+					}
+				}
+			}
 		}
 	}
 }

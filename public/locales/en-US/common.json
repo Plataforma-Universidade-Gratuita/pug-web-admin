@@ -1290,6 +1290,243 @@
 					"description": "If the message starts reading like onboarding copy, use helper text, a popover, or a dialog instead."
 				}
 			}
+		},
+		"badge": {
+			"title": "Badge",
+			"description": "Badges communicate compact status, category, or lifecycle metadata without taking over the layout. Use them when a short label should stay visually distinct inside cards, lists, and detail headers.",
+			"patternNotes": {
+				"items": {
+					"status": "Use badge for short status-like metadata such as active state, review stage, or risk level. It should stay compact and glanceable.",
+					"tone": "Choose tone based on meaning, not decoration. The color should reinforce semantic state without carrying the entire message alone.",
+					"variant": "Use softer variants for dense surfaces and stronger variants only when the badge needs a little more emphasis.",
+					"compact": "Keep badge copy short. If the content needs a sentence, helper text, or multiple actions, it is no longer a badge."
+				},
+				"snippet": "<Badge tone=\"success\">Approved</Badge>\n<Badge tone=\"brand\" variant=\"outline\">Featured</Badge>"
+			},
+			"sections": {
+				"tones": {
+					"title": "Semantic tones",
+					"description": "Badges are most useful when they reinforce state or lifecycle meaning with compact, consistent visual treatment."
+				},
+				"variants": {
+					"title": "Variants",
+					"description": "Use variants to tune emphasis without changing the underlying semantic meaning."
+				}
+			},
+			"cards": {
+				"brand": {
+					"title": "Brand highlight",
+					"description": "Useful for featured entities, promoted filters, or product-owned categories.",
+					"label": "Featured"
+				},
+				"success": {
+					"title": "Healthy state",
+					"description": "A compact positive status inside cards, rows, and detail views.",
+					"label": "Approved"
+				},
+				"warning": {
+					"title": "Needs attention",
+					"description": "A cautionary state that should remain visible without becoming a destructive alert.",
+					"label": "Review soon"
+				},
+				"danger": {
+					"title": "Risk signal",
+					"description": "Use danger badges sparingly for blocked, failed, or high-risk states.",
+					"label": "Blocked"
+				}
+			},
+			"variants": {
+				"soft": "Soft",
+				"solid": "Solid",
+				"outline": "Outline"
+			}
+		},
+		"breadcrumb": {
+			"title": "Breadcrumb",
+			"description": "Breadcrumbs communicate the current location inside nested navigation. Use them when users need quick orientation and a lightweight path back to broader parent areas.",
+			"patternNotes": {
+				"items": {
+					"location": "Use breadcrumbs to orient users inside deeper navigation hierarchies, especially when several parent levels matter to the current page.",
+					"depth": "Keep the trail short and meaningful. If the path becomes noisy or repetitive, the information architecture probably needs adjustment.",
+					"current": "The current page should be visually distinct and should not behave like a navigable link.",
+					"mobile": "Breadcrumbs are helpful context, but they should stay lightweight. On constrained layouts, avoid turning them into dense secondary navigation."
+				},
+				"snippet": "<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"#\">Projects</BreadcrumbLink>\n      <BreadcrumbSeparator />\n    </BreadcrumbItem>\n    <BreadcrumbItem>\n      <BreadcrumbCurrent>Project Atlas</BreadcrumbCurrent>\n    </BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
+			},
+			"sections": {
+				"examples": {
+					"title": "Navigation context",
+					"description": "Breadcrumbs work best when they reinforce page location instead of duplicating a primary nav menu."
+				}
+			},
+			"cards": {
+				"standard": {
+					"title": "Standard page trail",
+					"description": "A simple path for pages that sit one or two levels below a broader parent area.",
+					"items": {
+						"home": "Home",
+						"projects": "Projects",
+						"detail": "Project Atlas"
+					}
+				},
+				"dense": {
+					"title": "Deeper admin path",
+					"description": "Use a slightly denser trail when the user may need to step back through a few related parent views.",
+					"items": {
+						"admin": "Admin",
+						"partners": "Partners",
+						"entity": "Entity profile",
+						"settings": "Settings"
+					}
+				}
+			}
+		},
+		"combobox": {
+			"title": "Combobox",
+			"description": "Combobox combines a trigger field with search and option picking. Use it when users must choose one value from a defined set but the list is long enough that search dramatically improves scanning.",
+			"patternNotes": {
+				"items": {
+					"search": "Use combobox when search or filtering is part of the interaction. If the list is short and obvious, a normal select is usually enough.",
+					"single": "This primitive is best for one chosen value at a time. If users need many selections, prefer a dedicated multi-select pattern.",
+					"metadata": "Combobox options can carry brief supporting metadata, but the option list should still remain fast to scan.",
+					"scope": "Use it for people, places, categories, and other datasets where the user benefits from narrowing the list before choosing."
+				},
+				"snippet": "<Combobox\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose owner\"\n  searchPlaceholder=\"Search owners\"\n  options={options}\n/>"
+			},
+			"sections": {
+				"examples": {
+					"title": "Searchable selection",
+					"description": "Combobox is useful when the selected value should still look like a field, but the underlying option set needs quick filtering."
+				}
+			},
+			"cards": {
+				"people": {
+					"title": "Owner assignment",
+					"description": "A common admin pattern where people are selected from a growing list of options.",
+					"label": "Owner",
+					"placeholder": "Choose owner",
+					"searchPlaceholder": "Search owners",
+					"empty": "No owners found.",
+					"options": {
+						"maria": {
+							"label": "Maria Souza",
+							"description": "Identity operations",
+							"role": "manager"
+						},
+						"joao": {
+							"label": "Joao Lima",
+							"description": "Partner onboarding",
+							"role": "reviewer"
+						},
+						"ana": {
+							"label": "Ana Costa",
+							"description": "Project health",
+							"role": "analyst"
+						}
+					}
+				},
+				"city": {
+					"title": "City search",
+					"description": "Another good fit when locations or categories become too large for a plain select.",
+					"label": "City",
+					"placeholder": "Choose city",
+					"searchPlaceholder": "Search cities",
+					"empty": "No cities found.",
+					"options": {
+						"campinas": {
+							"label": "Campinas",
+							"description": "Sao Paulo"
+						},
+						"osasco": {
+							"label": "Osasco",
+							"description": "Sao Paulo"
+						},
+						"santos": {
+							"label": "Santos",
+							"description": "Coastal region"
+						}
+					}
+				}
+			}
+		},
+		"drawer": {
+			"title": "Drawer",
+			"description": "Drawers reveal focused side panels while keeping the current page visible underneath. Use them for edit flows, details, and filter panels that should preserve more context than a centered dialog.",
+			"patternNotes": {
+				"items": {
+					"context": "Use a drawer when the current page should remain visible and recognizable while the user handles a focused secondary task.",
+					"side": "Choose the side based on layout and task. Right-side detail panels are common, while left-side drawers often work well for filters and supporting tools.",
+					"footer": "Keep footer actions concise and predictable. A drawer should still feel scoped, not like a full page hidden inside a panel.",
+					"escalation": "If the content becomes highly interruptive or needs stronger focus isolation, escalate to a dialog or a dedicated route instead."
+				},
+				"snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent side=\"right\">\n    <DrawerHeader>\n      <DrawerTitle>Project details</DrawerTitle>\n      <DrawerDescription>Review metadata.</DrawerDescription>\n    </DrawerHeader>\n    <DrawerFooter>...</DrawerFooter>\n  </DrawerContent>\n</Drawer>"
+			},
+			"sections": {
+				"examples": {
+					"title": "Panel patterns",
+					"description": "Drawers are strongest when the page context should stay visible while the user reviews or edits adjacent information."
+				}
+			},
+			"cards": {
+				"details": {
+					"title": "Detail panel",
+					"description": "A right-side drawer works well for record details and light edit flows.",
+					"trigger": "Open details drawer"
+				},
+				"filters": {
+					"title": "Filters panel",
+					"description": "A left-side drawer can keep supporting filters available without replacing the whole page.",
+					"trigger": "Open filters drawer"
+				}
+			},
+			"examples": {
+				"details": {
+					"eyebrow": "Details panel",
+					"title": "Project Atlas",
+					"description": "Use the drawer for supporting record detail while the original list or page remains visible underneath.",
+					"items": {
+						"owner": {
+							"title": "Owner",
+							"description": "Maria Souza coordinates approvals and delivery checkpoints."
+						},
+						"status": {
+							"title": "Status",
+							"description": "Currently active with one pending review cycle."
+						},
+						"updated": {
+							"title": "Last update",
+							"description": "Edited two hours ago by the operations team."
+						}
+					},
+					"footer": {
+						"secondary": "Close",
+						"primary": "Open full record"
+					}
+				},
+				"filters": {
+					"eyebrow": "Filters panel",
+					"title": "Refine project list",
+					"description": "A supporting drawer can hold denser filters without breaking the surrounding browsing context.",
+					"items": {
+						"status": {
+							"title": "Status",
+							"description": "Active, paused, and archived visibility."
+						},
+						"owner": {
+							"title": "Owner",
+							"description": "Filter by responsible team or reviewer."
+						},
+						"period": {
+							"title": "Period",
+							"description": "Limit the result set to a time window."
+						}
+					},
+					"footer": {
+						"secondary": "Reset",
+						"primary": "Apply filters"
+					}
+				}
+			}
 		}
 	}
 }

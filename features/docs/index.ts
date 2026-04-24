@@ -1,10 +1,14 @@
 export { default as AccordionParticle } from "./particles/AccordionParticle";
 export { default as AlertDialogParticle } from "./particles/AlertDialogParticle";
+export { default as BadgeParticle } from "./particles/BadgeParticle";
+export { default as BreadcrumbParticle } from "./particles/BreadcrumbParticle";
 export { default as ButtonParticle } from "./particles/ButtonParticle";
 export { default as CardParticle } from "./particles/CardParticle";
+export { default as ComboboxParticle } from "./particles/ComboboxParticle";
 export { default as DatePickerParticle } from "./particles/DatePickerParticle";
 export { default as DialogParticle } from "./particles/DialogParticle";
 export { default as DropdownMenuParticle } from "./particles/DropdownMenuParticle";
+export { default as DrawerParticle } from "./particles/DrawerParticle";
 export { default as EmptyStateParticle } from "./particles/EmptyStateParticle";
 export { default as IconParticle } from "./particles/IconParticle";
 export { default as InputParticle } from "./particles/InputParticle";

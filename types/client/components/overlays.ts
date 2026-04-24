@@ -4,8 +4,9 @@ import type * as RadixAlertDialog from "@radix-ui/react-alert-dialog";
 
 export interface DialogProps {
 	children: ReactNode;
-	open: boolean;
-	onOpenChange: (open: boolean) => void;
+	open?: boolean | undefined;
+	defaultOpen?: boolean | undefined;
+	onOpenChange?: ((open: boolean) => void) | undefined;
 	isLoading?: boolean;
 	loadingLabel?: string;
 }
@@ -76,4 +77,49 @@ export interface AlertDialogCancelProps
 export interface AlertDialogActionProps
 	extends ComponentPropsWithoutRef<typeof RadixAlertDialog.Action> {
 	children: ReactNode;
+}
+
+export type DrawerSide = "top" | "right" | "bottom" | "left";
+
+export interface DrawerProps {
+	children: ReactNode;
+	open?: boolean | undefined;
+	defaultOpen?: boolean | undefined;
+	onOpenChange?: ((open: boolean) => void) | undefined;
+	isLoading?: boolean;
+	loadingLabel?: string;
+}
+
+export interface DrawerTriggerProps {
+	children: ReactNode;
+}
+
+export interface DrawerCloseProps {
+	children: ReactNode;
+}
+
+export interface DrawerContentProps {
+	children: ReactNode;
+	className?: string;
+	side?: DrawerSide;
+}
+
+export interface DrawerHeaderProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface DrawerTitleProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface DrawerDescriptionProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface DrawerFooterProps {
+	children: ReactNode;
+	className?: string;
 }

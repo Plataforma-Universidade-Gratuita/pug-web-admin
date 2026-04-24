@@ -11,6 +11,11 @@ import type * as RadixScrollArea from "@radix-ui/react-scroll-area";
 import type * as RadixSeparator from "@radix-ui/react-separator";
 import type { LucideProps } from "lucide-react";
 
+import { BADGE_TONES, BADGE_VARIANTS } from "@/constants/components";
+
+export type BadgeTone = keyof typeof BADGE_TONES;
+export type BadgeVariant = keyof typeof BADGE_VARIANTS;
+
 export interface TooltipProps {
 	children: ReactNode;
 	content: ReactNode;
@@ -66,6 +71,12 @@ export interface EmptyStateProps
 export interface SkeletonProps extends HTMLAttributes<HTMLSpanElement> {
 	width?: string | number;
 	height?: string | number;
+}
+
+export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+	children: ReactNode;
+	tone?: BadgeTone;
+	variant?: BadgeVariant;
 }
 
 export interface LabelProps

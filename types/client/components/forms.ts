@@ -25,6 +25,28 @@ export interface MultiSelectOption {
 	disabled?: boolean;
 }
 
+export interface ComboboxOption {
+	value: string;
+	label: ReactNode;
+	description?: ReactNode;
+	disabled?: boolean;
+	keywords?: string[];
+	searchText?: string;
+}
+
+export interface ComboboxProps {
+	options: ComboboxOption[];
+	id?: string;
+	value?: string;
+	defaultValue?: string;
+	onValueChange?: (value: string) => void;
+	placeholder?: ReactNode;
+	searchPlaceholder?: string;
+	emptyMessage?: ReactNode;
+	disabled?: boolean;
+	className?: string;
+}
+
 export interface MultiSelectProps {
 	options: MultiSelectOption[];
 	id?: string;
