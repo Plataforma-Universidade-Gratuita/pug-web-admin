@@ -11,6 +11,8 @@ import { useTranslation } from "react-i18next";
 
 import type { MenuGroupProps } from "@/types/client";
 
+import { Icon as AppIcon } from "../../../../index";
+
 export function MenuGroup({
 	collapsed,
 	label,
@@ -56,10 +58,15 @@ export function MenuGroup({
 					: "",
 			].join(" ")}
 		>
-			<Icon
+			<AppIcon
+				icon={Icon}
 				size={20}
 				strokeWidth={2}
-				className={`shrink-0 ${hasActiveChild ? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]" : "text-base-800"}`}
+				className={
+					hasActiveChild
+						? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
+						: "text-base-800"
+				}
 			/>
 			{!collapsed && (
 				<>
@@ -68,9 +75,11 @@ export function MenuGroup({
 					>
 						{t(label)}
 					</span>
-					<ChevronDown
+					<AppIcon
+						icon={ChevronDown}
 						size={16}
-						className={`ml-auto transition-transform ${open ? "rotate-180" : ""}`}
+						className={`transition-transform ${open ? "rotate-180" : ""}`}
+						containerClassName="ml-auto"
 					/>
 				</>
 			)}
@@ -102,10 +111,15 @@ export function MenuGroup({
 								}
 							}}
 						>
-							<Icon
+							<AppIcon
+								icon={Icon}
 								size={18}
 								strokeWidth={2}
-								className={`shrink-0 ${active ? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]" : ""}`}
+								className={
+									active
+										? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
+										: undefined
+								}
 							/>
 							<span
 								className={`ty-sm truncate ${active ? "text-brand font-semibold" : ""}`}
@@ -181,10 +195,15 @@ export function MenuGroup({
 												}
 											}}
 										>
-											<Icon
+											<AppIcon
+												icon={Icon}
 												size={16}
 												strokeWidth={2}
-												className={`shrink-0 ${active ? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]" : ""}`}
+												className={
+													active
+														? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
+														: undefined
+												}
 											/>
 											<span className="truncate">{t(label)}</span>
 										</Link>

@@ -1,23 +1,16 @@
-import type { ForwardRefExoticComponent, RefAttributes } from "react";
-
-import type { LucideProps } from "lucide-react";
-
+import type { IconComponent } from "./components";
 import type { AppLang, AppTheme } from "./index";
-
-export type NavIconType = ForwardRefExoticComponent<
-	Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
->;
 
 export interface MenuGroupChild {
 	href: string;
 	label: string;
-	Icon: NavIconType;
+	Icon: IconComponent;
 }
 
 export interface MenuGroupProps {
 	collapsed: boolean;
 	label: string;
-	Icon: NavIconType;
+	Icon: IconComponent;
 	childrenItems: MenuGroupChild[];
 }
 
@@ -25,12 +18,12 @@ export interface MenuItemProps {
 	collapsed: boolean;
 	href: string;
 	label: string;
-	Icon: NavIconType;
+	Icon: IconComponent;
 	active: boolean;
 }
 
 export interface SettingCardOption {
-	Icon?: NavIconType;
+	Icon?: IconComponent;
 	label: string;
 	value: string;
 	onClick: () => void;
@@ -39,7 +32,7 @@ export interface SettingCardOption {
 export interface SettingCardSelectedOption {
 	label: string;
 	value: string;
-	Icon?: NavIconType;
+	Icon?: IconComponent;
 }
 
 export interface SettingCardProps {

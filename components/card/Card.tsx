@@ -1,5 +1,5 @@
 import clsx from "clsx";
-
+import { Content, Footer, Header } from "components/layout/Layout";
 import type {
 	CardContentProps,
 	CardDescriptionProps,
@@ -7,7 +7,7 @@ import type {
 	CardHeaderProps,
 	CardProps,
 	CardTitleProps,
-} from "@/types/client";
+} from "types/client";
 
 export function Card({ children, className, ...props }: CardProps) {
 	return (
@@ -25,12 +25,12 @@ export function Card({ children, className, ...props }: CardProps) {
 
 export function CardHeader({ children, className, ...props }: CardHeaderProps) {
 	return (
-		<div
+		<Header
 			className={clsx("space-y-1", className)}
 			{...props}
 		>
 			{children}
-		</div>
+		</Header>
 	);
 }
 
@@ -66,22 +66,22 @@ export function CardContent({
 	...props
 }: CardContentProps) {
 	return (
-		<div
+		<Content
 			className={className}
 			{...props}
 		>
 			{children}
-		</div>
+		</Content>
 	);
 }
 
 export function CardFooter({ children, className, ...props }: CardFooterProps) {
 	return (
-		<div
+		<Footer
 			className={className}
 			{...props}
 		>
 			{children}
-		</div>
+		</Footer>
 	);
 }

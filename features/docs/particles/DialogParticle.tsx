@@ -18,8 +18,8 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@/components/ui";
-
+	Icon,
+} from "../../../components";
 import { ParticleContainer } from "./components/ParticleContainer";
 import { ParticleSection } from "./components/ParticleSection";
 
@@ -62,7 +62,12 @@ export default function DialogParticle() {
 							<Button
 								usage="primary"
 								variant="flat"
-								leadingIcon={<Layers3 className="h-4 w-4" />}
+								leadingIcon={
+									<Icon
+										icon={Layers3}
+										className="h-4 w-4"
+									/>
+								}
 								onClick={() => setIsBasicOpen(true)}
 							>
 								{t("docs.dialog.structureCards.basic.trigger")}
@@ -83,7 +88,12 @@ export default function DialogParticle() {
 							<Button
 								usage="secondary"
 								variant="flat"
-								leadingIcon={<Info className="h-4 w-4" />}
+								leadingIcon={
+									<Icon
+										icon={Info}
+										className="h-4 w-4"
+									/>
+								}
 								onClick={() => setIsFooterOpen(true)}
 							>
 								{t("docs.dialog.structureCards.description.trigger")}
@@ -108,7 +118,12 @@ export default function DialogParticle() {
 						<Button
 							usage="primary"
 							variant="flat"
-							trailingIcon={<ArrowRight className="h-4 w-4" />}
+							trailingIcon={
+								<Icon
+									icon={ArrowRight}
+									className="h-4 w-4"
+								/>
+							}
 							onClick={() => setIsFooterOpen(true)}
 						>
 							{t("docs.dialog.footerCard.trigger")}
@@ -132,7 +147,12 @@ export default function DialogParticle() {
 						<Button
 							usage="secondary"
 							variant="ghost"
-							leadingIcon={<FileText className="h-4 w-4" />}
+							leadingIcon={
+								<Icon
+									icon={FileText}
+									className="h-4 w-4"
+								/>
+							}
 							onClick={() => setIsOverflowOpen(true)}
 						>
 							{t("docs.dialog.overflowCard.trigger")}

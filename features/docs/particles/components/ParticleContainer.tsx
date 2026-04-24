@@ -5,17 +5,18 @@ import { useState } from "react";
 import { Minus, Plus, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import type { ParticleContainerProps } from "@/types/client";
+
 import {
 	Button,
+	Icon,
 	Section,
 	SectionActions,
 	SectionContent,
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
-} from "@/components/ui";
-import type { ParticleContainerProps } from "@/types/client";
-
+} from "../../../../components";
 import { ParticlePatternNotes } from "./ParticlePatternNotes";
 
 export function ParticleContainer({
@@ -55,9 +56,15 @@ export function ParticleContainer({
 						onClick={() => setIsExpanded(current => !current)}
 					>
 						{isExpanded ? (
-							<Minus className="h-4 w-4" />
+							<Icon
+								icon={Minus}
+								className="h-4 w-4"
+							/>
 						) : (
-							<Plus className="h-4 w-4" />
+							<Icon
+								icon={Plus}
+								className="h-4 w-4"
+							/>
 						)}
 					</Button>
 					<Button
@@ -67,7 +74,10 @@ export function ParticleContainer({
 						variant="ghost"
 						onClick={() => setIsPreviewOpen(true)}
 					>
-						<Sparkles className="h-4 w-4" />
+						<Icon
+							icon={Sparkles}
+							className="h-4 w-4"
+						/>
 					</Button>
 				</SectionActions>
 			</SectionHeader>

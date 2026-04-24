@@ -17,9 +17,9 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
+	Icon,
 	Tooltip,
-} from "@/components/ui";
-
+} from "../../../components";
 import { ParticleContainer } from "./components/ParticleContainer";
 import { ParticleSection } from "./components/ParticleSection";
 
@@ -52,7 +52,12 @@ export default function TooltipParticle() {
 							usage="primary"
 							variant="flat"
 							title={t("docs.tooltip.automatic.createItem")}
-							leadingIcon={<Plus className="h-4 w-4" />}
+							leadingIcon={
+								<Icon
+									icon={Plus}
+									className="h-4 w-4"
+								/>
+							}
 						/>
 						<Button
 							size="icon"
@@ -60,14 +65,24 @@ export default function TooltipParticle() {
 							variant="ghost"
 							tooltipContent={t("docs.tooltip.automatic.moreInformation")}
 							aria-label={t("docs.tooltip.automatic.moreInformation")}
-							leadingIcon={<Info className="h-4 w-4" />}
+							leadingIcon={
+								<Icon
+									icon={Info}
+									className="h-4 w-4"
+								/>
+							}
 						/>
 						<Button
 							size="icon"
 							usage="danger"
 							variant="ghost"
 							title={t("docs.tooltip.automatic.deleteDraft")}
-							leadingIcon={<Trash2 className="h-4 w-4" />}
+							leadingIcon={
+								<Icon
+									icon={Trash2}
+									className="h-4 w-4"
+								/>
+							}
 						/>
 					</CardContent>
 				</Card>
@@ -168,9 +183,15 @@ export default function TooltipParticle() {
 									type="button"
 									className="border-default-2 surface-2 ty-sm-semibold focus-ring inline-flex items-center gap-2 rounded-[var(--twc-radius-lg)] border px-3 py-2"
 								>
-									<PanelTop className="h-4 w-4" />
+									<Icon
+										icon={PanelTop}
+										className="h-4 w-4"
+									/>
 									{t("docs.tooltip.richContent.compactMetadata.button")}
-									<ArrowUpRight className="h-4 w-4" />
+									<Icon
+										icon={ArrowUpRight}
+										className="h-4 w-4"
+									/>
 								</button>
 							</Tooltip>
 						</CardContent>
@@ -195,7 +216,10 @@ export default function TooltipParticle() {
 									type="button"
 									className="border-default-2 surface-2 focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border"
 								>
-									<CircleHelp className="h-4 w-4" />
+									<Icon
+										icon={CircleHelp}
+										className="h-4 w-4"
+									/>
 								</button>
 							</Tooltip>
 						</CardContent>
@@ -208,7 +232,12 @@ export default function TooltipParticle() {
 							<Button
 								usage="secondary"
 								variant="ghost"
-								leadingIcon={<Info className="h-4 w-4" />}
+								leadingIcon={
+									<Icon
+										icon={Info}
+										className="h-4 w-4"
+									/>
+								}
 							>
 								{t("docs.tooltip.triggerGuidance.needsLabel.button")}
 							</Button>

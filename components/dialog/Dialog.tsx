@@ -2,8 +2,7 @@
 
 import * as RadixDialog from "@radix-ui/react-dialog";
 import clsx from "clsx";
-
-import { APP_TOPBAR_HEIGHT } from "@/constants/ui";
+import { Footer, Header } from "components/layout/Layout";
 import type {
 	DialogContentProps,
 	DialogDescriptionProps,
@@ -11,7 +10,9 @@ import type {
 	DialogHeaderProps,
 	DialogProps,
 	DialogTitleProps,
-} from "@/types/client";
+} from "types/client";
+
+import { APP_TOPBAR_HEIGHT } from "../../constants/components";
 
 export function Dialog({ children, open, onOpenChange }: DialogProps) {
 	return (
@@ -47,7 +48,7 @@ export function DialogContent({ children, className }: DialogContentProps) {
 }
 
 export function DialogHeader({ children, className }: DialogHeaderProps) {
-	return <div className={clsx("space-y-2", className)}>{children}</div>;
+	return <Header className={clsx("space-y-2", className)}>{children}</Header>;
 }
 
 export function DialogTitle({ children, className }: DialogTitleProps) {
@@ -71,13 +72,13 @@ export function DialogDescription({
 
 export function DialogFooter({ children, className }: DialogFooterProps) {
 	return (
-		<div
+		<Footer
 			className={clsx(
 				"border-default-2 flex shrink-0 flex-wrap items-center justify-end gap-3 border-t p-6",
 				className,
 			)}
 		>
 			{children}
-		</div>
+		</Footer>
 	);
 }

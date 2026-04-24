@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 
 import type { TopBarProps } from "@/types/client";
 
+import { Icon } from "../../../index";
+
 export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 	const { t } = useTranslation();
 	return (
@@ -27,9 +29,15 @@ export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 						aria-label={collapsed ? t("Navbar.expand") : t("Navbar.collapse")}
 					>
 						{collapsed ? (
-							<PanelsTopLeft size={22} />
+							<Icon
+								icon={PanelsTopLeft}
+								size={22}
+							/>
 						) : (
-							<PanelLeftClose size={22} />
+							<Icon
+								icon={PanelLeftClose}
+								size={22}
+							/>
 						)}
 					</button>
 					<div className="flex items-baseline gap-2">

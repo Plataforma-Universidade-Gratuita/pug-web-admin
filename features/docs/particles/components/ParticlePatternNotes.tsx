@@ -3,14 +3,16 @@
 import { LoaderCircle, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import type { ParticlePatternNotesProps } from "@/types/client";
+
 import {
 	Button,
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
-} from "@/components/ui";
-import type { ParticlePatternNotesProps } from "@/types/client";
+	Icon,
+} from "../../../../components";
 
 export function ParticlePatternNotes({
 	open,
@@ -41,7 +43,12 @@ export function ParticlePatternNotes({
 						usage="secondary"
 						aria-label={t("docs.shared.closePatternNotes")}
 						onClick={() => onOpenChange(false)}
-						leadingIcon={<X className="h-4 w-4" />}
+						leadingIcon={
+							<Icon
+								icon={X}
+								className="h-4 w-4"
+							/>
+						}
 					/>
 				</div>
 
@@ -54,7 +61,10 @@ export function ParticlePatternNotes({
 
 					<div className="border-default-2 rounded-[var(--twc-radius-lg)] border border-dashed p-4">
 						<div className="mb-3 flex items-center gap-2">
-							<LoaderCircle className="h-4 w-4 text-[color:var(--twc-muted)]" />
+							<Icon
+								icon={LoaderCircle}
+								className="h-4 w-4 text-[color:var(--twc-muted)]"
+							/>
 							<p className="ty-sm-bold">{apiLabel}</p>
 						</div>
 						<pre className="overflow-x-auto text-xs leading-6 text-[color:var(--twc-muted)]">

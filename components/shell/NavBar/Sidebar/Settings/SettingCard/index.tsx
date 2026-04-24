@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 
 import type { SettingCardProps } from "@/types/client";
 
+import { Icon as AppIcon } from "../../../../../index";
+
 export default function SettingCard({
 	title,
 	selectedOption = { label: "", value: "" },
@@ -25,17 +27,20 @@ export default function SettingCard({
 				<span className="ty-sm whitespace-nowrap">{t(title)}</span>
 				<span className="mx-2 h-[1px] flex-1 bg-[color:var(--twc-surface-3)]" />
 				{selectedOption.Icon ? (
-					<selectedOption.Icon
+					<AppIcon
+						icon={selectedOption.Icon}
 						size={15}
-						className="text-brand! shrink-0"
+						className="text-brand!"
 					/>
 				) : null}
 				<span className="ty-sm-semibold text-brand! text-xs! whitespace-nowrap">
 					{t(selectedOption.label)}
 				</span>
-				<ChevronDown
+				<AppIcon
+					icon={ChevronDown}
 					size={16}
-					className={`ml-1 transition-transform ${open ? "rotate-180" : ""}`}
+					className={`transition-transform ${open ? "rotate-180" : ""}`}
+					containerClassName="ml-1"
 				/>
 			</button>
 			<div
@@ -63,7 +68,8 @@ export default function SettingCard({
 									].join(" ")}
 								>
 									{Icon ? (
-										<Icon
+										<AppIcon
+											icon={Icon}
 											size={16}
 											className="mr-2 inline-block"
 										/>

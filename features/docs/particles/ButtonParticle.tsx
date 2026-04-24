@@ -19,8 +19,8 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui";
-
+	Icon,
+} from "../../../components";
 import { ParticleContainer } from "./components/ParticleContainer";
 import { ParticleSection } from "./components/ParticleSection";
 
@@ -51,32 +51,62 @@ export default function ButtonParticle() {
 						{
 							key: "primary",
 							usage: "primary" as const,
-							icon: <ArrowRight className="h-4 w-4" />,
+							icon: (
+								<Icon
+									icon={ArrowRight}
+									className="h-4 w-4"
+								/>
+							),
 						},
 						{
 							key: "secondary",
 							usage: "secondary" as const,
-							icon: <Download className="h-4 w-4" />,
+							icon: (
+								<Icon
+									icon={Download}
+									className="h-4 w-4"
+								/>
+							),
 						},
 						{
 							key: "success",
 							usage: "success" as const,
-							icon: <CheckCircle2 className="h-4 w-4" />,
+							icon: (
+								<Icon
+									icon={CheckCircle2}
+									className="h-4 w-4"
+								/>
+							),
 						},
 						{
 							key: "info",
 							usage: "info" as const,
-							icon: <Info className="h-4 w-4" />,
+							icon: (
+								<Icon
+									icon={Info}
+									className="h-4 w-4"
+								/>
+							),
 						},
 						{
 							key: "warning",
 							usage: "warning" as const,
-							icon: <OctagonAlert className="h-4 w-4" />,
+							icon: (
+								<Icon
+									icon={OctagonAlert}
+									className="h-4 w-4"
+								/>
+							),
 						},
 						{
 							key: "danger",
 							usage: "danger" as const,
-							icon: <ShieldAlert className="h-4 w-4" />,
+							icon: (
+								<Icon
+									icon={ShieldAlert}
+									className="h-4 w-4"
+								/>
+							),
 						},
 					].map(item => (
 						<Card
@@ -129,7 +159,12 @@ export default function ButtonParticle() {
 								<Button
 									usage="primary"
 									variant={item.variant}
-									leadingIcon={<Zap className="h-4 w-4" />}
+									leadingIcon={
+										<Icon
+											icon={Zap}
+											className="h-4 w-4"
+										/>
+									}
 								>
 									{t("docs.button.variantCards.label")}
 								</Button>
@@ -155,7 +190,12 @@ export default function ButtonParticle() {
 								size={item.size}
 								usage="secondary"
 								variant="flat"
-								leadingIcon={<Plus className="h-4 w-4" />}
+								leadingIcon={
+									<Icon
+										icon={Plus}
+										className="h-4 w-4"
+									/>
+								}
 							>
 								{t(`docs.button.sizes.${item.key}`)}
 							</Button>
@@ -165,7 +205,12 @@ export default function ButtonParticle() {
 							usage="secondary"
 							variant="ghost"
 							title={t("docs.button.sizes.iconTitle")}
-							leadingIcon={<Plus className="h-4 w-4" />}
+							leadingIcon={
+								<Icon
+									icon={Plus}
+									className="h-4 w-4"
+								/>
+							}
 						/>
 					</CardContent>
 				</Card>
@@ -209,7 +254,12 @@ export default function ButtonParticle() {
 								className="w-full"
 								usage="info"
 								variant="flat"
-								trailingIcon={<ArrowRight className="h-4 w-4" />}
+								trailingIcon={
+									<Icon
+										icon={ArrowRight}
+										className="h-4 w-4"
+									/>
+								}
 							>
 								{t("docs.button.statesCards.fullWidth.button")}
 							</Button>

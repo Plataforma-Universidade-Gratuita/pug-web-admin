@@ -283,6 +283,115 @@
 				}
 			}
 		},
+		"emptyState": {
+			"title": "Empty State",
+			"description": "Empty states comunicam a ausência de conteúdo e orientam o próximo passo do usuário. Use esse padrão em cenários de primeiro uso, resultados vazios, filtros sem retorno e casos em que o conteúdo não está disponível.",
+			"patternNotes": {
+				"items": {
+					"context": "Ajuste o empty state ao motivo da ausência de conteúdo: primeiro uso, nenhum resultado, falta de acesso ou um conjunto temporariamente vazio.",
+					"message": "Comece com um título claro e uma descrição curta que explique por que nada está sendo exibido, sem culpar o usuário.",
+					"actions": "Adicione ações apenas quando houver um próximo passo realmente útil. Não coloque botões só para ocupar espaço.",
+					"scope": "Use empty states dentro do contêiner que possui a ausência de conteúdo: uma section da página, um card, uma região de tabela ou o corpo de uma lista."
+				},
+				"snippet": "<EmptyState\n  icon={<Inbox />}\n  title=\"Nenhum item ainda\"\n  description=\"Crie o primeiro item para preencher esta visualização.\"\n  actions={\n    <Button usage=\"primary\" variant=\"flat\">Novo item</Button>\n  }\n/>"
+			},
+			"sections": {
+				"firstUse": {
+					"title": "Estado de primeiro uso",
+					"description": "Use um empty state mais convidativo quando o usuário ainda não criou nenhum conteúdo."
+				},
+				"results": {
+					"title": "Resultados e acesso",
+					"description": "Casos diferentes de ausência pedem tom e ações diferentes."
+				},
+				"compact": {
+					"title": "Estado inline compacto",
+					"description": "Use uma versão menor quando o empty state estiver dentro de uma região mais apertada, como um card ou painel lateral."
+				}
+			},
+			"firstUse": {
+				"title": "Nenhum projeto ainda",
+				"description": "Crie o primeiro projeto para começar a organizar o trabalho, definir responsáveis e acompanhar o progresso nesta área.",
+				"actions": {
+					"secondary": "Importar dados",
+					"primary": "Criar projeto"
+				}
+			},
+			"results": {
+				"noResults": {
+					"title": "Nenhum resultado correspondente",
+					"description": "Nenhum registro corresponde aos filtros atuais. Ajuste os critérios ou limpe os filtros para ampliar os resultados.",
+					"action": "Limpar filtros"
+				},
+				"noAccess": {
+					"title": "Nenhum workspace acessível",
+					"description": "Este usuário ainda não está atribuído a nenhum workspace. Conceda acesso antes de esperar conteúdo nesta área."
+				}
+			},
+			"compact": {
+				"title": "Nada para revisar",
+				"description": "Esta fila está vazia no momento.",
+				"action": "Atualizar"
+			}
+		},
+		"icon": {
+			"title": "Icon",
+			"description": "Ícones comunicam significado de apoio, reforçam ações e condensam estado visual. Use a primitiva de ícone para manter ícones decorativos silenciosos, ícones com significado acessíveis e ícones isolados com tooltip quando necessário.",
+			"patternNotes": {
+				"items": {
+					"decorative": "Use ícones como decorativos por padrão quando o texto ao lado já comunica o significado.",
+					"accessible": "Forneça um `label` quando o ícone precisar expor significado sozinho. A primitiva usa Radix Accessible Icon para esse nome acessível.",
+					"tooltip": "Um ícone isolado com `label` também pode expor tooltip. Se nenhum tooltip customizado for informado, o próprio label vira a dica visível.",
+					"buttons": "Dentro de botões e outros controles, mantenha o ícone interno como decorativo. A acessibilidade e o tooltip normalmente devem pertencer ao controle pai."
+				},
+				"snippet": "<Icon\n  icon={Search}\n  label=\"Buscar\"\n  tooltipContent=\"Encontrar registros\"\n  size={16}\n  className=\"text-[color:var(--color-brand)]\"\n/>"
+			},
+			"sections": {
+				"decorative": {
+					"title": "Uso decorativo",
+					"description": "A maioria dos ícones é visual de apoio e não deve gerar saída redundante de acessibilidade."
+				},
+				"accessibility": {
+					"title": "Acessibilidade e tooltip",
+					"description": "Quando um ícone aparece sozinho, forneça um label acessível e, se necessário, um tooltip específico."
+				},
+				"integration": {
+					"title": "Integração",
+					"description": "Use a mesma primitiva para ícones isolados e para ícones compostos dentro de botões ou outros controles."
+				}
+			},
+			"decorativeCards": {
+				"inline": {
+					"title": "Ícone inline de apoio",
+					"description": "Ícones decorativos devem reforçar o texto próximo sem competir com ele na árvore de acessibilidade.",
+					"body": "Configuração concluída"
+				},
+				"status": {
+					"title": "Badge de status",
+					"description": "Marcadores compactos de status muitas vezes precisam de ícone visual, mas não de um anúncio separado.",
+					"badge": "Notificações"
+				}
+			},
+			"accessibilityCards": {
+				"tooltip": {
+					"title": "Tooltip a partir do label",
+					"description": "Quando apenas o label é informado, o ícone reutiliza esse valor tanto para acessibilidade quanto para a dica do tooltip.",
+					"label": "Buscar"
+				},
+				"custom": {
+					"title": "Tooltip com texto customizado",
+					"description": "Use uma mensagem de tooltip separada quando o label acessível precisar ser curto, mas a dica visível exigir mais contexto.",
+					"label": "Visualizar",
+					"tooltip": "Visualizar o registro atual"
+				}
+			},
+			"integrationCard": {
+				"title": "Composição com botões",
+				"description": "A primitiva de ícone também funciona dentro de controles mais complexos. Nesses casos, o nome acessível e o tooltip continuam pertencendo ao controle pai.",
+				"primary": "Buscar registros",
+				"iconButton": "Notificações"
+			}
+		},
 		"section": {
 			"title": "Section",
 			"description": "Sections agrupam conteúdo relacionado dentro do fluxo normal da página. Use esse padrão para definir estrutura, introduzir um título com descrição de apoio e, quando necessário, anexar ações no nível da seção.",

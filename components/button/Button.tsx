@@ -1,9 +1,12 @@
 import clsx from "clsx";
+import { Tooltip } from "components/index";
+import type { ButtonProps } from "types/client";
 
-import { Tooltip } from "@/components/ui";
-import { BUTTON_SIZES, BUTTON_USAGES, BUTTON_VARIANTS } from "@/constants/ui";
-import type { ButtonProps } from "@/types/client";
-
+import {
+	BUTTON_SIZES,
+	BUTTON_USAGES,
+	BUTTON_VARIANTS,
+} from "../../constants/components";
 import { getAccessibleText } from "./utils";
 
 export function Button({

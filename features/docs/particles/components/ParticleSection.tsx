@@ -5,16 +5,18 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import type { ParticleSectionProps } from "@/types/client";
+
 import {
 	Button,
+	Icon,
 	Section,
 	SectionActions,
 	SectionContent,
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
-} from "@/components/ui";
-import type { ParticleSectionProps } from "@/types/client";
+} from "../../../../components";
 
 export function ParticleSection({
 	title,
@@ -38,9 +40,15 @@ export function ParticleSection({
 						variant="ghost"
 						leadingIcon={
 							isExpanded ? (
-								<ChevronUp className="h-4 w-4" />
+								<Icon
+									icon={ChevronUp}
+									className="h-4 w-4"
+								/>
 							) : (
-								<ChevronDown className="h-4 w-4" />
+								<Icon
+									icon={ChevronDown}
+									className="h-4 w-4"
+								/>
 							)
 						}
 						onClick={() => setIsExpanded(current => !current)}

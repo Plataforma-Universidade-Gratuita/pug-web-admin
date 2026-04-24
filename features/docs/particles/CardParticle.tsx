@@ -11,8 +11,8 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui";
-
+	Icon,
+} from "../../../components";
 import { ParticleContainer } from "./components/ParticleContainer";
 import { ParticleSection } from "./components/ParticleSection";
 
@@ -94,7 +94,12 @@ export default function CardParticle() {
 							<Button
 								usage="primary"
 								variant="flat"
-								trailingIcon={<ArrowRight className="h-4 w-4" />}
+								trailingIcon={
+									<Icon
+										icon={ArrowRight}
+										className="h-4 w-4"
+									/>
+								}
 							>
 								{t("docs.card.compositionCards.actions.footer.primary")}
 							</Button>
@@ -104,7 +109,10 @@ export default function CardParticle() {
 					<Card className="flex min-h-52 flex-col p-4">
 						<CardHeader className="flex items-start gap-3 space-y-0">
 							<div className="surface-2 flex h-10 w-10 items-center justify-center rounded-[var(--twc-radius-lg)]">
-								<FolderKanban className="h-5 w-5 text-[color:var(--color-brand)]" />
+								<Icon
+									icon={FolderKanban}
+									className="h-5 w-5 text-[color:var(--color-brand)]"
+								/>
 							</div>
 							<div className="space-y-1">
 								<CardTitle>
@@ -163,7 +171,10 @@ export default function CardParticle() {
 									key={key}
 									className="surface-2 flex items-start gap-3 rounded-[var(--twc-radius-lg)] p-3"
 								>
-									<Rows3 className="mt-0.5 h-4 w-4 text-[color:var(--twc-muted)]" />
+									<Icon
+										icon={Rows3}
+										className="mt-0.5 h-4 w-4 text-[color:var(--twc-muted)]"
+									/>
 									<div className="space-y-1">
 										<p className="ty-sm-bold">
 											{t(`docs.card.layoutCards.list.items.${key}.title`)}
@@ -186,7 +197,10 @@ export default function CardParticle() {
 						</CardHeader>
 						<CardContent className="mt-6">
 							<div className="surface-2 inline-flex items-center gap-2 rounded-full px-3 py-2">
-								<LayoutPanelTop className="h-4 w-4 text-[color:var(--color-brand)]" />
+								<Icon
+									icon={LayoutPanelTop}
+									className="h-4 w-4 text-[color:var(--color-brand)]"
+								/>
 								<span className="ty-sm-semibold">
 									{t("docs.card.layoutCards.compact.badge")}
 								</span>

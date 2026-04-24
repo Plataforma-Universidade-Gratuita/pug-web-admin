@@ -10,6 +10,7 @@ import { useLocale } from "@/contexts/locale";
 import { useTheme } from "@/contexts/theme";
 import type { AppLang, AppTheme, SettingsProps } from "@/types/client";
 
+import { Icon } from "../../../../index";
 import SettingCard from "./SettingCard";
 
 export default function Settings({ compact = false }: SettingsProps) {
@@ -69,10 +70,15 @@ export default function Settings({ compact = false }: SettingsProps) {
 					].join(" ")}
 					aria-label="Open settings"
 				>
-					<Gear
+					<Icon
+						icon={Gear}
 						size={20}
 						strokeWidth={2}
-						className={`shrink-0 ${open ? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]" : "text-base-800"}`}
+						className={
+							open
+								? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
+								: "text-base-800"
+						}
 					/>
 					{!compact && (
 						<span

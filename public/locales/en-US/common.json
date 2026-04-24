@@ -283,6 +283,115 @@
 				}
 			}
 		},
+		"emptyState": {
+			"title": "Empty State",
+			"description": "Empty states communicate that content is absent and explain what the user can do next. Use them for first-use moments, empty results, filtered views, and access-related absence of content.",
+			"patternNotes": {
+				"items": {
+					"context": "Match the empty state to the reason content is missing: first use, no results, no access, or a temporarily empty dataset.",
+					"message": "Lead with a clear title and short description that explains why nothing is shown without blaming the user.",
+					"actions": "Add actions only when the user has a meaningful next step. Do not add buttons just to fill the space.",
+					"scope": "Use empty states inside the container that owns the absence of content: a page section, a card, a table region, or a list body."
+				},
+				"snippet": "<EmptyState\n  icon={<Inbox />}\n  title=\"No items yet\"\n  description=\"Create the first item to populate this view.\"\n  actions={\n    <Button usage=\"primary\" variant=\"flat\">New item</Button>\n  }\n/>"
+			},
+			"sections": {
+				"firstUse": {
+					"title": "First-use state",
+					"description": "Use a more inviting empty state when the user has not created any content yet."
+				},
+				"results": {
+					"title": "Results and access states",
+					"description": "Different absence cases need different tone and actions."
+				},
+				"compact": {
+					"title": "Compact inline state",
+					"description": "Use a smaller version when the empty state lives inside a tighter region such as a card or side panel."
+				}
+			},
+			"firstUse": {
+				"title": "No projects yet",
+				"description": "Create the first project to start organizing work, assigning owners, and tracking progress from this area.",
+				"actions": {
+					"secondary": "Import data",
+					"primary": "Create project"
+				}
+			},
+			"results": {
+				"noResults": {
+					"title": "No matching results",
+					"description": "No records matched the current filters. Adjust the criteria or clear filters to broaden the results.",
+					"action": "Clear filters"
+				},
+				"noAccess": {
+					"title": "No accessible workspaces",
+					"description": "This user is not assigned to any workspace yet. Grant access before expecting content in this area."
+				}
+			},
+			"compact": {
+				"title": "Nothing to review",
+				"description": "This queue is empty right now.",
+				"action": "Refresh"
+			}
+		},
+		"icon": {
+			"title": "Icon",
+			"description": "Icons communicate supporting meaning, reinforce actions, and compact visual status. Use the icon primitive so decorative icons stay silent, labeled icons remain accessible, and standalone icons can expose tooltip help when needed.",
+			"patternNotes": {
+				"items": {
+					"decorative": "Use icons as decorative by default when adjacent text already communicates the meaning.",
+					"accessible": "Provide a `label` when the icon must expose meaning on its own. The primitive uses Radix Accessible Icon for that accessible name.",
+					"tooltip": "A labeled standalone icon can also expose a tooltip. If no custom tooltip is provided, the label is reused as the hint.",
+					"buttons": "Inside buttons and other controls, keep the inner icon decorative. Accessibility and tooltip behavior should usually belong to the parent control."
+				},
+				"snippet": "<Icon\n  icon={Search}\n  label=\"Search\"\n  tooltipContent=\"Find records\"\n  size={16}\n  className=\"text-[color:var(--color-brand)]\"\n/>"
+			},
+			"sections": {
+				"decorative": {
+					"title": "Decorative usage",
+					"description": "Most icons are supporting visuals and should not create redundant accessibility output."
+				},
+				"accessibility": {
+					"title": "Accessibility and tooltip",
+					"description": "When an icon stands alone, give it an accessible label and optionally a custom tooltip."
+				},
+				"integration": {
+					"title": "Integration",
+					"description": "Use the same primitive for standalone icons and icons composed inside buttons or other controls."
+				}
+			},
+			"decorativeCards": {
+				"inline": {
+					"title": "Inline support icon",
+					"description": "Decorative icons should reinforce nearby text without competing with it in the accessibility tree.",
+					"body": "Setup completed"
+				},
+				"status": {
+					"title": "Status badge",
+					"description": "Compact status markers often need an icon visually, but not as a separate announcement.",
+					"badge": "Notifications"
+				}
+			},
+			"accessibilityCards": {
+				"tooltip": {
+					"title": "Label-driven tooltip",
+					"description": "When only a label is provided, the icon uses that same value for accessibility and the tooltip hint.",
+					"label": "Search"
+				},
+				"custom": {
+					"title": "Custom tooltip copy",
+					"description": "Use a separate tooltip message when the accessible label should stay short but the visible hint needs more context.",
+					"label": "Preview",
+					"tooltip": "Preview the current record"
+				}
+			},
+			"integrationCard": {
+				"title": "Composed with buttons",
+				"description": "The icon primitive also works inside higher-level controls. In those cases, the parent control still owns the accessible name and tooltip behavior.",
+				"primary": "Search records",
+				"iconButton": "Notifications"
+			}
+		},
 		"section": {
 			"title": "Section",
 			"description": "Sections group related content in normal page flow. Use them to define page structure, introduce a title and supporting description, and optionally attach section-level actions.",

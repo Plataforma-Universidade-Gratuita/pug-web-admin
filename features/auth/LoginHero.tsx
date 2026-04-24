@@ -1,5 +1,7 @@
 import { ShieldCheck } from "lucide-react";
 
+import { Icon } from "../../components";
+
 const securityHighlights = [
 	"Administrator-only access",
 	"Session continuity with secure cookies",
@@ -26,7 +28,10 @@ export function LoginHero() {
 						color: "rgba(255,255,255,0.86)",
 					}}
 				>
-					<ShieldCheck className="h-4 w-4" />
+					<Icon
+						icon={ShieldCheck}
+						className="h-4 w-4"
+					/>
 					Admin access
 				</div>
 

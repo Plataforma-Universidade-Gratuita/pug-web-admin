@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 
 import type { MenuItemProps } from "@/types/client";
 
+import { Icon as AppIcon } from "../../../../index";
+
 export function MenuItem({
 	collapsed,
 	href,
@@ -35,10 +37,15 @@ export function MenuItem({
 					}
 				}}
 			>
-				<Icon
+				<AppIcon
+					icon={Icon}
 					size={20}
 					strokeWidth={2}
-					className={`shrink-0 ${active ? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]" : "text-base-800"}`}
+					className={
+						active
+							? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
+							: "text-base-800"
+					}
 				/>
 				{!collapsed && (
 					<span

@@ -5,16 +5,15 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { login } from "api/web/identity/auth";
+import { HOME_ROUTE } from "constants/auth";
 import { ArrowRight, Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { WebApiError } from "utils/web-api";
 import { z } from "zod";
 
-import { login } from "@/api/web/identity/auth";
-import { HOME_ROUTE } from "@/constants/auth";
-import { WebApiError } from "@/utils/web-api";
-
-import { Button } from "../../../../components/ui/button/Button";
+import { Button, Icon } from "../../components";
 
 const loginSchema = z.object({
 	email: z.email("Enter a valid email address."),
@@ -71,9 +70,9 @@ export function LoginForm() {
 				<div className="mb-8 space-y-4">
 					<div className="flex items-center gap-3 lg:hidden">
 						<div className="flex h-11 w-11 items-center justify-center rounded-[var(--twc-radius-lg)] bg-[color:color-mix(in_oklab,var(--color-brand)_16%,transparent)]">
-							<ShieldCheck
-								className="h-5 w-5"
-								style={{ color: "var(--color-brand)" }}
+							<Icon
+								icon={ShieldCheck}
+								className="h-5 w-5 text-[color:var(--color-brand)]"
 							/>
 						</div>
 						<div>
@@ -156,9 +155,15 @@ export function LoginForm() {
 								aria-label={showPassword ? "Hide password" : "Show password"}
 							>
 								{showPassword ? (
-									<EyeOff className="h-4 w-4" />
+									<Icon
+										icon={EyeOff}
+										className="h-4 w-4"
+									/>
 								) : (
-									<Eye className="h-4 w-4" />
+									<Icon
+										icon={Eye}
+										className="h-4 w-4"
+									/>
 								)}
 							</button>
 						</div>
@@ -184,7 +189,10 @@ export function LoginForm() {
 						className="w-full"
 					>
 						{isPending ? "Signing in..." : "Continue"}
-						<ArrowRight className="h-4 w-4" />
+						<Icon
+							icon={ArrowRight}
+							className="h-4 w-4"
+						/>
 					</Button>
 				</form>
 			</div>

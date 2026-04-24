@@ -9,14 +9,14 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
+	Icon,
 	Section,
 	SectionActions,
 	SectionContent,
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
-} from "@/components/ui";
-
+} from "../../../components";
 import { ParticleContainer } from "./components/ParticleContainer";
 import { ParticleSection } from "./components/ParticleSection";
 
@@ -100,14 +100,24 @@ export default function SectionParticle() {
 								<Button
 									usage="secondary"
 									variant="ghost"
-									leadingIcon={<Filter className="h-4 w-4" />}
+									leadingIcon={
+										<Icon
+											icon={Filter}
+											className="h-4 w-4"
+										/>
+									}
 								>
 									{t("docs.section.actionsCard.actions.filter")}
 								</Button>
 								<Button
 									usage="primary"
 									variant="flat"
-									leadingIcon={<Plus className="h-4 w-4" />}
+									leadingIcon={
+										<Icon
+											icon={Plus}
+											className="h-4 w-4"
+										/>
+									}
 								>
 									{t("docs.section.actionsCard.actions.primary")}
 								</Button>
@@ -161,7 +171,12 @@ export default function SectionParticle() {
 										usage="secondary"
 										variant="ghost"
 										title={t("docs.section.surfaceCards.decorated.action")}
-										leadingIcon={<Settings2 className="h-4 w-4" />}
+										leadingIcon={
+											<Icon
+												icon={Settings2}
+												className="h-4 w-4"
+											/>
+										}
 									/>
 								</SectionActions>
 							</SectionHeader>
@@ -190,7 +205,12 @@ export default function SectionParticle() {
 								<Button
 									usage="info"
 									variant="ghost"
-									trailingIcon={<ArrowRight className="h-4 w-4" />}
+									trailingIcon={
+										<Icon
+											icon={ArrowRight}
+											className="h-4 w-4"
+										/>
+									}
 								>
 									{t("docs.section.surfaceCards.plain.cta")}
 								</Button>

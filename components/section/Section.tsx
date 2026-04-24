@@ -1,5 +1,5 @@
 import clsx from "clsx";
-
+import { Content, Footer, Header } from "components/layout/Layout";
 import type {
 	SectionActionsProps,
 	SectionContentProps,
@@ -7,7 +7,7 @@ import type {
 	SectionHeaderProps,
 	SectionProps,
 	SectionTitleProps,
-} from "@/types/client";
+} from "types/client";
 
 export function Section({ children, className, ...props }: SectionProps) {
 	return (
@@ -26,7 +26,7 @@ export function SectionHeader({
 	...props
 }: SectionHeaderProps) {
 	return (
-		<div
+		<Header
 			className={clsx(
 				"flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between",
 				className,
@@ -34,7 +34,7 @@ export function SectionHeader({
 			{...props}
 		>
 			{children}
-		</div>
+		</Header>
 	);
 }
 
@@ -74,12 +74,12 @@ export function SectionContent({
 	...props
 }: SectionContentProps) {
 	return (
-		<div
+		<Content
 			className={clsx("space-y-6", className)}
 			{...props}
 		>
 			{children}
-		</div>
+		</Content>
 	);
 }
 
@@ -89,11 +89,11 @@ export function SectionActions({
 	...props
 }: SectionActionsProps) {
 	return (
-		<div
+		<Footer
 			className={clsx("flex flex-wrap gap-3", className)}
 			{...props}
 		>
 			{children}
-		</div>
+		</Footer>
 	);
 }

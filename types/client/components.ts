@@ -1,6 +1,18 @@
-import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
+import type {
+	ButtonHTMLAttributes,
+	ForwardRefExoticComponent,
+	HTMLAttributes,
+	ReactNode,
+	RefAttributes,
+} from "react";
 
-import { BUTTON_SIZES, BUTTON_USAGES, BUTTON_VARIANTS } from "@/constants/ui";
+import type { LucideProps } from "lucide-react";
+
+import {
+	BUTTON_SIZES,
+	BUTTON_USAGES,
+	BUTTON_VARIANTS,
+} from "../../constants/components";
 
 export type ButtonUsage = keyof typeof BUTTON_USAGES;
 export type ButtonVariant = keyof typeof BUTTON_VARIANTS;
@@ -26,6 +38,44 @@ export interface TooltipProps {
 	content: ReactNode;
 	side?: "top" | "right" | "bottom" | "left";
 	align?: "start" | "center" | "end";
+}
+
+export type IconComponent = ForwardRefExoticComponent<
+	Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+>;
+
+export interface IconProps
+	extends Omit<HTMLAttributes<HTMLSpanElement>, "title"> {
+	icon: IconComponent;
+	label?: string;
+	tooltipContent?: ReactNode;
+	decorative?: boolean;
+	size?: number;
+	strokeWidth?: number;
+	containerClassName?: string;
+	side?: "top" | "right" | "bottom" | "left";
+	align?: "start" | "center" | "end";
+}
+
+export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
+	children: ReactNode;
+}
+
+export interface ContentProps extends HTMLAttributes<HTMLDivElement> {
+	children: ReactNode;
+}
+
+export interface FooterProps extends HTMLAttributes<HTMLDivElement> {
+	children: ReactNode;
+}
+
+export interface EmptyStateProps
+	extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+	children?: ReactNode;
+	actions?: ReactNode;
+	description: ReactNode;
+	icon?: ReactNode;
+	title: ReactNode;
 }
 
 export interface DialogProps {

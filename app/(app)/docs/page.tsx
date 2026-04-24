@@ -2,6 +2,8 @@ import {
 	ButtonParticle,
 	CardParticle,
 	DialogParticle,
+	EmptyStateParticle,
+	IconParticle,
 	SectionParticle,
 	TooltipParticle,
 } from "@/features/docs/index";
@@ -12,6 +14,8 @@ export default function Page() {
 			<ButtonParticle />
 			<CardParticle />
 			<DialogParticle />
+			<EmptyStateParticle />
+			<IconParticle />
 			<SectionParticle />
 			<TooltipParticle />
 		</main>
