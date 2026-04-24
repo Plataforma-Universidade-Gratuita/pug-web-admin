@@ -2,6 +2,7 @@ import {
 	ButtonParticle,
 	CardParticle,
 	DialogParticle,
+	SectionParticle,
 	TooltipParticle,
 } from "@/features/docs/index";
 
@@ -11,6 +12,7 @@ export default function Page() {
 			<ButtonParticle />
 			<CardParticle />
 			<DialogParticle />
+			<SectionParticle />
 			<TooltipParticle />
 		</main>
 	);

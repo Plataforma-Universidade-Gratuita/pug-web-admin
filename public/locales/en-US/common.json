@@ -283,6 +283,77 @@
 				}
 			}
 		},
+		"section": {
+			"title": "Section",
+			"description": "Sections group related content in normal page flow. Use them to define page structure, introduce a title and supporting description, and optionally attach section-level actions.",
+			"patternNotes": {
+				"items": {
+					"structure": "Use sections to organize page-level content and related blocks, not to add visual decoration by default.",
+					"actions": "Section actions belong in the header when they affect the content of that section as a whole.",
+					"surface": "A section does not require borders, shadows, or depth. Add those treatments only when the surrounding layout needs more separation.",
+					"composition": "Sections often contain cards, lists, forms, and other primitives. They define structure, while inner components define density and behavior."
+				},
+				"snippet": "<Section>\n  <SectionHeader>\n    <div>\n      <SectionTitle>Section title</SectionTitle>\n      <SectionDescription>\n        Supporting description.\n      </SectionDescription>\n    </div>\n\n    <SectionActions>\n      <Button variant=\"ghost\">Filter</Button>\n      <Button usage=\"primary\" variant=\"flat\">New item</Button>\n    </SectionActions>\n  </SectionHeader>\n\n  <SectionContent>\n    <Card>...</Card>\n  </SectionContent>\n</Section>"
+			},
+			"sections": {
+				"structure": {
+					"title": "Structure",
+					"description": "A section establishes hierarchy and grouping without forcing a boxed surface."
+				},
+				"actions": {
+					"title": "Header actions",
+					"description": "Actions can live in the header when they operate on the section content as a whole."
+				},
+				"surface": {
+					"title": "Surface treatment",
+					"description": "Sections may remain plain or receive additional visual treatment depending on the surrounding layout."
+				}
+			},
+			"structureCards": {
+				"basic": {
+					"title": "Default structure",
+					"description": "A section usually combines a heading, a short description, and a body region for related content.",
+					"body": "This is the standard page-level grouping primitive. Use it to introduce content before placing denser blocks such as cards, tables, or forms."
+				},
+				"minimal": {
+					"title": "Minimal section",
+					"description": "The structure stays useful even when the section body is small and the visual treatment is light.",
+					"body": "Not every section needs heavy separation. Sometimes spacing and hierarchy are enough to keep the page understandable."
+				}
+			},
+			"actionsCard": {
+				"title": "Section-level actions",
+				"description": "Header actions should affect the section as a whole, not one individual child element inside it.",
+				"actions": {
+					"filter": "Filter",
+					"primary": "New item"
+				},
+				"items": {
+					"one": {
+						"title": "Active records",
+						"description": "A child block that belongs to the section body."
+					},
+					"two": {
+						"title": "Archived records",
+						"description": "Another child block managed by the same section controls."
+					}
+				}
+			},
+			"surfaceCards": {
+				"decorated": {
+					"title": "Decorated section",
+					"description": "Add surface treatment when the layout needs stronger separation, but keep the same structure primitive underneath.",
+					"body": "The structure stays the same. Only the visual treatment changes to support the page composition.",
+					"action": "Open section settings"
+				},
+				"plain": {
+					"title": "Plain section",
+					"description": "Sections can also remain visually quiet and let surrounding spacing do the grouping work.",
+					"body": "Use the plain form when the page already has enough separation from layout, rhythm, or nearby containers.",
+					"cta": "Review guidance"
+				}
+			}
+		},
 		"tooltip": {
 			"title": "Tooltip",
 			"description": "Tooltips provide short contextual hints for controls and inline UI elements. Use the wrapper directly around custom triggers or rely on automatic tooltips for icon-only buttons.",

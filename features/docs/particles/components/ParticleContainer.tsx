@@ -5,7 +5,15 @@ import { useState } from "react";
 import { Minus, Plus, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui";
+import {
+	Button,
+	Section,
+	SectionActions,
+	SectionContent,
+	SectionDescription,
+	SectionHeader,
+	SectionTitle,
+} from "@/components/ui";
 import type { ParticleContainerProps } from "@/types/client";
 
 import { ParticlePatternNotes } from "./ParticlePatternNotes";
@@ -25,16 +33,18 @@ export function ParticleContainer({
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
 	return (
-		<section className="border-default-2 surface-2 shadow-normal overflow-hidden rounded-[calc(var(--twc-radius-xl)+0.25rem)] border">
-			<div className="border-default-2 flex flex-col gap-4 border-b p-6 lg:flex-row lg:items-end lg:justify-between">
+		<Section className="border-default-2 surface-2 shadow-normal overflow-hidden rounded-[calc(var(--twc-radius-xl)+0.25rem)] border">
+			<SectionHeader className="border-default-2 items-end border-b p-6">
 				<div className="max-w-2xl space-y-3">
 					<p className="ty-sm-semibold tracking-[0.12em] text-[color:var(--color-brand)] uppercase">
 						{eyebrow}
 					</p>
-					<h1 className="ty-title text-3xl">{title}</h1>
-					<p className="ty-body">{description}</p>
+					<SectionTitle className="ty-title text-3xl">{title}</SectionTitle>
+					<SectionDescription className="ty-body">
+						{description}
+					</SectionDescription>
 				</div>
-				<div className="flex flex-wrap gap-3">
+				<SectionActions>
 					<Button
 						size={"icon"}
 						tooltipContent={
@@ -59,10 +69,12 @@ export function ParticleContainer({
 					>
 						<Sparkles className="h-4 w-4" />
 					</Button>
-				</div>
-			</div>
+				</SectionActions>
+			</SectionHeader>
 
-			{isExpanded ? <div className="space-y-6 p-6">{children}</div> : null}
+			{isExpanded ? (
+				<SectionContent className="p-6">{children}</SectionContent>
+			) : null}
 
 			{isPreviewOpen ? (
 				<ParticlePatternNotes
@@ -74,6 +86,6 @@ export function ParticleContainer({
 					snippet={patternNotesSnippet}
 				/>
 			) : null}
-		</section>
+		</Section>
 	);
 }

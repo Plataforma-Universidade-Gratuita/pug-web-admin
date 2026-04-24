@@ -283,6 +283,77 @@
 				}
 			}
 		},
+		"section": {
+			"title": "Section",
+			"description": "Sections agrupam conteúdo relacionado dentro do fluxo normal da página. Use esse padrão para definir estrutura, introduzir um título com descrição de apoio e, quando necessário, anexar ações no nível da seção.",
+			"patternNotes": {
+				"items": {
+					"structure": "Use sections para organizar conteúdo em nível de página e blocos relacionados, não para adicionar decoração visual por padrão.",
+					"actions": "As ações da section pertencem ao header quando afetam o conteúdo daquela section como um todo.",
+					"surface": "Uma section não exige borda, sombra ou profundidade. Adicione esses tratamentos apenas quando o layout ao redor pedir mais separação.",
+					"composition": "Sections geralmente contêm cards, listas, formulários e outras primitivas. Elas definem a estrutura, enquanto os componentes internos definem densidade e comportamento."
+				},
+				"snippet": "<Section>\n  <SectionHeader>\n    <div>\n      <SectionTitle>Título da section</SectionTitle>\n      <SectionDescription>\n        Descrição de apoio.\n      </SectionDescription>\n    </div>\n\n    <SectionActions>\n      <Button variant=\"ghost\">Filtrar</Button>\n      <Button usage=\"primary\" variant=\"flat\">Novo item</Button>\n    </SectionActions>\n  </SectionHeader>\n\n  <SectionContent>\n    <Card>...</Card>\n  </SectionContent>\n</Section>"
+			},
+			"sections": {
+				"structure": {
+					"title": "Estrutura",
+					"description": "Uma section estabelece hierarquia e agrupamento sem forçar uma superfície encaixotada."
+				},
+				"actions": {
+					"title": "Ações no header",
+					"description": "As ações podem viver no header quando operam sobre o conteúdo da section como um todo."
+				},
+				"surface": {
+					"title": "Tratamento de superfície",
+					"description": "Sections podem permanecer simples ou receber tratamento visual adicional, conforme a necessidade do layout ao redor."
+				}
+			},
+			"structureCards": {
+				"basic": {
+					"title": "Estrutura padrão",
+					"description": "Uma section normalmente combina título, descrição curta e uma região de conteúdo relacionado.",
+					"body": "Essa é a primitiva de agrupamento em nível de página. Use-a para introduzir conteúdo antes de blocos mais densos, como cards, tabelas ou formulários."
+				},
+				"minimal": {
+					"title": "Section mínima",
+					"description": "A estrutura continua útil mesmo quando o conteúdo é pequeno e o tratamento visual é leve.",
+					"body": "Nem toda section precisa de separação pesada. Em muitos casos, espaçamento e hierarquia já bastam para manter a página compreensível."
+				}
+			},
+			"actionsCard": {
+				"title": "Ações no nível da section",
+				"description": "As ações do header devem afetar a section inteira, não apenas um elemento filho isolado dentro dela.",
+				"actions": {
+					"filter": "Filtrar",
+					"primary": "Novo item"
+				},
+				"items": {
+					"one": {
+						"title": "Registros ativos",
+						"description": "Um bloco filho que pertence ao corpo da section."
+					},
+					"two": {
+						"title": "Registros arquivados",
+						"description": "Outro bloco filho controlado pelas mesmas ações da section."
+					}
+				}
+			},
+			"surfaceCards": {
+				"decorated": {
+					"title": "Section decorada",
+					"description": "Adicione tratamento de superfície quando o layout pedir uma separação mais forte, mas preserve a mesma primitiva estrutural por baixo.",
+					"body": "A estrutura continua a mesma. O que muda é apenas o tratamento visual para apoiar a composição da página.",
+					"action": "Abrir configurações da section"
+				},
+				"plain": {
+					"title": "Section simples",
+					"description": "Sections também podem permanecer visualmente discretas e deixar o agrupamento por conta do espaçamento ao redor.",
+					"body": "Use a forma simples quando a página já tiver separação suficiente por layout, ritmo visual ou contêineres próximos.",
+					"cta": "Revisar orientação"
+				}
+			}
+		},
 		"tooltip": {
 			"title": "Tooltip",
 			"description": "Tooltips fornecem dicas contextuais curtas para controles e elementos inline da interface. Use o wrapper diretamente em gatilhos personalizados ou conte com o comportamento automático em botões somente com ícone.",
