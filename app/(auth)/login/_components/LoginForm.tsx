@@ -11,9 +11,10 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { login } from "@/api/web/identity/auth";
-import { Button } from "@/components/ui/Button";
 import { HOME_ROUTE } from "@/constants/auth";
 import { WebApiError } from "@/utils/web-api";
+
+import { Button } from "../../../../components/ui/button/Button";
 
 const loginSchema = z.object({
 	email: z.email("Enter a valid email address."),

@@ -1,0 +1,173 @@
+@utility btn-base {
+	border-radius: var(--twc-radius-lg);
+	font-family: var(--twc-font-sans), serif;
+	font-size: var(--twc-text-sm);
+	font-weight: var(--twc-weight-semibold);
+	letter-spacing: var(--twc-tracking-normal);
+	line-height: var(--twc-leading-tight);
+	transition:
+		background-color var(--twc-duration-normal) var(--twc-ease-standard),
+		color var(--twc-duration-normal) var(--twc-ease-standard),
+		opacity var(--twc-duration-normal) var(--twc-ease-standard),
+		outline-color var(--twc-duration-normal) var(--twc-ease-standard),
+		box-shadow var(--twc-duration-normal) var(--twc-ease-standard),
+		border-color var(--twc-duration-normal) var(--twc-ease-standard),
+		transform var(--twc-duration-normal) var(--twc-ease-standard);
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.7;
+		transform: none;
+	}
+}
+
+@utility btn-usage-primary {
+	--btn-accent: var(--color-brand);
+	--btn-contrast: var(--white-a12);
+	--btn-tint: color-mix(in oklab, var(--color-brand) 14%, transparent);
+	--btn-soft: color-mix(in oklab, var(--color-brand) 18%, transparent);
+	--btn-outline: color-mix(in oklab, var(--color-brand) 36%, transparent);
+
+	html.dark &,
+	html.dark-theme &,
+	html[data-theme="dark"] & {
+		--btn-accent: color-mix(in oklab, var(--color-brand) 72%, white);
+		--btn-tint: color-mix(in oklab, var(--color-brand) 24%, transparent);
+		--btn-soft: color-mix(in oklab, var(--color-brand) 30%, transparent);
+		--btn-outline: color-mix(in oklab, var(--color-brand) 48%, transparent);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		html:not(.light):not(.light-theme):not([data-theme="light"]):not(.dark):not(
+				.dark-theme
+			):not([data-theme="dark"])
+			& {
+			--btn-accent: color-mix(in oklab, var(--color-brand) 72%, white);
+			--btn-tint: color-mix(in oklab, var(--color-brand) 24%, transparent);
+			--btn-soft: color-mix(in oklab, var(--color-brand) 30%, transparent);
+			--btn-outline: color-mix(in oklab, var(--color-brand) 48%, transparent);
+		}
+	}
+}
+
+@utility btn-usage-secondary {
+	--btn-accent: color-mix(in oklab, var(--color-base-900) 78%, white);
+	--btn-contrast: var(--white-a12);
+	--btn-tint: color-mix(in oklab, var(--color-base-900) 12%, transparent);
+	--btn-soft: color-mix(in oklab, var(--color-base-900) 14%, transparent);
+	--btn-outline: color-mix(in oklab, var(--color-base-900) 24%, transparent);
+
+	html.dark &,
+	html.dark-theme &,
+	html[data-theme="dark"] & {
+		--btn-accent: var(--color-base-900);
+		--btn-tint: color-mix(in oklab, var(--color-base-900) 10%, transparent);
+		--btn-soft: color-mix(in oklab, var(--color-base-900) 12%, transparent);
+		--btn-outline: color-mix(in oklab, var(--color-base-900) 20%, transparent);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		html:not(.light):not(.light-theme):not([data-theme="light"]):not(.dark):not(
+				.dark-theme
+			):not([data-theme="dark"])
+			& {
+			--btn-accent: var(--color-base-900);
+			--btn-tint: color-mix(in oklab, var(--color-base-900) 10%, transparent);
+			--btn-soft: color-mix(in oklab, var(--color-base-900) 12%, transparent);
+			--btn-outline: color-mix(
+				in oklab,
+				var(--color-base-900) 20%,
+				transparent
+			);
+		}
+	}
+}
+
+@utility btn-usage-success {
+	--btn-accent: var(--color-success-800);
+	--btn-contrast: var(--white-a12);
+	--btn-tint: color-mix(in oklab, var(--color-success-800) 14%, transparent);
+	--btn-soft: color-mix(in oklab, var(--color-success-800) 18%, transparent);
+	--btn-outline: color-mix(in oklab, var(--color-success-800) 34%, transparent);
+}
+
+@utility btn-usage-info {
+	--btn-accent: var(--color-info-800);
+	--btn-contrast: var(--white-a12);
+	--btn-tint: color-mix(in oklab, var(--color-info-800) 14%, transparent);
+	--btn-soft: color-mix(in oklab, var(--color-info-800) 18%, transparent);
+	--btn-outline: color-mix(in oklab, var(--color-info-800) 34%, transparent);
+}
+
+@utility btn-usage-warning {
+	--btn-accent: var(--color-warning-800);
+	--btn-contrast: var(--color-base-950);
+	--btn-tint: color-mix(in oklab, var(--color-warning-800) 16%, transparent);
+	--btn-soft: color-mix(in oklab, var(--color-warning-800) 20%, transparent);
+	--btn-outline: color-mix(in oklab, var(--color-warning-800) 36%, transparent);
+}
+
+@utility btn-usage-danger {
+	--btn-accent: var(--color-danger-800);
+	--btn-contrast: var(--white-a12);
+	--btn-tint: color-mix(in oklab, var(--color-danger-800) 16%, transparent);
+	--btn-soft: color-mix(in oklab, var(--color-danger-800) 20%, transparent);
+	--btn-outline: color-mix(in oklab, var(--color-danger-800) 36%, transparent);
+}
+
+@utility btn-variant-flat {
+	--btn-flat-border: transparent;
+	--btn-flat-bg: var(--btn-accent);
+	--btn-flat-color: var(--btn-contrast);
+	--btn-flat-hover: color-mix(in oklab, var(--btn-accent) 92%, black);
+	border: 1px solid var(--btn-flat-border);
+	background-color: var(--btn-flat-bg);
+	color: var(--btn-flat-color);
+
+	html.dark &,
+	html.dark-theme &,
+	html[data-theme="dark"] & {
+		--btn-flat-border: color-mix(in oklab, var(--btn-accent) 10%, transparent);
+		--btn-flat-bg: var(--btn-soft);
+		--btn-flat-color: var(--btn-accent);
+		--btn-flat-hover: color-mix(in oklab, var(--btn-accent) 24%, transparent);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		html:not(.light):not(.light-theme):not([data-theme="light"]):not(.dark):not(
+				.dark-theme
+			):not([data-theme="dark"])
+			& {
+			--btn-flat-border: color-mix(
+				in oklab,
+				var(--btn-accent) 10%,
+				transparent
+			);
+			--btn-flat-bg: var(--btn-soft);
+			--btn-flat-color: var(--btn-accent);
+			--btn-flat-hover: color-mix(in oklab, var(--btn-accent) 24%, transparent);
+		}
+	}
+
+	&:hover {
+		background-color: var(--btn-flat-hover);
+	}
+
+	&:active {
+		transform: translateY(1px);
+	}
+}
+
+@utility btn-variant-ghost {
+	border: 1px solid transparent;
+	background-color: transparent;
+	color: var(--btn-accent);
+
+	&:hover {
+		background-color: var(--btn-tint);
+	}
+
+	&:active {
+		transform: translateY(1px);
+	}
+}

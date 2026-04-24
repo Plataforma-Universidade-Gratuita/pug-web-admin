@@ -3,4 +3,4 @@
 @import "./styles/tokens.css";
 @import "./styles/themes.css";
 @import "./styles/base.css";
-@import "./styles/utilities.css";
+@import "./styles/utilities/index.css";

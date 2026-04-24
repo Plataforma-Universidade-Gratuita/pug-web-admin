@@ -1,3 +1,5 @@
+@import "./buttons.css";
+
 @layer components {
 	.shadow-weak {
 		box-shadow: var(--twc-shadow-sm);
@@ -106,86 +108,6 @@
 		border-color: var(--color-danger-400);
 		box-shadow: 0 0 0 3px
 			color-mix(in oklab, var(--color-danger-100) 65%, transparent);
-	}
-}
-
-@utility btn-primary {
-	border-radius: var(--twc-radius-lg);
-	background-color: var(--color-brand);
-	color: var(--white-a12);
-	font-family: var(--twc-font-sans);
-	font-size: var(--twc-text-sm);
-	font-weight: var(--twc-weight-semibold);
-	letter-spacing: var(--twc-tracking-normal);
-	line-height: var(--twc-leading-tight);
-	padding: var(--twc-space-3) var(--twc-space-4);
-	transition:
-		background-color var(--twc-duration-normal) var(--twc-ease-standard),
-		box-shadow var(--twc-duration-normal) var(--twc-ease-standard),
-		transform var(--twc-duration-normal) var(--twc-ease-standard);
-
-	&:hover {
-		background-color: color-mix(in oklab, var(--color-brand) 88%, black);
-	}
-
-	&:active {
-		transform: translateY(1px);
-	}
-
-	&:disabled {
-		cursor: not-allowed;
-		opacity: 0.7;
-	}
-}
-
-@utility btn-secondary {
-	border: 1px solid var(--twc-surface-2);
-	border-radius: var(--twc-radius-lg);
-	background-color: var(--twc-surface-2);
-	color: var(--twc-text);
-	font-family: var(--twc-font-sans);
-	font-size: var(--twc-text-sm);
-	font-weight: var(--twc-weight-semibold);
-	letter-spacing: var(--twc-tracking-normal);
-	line-height: var(--twc-leading-tight);
-	padding: var(--twc-space-3) var(--twc-space-4);
-	transition:
-		background-color var(--twc-duration-normal) var(--twc-ease-standard),
-		border-color var(--twc-duration-normal) var(--twc-ease-standard),
-		box-shadow var(--twc-duration-normal) var(--twc-ease-standard),
-		transform var(--twc-duration-normal) var(--twc-ease-standard);
-
-	&:hover {
-		background-color: var(--twc-surface-3);
-		border-color: var(--color-base-400);
-	}
-
-	&:active {
-		transform: translateY(1px);
-	}
-}
-
-@utility btn-danger {
-	border-radius: var(--twc-radius-lg);
-	background-color: var(--color-danger-500);
-	color: var(--white-a12);
-	font-family: var(--twc-font-sans);
-	font-size: var(--twc-text-sm);
-	font-weight: var(--twc-weight-semibold);
-	letter-spacing: var(--twc-tracking-normal);
-	line-height: var(--twc-leading-tight);
-	padding: var(--twc-space-3) var(--twc-space-4);
-	transition:
-		background-color var(--twc-duration-normal) var(--twc-ease-standard),
-		box-shadow var(--twc-duration-normal) var(--twc-ease-standard),
-		transform var(--twc-duration-normal) var(--twc-ease-standard);
-
-	&:hover {
-		background-color: var(--color-danger-600);
-	}
-
-	&:active {
-		transform: translateY(1px);
 	}
 }
 
