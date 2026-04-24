@@ -3,9 +3,8 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { Icon as AppIcon } from "@/components";
 import type { SettingCardProps } from "@/types/client";
-
-import { Icon as AppIcon } from "../../../../../index";
 
 export default function SettingCard({
 	title,

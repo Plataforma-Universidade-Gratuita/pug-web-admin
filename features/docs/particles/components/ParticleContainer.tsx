@@ -5,8 +5,6 @@ import { useState } from "react";
 import { Minus, Plus, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import type { ParticleContainerProps } from "@/types/client";
-
 import {
 	Button,
 	Icon,
@@ -16,8 +14,9 @@ import {
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
-} from "../../../../components";
-import { ParticlePatternNotes } from "./ParticlePatternNotes";
+} from "@/components";
+import { ParticlePatternNotes } from "@/features/docs/particles/components/ParticlePatternNotes";
+import type { ParticleContainerProps } from "@/types/client";
 
 export function ParticleContainer({
 	eyebrow,

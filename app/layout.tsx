@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 
 import "@/app/globals.css";
+import { Providers } from "@/app/providers";
+import { ThemeScript } from "@/app/theme-script";
 import { LANG_COOKIE_NAME } from "@/constants/locale";
 import { THEME_COOKIE_NAME } from "@/constants/theme";
 import { coerceLang } from "@/utils/lang";
 import { coerceTheme } from "@/utils/theme-value";
-
-import { Providers } from "./providers";
-import { ThemeScript } from "./theme-script";
 
 export const metadata: Metadata = {
 	title: {

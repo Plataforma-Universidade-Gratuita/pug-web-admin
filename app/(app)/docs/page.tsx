@@ -4,7 +4,9 @@ import {
 	DialogParticle,
 	EmptyStateParticle,
 	IconParticle,
+	PopoverParticle,
 	SectionParticle,
+	SkeletonParticle,
 	TooltipParticle,
 } from "@/features/docs/index";
 
@@ -16,7 +18,9 @@ export default function Page() {
 			<DialogParticle />
 			<EmptyStateParticle />
 			<IconParticle />
+			<PopoverParticle />
 			<SectionParticle />
+			<SkeletonParticle />
 			<TooltipParticle />
 		</main>
 	);

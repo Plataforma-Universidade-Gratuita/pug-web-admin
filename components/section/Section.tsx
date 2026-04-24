@@ -1,5 +1,8 @@
 import clsx from "clsx";
-import { Content, Footer, Header } from "components/layout/Layout";
+
+import { Content, Footer, Header } from "@/components/layout/Layout";
+import { Skeleton } from "@/components/skeleton/Skeleton";
+import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
 	SectionActionsProps,
 	SectionContentProps,
@@ -7,16 +10,28 @@ import type {
 	SectionHeaderProps,
 	SectionProps,
 	SectionTitleProps,
-} from "types/client";
+} from "@/types/client";
 
-export function Section({ children, className, ...props }: SectionProps) {
+export function Section({
+	children,
+	className,
+	isLoading = false,
+	loadingLabel,
+	...props
+}: SectionProps) {
 	return (
-		<section
-			className={clsx("space-y-6", className)}
-			{...props}
-		>
-			{children}
-		</section>
+		<LoadingProvider value={{ isLoading, loadingLabel }}>
+			<section
+				aria-busy={isLoading || undefined}
+				aria-live={isLoading ? "polite" : undefined}
+				className={clsx("space-y-6", className)}
+				role={isLoading ? "status" : undefined}
+				{...props}
+			>
+				{isLoading ? <span className="sr-only">{loadingLabel}</span> : null}
+				{children}
+			</section>
+		</LoadingProvider>
 	);
 }
 
@@ -43,6 +58,17 @@ export function SectionTitle({
 	className,
 	...props
 }: SectionTitleProps) {
+	const { isLoading } = useLoading();
+
+	if (isLoading) {
+		return (
+			<Skeleton
+				className={clsx("h-5 w-[38%]", className)}
+				{...props}
+			/>
+		);
+	}
+
 	return (
 		<h2
 			className={clsx("ty-header", className)}
@@ -58,6 +84,20 @@ export function SectionDescription({
 	className,
 	...props
 }: SectionDescriptionProps) {
+	const { isLoading } = useLoading();
+
+	if (isLoading) {
+		return (
+			<div
+				className={clsx("space-y-2", className)}
+				{...props}
+			>
+				<Skeleton className="h-3 w-full" />
+				<Skeleton className="h-3 w-[68%]" />
+			</div>
+		);
+	}
+
 	return (
 		<p
 			className={clsx("ty-helper", className)}
@@ -73,6 +113,28 @@ export function SectionContent({
 	className,
 	...props
 }: SectionContentProps) {
+	const { isLoading } = useLoading();
+
+	if (isLoading) {
+		return (
+			<Content
+				className={clsx("space-y-4", className)}
+				{...props}
+			>
+				<div
+					aria-hidden="true"
+					className="space-y-3"
+				>
+					<Skeleton className="h-24 rounded-[var(--twc-radius-lg)]" />
+					<div className="grid gap-3 md:grid-cols-2">
+						<Skeleton className="h-12 rounded-[var(--twc-radius-lg)]" />
+						<Skeleton className="h-12 rounded-[var(--twc-radius-lg)]" />
+					</div>
+				</div>
+			</Content>
+		);
+	}
+
 	return (
 		<Content
 			className={clsx("space-y-6", className)}
@@ -88,6 +150,19 @@ export function SectionActions({
 	className,
 	...props
 }: SectionActionsProps) {
+	const { isLoading } = useLoading();
+
+	if (isLoading) {
+		return (
+			<Footer
+				className={clsx("flex flex-wrap gap-3", className)}
+				{...props}
+			>
+				<Skeleton className="h-10 w-32 rounded-full" />
+			</Footer>
+		);
+	}
+
 	return (
 		<Footer
 			className={clsx("flex flex-wrap gap-3", className)}

@@ -19,9 +19,9 @@ import {
 	DialogHeader,
 	DialogTitle,
 	Icon,
-} from "../../../components";
-import { ParticleContainer } from "./components/ParticleContainer";
-import { ParticleSection } from "./components/ParticleSection";
+} from "@/components";
+import { ParticleContainer } from "@/features/docs/particles/components/ParticleContainer";
+import { ParticleSection } from "@/features/docs/particles/components/ParticleSection";
 
 export default function DialogParticle() {
 	const { t } = useTranslation();

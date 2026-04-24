@@ -9,9 +9,8 @@ import * as Popover from "@radix-ui/react-popover";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { Icon as AppIcon } from "@/components";
 import type { MenuGroupProps } from "@/types/client";
-
-import { Icon as AppIcon } from "../../../../index";
 
 export function MenuGroup({
 	collapsed,

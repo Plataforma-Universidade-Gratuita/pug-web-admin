@@ -5,15 +5,15 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { login } from "api/web/identity/auth";
 import { HOME_ROUTE } from "constants/auth";
 import { ArrowRight, Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { WebApiError } from "utils/web-api";
 import { z } from "zod";
 
-import { Button, Icon } from "../../components";
+import { login } from "@/api/web/identity/auth";
+import { Button, Icon } from "@/components";
+import { WebApiError } from "@/utils/web-api";
 
 const loginSchema = z.object({
 	email: z.email("Enter a valid email address."),

@@ -4,9 +4,8 @@ import Link from "next/link";
 
 import { useTranslation } from "react-i18next";
 
+import { Icon as AppIcon } from "@/components";
 import type { MenuItemProps } from "@/types/client";
-
-import { Icon as AppIcon } from "../../../../index";
 
 export function MenuItem({
 	collapsed,

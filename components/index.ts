@@ -4,5 +4,7 @@ export * from "./dialog/Dialog";
 export * from "./empty-state/EmptyState";
 export * from "./icon/Icon";
 export * from "./layout/Layout";
+export * from "./popover/Popover";
 export * from "./section/Section";
+export * from "./skeleton/Skeleton";
 export * from "./tooltip/Tooltip";

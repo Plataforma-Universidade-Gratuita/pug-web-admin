@@ -3,8 +3,6 @@
 import { LoaderCircle, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import type { ParticlePatternNotesProps } from "@/types/client";
-
 import {
 	Button,
 	Dialog,
@@ -12,7 +10,8 @@ import {
 	DialogHeader,
 	DialogTitle,
 	Icon,
-} from "../../../../components";
+} from "@/components";
+import type { ParticlePatternNotesProps } from "@/types/client";
 
 export function ParticlePatternNotes({
 	open,

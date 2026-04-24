@@ -1,6 +1,6 @@
 import { ShieldCheck } from "lucide-react";
 
-import { Icon } from "../../components";
+import { Icon } from "@/components";
 
 const securityHighlights = [
 	"Administrator-only access",

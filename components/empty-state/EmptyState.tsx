@@ -1,6 +1,7 @@
 import clsx from "clsx";
-import { Content, Footer, Header } from "components/index";
-import type { EmptyStateProps } from "types/client";
+
+import { Content, Footer, Header } from "@/components";
+import type { EmptyStateProps } from "@/types/client";
 
 export function EmptyState({
 	actions,

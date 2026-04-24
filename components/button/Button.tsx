@@ -1,13 +1,13 @@
 import clsx from "clsx";
-import { Tooltip } from "components/index";
-import type { ButtonProps } from "types/client";
 
+import { Tooltip } from "@/components";
+import { getAccessibleText } from "@/components/button/utils";
 import {
 	BUTTON_SIZES,
 	BUTTON_USAGES,
 	BUTTON_VARIANTS,
-} from "../../constants/components";
-import { getAccessibleText } from "./utils";
+} from "@/constants/components";
+import type { ButtonProps } from "@/types/client";
 
 export function Button({
 	"aria-label": ariaLabel,

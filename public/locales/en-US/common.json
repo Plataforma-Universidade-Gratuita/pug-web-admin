@@ -10,6 +10,143 @@
 			"patternNotesLabel": "Pattern Notes",
 			"closePatternNotes": "Close pattern notes"
 		},
+		"skeleton": {
+			"title": "Skeleton",
+			"description": "Skeleton is the loading primitive for content that already has a stable layout. In most cases, use it through `Card isLoading` so card slots swap to placeholders automatically.",
+			"patternNotes": {
+				"items": {
+					"automatic": "Prefer automatic loading states for cards. Set `isLoading` on the card and keep the real card structure in place.",
+					"scope": "Use skeletons in the same container that will eventually render the real content so spacing and hierarchy stay stable.",
+					"stability": "Loading placeholders should preserve layout footprint. Avoid swapping between completely different structures while requests are in flight.",
+					"manual": "Use the low-level `Skeleton` primitive directly only when you need custom placeholder shapes outside the built-in card anatomy."
+				},
+				"snippet": "<Card\n  isLoading\n  className=\"flex min-h-40 flex-col justify-between p-4\"\n>\n  <CardHeader>\n    <CardTitle>Card title</CardTitle>\n    <CardDescription>\n      Supporting description.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>\n    <Button usage=\"primary\">Continue</Button>\n  </CardContent>\n</Card>\n\n<Skeleton className=\"h-4 w-24\" />"
+			},
+			"sections": {
+				"cards": {
+					"title": "Automatic card loading",
+					"description": "The card primitive can now replace title, description, content, and footer slots with skeleton placeholders automatically."
+				},
+				"buttonUsage": {
+					"title": "Applied to existing card JSX",
+					"description": "This is the same card structure used in the button docs, but with `isLoading` enabled on the card."
+				},
+				"section": {
+					"title": "Section loading",
+					"description": "Sections can also switch their title, description, actions, and content to loading placeholders through the same pattern."
+				},
+				"dialog": {
+					"title": "Dialog loading",
+					"description": "Dialogs use the same loading context so their title, description, body region, and footer actions stay structurally stable."
+				},
+				"icon": {
+					"title": "Icon loading",
+					"description": "Standalone icons can expose a simple circular skeleton when the icon itself is still resolving."
+				},
+				"layout": {
+					"title": "Layout loading",
+					"description": "Low-level `Header`, `Content`, and `Footer` primitives also support explicit loading placeholders for custom compositions."
+				},
+				"primitive": {
+					"title": "Low-level primitive",
+					"description": "Use the `Skeleton` primitive directly for layouts that do not map to the built-in card anatomy."
+				}
+			},
+			"cardExample": {
+				"title": "Project summary",
+				"description": "This card keeps the exact same JSX in both states. Only the `isLoading` prop changes.",
+				"cta": "Open summary"
+			},
+			"loadingLabels": {
+				"card": "Loading project summary",
+				"usageCard": "Loading button usage example",
+				"section": "Loading project section",
+				"dialog": "Loading project dialog"
+			},
+			"sectionExample": {
+				"title": "Workspace health",
+				"description": "Use the same section structure during loading so the page rhythm stays stable.",
+				"cta": "Refresh data",
+				"content": "The section body can keep its final layout while the content resolves."
+			},
+			"dialogExample": {
+				"title": "Sync workspace",
+				"description": "The dialog keeps its structure while waiting for the content of the current step.",
+				"content": "Once loaded, the body content replaces the placeholder without changing the overall dialog anatomy.",
+				"secondary": "Cancel",
+				"primary": "Continue",
+				"trigger": "Open loading dialog",
+				"note": "Open the preview to inspect the dialog loading state in place."
+			},
+			"primitiveNote": "Use the low-level primitive only when automatic card loading is not enough."
+		},
+		"popover": {
+			"title": "Popover",
+			"description": "Popovers reveal compact, contextual content anchored to a trigger. Use them for inline filters, supporting actions, and lightweight panels that should stay connected to the current layout.",
+			"patternNotes": {
+				"items": {
+					"inline": "Use popovers for content that belongs to the current surface and does not need the interruption level of a dialog.",
+					"scope": "Keep the content compact and tightly scoped to the trigger. If the content becomes long or multi-step, escalate to a dialog or a dedicated route.",
+					"content": "Popover content can mix text, metadata, small forms, and action groups, but it should still feel like one short contextual panel.",
+					"escalation": "Use a popover when users should stay in the current flow. Use a tooltip for hints, a dropdown menu for short action lists, and a dialog for focused tasks."
+				},
+				"snippet": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>\n    <Button usage=\"secondary\" variant=\"flat\">Filters</Button>\n  </PopoverTrigger>\n\n  <PopoverContent align=\"start\">\n    <p className=\"ty-sm-bold\">Refine results</p>\n    <p className=\"ty-helper\">Short contextual panel.</p>\n  </PopoverContent>\n</Popover>"
+			},
+			"sections": {
+				"filters": {
+					"title": "Inline filters",
+					"description": "A popover works well when filters belong to the current list or card and should stay attached to the trigger."
+				},
+				"actions": {
+					"title": "Actions and supporting panels",
+					"description": "Use the same primitive for richer action lists and lightweight contextual panels."
+				}
+			},
+			"examples": {
+				"filters": {
+					"trigger": "Filters",
+					"title": "Refine results",
+					"description": "Keep lightweight filters close to the data set they affect.",
+					"items": {
+						"period": "Period",
+						"status": "Status"
+					},
+					"values": {
+						"period": "Last 30 days",
+						"status": "Active only"
+					},
+					"secondary": "Reset",
+					"primary": "Apply filters",
+					"neighbor": "Date range"
+				},
+				"actions": {
+					"title": "Context actions",
+					"description": "A popover can hold denser actions when a plain tooltip is too small and a dialog would be too disruptive.",
+					"trigger": "Open actions",
+					"items": {
+						"layout": {
+							"title": "Adjust layout",
+							"meta": "Panel"
+						},
+						"rules": {
+							"title": "Review rules",
+							"meta": "Draft"
+						},
+						"owners": {
+							"title": "Manage owners",
+							"meta": "3 assigned"
+						}
+					}
+				},
+				"inline": {
+					"title": "Lightweight panel",
+					"description": "Use the primitive for compact contextual content that should stay anchored near the interaction point.",
+					"trigger": "View options",
+					"panelTitle": "Panel options",
+					"panelDescription": "This kind of content stays close to the trigger instead of interrupting the screen."
+				}
+			}
+		},
 		"button": {
 			"title": "Buttons",
 			"description": "Buttons trigger user actions. Use `usage` to define semantic intent, `variant` to define visual treatment, and `size` to adapt the component to layout density.",

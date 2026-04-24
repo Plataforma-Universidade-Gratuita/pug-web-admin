@@ -3,9 +3,9 @@
 import { Inbox, Search, ShieldAlert } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button, Card, EmptyState, Icon } from "../../../components";
-import { ParticleContainer } from "./components/ParticleContainer";
-import { ParticleSection } from "./components/ParticleSection";
+import { Button, Card, EmptyState, Icon } from "@/components";
+import { ParticleContainer } from "@/features/docs/particles/components/ParticleContainer";
+import { ParticleSection } from "@/features/docs/particles/components/ParticleSection";
 
 export default function EmptyStateParticle() {
 	const { t } = useTranslation();

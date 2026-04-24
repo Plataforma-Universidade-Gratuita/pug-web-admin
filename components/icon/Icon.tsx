@@ -2,14 +2,17 @@
 
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 import clsx from "clsx";
-import { Tooltip } from "components/tooltip/Tooltip";
-import type { IconProps } from "types/client";
+
+import { Skeleton } from "@/components/skeleton/Skeleton";
+import { Tooltip } from "@/components/tooltip/Tooltip";
+import type { IconProps } from "@/types/client";
 
 export function Icon({
 	icon: IconComponent,
 	label,
 	tooltipContent,
 	decorative,
+	isLoading,
 	size = 16,
 	strokeWidth = 2,
 	className,
@@ -22,6 +25,16 @@ export function Icon({
 		label ?? (typeof tooltipContent === "string" ? tooltipContent : undefined);
 	const isDecorative = decorative ?? !accessibleLabel;
 	const tooltipLabel = tooltipContent ?? accessibleLabel;
+
+	if (isLoading) {
+		return (
+			<Skeleton
+				className={clsx("rounded-full", containerClassName, className)}
+				height={size}
+				width={size}
+			/>
+		);
+	}
 
 	const iconNode = (
 		<span

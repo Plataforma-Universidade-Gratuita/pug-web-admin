@@ -6,12 +6,11 @@ import * as Popover from "@radix-ui/react-popover";
 import { Laptop, Moon, Sun, Settings as Gear } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { Icon } from "@/components";
+import SettingCard from "@/components/shell/NavBar/Sidebar/Settings/SettingCard";
 import { useLocale } from "@/contexts/locale";
 import { useTheme } from "@/contexts/theme";
 import type { AppLang, AppTheme, SettingsProps } from "@/types/client";
-
-import { Icon } from "../../../../index";
-import SettingCard from "./SettingCard";
 
 export default function Settings({ compact = false }: SettingsProps) {
 	const { mode, setMode } = useTheme();

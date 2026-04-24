@@ -10,6 +10,143 @@
 			"patternNotesLabel": "Notas do padrão",
 			"closePatternNotes": "Fechar notas do padrão"
 		},
+		"skeleton": {
+			"title": "Skeleton",
+			"description": "Skeleton e a primitiva de carregamento para conteudo que ja possui um layout estavel. Na maioria dos casos, use via `Card isLoading` para que os slots do card virem placeholders automaticamente.",
+			"patternNotes": {
+				"items": {
+					"automatic": "Prefira estados de loading automaticos para cards. Defina `isLoading` no card e mantenha a estrutura real do card no JSX.",
+					"scope": "Use skeletons no mesmo conteiner que vai renderizar o conteudo final para manter espaco, ritmo e hierarquia estaveis.",
+					"stability": "Os placeholders devem preservar a area ocupada pelo layout. Evite trocar por estruturas totalmente diferentes enquanto a requisicao estiver em andamento.",
+					"manual": "Use a primitiva `Skeleton` diretamente apenas quando precisar de formas customizadas fora da anatomia padrao de card."
+				},
+				"snippet": "<Card\n  isLoading\n  className=\"flex min-h-40 flex-col justify-between p-4\"\n>\n  <CardHeader>\n    <CardTitle>Titulo do card</CardTitle>\n    <CardDescription>\n      Descricao de apoio.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>\n    <Button usage=\"primary\">Continuar</Button>\n  </CardContent>\n</Card>\n\n<Skeleton className=\"h-4 w-24\" />"
+			},
+			"sections": {
+				"cards": {
+					"title": "Loading automatico em cards",
+					"description": "A primitiva de card agora pode substituir automaticamente title, description, content e footer por placeholders de skeleton."
+				},
+				"buttonUsage": {
+					"title": "Aplicado ao JSX atual do card",
+					"description": "Esta e a mesma estrutura de card usada nas docs de button, mas com `isLoading` habilitado no card."
+				},
+				"section": {
+					"title": "Loading em section",
+					"description": "Sections tambem podem trocar title, description, actions e content por placeholders de loading usando o mesmo padrao."
+				},
+				"dialog": {
+					"title": "Loading em dialog",
+					"description": "Dialogs usam o mesmo contexto de loading para manter titulo, descricao, corpo e acoes estaveis enquanto o conteudo carrega."
+				},
+				"icon": {
+					"title": "Loading em icon",
+					"description": "Icones isolados podem mostrar um skeleton circular simples quando o proprio icone ainda estiver sendo resolvido."
+				},
+				"layout": {
+					"title": "Loading em layout",
+					"description": "As primitivas de baixo nivel `Header`, `Content` e `Footer` tambem suportam placeholders de loading explicitos para composicoes customizadas."
+				},
+				"primitive": {
+					"title": "Primitiva de baixo nivel",
+					"description": "Use `Skeleton` diretamente em layouts que nao se encaixam na anatomia padrao de card."
+				}
+			},
+			"cardExample": {
+				"title": "Resumo do projeto",
+				"description": "Este card mantem exatamente o mesmo JSX nos dois estados. Apenas a prop `isLoading` muda.",
+				"cta": "Abrir resumo"
+			},
+			"loadingLabels": {
+				"card": "Carregando resumo do projeto",
+				"usageCard": "Carregando exemplo de uso de button",
+				"section": "Carregando secao do projeto",
+				"dialog": "Carregando dialog do projeto"
+			},
+			"sectionExample": {
+				"title": "Saude do workspace",
+				"description": "Use a mesma estrutura de section durante o loading para manter o ritmo da pagina estavel.",
+				"cta": "Atualizar dados",
+				"content": "O corpo da section pode manter o layout final enquanto o conteudo e resolvido."
+			},
+			"dialogExample": {
+				"title": "Sincronizar workspace",
+				"description": "O dialog mantem sua estrutura enquanto aguarda o conteudo da etapa atual.",
+				"content": "Depois de carregado, o conteudo do corpo substitui o placeholder sem mudar a anatomia geral do dialog.",
+				"secondary": "Cancelar",
+				"primary": "Continuar",
+				"trigger": "Abrir dialog em loading",
+				"note": "Abra o preview para inspecionar o estado de loading do dialog em uso."
+			},
+			"primitiveNote": "Use a primitiva de baixo nivel apenas quando o loading automatico de card nao for suficiente."
+		},
+		"popover": {
+			"title": "Popover",
+			"description": "Popovers revelam conteudo contextual e compacto ancorado a um gatilho. Use para filtros inline, acoes de apoio e paineis leves que devem permanecer conectados ao layout atual.",
+			"patternNotes": {
+				"items": {
+					"inline": "Use popovers para conteudo que pertence a superficie atual e nao precisa do nivel de interrupcao de um dialog.",
+					"scope": "Mantenha o conteudo compacto e bem escopado ao gatilho. Se o conteudo ficar longo ou em varias etapas, escale para dialog ou rota dedicada.",
+					"content": "O conteudo do popover pode combinar texto, metadados, pequenos formularios e grupos de acoes, mas ainda deve parecer um painel contextual curto.",
+					"escalation": "Use popover quando o usuario deve permanecer no fluxo atual. Use tooltip para dicas, dropdown menu para listas curtas de acoes e dialog para tarefas focadas."
+				},
+				"snippet": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>\n    <Button usage=\"secondary\" variant=\"flat\">Filtros</Button>\n  </PopoverTrigger>\n\n  <PopoverContent align=\"start\">\n    <p className=\"ty-sm-bold\">Refinar resultados</p>\n    <p className=\"ty-helper\">Painel contextual curto.</p>\n  </PopoverContent>\n</Popover>"
+			},
+			"sections": {
+				"filters": {
+					"title": "Filtros inline",
+					"description": "Um popover funciona bem quando os filtros pertencem a lista ou card atual e devem permanecer ligados ao gatilho."
+				},
+				"actions": {
+					"title": "Acoes e paineis de apoio",
+					"description": "Use a mesma primitiva para listas de acoes mais ricas e paineis contextuais leves."
+				}
+			},
+			"examples": {
+				"filters": {
+					"trigger": "Filtros",
+					"title": "Refinar resultados",
+					"description": "Mantenha filtros leves proximos ao conjunto de dados que eles afetam.",
+					"items": {
+						"period": "Periodo",
+						"status": "Status"
+					},
+					"values": {
+						"period": "Ultimos 30 dias",
+						"status": "Somente ativos"
+					},
+					"secondary": "Limpar",
+					"primary": "Aplicar filtros",
+					"neighbor": "Intervalo de datas"
+				},
+				"actions": {
+					"title": "Acoes contextuais",
+					"description": "Um popover pode conter acoes mais densas quando um tooltip e pequeno demais e um dialog seria disruptivo demais.",
+					"trigger": "Abrir acoes",
+					"items": {
+						"layout": {
+							"title": "Ajustar layout",
+							"meta": "Painel"
+						},
+						"rules": {
+							"title": "Revisar regras",
+							"meta": "Rascunho"
+						},
+						"owners": {
+							"title": "Gerenciar responsaveis",
+							"meta": "3 vinculados"
+						}
+					}
+				},
+				"inline": {
+					"title": "Painel leve",
+					"description": "Use a primitiva para conteudo contextual compacto que deve permanecer ancorado perto do ponto de interacao.",
+					"trigger": "Ver opcoes",
+					"panelTitle": "Opcoes do painel",
+					"panelDescription": "Esse tipo de conteudo fica perto do gatilho em vez de interromper a tela."
+				}
+			}
+		},
 		"button": {
 			"title": "Botões",
 			"description": "Botões disparam ações do usuário. Use `usage` para definir a intenção semântica, `variant` para definir o tratamento visual e `size` para adaptar o componente à densidade do layout.",

@@ -4,10 +4,9 @@ import { usePathname } from "next/navigation";
 
 import { Home, LogIn } from "lucide-react";
 
+import { MenuItem } from "@/components/shell/NavBar/Sidebar/MenuItem";
+import Settings from "@/components/shell/NavBar/Sidebar/Settings";
 import type { SidebarProps } from "@/types/client";
-
-import { MenuItem } from "./MenuItem";
-import Settings from "./Settings";
 
 export const singles = [
 	{ href: "/", label: "Navbar.paths.home", Icon: Home },
