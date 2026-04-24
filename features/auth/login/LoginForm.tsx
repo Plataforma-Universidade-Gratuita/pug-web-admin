@@ -6,13 +6,13 @@ import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { HOME_ROUTE } from "constants/auth";
-import { ArrowRight, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
 import { login } from "@/api/web/identity/auth";
-import { Button, Icon } from "@/components";
+import { Button, Icon, Input, Label } from "@/components";
 import { WebApiError } from "@/utils/web-api";
 
 const loginSchema = z.object({
@@ -25,7 +25,6 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export function LoginForm() {
 	const router = useRouter();
 	const [isPending, startTransition] = useTransition();
-	const [showPassword, setShowPassword] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const {
 		register,
@@ -94,13 +93,8 @@ export function LoginForm() {
 					onSubmit={handleSubmit(onSubmit)}
 				>
 					<div className="space-y-2">
-						<label
-							htmlFor="email"
-							className="block text-sm font-medium text-[color:var(--twc-text)]"
-						>
-							Email
-						</label>
-						<input
+						<Label htmlFor="email">Email</Label>
+						<Input
 							id="email"
 							type="email"
 							autoComplete="email"
@@ -111,7 +105,6 @@ export function LoginForm() {
 							})}
 							aria-describedby={errors.email ? "email-error" : undefined}
 							aria-invalid={errors.email ? "true" : "false"}
-							className="field-base focus-ring w-full"
 							placeholder="admin@pug.edu.br"
 						/>
 						{errors.email ? (
@@ -125,48 +118,21 @@ export function LoginForm() {
 					</div>
 
 					<div className="space-y-2">
-						<label
-							htmlFor="password"
-							className="block text-sm font-medium text-[color:var(--twc-text)]"
-						>
-							Password
-						</label>
-						<div className="border-default-2 surface-1 focus-ring flex items-center rounded-[var(--twc-radius-lg)] border transition-colors">
-							<input
-								id="password"
-								type={showPassword ? "text" : "password"}
-								autoComplete="current-password"
-								{...register("password", {
-									onChange: () => {
-										if (error) setError(null);
-									},
-								})}
-								aria-describedby={
-									errors.password ? "password-error" : undefined
-								}
-								aria-invalid={errors.password ? "true" : "false"}
-								className="w-full bg-transparent px-4 py-3 text-base text-[color:var(--twc-text)] outline-none"
-								placeholder="Enter your password"
-							/>
-							<button
-								type="button"
-								onClick={() => setShowPassword(current => !current)}
-								className="mr-2 inline-flex h-10 w-10 items-center justify-center rounded-full text-[color:var(--twc-muted)] transition hover:bg-[color:var(--twc-surface-2)] hover:text-[color:var(--twc-text)]"
-								aria-label={showPassword ? "Hide password" : "Show password"}
-							>
-								{showPassword ? (
-									<Icon
-										icon={EyeOff}
-										className="h-4 w-4"
-									/>
-								) : (
-									<Icon
-										icon={Eye}
-										className="h-4 w-4"
-									/>
-								)}
-							</button>
-						</div>
+						<Label htmlFor="password">Password</Label>
+						<Input
+							id="password"
+							type="password"
+							autoComplete="current-password"
+							showPasswordToggle
+							{...register("password", {
+								onChange: () => {
+									if (error) setError(null);
+								},
+							})}
+							aria-describedby={errors.password ? "password-error" : undefined}
+							aria-invalid={errors.password ? "true" : "false"}
+							placeholder="Enter your password"
+						/>
 						{errors.password ? (
 							<p
 								id="password-error"

@@ -1,10 +1,14 @@
 import type {
+	ComponentPropsWithoutRef,
 	ForwardRefExoticComponent,
 	HTMLAttributes,
 	ReactNode,
 	RefAttributes,
 } from "react";
 
+import type * as RadixLabel from "@radix-ui/react-label";
+import type * as RadixScrollArea from "@radix-ui/react-scroll-area";
+import type * as RadixSeparator from "@radix-ui/react-separator";
 import type { LucideProps } from "lucide-react";
 
 export interface TooltipProps {
@@ -62,4 +66,29 @@ export interface EmptyStateProps
 export interface SkeletonProps extends HTMLAttributes<HTMLSpanElement> {
 	width?: string | number;
 	height?: string | number;
+}
+
+export interface LabelProps
+	extends Omit<ComponentPropsWithoutRef<typeof RadixLabel.Root>, "children"> {
+	children: ReactNode;
+}
+
+export interface SeparatorProps
+	extends Omit<
+		ComponentPropsWithoutRef<typeof RadixSeparator.Root>,
+		"children"
+	> {
+	orientation?: "horizontal" | "vertical";
+	decorative?: boolean;
+	className?: string;
+}
+
+export interface ScrollAreaProps
+	extends Omit<
+		ComponentPropsWithoutRef<typeof RadixScrollArea.Root>,
+		"children"
+	> {
+	children: ReactNode;
+	className?: string;
+	viewportClassName?: string;
 }

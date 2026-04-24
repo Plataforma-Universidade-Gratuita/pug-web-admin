@@ -260,6 +260,352 @@
 				}
 			}
 		},
+		"selectionControls": {
+			"title": "Selection Controls",
+			"description": "Checkbox, radio group e switch representam escolha do usuário, mas comunicam modelos de interação diferentes. Use cada um conforme a pessoa estiver selecionando vários itens, exatamente uma opção ou alternando uma configuração entre ligado e desligado.",
+			"patternNotes": {
+				"items": {
+					"checkbox": "Use checkbox quando a pessoa puder selecionar zero, uma ou várias opções de forma independente dentro de um conjunto.",
+					"radio": "Use radio group quando exatamente uma opção precisar ser escolhida entre várias alternativas mutuamente exclusivas.",
+					"switch": "Use switch para configurações imediatas de ligado/desligado e preferências binárias que façam sentido como habilitado ou desabilitado.",
+					"scope": "Não troque esses controles casualmente. O controle escolhido deve combinar com o significado da decisão, não apenas com o espaço disponível."
+				},
+				"snippet": "<Checkbox label=\"Compartilhar atualizações de progresso\" />\n\n<RadioGroup value={value} onValueChange={setValue}>\n  <RadioGroupItem value=\"email\" label=\"Email\" />\n  <RadioGroupItem value=\"sms\" label=\"SMS\" />\n</RadioGroup>\n\n<Switch label=\"Habilitar notificações\" />"
+			},
+			"sections": {
+				"comparison": {
+					"title": "Comparação de interação",
+					"description": "Esses três controles pertencem à mesma família conceitual, mas cada um sinaliza um tipo diferente de decisão."
+				}
+			},
+			"cards": {
+				"checkbox": {
+					"title": "Checkbox",
+					"description": "Escolhas independentes em que mais de uma opção pode ficar ativa ao mesmo tempo.",
+					"items": {
+						"one": {
+							"label": "Compartilhar resumo semanal",
+							"description": "Enviar um resumo compacto das atualizações do projeto toda sexta-feira."
+						},
+						"two": {
+							"label": "Incluir workspaces arquivados",
+							"description": "Manter itens arquivados dentro do mesmo escopo de relatório."
+						}
+					}
+				},
+				"radio": {
+					"title": "Radio group",
+					"description": "Escolhas exclusivas em que um modo de comunicação ou política precisa ser selecionado.",
+					"items": {
+						"email": {
+							"label": "Email",
+							"description": "Enviar atualizações detalhadas para a caixa de entrada principal."
+						},
+						"sms": {
+							"label": "SMS",
+							"description": "Usar uma mensagem mais curta apenas para contato urgente."
+						},
+						"silent": {
+							"label": "Silencioso",
+							"description": "Registrar a atualização sem enviar uma notificação ativa."
+						}
+					}
+				},
+				"switch": {
+					"title": "Switch",
+					"description": "Uma configuração binária que se lê com clareza como ligada ou desligada no estado atual.",
+					"item": {
+						"label": "Habilitar notificações",
+						"description": "Permitir imediatamente alertas sobre tarefas atrasadas e mudanças de status do projeto."
+					}
+				}
+			}
+		},
+		"toggleControls": {
+			"title": "Toggle Controls",
+			"description": "Toggle e toggle group expressam estado pressionado em vez de seleção de formulário. Use para modos de visualização, controles de formatação e conjuntos densos de ações em que o componente deve se comportar como um botão com estado persistente.",
+			"patternNotes": {
+				"items": {
+					"toggle": "Use toggle para um único controle pressionado/não pressionado que se comporta como um botão de ação com estado.",
+					"group": "Use toggle group quando vários controles pressionados relacionados precisarem funcionar como um conjunto exclusivo ou multi-seleção.",
+					"press": "Esses controles comunicam estado pressionado, não semântica de formulário. Prefira checkbox, radio group ou switch quando o significado for seleção ou configuração.",
+					"scope": "Toggle controls funcionam melhor em toolbars, trocas de visualização, ações de formatação e chips compactos de filtro."
+				},
+				"snippet": "<Toggle aria-label=\"Negrito\">Negrito</Toggle>\n\n<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grade</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">Lista</ToggleGroupItem>\n</ToggleGroup>"
+			},
+			"sections": {
+				"usage": {
+					"title": "Uso único e exclusivo",
+					"description": "Use um toggle isolado para uma ação pressionada, ou um toggle group de valor único quando um modo ou visualização deve permanecer ativo."
+				},
+				"multi": {
+					"title": "Grupos com vários estados pressionados",
+					"description": "Um toggle group múltiplo funciona quando vários estados de formatação ou filtro podem permanecer ativos ao mesmo tempo."
+				}
+			},
+			"cards": {
+				"single": {
+					"title": "Toggle único",
+					"description": "Uma ação pressionada que se comporta como botão com estado, e não como campo de formulário.",
+					"label": "Negrito",
+					"ariaLabel": "Alternar formatação em negrito"
+				},
+				"view": {
+					"title": "Modo de visualização exclusivo",
+					"description": "Um toggle group de valor único é um bom encaixe para trocas compactas de visualização, como grade versus lista.",
+					"items": {
+						"grid": "Grade",
+						"list": "Lista"
+					}
+				},
+				"multi": {
+					"title": "Vários estados pressionados",
+					"description": "Use toggle groups de múltipla seleção para formatação ou controles em forma de chip em que vários estados possam continuar ativos.",
+					"items": {
+						"bold": "Negrito",
+						"italic": "Itálico",
+						"underline": "Sublinhado"
+					}
+				}
+			}
+		},
+		"structurePrimitives": {
+			"title": "Structure Primitives",
+			"description": "Tabs, label, separator e scroll area organizam layout e ritmo de interação mais do que carregam significado de negócio por si só. Use para estruturar conteúdo, conectar texto a campos e controlar superfícies densas com mais clareza.",
+			"patternNotes": {
+				"items": {
+					"tabs": "Use tabs quando várias seções paralelas compartilharem o mesmo espaço e a pessoa precisar alternar entre elas sem sair do contexto atual da página.",
+					"label": "Use label para associar diretamente o texto do formulário ao seu campo, em vez de depender apenas da tipografia ao redor.",
+					"separator": "Use separators com parcimônia para reforçar agrupamento ou ritmo. Eles devem apoiar a hierarquia, não substituir decisões de espaçamento e layout.",
+					"scrollArea": "Use scroll areas em regiões restritas como sidebars, painéis e listas densas em que o overflow nativo precisa de um tratamento visual melhor."
+				},
+				"snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Visão geral</TabsTrigger>\n    <TabsTrigger value=\"members\">Membros</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Label htmlFor=\"workspace-name\">Nome do workspace</Label>\n<Separator />\n<ScrollArea className=\"h-48\">...</ScrollArea>"
+			},
+			"sections": {
+				"tabs": {
+					"title": "Tabs",
+					"description": "Tabs se encaixam bem quando seções relacionadas competem pelo mesmo espaço da página, mas precisam continuar rapidamente acessíveis."
+				},
+				"structure": {
+					"title": "Label, separator e scroll area",
+					"description": "Essas primitivas ficam mais úteis quando reforçam estrutura de formulário, ritmo de metadados e overflow restrito dentro da mesma composição."
+				}
+			},
+			"tabs": {
+				"items": {
+					"overview": {
+						"label": "Visão geral",
+						"title": "Visão geral do workspace",
+						"description": "Use uma tab quando esse painel for um par entre várias áreas de conteúdo relacionadas."
+					},
+					"members": {
+						"label": "Membros",
+						"title": "Membros e papéis",
+						"description": "Tabs mantêm seções relacionadas lado a lado sem forçar todos os detalhes dentro de uma única superfície longa."
+					},
+					"history": {
+						"label": "Histórico",
+						"title": "Histórico de atividades",
+						"description": "Isso é útil quando a pessoa precisa alternar rapidamente entre visões paralelas."
+					}
+				}
+			},
+			"labelCard": {
+				"title": "Estrutura de campo",
+				"description": "Labels e separators sustentam pequenas, mas importantes, decisões de hierarquia dentro de formulários e linhas de metadados.",
+				"nameLabel": "Nome do workspace",
+				"namePlaceholder": "Digite o nome do workspace",
+				"leftMeta": "Atualizado hoje",
+				"rightMeta": "6 membros ativos"
+			},
+			"scrollCard": {
+				"title": "Rolagem restrita",
+				"description": "Scroll areas funcionam bem dentro de painéis ou cards em que listas maiores precisam continuar limitadas sem perder polimento visual.",
+				"items": {
+					"one": {
+						"title": "Item de atividade um",
+						"description": "Regiões roláveis ainda devem preservar ritmo e espaçamento legíveis."
+					},
+					"two": {
+						"title": "Item de atividade dois",
+						"description": "Use uma scroll area quando a superfície pai precisar permanecer limitada."
+					},
+					"three": {
+						"title": "Item de atividade três",
+						"description": "Isso é especialmente útil para side panels e dashboards compactos."
+					},
+					"four": {
+						"title": "Item de atividade quatro",
+						"description": "A primitiva mantém o comportamento de overflow explícito dentro da região."
+					},
+					"five": {
+						"title": "Item de atividade cinco",
+						"description": "Coleções maiores devem continuar fáceis de escanear mesmo quando restritas."
+					},
+					"six": {
+						"title": "Item de atividade seis",
+						"description": "O card ao redor pode permanecer visualmente estável enquanto a lista rola."
+					}
+				}
+			}
+		},
+		"input": {
+			"title": "Input",
+			"description": "Input é a primitiva base de campo de texto para valores curtos em uma única linha. Use para identificadores, email, senha, busca e campos compactos de formulário em que o valor deve permanecer visível em uma linha.",
+			"patternNotes": {
+				"items": {
+					"base": "Use input para valores curtos que cabem naturalmente em uma linha e devem continuar editáveis diretamente no lugar.",
+					"password": "Campos de senha podem expor um toggle de revelação, mas a primitiva ainda deve se comportar como um único campo e não como um padrão separado.",
+					"icons": "Ícones à esquerda ajudam com contexto leve, como busca ou email, mas devem continuar sendo apoio e não carregar sozinhos o significado essencial.",
+					"scope": "Se o conteúdo virar texto longo ou multi-parágrafo, troque para text area em vez de forçar o padrão de input."
+				},
+				"snippet": "<Input type=\"email\" placeholder=\"admin@pug.edu.br\" />\n\n<Input type=\"password\" showPasswordToggle />"
+			},
+			"sections": {
+				"fields": {
+					"title": "Campos comuns",
+					"description": "A mesma primitiva deve atender campos de texto padrão e comportamento de revelação de senha sem fragmentar a API."
+				},
+				"search": {
+					"title": "Campo de busca",
+					"description": "Um ícone leve pode ajudar o campo a ser lido como busca sem mudar a primitiva subjacente."
+				}
+			},
+			"cards": {
+				"email": {
+					"title": "Campo de email",
+					"description": "Um campo simples de uma linha com contexto visual leve à esquerda.",
+					"label": "Email",
+					"placeholder": "admin@pug.edu.br"
+				},
+				"password": {
+					"title": "Campo de senha",
+					"description": "Use o comportamento embutido de revelação quando o campo precisar permitir inspeção temporária do valor oculto.",
+					"label": "Senha",
+					"placeholder": "Digite sua senha"
+				}
+			},
+			"search": {
+				"label": "Busca",
+				"placeholder": "Buscar workspaces"
+			}
+		},
+		"textArea": {
+			"title": "Text Area",
+			"description": "Text area é a primitiva para conteúdo livre mais longo. Use quando o valor precisar de mais de uma linha, como notas, feedback, descrições ou conteúdo explicativo.",
+			"patternNotes": {
+				"items": {
+					"longform": "Use text area quando a pessoa for escrever frases, notas ou qualquer conteúdo que naturalmente ocupe várias linhas.",
+					"resize": "O campo deve preservar uma altura mínima confortável para que conteúdos maiores não pareçam apertados desde a primeira interação.",
+					"scope": "Não use text area para valores curtos e estruturados só porque existe mais largura disponível. Campos de uma linha continuam sendo input.",
+					"rhythm": "Labels, espaçamento e o ritmo do formulário ao redor importam ainda mais em text areas porque elas ocupam bem mais altura."
+				},
+				"snippet": "<TextArea placeholder=\"Adicione notas internas\" />"
+			},
+			"sections": {
+				"usage": {
+					"title": "Entrada de texto longo",
+					"description": "Text areas funcionam melhor para conteúdo que deve continuar legível à medida que cresce verticalmente."
+				}
+			},
+			"cards": {
+				"notes": {
+					"title": "Notas internas",
+					"description": "Um campo compacto de texto longo para notas operacionais ou detalhes de apoio.",
+					"label": "Notas",
+					"placeholder": "Adicione notas internas"
+				},
+				"feedback": {
+					"title": "Feedback mais longo",
+					"description": "Use uma text area mais alta quando a resposta esperada for mais descritiva e reflexiva.",
+					"label": "Feedback",
+					"placeholder": "Descreva a experiência atual e o que deve melhorar"
+				}
+			}
+		},
+		"datePicker": {
+			"title": "Date Picker",
+			"description": "Date picker captura uma única data de calendário em um campo compacto. Esta implementação usa o input nativo de data para continuar leve, acessível e consistente com o comportamento de seleção de data do navegador.",
+			"patternNotes": {
+				"items": {
+					"native": "Use primeiro o input nativo de data quando o produto só precisar de seleção confiável de uma única data sem interações complexas de calendário.",
+					"scope": "Esta primitiva funciona melhor para campos isolados de data, como vencimentos, agendamentos e filtros de relatório.",
+					"constraints": "Use `min` e `max` quando o intervalo válido for conhecido, para que o picker comunique os limites diretamente.",
+					"escalation": "Se o produto depois precisar de layouts de calendário mais ricos, intervalos, atalhos ou navegação inline por mês, isso deve virar um componente composto de nível superior em vez de sobrecarregar esta primitiva base."
+				},
+				"snippet": "<DatePicker defaultValue=\"2026-04-24\" />\n\n<DatePicker min=\"2026-04-01\" max=\"2026-04-30\" />"
+			},
+			"sections": {
+				"fields": {
+					"title": "Campos de data única",
+					"description": "Um date picker nativo cobre muitos casos de uso administrativos sem introduzir um sistema de calendário mais pesado."
+				}
+			},
+			"cards": {
+				"basic": {
+					"title": "Campo básico de data",
+					"description": "Use quando a pessoa só precisa escolher uma data sem lógica extra de calendário.",
+					"label": "Data de entrega"
+				},
+				"constrained": {
+					"title": "Intervalo restrito",
+					"description": "Limites de mínimo e máximo ajudam a comunicar diretamente a janela válida de agendamento.",
+					"label": "Janela de relatório"
+				}
+			}
+		},
+		"multiSelect": {
+			"title": "Multi Select",
+			"description": "Multi select permite que a pessoa escolha vários valores dentro de um único campo compacto. Use quando múltiplos filtros ou atribuições pertencerem à mesma categoria e devam permanecer agrupados em um só gatilho.",
+			"patternNotes": {
+				"items": {
+					"scope": "Use multi select quando a pessoa puder escolher vários valores do mesmo conjunto sem precisar de checkboxes soltos no layout principal.",
+					"summary": "O gatilho deve resumir a seleção atual de forma compacta em vez de tentar renderizar uma lista longa no estado fechado.",
+					"options": "Descrições ajudam quando apenas o rótulo da opção não basta, mas a lista ainda deve continuar fácil de escanear e alternar rapidamente.",
+					"escalation": "Se o conjunto de opções ficar grande demais, pesquisável ou muito agrupado, isso deve evoluir para um padrão composto mais rico em vez de esticar demais o multi-select simples."
+				},
+				"snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Escolha os status\"\n  options={[\n    { value: \"active\", label: \"Ativo\" },\n    { value: \"paused\", label: \"Pausado\" },\n  ]}\n/>"
+			},
+			"sections": {
+				"filters": {
+					"title": "Campos agrupados com múltiplos valores",
+					"description": "Multi select é um bom encaixe quando vários filtros ou atribuições devem permanecer disponíveis em um único campo compacto."
+				}
+			},
+			"cards": {
+				"status": {
+					"title": "Filtros de status",
+					"description": "Um caso comum de admin em que vários status podem continuar ativos ao mesmo tempo.",
+					"label": "Status",
+					"placeholder": "Escolha os status",
+					"options": {
+						"active": "Ativo",
+						"paused": "Pausado",
+						"archived": "Arquivado"
+					}
+				},
+				"owners": {
+					"title": "Responsáveis e atribuídos",
+					"description": "Descrições ajudam quando os valores selecionados representam pessoas ou papéis em vez de tags simples.",
+					"label": "Responsáveis",
+					"placeholder": "Escolha os responsáveis",
+					"options": {
+						"maria": {
+							"label": "Maria",
+							"description": "Coordenação acadêmica"
+						},
+						"joao": {
+							"label": "João",
+							"description": "Operações do projeto"
+						},
+						"ana": {
+							"label": "Ana",
+							"description": "Acompanhamento regional"
+						}
+					}
+				}
+			}
+		},
 		"accordion": {
 			"title": "Accordion",
 			"description": "Accordions revelam e escondem secoes relacionadas de conteudo dentro do fluxo atual da pagina. Use quando a informacao deve continuar disponivel na pagina sem obrigar todos os detalhes a ficarem visiveis ao mesmo tempo.",

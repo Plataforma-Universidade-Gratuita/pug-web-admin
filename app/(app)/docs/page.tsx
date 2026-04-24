@@ -3,15 +3,22 @@ import {
 	AlertDialogParticle,
 	ButtonParticle,
 	CardParticle,
+	DatePickerParticle,
 	DialogParticle,
 	DropdownMenuParticle,
 	EmptyStateParticle,
 	IconParticle,
+	InputParticle,
+	MultiSelectParticle,
 	PopoverParticle,
 	SectionParticle,
+	SelectionControlsParticle,
 	SelectParticle,
 	SkeletonParticle,
+	StructurePrimitivesParticle,
+	TextAreaParticle,
 	TooltipParticle,
+	ToggleControlsParticle,
 } from "@/features/docs/index";
 
 export default function Page() {
@@ -21,15 +28,22 @@ export default function Page() {
 			<AlertDialogParticle />
 			<ButtonParticle />
 			<CardParticle />
+			<DatePickerParticle />
 			<DialogParticle />
 			<DropdownMenuParticle />
 			<EmptyStateParticle />
 			<IconParticle />
+			<InputParticle />
+			<MultiSelectParticle />
 			<PopoverParticle />
 			<SectionParticle />
+			<SelectionControlsParticle />
 			<SelectParticle />
 			<SkeletonParticle />
+			<StructurePrimitivesParticle />
+			<TextAreaParticle />
 			<TooltipParticle />
+			<ToggleControlsParticle />
 		</main>
 	);
 }

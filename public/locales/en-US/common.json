@@ -260,6 +260,352 @@
 				}
 			}
 		},
+		"selectionControls": {
+			"title": "Selection Controls",
+			"description": "Checkbox, radio group, and switch all represent user choice, but they communicate different interaction models. Use them according to whether the user is selecting many items, exactly one option, or toggling a setting on and off.",
+			"patternNotes": {
+				"items": {
+					"checkbox": "Use checkbox when the user can independently select zero, one, or many options from a set.",
+					"radio": "Use radio group when exactly one option must be chosen from several mutually exclusive choices.",
+					"switch": "Use switch for immediate on/off settings and binary preferences that read naturally as enabled or disabled.",
+					"scope": "Do not swap these controls casually. The chosen control should match the meaning of the decision, not just the amount of available space."
+				},
+				"snippet": "<Checkbox label=\"Share progress updates\" />\n\n<RadioGroup value={value} onValueChange={setValue}>\n  <RadioGroupItem value=\"email\" label=\"Email\" />\n  <RadioGroupItem value=\"sms\" label=\"SMS\" />\n</RadioGroup>\n\n<Switch label=\"Enable notifications\" />"
+			},
+			"sections": {
+				"comparison": {
+					"title": "Interaction comparison",
+					"description": "These three controls belong together conceptually, but each one signals a different kind of user decision."
+				}
+			},
+			"cards": {
+				"checkbox": {
+					"title": "Checkbox",
+					"description": "Independent choices where more than one option may be enabled at the same time.",
+					"items": {
+						"one": {
+							"label": "Share weekly summary",
+							"description": "Send a compact digest of project updates every Friday."
+						},
+						"two": {
+							"label": "Include archived workspaces",
+							"description": "Keep archived items in the same reporting scope."
+						}
+					}
+				},
+				"radio": {
+					"title": "Radio group",
+					"description": "Exclusive choices where one communication mode or policy must be selected.",
+					"items": {
+						"email": {
+							"label": "Email",
+							"description": "Send detailed updates to the primary inbox."
+						},
+						"sms": {
+							"label": "SMS",
+							"description": "Use a shorter message for urgent contact only."
+						},
+						"silent": {
+							"label": "Silent",
+							"description": "Store the update without sending an active notification."
+						}
+					}
+				},
+				"switch": {
+					"title": "Switch",
+					"description": "A binary setting that reads clearly as on or off in the current state.",
+					"item": {
+						"label": "Enable notifications",
+						"description": "Immediately allow alerts for overdue tasks and project status changes."
+					}
+				}
+			}
+		},
+		"toggleControls": {
+			"title": "Toggle Controls",
+			"description": "Toggle and toggle group express pressed state rather than form selection. Use them for view modes, formatting controls, and dense action sets where the control should behave like a button with remembered state.",
+			"patternNotes": {
+				"items": {
+					"toggle": "Use toggle for one pressed/unpressed control that behaves like a stateful action button.",
+					"group": "Use toggle group when several related pressed controls need to behave as one mutually exclusive or multi-select set.",
+					"press": "These controls communicate pressed state, not form semantics. Prefer checkbox, radio group, or switch when the meaning is selection or settings.",
+					"scope": "Toggle controls are strongest in toolbars, view switches, formatting actions, and compact filter chips."
+				},
+				"snippet": "<Toggle aria-label=\"Bold\">Bold</Toggle>\n\n<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grid</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">List</ToggleGroupItem>\n</ToggleGroup>"
+			},
+			"sections": {
+				"usage": {
+					"title": "Single and exclusive usage",
+					"description": "Use a lone toggle for one pressed action, or a single-value toggle group when one view or mode should stay active."
+				},
+				"multi": {
+					"title": "Multi-pressed groups",
+					"description": "A multiple toggle group works when several formatting or filter states may remain active together."
+				}
+			},
+			"cards": {
+				"single": {
+					"title": "Single toggle",
+					"description": "A pressed action that behaves like a stateful button instead of a form field.",
+					"label": "Bold",
+					"ariaLabel": "Toggle bold formatting"
+				},
+				"view": {
+					"title": "Exclusive view mode",
+					"description": "A single-value toggle group is a good fit for compact view switches such as grid versus list.",
+					"items": {
+						"grid": "Grid",
+						"list": "List"
+					}
+				},
+				"multi": {
+					"title": "Multiple pressed states",
+					"description": "Use multi-select toggle groups for formatting or chip-like controls where several states may remain active.",
+					"items": {
+						"bold": "Bold",
+						"italic": "Italic",
+						"underline": "Underline"
+					}
+				}
+			}
+		},
+		"structurePrimitives": {
+			"title": "Structure Primitives",
+			"description": "Tabs, label, separator, and scroll area shape layout and interaction rhythm rather than carrying heavy business meaning on their own. Use them to organize content, connect fields to text, and manage dense surfaces with clearer structure.",
+			"patternNotes": {
+				"items": {
+					"tabs": "Use tabs when several peer sections share one space and users should switch between them without leaving the current page context.",
+					"label": "Use label to associate form text with its field directly instead of relying on nearby typography alone.",
+					"separator": "Use separators sparingly to reinforce grouping or rhythm. They should support hierarchy, not replace spacing and layout decisions.",
+					"scrollArea": "Use scroll areas for constrained regions such as sidebars, panels, and dense lists where native overflow needs better visual handling."
+				},
+				"snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"members\">Members</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Label htmlFor=\"workspace-name\">Workspace name</Label>\n<Separator />\n<ScrollArea className=\"h-48\">...</ScrollArea>"
+			},
+			"sections": {
+				"tabs": {
+					"title": "Tabs",
+					"description": "Tabs are a strong fit when related sections compete for the same page space but should remain quickly accessible."
+				},
+				"structure": {
+					"title": "Label, separator, and scroll area",
+					"description": "These primitives become most useful when they reinforce form structure, metadata rhythm, and constrained overflow in the same composition."
+				}
+			},
+			"tabs": {
+				"items": {
+					"overview": {
+						"label": "Overview",
+						"title": "Workspace overview",
+						"description": "Use a tab when this panel is one peer among several related content areas."
+					},
+					"members": {
+						"label": "Members",
+						"title": "Members and roles",
+						"description": "Tabs keep related sections adjacent without forcing every detail into one long surface."
+					},
+					"history": {
+						"label": "History",
+						"title": "Activity history",
+						"description": "This is useful when users need quick context switching between parallel views."
+					}
+				}
+			},
+			"labelCard": {
+				"title": "Field structure",
+				"description": "Labels and separators support small but important hierarchy decisions inside forms and metadata rows.",
+				"nameLabel": "Workspace name",
+				"namePlaceholder": "Enter workspace name",
+				"leftMeta": "Updated today",
+				"rightMeta": "6 active members"
+			},
+			"scrollCard": {
+				"title": "Constrained scrolling",
+				"description": "Scroll areas work well inside panels or cards where longer lists should remain bounded without losing polish.",
+				"items": {
+					"one": {
+						"title": "Activity item one",
+						"description": "Scrollable regions should still preserve readable rhythm and spacing."
+					},
+					"two": {
+						"title": "Activity item two",
+						"description": "Use a scroll area when the parent surface should stay bounded."
+					},
+					"three": {
+						"title": "Activity item three",
+						"description": "This is especially useful for side panels and compact dashboards."
+					},
+					"four": {
+						"title": "Activity item four",
+						"description": "The primitive keeps overflow behavior explicit inside the region."
+					},
+					"five": {
+						"title": "Activity item five",
+						"description": "Longer collections should remain easy to scan even when constrained."
+					},
+					"six": {
+						"title": "Activity item six",
+						"description": "The surrounding card can stay visually stable while the list scrolls."
+					}
+				}
+			}
+		},
+		"input": {
+			"title": "Input",
+			"description": "Input is the base text field primitive for short single-line values. Use it for identifiers, email, passwords, search, and compact form fields where the value should stay visible on one line.",
+			"patternNotes": {
+				"items": {
+					"base": "Use input for short-form values that fit naturally on one line and should remain directly editable in place.",
+					"password": "Password fields can expose a reveal toggle, but the primitive should still behave like one field rather than a separate custom pattern.",
+					"icons": "Leading icons are useful for lightweight context such as search or email, but they should remain supportive rather than carrying essential meaning alone.",
+					"scope": "If the content becomes long-form or multi-paragraph, switch to a text area instead of stretching the input pattern."
+				},
+				"snippet": "<Input type=\"email\" placeholder=\"admin@pug.edu.br\" />\n\n<Input type=\"password\" showPasswordToggle />"
+			},
+			"sections": {
+				"fields": {
+					"title": "Common fields",
+					"description": "The same primitive should handle standard text entry and password reveal behavior without fragmenting the API."
+				},
+				"search": {
+					"title": "Search field",
+					"description": "A lightweight icon can help the field read as search without changing the underlying primitive."
+				}
+			},
+			"cards": {
+				"email": {
+					"title": "Email field",
+					"description": "A standard single-line field with lightweight leading context.",
+					"label": "Email",
+					"placeholder": "admin@pug.edu.br"
+				},
+				"password": {
+					"title": "Password field",
+					"description": "Use the built-in reveal behavior when the field should let users inspect the hidden value temporarily.",
+					"label": "Password",
+					"placeholder": "Enter your password"
+				}
+			},
+			"search": {
+				"label": "Search",
+				"placeholder": "Search workspaces"
+			}
+		},
+		"textArea": {
+			"title": "Text Area",
+			"description": "Text area is the primitive for longer freeform content. Use it when the value needs more than one line, such as notes, feedback, descriptions, or explanatory content.",
+			"patternNotes": {
+				"items": {
+					"longform": "Use text area when the user is expected to write sentences, notes, or any content that naturally spans multiple lines.",
+					"resize": "The field should preserve a comfortable minimum height so longer content does not feel cramped from the first interaction.",
+					"scope": "Do not use a text area for short structured values just because more width is available. Keep single-line fields as inputs.",
+					"rhythm": "Labels, spacing, and surrounding form rhythm matter more with text areas because they occupy noticeably more vertical space."
+				},
+				"snippet": "<TextArea placeholder=\"Add internal notes\" />"
+			},
+			"sections": {
+				"usage": {
+					"title": "Long-form entry",
+					"description": "Text areas are best for content that should stay readable while it grows vertically."
+				}
+			},
+			"cards": {
+				"notes": {
+					"title": "Internal notes",
+					"description": "A compact long-form field for operational notes or supporting detail.",
+					"label": "Notes",
+					"placeholder": "Add internal notes"
+				},
+				"feedback": {
+					"title": "Longer feedback",
+					"description": "Use a taller text area when the expected response is more descriptive and reflective.",
+					"label": "Feedback",
+					"placeholder": "Describe the current experience and what should improve"
+				}
+			}
+		},
+		"datePicker": {
+			"title": "Date Picker",
+			"description": "Date picker captures one calendar date in a compact field. This implementation uses the native date input so it stays lightweight, accessible, and consistent with browser-level date selection behavior.",
+			"patternNotes": {
+				"items": {
+					"native": "Use the native date input first when the product only needs reliable single-date selection without complex calendar interactions.",
+					"scope": "This primitive is best for one-off date fields such as due dates, schedule points, and reporting filters.",
+					"constraints": "Use `min` and `max` when the valid range is known so the picker communicates boundaries directly.",
+					"escalation": "If the product later needs richer calendar layouts, ranges, shortcuts, or inline month navigation, that should become a higher-level composite component rather than overloading this baseline primitive."
+				},
+				"snippet": "<DatePicker defaultValue=\"2026-04-24\" />\n\n<DatePicker min=\"2026-04-01\" max=\"2026-04-30\" />"
+			},
+			"sections": {
+				"fields": {
+					"title": "Single-date fields",
+					"description": "A native date picker covers many admin use cases without introducing a heavier calendar system."
+				}
+			},
+			"cards": {
+				"basic": {
+					"title": "Basic date field",
+					"description": "Use it when the user only needs to choose one date with no extra calendar logic.",
+					"label": "Due date"
+				},
+				"constrained": {
+					"title": "Constrained range",
+					"description": "Min and max boundaries help communicate valid scheduling windows directly in the field.",
+					"label": "Reporting window"
+				}
+			}
+		},
+		"multiSelect": {
+			"title": "Multi Select",
+			"description": "Multi select lets users choose several values from one compact field. Use it when multiple filters or assignments belong to the same category and should stay grouped under one trigger.",
+			"patternNotes": {
+				"items": {
+					"scope": "Use multi select when the user may choose several values from the same set without needing separate checkboxes in the main layout.",
+					"summary": "The trigger should summarize the current selection compactly instead of trying to render a long unchecked list in the closed state.",
+					"options": "Descriptions can help when option labels alone are not enough, but the list should still remain easy to scan and toggle quickly.",
+					"escalation": "If the option set becomes very large, searchable, or deeply grouped, this should evolve into a richer composite pattern instead of stretching the simple multi-select too far."
+				},
+				"snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose statuses\"\n  options={[\n    { value: \"active\", label: \"Active\" },\n    { value: \"paused\", label: \"Paused\" },\n  ]}\n/>"
+			},
+			"sections": {
+				"filters": {
+					"title": "Grouped multi-value fields",
+					"description": "Multi select is a good fit when several filters or assignments should stay available in one compact field."
+				}
+			},
+			"cards": {
+				"status": {
+					"title": "Status filters",
+					"description": "A common admin filter case where several statuses may remain active together.",
+					"label": "Statuses",
+					"placeholder": "Choose statuses",
+					"options": {
+						"active": "Active",
+						"paused": "Paused",
+						"archived": "Archived"
+					}
+				},
+				"owners": {
+					"title": "Owners and assignees",
+					"description": "Descriptions can help when the selected values represent people or roles rather than simple tags.",
+					"label": "Owners",
+					"placeholder": "Choose owners",
+					"options": {
+						"maria": {
+							"label": "Maria",
+							"description": "Academic coordination"
+						},
+						"joao": {
+							"label": "João",
+							"description": "Project operations"
+						},
+						"ana": {
+							"label": "Ana",
+							"description": "Regional follow-up"
+						}
+					}
+				}
+			}
+		},
 		"accordion": {
 			"title": "Accordion",
 			"description": "Accordions reveal and hide related sections of content within the current page flow. Use them when information should stay available on the page without forcing every detail to be visible at once.",
