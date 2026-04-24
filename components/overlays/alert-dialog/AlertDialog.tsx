@@ -49,12 +49,12 @@ export function AlertDialogContent({
 				className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-center p-4"
 				style={{ top: APP_TOPBAR_HEIGHT }}
 			>
-				<RadixAlertDialog.Overlay className="absolute inset-0 bg-black/50" />
+				<RadixAlertDialog.Overlay className="dialog-overlay-motion absolute inset-0 bg-black/50" />
 				<RadixAlertDialog.Content
 					aria-busy={isLoading || undefined}
 					aria-live={isLoading ? "polite" : undefined}
 					className={clsx(
-						"border-default-2 surface-2 shadow-strong relative flex w-full max-w-lg flex-col overflow-hidden rounded-[calc(var(--twc-radius-xl)+0.25rem)] border",
+						"dialog-content-motion border-default-2 surface-2 shadow-strong relative flex w-full max-w-lg flex-col overflow-hidden rounded-[calc(var(--twc-radius-xl)+0.25rem)] border",
 						className,
 					)}
 					role={isLoading ? "status" : undefined}

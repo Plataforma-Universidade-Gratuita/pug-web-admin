@@ -77,6 +77,8 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 	children: ReactNode;
 	tone?: BadgeTone;
 	variant?: BadgeVariant;
+	onRemove?: (() => void) | undefined;
+	removeLabel?: string;
 }
 
 export interface LabelProps

@@ -3,10 +3,11 @@
 import { useMemo, useState } from "react";
 
 import clsx from "clsx";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 
-import { Checkbox } from "@/components/forms/checkbox/Checkbox";
+import { Badge } from "@/components/display/badge/Badge";
 import { Icon } from "@/components/display/icon/Icon";
+import { Checkbox } from "@/components/forms/checkbox/Checkbox";
 import {
 	Popover,
 	PopoverContent,
@@ -14,22 +15,17 @@ import {
 } from "@/components/overlays/popover/Popover";
 import type { MultiSelectProps } from "@/types/client";
 
-function buildDisplayValue({
-	selectedLabels,
+function buildVisibleSelections({
+	selectedOptions,
 	maxVisibleValues,
-	placeholder,
 }: {
-	selectedLabels: string[];
+	selectedOptions: Array<{ value: string; label: string }>;
 	maxVisibleValues: number;
-	placeholder?: MultiSelectProps["placeholder"];
 }) {
-	if (selectedLabels.length === 0) return placeholder;
+	const visibleOptions = selectedOptions.slice(0, maxVisibleValues);
+	const remainingCount = selectedOptions.length - visibleOptions.length;
 
-	const visibleLabels = selectedLabels.slice(0, maxVisibleValues);
-	const remainingCount = selectedLabels.length - visibleLabels.length;
-	const label = visibleLabels.join(", ");
-
-	return remainingCount > 0 ? `${label} +${remainingCount}` : label;
+	return { visibleOptions, remainingCount };
 }
 
 export function MultiSelect({
@@ -47,20 +43,20 @@ export function MultiSelect({
 	const [internalValue, setInternalValue] = useState(defaultValue ?? []);
 	const selectedValues = value ?? internalValue;
 
-	const selectedLabels = useMemo(
+	const selectedOptions = useMemo(
 		() =>
 			options
 				.filter(option => selectedValues.includes(option.value))
-				.map(option =>
-					typeof option.label === "string" ? option.label : option.value,
-				),
+				.map(option => ({
+					value: option.value,
+					label: typeof option.label === "string" ? option.label : option.value,
+				})),
 		[options, selectedValues],
 	);
 
-	const displayValue = buildDisplayValue({
-		selectedLabels,
+	const { visibleOptions, remainingCount } = buildVisibleSelections({
+		selectedOptions,
 		maxVisibleValues,
-		placeholder,
 	});
 
 	function updateValue(nextValue: string[]) {
@@ -76,38 +72,91 @@ export function MultiSelect({
 		updateValue(nextValue);
 	}
 
+	function clearAll() {
+		updateValue([]);
+	}
+
 	return (
 		<Popover
 			open={open}
 			onOpenChange={setOpen}
 		>
-			<PopoverTrigger>
-				<button
-					id={id}
-					type="button"
-					disabled={disabled}
-					className={clsx(
-						"border-default-2 surface-2 focus-ring inline-flex h-10 w-full items-center justify-between gap-3 rounded-[var(--twc-radius-lg)] border px-3 py-2 text-left transition disabled:pointer-events-none disabled:opacity-60",
-						className,
-					)}
-				>
-					<span className="min-w-0 flex-1 truncate text-[color:var(--twc-text)]">
-						{displayValue ? (
-							displayValue
+			<div className="relative w-full">
+				<PopoverTrigger>
+					<button
+						id={id}
+						type="button"
+						disabled={disabled}
+						className={clsx(
+							"border-default-2 surface-2 focus-ring inline-flex min-h-10 w-full items-center rounded-[var(--twc-radius-lg)] border px-3 py-2 pr-18 text-left transition disabled:pointer-events-none disabled:opacity-60",
+							className,
+						)}
+					>
+						<span className="sr-only">Open multi-select options</span>
+					</button>
+				</PopoverTrigger>
+
+				<div className="pointer-events-none absolute inset-0 flex items-center justify-between gap-3 px-3 py-2 pr-18">
+					<div className="pointer-events-auto min-w-0 flex-1">
+						{selectedOptions.length > 0 ? (
+							<div className="flex flex-wrap items-center gap-2">
+								{visibleOptions.map(option => (
+									<Badge
+										key={option.value}
+										tone="brand"
+										variant="soft"
+										onRemove={() => toggleValue(option.value)}
+										removeLabel={`Remove ${option.label}`}
+										className="max-w-full"
+									>
+										<span className="truncate">{option.label}</span>
+									</Badge>
+								))}
+								{remainingCount > 0 ? (
+									<Badge
+										tone="neutral"
+										variant="outline"
+									>
+										+{remainingCount}
+									</Badge>
+								) : null}
+							</div>
 						) : (
 							<span className="text-[color:var(--twc-muted)]">
 								{placeholder}
 							</span>
 						)}
-					</span>
-					<span className="shrink-0 text-[color:var(--twc-muted)]">
-						<Icon
-							icon={ChevronDown}
-							className="h-4 w-4"
-						/>
-					</span>
-				</button>
-			</PopoverTrigger>
+					</div>
+
+					<div className="pointer-events-none absolute inset-y-0 right-3 flex items-center gap-2">
+						{selectedOptions.length > 0 ? (
+							<button
+								type="button"
+								disabled={disabled}
+								onClick={event => {
+									event.preventDefault();
+									event.stopPropagation();
+									clearAll();
+								}}
+								className="pointer-events-auto inline-flex h-6 w-6 items-center justify-center rounded-full text-[color:var(--twc-muted)] transition hover:bg-[color:var(--twc-surface-1)] hover:text-[color:var(--twc-text)] disabled:pointer-events-none"
+								aria-label="Clear all selections"
+							>
+								<Icon
+									icon={X}
+									className="h-3.5 w-3.5"
+								/>
+							</button>
+						) : null}
+
+						<span className="text-[color:var(--twc-muted)]">
+							<Icon
+								icon={ChevronDown}
+								className="h-4 w-4"
+							/>
+						</span>
+					</div>
+				</div>
+			</div>
 
 			<PopoverContent
 				align="start"

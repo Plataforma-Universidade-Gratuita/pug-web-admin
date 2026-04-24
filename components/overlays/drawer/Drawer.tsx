@@ -21,6 +21,13 @@ import type {
 	DrawerTriggerProps,
 } from "@/types/client";
 
+const DRAWER_MOTION_STYLES: Record<DrawerSide, string> = {
+	top: "drawer-content-top",
+	right: "drawer-content-right",
+	bottom: "drawer-content-bottom",
+	left: "drawer-content-left",
+};
+
 const DRAWER_POSITION_STYLES: Record<DrawerSide, string> = {
 	top: "inset-x-4 top-[calc(var(--app-topbar-height)+1rem)] max-h-[min(24rem,calc(100dvh-var(--app-topbar-height)-2rem))] rounded-[var(--twc-radius-lg)]",
 	right:
@@ -77,16 +84,17 @@ export function DrawerContent({
 				style={{ "--app-topbar-height": APP_TOPBAR_HEIGHT } as CSSProperties}
 			>
 				<RadixDialog.Overlay
-					className="absolute inset-0 bg-black/50"
+					className="drawer-overlay-motion absolute inset-0 bg-black/50"
 					style={{ top: APP_TOPBAR_HEIGHT }}
 				/>
 				<RadixDialog.Content
 					aria-busy={isLoading || undefined}
 					aria-live={isLoading ? "polite" : undefined}
 					className={clsx(
-						"border-default-2 surface-2 shadow-strong absolute flex overflow-hidden border",
+						"drawer-content-motion border-default-2 surface-2 shadow-strong absolute flex overflow-hidden border",
 						"flex-col",
 						DRAWER_POSITION_STYLES[side],
+						DRAWER_MOTION_STYLES[side],
 						className,
 					)}
 					role={isLoading ? "status" : undefined}

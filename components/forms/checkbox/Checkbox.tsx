@@ -17,14 +17,14 @@ export function Checkbox({
 	return (
 		<label
 			className={clsx(
-				"flex items-start gap-3",
+				"flex items-center gap-3",
 				disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer",
 				className,
 			)}
 		>
 			<RadixCheckbox.Root
 				disabled={disabled}
-				className="border-default-2 surface-2 focus-ring mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-[0.375rem] border data-[state=checked]:border-[color:var(--color-brand)] data-[state=checked]:bg-[color:var(--color-brand)]"
+				className="border-default-2 surface-2 focus-ring inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-[0.375rem] border transition enabled:hover:border-[color:color-mix(in_srgb,var(--color-brand)_45%,var(--twc-border-2))] enabled:hover:bg-[color:var(--twc-surface-1)] enabled:active:scale-95 data-[state=checked]:border-[color:var(--color-brand)] data-[state=checked]:bg-[color:var(--color-brand)] data-[state=checked]:enabled:hover:bg-[color:color-mix(in_srgb,var(--color-brand)_88%,black)]"
 				{...props}
 			>
 				<RadixCheckbox.Indicator className="text-white">

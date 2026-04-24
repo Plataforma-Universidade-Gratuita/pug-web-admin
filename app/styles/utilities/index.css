@@ -1,3 +1,4 @@
+@import "./badges.css";
 @import "./buttons.css";
 
 @layer components {
@@ -77,6 +78,124 @@
 	}
 }
 
+@keyframes dialog-enter {
+	from {
+		opacity: 0;
+		transform: translateY(0.75rem) scale(0.92);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes overlay-fade-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes drawer-in-right {
+	from {
+		opacity: 0.75;
+		transform: translateX(2rem);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes drawer-out-right {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	to {
+		opacity: 0.85;
+		transform: translateX(2rem);
+	}
+}
+
+@keyframes drawer-in-left {
+	from {
+		opacity: 0.75;
+		transform: translateX(-2rem);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes drawer-out-left {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	to {
+		opacity: 0.85;
+		transform: translateX(-2rem);
+	}
+}
+
+@keyframes drawer-in-top {
+	from {
+		opacity: 0.75;
+		transform: translateY(-1.5rem);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes drawer-out-top {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	to {
+		opacity: 0.85;
+		transform: translateY(-1.5rem);
+	}
+}
+
+@keyframes drawer-in-bottom {
+	from {
+		opacity: 0.75;
+		transform: translateY(1.5rem);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes drawer-out-bottom {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	to {
+		opacity: 0.85;
+		transform: translateY(1.5rem);
+	}
+}
+
 @utility border-default-1 {
 	border-color: var(--twc-border-1);
 }
@@ -136,6 +255,71 @@
 
 	&:active {
 		transform: translateY(1px);
+	}
+}
+
+@utility dialog-overlay-motion {
+	&[data-state="open"] {
+		animation: overlay-fade-in 180ms var(--twc-ease-standard);
+	}
+}
+
+@utility dialog-content-motion {
+	transform-origin: center center;
+	will-change: transform, opacity;
+
+	&[data-state="open"] {
+		animation: dialog-enter 220ms var(--twc-ease-standard);
+	}
+}
+
+@utility drawer-overlay-motion {
+	&[data-state="open"] {
+		animation: overlay-fade-in 180ms var(--twc-ease-standard);
+	}
+}
+
+@utility drawer-content-motion {
+	will-change: transform, opacity;
+}
+
+@utility drawer-content-right {
+	&[data-state="open"] {
+		animation: drawer-in-right 220ms var(--twc-ease-standard);
+	}
+
+	&[data-state="closed"] {
+		animation: drawer-out-right 180ms var(--twc-ease-standard);
+	}
+}
+
+@utility drawer-content-left {
+	&[data-state="open"] {
+		animation: drawer-in-left 220ms var(--twc-ease-standard);
+	}
+
+	&[data-state="closed"] {
+		animation: drawer-out-left 180ms var(--twc-ease-standard);
+	}
+}
+
+@utility drawer-content-top {
+	&[data-state="open"] {
+		animation: drawer-in-top 220ms var(--twc-ease-standard);
+	}
+
+	&[data-state="closed"] {
+		animation: drawer-out-top 180ms var(--twc-ease-standard);
+	}
+}
+
+@utility drawer-content-bottom {
+	&[data-state="open"] {
+		animation: drawer-in-bottom 220ms var(--twc-ease-standard);
+	}
+
+	&[data-state="closed"] {
+		animation: drawer-out-bottom 180ms var(--twc-ease-standard);
 	}
 }
 

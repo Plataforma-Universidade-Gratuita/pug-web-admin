@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 import clsx from "clsx";
-import { Check, ChevronDown, Search } from "lucide-react";
+import { ChevronDown, Search, X } from "lucide-react";
 
 import { Icon } from "@/components/display/icon/Icon";
 import {
@@ -71,36 +71,58 @@ export function Combobox({
 				if (!nextOpen) setQuery("");
 			}}
 		>
-			<PopoverTrigger>
-				<button
-					id={id}
-					type="button"
-					role="combobox"
-					aria-expanded={open}
-					disabled={disabled}
-					className={clsx(
-						"border-default-2 surface-2 focus-ring inline-flex h-10 w-full items-center justify-between gap-3 rounded-[var(--twc-radius-lg)] border px-3 py-2 text-left transition disabled:pointer-events-none disabled:opacity-60",
-						className,
-					)}
-				>
-					<span
+			<div className="relative w-full">
+				<PopoverTrigger>
+					<button
+						id={id}
+						type="button"
+						role="combobox"
+						aria-expanded={open}
+						disabled={disabled}
 						className={clsx(
-							"min-w-0 flex-1 truncate",
-							selectedOption
-								? "text-[color:var(--twc-text)]"
-								: "text-[color:var(--twc-muted)]",
+							"border-default-2 surface-2 focus-ring inline-flex h-10 w-full items-center justify-between gap-3 rounded-[var(--twc-radius-lg)] border px-3 py-2 pr-18 text-left transition disabled:pointer-events-none disabled:opacity-60",
+							className,
 						)}
 					>
-						{selectedOption ? getSelectedLabel(selectedOption) : placeholder}
-					</span>
-					<span className="shrink-0 text-[color:var(--twc-muted)]">
+						<span
+							className={clsx(
+								"min-w-0 flex-1 truncate",
+								selectedOption
+									? "text-[color:var(--twc-text)]"
+									: "text-[color:var(--twc-muted)]",
+							)}
+						>
+							{selectedOption ? getSelectedLabel(selectedOption) : placeholder}
+						</span>
+					</button>
+				</PopoverTrigger>
+				<div className="pointer-events-none absolute inset-y-0 right-3 flex items-center gap-2">
+					{selectedOption ? (
+						<button
+							type="button"
+							disabled={disabled}
+							onClick={event => {
+								event.preventDefault();
+								event.stopPropagation();
+								handleValueChange("");
+							}}
+							className="pointer-events-auto inline-flex h-6 w-6 items-center justify-center rounded-full text-[color:var(--twc-muted)] transition hover:bg-[color:var(--twc-surface-1)] hover:text-[color:var(--twc-text)] disabled:pointer-events-none"
+							aria-label="Clear selection"
+						>
+							<Icon
+								icon={X}
+								className="h-3.5 w-3.5"
+							/>
+						</button>
+					) : null}
+					<span className="text-[color:var(--twc-muted)]">
 						<Icon
 							icon={ChevronDown}
 							className="h-4 w-4"
 						/>
 					</span>
-				</button>
-			</PopoverTrigger>
+				</div>
+			</div>
 
 			<PopoverContent
 				align="start"
@@ -147,28 +169,39 @@ export function Combobox({
 											onClick={() => handleValueChange(option.value)}
 											disabled={disabled || option.disabled}
 											className={clsx(
-												"focus-ring flex w-full items-start justify-between gap-3 rounded-[var(--twc-radius-lg)] px-3 py-2 text-left transition outline-none",
+												"focus-ring flex w-full items-start gap-3 rounded-[var(--twc-radius-lg)] border border-transparent px-3 py-2 pl-4 text-left transition outline-none",
+												isSelected
+													? "border-[color:color-mix(in_srgb,var(--color-brand)_18%,transparent)] bg-[color:color-mix(in_srgb,var(--color-brand)_14%,var(--twc-surface-2))]"
+													: null,
 												option.disabled
 													? "cursor-not-allowed opacity-50"
 													: "hover:bg-[color:var(--twc-surface-1)]",
 											)}
 										>
+											<span className="mt-0.5 shrink-0">
+												<span
+													aria-hidden="true"
+													className={clsx(
+														"block h-5 w-1 rounded-full transition",
+														isSelected
+															? "bg-[color:var(--color-brand)]"
+															: "bg-transparent",
+													)}
+												/>
+											</span>
 											<span className="min-w-0 flex-1">
-												<span className="ty-sm-semibold block">
+												<span
+													className={clsx(
+														"block",
+														isSelected ? "ty-sm-bold" : "ty-sm-semibold",
+													)}
+												>
 													{option.label}
 												</span>
 												{option.description ? (
 													<span className="ty-helper block">
 														{option.description}
 													</span>
-												) : null}
-											</span>
-											<span className="shrink-0 text-[color:var(--color-brand)]">
-												{isSelected ? (
-													<Icon
-														icon={Check}
-														className="h-4 w-4"
-													/>
 												) : null}
 											</span>
 										</button>
