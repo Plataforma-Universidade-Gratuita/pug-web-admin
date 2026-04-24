@@ -147,6 +147,119 @@
 				}
 			}
 		},
+		"dropdownMenu": {
+			"title": "Dropdown Menu",
+			"description": "Dropdown menus expose compact action lists anchored to a trigger. Use them for row actions, card utilities, and grouped secondary commands that would add too much noise as inline buttons.",
+			"patternNotes": {
+				"items": {
+					"compact": "Use dropdown menus for short command lists that belong to one trigger and do not need rich supporting layout.",
+					"scope": "Keep the menu tightly scoped to actions for the current object, row, or surface. If the content becomes explanatory or form-like, switch to a popover or dialog.",
+					"grouping": "Group related actions with labels and separators when the menu mixes primary utilities with lower-frequency or riskier actions.",
+					"escalation": "Use a dropdown menu for compact action selection, a popover for richer lightweight panels, and an alert dialog for consequential confirmation."
+				},
+				"snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>\n    <Button size=\"icon\" usage=\"secondary\" variant=\"ghost\">...</Button>\n  </DropdownMenuTrigger>\n\n  <DropdownMenuContent>\n    <DropdownMenuLabel>Actions</DropdownMenuLabel>\n    <DropdownMenuItem>View details</DropdownMenuItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem>Archive</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+			},
+			"sections": {
+				"actions": {
+					"title": "Compact actions",
+					"description": "Dropdown menus work best when several supporting actions need to stay available without taking over the layout."
+				}
+			},
+			"cards": {
+				"rowActions": {
+					"title": "Row action menu",
+					"description": "A common admin pattern for compact table or card-row actions.",
+					"rowTitle": "Project Atlas",
+					"rowDescription": "Updated 2 hours ago",
+					"trigger": "Open row actions",
+					"menuLabel": "Project actions",
+					"items": {
+						"view": "View details",
+						"edit": "Edit record",
+						"archive": "Archive project",
+						"delete": "Delete project"
+					}
+				},
+				"grouped": {
+					"title": "Grouped utilities",
+					"description": "Use labels and separators when the menu needs a little more structure without becoming a larger panel.",
+					"trigger": "Open utilities",
+					"sections": {
+						"primary": "Workspace",
+						"secondary": "Lifecycle"
+					},
+					"items": {
+						"overview": "View overview",
+						"members": "Manage members",
+						"archive": "Archive workspace",
+						"transfer": "Transfer ownership"
+					}
+				}
+			}
+		},
+		"select": {
+			"title": "Select",
+			"description": "Select lets users choose one option from a compact list. Use it for filters, form fields, and scoped configuration choices where the current value should remain visible in a single trigger field.",
+			"patternNotes": {
+				"items": {
+					"scope": "Use select when the user must choose one value from a defined set and the currently selected option should stay visible in the field.",
+					"placeholder": "Use a placeholder only when no default selection should be implied. Once a choice exists, the trigger should show the selected value directly.",
+					"grouping": "Group options with labels and separators when the list mixes categories or lifecycle stages that benefit from lightweight structure.",
+					"forms": "Select works well for forms and filters, but if the content needs searching, multi-selection, or richer metadata, consider a different pattern."
+				},
+				"snippet": "<Select value={value} onValueChange={setValue}>\n  <SelectTrigger placeholder=\"Choose status\" />\n  <SelectContent>\n    <SelectItem value=\"active\">Active</SelectItem>\n    <SelectItem value=\"paused\">Paused</SelectItem>\n  </SelectContent>\n</Select>"
+			},
+			"sections": {
+				"filters": {
+					"title": "Filter and field selection",
+					"description": "Select is a strong fit for compact filters and form fields that expose one current value at a time."
+				},
+				"groups": {
+					"title": "Grouped options",
+					"description": "Use labels and separators when a flat list would be harder to scan or reason about."
+				}
+			},
+			"cards": {
+				"status": {
+					"title": "Controlled status filter",
+					"description": "A typical admin filter where the selected value is controlled by surrounding state.",
+					"label": "Status",
+					"placeholder": "Choose status",
+					"options": {
+						"active": "Active",
+						"paused": "Paused",
+						"archived": "Archived"
+					}
+				},
+				"placeholder": {
+					"title": "Unselected field",
+					"description": "Use a placeholder when the user still needs to make an explicit first selection.",
+					"label": "Date range",
+					"placeholder": "Choose range",
+					"options": {
+						"today": "Today",
+						"week": "Last 7 days",
+						"month": "Last 30 days"
+					}
+				},
+				"grouped": {
+					"title": "Grouped workspace actions",
+					"description": "A grouped list can stay compact while still exposing lightweight hierarchy inside the option set.",
+					"label": "Workspace target",
+					"placeholder": "Choose target",
+					"groups": {
+						"workspace": "Workspace",
+						"lifecycle": "Lifecycle"
+					},
+					"options": {
+						"overview": "View overview",
+						"members": "Manage members",
+						"archive": "Archive workspace",
+						"transfer": "Transfer ownership"
+					}
+				}
+			}
+		},
 		"accordion": {
 			"title": "Accordion",
 			"description": "Accordions reveal and hide related sections of content within the current page flow. Use them when information should stay available on the page without forcing every detail to be visible at once.",

@@ -147,6 +147,119 @@
 				}
 			}
 		},
+		"dropdownMenu": {
+			"title": "Dropdown Menu",
+			"description": "Dropdown menus expõem listas compactas de ações ancoradas a um gatilho. Use para ações de linha, utilidades em cards e comandos secundários agrupados que gerariam ruído demais como botões inline.",
+			"patternNotes": {
+				"items": {
+					"compact": "Use dropdown menus para listas curtas de comandos que pertencem a um único gatilho e não precisam de layout de apoio rico.",
+					"scope": "Mantenha o menu bem escopado às ações do objeto, linha ou superfície atual. Se o conteúdo ficar explicativo ou parecido com formulário, troque por popover ou dialog.",
+					"grouping": "Agrupe ações relacionadas com labels e separadores quando o menu misturar utilidades principais com ações menos frequentes ou mais arriscadas.",
+					"escalation": "Use dropdown menu para seleção compacta de ações, popover para painéis leves mais ricos e alert dialog para confirmações consequentes."
+				},
+				"snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>\n    <Button size=\"icon\" usage=\"secondary\" variant=\"ghost\">...</Button>\n  </DropdownMenuTrigger>\n\n  <DropdownMenuContent>\n    <DropdownMenuLabel>Ações</DropdownMenuLabel>\n    <DropdownMenuItem>Ver detalhes</DropdownMenuItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem>Arquivar</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+			},
+			"sections": {
+				"actions": {
+					"title": "Ações compactas",
+					"description": "Dropdown menus funcionam melhor quando várias ações de apoio precisam continuar disponíveis sem dominar o layout."
+				}
+			},
+			"cards": {
+				"rowActions": {
+					"title": "Menu de ações da linha",
+					"description": "Um padrão comum de admin para ações compactas de tabela ou linha em card.",
+					"rowTitle": "Projeto Atlas",
+					"rowDescription": "Atualizado há 2 horas",
+					"trigger": "Abrir ações da linha",
+					"menuLabel": "Ações do projeto",
+					"items": {
+						"view": "Ver detalhes",
+						"edit": "Editar registro",
+						"archive": "Arquivar projeto",
+						"delete": "Excluir projeto"
+					}
+				},
+				"grouped": {
+					"title": "Utilidades agrupadas",
+					"description": "Use labels e separadores quando o menu precisar de um pouco mais de estrutura sem virar um painel maior.",
+					"trigger": "Abrir utilidades",
+					"sections": {
+						"primary": "Workspace",
+						"secondary": "Ciclo de vida"
+					},
+					"items": {
+						"overview": "Ver visão geral",
+						"members": "Gerenciar membros",
+						"archive": "Arquivar workspace",
+						"transfer": "Transferir ownership"
+					}
+				}
+			}
+		},
+		"select": {
+			"title": "Select",
+			"description": "Select permite que a pessoa escolha uma opção dentro de uma lista compacta. Use para filtros, campos de formulário e escolhas de configuração escopadas em que o valor atual deve permanecer visível em um único campo gatilho.",
+			"patternNotes": {
+				"items": {
+					"scope": "Use select quando a pessoa precisar escolher um valor entre opções definidas e a opção atual deva continuar visível no campo.",
+					"placeholder": "Use placeholder apenas quando nenhum valor padrão deve ser insinuado. Depois que existir uma escolha, o gatilho deve mostrar diretamente o valor selecionado.",
+					"grouping": "Agrupe opções com labels e separadores quando a lista misturar categorias ou estágios de ciclo de vida que se beneficiem de estrutura leve.",
+					"forms": "Select funciona bem em formulários e filtros, mas se o conteúdo precisar de busca, múltipla seleção ou metadados mais ricos, considere outro padrão."
+				},
+				"snippet": "<Select value={value} onValueChange={setValue}>\n  <SelectTrigger placeholder=\"Escolha o status\" />\n  <SelectContent>\n    <SelectItem value=\"active\">Ativo</SelectItem>\n    <SelectItem value=\"paused\">Pausado</SelectItem>\n  </SelectContent>\n</Select>"
+			},
+			"sections": {
+				"filters": {
+					"title": "Seleção em filtros e campos",
+					"description": "Select é um bom encaixe para filtros compactos e campos de formulário que expõem um único valor atual por vez."
+				},
+				"groups": {
+					"title": "Opções agrupadas",
+					"description": "Use labels e separadores quando uma lista plana ficar mais difícil de escanear ou entender."
+				}
+			},
+			"cards": {
+				"status": {
+					"title": "Filtro de status controlado",
+					"description": "Um filtro típico de admin em que o valor selecionado é controlado pelo estado ao redor.",
+					"label": "Status",
+					"placeholder": "Escolha o status",
+					"options": {
+						"active": "Ativo",
+						"paused": "Pausado",
+						"archived": "Arquivado"
+					}
+				},
+				"placeholder": {
+					"title": "Campo ainda sem seleção",
+					"description": "Use placeholder quando a pessoa ainda precisa fazer uma primeira escolha explícita.",
+					"label": "Intervalo de datas",
+					"placeholder": "Escolha o intervalo",
+					"options": {
+						"today": "Hoje",
+						"week": "Últimos 7 dias",
+						"month": "Últimos 30 dias"
+					}
+				},
+				"grouped": {
+					"title": "Ações agrupadas de workspace",
+					"description": "Uma lista agrupada pode continuar compacta e ainda expor hierarquia leve dentro do conjunto de opções.",
+					"label": "Destino do workspace",
+					"placeholder": "Escolha o destino",
+					"groups": {
+						"workspace": "Workspace",
+						"lifecycle": "Ciclo de vida"
+					},
+					"options": {
+						"overview": "Ver visão geral",
+						"members": "Gerenciar membros",
+						"archive": "Arquivar workspace",
+						"transfer": "Transferir ownership"
+					}
+				}
+			}
+		},
 		"accordion": {
 			"title": "Accordion",
 			"description": "Accordions revelam e escondem secoes relacionadas de conteudo dentro do fluxo atual da pagina. Use quando a informacao deve continuar disponivel na pagina sem obrigar todos os detalhes a ficarem visiveis ao mesmo tempo.",

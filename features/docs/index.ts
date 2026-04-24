@@ -3,9 +3,11 @@ export { default as AlertDialogParticle } from "./particles/AlertDialogParticle"
 export { default as ButtonParticle } from "./particles/ButtonParticle";
 export { default as CardParticle } from "./particles/CardParticle";
 export { default as DialogParticle } from "./particles/DialogParticle";
+export { default as DropdownMenuParticle } from "./particles/DropdownMenuParticle";
 export { default as EmptyStateParticle } from "./particles/EmptyStateParticle";
 export { default as IconParticle } from "./particles/IconParticle";
 export { default as PopoverParticle } from "./particles/PopoverParticle";
 export { default as SectionParticle } from "./particles/SectionParticle";
+export { default as SelectParticle } from "./particles/SelectParticle";
 export { default as SkeletonParticle } from "./particles/SkeletonParticle";
 export { default as TooltipParticle } from "./particles/TooltipParticle";

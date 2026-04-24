@@ -4,10 +4,12 @@ import {
 	ButtonParticle,
 	CardParticle,
 	DialogParticle,
+	DropdownMenuParticle,
 	EmptyStateParticle,
 	IconParticle,
 	PopoverParticle,
 	SectionParticle,
+	SelectParticle,
 	SkeletonParticle,
 	TooltipParticle,
 } from "@/features/docs/index";
@@ -20,10 +22,12 @@ export default function Page() {
 			<ButtonParticle />
 			<CardParticle />
 			<DialogParticle />
+			<DropdownMenuParticle />
 			<EmptyStateParticle />
 			<IconParticle />
 			<PopoverParticle />
 			<SectionParticle />
+			<SelectParticle />
 			<SkeletonParticle />
 			<TooltipParticle />
 		</main>
