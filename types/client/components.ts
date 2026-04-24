@@ -1,4 +1,5 @@
 import type {
+	ComponentPropsWithoutRef,
 	ButtonHTMLAttributes,
 	ForwardRefExoticComponent,
 	HTMLAttributes,
@@ -6,6 +7,8 @@ import type {
 	RefAttributes,
 } from "react";
 
+import type * as RadixAccordion from "@radix-ui/react-accordion";
+import type * as RadixAlertDialog from "@radix-ui/react-alert-dialog";
 import type { LucideProps } from "lucide-react";
 
 import {
@@ -17,7 +20,6 @@ import {
 export type ButtonUsage = keyof typeof BUTTON_USAGES;
 export type ButtonVariant = keyof typeof BUTTON_VARIANTS;
 export type ButtonSize = keyof typeof BUTTON_SIZES;
-
 export type ButtonProps = Omit<
 	ButtonHTMLAttributes<HTMLButtonElement>,
 	"children"
@@ -56,6 +58,43 @@ export interface PopoverContentProps {
 	side?: "top" | "right" | "bottom" | "left";
 	align?: "start" | "center" | "end";
 	sideOffset?: number;
+}
+
+type AccordionBaseProps = {
+	children: ReactNode;
+	className?: string;
+};
+
+export type AccordionProps =
+	| (AccordionBaseProps &
+			Omit<
+				RadixAccordion.AccordionSingleProps,
+				"type" | "children" | "className"
+			> & {
+				type?: "single";
+			})
+	| (AccordionBaseProps &
+			Omit<
+				RadixAccordion.AccordionMultipleProps,
+				"type" | "children" | "className"
+			> & {
+				type: "multiple";
+			});
+
+export interface AccordionItemProps
+	extends ComponentPropsWithoutRef<typeof RadixAccordion.Item> {
+	children: ReactNode;
+	value: string;
+}
+
+export interface AccordionTriggerProps
+	extends ComponentPropsWithoutRef<typeof RadixAccordion.Trigger> {
+	children: ReactNode;
+}
+
+export interface AccordionContentProps
+	extends ComponentPropsWithoutRef<typeof RadixAccordion.Content> {
+	children: ReactNode;
 }
 
 export type IconComponent = ForwardRefExoticComponent<
@@ -131,6 +170,49 @@ export interface DialogDescriptionProps {
 export interface DialogFooterProps {
 	children: ReactNode;
 	className?: string;
+}
+
+export interface AlertDialogProps {
+	children: ReactNode;
+	open: boolean;
+	onOpenChange: (open: boolean) => void;
+	isLoading?: boolean;
+	loadingLabel?: string;
+}
+
+export interface AlertDialogContentProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface AlertDialogHeaderProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface AlertDialogTitleProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface AlertDialogDescriptionProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface AlertDialogFooterProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface AlertDialogCancelProps
+	extends ComponentPropsWithoutRef<typeof RadixAlertDialog.Cancel> {
+	children: ReactNode;
+}
+
+export interface AlertDialogActionProps
+	extends ComponentPropsWithoutRef<typeof RadixAlertDialog.Action> {
+	children: ReactNode;
 }
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {

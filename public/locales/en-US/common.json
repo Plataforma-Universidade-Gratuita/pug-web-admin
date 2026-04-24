@@ -147,6 +147,81 @@
 				}
 			}
 		},
+		"accordion": {
+			"title": "Accordion",
+			"description": "Accordions reveal and hide related sections of content within the current page flow. Use them when information should stay available on the page without forcing every detail to be visible at once.",
+			"patternNotes": {
+				"items": {
+					"disclosure": "Use accordions for progressive disclosure when each section can be scanned by its trigger label before the body is opened.",
+					"trigger": "Trigger labels should be short and descriptive enough for users to decide whether the section is relevant before expanding it.",
+					"content": "Accordion content can hold text, metadata, controls, or nested layout blocks, but each item should still represent one coherent topic.",
+					"multi": "Use `type=\"single\"` when sections should compete for attention, and `type=\"multiple\"` when users may need to compare or keep several sections open."
+				},
+				"snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Overview</AccordionTrigger>\n    <AccordionContent>\n      Body content\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
+			},
+			"sections": {
+				"structure": {
+					"title": "Structure",
+					"description": "Accordion items should read clearly in both collapsed and expanded states."
+				},
+				"compact": {
+					"title": "Compact and multi-open usage",
+					"description": "The same primitive works for compact FAQ-style content and denser settings groups."
+				}
+			},
+			"structure": {
+				"items": {
+					"overview": {
+						"title": "Project overview",
+						"description": "Keep the highest-level summary behind a short trigger when the page already has competing content around it."
+					},
+					"roles": {
+						"title": "Roles and owners",
+						"description": "Use an accordion item when supporting ownership details should be reachable without permanently occupying the layout."
+					},
+					"delivery": {
+						"title": "Delivery notes",
+						"description": "Longer explanatory content can live inside the expanded panel as long as the trigger still represents a single topic."
+					}
+				}
+			},
+			"compactCard": {
+				"title": "Compact disclosure",
+				"description": "A denser accordion still works if each item remains easy to scan and the labels stay explicit.",
+				"items": {
+					"timing": {
+						"title": "Response timing",
+						"description": "Use the compact form for short operational guidance and support answers."
+					},
+					"ownership": {
+						"title": "Ownership rules",
+						"description": "The body should answer one narrow question instead of becoming a page hidden behind a trigger."
+					},
+					"escalation": {
+						"title": "Escalation path",
+						"description": "Keep the label decisive so users can tell what they will reveal before opening the item."
+					}
+				}
+			},
+			"multiCard": {
+				"title": "Multiple open sections",
+				"description": "Allow multiple items to remain open when users may need to compare settings or keep several groups visible.",
+				"items": {
+					"filters": {
+						"title": "Saved filters",
+						"description": "Useful when users need to inspect several configuration groups at the same time."
+					},
+					"visibility": {
+						"title": "Visibility rules",
+						"description": "Multi-open mode reduces unnecessary toggling when the user is reviewing related details."
+					},
+					"history": {
+						"title": "Change history",
+						"description": "Use it when independent sections may all deserve attention during the same task."
+					}
+				}
+			}
+		},
 		"button": {
 			"title": "Buttons",
 			"description": "Buttons trigger user actions. Use `usage` to define semantic intent, `variant` to define visual treatment, and `size` to adapt the component to layout density.",
@@ -418,6 +493,73 @@
 						"primary": "Got it"
 					}
 				}
+			}
+		},
+		"alertDialog": {
+			"title": "Alert Dialog",
+			"description": "Alert dialogs interrupt the current flow for consequential confirmations. Use them when the user must acknowledge risk, permanence, or a meaningful state change before continuing.",
+			"patternNotes": {
+				"items": {
+					"severity": "Use alert dialogs for destructive, high-impact, or irreversible actions that deserve a stronger confirmation pattern than a normal dialog.",
+					"confirmation": "Keep the title and description explicit about what will happen, what is affected, and whether the action can be undone.",
+					"actions": "The footer should stay simple: a clear cancel path and one confirm action with styling that matches the level of risk.",
+					"loading": "Loading support is useful when the confirmation copy or decision context depends on fetched data, but it should remain a scoped exception rather than the default state."
+				},
+				"snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete project</AlertDialogTitle>\n      <AlertDialogDescription>\n        This action cannot be undone.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n\n    <AlertDialogFooter>\n      <AlertDialogCancel>\n        <Button usage=\"secondary\" variant=\"ghost\">Cancel</Button>\n      </AlertDialogCancel>\n      <AlertDialogAction>\n        <Button usage=\"danger\" variant=\"flat\">Delete</Button>\n      </AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
+			},
+			"sections": {
+				"confirmation": {
+					"title": "Confirmation patterns",
+					"description": "Use alert dialogs when the action deserves a forced confirmation with a narrow set of choices."
+				},
+				"loading": {
+					"title": "Loading confirmation state",
+					"description": "If the final confirmation depends on fetched context, the same primitive can hold a temporary loading state without changing the overall anatomy."
+				}
+			},
+			"cards": {
+				"delete": {
+					"title": "Destructive confirmation",
+					"description": "A strong alert dialog pattern for permanent removal or irreversible revocation.",
+					"trigger": "Open delete confirmation"
+				},
+				"archive": {
+					"title": "Cautionary confirmation",
+					"description": "Not every alert dialog is fully destructive, but it should still reflect meaningful impact and explicit intent.",
+					"trigger": "Open archive confirmation"
+				}
+			},
+			"loadingCard": {
+				"title": "Loading before confirm",
+				"description": "Use loading only when the confirmation text depends on context that is still resolving.",
+				"trigger": "Open loading alert dialog"
+			},
+			"examples": {
+				"delete": {
+					"eyebrow": "Destructive action",
+					"title": "Delete project",
+					"description": "Deleting this project permanently removes its records and cannot be undone.",
+					"footer": {
+						"cancel": "Keep project",
+						"confirm": "Delete project"
+					}
+				},
+				"archive": {
+					"eyebrow": "Cautionary action",
+					"title": "Archive workspace",
+					"description": "Archiving removes the workspace from active views and pauses new activity until it is restored.",
+					"footer": {
+						"cancel": "Cancel",
+						"confirm": "Archive workspace"
+					}
+				}
+			},
+			"loadingLabel": "Loading alert dialog context",
+			"loadingExample": {
+				"title": "Delete project",
+				"description": "The final confirmation details are still being loaded before the destructive action is shown.",
+				"cancel": "Keep project",
+				"confirm": "Delete project"
 			}
 		},
 		"emptyState": {

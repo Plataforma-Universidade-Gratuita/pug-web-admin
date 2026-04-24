@@ -147,6 +147,81 @@
 				}
 			}
 		},
+		"accordion": {
+			"title": "Accordion",
+			"description": "Accordions revelam e escondem secoes relacionadas de conteudo dentro do fluxo atual da pagina. Use quando a informacao deve continuar disponivel na pagina sem obrigar todos os detalhes a ficarem visiveis ao mesmo tempo.",
+			"patternNotes": {
+				"items": {
+					"disclosure": "Use accordions para divulgacao progressiva quando cada secao puder ser compreendida pelo rotulo do trigger antes da abertura.",
+					"trigger": "Os rotulos do trigger devem ser curtos e descritivos o suficiente para que a pessoa decida se a secao e relevante antes de expandi-la.",
+					"content": "O conteudo do accordion pode conter texto, metadados, controles ou blocos de layout, mas cada item ainda deve representar um unico topico coerente.",
+					"multi": "Use `type=\"single\"` quando as secoes competirem por atencao e `type=\"multiple\"` quando a pessoa puder precisar comparar ou manter varias secoes abertas."
+				},
+				"snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Visao geral</AccordionTrigger>\n    <AccordionContent>\n      Conteudo principal\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
+			},
+			"sections": {
+				"structure": {
+					"title": "Estrutura",
+					"description": "Os itens do accordion devem continuar claros tanto fechados quanto abertos."
+				},
+				"compact": {
+					"title": "Uso compacto e multiaberto",
+					"description": "A mesma primitiva funciona para conteudo compacto em estilo FAQ e para grupos de configuracoes mais densos."
+				}
+			},
+			"structure": {
+				"items": {
+					"overview": {
+						"title": "Visao geral do projeto",
+						"description": "Mantenha o resumo de mais alto nivel atras de um trigger curto quando a pagina ja tiver outros blocos competindo por espaco."
+					},
+					"roles": {
+						"title": "Papeis e responsaveis",
+						"description": "Use um item de accordion quando detalhes de ownership precisarem estar acessiveis sem ocupar o layout o tempo todo."
+					},
+					"delivery": {
+						"title": "Notas de entrega",
+						"description": "Conteudo explicativo mais longo pode viver dentro do painel expandido desde que o trigger ainda represente um unico topico."
+					}
+				}
+			},
+			"compactCard": {
+				"title": "Divulgacao compacta",
+				"description": "Um accordion mais denso ainda funciona se cada item continuar facil de escanear e os rotulos permanecerem explicitos.",
+				"items": {
+					"timing": {
+						"title": "Tempo de resposta",
+						"description": "Use a forma compacta para orientacoes operacionais curtas e respostas de suporte."
+					},
+					"ownership": {
+						"title": "Regras de ownership",
+						"description": "O corpo deve responder a uma pergunta estreita em vez de virar uma pagina escondida atras de um trigger."
+					},
+					"escalation": {
+						"title": "Fluxo de escalonamento",
+						"description": "Mantenha o rotulo decisivo para que a pessoa saiba o que sera revelado antes de abrir o item."
+					}
+				}
+			},
+			"multiCard": {
+				"title": "Varias secoes abertas",
+				"description": "Permita varios itens abertos ao mesmo tempo quando a pessoa puder precisar comparar configuracoes ou manter grupos visiveis em paralelo.",
+				"items": {
+					"filters": {
+						"title": "Filtros salvos",
+						"description": "Util quando a pessoa precisa inspecionar varios grupos de configuracao ao mesmo tempo."
+					},
+					"visibility": {
+						"title": "Regras de visibilidade",
+						"description": "O modo multiaberto reduz trocas desnecessarias quando a pessoa esta revisando detalhes relacionados."
+					},
+					"history": {
+						"title": "Historico de alteracoes",
+						"description": "Use quando secoes independentes puderem merecer atencao durante a mesma tarefa."
+					}
+				}
+			}
+		},
 		"button": {
 			"title": "Botões",
 			"description": "Botões disparam ações do usuário. Use `usage` para definir a intenção semântica, `variant` para definir o tratamento visual e `size` para adaptar o componente à densidade do layout.",
@@ -418,6 +493,73 @@
 						"primary": "Entendi"
 					}
 				}
+			}
+		},
+		"alertDialog": {
+			"title": "Alert Dialog",
+			"description": "Alert dialogs interrompem o fluxo atual para confirmacoes consequentes. Use quando a pessoa precisa reconhecer risco, permanencia ou uma mudanca importante de estado antes de continuar.",
+			"patternNotes": {
+				"items": {
+					"severity": "Use alert dialogs para acoes destrutivas, de alto impacto ou irreversiveis que pedem uma confirmacao mais forte do que um dialog comum.",
+					"confirmation": "Mantenha titulo e descricao explicitos sobre o que vai acontecer, o que sera afetado e se a acao pode ser desfeita.",
+					"actions": "O footer deve permanecer simples: um caminho claro de cancelamento e uma unica acao de confirmacao com estilo coerente ao nivel de risco.",
+					"loading": "O suporte a loading e util quando o texto de confirmacao ou o contexto da decisao depende de dados buscados, mas isso deve ser uma excecao bem escopada e nao o estado padrao."
+				},
+				"snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Excluir projeto</AlertDialogTitle>\n      <AlertDialogDescription>\n        Esta acao nao pode ser desfeita.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n\n    <AlertDialogFooter>\n      <AlertDialogCancel>\n        <Button usage=\"secondary\" variant=\"ghost\">Cancelar</Button>\n      </AlertDialogCancel>\n      <AlertDialogAction>\n        <Button usage=\"danger\" variant=\"flat\">Excluir</Button>\n      </AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
+			},
+			"sections": {
+				"confirmation": {
+					"title": "Padroes de confirmacao",
+					"description": "Use alert dialogs quando a acao merece uma confirmacao forçada com um conjunto estreito de escolhas."
+				},
+				"loading": {
+					"title": "Confirmacao em loading",
+					"description": "Se a confirmacao final depender de contexto buscado, a mesma primitiva pode sustentar um loading temporario sem mudar a anatomia geral."
+				}
+			},
+			"cards": {
+				"delete": {
+					"title": "Confirmacao destrutiva",
+					"description": "Um padrao forte de alert dialog para remocao permanente ou revogacao irreversivel.",
+					"trigger": "Abrir confirmacao de exclusao"
+				},
+				"archive": {
+					"title": "Confirmacao cautelosa",
+					"description": "Nem todo alert dialog e totalmente destrutivo, mas ele ainda deve refletir impacto relevante e intencao explicita.",
+					"trigger": "Abrir confirmacao de arquivamento"
+				}
+			},
+			"loadingCard": {
+				"title": "Loading antes de confirmar",
+				"description": "Use loading apenas quando o texto de confirmacao depender de contexto que ainda esta sendo resolvido.",
+				"trigger": "Abrir alert dialog em loading"
+			},
+			"examples": {
+				"delete": {
+					"eyebrow": "Acao destrutiva",
+					"title": "Excluir projeto",
+					"description": "Excluir este projeto remove seus registros permanentemente e nao pode ser desfeito.",
+					"footer": {
+						"cancel": "Manter projeto",
+						"confirm": "Excluir projeto"
+					}
+				},
+				"archive": {
+					"eyebrow": "Acao cautelosa",
+					"title": "Arquivar workspace",
+					"description": "Arquivar remove o workspace das visoes ativas e pausa novas atividades ate que ele seja restaurado.",
+					"footer": {
+						"cancel": "Cancelar",
+						"confirm": "Arquivar workspace"
+					}
+				}
+			},
+			"loadingLabel": "Carregando contexto do alert dialog",
+			"loadingExample": {
+				"title": "Excluir projeto",
+				"description": "Os detalhes finais da confirmacao ainda estao sendo carregados antes de mostrar a acao destrutiva.",
+				"cancel": "Manter projeto",
+				"confirm": "Excluir projeto"
 			}
 		},
 		"emptyState": {

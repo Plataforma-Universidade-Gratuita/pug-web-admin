@@ -1,3 +1,5 @@
+export { default as AccordionParticle } from "./particles/AccordionParticle";
+export { default as AlertDialogParticle } from "./particles/AlertDialogParticle";
 export { default as ButtonParticle } from "./particles/ButtonParticle";
 export { default as CardParticle } from "./particles/CardParticle";
 export { default as DialogParticle } from "./particles/DialogParticle";
