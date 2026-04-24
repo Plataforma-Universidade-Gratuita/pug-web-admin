@@ -12,7 +12,14 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui";
+import {
+	Button,
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui";
 
 import { ParticleContainer } from "./components/ParticleContainer";
 import { ParticleSection } from "./components/ParticleSection";
@@ -72,27 +79,27 @@ export default function ButtonParticle() {
 							icon: <ShieldAlert className="h-4 w-4" />,
 						},
 					].map(item => (
-						<div
+						<Card
 							key={item.key}
-							className="border-default-2 surface-1 flex min-h-40 flex-col justify-between rounded-[var(--twc-radius-xl)] border p-4"
+							className="flex min-h-40 flex-col justify-between p-4"
 						>
-							<div className="space-y-1">
-								<h3 className="ty-sm-bold">
+							<CardHeader>
+								<CardTitle>
 									{t(`docs.button.usageCards.${item.key}.name`)}
-								</h3>
-								<p className="ty-helper">
+								</CardTitle>
+								<CardDescription>
 									{t(`docs.button.usageCards.${item.key}.description`)}
-								</p>
-							</div>
-							<div>
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
 								<Button
 									usage={item.usage}
 									trailingIcon={item.icon}
 								>
 									{t(`docs.button.usageCards.${item.key}.label`)}
 								</Button>
-							</div>
-						</div>
+							</CardContent>
+						</Card>
 					))}
 				</div>
 			</ParticleSection>
@@ -106,19 +113,19 @@ export default function ButtonParticle() {
 						{ key: "flat", variant: "flat" as const },
 						{ key: "ghost", variant: "ghost" as const },
 					].map(item => (
-						<div
+						<Card
 							key={item.key}
-							className="border-default-2 surface-1 flex min-h-40 flex-col justify-between rounded-[var(--twc-radius-xl)] border p-4"
+							className="flex min-h-40 flex-col justify-between p-4"
 						>
-							<div className="space-y-1">
-								<h3 className="ty-sm-bold">
+							<CardHeader>
+								<CardTitle>
 									{t(`docs.button.variantCards.${item.key}.name`)}
-								</h3>
-								<p className="ty-helper">
+								</CardTitle>
+								<CardDescription>
 									{t(`docs.button.variantCards.${item.key}.description`)}
-								</p>
-							</div>
-							<div>
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
 								<Button
 									usage="primary"
 									variant={item.variant}
@@ -126,8 +133,8 @@ export default function ButtonParticle() {
 								>
 									{t("docs.button.variantCards.label")}
 								</Button>
-							</div>
-						</div>
+							</CardContent>
+						</Card>
 					))}
 				</div>
 			</ParticleSection>
@@ -136,30 +143,32 @@ export default function ButtonParticle() {
 				title={t("docs.button.sections.scale.title")}
 				description={t("docs.button.sections.scale.description")}
 			>
-				<div className="border-default-2 surface-1 flex flex-wrap items-center gap-3 rounded-[var(--twc-radius-xl)] border p-4">
-					{[
-						{ key: "small", size: "sm" as const },
-						{ key: "medium", size: "md" as const },
-						{ key: "large", size: "lg" as const },
-					].map(item => (
+				<Card className="p-4">
+					<CardContent className="flex flex-wrap items-center gap-3">
+						{[
+							{ key: "small", size: "sm" as const },
+							{ key: "medium", size: "md" as const },
+							{ key: "large", size: "lg" as const },
+						].map(item => (
+							<Button
+								key={item.key}
+								size={item.size}
+								usage="secondary"
+								variant="flat"
+								leadingIcon={<Plus className="h-4 w-4" />}
+							>
+								{t(`docs.button.sizes.${item.key}`)}
+							</Button>
+						))}
 						<Button
-							key={item.key}
-							size={item.size}
+							size="icon"
 							usage="secondary"
-							variant="flat"
+							variant="ghost"
+							title={t("docs.button.sizes.iconTitle")}
 							leadingIcon={<Plus className="h-4 w-4" />}
-						>
-							{t(`docs.button.sizes.${item.key}`)}
-						</Button>
-					))}
-					<Button
-						size="icon"
-						usage="secondary"
-						variant="ghost"
-						title={t("docs.button.sizes.iconTitle")}
-						leadingIcon={<Plus className="h-4 w-4" />}
-					/>
-				</div>
+						/>
+					</CardContent>
+				</Card>
 			</ParticleSection>
 
 			<ParticleSection
@@ -167,43 +176,45 @@ export default function ButtonParticle() {
 				description={t("docs.button.sections.states.description")}
 			>
 				<div className="grid gap-4 md:grid-cols-3">
-					<div className="border-default-2 surface-1 space-y-3 rounded-[var(--twc-radius-xl)] border p-4">
-						<p className="ty-sm-bold">
-							{t("docs.button.statesCards.loading.title")}
-						</p>
-						<Button
-							isLoading
-							loadingText={t("docs.button.statesCards.loading.loadingText")}
-							usage="primary"
-						>
-							{t("docs.button.statesCards.loading.button")}
-						</Button>
-					</div>
-					<div className="border-default-2 surface-1 space-y-3 rounded-[var(--twc-radius-xl)] border p-4">
-						<p className="ty-sm-bold">
-							{t("docs.button.statesCards.disabled.title")}
-						</p>
-						<Button
-							usage="secondary"
-							variant="flat"
-							disabled
-						>
-							{t("docs.button.statesCards.disabled.button")}
-						</Button>
-					</div>
-					<div className="border-default-2 surface-1 space-y-3 rounded-[var(--twc-radius-xl)] border p-4">
-						<p className="ty-sm-bold">
+					<Card className="space-y-3 p-4">
+						<CardTitle>{t("docs.button.statesCards.loading.title")}</CardTitle>
+						<CardContent>
+							<Button
+								isLoading
+								loadingText={t("docs.button.statesCards.loading.loadingText")}
+								usage="primary"
+							>
+								{t("docs.button.statesCards.loading.button")}
+							</Button>
+						</CardContent>
+					</Card>
+					<Card className="space-y-3 p-4">
+						<CardTitle>{t("docs.button.statesCards.disabled.title")}</CardTitle>
+						<CardContent>
+							<Button
+								usage="secondary"
+								variant="flat"
+								disabled
+							>
+								{t("docs.button.statesCards.disabled.button")}
+							</Button>
+						</CardContent>
+					</Card>
+					<Card className="space-y-3 p-4">
+						<CardTitle>
 							{t("docs.button.statesCards.fullWidth.title")}
-						</p>
-						<Button
-							className="w-full"
-							usage="info"
-							variant="flat"
-							trailingIcon={<ArrowRight className="h-4 w-4" />}
-						>
-							{t("docs.button.statesCards.fullWidth.button")}
-						</Button>
-					</div>
+						</CardTitle>
+						<CardContent>
+							<Button
+								className="w-full"
+								usage="info"
+								variant="flat"
+								trailingIcon={<ArrowRight className="h-4 w-4" />}
+							>
+								{t("docs.button.statesCards.fullWidth.button")}
+							</Button>
+						</CardContent>
+					</Card>
 				</div>
 			</ParticleSection>
 		</ParticleContainer>

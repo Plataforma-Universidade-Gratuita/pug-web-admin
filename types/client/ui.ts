@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 
 import { BUTTON_SIZES, BUTTON_USAGES, BUTTON_VARIANTS } from "@/constants/ui";
 
@@ -57,4 +57,29 @@ export interface DialogDescriptionProps {
 export interface DialogFooterProps {
 	children: ReactNode;
 	className?: string;
+}
+
+export interface CardProps extends HTMLAttributes<HTMLDivElement> {
+	children: ReactNode;
+}
+
+export interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
+	children: ReactNode;
+}
+
+export interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+	children: ReactNode;
+}
+
+export interface CardDescriptionProps
+	extends HTMLAttributes<HTMLParagraphElement> {
+	children: ReactNode;
+}
+
+export interface CardContentProps extends HTMLAttributes<HTMLDivElement> {
+	children: ReactNode;
+}
+
+export interface CardFooterProps extends HTMLAttributes<HTMLDivElement> {
+	children: ReactNode;
 }

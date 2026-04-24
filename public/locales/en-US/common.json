@@ -105,6 +105,97 @@
 				}
 			}
 		},
+		"card": {
+			"title": "Card",
+			"description": "Cards group related content into a bounded surface. Use them as layout containers for summaries, supporting actions, and content blocks that should read as a single unit.",
+			"patternNotes": {
+				"items": {
+					"container": "Use cards to group related information, not to create arbitrary visual boxes around every element on the page.",
+					"structure": "Compose cards from header, description, content, and footer only when those slots are actually needed by the content.",
+					"footer": "Use the footer for card-level actions. If the card has no actions, omit the footer entirely.",
+					"behavior": "Cards are structural primitives. Behavior such as dialogs, tooltips, dropdowns, and navigation should come from the elements placed inside them, not from the card itself."
+				},
+				"snippet": "<Card>\n  <CardHeader>\n    <CardTitle>Card title</CardTitle>\n    <CardDescription>\n      Short supporting description.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>Body content</CardContent>\n\n  <CardFooter>\n    <Button variant=\"ghost\">Secondary</Button>\n    <Button usage=\"primary\" variant=\"flat\">Primary</Button>\n  </CardFooter>\n</Card>"
+			},
+			"sections": {
+				"structure": {
+					"title": "Structure",
+					"description": "Cards should expose a predictable internal anatomy without forcing every slot into every use case."
+				},
+				"composition": {
+					"title": "Composition",
+					"description": "Use the same primitive for simple information blocks and for cards that include supporting actions."
+				},
+				"layouts": {
+					"title": "Layout patterns",
+					"description": "Cards can host denser layouts as long as the content still reads as one coherent block."
+				}
+			},
+			"structureCards": {
+				"basic": {
+					"title": "Basic content block",
+					"description": "A card may be nothing more than a title, a short description, and one body region.",
+					"body": "Use this shape for documentation notes, summaries, and supporting content that should sit inside a clear boundary."
+				},
+				"header": {
+					"title": "Header is optional",
+					"description": "Use `CardHeader` when the content needs a visible title and supporting description before the body.",
+					"body": "If the body already carries enough context, do not force extra header copy just to fill space."
+				}
+			},
+			"compositionCards": {
+				"actions": {
+					"title": "Card with actions",
+					"description": "Some cards need a footer because they collect card-level decisions or shortcuts.",
+					"body": "Keep footer actions tied to the content of that card. If actions belong to the entire page or section, place them outside the card instead.",
+					"footer": {
+						"secondary": "Dismiss",
+						"primary": "Review details"
+					}
+				},
+				"summary": {
+					"title": "Summary card",
+					"description": "Cards can also hold compact dashboards and metadata without needing a footer.",
+					"stats": {
+						"items": {
+							"projects": {
+								"label": "Projects",
+								"value": "12 active"
+							},
+							"openTasks": {
+								"label": "Open tasks",
+								"value": "37 pending"
+							}
+						}
+					}
+				}
+			},
+			"layoutCards": {
+				"list": {
+					"title": "Grouped list content",
+					"description": "A card can contain multiple internal rows when they all belong to the same summary or task.",
+					"items": {
+						"overview": {
+							"title": "Overview",
+							"description": "Use a shared surface when rows are part of the same conceptual block."
+						},
+						"composition": {
+							"title": "Composition",
+							"description": "Keep spacing and internal hierarchy consistent across all rows."
+						},
+						"actions": {
+							"title": "Actions stay scoped",
+							"description": "If a row needs an action, it should still feel like part of the same card."
+						}
+					}
+				},
+				"compact": {
+					"title": "Compact marker",
+					"description": "Cards do not need to be tall. Compact content works when the boundary still improves scanability.",
+					"badge": "Docs-ready container"
+				}
+			}
+		},
 		"dialog": {
 			"title": "Dialog",
 			"description": "Dialogs interrupt the current flow to present focused content, decisions, or structured tasks. Use them for content that needs explicit attention without leaving the current page.",

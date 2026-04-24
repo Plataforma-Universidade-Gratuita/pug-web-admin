@@ -10,7 +10,15 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button, Tooltip } from "@/components/ui";
+import {
+	Button,
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+	Tooltip,
+} from "@/components/ui";
 
 import { ParticleContainer } from "./components/ParticleContainer";
 import { ParticleSection } from "./components/ParticleSection";
@@ -37,30 +45,32 @@ export default function TooltipParticle() {
 				title={t("docs.tooltip.sections.automatic.title")}
 				description={t("docs.tooltip.sections.automatic.description")}
 			>
-				<div className="border-default-2 surface-1 flex flex-wrap items-center gap-3 rounded-[var(--twc-radius-xl)] border p-4">
-					<Button
-						size="icon"
-						usage="primary"
-						variant="flat"
-						title={t("docs.tooltip.automatic.createItem")}
-						leadingIcon={<Plus className="h-4 w-4" />}
-					/>
-					<Button
-						size="icon"
-						usage="secondary"
-						variant="ghost"
-						tooltipContent={t("docs.tooltip.automatic.moreInformation")}
-						aria-label={t("docs.tooltip.automatic.moreInformation")}
-						leadingIcon={<Info className="h-4 w-4" />}
-					/>
-					<Button
-						size="icon"
-						usage="danger"
-						variant="ghost"
-						title={t("docs.tooltip.automatic.deleteDraft")}
-						leadingIcon={<Trash2 className="h-4 w-4" />}
-					/>
-				</div>
+				<Card className="p-4">
+					<CardContent className="flex flex-wrap items-center gap-3">
+						<Button
+							size="icon"
+							usage="primary"
+							variant="flat"
+							title={t("docs.tooltip.automatic.createItem")}
+							leadingIcon={<Plus className="h-4 w-4" />}
+						/>
+						<Button
+							size="icon"
+							usage="secondary"
+							variant="ghost"
+							tooltipContent={t("docs.tooltip.automatic.moreInformation")}
+							aria-label={t("docs.tooltip.automatic.moreInformation")}
+							leadingIcon={<Info className="h-4 w-4" />}
+						/>
+						<Button
+							size="icon"
+							usage="danger"
+							variant="ghost"
+							title={t("docs.tooltip.automatic.deleteDraft")}
+							leadingIcon={<Trash2 className="h-4 w-4" />}
+						/>
+					</CardContent>
+				</Card>
 			</ParticleSection>
 
 			<ParticleSection
@@ -69,19 +79,19 @@ export default function TooltipParticle() {
 			>
 				<div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
 					{(["top", "right", "bottom", "left"] as const).map(side => (
-						<div
+						<Card
 							key={side}
-							className="border-default-2 surface-1 flex min-h-40 flex-col justify-between rounded-[var(--twc-radius-xl)] border p-4"
+							className="flex min-h-40 flex-col justify-between p-4"
 						>
-							<div className="space-y-1">
-								<h3 className="ty-sm-bold">
+							<CardHeader>
+								<CardTitle>
 									{t(`docs.tooltip.placementCards.${side}.name`)}
-								</h3>
-								<p className="ty-helper">
+								</CardTitle>
+								<CardDescription>
 									{t(`docs.tooltip.placementCards.${side}.description`)}
-								</p>
-							</div>
-							<div>
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
 								<Tooltip
 									content={t(`docs.tooltip.placementCards.${side}.tooltip`)}
 									side={side}
@@ -93,8 +103,8 @@ export default function TooltipParticle() {
 										{t("docs.tooltip.placementCards.trigger")}
 									</button>
 								</Tooltip>
-							</div>
-						</div>
+							</CardContent>
+						</Card>
 					))}
 				</div>
 			</ParticleSection>
@@ -104,16 +114,16 @@ export default function TooltipParticle() {
 				description={t("docs.tooltip.sections.richContent.description")}
 			>
 				<div className="grid gap-4 md:grid-cols-2">
-					<div className="border-default-2 surface-1 flex min-h-40 flex-col justify-between rounded-[var(--twc-radius-xl)] border p-4">
-						<div className="space-y-1">
-							<h3 className="ty-sm-bold">
+					<Card className="flex min-h-40 flex-col justify-between p-4">
+						<CardHeader>
+							<CardTitle>
 								{t("docs.tooltip.richContent.inlineHint.title")}
-							</h3>
-							<p className="ty-helper">
+							</CardTitle>
+							<CardDescription>
 								{t("docs.tooltip.richContent.inlineHint.description")}
-							</p>
-						</div>
-						<div className="ty-body">
+							</CardDescription>
+						</CardHeader>
+						<CardContent className="ty-body">
 							{t("docs.tooltip.richContent.inlineHint.prefix")}{" "}
 							<Tooltip
 								content={t("docs.tooltip.richContent.inlineHint.tooltip")}
@@ -124,19 +134,19 @@ export default function TooltipParticle() {
 								</span>
 							</Tooltip>
 							{t("docs.tooltip.richContent.inlineHint.suffix")}
-						</div>
-					</div>
+						</CardContent>
+					</Card>
 
-					<div className="border-default-2 surface-1 flex min-h-40 flex-col justify-between rounded-[var(--twc-radius-xl)] border p-4">
-						<div className="space-y-1">
-							<h3 className="ty-sm-bold">
+					<Card className="flex min-h-40 flex-col justify-between p-4">
+						<CardHeader>
+							<CardTitle>
 								{t("docs.tooltip.richContent.compactMetadata.title")}
-							</h3>
-							<p className="ty-helper">
+							</CardTitle>
+							<CardDescription>
 								{t("docs.tooltip.richContent.compactMetadata.description")}
-							</p>
-						</div>
-						<div>
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
 							<Tooltip
 								content={
 									<div className="space-y-1">
@@ -163,8 +173,8 @@ export default function TooltipParticle() {
 									<ArrowUpRight className="h-4 w-4" />
 								</button>
 							</Tooltip>
-						</div>
-					</div>
+						</CardContent>
+					</Card>
 				</div>
 			</ParticleSection>
 
@@ -173,43 +183,47 @@ export default function TooltipParticle() {
 				description={t("docs.tooltip.sections.triggerGuidance.description")}
 			>
 				<div className="grid gap-4 md:grid-cols-3">
-					<div className="border-default-2 surface-1 space-y-3 rounded-[var(--twc-radius-xl)] border p-4">
-						<p className="ty-sm-bold">
+					<Card className="space-y-3 p-4">
+						<CardTitle>
 							{t("docs.tooltip.triggerGuidance.goodFit.title")}
-						</p>
-						<Tooltip
-							content={t("docs.tooltip.triggerGuidance.goodFit.tooltip")}
-						>
-							<button
-								type="button"
-								className="border-default-2 surface-2 focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border"
+						</CardTitle>
+						<CardContent>
+							<Tooltip
+								content={t("docs.tooltip.triggerGuidance.goodFit.tooltip")}
 							>
-								<CircleHelp className="h-4 w-4" />
-							</button>
-						</Tooltip>
-					</div>
-					<div className="border-default-2 surface-1 space-y-3 rounded-[var(--twc-radius-xl)] border p-4">
-						<p className="ty-sm-bold">
+								<button
+									type="button"
+									className="border-default-2 surface-2 focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border"
+								>
+									<CircleHelp className="h-4 w-4" />
+								</button>
+							</Tooltip>
+						</CardContent>
+					</Card>
+					<Card className="space-y-3 p-4">
+						<CardTitle>
 							{t("docs.tooltip.triggerGuidance.needsLabel.title")}
-						</p>
-						<Button
-							usage="secondary"
-							variant="ghost"
-							leadingIcon={<Info className="h-4 w-4" />}
-						>
-							{t("docs.tooltip.triggerGuidance.needsLabel.button")}
-						</Button>
-					</div>
-					<div className="border-default-2 surface-1 space-y-3 rounded-[var(--twc-radius-xl)] border p-4">
-						<p className="ty-sm-bold">
+						</CardTitle>
+						<CardContent>
+							<Button
+								usage="secondary"
+								variant="ghost"
+								leadingIcon={<Info className="h-4 w-4" />}
+							>
+								{t("docs.tooltip.triggerGuidance.needsLabel.button")}
+							</Button>
+						</CardContent>
+					</Card>
+					<Card className="space-y-3 p-4">
+						<CardTitle>
 							{t("docs.tooltip.triggerGuidance.avoidLongInstructions.title")}
-						</p>
-						<p className="ty-helper">
+						</CardTitle>
+						<CardDescription>
 							{t(
 								"docs.tooltip.triggerGuidance.avoidLongInstructions.description",
 							)}
-						</p>
-					</div>
+						</CardDescription>
+					</Card>
 				</div>
 			</ParticleSection>
 		</ParticleContainer>

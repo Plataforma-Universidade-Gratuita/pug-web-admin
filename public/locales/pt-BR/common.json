@@ -105,6 +105,97 @@
 				}
 			}
 		},
+		"card": {
+			"title": "Card",
+			"description": "Cards agrupam conteúdo relacionado dentro de uma superfície delimitada. Use esse padrão como contêiner de layout para resumos, ações de apoio e blocos de conteúdo que devem ser lidos como uma única unidade.",
+			"patternNotes": {
+				"items": {
+					"container": "Use cards para agrupar informações relacionadas, não para criar caixas visuais arbitrárias ao redor de qualquer elemento da página.",
+					"structure": "Componha cards com header, descrição, conteúdo e footer apenas quando esses slots realmente fizerem sentido para o conteúdo.",
+					"footer": "Use o footer para ações do próprio card. Se o card não tiver ações, omita o footer por completo.",
+					"behavior": "Cards são primitivas estruturais. Comportamentos como dialogs, tooltips, dropdowns e navegação devem vir dos elementos internos, não do card em si."
+				},
+				"snippet": "<Card>\n  <CardHeader>\n    <CardTitle>Título do card</CardTitle>\n    <CardDescription>\n      Descrição curta de apoio.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>Conteúdo principal</CardContent>\n\n  <CardFooter>\n    <Button variant=\"ghost\">Secundária</Button>\n    <Button usage=\"primary\" variant=\"flat\">Primária</Button>\n  </CardFooter>\n</Card>"
+			},
+			"sections": {
+				"structure": {
+					"title": "Estrutura",
+					"description": "Cards devem expor uma anatomia interna previsível sem obrigar todos os slots em todos os cenários."
+				},
+				"composition": {
+					"title": "Composição",
+					"description": "Use a mesma primitiva tanto para blocos simples de informação quanto para cards com ações de apoio."
+				},
+				"layouts": {
+					"title": "Padrões de layout",
+					"description": "Cards podem receber layouts mais densos, desde que o conteúdo continue sendo lido como um bloco coerente."
+				}
+			},
+			"structureCards": {
+				"basic": {
+					"title": "Bloco básico de conteúdo",
+					"description": "Um card pode ser apenas um título, uma descrição curta e uma região de conteúdo.",
+					"body": "Use esse formato para notas de documentação, resumos e conteúdos de apoio que precisam ficar dentro de um limite claro."
+				},
+				"header": {
+					"title": "Header é opcional",
+					"description": "Use `CardHeader` quando o conteúdo precisar de um título visível e de uma descrição curta antes do corpo.",
+					"body": "Se o corpo já trouxer contexto suficiente, não force texto extra no header só para preencher espaço."
+				}
+			},
+			"compositionCards": {
+				"actions": {
+					"title": "Card com ações",
+					"description": "Alguns cards precisam de footer porque concentram decisões ou atalhos relacionados ao próprio conteúdo.",
+					"body": "Mantenha as ações do footer vinculadas ao conteúdo daquele card. Se as ações pertencerem à página ou à seção inteira, coloque-as fora do card.",
+					"footer": {
+						"secondary": "Fechar",
+						"primary": "Revisar detalhes"
+					}
+				},
+				"summary": {
+					"title": "Card de resumo",
+					"description": "Cards também podem acomodar dashboards compactos e metadados sem precisar de footer.",
+					"stats": {
+						"items": {
+							"projects": {
+								"label": "Projetos",
+								"value": "12 ativos"
+							},
+							"openTasks": {
+								"label": "Tarefas abertas",
+								"value": "37 pendentes"
+							}
+						}
+					}
+				}
+			},
+			"layoutCards": {
+				"list": {
+					"title": "Conteúdo em lista agrupada",
+					"description": "Um card pode conter várias linhas internas quando todas fazem parte do mesmo resumo ou da mesma tarefa.",
+					"items": {
+						"overview": {
+							"title": "Visão geral",
+							"description": "Use uma superfície compartilhada quando as linhas fizerem parte do mesmo bloco conceitual."
+						},
+						"composition": {
+							"title": "Composição",
+							"description": "Mantenha o espaçamento e a hierarquia interna consistentes entre todas as linhas."
+						},
+						"actions": {
+							"title": "Ações continuam escopadas",
+							"description": "Se uma linha precisar de ação, ela ainda deve parecer parte do mesmo card."
+						}
+					}
+				},
+				"compact": {
+					"title": "Marcador compacto",
+					"description": "Cards não precisam ser altos. Conteúdo compacto funciona quando o limite ainda melhora a leitura rápida.",
+					"badge": "Contêiner pronto para docs"
+				}
+			}
+		},
 		"dialog": {
 			"title": "Dialog",
 			"description": "Dialogs interrompem o fluxo atual para apresentar conteúdo focado, decisões ou tarefas estruturadas. Use esse padrão para conteúdo que exige atenção explícita sem tirar o usuário da página atual.",

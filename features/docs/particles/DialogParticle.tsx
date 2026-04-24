@@ -7,6 +7,11 @@ import { useTranslation } from "react-i18next";
 
 import {
 	Button,
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
 	Dialog,
 	DialogContent,
 	DialogDescription,
@@ -44,43 +49,47 @@ export default function DialogParticle() {
 				description={t("docs.dialog.sections.structure.description")}
 			>
 				<div className="grid gap-4 md:grid-cols-2">
-					<div className="border-default-2 surface-1 flex min-h-44 flex-col justify-between rounded-[var(--twc-radius-xl)] border p-4">
-						<div className="space-y-1">
-							<h3 className="ty-sm-bold">
+					<Card className="flex min-h-44 flex-col justify-between p-4">
+						<CardHeader>
+							<CardTitle>
 								{t("docs.dialog.structureCards.basic.title")}
-							</h3>
-							<p className="ty-helper">
+							</CardTitle>
+							<CardDescription>
 								{t("docs.dialog.structureCards.basic.description")}
-							</p>
-						</div>
-						<Button
-							usage="primary"
-							variant="flat"
-							leadingIcon={<Layers3 className="h-4 w-4" />}
-							onClick={() => setIsBasicOpen(true)}
-						>
-							{t("docs.dialog.structureCards.basic.trigger")}
-						</Button>
-					</div>
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<Button
+								usage="primary"
+								variant="flat"
+								leadingIcon={<Layers3 className="h-4 w-4" />}
+								onClick={() => setIsBasicOpen(true)}
+							>
+								{t("docs.dialog.structureCards.basic.trigger")}
+							</Button>
+						</CardContent>
+					</Card>
 
-					<div className="border-default-2 surface-1 flex min-h-44 flex-col justify-between rounded-[var(--twc-radius-xl)] border p-4">
-						<div className="space-y-1">
-							<h3 className="ty-sm-bold">
+					<Card className="flex min-h-44 flex-col justify-between p-4">
+						<CardHeader>
+							<CardTitle>
 								{t("docs.dialog.structureCards.description.title")}
-							</h3>
-							<p className="ty-helper">
+							</CardTitle>
+							<CardDescription>
 								{t("docs.dialog.structureCards.description.description")}
-							</p>
-						</div>
-						<Button
-							usage="secondary"
-							variant="flat"
-							leadingIcon={<Info className="h-4 w-4" />}
-							onClick={() => setIsFooterOpen(true)}
-						>
-							{t("docs.dialog.structureCards.description.trigger")}
-						</Button>
-					</div>
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<Button
+								usage="secondary"
+								variant="flat"
+								leadingIcon={<Info className="h-4 w-4" />}
+								onClick={() => setIsFooterOpen(true)}
+							>
+								{t("docs.dialog.structureCards.description.trigger")}
+							</Button>
+						</CardContent>
+					</Card>
 				</div>
 			</ParticleSection>
 
@@ -88,46 +97,48 @@ export default function DialogParticle() {
 				title={t("docs.dialog.sections.footer.title")}
 				description={t("docs.dialog.sections.footer.description")}
 			>
-				<div className="border-default-2 surface-1 flex min-h-44 flex-col justify-between rounded-[var(--twc-radius-xl)] border p-4">
-					<div className="space-y-1">
-						<h3 className="ty-sm-bold">{t("docs.dialog.footerCard.title")}</h3>
-						<p className="ty-helper">
+				<Card className="flex min-h-44 flex-col justify-between p-4">
+					<CardHeader>
+						<CardTitle>{t("docs.dialog.footerCard.title")}</CardTitle>
+						<CardDescription>
 							{t("docs.dialog.footerCard.description")}
-						</p>
-					</div>
-					<Button
-						usage="primary"
-						variant="flat"
-						trailingIcon={<ArrowRight className="h-4 w-4" />}
-						onClick={() => setIsFooterOpen(true)}
-					>
-						{t("docs.dialog.footerCard.trigger")}
-					</Button>
-				</div>
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<Button
+							usage="primary"
+							variant="flat"
+							trailingIcon={<ArrowRight className="h-4 w-4" />}
+							onClick={() => setIsFooterOpen(true)}
+						>
+							{t("docs.dialog.footerCard.trigger")}
+						</Button>
+					</CardContent>
+				</Card>
 			</ParticleSection>
 
 			<ParticleSection
 				title={t("docs.dialog.sections.overflow.title")}
 				description={t("docs.dialog.sections.overflow.description")}
 			>
-				<div className="border-default-2 surface-1 flex min-h-44 flex-col justify-between rounded-[var(--twc-radius-xl)] border p-4">
-					<div className="space-y-1">
-						<h3 className="ty-sm-bold">
-							{t("docs.dialog.overflowCard.title")}
-						</h3>
-						<p className="ty-helper">
+				<Card className="flex min-h-44 flex-col justify-between p-4">
+					<CardHeader>
+						<CardTitle>{t("docs.dialog.overflowCard.title")}</CardTitle>
+						<CardDescription>
 							{t("docs.dialog.overflowCard.description")}
-						</p>
-					</div>
-					<Button
-						usage="secondary"
-						variant="ghost"
-						leadingIcon={<FileText className="h-4 w-4" />}
-						onClick={() => setIsOverflowOpen(true)}
-					>
-						{t("docs.dialog.overflowCard.trigger")}
-					</Button>
-				</div>
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<Button
+							usage="secondary"
+							variant="ghost"
+							leadingIcon={<FileText className="h-4 w-4" />}
+							onClick={() => setIsOverflowOpen(true)}
+						>
+							{t("docs.dialog.overflowCard.trigger")}
+						</Button>
+					</CardContent>
+				</Card>
 			</ParticleSection>
 
 			<Dialog
