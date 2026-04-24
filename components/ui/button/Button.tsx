@@ -1,6 +1,8 @@
 import clsx from "clsx";
-import { BUTTON_SIZES, BUTTON_USAGES, BUTTON_VARIANTS } from "constants/button";
-import type { ButtonProps } from "types/client";
+
+import { Tooltip } from "@/components/ui";
+import { BUTTON_SIZES, BUTTON_USAGES, BUTTON_VARIANTS } from "@/constants/ui";
+import type { ButtonProps } from "@/types/client";
 
 import { getAccessibleText } from "./utils";
 
@@ -14,6 +16,8 @@ export function Button({
 	loadingText,
 	size = "md",
 	trailingIcon,
+	title,
+	tooltipContent,
 	type = "button",
 	usage = "primary",
 	variant = "flat",
@@ -22,22 +26,26 @@ export function Button({
 	const label = isLoading && loadingText ? loadingText : children;
 	const derivedAriaLabel =
 		ariaLabel ??
-		(typeof props.title === "string" ? props.title : undefined) ??
+		(typeof title === "string" ? title : undefined) ??
 		loadingText ??
 		getAccessibleText(children);
+	const tooltipLabel =
+		tooltipContent ??
+		(typeof title === "string" ? title : undefined) ??
+		derivedAriaLabel;
 	const spinner = (
 		<span
 			aria-hidden="true"
 			className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
 		/>
 	);
-
-	return (
+	const button = (
 		<button
 			type={type}
 			disabled={disabled || isLoading}
 			aria-busy={isLoading}
 			aria-label={derivedAriaLabel}
+			title={size === "icon" ? undefined : title}
 			className={clsx(
 				"btn-base focus-ring inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap disabled:pointer-events-none disabled:shadow-none",
 				BUTTON_USAGES[usage],
@@ -53,4 +61,10 @@ export function Button({
 			{!isLoading ? trailingIcon : null}
 		</button>
 	);
+
+	if (size === "icon" && tooltipLabel) {
+		return <Tooltip content={tooltipLabel}>{button}</Tooltip>;
+	}
+
+	return button;
 }

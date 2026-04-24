@@ -1,27 +1,27 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 
-import { Plus, Sparkles } from "lucide-react";
+import { Minus, Plus, Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
+import type { ParticleContainerProps } from "@/types/client";
 
 import { ParticlePatternNotes } from "./ParticlePatternNotes";
-
-interface ParticleContainerProps {
-	eyebrow: string;
-	title: string;
-	description: string;
-	children: ReactNode;
-}
 
 export function ParticleContainer({
 	eyebrow,
 	title,
 	description,
+	patternNotesItems,
+	patternNotesTitle,
+	patternNotesApiLabel,
+	patternNotesSnippet,
 	children,
 }: ParticleContainerProps) {
-	const [isExpanded, setIsExpanded] = useState(true);
+	const { t } = useTranslation();
+	const [isExpanded, setIsExpanded] = useState(false);
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
 	return (
@@ -36,20 +36,28 @@ export function ParticleContainer({
 				</div>
 				<div className="flex flex-wrap gap-3">
 					<Button
-						leadingIcon={<Plus className="h-4 w-4" />}
+						size={"icon"}
+						tooltipContent={
+							isExpanded ? t("docs.shared.collapse") : t("docs.shared.expand")
+						}
 						usage="primary"
 						variant="flat"
 						onClick={() => setIsExpanded(current => !current)}
 					>
-						{isExpanded ? "Hide items" : "New item"}
+						{isExpanded ? (
+							<Minus className="h-4 w-4" />
+						) : (
+							<Plus className="h-4 w-4" />
+						)}
 					</Button>
 					<Button
-						leadingIcon={<Sparkles className="h-4 w-4" />}
+						size={"icon"}
+						tooltipContent={t("docs.shared.viewPatternNotes")}
 						usage="secondary"
 						variant="ghost"
 						onClick={() => setIsPreviewOpen(true)}
 					>
-						Preview pattern
+						<Sparkles className="h-4 w-4" />
 					</Button>
 				</div>
 			</div>
@@ -57,7 +65,13 @@ export function ParticleContainer({
 			{isExpanded ? <div className="space-y-6 p-6">{children}</div> : null}
 
 			{isPreviewOpen ? (
-				<ParticlePatternNotes onClose={() => setIsPreviewOpen(false)} />
+				<ParticlePatternNotes
+					onClose={() => setIsPreviewOpen(false)}
+					items={patternNotesItems}
+					title={patternNotesTitle}
+					apiLabel={patternNotesApiLabel}
+					snippet={patternNotesSnippet}
+				/>
 			) : null}
 		</section>
 	);

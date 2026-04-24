@@ -1,1 +1,199 @@
-{}
+{
+	"docs": {
+		"shared": {
+			"eyebrow": "Partículas de UI",
+			"patternNotesTitle": "Quando usar",
+			"patternNotesApiLabel": "API atual do componente",
+			"expand": "Expandir",
+			"collapse": "Recolher",
+			"viewPatternNotes": "Ver notas do padrão",
+			"patternNotesLabel": "Notas do padrão",
+			"closePatternNotes": "Fechar notas do padrão"
+		},
+		"button": {
+			"title": "Botões",
+			"description": "Botões disparam ações do usuário. Use `usage` para definir a intenção semântica, `variant` para definir o tratamento visual e `size` para adaptar o componente à densidade do layout.",
+			"patternNotes": {
+				"items": {
+					"usage": "Defina `usage` de acordo com o significado da ação: primary, secondary, success, info, warning ou danger.",
+					"flat": "Use `variant=\"flat\"` para o tratamento padrão de call to action.",
+					"ghost": "Use `variant=\"ghost\"` para ações de menor ênfase, interfaces densas e controles de apoio.",
+					"icon": "Para botões somente com ícone, sempre forneça um `title`, `aria-label` ou `tooltipContent` legível para que o componente exponha um nome acessível."
+				},
+				"snippet": "<Button\n  usage=\"primary | secondary | success | info | warning | danger\"\n  variant=\"flat | ghost\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Saving...\"\n  tooltipContent=\"Add item\"\n/>"
+			},
+			"sections": {
+				"usage": {
+					"title": "Uso",
+					"description": "Escolha o uso semântico que corresponde ao resultado esperado da ação."
+				},
+				"variant": {
+					"title": "Variante",
+					"description": "As variantes mudam a apresentação sem alterar o comportamento ou a intenção semântica."
+				},
+				"scale": {
+					"title": "Escala",
+					"description": "Ajuste a escala do componente de acordo com o espaçamento e a densidade da interface."
+				},
+				"states": {
+					"title": "Estados",
+					"description": "Use os estados embutidos para manter o feedback e as regras de interação consistentes."
+				}
+			},
+			"usageCards": {
+				"primary": {
+					"name": "Primário",
+					"description": "Ação padrão de alta ênfase para fluxos de confirmação e envio.",
+					"label": "Salvar alterações"
+				},
+				"secondary": {
+					"name": "Secundário",
+					"description": "Ação neutra para caminhos complementares e controles de apoio.",
+					"label": "Exportar relatório"
+				},
+				"success": {
+					"name": "Sucesso",
+					"description": "Ação positiva para aprovações, conclusão ou confirmação.",
+					"label": "Marcar como aprovado"
+				},
+				"info": {
+					"name": "Informação",
+					"description": "Ação de orientação quando você precisa de ênfase sem implicar risco.",
+					"label": "Ver detalhes"
+				},
+				"warning": {
+					"name": "Aviso",
+					"description": "Ação de cautela que merece revisão antes de continuar.",
+					"label": "Revisar problema"
+				},
+				"danger": {
+					"name": "Perigo",
+					"description": "Ação destrutiva para mudanças irreversíveis e exclusão.",
+					"label": "Revogar acesso"
+				}
+			},
+			"variantCards": {
+				"flat": {
+					"name": "Flat",
+					"description": "Preenchido no modo claro e suavizado no modo escuro sem alterar o significado da ação."
+				},
+				"ghost": {
+					"name": "Ghost",
+					"description": "Ação de baixo destaque para barras de ferramentas densas, listas e controles utilitários."
+				},
+				"label": "Aplicar estilo"
+			},
+			"sizes": {
+				"small": "Pequeno",
+				"medium": "Médio",
+				"large": "Grande",
+				"iconTitle": "Adicionar item"
+			},
+			"statesCards": {
+				"loading": {
+					"title": "Carregando",
+					"button": "Publicar",
+					"loadingText": "Publicando..."
+				},
+				"disabled": {
+					"title": "Desabilitado",
+					"button": "Aguardando alterações"
+				},
+				"fullWidth": {
+					"title": "Largura total",
+					"button": "Continuar configuração"
+				}
+			}
+		},
+		"tooltip": {
+			"title": "Tooltip",
+			"description": "Tooltips fornecem dicas contextuais curtas para controles e elementos inline da interface. Use o wrapper diretamente em gatilhos personalizados ou conte com o comportamento automático em botões somente com ícone.",
+			"patternNotes": {
+				"items": {
+					"clarify": "Use tooltips para esclarecer controles compactos, especialmente ações somente com ícone que precisam de contexto visível no hover ou no foco.",
+					"reinforce": "O tooltip deve reforçar um controle existente, não carregar sozinho a informação principal.",
+					"compact": "Mantenha o texto curto e neutro. Se o conteúdo precisar de instruções ou múltiplas ações, prefira outro padrão, como texto auxiliar, popover ou dialog.",
+					"iconButtons": "Para botões com ícone, o próprio componente de botão já resolve o conteúdo do tooltip a partir de `tooltipContent`, `title` ou do rótulo acessível."
+				},
+				"snippet": "<Tooltip content=\"Abrir detalhes\" side=\"top\" align=\"center\">\n  <button type=\"button\">Gatilho</button>\n</Tooltip>\n\n<Button\n  size=\"icon\"\n  variant=\"ghost\"\n  title=\"Adicionar item\"\n  leadingIcon={<Plus />}\n/>"
+			},
+			"sections": {
+				"automatic": {
+					"title": "Tooltip automático para ícone",
+					"description": "Botões com ícone resolvem o conteúdo do tooltip automaticamente a partir das props já usadas para acessibilidade."
+				},
+				"placement": {
+					"title": "Posicionamento",
+					"description": "Escolha o posicionamento que mantém a dica legível dentro das restrições do layout ao redor."
+				},
+				"richContent": {
+					"title": "Conteúdo rico",
+					"description": "O conteúdo pode ter uma pequena estrutura, mas ainda deve permanecer compacto e fácil de escanear."
+				},
+				"triggerGuidance": {
+					"title": "Orientação de gatilho",
+					"description": "Use tooltips como apoio de descoberta, não como fonte principal de significado."
+				}
+			},
+			"automatic": {
+				"createItem": "Criar item",
+				"moreInformation": "Mais informações",
+				"deleteDraft": "Excluir rascunho"
+			},
+			"placementCards": {
+				"top": {
+					"name": "Topo",
+					"description": "Posicionamento padrão para controles compactos e ações com ícone.",
+					"tooltip": "Tooltip no topo"
+				},
+				"right": {
+					"name": "Direita",
+					"description": "Útil ao lado de navegação densa alinhada à esquerda e listas empilhadas.",
+					"tooltip": "Tooltip à direita"
+				},
+				"bottom": {
+					"name": "Base",
+					"description": "Mais seguro quando não há espaço acima do gatilho.",
+					"tooltip": "Tooltip embaixo"
+				},
+				"left": {
+					"name": "Esquerda",
+					"description": "Funciona bem próximo a controles na borda direita e ações flutuantes.",
+					"tooltip": "Tooltip à esquerda"
+				},
+				"trigger": "Passe o mouse"
+			},
+			"richContent": {
+				"inlineHint": {
+					"title": "Dica inline",
+					"description": "Envolva gatilhos inline personalizados quando precisar de contexto sem alterar o layout ao redor.",
+					"prefix": "Atualizações de status estão disponíveis no",
+					"link": "painel de atividades",
+					"suffix": ".",
+					"tooltip": "Abre o fluxo de atividades deste workspace."
+				},
+				"compactMetadata": {
+					"title": "Metadado compacto",
+					"description": "Uma pequena quantidade de conteúdo estruturado funciona quando a dica precisa de um título e uma linha de contexto.",
+					"tooltipTitle": "Abre em nova aba",
+					"tooltipBody": "A documentação de referência fica separada do fluxo atual.",
+					"button": "Abrir docs"
+				}
+			},
+			"triggerGuidance": {
+				"goodFit": {
+					"title": "Bom caso de uso",
+					"tooltip": "Precisa de ajuda com a anatomia do botão?"
+				},
+				"needsLabel": {
+					"title": "Ainda precisa de rótulo",
+					"button": "Saiba mais"
+				},
+				"avoidLongInstructions": {
+					"title": "Evite instruções longas",
+					"description": "Se a mensagem começar a soar como texto de onboarding, use texto auxiliar, um popover ou um dialog."
+				}
+			}
+		}
+	}
+}

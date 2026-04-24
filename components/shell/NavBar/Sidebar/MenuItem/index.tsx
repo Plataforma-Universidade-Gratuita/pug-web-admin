@@ -1,23 +1,18 @@
 "use client";
 
-import type { ForwardRefExoticComponent, RefAttributes } from "react";
-
 import Link from "next/link";
 
-import type { LucideProps } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-type Props = {
-	collapsed: boolean;
-	href: string;
-	label: string;
-	Icon: ForwardRefExoticComponent<
-		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
-	>;
-	active: boolean;
-};
+import type { MenuItemProps } from "@/types/client";
 
-export function MenuItem({ collapsed, href, label, Icon, active }: Props) {
+export function MenuItem({
+	collapsed,
+	href,
+	label,
+	Icon,
+	active,
+}: MenuItemProps) {
 	const { t } = useTranslation();
 	return (
 		<li key={href}>

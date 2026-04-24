@@ -1,24 +1,20 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
-
-interface ParticleSectionProps {
-	title: string;
-	description: string;
-	children: ReactNode;
-	defaultExpanded?: boolean;
-}
+import type { ParticleSectionProps } from "@/types/client";
 
 export function ParticleSection({
 	title,
 	description,
 	children,
-	defaultExpanded = true,
+	defaultExpanded = false,
 }: ParticleSectionProps) {
+	const { t } = useTranslation();
 	const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
 	return (
@@ -40,7 +36,7 @@ export function ParticleSection({
 					}
 					onClick={() => setIsExpanded(current => !current)}
 				>
-					{isExpanded ? "Collapse" : "Expand"}
+					{isExpanded ? t("docs.shared.collapse") : t("docs.shared.expand")}
 				</Button>
 			</div>
 

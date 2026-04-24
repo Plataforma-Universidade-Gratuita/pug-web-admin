@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 
 import { Home, LogIn } from "lucide-react";
 
+import type { SidebarProps } from "@/types/client";
+
 import { MenuItem } from "./MenuItem";
 import Settings from "./Settings";
 
@@ -12,9 +14,7 @@ export const singles = [
 	{ href: "/login", label: "Navbar.paths.login", Icon: LogIn },
 ];
 
-type Props = { collapsed: boolean };
-
-export function Sidebar({ collapsed }: Props) {
+export function Sidebar({ collapsed }: SidebarProps) {
 	const pathname = usePathname();
 
 	return (

@@ -5,12 +5,9 @@ import Link from "next/link";
 import { PanelLeftClose, PanelsTopLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-type Props = {
-	collapsed: boolean;
-	onToggleSidebar: () => void;
-};
+import type { TopBarProps } from "@/types/client";
 
-export function TopBar({ collapsed, onToggleSidebar }: Props) {
+export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 	const { t } = useTranslation();
 	return (
 		<header

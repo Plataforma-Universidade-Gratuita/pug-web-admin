@@ -1,36 +1,22 @@
 "use client";
 
-import {
-	useEffect,
-	useMemo,
-	useState,
-	type ForwardRefExoticComponent,
-	type RefAttributes,
-} from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import * as Popover from "@radix-ui/react-popover";
-import { ChevronDown, type LucideProps } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-type IconType = ForwardRefExoticComponent<
-	Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
->;
-type Child = { href: string; label: string; Icon: IconType };
+import type { MenuGroupProps } from "@/types/client";
 
 export function MenuGroup({
 	collapsed,
 	label,
 	Icon,
 	childrenItems,
-}: {
-	collapsed: boolean;
-	label: string;
-	Icon: IconType;
-	childrenItems: Child[];
-}) {
+}: MenuGroupProps) {
 	const { t } = useTranslation();
 	const pathname = usePathname();
 

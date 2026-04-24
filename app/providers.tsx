@@ -8,15 +8,10 @@ import { Toaster } from "sonner";
 
 import { LocaleProvider } from "@/contexts/locale";
 import { ThemeProvider } from "@/contexts/theme";
+import type { ProvidersProps } from "@/types/client";
 import { coerceLang } from "@/utils/lang";
 import { initI18n } from "@/utils/locale";
 import { coerceTheme } from "@/utils/theme-value";
-
-export interface ProvidersProps {
-	children: React.ReactNode;
-	initialLangCookieValue: unknown;
-	initialThemeCookieValue: unknown;
-}
 
 export function Providers({
 	children,

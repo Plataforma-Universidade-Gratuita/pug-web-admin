@@ -1,1 +1,199 @@
-{}
+{
+	"docs": {
+		"shared": {
+			"eyebrow": "UI Particles",
+			"patternNotesTitle": "When to use",
+			"patternNotesApiLabel": "Current primitive API",
+			"expand": "Expand",
+			"collapse": "Collapse",
+			"viewPatternNotes": "View pattern notes",
+			"patternNotesLabel": "Pattern Notes",
+			"closePatternNotes": "Close pattern notes"
+		},
+		"button": {
+			"title": "Buttons",
+			"description": "Buttons trigger user actions. Use `usage` to define semantic intent, `variant` to define visual treatment, and `size` to adapt the component to layout density.",
+			"patternNotes": {
+				"items": {
+					"usage": "Set `usage` according to the meaning of the action: primary, secondary, success, info, warning, or danger.",
+					"flat": "Use `variant=\"flat\"` for the default call-to-action treatment.",
+					"ghost": "Use `variant=\"ghost\"` for lower-emphasis actions, dense interfaces, and supporting controls.",
+					"icon": "For icon-only buttons, always provide a readable `title`, `aria-label`, or `tooltipContent` so the component can expose an accessible name."
+				},
+				"snippet": "<Button\n  usage=\"primary | secondary | success | info | warning | danger\"\n  variant=\"flat | ghost\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Saving...\"\n  tooltipContent=\"Add item\"\n/>"
+			},
+			"sections": {
+				"usage": {
+					"title": "Usage",
+					"description": "Choose the semantic usage that matches the outcome of the action."
+				},
+				"variant": {
+					"title": "Variant",
+					"description": "Variants change presentation without changing behavior or semantic intent."
+				},
+				"scale": {
+					"title": "Scale",
+					"description": "Scale the component according to spacing and density requirements."
+				},
+				"states": {
+					"title": "States",
+					"description": "Use the built-in states to keep feedback and interaction rules consistent."
+				}
+			},
+			"usageCards": {
+				"primary": {
+					"name": "Primary",
+					"description": "Default high-emphasis action for confirm and submit flows.",
+					"label": "Save changes"
+				},
+				"secondary": {
+					"name": "Secondary",
+					"description": "Neutral action for companion paths and supporting controls.",
+					"label": "Export report"
+				},
+				"success": {
+					"name": "Success",
+					"description": "Positive action for approvals, completion, or confirmation.",
+					"label": "Mark approved"
+				},
+				"info": {
+					"name": "Info",
+					"description": "Guidance action when you need emphasis without implying risk.",
+					"label": "View details"
+				},
+				"warning": {
+					"name": "Warning",
+					"description": "Cautionary action that deserves review before continuing.",
+					"label": "Review issue"
+				},
+				"danger": {
+					"name": "Danger",
+					"description": "Destructive action for irreversible changes and deletion.",
+					"label": "Revoke access"
+				}
+			},
+			"variantCards": {
+				"flat": {
+					"name": "Flat",
+					"description": "Filled in light mode and softened in dark mode without changing the action meaning."
+				},
+				"ghost": {
+					"name": "Ghost",
+					"description": "Low-chrome action for dense toolbars, lists, and utility affordances."
+				},
+				"label": "Apply style"
+			},
+			"sizes": {
+				"small": "Small",
+				"medium": "Medium",
+				"large": "Large",
+				"iconTitle": "Add item"
+			},
+			"statesCards": {
+				"loading": {
+					"title": "Loading",
+					"button": "Publish",
+					"loadingText": "Publishing..."
+				},
+				"disabled": {
+					"title": "Disabled",
+					"button": "Awaiting changes"
+				},
+				"fullWidth": {
+					"title": "Full width",
+					"button": "Continue setup"
+				}
+			}
+		},
+		"tooltip": {
+			"title": "Tooltip",
+			"description": "Tooltips provide short contextual hints for controls and inline UI elements. Use the wrapper directly around custom triggers or rely on automatic tooltips for icon-only buttons.",
+			"patternNotes": {
+				"items": {
+					"clarify": "Use tooltips to clarify compact controls, especially icon-only actions that need visible context on hover or focus.",
+					"reinforce": "Tooltips should reinforce an existing control, not carry essential information by themselves.",
+					"compact": "Keep tooltip copy short and neutral. If the content needs instructions or multiple actions, use another pattern such as helper text, a popover, or a dialog.",
+					"iconButtons": "For icon buttons, the button component already resolves tooltip content from `tooltipContent`, `title`, or the accessible label."
+				},
+				"snippet": "<Tooltip content=\"Open details\" side=\"top\" align=\"center\">\n  <button type=\"button\">Trigger</button>\n</Tooltip>\n\n<Button\n  size=\"icon\"\n  variant=\"ghost\"\n  title=\"Add item\"\n  leadingIcon={<Plus />}\n/>"
+			},
+			"sections": {
+				"automatic": {
+					"title": "Automatic icon tooltip",
+					"description": "Icon buttons resolve tooltip content automatically from the props already used for accessibility."
+				},
+				"placement": {
+					"title": "Placement",
+					"description": "Choose the placement that keeps the hint readable near surrounding layout constraints."
+				},
+				"richContent": {
+					"title": "Rich content",
+					"description": "Tooltip content may include small amounts of structure, but it should remain compact and scannable."
+				},
+				"triggerGuidance": {
+					"title": "Trigger guidance",
+					"description": "Use tooltips as supporting guidance, not as the primary source of meaning."
+				}
+			},
+			"automatic": {
+				"createItem": "Create item",
+				"moreInformation": "More information",
+				"deleteDraft": "Delete draft"
+			},
+			"placementCards": {
+				"top": {
+					"name": "Top",
+					"description": "Default placement for compact controls and icon actions.",
+					"tooltip": "Top tooltip"
+				},
+				"right": {
+					"name": "Right",
+					"description": "Useful beside dense left-aligned navigation and stacked lists.",
+					"tooltip": "Right tooltip"
+				},
+				"bottom": {
+					"name": "Bottom",
+					"description": "Safer when there is no room above the trigger.",
+					"tooltip": "Bottom tooltip"
+				},
+				"left": {
+					"name": "Left",
+					"description": "Works well near right-edge controls and floating actions.",
+					"tooltip": "Left tooltip"
+				},
+				"trigger": "Hover target"
+			},
+			"richContent": {
+				"inlineHint": {
+					"title": "Inline hint",
+					"description": "Wrap custom inline triggers when you need context without changing the surrounding layout.",
+					"prefix": "Status updates are available in the",
+					"link": "activity panel",
+					"suffix": ".",
+					"tooltip": "Opens the activity stream for this workspace."
+				},
+				"compactMetadata": {
+					"title": "Compact metadata",
+					"description": "A small amount of structured content is fine when the hint needs a title and one line of context.",
+					"tooltipTitle": "Opens in new tab",
+					"tooltipBody": "Reference docs are kept separate from the current flow.",
+					"button": "Open docs"
+				}
+			},
+			"triggerGuidance": {
+				"goodFit": {
+					"title": "Good fit",
+					"tooltip": "Need help with button anatomy?"
+				},
+				"needsLabel": {
+					"title": "Still needs a label",
+					"button": "Learn more"
+				},
+				"avoidLongInstructions": {
+					"title": "Avoid long instructions",
+					"description": "If the message starts reading like onboarding copy, use helper text, a popover, or a dialog instead."
+				}
+			}
+		}
+	}
+}

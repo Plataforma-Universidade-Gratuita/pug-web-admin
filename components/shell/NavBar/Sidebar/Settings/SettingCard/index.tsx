@@ -1,28 +1,15 @@
 import { useState } from "react";
 
-import { ChevronDown, type LucideProps } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-type IconType = React.ForwardRefExoticComponent<
-	Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
->;
-
-type Option = {
-	Icon?: IconType;
-	label: string;
-	value: string;
-	onClick: () => void;
-};
+import type { SettingCardProps } from "@/types/client";
 
 export default function SettingCard({
 	title,
 	selectedOption = { label: "", value: "" },
 	options,
-}: {
-	title: string;
-	selectedOption?: { label: string; value: string; Icon?: IconType };
-	options: Option[];
-}) {
+}: SettingCardProps) {
 	const { t } = useTranslation();
 	const [open, setOpen] = useState(false);
 
