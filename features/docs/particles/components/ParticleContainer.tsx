@@ -66,7 +66,8 @@ export function ParticleContainer({
 
 			{isPreviewOpen ? (
 				<ParticlePatternNotes
-					onClose={() => setIsPreviewOpen(false)}
+					open={isPreviewOpen}
+					onOpenChange={setIsPreviewOpen}
 					items={patternNotesItems}
 					title={patternNotesTitle}
 					apiLabel={patternNotesApiLabel}

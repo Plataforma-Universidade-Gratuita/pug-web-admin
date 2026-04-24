@@ -105,6 +105,93 @@
 				}
 			}
 		},
+		"dialog": {
+			"title": "Dialog",
+			"description": "Dialogs interrupt the current flow to present focused content, decisions, or structured tasks. Use them for content that needs explicit attention without leaving the current page.",
+			"patternNotes": {
+				"items": {
+					"useCase": "Use dialogs for focused tasks, confirmations, or supporting content that should temporarily take priority over the page.",
+					"structure": "Keep the structure predictable: header for title and description, scrollable body for content, and footer for actions.",
+					"actions": "Use the footer for the action hierarchy required by the flow. Some dialogs need one action, some need two, and only some need the full primary/secondary/tertiary set.",
+					"overflow": "When content grows, let only the body scroll. Header and footer should remain fixed within the dialog."
+				},
+				"snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>Dialog title</DialogTitle>\n      <DialogDescription>\n        Short explanation for the dialog.\n      </DialogDescription>\n    </DialogHeader>\n\n    <div className=\"flex-1 overflow-y-auto\">Body content</div>\n\n    <DialogFooter>\n      <Button variant=\"ghost\">Tertiary</Button>\n      <Button usage=\"secondary\" variant=\"flat\">Secondary</Button>\n      <Button usage=\"primary\" variant=\"flat\">Primary</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>"
+			},
+			"sections": {
+				"structure": {
+					"title": "Structure",
+					"description": "Use a consistent layout so users can immediately identify the dialog header, body, and actions."
+				},
+				"footer": {
+					"title": "Footer actions",
+					"description": "Reserve the footer for the action hierarchy instead of mixing structural actions into the body."
+				},
+				"overflow": {
+					"title": "Overflow",
+					"description": "Long content should scroll inside the dialog body while header and footer remain fixed."
+				}
+			},
+			"structureCards": {
+				"basic": {
+					"title": "Basic structure",
+					"description": "A minimal dialog should provide a clear title, a short description, focused content, and explicit dismissal paths.",
+					"trigger": "Open basic dialog"
+				},
+				"description": {
+					"title": "Descriptive header",
+					"description": "Use the description slot for one concise sentence that explains the purpose of the dialog before the body content starts.",
+					"trigger": "Open described dialog"
+				}
+			},
+			"footerCard": {
+				"title": "Action combinations",
+				"description": "Dialog footers do not need three actions every time. Use only the actions the task actually requires, and vary the button usage by the intent of the flow.",
+				"trigger": "Open footer example"
+			},
+			"overflowCard": {
+				"title": "Scrollable body",
+				"description": "When the dialog body is long, only the content region should scroll so context and actions remain visible.",
+				"trigger": "Open overflow example"
+			},
+			"examples": {
+				"basic": {
+					"eyebrow": "Dialog example",
+					"title": "Create workspace",
+					"description": "Use a short description to explain what the dialog is for before the user reviews the body content.",
+					"body": "This example shows a common two-action dialog: a dismissive secondary action and a single primary action for completion.",
+					"footer": {
+						"secondary": "Cancel",
+						"primary": "Create workspace"
+					}
+				},
+				"footer": {
+					"eyebrow": "Action combinations",
+					"title": "Delete project",
+					"description": "This example shows a destructive footer with a low-emphasis tertiary action, a secondary dismissal path, and a danger primary action.",
+					"footer": {
+						"tertiary": "Review dependencies",
+						"secondary": "Keep project",
+						"primary": "Delete project"
+					}
+				},
+				"overflow": {
+					"eyebrow": "Overflow behavior",
+					"title": "Migration notes",
+					"description": "The body region handles overflow so the title and footer remain visible while the user reads longer content.",
+					"paragraphs": {
+						"one": "Dialogs should still feel stable when content becomes long. Header information needs to stay visible so the user never loses context.",
+						"two": "The body is the only region that should scroll. That keeps the action row anchored and prevents the footer from drifting out of view.",
+						"three": "Long-form content in a dialog should still be focused. If the content starts to resemble a full page, reconsider whether a dedicated route is a better fit.",
+						"four": "Descriptions belong near the title, not buried inside the content body. That keeps the purpose of the dialog clear before the user interacts with the details.",
+						"five": "Footer actions should remain compact and predictable. Use the same action order consistently so the primary decision stays easy to find.",
+						"six": "This example intentionally adds enough content to force overflow so the scrolling behavior can be evaluated in a realistic documentation scenario."
+					},
+					"footer": {
+						"primary": "Got it"
+					}
+				}
+			}
+		},
 		"tooltip": {
 			"title": "Tooltip",
 			"description": "Tooltips provide short contextual hints for controls and inline UI elements. Use the wrapper directly around custom triggers or rely on automatic tooltips for icon-only buttons.",

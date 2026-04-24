@@ -105,6 +105,93 @@
 				}
 			}
 		},
+		"dialog": {
+			"title": "Dialog",
+			"description": "Dialogs interrompem o fluxo atual para apresentar conteúdo focado, decisões ou tarefas estruturadas. Use esse padrão para conteúdo que exige atenção explícita sem tirar o usuário da página atual.",
+			"patternNotes": {
+				"items": {
+					"useCase": "Use dialogs para tarefas focadas, confirmações ou conteúdo de apoio que precisa ganhar prioridade temporária sobre a página.",
+					"structure": "Mantenha a estrutura previsível: header para título e descrição, corpo rolável para conteúdo e footer para ações.",
+					"actions": "Use o footer com a hierarquia de ações exigida pelo fluxo. Alguns dialogs pedem uma ação, outros pedem duas, e só alguns precisam do conjunto completo com ação primária, secundária e terciária.",
+					"overflow": "Quando o conteúdo crescer, deixe apenas o corpo rolar. Header e footer devem permanecer fixos dentro do dialog."
+				},
+				"snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>Título do dialog</DialogTitle>\n      <DialogDescription>\n        Explicação curta sobre o propósito do dialog.\n      </DialogDescription>\n    </DialogHeader>\n\n    <div className=\"flex-1 overflow-y-auto\">Conteúdo do corpo</div>\n\n    <DialogFooter>\n      <Button variant=\"ghost\">Terciária</Button>\n      <Button usage=\"secondary\" variant=\"flat\">Secundária</Button>\n      <Button usage=\"primary\" variant=\"flat\">Primária</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>"
+			},
+			"sections": {
+				"structure": {
+					"title": "Estrutura",
+					"description": "Use uma estrutura consistente para que o usuário identifique imediatamente header, corpo e ações."
+				},
+				"footer": {
+					"title": "Ações de footer",
+					"description": "Reserve o footer para a hierarquia de ações em vez de misturar ações estruturais no corpo."
+				},
+				"overflow": {
+					"title": "Overflow",
+					"description": "Conteúdos longos devem rolar dentro do corpo do dialog enquanto header e footer permanecem fixos."
+				}
+			},
+			"structureCards": {
+				"basic": {
+					"title": "Estrutura básica",
+					"description": "Um dialog mínimo deve oferecer um título claro, uma descrição curta, conteúdo focado e caminhos explícitos de fechamento.",
+					"trigger": "Abrir dialog básico"
+				},
+				"description": {
+					"title": "Header descritivo",
+					"description": "Use a descrição para uma frase curta que explique o propósito do dialog antes do início do conteúdo principal.",
+					"trigger": "Abrir dialog descritivo"
+				}
+			},
+			"footerCard": {
+				"title": "Combinações de ações",
+				"description": "O footer do dialog não precisa ter três ações sempre. Use apenas as ações que a tarefa realmente exige e varie o uso do botão conforme a intenção do fluxo.",
+				"trigger": "Abrir exemplo de footer"
+			},
+			"overflowCard": {
+				"title": "Corpo rolável",
+				"description": "Quando o corpo do dialog for longo, apenas a região de conteúdo deve rolar para manter contexto e ações visíveis.",
+				"trigger": "Abrir exemplo de overflow"
+			},
+			"examples": {
+				"basic": {
+					"eyebrow": "Exemplo de dialog",
+					"title": "Criar workspace",
+					"description": "Use uma descrição curta para explicar o objetivo do dialog antes que o usuário analise o conteúdo principal.",
+					"body": "Este exemplo mostra um dialog comum com duas ações: uma ação secundária de fechamento e uma única ação primária para conclusão.",
+					"footer": {
+						"secondary": "Cancelar",
+						"primary": "Criar workspace"
+					}
+				},
+				"footer": {
+					"eyebrow": "Combinações de ações",
+					"title": "Excluir projeto",
+					"description": "Este exemplo mostra um footer destrutivo com uma ação terciária de baixa ênfase, uma ação secundária de saída e uma ação primária de perigo.",
+					"footer": {
+						"tertiary": "Revisar dependências",
+						"secondary": "Manter projeto",
+						"primary": "Excluir projeto"
+					}
+				},
+				"overflow": {
+					"eyebrow": "Comportamento de overflow",
+					"title": "Notas de migração",
+					"description": "A região do corpo lida com o overflow para que título e footer permaneçam visíveis enquanto o usuário lê conteúdos mais longos.",
+					"paragraphs": {
+						"one": "Dialogs ainda devem parecer estáveis quando o conteúdo fica longo. As informações do header precisam continuar visíveis para que o usuário não perca contexto.",
+						"two": "O corpo deve ser a única região rolável. Isso mantém a linha de ações ancorada e impede que o footer desapareça da tela.",
+						"three": "Conteúdo longo dentro de um dialog ainda precisa ser focado. Se começar a parecer uma página inteira, vale reconsiderar se uma rota dedicada faz mais sentido.",
+						"four": "Descrições pertencem perto do título, não escondidas no meio do conteúdo. Isso deixa o propósito do dialog claro antes da interação com os detalhes.",
+						"five": "As ações do footer devem permanecer compactas e previsíveis. Use sempre a mesma ordem para que a decisão principal seja fácil de localizar.",
+						"six": "Este exemplo adiciona conteúdo suficiente para forçar overflow, permitindo avaliar o comportamento de rolagem em um cenário de documentação mais realista."
+					},
+					"footer": {
+						"primary": "Entendi"
+					}
+				}
+			}
+		},
 		"tooltip": {
 			"title": "Tooltip",
 			"description": "Tooltips fornecem dicas contextuais curtas para controles e elementos inline da interface. Use o wrapper diretamente em gatilhos personalizados ou conte com o comportamento automático em botões somente com ícone.",

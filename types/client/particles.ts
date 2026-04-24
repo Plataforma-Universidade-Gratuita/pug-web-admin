@@ -23,7 +23,8 @@ export interface ParticleSectionProps {
 }
 
 export interface ParticlePatternNotesProps {
-	onClose: () => void;
+	open: boolean;
+	onOpenChange: (open: boolean) => void;
 	items: readonly ParticlePatternNoteItem[];
 	title: string;
 	apiLabel: string;

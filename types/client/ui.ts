@@ -27,3 +27,34 @@ export interface TooltipProps {
 	side?: "top" | "right" | "bottom" | "left";
 	align?: "start" | "center" | "end";
 }
+
+export interface DialogProps {
+	children: ReactNode;
+	open: boolean;
+	onOpenChange: (open: boolean) => void;
+}
+
+export interface DialogContentProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface DialogHeaderProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface DialogTitleProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface DialogDescriptionProps {
+	children: ReactNode;
+	className?: string;
+}
+
+export interface DialogFooterProps {
+	children: ReactNode;
+	className?: string;
+}

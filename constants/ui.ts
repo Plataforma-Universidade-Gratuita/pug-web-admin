@@ -18,3 +18,5 @@ export const BUTTON_SIZES = {
 	lg: "min-h-12 px-5 py-3.5 text-sm",
 	icon: "h-11 w-11 p-0",
 } as const;
+
+export const APP_TOPBAR_HEIGHT = "3.75rem";

@@ -19,7 +19,7 @@ export function Tooltip({
 						side={side}
 						align={align}
 						sideOffset={8}
-						className="surface-3 shadow-strong rounded-[var(--twc-radius-md)] px-2 py-1 text-xs font-medium text-[color:var(--twc-text)]"
+						className="surface-3 shadow-strong z-[var(--twc-z-tooltip)] rounded-[var(--twc-radius-md)] px-2 py-1 text-xs font-medium text-[color:var(--twc-text)]"
 					>
 						{content}
 						<RadixTooltip.Arrow className="fill-[color:var(--twc-surface-3)]" />
