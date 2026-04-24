@@ -8,11 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { HOME_ROUTE } from "constants/auth";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
 import { login } from "@/api/web/identity/auth";
-import { Button, Icon, Input, Label } from "@/components";
+import { Button, Icon, Input, Label, toast } from "@/components";
 import { WebApiError } from "@/utils/web-api";
 
 const loginSchema = z.object({
@@ -58,7 +57,7 @@ export function LoginForm() {
 						: "Unable to sign in right now.";
 
 				setError(message);
-				toast.error(message);
+				toast.danger(message);
 			}
 		});
 	}

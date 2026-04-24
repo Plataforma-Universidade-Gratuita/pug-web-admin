@@ -26,6 +26,7 @@ export * from "./overlays/alert-dialog/AlertDialog";
 export * from "./overlays/dialog/Dialog";
 export * from "./overlays/drawer/Drawer";
 export * from "./overlays/popover/Popover";
+export * from "./overlays/toast/Toast";
 export * from "./overlays/tooltip/Tooltip";
 export * from "./structure/layout/Layout";
 export * from "./structure/scroll-area/ScrollArea";

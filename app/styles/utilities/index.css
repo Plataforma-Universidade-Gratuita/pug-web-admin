@@ -1,5 +1,6 @@
 @import "./badges.css";
 @import "./buttons.css";
+@import "./toasts.css";
 
 @layer components {
 	.shadow-weak {

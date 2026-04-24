@@ -20,5 +20,6 @@ export { default as SelectParticle } from "./particles/SelectParticle";
 export { default as SkeletonParticle } from "./particles/SkeletonParticle";
 export { default as StructurePrimitivesParticle } from "./particles/StructurePrimitivesParticle";
 export { default as TextAreaParticle } from "./particles/TextAreaParticle";
+export { default as ToastParticle } from "./particles/ToastParticle";
 export { default as TooltipParticle } from "./particles/TooltipParticle";
 export { default as ToggleControlsParticle } from "./particles/ToggleControlsParticle";

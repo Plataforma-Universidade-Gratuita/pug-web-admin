@@ -21,6 +21,7 @@ import {
 	SkeletonParticle,
 	StructurePrimitivesParticle,
 	TextAreaParticle,
+	ToastParticle,
 	TooltipParticle,
 	ToggleControlsParticle,
 } from "@/features/docs/index";
@@ -50,6 +51,7 @@ export default function Page() {
 			<SkeletonParticle />
 			<StructurePrimitivesParticle />
 			<TextAreaParticle />
+			<ToastParticle />
 			<TooltipParticle />
 			<ToggleControlsParticle />
 		</main>
