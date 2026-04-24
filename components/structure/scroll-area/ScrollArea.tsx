@@ -13,27 +13,27 @@ export function ScrollArea({
 }: ScrollAreaProps) {
 	return (
 		<RadixScrollArea.Root
-			className={clsx("relative overflow-hidden", className)}
+			className={clsx("scroll-area-root", className)}
 			{...props}
 		>
 			<RadixScrollArea.Viewport
-				className={clsx("h-full w-full rounded-[inherit]", viewportClassName)}
+				className={clsx("scroll-area-viewport", viewportClassName)}
 			>
 				{children}
 			</RadixScrollArea.Viewport>
 			<RadixScrollArea.Scrollbar
 				orientation="vertical"
-				className="flex w-2.5 touch-none p-0.5"
+				className="scroll-area-scrollbar-vertical"
 			>
-				<RadixScrollArea.Thumb className="relative flex-1 rounded-full bg-[color:var(--twc-border-2)]" />
+				<RadixScrollArea.Thumb className="scroll-area-thumb" />
 			</RadixScrollArea.Scrollbar>
 			<RadixScrollArea.Scrollbar
 				orientation="horizontal"
-				className="flex h-2.5 touch-none p-0.5"
+				className="scroll-area-scrollbar-horizontal"
 			>
-				<RadixScrollArea.Thumb className="relative flex-1 rounded-full bg-[color:var(--twc-border-2)]" />
+				<RadixScrollArea.Thumb className="scroll-area-thumb" />
 			</RadixScrollArea.Scrollbar>
-			<RadixScrollArea.Corner className="bg-[color:var(--twc-border-2)]" />
+			<RadixScrollArea.Corner className="scroll-area-corner" />
 		</RadixScrollArea.Root>
 	);
 }

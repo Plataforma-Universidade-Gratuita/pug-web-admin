@@ -32,10 +32,7 @@ export function BreadcrumbList({
 }: BreadcrumbListProps) {
 	return (
 		<ol
-			className={clsx(
-				"flex flex-wrap items-center gap-2 text-sm text-[color:var(--twc-muted)]",
-				className,
-			)}
+			className={clsx("breadcrumb-list", className)}
 			{...props}
 		>
 			{children}
@@ -50,7 +47,7 @@ export function BreadcrumbItem({
 }: BreadcrumbItemProps) {
 	return (
 		<li
-			className={clsx("inline-flex items-center gap-2", className)}
+			className={clsx("breadcrumb-item", className)}
 			{...props}
 		>
 			{children}
@@ -65,10 +62,7 @@ export function BreadcrumbLink({
 }: BreadcrumbLinkProps) {
 	return (
 		<a
-			className={clsx(
-				"transition hover:text-[color:var(--twc-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-brand)] focus-visible:ring-offset-2",
-				className,
-			)}
+			className={clsx("breadcrumb-link", className)}
 			{...props}
 		>
 			{children}
@@ -84,7 +78,7 @@ export function BreadcrumbCurrent({
 	return (
 		<span
 			aria-current="page"
-			className={clsx("ty-sm-semibold text-[color:var(--twc-text)]", className)}
+			className={clsx("breadcrumb-current", className)}
 			{...props}
 		>
 			{children}
@@ -100,10 +94,7 @@ export function BreadcrumbSeparator({
 	return (
 		<span
 			aria-hidden="true"
-			className={clsx(
-				"inline-flex items-center text-[color:var(--twc-muted)]",
-				className,
-			)}
+			className={clsx("breadcrumb-separator", className)}
 			{...props}
 		>
 			{children ?? (

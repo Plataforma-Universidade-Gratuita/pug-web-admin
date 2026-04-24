@@ -7,7 +7,11 @@ import clsx from "clsx";
 
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
 import { Footer, Header } from "@/components/structure/layout/Layout";
-import { APP_TOPBAR_HEIGHT } from "@/constants/components";
+import {
+	APP_TOPBAR_HEIGHT,
+	DRAWER_MOTION_STYLES,
+	DRAWER_POSITION_STYLES,
+} from "@/constants/components";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
 	DrawerCloseProps,
@@ -16,26 +20,9 @@ import type {
 	DrawerFooterProps,
 	DrawerHeaderProps,
 	DrawerProps,
-	DrawerSide,
 	DrawerTitleProps,
 	DrawerTriggerProps,
 } from "@/types/client";
-
-const DRAWER_MOTION_STYLES: Record<DrawerSide, string> = {
-	top: "drawer-content-top",
-	right: "drawer-content-right",
-	bottom: "drawer-content-bottom",
-	left: "drawer-content-left",
-};
-
-const DRAWER_POSITION_STYLES: Record<DrawerSide, string> = {
-	top: "inset-x-4 top-[calc(var(--app-topbar-height)+1rem)] max-h-[min(24rem,calc(100dvh-var(--app-topbar-height)-2rem))] rounded-[var(--twc-radius-lg)]",
-	right:
-		"top-[var(--app-topbar-height)] right-0 h-[calc(100dvh-var(--app-topbar-height))] w-[min(32rem,100vw)] rounded-l-[var(--twc-radius-lg)]",
-	bottom:
-		"inset-x-4 bottom-4 max-h-[min(24rem,calc(100dvh-var(--app-topbar-height)-2rem))] rounded-[var(--twc-radius-lg)]",
-	left: "top-[var(--app-topbar-height)] left-0 h-[calc(100dvh-var(--app-topbar-height))] w-[min(32rem,100vw)] rounded-r-[var(--twc-radius-lg)]",
-};
 
 export function Drawer({
 	children,
@@ -80,19 +67,18 @@ export function DrawerContent({
 	return (
 		<RadixDialog.Portal>
 			<div
-				className="fixed inset-0 z-40"
+				className="drawer-root"
 				style={{ "--app-topbar-height": APP_TOPBAR_HEIGHT } as CSSProperties}
 			>
 				<RadixDialog.Overlay
-					className="drawer-overlay-motion absolute inset-0 bg-black/50"
+					className="drawer-overlay-motion modal-overlay"
 					style={{ top: APP_TOPBAR_HEIGHT }}
 				/>
 				<RadixDialog.Content
 					aria-busy={isLoading || undefined}
 					aria-live={isLoading ? "polite" : undefined}
 					className={clsx(
-						"drawer-content-motion border-default-2 surface-2 shadow-strong absolute flex overflow-hidden border",
-						"flex-col",
+						"drawer-content-base drawer-content-motion",
 						DRAWER_POSITION_STYLES[side],
 						DRAWER_MOTION_STYLES[side],
 						className,
@@ -109,7 +95,7 @@ export function DrawerContent({
 
 export function DrawerHeader({ children, className }: DrawerHeaderProps) {
 	return (
-		<Header className={clsx("space-y-2 p-6", className)}>{children}</Header>
+		<Header className={clsx("drawer-header", className)}>{children}</Header>
 	);
 }
 
@@ -148,7 +134,7 @@ export function DrawerDescription({
 	}
 
 	return (
-		<RadixDialog.Description className={className}>
+		<RadixDialog.Description className={clsx("dialog-description", className)}>
 			{children}
 		</RadixDialog.Description>
 	);
@@ -159,10 +145,7 @@ export function DrawerFooter({ children, className }: DrawerFooterProps) {
 
 	return (
 		<Footer
-			className={clsx(
-				"border-default-2 mt-auto flex shrink-0 flex-wrap items-center justify-end gap-3 border-t p-6",
-				className,
-			)}
+			className={clsx("drawer-footer", className)}
 			isLoading={isLoading}
 		>
 			{children}

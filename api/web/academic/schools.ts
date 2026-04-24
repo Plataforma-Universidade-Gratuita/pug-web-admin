@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { WEB_API_ROUTE_BASES } from "@/constants/api";
 import {
 	SchoolCreateRequestSchema,
 	SchoolResponseSchema,
@@ -12,7 +13,7 @@ import type {
 } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = "/api/academic/schools";
+const BASE = WEB_API_ROUTE_BASES.academic.schools;
 
 export async function get(id: string): Promise<SchoolResponse> {
 	return webFetch(`${BASE}/${id}`, SchoolResponseSchema);

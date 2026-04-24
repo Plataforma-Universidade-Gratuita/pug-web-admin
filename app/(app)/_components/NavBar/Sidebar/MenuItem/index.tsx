@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 
+import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 
-import { Icon as AppIcon } from "components";
-import type { MenuItemProps } from "types/client";
+import { Icon as AppIcon } from "@/components";
+import type { MenuItemProps } from "@/types/client";
 
 export function MenuItem({
 	collapsed,
@@ -21,14 +22,10 @@ export function MenuItem({
 				href={href}
 				title={t(label)}
 				aria-current={active ? "page" : undefined}
-				className={[
-					"group relative flex h-10 w-full items-center",
-					"gap-2 rounded-2xl px-[0.725rem]",
-					"surface-2 hover:surface-3 shadow-weak no-underline transition-colors",
-					active
-						? "cursor-default bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)]"
-						: "",
-				].join(" ")}
+				className={clsx(
+					"app-sidebar-item",
+					active ? "app-sidebar-item-active" : null,
+				)}
 				onClick={e => {
 					if (active) {
 						e.preventDefault();
@@ -40,19 +37,17 @@ export function MenuItem({
 					icon={Icon}
 					size={20}
 					strokeWidth={2}
-					className={
-						active
-							? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
-							: "text-base-800"
-					}
+					className={clsx(
+						"app-sidebar-item-icon",
+						active ? "app-sidebar-item-icon-active" : null,
+					)}
 				/>
 				{!collapsed && (
 					<span
-						className={[
-							"ty-sm truncate",
-							"data-[collapsed=false]:inline",
-							active ? "text-brand font-semibold" : "",
-						].join(" ")}
+						className={clsx(
+							"app-sidebar-item-label truncate",
+							active ? "app-sidebar-item-label-active" : null,
+						)}
 					>
 						{t(label)}
 					</span>

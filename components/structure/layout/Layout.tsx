@@ -11,7 +11,7 @@ export function Header({
 }: HeaderProps) {
 	return (
 		<div
-			className={clsx(className)}
+			className={clsx(isLoading ? "layout-loading-copy" : null, className)}
 			{...props}
 		>
 			{isLoading ? (
@@ -37,10 +37,7 @@ export function Content({
 }: ContentProps) {
 	return (
 		<div
-			className={clsx(
-				isLoading ? "flex min-h-10 items-center" : null,
-				className,
-			)}
+			className={clsx(isLoading ? "layout-content-loading" : null, className)}
 			{...props}
 		>
 			{isLoading ? <Skeleton className="h-10 w-32 rounded-full" /> : children}
@@ -56,7 +53,7 @@ export function Footer({
 }: FooterProps) {
 	return (
 		<div
-			className={clsx(isLoading ? "flex flex-wrap gap-3" : null, className)}
+			className={clsx(isLoading ? "layout-footer-loading" : null, className)}
 			{...props}
 		>
 			{isLoading ? (

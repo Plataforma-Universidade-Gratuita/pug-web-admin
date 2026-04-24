@@ -38,10 +38,7 @@ export function Icon({
 
 	const iconNode = (
 		<span
-			className={clsx(
-				"inline-flex shrink-0 items-center justify-center",
-				containerClassName,
-			)}
+			className={clsx("icon-root", containerClassName)}
 			{...props}
 		>
 			{isDecorative || !accessibleLabel ? (

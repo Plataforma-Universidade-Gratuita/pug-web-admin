@@ -13,7 +13,7 @@ import type {
 export function Tabs({ children, className, ...props }: TabsProps) {
 	return (
 		<RadixTabs.Root
-			className={clsx("space-y-4", className)}
+			className={clsx("tabs-root", className)}
 			{...props}
 		>
 			{children}
@@ -24,10 +24,7 @@ export function Tabs({ children, className, ...props }: TabsProps) {
 export function TabsList({ children, className, ...props }: TabsListProps) {
 	return (
 		<RadixTabs.List
-			className={clsx(
-				"surface-1 inline-flex flex-wrap gap-2 rounded-[var(--twc-radius-lg)] p-1",
-				className,
-			)}
+			className={clsx("tabs-list", className)}
 			{...props}
 		>
 			{children}
@@ -42,10 +39,7 @@ export function TabsTrigger({
 }: TabsTriggerProps) {
 	return (
 		<RadixTabs.Trigger
-			className={clsx(
-				"focus-ring rounded-[calc(var(--twc-radius-lg)-0.25rem)] px-3 py-2 text-sm font-medium transition-colors hover:bg-[color:var(--twc-surface-2)] disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-[color:var(--twc-surface-2)] data-[state=active]:shadow-[var(--twc-shadow-sm)]",
-				className,
-			)}
+			className={clsx("tabs-trigger focus-ring", className)}
 			{...props}
 		>
 			{children}
@@ -60,7 +54,7 @@ export function TabsContent({
 }: TabsContentProps) {
 	return (
 		<RadixTabs.Content
-			className={clsx("focus-ring outline-none", className)}
+			className={clsx("tabs-content focus-ring", className)}
 			{...props}
 		>
 			{children}

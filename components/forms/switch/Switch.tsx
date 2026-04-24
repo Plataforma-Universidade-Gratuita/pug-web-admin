@@ -15,25 +15,25 @@ export function Switch({
 	return (
 		<label
 			className={clsx(
-				"flex items-start justify-between gap-4",
-				disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer",
+				"control-root control-root-between",
+				disabled ? "control-disabled" : "control-enabled",
 				className,
 			)}
 		>
 			{label || description ? (
-				<span className="min-w-0 space-y-1">
-					{label ? <span className="ty-sm-semibold block">{label}</span> : null}
+				<span className="control-copy">
+					{label ? <span className="control-label">{label}</span> : null}
 					{description ? (
-						<span className="ty-helper block">{description}</span>
+						<span className="control-description">{description}</span>
 					) : null}
 				</span>
 			) : null}
 			<RadixSwitch.Root
 				disabled={disabled}
-				className="border-default-2 focus-ring surface-1 relative inline-flex h-6 w-11 shrink-0 rounded-full border transition-colors hover:bg-[color:var(--twc-surface-2)] disabled:pointer-events-none data-[state=checked]:bg-[color:var(--color-brand)] data-[state=checked]:hover:bg-[color:color-mix(in_srgb,var(--color-brand)_88%,black)]"
+				className="switch-track focus-ring"
 				{...props}
 			>
-				<RadixSwitch.Thumb className="surface-2 shadow-normal pointer-events-none block h-5 w-5 translate-x-0.5 rounded-full transition-transform data-[state=checked]:translate-x-[1.3rem]" />
+				<RadixSwitch.Thumb className="switch-thumb" />
 			</RadixSwitch.Root>
 		</label>
 	);

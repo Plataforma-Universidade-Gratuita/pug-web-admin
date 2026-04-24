@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { WEB_API_ROUTE_BASES } from "@/constants/api";
 import {
 	AttendanceCreateRequestSchema,
 	AttendanceResponseSchema,
@@ -12,7 +13,7 @@ import type {
 } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = "/api/project/attendances";
+const BASE = WEB_API_ROUTE_BASES.project.attendances;
 
 export async function get(id: string): Promise<AttendanceResponse> {
 	return webFetch(`${BASE}/${id}`, AttendanceResponseSchema);

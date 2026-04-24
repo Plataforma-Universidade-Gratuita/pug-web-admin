@@ -1,10 +1,11 @@
 import { useState } from "react";
 
+import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Icon as AppIcon } from "components";
-import type { SettingCardProps } from "types/client";
+import { Icon as AppIcon } from "@/components";
+import type { SettingCardProps } from "@/types/client";
 
 export default function SettingCard({
 	title,
@@ -15,35 +16,36 @@ export default function SettingCard({
 	const [open, setOpen] = useState(false);
 
 	return (
-		<div className="surface-2 br-squircle border-default-3 shadow-weak border">
+		<div className="app-settings-card">
 			<button
 				type="button"
 				aria-haspopup="listbox"
 				aria-expanded={open}
 				onClick={() => setOpen(v => !v)}
-				className="hover:surface-3 focus-ring flex w-full items-center gap-2 rounded-t-[inherit] px-3 py-2"
+				className="app-settings-card-trigger"
 			>
-				<span className="ty-sm whitespace-nowrap">{t(title)}</span>
-				<span className="mx-2 h-[1px] flex-1 bg-[color:var(--twc-surface-3)]" />
+				<span className="app-settings-card-title">{t(title)}</span>
+				<span className="app-settings-card-divider" />
 				{selectedOption.Icon ? (
 					<AppIcon
 						icon={selectedOption.Icon}
 						size={15}
-						className="text-brand!"
+						className="app-sidebar-item-icon-active"
 					/>
 				) : null}
-				<span className="ty-sm-semibold text-brand! text-xs! whitespace-nowrap">
+				<span className="app-settings-card-selected">
 					{t(selectedOption.label)}
 				</span>
 				<AppIcon
 					icon={ChevronDown}
 					size={16}
-					className={`transition-transform ${open ? "rotate-180" : ""}`}
-					containerClassName="ml-1"
+					className={clsx(open ? "rotate-180" : null)}
+					containerClassName="app-settings-card-chevron"
 				/>
 			</button>
 			<div
-				className={`overflow-hidden transition-[max-height,opacity,transform] duration-200 ${open ? "max-h-96 translate-y-0 opacity-100" : "max-h-0 -translate-y-1 opacity-0"}`}
+				className="app-settings-card-options"
+				data-open={open ? "true" : "false"}
 			>
 				<ul role="listbox">
 					{options.map(({ Icon, label, value, onClick }, i) => {
@@ -57,14 +59,11 @@ export default function SettingCard({
 										onClick();
 										setOpen(false);
 									}}
-									className={[
-										"ty-sm br-square border-default-3 w-full border-t-1 px-3 py-2 text-left",
-										"surface-2 hover:surface-3 focus-ring transition-colors",
-										active
-											? "text-brand ty-sm-semibold! bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)]"
-											: "",
-										i === options.length - 1 ? "rounded-b-lg" : "",
-									].join(" ")}
+									className={clsx(
+										"app-settings-card-option",
+										active ? "app-settings-card-option-active" : null,
+										i === options.length - 1 ? "rounded-b-lg" : null,
+									)}
 								>
 									{Icon ? (
 										<AppIcon

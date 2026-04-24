@@ -17,17 +17,17 @@ export function Checkbox({
 	return (
 		<label
 			className={clsx(
-				"flex items-center gap-3",
-				disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer",
+				"control-root control-root-inline",
+				disabled ? "control-disabled" : "control-enabled",
 				className,
 			)}
 		>
 			<RadixCheckbox.Root
 				disabled={disabled}
-				className="border-default-2 surface-2 focus-ring inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-[0.375rem] border transition enabled:hover:border-[color:color-mix(in_srgb,var(--color-brand)_45%,var(--twc-border-2))] enabled:hover:bg-[color:var(--twc-surface-1)] enabled:active:scale-95 data-[state=checked]:border-[color:var(--color-brand)] data-[state=checked]:bg-[color:var(--color-brand)] data-[state=checked]:enabled:hover:bg-[color:color-mix(in_srgb,var(--color-brand)_88%,black)]"
+				className="checkbox-box focus-ring"
 				{...props}
 			>
-				<RadixCheckbox.Indicator className="text-white">
+				<RadixCheckbox.Indicator className="checkbox-indicator">
 					<Icon
 						icon={Check}
 						className="h-3.5 w-3.5"
@@ -35,10 +35,10 @@ export function Checkbox({
 				</RadixCheckbox.Indicator>
 			</RadixCheckbox.Root>
 			{label || description ? (
-				<span className="min-w-0 space-y-1">
-					{label ? <span className="ty-sm-semibold block">{label}</span> : null}
+				<span className="control-copy">
+					{label ? <span className="control-label">{label}</span> : null}
 					{description ? (
-						<span className="ty-helper block">{description}</span>
+						<span className="control-description">{description}</span>
 					) : null}
 				</span>
 			) : null}

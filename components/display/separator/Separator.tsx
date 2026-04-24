@@ -16,8 +16,10 @@ export function Separator({
 			orientation={orientation}
 			decorative={decorative}
 			className={clsx(
-				"shrink-0 bg-[color:var(--twc-border-2)]",
-				orientation === "horizontal" ? "h-px w-full" : "h-full w-px",
+				"separator-root",
+				orientation === "horizontal"
+					? "separator-horizontal"
+					: "separator-vertical",
 				className,
 			)}
 			{...props}

@@ -4,34 +4,8 @@ import clsx from "clsx";
 import { X } from "lucide-react";
 
 import { Icon } from "@/components/display/icon/Icon";
-import type { BadgeProps, BadgeTone, BadgeVariant } from "@/types/client";
-
-const BADGE_STYLES: Record<BadgeVariant, Record<BadgeTone, string>> = {
-	soft: {
-		neutral: "badge-tone-neutral badge-variant-soft",
-		brand: "badge-tone-brand badge-variant-soft",
-		success: "badge-tone-success badge-variant-soft",
-		info: "badge-tone-info badge-variant-soft",
-		warning: "badge-tone-warning badge-variant-soft",
-		danger: "badge-tone-danger badge-variant-soft",
-	},
-	solid: {
-		neutral: "badge-tone-neutral badge-variant-solid",
-		brand: "badge-tone-brand badge-variant-solid",
-		success: "badge-tone-success badge-variant-solid",
-		info: "badge-tone-info badge-variant-solid",
-		warning: "badge-tone-warning badge-variant-solid",
-		danger: "badge-tone-danger badge-variant-solid",
-	},
-	outline: {
-		neutral: "badge-tone-neutral badge-variant-outline",
-		brand: "badge-tone-brand badge-variant-outline",
-		success: "badge-tone-success badge-variant-outline",
-		info: "badge-tone-info badge-variant-outline",
-		warning: "badge-tone-warning badge-variant-outline",
-		danger: "badge-tone-danger badge-variant-outline",
-	},
-};
+import { BADGE_STYLES } from "@/constants/components";
+import type { BadgeProps } from "@/types/client";
 
 export function Badge({
 	children,
@@ -59,7 +33,7 @@ export function Badge({
 						event.stopPropagation();
 						onRemove();
 					}}
-					className="mr-1 inline-flex h-4 w-4 items-center justify-center rounded-full text-current/75 transition hover:bg-black/8 hover:text-current"
+					className="badge-remove-button"
 					aria-label={removeLabel}
 				>
 					<Icon

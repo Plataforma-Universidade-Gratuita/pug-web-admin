@@ -3,14 +3,15 @@
 import { useState } from "react";
 
 import * as Popover from "@radix-ui/react-popover";
+import clsx from "clsx";
 import { Laptop, Moon, Sun, Settings as Gear } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Icon } from "components";
-import SettingCard from "app/(app)/_components/NavBar/Sidebar/Settings/SettingCard";
-import { useLocale } from "contexts/locale";
-import { useTheme } from "contexts/theme";
-import type { AppLang, AppTheme, SettingsProps } from "types/client";
+import SettingCard from "@/app/(app)/_components/NavBar/Sidebar/Settings/SettingCard";
+import { Icon } from "@/components";
+import { useLocale } from "@/contexts/locale";
+import { useTheme } from "@/contexts/theme";
+import type { AppLang, AppTheme, SettingsProps } from "@/types/client";
 
 export default function Settings({ compact = false }: SettingsProps) {
 	const { mode, setMode } = useTheme();
@@ -59,33 +60,27 @@ export default function Settings({ compact = false }: SettingsProps) {
 		>
 			<Popover.Trigger asChild>
 				<button
-					className={[
-						"group relative flex h-10 w-full items-center",
-						"mb-2 gap-3 rounded-2xl px-[0.725rem]",
-						"surface-2 hover:surface-3 shadow-weak no-underline transition-colors",
-						open
-							? "bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)]"
-							: "",
-					].join(" ")}
+					className={clsx(
+						"app-sidebar-item mb-2",
+						open ? "app-sidebar-item-active" : null,
+					)}
 					aria-label="Open settings"
 				>
 					<Icon
 						icon={Gear}
 						size={20}
 						strokeWidth={2}
-						className={
-							open
-								? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
-								: "text-base-800"
-						}
+						className={clsx(
+							"app-sidebar-item-icon",
+							open ? "app-sidebar-item-icon-active" : null,
+						)}
 					/>
 					{!compact && (
 						<span
-							className={[
-								"ty-sm truncate",
-								"data-[collapsed=false]:inline",
-								open ? "text-brand font-semibold" : "",
-							].join(" ")}
+							className={clsx(
+								"app-sidebar-item-label truncate",
+								open ? "app-sidebar-item-label-active" : null,
+							)}
 						>
 							{t("Navbar.settings.title")}
 						</span>
@@ -101,9 +96,9 @@ export default function Settings({ compact = false }: SettingsProps) {
 					sideOffset={15}
 					onEscapeKeyDown={() => setOpen(false)}
 					onCloseAutoFocus={() => setOpen(false)}
-					className="surface-2 br-squircle shadow-weak border-default-3 z-50 border-1 p-2"
+					className="app-settings-panel"
 				>
-					<div className="flex w-62 flex-col gap-2">
+					<div className="app-settings-panel-inner">
 						<SettingCard
 							title="Navbar.settings.themes.title"
 							selectedOption={themeSelected}
@@ -145,7 +140,7 @@ export default function Settings({ compact = false }: SettingsProps) {
 							]}
 						/>
 					</div>
-					<Popover.Arrow className="fill-base-100" />
+					<Popover.Arrow className="app-settings-panel-arrow" />
 				</Popover.Content>
 			</Popover.Portal>
 		</Popover.Root>

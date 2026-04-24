@@ -1,3 +1,4 @@
+import { API_ROUTE_BASES } from "@/constants/api";
 import { TokenResponseSchema } from "@/schemas/api/identity/auth";
 import type {
 	LoginRequest,
@@ -7,7 +8,7 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid } from "@/utils/api";
 
-const BASE = "/auth";
+const BASE = API_ROUTE_BASES.identity.auth;
 
 export async function login(body: LoginRequest): Promise<TokenResponse> {
 	return zfetch(

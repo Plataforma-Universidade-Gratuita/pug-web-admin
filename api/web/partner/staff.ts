@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { WEB_API_ROUTE_BASES } from "@/constants/api";
 import {
 	StaffCreateRequestSchema,
 	StaffResponseSchema,
@@ -12,7 +13,7 @@ import type {
 } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = "/api/partner/staff";
+const BASE = WEB_API_ROUTE_BASES.partner.staff;
 
 export async function get(id: string): Promise<StaffResponse> {
 	return webFetch(`${BASE}/${id}`, StaffResponseSchema);

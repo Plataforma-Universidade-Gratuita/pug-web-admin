@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { WEB_API_ROUTE_BASES } from "@/constants/api";
 import {
 	EnrollmentCreateRequestSchema,
 	EnrollmentResponseSchema,
@@ -7,7 +8,7 @@ import {
 import type { EnrollmentCreateRequest, EnrollmentResponse } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = "/api/project/enrollments";
+const BASE = WEB_API_ROUTE_BASES.project.enrollments;
 
 export async function get(
 	projectId: string,

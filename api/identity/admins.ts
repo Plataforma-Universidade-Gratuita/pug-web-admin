@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { API_ROUTE_BASES } from "@/constants/api";
 import { AdminResponseSchema } from "@/schemas/api/identity/admin";
 import type {
 	AdminCreateRequest,
@@ -8,7 +9,7 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = "/identity/admins";
+const BASE = API_ROUTE_BASES.identity.admins;
 
 export async function get(id: string, token?: string): Promise<AdminResponse> {
 	return zfetch(`${BASE}/${id}`, { method: "GET" }, AdminResponseSchema, token);

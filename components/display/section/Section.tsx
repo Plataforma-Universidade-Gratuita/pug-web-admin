@@ -24,7 +24,7 @@ export function Section({
 			<section
 				aria-busy={isLoading || undefined}
 				aria-live={isLoading ? "polite" : undefined}
-				className={clsx("space-y-6", className)}
+				className={clsx("section-root", className)}
 				role={isLoading ? "status" : undefined}
 				{...props}
 			>
@@ -42,10 +42,7 @@ export function SectionHeader({
 }: SectionHeaderProps) {
 	return (
 		<Header
-			className={clsx(
-				"flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between",
-				className,
-			)}
+			className={clsx("section-header", className)}
 			{...props}
 		>
 			{children}
@@ -71,7 +68,7 @@ export function SectionTitle({
 
 	return (
 		<h2
-			className={clsx("ty-header", className)}
+			className={clsx("section-title", className)}
 			{...props}
 		>
 			{children}
@@ -100,7 +97,7 @@ export function SectionDescription({
 
 	return (
 		<p
-			className={clsx("ty-helper", className)}
+			className={clsx("section-description", className)}
 			{...props}
 		>
 			{children}
@@ -118,7 +115,7 @@ export function SectionContent({
 	if (isLoading) {
 		return (
 			<Content
-				className={clsx("space-y-4", className)}
+				className={clsx("section-content", className)}
 				{...props}
 			>
 				<div
@@ -137,7 +134,7 @@ export function SectionContent({
 
 	return (
 		<Content
-			className={clsx("space-y-6", className)}
+			className={clsx("section-content", className)}
 			{...props}
 		>
 			{children}
@@ -155,7 +152,7 @@ export function SectionActions({
 	if (isLoading) {
 		return (
 			<Footer
-				className={clsx("flex flex-wrap gap-3", className)}
+				className={clsx("section-actions", className)}
 				{...props}
 			>
 				<Skeleton className="h-10 w-32 rounded-full" />
@@ -165,7 +162,7 @@ export function SectionActions({
 
 	return (
 		<Footer
-			className={clsx("flex flex-wrap gap-3", className)}
+			className={clsx("section-actions", className)}
 			{...props}
 		>
 			{children}

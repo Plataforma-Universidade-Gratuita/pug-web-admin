@@ -11,3 +11,8 @@ export interface AdminTokenValidationResult {
 	isValid: boolean;
 	payload?: PugJwtPayload;
 }
+
+export interface LoginFormValues {
+	email: string;
+	password: string;
+}

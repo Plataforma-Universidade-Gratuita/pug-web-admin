@@ -1,10 +1,11 @@
 import { z } from "zod";
 
+import { WEB_API_ROUTE_BASES } from "@/constants/api";
 import { AccountResponseSchema } from "@/schemas/api";
 import type { AccountResponse } from "@/types/api";
 import { webFetch } from "@/utils/web-api";
 
-const BASE = "/api/identity/accounts";
+const BASE = WEB_API_ROUTE_BASES.identity.accounts;
 
 export async function get(id: string): Promise<AccountResponse> {
 	return webFetch(`${BASE}/${id}`, AccountResponseSchema);

@@ -5,6 +5,11 @@ export interface LoadingContextValue {
 	loadingLabel?: string | undefined;
 }
 
+export interface LoadingProviderProps {
+	children: ReactNode;
+	value: LoadingContextValue;
+}
+
 export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
 	children?: ReactNode;
 	isLoading?: boolean;

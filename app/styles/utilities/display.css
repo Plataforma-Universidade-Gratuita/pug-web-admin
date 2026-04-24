@@ -1,0 +1,128 @@
+@layer components {
+	.icon-root {
+		display: inline-flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.skeleton-root {
+		display: block;
+		border-radius: var(--twc-radius-circle);
+	}
+
+	.card-root {
+		border: 1px solid var(--twc-border-2);
+		border-radius: var(--twc-radius-xl);
+		background-color: var(--twc-surface-1);
+	}
+
+	.card-header {
+		display: grid;
+		gap: 0.25rem;
+	}
+
+	.card-title {
+		font-family: var(--twc-font-sans);
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-bold);
+		letter-spacing: var(--twc-tracking-normal);
+		line-height: var(--twc-leading-snug);
+		color: var(--twc-text);
+	}
+
+	.card-description {
+		font-family: var(--twc-font-sans);
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-regular);
+		letter-spacing: var(--twc-tracking-normal);
+		line-height: var(--twc-leading-relaxed);
+		color: var(--twc-muted);
+	}
+
+	.empty-state-root {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1.5rem;
+		border-radius: var(--twc-radius-xl);
+	}
+
+	.empty-state-icon {
+		display: flex;
+		height: 3rem;
+		width: 3rem;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--twc-radius-lg);
+		background-color: var(--twc-surface-2);
+	}
+
+	.empty-state-copy {
+		display: grid;
+		gap: 0.25rem;
+	}
+
+	.separator-root {
+		flex-shrink: 0;
+		background-color: var(--twc-border-2);
+	}
+
+	.separator-horizontal {
+		height: 1px;
+		width: 100%;
+	}
+
+	.separator-vertical {
+		height: 100%;
+		width: 1px;
+	}
+
+	.section-root {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.section-header {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	@media (min-width: 64rem) {
+		.section-header {
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: space-between;
+		}
+	}
+
+	.section-title {
+		font-family: var(--twc-font-display);
+		font-size: var(--twc-text-lg);
+		font-weight: var(--twc-weight-semibold);
+		letter-spacing: var(--twc-tracking-tight);
+		line-height: var(--twc-leading-snug);
+		color: var(--twc-text);
+	}
+
+	.section-description {
+		font-family: var(--twc-font-sans);
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-regular);
+		letter-spacing: var(--twc-tracking-normal);
+		line-height: var(--twc-leading-relaxed);
+		color: var(--twc-muted);
+	}
+
+	.section-content {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.section-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+}

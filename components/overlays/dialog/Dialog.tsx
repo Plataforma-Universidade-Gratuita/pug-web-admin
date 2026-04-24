@@ -47,15 +47,15 @@ export function DialogContent({ children, className }: DialogContentProps) {
 	return (
 		<RadixDialog.Portal>
 			<div
-				className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-center p-4"
+				className="modal-frame"
 				style={{ top: APP_TOPBAR_HEIGHT }}
 			>
-				<RadixDialog.Overlay className="dialog-overlay-motion absolute inset-0 bg-black/50" />
+				<RadixDialog.Overlay className="dialog-overlay-motion modal-overlay" />
 				<RadixDialog.Content
 					aria-busy={isLoading || undefined}
 					aria-live={isLoading ? "polite" : undefined}
 					className={clsx(
-						"dialog-content-motion border-default-2 surface-2 shadow-strong relative flex w-full max-w-2xl flex-col overflow-hidden rounded-[calc(var(--twc-radius-xl)+0.25rem)] border",
+						"dialog-content-base dialog-content dialog-content-motion",
 						className,
 					)}
 					role={isLoading ? "status" : undefined}
@@ -70,7 +70,9 @@ export function DialogContent({ children, className }: DialogContentProps) {
 }
 
 export function DialogHeader({ children, className }: DialogHeaderProps) {
-	return <Header className={clsx("space-y-2", className)}>{children}</Header>;
+	return (
+		<Header className={clsx("dialog-header", className)}>{children}</Header>
+	);
 }
 
 export function DialogTitle({ children, className }: DialogTitleProps) {
@@ -108,7 +110,7 @@ export function DialogDescription({
 	}
 
 	return (
-		<RadixDialog.Description className={className}>
+		<RadixDialog.Description className={clsx("dialog-description", className)}>
 			{children}
 		</RadixDialog.Description>
 	);
@@ -119,10 +121,7 @@ export function DialogFooter({ children, className }: DialogFooterProps) {
 
 	return (
 		<Footer
-			className={clsx(
-				"border-default-2 flex shrink-0 flex-wrap items-center justify-end gap-3 border-t p-6",
-				className,
-			)}
+			className={clsx("dialog-footer", className)}
 			isLoading={isLoading}
 		>
 			{children}

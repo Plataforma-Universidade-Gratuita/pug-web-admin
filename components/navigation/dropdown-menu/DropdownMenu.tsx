@@ -48,11 +48,7 @@ export function DropdownMenuContent({
 			<RadixDropdownMenu.Content
 				align={align}
 				sideOffset={sideOffset}
-				className={clsx(
-					"border-default-2 surface-2 shadow-strong z-50 min-w-52 overflow-hidden rounded-[var(--twc-radius-xl)] border p-1",
-					"data-[state=closed]:animate-[accordion-up_var(--twc-duration-fast)_var(--twc-ease-standard)] data-[state=open]:animate-[accordion-down_var(--twc-duration-fast)_var(--twc-ease-standard)]",
-					className,
-				)}
+				className={clsx("dropdown-content", className)}
 				{...props}
 			>
 				{children}
@@ -70,8 +66,8 @@ export function DropdownMenuItem({
 	return (
 		<RadixDropdownMenu.Item
 			className={clsx(
-				"focus-ring relative flex cursor-default items-center gap-3 rounded-[var(--twc-radius-lg)] px-3 py-2 outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:text-[color:var(--twc-muted)] data-[highlighted]:bg-[color:var(--twc-surface-1)]",
-				inset ? "pl-8" : null,
+				"dropdown-item focus-ring",
+				inset ? "dropdown-item-inset" : null,
 				className,
 			)}
 			{...props}
@@ -90,8 +86,8 @@ export function DropdownMenuLabel({
 	return (
 		<RadixDropdownMenu.Label
 			className={clsx(
-				"ty-sm-semibold px-3 py-2 text-[color:var(--twc-muted)]",
-				inset ? "pl-8" : null,
+				"dropdown-label",
+				inset ? "dropdown-label-inset" : null,
 				className,
 			)}
 			{...props}
@@ -107,7 +103,7 @@ export function DropdownMenuSeparator({
 }: DropdownMenuSeparatorProps) {
 	return (
 		<RadixDropdownMenu.Separator
-			className={clsx("border-default-2 my-1 h-px border-t", className)}
+			className={clsx("dropdown-separator", className)}
 			{...props}
 		/>
 	);

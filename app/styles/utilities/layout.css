@@ -1,0 +1,54 @@
+@layer components {
+	.layout-loading-copy {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.layout-content-loading {
+		display: flex;
+		min-height: 2.5rem;
+		align-items: center;
+	}
+
+	.layout-footer-loading {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.scroll-area-root {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.scroll-area-viewport {
+		height: 100%;
+		width: 100%;
+		border-radius: inherit;
+	}
+
+	.scroll-area-scrollbar-vertical {
+		display: flex;
+		width: 0.625rem;
+		touch-action: none;
+		padding: 0.125rem;
+	}
+
+	.scroll-area-scrollbar-horizontal {
+		display: flex;
+		height: 0.625rem;
+		touch-action: none;
+		padding: 0.125rem;
+	}
+
+	.scroll-area-thumb {
+		position: relative;
+		flex: 1;
+		border-radius: var(--twc-radius-circle);
+		background-color: var(--twc-border-2);
+	}
+
+	.scroll-area-corner {
+		background-color: var(--twc-border-2);
+	}
+}

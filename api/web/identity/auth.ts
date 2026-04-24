@@ -1,3 +1,4 @@
+import { WEB_API_ROUTE_BASES } from "@/constants/api";
 import { TokenResponseSchema } from "@/schemas/api";
 import type {
 	LoginRequest,
@@ -7,7 +8,7 @@ import type {
 } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = "/api/auth";
+const BASE = WEB_API_ROUTE_BASES.identity.auth;
 
 export async function login(body: LoginRequest): Promise<TokenResponse> {
 	return webFetch(`${BASE}/login`, TokenResponseSchema, {

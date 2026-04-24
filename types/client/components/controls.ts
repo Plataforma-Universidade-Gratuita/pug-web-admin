@@ -124,6 +124,17 @@ export interface SelectProps {
 	disabled?: boolean;
 }
 
+export interface SelectContextValue {
+	clearSelection: () => void;
+	disabled: boolean;
+	hasValue: boolean;
+}
+
+export interface SelectProviderProps {
+	children: ReactNode;
+	value: SelectContextValue;
+}
+
 export interface SelectTriggerProps
 	extends Omit<
 		ComponentPropsWithoutRef<typeof RadixSelect.Trigger>,

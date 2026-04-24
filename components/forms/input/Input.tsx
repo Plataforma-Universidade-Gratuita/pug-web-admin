@@ -67,28 +67,23 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
 	return (
 		<div
-			className={clsx(
-				"border-default-2 surface-2 focus-within:focus-ring flex items-center rounded-[var(--twc-radius-lg)] border transition-colors",
-				disabled ? "opacity-60" : null,
-				className,
-			)}
+			data-disabled={disabled ? "true" : "false"}
+			className={clsx("field-shell", className)}
 		>
 			{leadingIcon ? (
-				<span className="pl-3 text-[color:var(--twc-muted)]">
-					{leadingIcon}
-				</span>
+				<span className="field-leading-icon">{leadingIcon}</span>
 			) : null}
 			<input
 				ref={assignRef}
 				type={resolvedType}
 				disabled={disabled}
 				className={clsx(
-					"w-full bg-transparent px-3 py-2.5 text-base text-[color:var(--twc-text)] outline-none placeholder:text-[color:var(--twc-muted)] disabled:cursor-not-allowed",
-					leadingIcon ? "pl-2" : null,
+					"field-input",
+					leadingIcon ? "field-input-leading" : null,
 					trailingIcon ||
 						(isPasswordField && showPasswordToggle) ||
 						hasSearchValue
-						? "pr-2"
+						? "field-input-trailing"
 						: null,
 				)}
 				{...props}
@@ -102,7 +97,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 					type="button"
 					disabled={disabled}
 					onClick={clearSearchValue}
-					className="mr-1 inline-flex h-8 w-8 items-center justify-center rounded-full text-[color:var(--twc-muted)] transition hover:bg-[color:var(--twc-surface-1)] hover:text-[color:var(--twc-text)] disabled:pointer-events-none"
+					className="field-icon-button field-clear-button"
 					aria-label="Clear search"
 				>
 					<Icon
@@ -116,7 +111,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 					type="button"
 					disabled={disabled}
 					onClick={() => setIsPasswordVisible(current => !current)}
-					className="mr-2 inline-flex h-9 w-9 items-center justify-center rounded-full text-[color:var(--twc-muted)] transition hover:bg-[color:var(--twc-surface-1)] hover:text-[color:var(--twc-text)] disabled:pointer-events-none"
+					className="field-icon-button field-toggle-button"
 					aria-label={
 						isPasswordVisible
 							? "Hide password content"
@@ -129,9 +124,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 					/>
 				</button>
 			) : trailingIcon ? (
-				<span className="pr-3 text-[color:var(--twc-muted)]">
-					{trailingIcon}
-				</span>
+				<span className="field-trailing-icon">{trailingIcon}</span>
 			) : null}
 		</div>
 	);

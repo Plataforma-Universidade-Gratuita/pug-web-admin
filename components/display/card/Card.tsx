@@ -24,10 +24,7 @@ export function Card({
 			<div
 				aria-busy={isLoading || undefined}
 				aria-live={isLoading ? "polite" : undefined}
-				className={clsx(
-					"border-default-2 surface-1 rounded-[var(--twc-radius-xl)] border",
-					className,
-				)}
+				className={clsx("card-root", className)}
 				role={isLoading ? "status" : undefined}
 				{...props}
 			>
@@ -41,7 +38,7 @@ export function Card({
 export function CardHeader({ children, className, ...props }: CardHeaderProps) {
 	return (
 		<Header
-			className={clsx("space-y-1", className)}
+			className={clsx("card-header", className)}
 			{...props}
 		>
 			{children}
@@ -63,7 +60,7 @@ export function CardTitle({ children, className, ...props }: CardTitleProps) {
 
 	return (
 		<h3
-			className={clsx("ty-sm-bold", className)}
+			className={clsx("card-title", className)}
 			{...props}
 		>
 			{children}
@@ -92,7 +89,7 @@ export function CardDescription({
 
 	return (
 		<p
-			className={clsx("ty-helper", className)}
+			className={clsx("card-description", className)}
 			{...props}
 		>
 			{children}

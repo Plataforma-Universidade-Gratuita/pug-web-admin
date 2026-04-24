@@ -5,3 +5,9 @@ export const HOME_ROUTE = "/";
 export const LOGIN_ROUTE = "/login";
 
 export const PUBLIC_ROUTES = [LOGIN_ROUTE];
+
+export const LOGIN_SECURITY_HIGHLIGHTS = [
+	"Administrator-only access",
+	"Session continuity with secure cookies",
+	"Token refresh handled automatically",
+] as const;

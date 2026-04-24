@@ -1,10 +1,11 @@
 import { z } from "zod";
 
+import { API_ROUTE_BASES } from "@/constants/api";
 import { AccountResponseSchema } from "@/schemas/api/identity/account";
 import type { AccountResponse } from "@/types/api";
 import { zfetch, qs } from "@/utils/api";
 
-const BASE = "/identity/accounts";
+const BASE = API_ROUTE_BASES.identity.accounts;
 
 export async function get(
 	id: string,

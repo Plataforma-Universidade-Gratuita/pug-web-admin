@@ -21,6 +21,15 @@
 	}
 }
 
+@utility btn-spinner {
+	height: 1rem;
+	width: 1rem;
+	animation: spin 1s linear infinite;
+	border: 2px solid currentColor;
+	border-top-color: transparent;
+	border-radius: var(--twc-radius-circle);
+}
+
 @utility btn-usage-primary {
 	--btn-accent: var(--color-brand);
 	--btn-contrast: var(--white-a12);

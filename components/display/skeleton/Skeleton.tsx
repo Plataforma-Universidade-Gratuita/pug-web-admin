@@ -1,14 +1,7 @@
 import clsx from "clsx";
 
+import { normalizeSize } from "@/components/utils";
 import type { SkeletonProps } from "@/types/client";
-
-function normalizeSize(value: string | number | undefined) {
-	if (typeof value === "number") {
-		return `${value}px`;
-	}
-
-	return value;
-}
 
 export function Skeleton({
 	className,
@@ -20,7 +13,7 @@ export function Skeleton({
 		<span
 			aria-hidden="true"
 			className={clsx(
-				"skeleton-shimmer block rounded-full",
+				"skeleton-root skeleton-shimmer",
 				height ? null : "h-4",
 				width ? null : "w-full",
 				className,

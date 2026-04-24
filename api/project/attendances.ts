@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { API_ROUTE_BASES } from "@/constants/api";
 import { AttendanceResponseSchema } from "@/schemas/api/project/attendance";
 import type {
 	AttendanceCreateRequest,
@@ -8,7 +9,7 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = "/projects/attendances";
+const BASE = API_ROUTE_BASES.project.attendances;
 
 export async function get(
 	id: string,

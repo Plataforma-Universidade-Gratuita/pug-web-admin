@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
 	AlertCircle,
@@ -10,50 +10,22 @@ import {
 	RotateCcw,
 	TriangleAlert,
 } from "lucide-react";
-import {
-	Toaster as SonnerToaster,
-	toast as sonnerToast,
-	type ExternalToast,
-} from "sonner";
+import { Toaster as SonnerToaster, toast as sonnerToast } from "sonner";
 
-import { APP_TOPBAR_HEIGHT } from "@/constants/components";
+import { resolveToastValue, withToastDefaults } from "@/components/utils";
+import {
+	TOAST_DEFAULT_DURATION,
+	TOAST_OFFSET_TOP,
+	TOAST_UNDO_DURATION,
+	TOAST_VISIBLE_COUNT,
+} from "@/constants/components";
 import { useTheme } from "@/contexts/theme";
 import type {
 	AppToastOptions,
 	AppToastPromiseOptions,
+	ToastProviderProps,
 	AppToastUndoOptions,
 } from "@/types/client";
-
-const DEFAULT_TOAST_DURATION = 3000;
-const UNDO_TOAST_DURATION = 5000;
-const TOAST_OFFSET_TOP = `calc(${APP_TOPBAR_HEIGHT} + 1rem)`;
-
-type ToastProviderProps = Omit<
-	ComponentProps<typeof SonnerToaster>,
-	| "duration"
-	| "expand"
-	| "offset"
-	| "position"
-	| "theme"
-	| "toastOptions"
-	| "visibleToasts"
->;
-
-function withDefaults(options?: AppToastOptions): ExternalToast {
-	return {
-		duration: DEFAULT_TOAST_DURATION,
-		...options,
-	};
-}
-
-function resolveValue<TData>(
-	value: ReactNode | ((data: TData) => ReactNode),
-	data: TData,
-) {
-	return typeof value === "function"
-		? (value as (data: TData) => ReactNode)(data)
-		: value;
-}
 
 export function ToastProvider(props: ToastProviderProps) {
 	const { mode } = useTheme();
@@ -63,8 +35,8 @@ export function ToastProvider(props: ToastProviderProps) {
 			expand={false}
 			theme={mode === "system" ? "system" : mode}
 			position="top-right"
-			visibleToasts={3}
-			duration={DEFAULT_TOAST_DURATION}
+			visibleToasts={TOAST_VISIBLE_COUNT}
+			duration={TOAST_DEFAULT_DURATION}
 			offset={{ top: TOAST_OFFSET_TOP, right: "1rem" }}
 			toastOptions={{
 				unstyled: true,
@@ -97,24 +69,42 @@ export function ToastProvider(props: ToastProviderProps) {
 }
 
 function baseToast(message: ReactNode, options?: AppToastOptions) {
-	return sonnerToast(message, withDefaults(options));
+	return sonnerToast(
+		message,
+		withToastDefaults(options, TOAST_DEFAULT_DURATION),
+	);
 }
 
 export const toast = Object.assign(baseToast, {
 	success(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.success(message, withDefaults(options));
+		return sonnerToast.success(
+			message,
+			withToastDefaults(options, TOAST_DEFAULT_DURATION),
+		);
 	},
 	info(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.info(message, withDefaults(options));
+		return sonnerToast.info(
+			message,
+			withToastDefaults(options, TOAST_DEFAULT_DURATION),
+		);
 	},
 	warning(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.warning(message, withDefaults(options));
+		return sonnerToast.warning(
+			message,
+			withToastDefaults(options, TOAST_DEFAULT_DURATION),
+		);
 	},
 	danger(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.error(message, withDefaults(options));
+		return sonnerToast.error(
+			message,
+			withToastDefaults(options, TOAST_DEFAULT_DURATION),
+		);
 	},
 	error(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.error(message, withDefaults(options));
+		return sonnerToast.error(
+			message,
+			withToastDefaults(options, TOAST_DEFAULT_DURATION),
+		);
 	},
 	promise<ToastData>(
 		promise: Promise<ToastData> | (() => Promise<ToastData>),
@@ -123,13 +113,13 @@ export const toast = Object.assign(baseToast, {
 		const { loading, success, error, description, ...rest } = options;
 
 		return sonnerToast.promise(promise, {
-			...withDefaults(rest),
+			...withToastDefaults(rest, TOAST_DEFAULT_DURATION),
 			loading,
-			success: data => resolveValue(success, data),
-			error: err => resolveValue(error, err),
+			success: data => resolveToastValue(success, data),
+			error: err => resolveToastValue(error, err),
 			description:
 				typeof description === "function"
-					? (data: ToastData) => resolveValue(description, data)
+					? (data: ToastData) => resolveToastValue(description, data)
 					: description,
 		});
 	},
@@ -143,8 +133,8 @@ export const toast = Object.assign(baseToast, {
 			.join(" ");
 
 		return sonnerToast.message(message, {
-			...withDefaults(rest),
-			duration: duration ?? UNDO_TOAST_DURATION,
+			...withToastDefaults(rest, TOAST_DEFAULT_DURATION),
+			duration: duration ?? TOAST_UNDO_DURATION,
 			icon: <RotateCcw className="h-4 w-4" />,
 			classNames: {
 				...rest.classNames,

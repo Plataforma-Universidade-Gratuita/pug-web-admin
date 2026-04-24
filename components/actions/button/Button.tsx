@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 import { Tooltip } from "@/components";
-import { getAccessibleText } from "@/components/actions/button/utils";
+import { getAccessibleText } from "@/components/utils";
 import {
 	BUTTON_SIZES,
 	BUTTON_USAGES,
@@ -39,7 +39,7 @@ export function Button({
 	const spinner = (
 		<span
 			aria-hidden="true"
-			className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+			className="btn-spinner"
 		/>
 	);
 	const button = (

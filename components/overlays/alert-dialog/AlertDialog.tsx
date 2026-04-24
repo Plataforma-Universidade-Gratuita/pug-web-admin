@@ -46,15 +46,15 @@ export function AlertDialogContent({
 	return (
 		<RadixAlertDialog.Portal>
 			<div
-				className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-center p-4"
+				className="modal-frame"
 				style={{ top: APP_TOPBAR_HEIGHT }}
 			>
-				<RadixAlertDialog.Overlay className="dialog-overlay-motion absolute inset-0 bg-black/50" />
+				<RadixAlertDialog.Overlay className="dialog-overlay-motion modal-overlay" />
 				<RadixAlertDialog.Content
 					aria-busy={isLoading || undefined}
 					aria-live={isLoading ? "polite" : undefined}
 					className={clsx(
-						"dialog-content-motion border-default-2 surface-2 shadow-strong relative flex w-full max-w-lg flex-col overflow-hidden rounded-[calc(var(--twc-radius-xl)+0.25rem)] border",
+						"alert-dialog-content dialog-content-base dialog-content-motion",
 						className,
 					)}
 					role={isLoading ? "status" : undefined}
@@ -71,7 +71,9 @@ export function AlertDialogHeader({
 	children,
 	className,
 }: AlertDialogHeaderProps) {
-	return <Header className={clsx("space-y-2", className)}>{children}</Header>;
+	return (
+		<Header className={clsx("dialog-header", className)}>{children}</Header>
+	);
 }
 
 export function AlertDialogTitle({
@@ -114,7 +116,9 @@ export function AlertDialogDescription({
 	}
 
 	return (
-		<RadixAlertDialog.Description className={className}>
+		<RadixAlertDialog.Description
+			className={clsx("dialog-description", className)}
+		>
 			{children}
 		</RadixAlertDialog.Description>
 	);
@@ -128,10 +132,7 @@ export function AlertDialogFooter({
 
 	return (
 		<Footer
-			className={clsx(
-				"border-default-2 flex shrink-0 flex-wrap items-center justify-end gap-3 border-t p-6",
-				className,
-			)}
+			className={clsx("dialog-footer", className)}
 			isLoading={isLoading}
 		>
 			{children}

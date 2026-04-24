@@ -7,6 +7,25 @@
 	line-height: 1;
 }
 
+@utility badge-remove-button {
+	margin-right: 0.25rem;
+	display: inline-flex;
+	height: 1rem;
+	width: 1rem;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--twc-radius-circle);
+	color: color-mix(in srgb, currentColor 75%, transparent);
+	transition:
+		background-color var(--twc-duration-normal) var(--twc-ease-standard),
+		color var(--twc-duration-normal) var(--twc-ease-standard);
+
+	&:hover {
+		background-color: color-mix(in srgb, black 8%, transparent);
+		color: currentColor;
+	}
+}
+
 @utility badge-tone-neutral {
 	--badge-accent: var(--twc-text);
 	--badge-contrast: var(--twc-surface-2);

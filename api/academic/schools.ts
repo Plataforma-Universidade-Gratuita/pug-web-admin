@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { API_ROUTE_BASES } from "@/constants/api";
 import { SchoolResponseSchema } from "@/schemas/api/academic/school";
 import type {
 	SchoolCreateRequest,
@@ -8,7 +9,7 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = "/academic/schools";
+const BASE = API_ROUTE_BASES.academic.schools;
 
 export async function get(id: string, token?: string): Promise<SchoolResponse> {
 	return zfetch(

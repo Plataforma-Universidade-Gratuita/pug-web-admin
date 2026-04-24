@@ -8,7 +8,7 @@ import type { RadioGroupItemProps, RadioGroupProps } from "@/types/client";
 export function RadioGroup({ children, className, ...props }: RadioGroupProps) {
 	return (
 		<RadixRadioGroup.Root
-			className={clsx("space-y-3", className)}
+			className={clsx("radio-group-root", className)}
 			{...props}
 		>
 			{children}
@@ -26,23 +26,23 @@ export function RadioGroupItem({
 	return (
 		<label
 			className={clsx(
-				"flex items-start gap-3",
-				disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer",
+				"control-root",
+				disabled ? "control-disabled" : "control-enabled",
 				className,
 			)}
 		>
 			<RadixRadioGroup.Item
 				disabled={disabled}
-				className="border-default-2 surface-2 focus-ring mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border"
+				className="radio-item focus-ring"
 				{...props}
 			>
-				<RadixRadioGroup.Indicator className="inline-flex h-2.5 w-2.5 rounded-full bg-[color:var(--color-brand)]" />
+				<RadixRadioGroup.Indicator className="radio-indicator" />
 			</RadixRadioGroup.Item>
 			{label || description ? (
-				<span className="min-w-0 space-y-1">
-					{label ? <span className="ty-sm-semibold block">{label}</span> : null}
+				<span className="control-copy">
+					{label ? <span className="control-label">{label}</span> : null}
 					{description ? (
-						<span className="ty-helper block">{description}</span>
+						<span className="control-description">{description}</span>
 					) : null}
 				</span>
 			) : null}

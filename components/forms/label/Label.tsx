@@ -8,7 +8,7 @@ import type { LabelProps } from "@/types/client";
 export function Label({ children, className, ...props }: LabelProps) {
 	return (
 		<RadixLabel.Root
-			className={clsx("ty-sm-semibold", className)}
+			className={clsx("label-root", className)}
 			{...props}
 		>
 			{children}

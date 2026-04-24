@@ -1,6 +1,6 @@
 import type { MouseEvent, ReactNode } from "react";
 
-import type { ExternalToast } from "sonner";
+import type { ExternalToast, ToasterProps } from "sonner";
 
 export interface AppToastOptions
 	extends Omit<ExternalToast, "description" | "duration" | "action"> {
@@ -20,3 +20,14 @@ export interface AppToastPromiseOptions<ToastData>
 	error: ReactNode | ((error: unknown) => ReactNode);
 	description?: ReactNode | ((data: ToastData) => ReactNode);
 }
+
+export type ToastProviderProps = Omit<
+	ToasterProps,
+	| "duration"
+	| "expand"
+	| "offset"
+	| "position"
+	| "theme"
+	| "toastOptions"
+	| "visibleToasts"
+>;

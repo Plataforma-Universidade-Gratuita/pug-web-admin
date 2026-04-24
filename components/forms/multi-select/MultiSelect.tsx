@@ -13,20 +13,8 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/overlays/popover/Popover";
+import { buildVisibleSelections } from "@/components/utils";
 import type { MultiSelectProps } from "@/types/client";
-
-function buildVisibleSelections({
-	selectedOptions,
-	maxVisibleValues,
-}: {
-	selectedOptions: Array<{ value: string; label: string }>;
-	maxVisibleValues: number;
-}) {
-	const visibleOptions = selectedOptions.slice(0, maxVisibleValues);
-	const remainingCount = selectedOptions.length - visibleOptions.length;
-
-	return { visibleOptions, remainingCount };
-}
 
 export function MultiSelect({
 	options,
@@ -54,10 +42,10 @@ export function MultiSelect({
 		[options, selectedValues],
 	);
 
-	const { visibleOptions, remainingCount } = buildVisibleSelections({
+	const { visibleOptions, remainingCount } = buildVisibleSelections(
 		selectedOptions,
 		maxVisibleValues,
-	});
+	);
 
 	function updateValue(nextValue: string[]) {
 		if (value === undefined) setInternalValue(nextValue);
@@ -81,25 +69,22 @@ export function MultiSelect({
 			open={open}
 			onOpenChange={setOpen}
 		>
-			<div className="relative w-full">
+			<div className="multi-select-shell">
 				<PopoverTrigger>
 					<button
 						id={id}
 						type="button"
 						disabled={disabled}
-						className={clsx(
-							"border-default-2 surface-2 focus-ring inline-flex min-h-10 w-full items-center rounded-[var(--twc-radius-lg)] border px-3 py-2 pr-18 text-left transition disabled:pointer-events-none disabled:opacity-60",
-							className,
-						)}
+						className={clsx("multi-select-trigger", className)}
 					>
 						<span className="sr-only">Open multi-select options</span>
 					</button>
 				</PopoverTrigger>
 
-				<div className="pointer-events-none absolute inset-0 flex items-center justify-between gap-3 px-3 py-2 pr-18">
-					<div className="pointer-events-auto min-w-0 flex-1">
+				<div className="multi-select-overlay">
+					<div className="multi-select-values">
 						{selectedOptions.length > 0 ? (
-							<div className="flex flex-wrap items-center gap-2">
+							<div className="multi-select-value-list">
 								{visibleOptions.map(option => (
 									<Badge
 										key={option.value}
@@ -124,13 +109,11 @@ export function MultiSelect({
 								) : null}
 							</div>
 						) : (
-							<span className="text-[color:var(--twc-muted)]">
-								{placeholder}
-							</span>
+							<span className="multi-select-placeholder">{placeholder}</span>
 						)}
 					</div>
 
-					<div className="pointer-events-none absolute inset-y-0 right-3 flex items-center gap-2">
+					<div className="multi-select-adornment">
 						{selectedOptions.length > 0 ? (
 							<button
 								type="button"
@@ -140,7 +123,7 @@ export function MultiSelect({
 									event.stopPropagation();
 									clearAll();
 								}}
-								className="pointer-events-auto inline-flex h-6 w-6 items-center justify-center rounded-full text-[color:var(--twc-muted)] transition hover:bg-[color:var(--twc-surface-1)] hover:text-[color:var(--twc-text)] disabled:pointer-events-none"
+								className="field-icon-button select-clear-button"
 								aria-label="Clear all selections"
 							>
 								<Icon
@@ -150,7 +133,7 @@ export function MultiSelect({
 							</button>
 						) : null}
 
-						<span className="text-[color:var(--twc-muted)]">
+						<span className="select-chevron">
 							<Icon
 								icon={ChevronDown}
 								className="h-4 w-4"
@@ -162,13 +145,13 @@ export function MultiSelect({
 
 			<PopoverContent
 				align="start"
-				className="w-[min(28rem,calc(100vw-2rem))] p-2"
+				className="multi-select-content"
 			>
-				<div className="space-y-1">
+				<div className="multi-select-options">
 					{options.map(option => (
 						<div
 							key={option.value}
-							className="rounded-[var(--twc-radius-lg)] px-2 py-1 hover:bg-[color:var(--twc-surface-1)]"
+							className="multi-select-option-row"
 						>
 							<Checkbox
 								checked={selectedValues.includes(option.value)}

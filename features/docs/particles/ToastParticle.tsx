@@ -177,12 +177,16 @@ toast.danger("403 Forbidden", {
 							/>
 						}
 						onClick={() =>
-							toast.promise(wait(1200).then(() => "Notification preferences"), {
-								loading: "Saving settings...",
-								success: value => `${value} saved`,
-								error: "Unable to save settings",
-								description: value => `${value} are now active for all admins.`,
-							})
+							toast.promise(
+								wait(1200).then(() => "Notification preferences"),
+								{
+									loading: "Saving settings...",
+									success: value => `${value} saved`,
+									error: "Unable to save settings",
+									description: value =>
+										`${value} are now active for all admins.`,
+								},
+							)
 						}
 					>
 						Promise toast

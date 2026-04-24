@@ -6,11 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import * as Popover from "@radix-ui/react-popover";
+import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Icon as AppIcon } from "components";
-import type { MenuGroupProps } from "types/client";
+import { Icon as AppIcon } from "@/components";
+import type { MenuGroupProps } from "@/types/client";
 
 export function MenuGroup({
 	collapsed,
@@ -49,28 +50,27 @@ export function MenuGroup({
 			type="button"
 			aria-expanded={open}
 			onClick={onHeaderClick}
-			className={[
-				"group relative flex h-10 w-full items-center gap-2 rounded-2xl px-[0.725rem]",
-				"surface-2 hover:surface-3 shadow-weak cursor-pointer transition-colors",
-				hasActiveChild
-					? "bg-[color:color-mix(in_oklab,var(--color-brand)_10%,transparent)] hover:bg-[color:color-mix(in_oklab,var(--color-brand)_10%,transparent)]"
-					: "",
-			].join(" ")}
+			className={clsx(
+				"app-sidebar-item focus-ring",
+				hasActiveChild ? "app-sidebar-item-active" : null,
+			)}
 		>
 			<AppIcon
 				icon={Icon}
 				size={20}
 				strokeWidth={2}
-				className={
-					hasActiveChild
-						? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
-						: "text-base-800"
-				}
+				className={clsx(
+					"app-sidebar-item-icon",
+					hasActiveChild ? "app-sidebar-item-icon-active" : null,
+				)}
 			/>
 			{!collapsed && (
 				<>
 					<span
-						className={`ty-sm truncate ${hasActiveChild ? "text-brand font-semibold" : ""}`}
+						className={clsx(
+							"app-sidebar-item-label truncate",
+							hasActiveChild ? "app-sidebar-item-label-active" : null,
+						)}
 					>
 						{t(label)}
 					</span>
@@ -86,7 +86,7 @@ export function MenuGroup({
 	);
 
 	const ChildrenList = (
-		<ul className="mt-2 space-y-2 pb-2 pl-2">
+		<ul className="app-sidebar-group-list">
 			{childrenItems.map(({ href, label, Icon }) => {
 				const active = pathname === href || pathname.startsWith(href + "/");
 				return (
@@ -95,13 +95,10 @@ export function MenuGroup({
 							href={href}
 							title={t(label)}
 							aria-current={active ? "page" : undefined}
-							className={[
-								"group relative flex h-10 w-full items-center gap-2 rounded-2xl px-[0.725rem]",
-								"surface-2 hover:surface-3 shadow-weak no-underline transition-colors",
-								active
-									? "cursor-default! bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)]"
-									: "",
-							].join(" ")}
+							className={clsx(
+								"app-sidebar-item",
+								active ? "app-sidebar-item-active" : null,
+							)}
 							onClick={e => {
 								setManualOpen(false);
 								if (active) {
@@ -114,14 +111,16 @@ export function MenuGroup({
 								icon={Icon}
 								size={18}
 								strokeWidth={2}
-								className={
-									active
-										? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
-										: undefined
-								}
+								className={clsx(
+									"app-sidebar-item-icon",
+									active ? "app-sidebar-item-icon-active" : null,
+								)}
 							/>
 							<span
-								className={`ty-sm truncate ${active ? "text-brand font-semibold" : ""}`}
+								className={clsx(
+									"app-sidebar-item-label truncate",
+									active ? "app-sidebar-item-label-active" : null,
+								)}
 							>
 								{t(label)}
 							</span>
@@ -137,12 +136,8 @@ export function MenuGroup({
 			<li>
 				{Header}
 				<div
-					className={[
-						"overflow-hidden transition-[max-height,opacity,transform] duration-200",
-						open
-							? "max-h-96 translate-y-0 opacity-100"
-							: "max-h-0 -translate-y-1 opacity-0",
-					].join(" ")}
+					className="app-sidebar-group-children"
+					data-open={open ? "true" : "false"}
 				>
 					{ChildrenList}
 				</div>
@@ -166,10 +161,10 @@ export function MenuGroup({
 						collisionPadding={8}
 						onCloseAutoFocus={() => setManualOpen(false)}
 						onEscapeKeyDown={() => setManualOpen(false)}
-						className="surface-2 br-squircle shadow-weak border-default-3 z-50 border p-2"
+						className="app-sidebar-popover"
 					>
-						<div className="ty-sm-semibold mb-1 px-2">{t(label)}</div>
-						<ul className="w-48 space-y-1">
+						<div className="app-sidebar-popover-title">{t(label)}</div>
+						<ul className="app-sidebar-popover-list">
 							{childrenItems.map(({ href, label, Icon }) => {
 								const active =
 									pathname === href || pathname.startsWith(href + "/");
@@ -179,13 +174,10 @@ export function MenuGroup({
 											href={href}
 											title={t(label)}
 											aria-current={active ? "page" : undefined}
-											className={[
-												"ty-sm br-squircle shadow-weak w-full px-3 py-2 text-left",
-												"surface-2 hover:surface-3 flex items-center gap-2 no-underline",
-												active
-													? "text-brand ty-sm-semibold cursor-default! bg-[color:color-mix(in_oklab,var(--color-brand)_12%,transparent)]"
-													: "",
-											].join(" ")}
+											className={clsx(
+												"app-sidebar-item",
+												active ? "app-sidebar-item-active" : null,
+											)}
 											onClick={e => {
 												setManualOpen(false);
 												if (active) {
@@ -198,19 +190,25 @@ export function MenuGroup({
 												icon={Icon}
 												size={16}
 												strokeWidth={2}
-												className={
-													active
-														? "stroke-brand fill-[color:color-mix(in_oklab,var(--color-brand)_18%,transparent)]"
-														: undefined
-												}
+												className={clsx(
+													"app-sidebar-item-icon",
+													active ? "app-sidebar-item-icon-active" : null,
+												)}
 											/>
-											<span className="truncate">{t(label)}</span>
+											<span
+												className={clsx(
+													"app-sidebar-item-label truncate",
+													active ? "app-sidebar-item-label-active" : null,
+												)}
+											>
+												{t(label)}
+											</span>
 										</Link>
 									</li>
 								);
 							})}
 						</ul>
-						<Popover.Arrow className="fill-base-100" />
+						<Popover.Arrow className="app-sidebar-popover-arrow" />
 					</Popover.Content>
 				</Popover.Portal>
 			</Popover.Root>

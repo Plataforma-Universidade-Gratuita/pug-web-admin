@@ -5,21 +5,15 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { HOME_ROUTE } from "constants/auth";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { login } from "@/api/web/identity/auth";
 import { Button, Icon, Input, Label, toast } from "@/components";
+import { HOME_ROUTE } from "@/constants/auth";
+import { LoginFormSchema } from "@/schemas/client";
+import type { LoginFormValues } from "@/types/client";
 import { WebApiError } from "@/utils/web-api";
-
-const loginSchema = z.object({
-	email: z.email("Enter a valid email address."),
-	password: z.string().min(1, "Enter your password."),
-});
-
-type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
 	const router = useRouter();
@@ -30,7 +24,7 @@ export function LoginForm() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<LoginFormValues>({
-		resolver: zodResolver(loginSchema),
+		resolver: zodResolver(LoginFormSchema),
 		defaultValues: {
 			email: "",
 			password: "",
@@ -63,11 +57,11 @@ export function LoginForm() {
 	}
 
 	return (
-		<div className="flex items-center justify-center">
-			<div className="border-default-2 surface-2 shadow-strong w-full max-w-lg rounded-[calc(var(--twc-radius-xl)+0.25rem)] border p-6 sm:p-8">
-				<div className="mb-8 space-y-4">
-					<div className="flex items-center gap-3 lg:hidden">
-						<div className="flex h-11 w-11 items-center justify-center rounded-[var(--twc-radius-lg)] bg-[color:color-mix(in_oklab,var(--color-brand)_16%,transparent)]">
+		<div className="login-form-shell">
+			<div className="login-card">
+				<div className="login-card-copy">
+					<div className="login-card-brand">
+						<div className="login-card-brand-mark">
 							<Icon
 								icon={ShieldCheck}
 								className="h-5 w-5 text-[color:var(--color-brand)]"
@@ -78,20 +72,18 @@ export function LoginForm() {
 							<p className="ty-sm">Administrator access</p>
 						</div>
 					</div>
-					<h2 className="text-3xl leading-tight font-semibold text-[color:var(--twc-text)]">
-						Login
-					</h2>
-					<p className="text-sm leading-6 text-[color:var(--twc-muted)]">
+					<h2 className="login-card-title">Login</h2>
+					<p className="login-card-description">
 						Enter your administrator credentials to continue.
 					</p>
 				</div>
 
 				<form
-					className="space-y-5"
+					className="login-form-grid"
 					noValidate
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<div className="space-y-2">
+					<div className="login-field">
 						<Label htmlFor="email">Email</Label>
 						<Input
 							id="email"
@@ -109,14 +101,14 @@ export function LoginForm() {
 						{errors.email ? (
 							<p
 								id="email-error"
-								className="text-sm text-[color:var(--color-danger-700)]"
+								className="login-field-error"
 							>
 								{errors.email.message}
 							</p>
 						) : null}
 					</div>
 
-					<div className="space-y-2">
+					<div className="login-field">
 						<Label htmlFor="password">Password</Label>
 						<Input
 							id="password"
@@ -135,18 +127,14 @@ export function LoginForm() {
 						{errors.password ? (
 							<p
 								id="password-error"
-								className="text-sm text-[color:var(--color-danger-700)]"
+								className="login-field-error"
 							>
 								{errors.password.message}
 							</p>
 						) : null}
 					</div>
 
-					{error ? (
-						<p className="rounded-2xl border border-[color:var(--color-danger-200)] bg-[color:var(--color-danger-50)] px-4 py-3 text-sm text-[color:var(--color-danger-700)]">
-							{error}
-						</p>
-					) : null}
+					{error ? <p className="login-form-error">{error}</p> : null}
 
 					<Button
 						type="submit"

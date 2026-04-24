@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { API_ROUTE_BASES } from "@/constants/api";
 import { CityResponseSchema } from "@/schemas/api/geo/city";
 import { EntityResponseSchema } from "@/schemas/api/partner/entity";
 import type {
@@ -10,7 +11,7 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = "/partner/entities";
+const BASE = API_ROUTE_BASES.partner.entities;
 
 export async function get(id: string, token?: string): Promise<EntityResponse> {
 	return zfetch(

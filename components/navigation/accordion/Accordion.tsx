@@ -27,7 +27,7 @@ export function Accordion(props: AccordionProps) {
 		return (
 			<RadixAccordion.Root
 				type={type}
-				className={clsx("space-y-3", className)}
+				className={clsx("accordion-root", className)}
 				{...(value !== undefined ? { value } : {})}
 				{...(defaultValue !== undefined ? { defaultValue } : {})}
 				{...(onValueChange !== undefined ? { onValueChange } : {})}
@@ -52,7 +52,7 @@ export function Accordion(props: AccordionProps) {
 	return (
 		<RadixAccordion.Root
 			type={type ?? "single"}
-			className={clsx("space-y-3", className)}
+			className={clsx("accordion-root", className)}
 			{...(value !== undefined ? { value } : {})}
 			{...(defaultValue !== undefined ? { defaultValue } : {})}
 			{...(onValueChange !== undefined ? { onValueChange } : {})}
@@ -71,10 +71,7 @@ export function AccordionItem({
 }: AccordionItemProps) {
 	return (
 		<RadixAccordion.Item
-			className={clsx(
-				"border-default-2 surface-1 overflow-hidden rounded-[var(--twc-radius-xl)] border",
-				className,
-			)}
+			className={clsx("accordion-item", className)}
 			{...props}
 		>
 			{children}
@@ -90,14 +87,11 @@ export function AccordionTrigger({
 	return (
 		<RadixAccordion.Header>
 			<RadixAccordion.Trigger
-				className={clsx(
-					"focus-ring group flex w-full items-center justify-between gap-4 p-4 text-left data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[state=open]:border-b data-[state=open]:border-[color:var(--twc-border-2)]",
-					className,
-				)}
+				className={clsx("accordion-trigger focus-ring group", className)}
 				{...props}
 			>
 				<span className="ty-sm-semibold">{children}</span>
-				<span className="text-[color:var(--twc-muted)] transition-transform duration-[var(--twc-duration-normal)] group-data-[state=open]:rotate-180">
+				<span className="accordion-icon">
 					<Icon
 						icon={ChevronDown}
 						className="h-4 w-4"
@@ -115,13 +109,10 @@ export function AccordionContent({
 }: AccordionContentProps) {
 	return (
 		<RadixAccordion.Content
-			className={clsx(
-				"overflow-hidden data-[state=closed]:animate-[accordion-up_var(--twc-duration-normal)_var(--twc-ease-standard)] data-[state=open]:animate-[accordion-down_var(--twc-duration-normal)_var(--twc-ease-standard)]",
-				className,
-			)}
+			className={clsx("accordion-content", className)}
 			{...props}
 		>
-			<div className="p-4 pt-3">{children}</div>
+			<div className="accordion-body">{children}</div>
 		</RadixAccordion.Content>
 	);
 }

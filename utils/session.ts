@@ -1,14 +1,8 @@
 import { API_BASE_URL, JSON_HEADERS } from "@/constants/api";
-import {
-	RefreshRequestSchema,
-	TokenResponseSchema,
-	createApiSuccessEnvelopeSchema,
-} from "@/schemas/api";
+import { RefreshRequestSchema } from "@/schemas/api";
+import { RefreshSessionEnvelopeSchema } from "@/schemas/client";
 import type { TokenResponse } from "@/types/api";
 import { validateAdminToken } from "@/utils/auth";
-
-const RefreshEnvelopeSchema =
-	createApiSuccessEnvelopeSchema(TokenResponseSchema);
 
 export async function refreshAdminSession(
 	refreshToken: string,
@@ -22,7 +16,7 @@ export async function refreshAdminSession(
 		if (!response.ok) return null;
 
 		const json = await response.json();
-		const envelope = RefreshEnvelopeSchema.parse(json);
+		const envelope = RefreshSessionEnvelopeSchema.parse(json);
 		const tokens = envelope.data;
 
 		if (!validateAdminToken(tokens.token).isValid) return null;

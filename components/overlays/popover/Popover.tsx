@@ -34,13 +34,10 @@ export function PopoverContent({
 				side={side}
 				align={align}
 				sideOffset={sideOffset}
-				className={clsx(
-					"border-default-2 surface-2 shadow-strong z-[var(--twc-z-overlay)] w-[min(24rem,calc(100vw-2rem))] rounded-[var(--twc-radius-xl)] border p-4",
-					className,
-				)}
+				className={clsx("popover-panel popover-content", className)}
 			>
 				{children}
-				<RadixPopover.Arrow className="fill-[color:var(--twc-surface-2)]" />
+				<RadixPopover.Arrow className="popover-arrow" />
 			</RadixPopover.Content>
 		</RadixPopover.Portal>
 	);

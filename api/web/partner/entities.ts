@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { WEB_API_ROUTE_BASES } from "@/constants/api";
 import {
 	CityResponseSchema,
 	EntityCreateRequestSchema,
@@ -14,7 +15,7 @@ import type {
 } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = "/api/partner/entities";
+const BASE = WEB_API_ROUTE_BASES.partner.entities;
 
 export async function get(id: string): Promise<EntityResponse> {
 	return webFetch(`${BASE}/${id}`, EntityResponseSchema);

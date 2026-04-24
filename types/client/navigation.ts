@@ -1,5 +1,6 @@
-import type { IconComponent } from "./components";
-import type { AppLang, AppTheme } from "./index";
+import type { IconComponent } from "@/types/client/components";
+import type { AppLang } from "@/types/client/locale";
+import type { AppTheme } from "@/types/client/theme";
 
 export interface MenuGroupChild {
 	href: string;

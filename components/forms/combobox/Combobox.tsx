@@ -11,23 +11,11 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/overlays/popover/Popover";
-import type { ComboboxOption, ComboboxProps } from "@/types/client";
-
-function getSearchableText(option: ComboboxOption) {
-	return [
-		option.value,
-		typeof option.label === "string" ? option.label : "",
-		option.searchText ?? "",
-		...(option.keywords ?? []),
-	]
-		.join(" ")
-		.toLowerCase();
-}
-
-function getSelectedLabel(option: ComboboxOption | undefined) {
-	if (!option) return undefined;
-	return typeof option.label === "string" ? option.label : option.value;
-}
+import {
+	getComboboxSelectedLabel,
+	getSearchableComboboxText,
+} from "@/components/utils";
+import type { ComboboxProps } from "@/types/client";
 
 export function Combobox({
 	options,
@@ -52,7 +40,7 @@ export function Combobox({
 		if (!normalizedQuery) return options;
 
 		return options.filter(option =>
-			getSearchableText(option).includes(normalizedQuery),
+			getSearchableComboboxText(option).includes(normalizedQuery),
 		);
 	}, [options, query]);
 
@@ -71,18 +59,16 @@ export function Combobox({
 				if (!nextOpen) setQuery("");
 			}}
 		>
-			<div className="relative w-full">
+			<div className="combobox-trigger-shell">
 				<PopoverTrigger>
 					<button
 						id={id}
 						type="button"
 						role="combobox"
+						aria-controls="combobox-trigger-shell"
 						aria-expanded={open}
 						disabled={disabled}
-						className={clsx(
-							"border-default-2 surface-2 focus-ring inline-flex h-10 w-full items-center justify-between gap-3 rounded-[var(--twc-radius-lg)] border px-3 py-2 pr-18 text-left transition disabled:pointer-events-none disabled:opacity-60",
-							className,
-						)}
+						className={clsx("combobox-trigger", className)}
 					>
 						<span
 							className={clsx(
@@ -92,11 +78,13 @@ export function Combobox({
 									: "text-[color:var(--twc-muted)]",
 							)}
 						>
-							{selectedOption ? getSelectedLabel(selectedOption) : placeholder}
+							{selectedOption
+								? getComboboxSelectedLabel(selectedOption)
+								: placeholder}
 						</span>
 					</button>
 				</PopoverTrigger>
-				<div className="pointer-events-none absolute inset-y-0 right-3 flex items-center gap-2">
+				<div className="select-adornment">
 					{selectedOption ? (
 						<button
 							type="button"
@@ -106,7 +94,7 @@ export function Combobox({
 								event.stopPropagation();
 								handleValueChange("");
 							}}
-							className="pointer-events-auto inline-flex h-6 w-6 items-center justify-center rounded-full text-[color:var(--twc-muted)] transition hover:bg-[color:var(--twc-surface-1)] hover:text-[color:var(--twc-text)] disabled:pointer-events-none"
+							className="field-icon-button select-clear-button"
 							aria-label="Clear selection"
 						>
 							<Icon
@@ -115,7 +103,7 @@ export function Combobox({
 							/>
 						</button>
 					) : null}
-					<span className="text-[color:var(--twc-muted)]">
+					<span className="select-chevron">
 						<Icon
 							icon={ChevronDown}
 							className="h-4 w-4"
@@ -126,7 +114,7 @@ export function Combobox({
 
 			<PopoverContent
 				align="start"
-				className="w-[min(28rem,calc(100vw-2rem))] p-2"
+				className="combobox-content"
 			>
 				<div className="space-y-2">
 					<label
@@ -135,8 +123,8 @@ export function Combobox({
 					>
 						{searchPlaceholder}
 					</label>
-					<div className="border-default-2 surface-2 flex items-center rounded-[var(--twc-radius-lg)] border px-3">
-						<span className="shrink-0 text-[color:var(--twc-muted)]">
+					<div className="combobox-search-shell">
+						<span className="combobox-search-icon">
 							<Icon
 								icon={Search}
 								className="h-4 w-4"
@@ -148,17 +136,15 @@ export function Combobox({
 							value={query}
 							onChange={event => setQuery(event.target.value)}
 							placeholder={searchPlaceholder}
-							className="w-full bg-transparent px-3 py-2.5 text-base text-[color:var(--twc-text)] outline-none placeholder:text-[color:var(--twc-muted)]"
+							className="combobox-search-input"
 						/>
 					</div>
 
-					<div className="max-h-72 overflow-y-auto">
+					<div className="combobox-scroll">
 						{filteredOptions.length === 0 ? (
-							<div className="px-3 py-6 text-center text-sm text-[color:var(--twc-muted)]">
-								{emptyMessage}
-							</div>
+							<div className="combobox-empty">{emptyMessage}</div>
 						) : (
-							<div className="space-y-1">
+							<div className="combobox-options">
 								{filteredOptions.map(option => {
 									const isSelected = option.value === selectedValue;
 
@@ -169,37 +155,30 @@ export function Combobox({
 											onClick={() => handleValueChange(option.value)}
 											disabled={disabled || option.disabled}
 											className={clsx(
-												"focus-ring flex w-full items-start gap-3 rounded-[var(--twc-radius-lg)] border border-transparent px-3 py-2 pl-4 text-left transition outline-none",
-												isSelected
-													? "border-[color:color-mix(in_srgb,var(--color-brand)_18%,transparent)] bg-[color:color-mix(in_srgb,var(--color-brand)_14%,var(--twc-surface-2))]"
-													: null,
-												option.disabled
-													? "cursor-not-allowed opacity-50"
-													: "hover:bg-[color:var(--twc-surface-1)]",
+												"focus-ring combobox-option",
+												isSelected ? "combobox-option-selected" : null,
+												option.disabled ? "combobox-option-disabled" : null,
 											)}
 										>
-											<span className="mt-0.5 shrink-0">
+											<span className="combobox-option-indicator">
 												<span
 													aria-hidden="true"
-													className={clsx(
-														"block h-5 w-1 rounded-full transition",
-														isSelected
-															? "bg-[color:var(--color-brand)]"
-															: "bg-transparent",
-													)}
+													className="combobox-option-indicator-bar"
 												/>
 											</span>
-											<span className="min-w-0 flex-1">
+											<span className="combobox-option-copy">
 												<span
 													className={clsx(
-														"block",
-														isSelected ? "ty-sm-bold" : "ty-sm-semibold",
+														"combobox-option-label",
+														isSelected
+															? "combobox-option-label-selected"
+															: null,
 													)}
 												>
 													{option.label}
 												</span>
 												{option.description ? (
-													<span className="ty-helper block">
+													<span className="control-description">
 														{option.description}
 													</span>
 												) : null}

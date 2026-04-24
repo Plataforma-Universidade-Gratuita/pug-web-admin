@@ -34,4 +34,50 @@ export const BADGE_VARIANTS = {
 	outline: "",
 } as const;
 
+export const BADGE_STYLES = {
+	soft: {
+		neutral: "badge-tone-neutral badge-variant-soft",
+		brand: "badge-tone-brand badge-variant-soft",
+		success: "badge-tone-success badge-variant-soft",
+		info: "badge-tone-info badge-variant-soft",
+		warning: "badge-tone-warning badge-variant-soft",
+		danger: "badge-tone-danger badge-variant-soft",
+	},
+	solid: {
+		neutral: "badge-tone-neutral badge-variant-solid",
+		brand: "badge-tone-brand badge-variant-solid",
+		success: "badge-tone-success badge-variant-solid",
+		info: "badge-tone-info badge-variant-solid",
+		warning: "badge-tone-warning badge-variant-solid",
+		danger: "badge-tone-danger badge-variant-solid",
+	},
+	outline: {
+		neutral: "badge-tone-neutral badge-variant-outline",
+		brand: "badge-tone-brand badge-variant-outline",
+		success: "badge-tone-success badge-variant-outline",
+		info: "badge-tone-info badge-variant-outline",
+		warning: "badge-tone-warning badge-variant-outline",
+		danger: "badge-tone-danger badge-variant-outline",
+	},
+} as const;
+
 export const APP_TOPBAR_HEIGHT = "3.75rem";
+
+export const DRAWER_MOTION_STYLES = {
+	top: "drawer-content-top",
+	right: "drawer-content-right",
+	bottom: "drawer-content-bottom",
+	left: "drawer-content-left",
+} as const;
+
+export const DRAWER_POSITION_STYLES = {
+	top: "drawer-side-top",
+	right: "drawer-side-right",
+	bottom: "drawer-side-bottom",
+	left: "drawer-side-left",
+} as const;
+
+export const TOAST_DEFAULT_DURATION = 3000;
+export const TOAST_UNDO_DURATION = 5000;
+export const TOAST_VISIBLE_COUNT = 3;
+export const TOAST_OFFSET_TOP = `calc(${APP_TOPBAR_HEIGHT} + 1rem)`;

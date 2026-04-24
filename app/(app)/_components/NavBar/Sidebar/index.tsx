@@ -2,16 +2,10 @@
 
 import { usePathname } from "next/navigation";
 
-import { Home, LogIn } from "lucide-react";
-
-import { MenuItem } from "app/(app)/_components/NavBar/Sidebar/MenuItem";
-import Settings from "app/(app)/_components/NavBar/Sidebar/Settings";
-import type { SidebarProps } from "types/client";
-
-export const singles = [
-	{ href: "/", label: "Navbar.paths.home", Icon: Home },
-	{ href: "/login", label: "Navbar.paths.login", Icon: LogIn },
-];
+import { MenuItem } from "@/app/(app)/_components/NavBar/Sidebar/MenuItem";
+import Settings from "@/app/(app)/_components/NavBar/Sidebar/Settings";
+import { NAVBAR_PRIMARY_ITEMS } from "@/constants/navigation";
+import type { SidebarProps } from "@/types/client";
 
 export function Sidebar({ collapsed }: SidebarProps) {
 	const pathname = usePathname();
@@ -19,17 +13,12 @@ export function Sidebar({ collapsed }: SidebarProps) {
 	return (
 		<aside
 			data-collapsed={collapsed}
-			className={[
-				"surface-2 border-default-3 border-r",
-				"h-full",
-				"flex flex-col px-2",
-				"w-15 transition-[width] duration-200 data-[collapsed=false]:w-56",
-			].join(" ")}
+			className="app-sidebar"
 			aria-label="Primary"
 		>
-			<nav className="scrollbar-none my-2 min-h-0 flex-1 overflow-y-auto py-2">
-				<ul className="flex flex-col gap-2">
-					{singles.map(({ href, label, Icon }) => (
+			<nav className="app-sidebar-nav scrollbar-hidden">
+				<ul className="app-sidebar-list">
+					{NAVBAR_PRIMARY_ITEMS.map(({ href, label, Icon }) => (
 						<MenuItem
 							key={href}
 							collapsed={collapsed}
