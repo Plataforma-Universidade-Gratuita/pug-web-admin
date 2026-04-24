@@ -2,6 +2,8 @@
 
 import type { ReactNode } from "react";
 
+import { usePathname } from "next/navigation";
+
 import {
 	AlertCircle,
 	CheckCircle2,
@@ -12,10 +14,13 @@ import {
 } from "lucide-react";
 import { Toaster as SonnerToaster, toast as sonnerToast } from "sonner";
 
-import { resolveToastValue, withToastDefaults } from "@/components/utils";
+import {
+	resolveToastOffset,
+	resolveToastValue,
+	withToastDefaults,
+} from "@/components/utils";
 import {
 	TOAST_DEFAULT_DURATION,
-	TOAST_OFFSET_TOP,
 	TOAST_UNDO_DURATION,
 	TOAST_VISIBLE_COUNT,
 } from "@/constants/components";
@@ -29,6 +34,7 @@ import type {
 
 export function ToastProvider(props: ToastProviderProps) {
 	const { mode } = useTheme();
+	const pathname = usePathname();
 
 	return (
 		<SonnerToaster
@@ -37,7 +43,7 @@ export function ToastProvider(props: ToastProviderProps) {
 			position="top-right"
 			visibleToasts={TOAST_VISIBLE_COUNT}
 			duration={TOAST_DEFAULT_DURATION}
-			offset={{ top: TOAST_OFFSET_TOP, right: "1rem" }}
+			offset={resolveToastOffset(pathname)}
 			toastOptions={{
 				unstyled: true,
 				classNames: {
@@ -144,9 +150,7 @@ export const toast = Object.assign(baseToast, {
 				label: undoLabel,
 				onClick: onUndo,
 			},
+			position: "bottom-right",
 		});
-	},
-	dismiss(id?: string | number) {
-		return sonnerToast.dismiss(id);
 	},
 });

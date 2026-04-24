@@ -2,6 +2,8 @@ import { Children, isValidElement, type ReactNode } from "react";
 
 import type { ExternalToast } from "sonner";
 
+import { LOGIN_ROUTE } from "@/constants/auth";
+import { TOAST_OFFSET_TOP } from "@/constants/components";
 import type { AppToastOptions, ComboboxOption } from "@/types/client";
 
 export function getAccessibleText(node: ReactNode): string | undefined {
@@ -75,4 +77,9 @@ export function resolveToastValue<TData>(
 	return typeof value === "function"
 		? (value as (data: TData) => ReactNode)(data)
 		: value;
+}
+
+export function resolveToastOffset(path: string) {
+	const topValue = path !== LOGIN_ROUTE ? TOAST_OFFSET_TOP : "1rem";
+	return { top: topValue, right: "1rem" };
 }
