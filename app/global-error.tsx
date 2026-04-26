@@ -1,10 +1,11 @@
 "use client";
 
 import "@/app/globals.css";
+
 import {
 	GlobalErrorPageContent,
 	type RouteBoundaryPageProps,
-} from "@/features/routing/RouteBoundaryPages";
+} from "../features/docs/routing/RouteBoundaryPages";
 
 export default function GlobalErrorPage(props: RouteBoundaryPageProps) {
 	return (

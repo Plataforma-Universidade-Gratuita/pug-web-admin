@@ -13,14 +13,18 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { DocsSectionPanel, DocsTextLink } from "@/features/docs/components";
+
 import {
 	PagePatternLegend,
 	PagePatternNote,
 	PagePatternRecommendation,
 	PagePatternTitle,
 	pagePatternDefinitions,
-} from "@/features/page-patterns/PagePatternShowcase";
+} from "../../../../features/docs/page-patterns/PagePatternShowcase";
+import {
+	DocsSectionPanel,
+	DocsTextLink,
+} from "../../../../features/docs/primitives";
 
 const alternativePatterns = pagePatternDefinitions.filter(
 	pattern => pattern.slug !== "section-stack",

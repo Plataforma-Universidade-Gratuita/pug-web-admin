@@ -11,7 +11,11 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { DocsSectionPanel, DocsTextLink } from "@/features/docs/components";
+
+import {
+	DocsSectionPanel,
+	DocsTextLink,
+} from "../../../../features/docs/primitives";
 
 type RouteFileStatus = "Implemented" | "Implement when needed" | "Skip for now";
 

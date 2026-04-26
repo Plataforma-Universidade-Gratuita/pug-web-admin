@@ -16,8 +16,9 @@ import {
 	ToggleGroup,
 	ToggleGroupItem,
 } from "@/components";
-import { ParticleContainer } from "@/features/docs/particles/components/ParticleContainer";
-import { ParticleSection } from "@/features/docs/particles/components/ParticleSection";
+
+import { ParticleContainer } from "../primitives/ParticleContainer";
+import { ParticleSection } from "../primitives/ParticleSection";
 
 export default function ToggleControlsParticle() {
 	const { t } = useTranslation();
