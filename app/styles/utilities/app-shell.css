@@ -83,7 +83,11 @@
 		scrollbar-width: none;
 		border: 1px solid color-mix(in oklab, var(--twc-border-2) 72%, transparent);
 		border-radius: var(--twc-radius-circle);
-		background-color: color-mix(in oklab, var(--twc-surface-2) 58%, transparent);
+		background-color: color-mix(
+			in oklab,
+			var(--twc-surface-2) 58%,
+			transparent
+		);
 		padding: 0.375rem 0.75rem;
 		backdrop-filter: blur(12px);
 		box-shadow: var(--twc-shadow-sm);
@@ -102,7 +106,11 @@
 	.app-route-breadcrumbs:hover .app-route-breadcrumbs-shell,
 	.app-route-breadcrumbs:focus-within .app-route-breadcrumbs-shell {
 		border-color: var(--twc-border-2);
-		background-color: color-mix(in oklab, var(--twc-surface-2) 92%, transparent);
+		background-color: color-mix(
+			in oklab,
+			var(--twc-surface-2) 92%,
+			transparent
+		);
 		box-shadow: var(--twc-shadow-md);
 		opacity: 1;
 	}

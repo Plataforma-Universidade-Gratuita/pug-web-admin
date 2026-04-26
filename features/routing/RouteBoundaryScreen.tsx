@@ -2,7 +2,13 @@
 
 import type { ReactNode } from "react";
 
-import { Compass, Home, RefreshCcw, ShieldAlert, TriangleAlert } from "lucide-react";
+import {
+	Compass,
+	Home,
+	RefreshCcw,
+	ShieldAlert,
+	TriangleAlert,
+} from "lucide-react";
 
 import { Badge, Button, EmptyState, Icon } from "@/components";
 import { HOME_ROUTE } from "@/constants/auth";
@@ -114,7 +120,7 @@ export function RouteBoundaryScreen({
 				<p className="ty-sm-semibold text-[color:var(--twc-text)]">
 					Diagnostic message
 				</p>
-				<code className="block whitespace-pre-wrap break-words text-xs text-[color:var(--twc-muted)]">
+				<code className="block text-xs break-words whitespace-pre-wrap text-[color:var(--twc-muted)]">
 					{error.message}
 				</code>
 			</div>,
@@ -204,7 +210,9 @@ export function RouteBoundaryScreen({
 						</div>
 
 						{diagnosticItems.length > 0 ? (
-							<div className={diagnosticsClassName(mode)}>{diagnosticItems}</div>
+							<div className={diagnosticsClassName(mode)}>
+								{diagnosticItems}
+							</div>
 						) : null}
 					</div>
 				</EmptyState>

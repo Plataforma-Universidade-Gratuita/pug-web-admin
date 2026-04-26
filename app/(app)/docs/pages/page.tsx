@@ -13,10 +13,7 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import {
-	DocsSectionPanel,
-	DocsTextLink,
-} from "@/features/docs/components";
+import { DocsSectionPanel, DocsTextLink } from "@/features/docs/components";
 import {
 	PagePatternLegend,
 	PagePatternNote,
@@ -39,10 +36,10 @@ export default function PagesDocsPage() {
 						<SectionTitle>Overview</SectionTitle>
 						<SectionDescription>
 							`/docs/components` already hints at a usable page system. The
-							extracted default is a centered page shell with one clear intro and
-							stacked sections underneath it. The alternatives below keep the same
-							design tokens and components, but shift the composition for denser or
-							record-focused screens.
+							extracted default is a centered page shell with one clear intro
+							and stacked sections underneath it. The alternatives below keep
+							the same design tokens and components, but shift the composition
+							for denser or record-focused screens.
 						</SectionDescription>
 					</div>
 				</SectionHeader>
@@ -70,8 +67,9 @@ export default function PagesDocsPage() {
 							<CardHeader>
 								<CardTitle>Top structure</CardTitle>
 								<CardDescription>
-									One intro area at the top, then stacked sections below it. Each
-									section owns one problem, its actions, and a smaller content set.
+									One intro area at the top, then stacked sections below it.
+									Each section owns one problem, its actions, and a smaller
+									content set.
 								</CardDescription>
 							</CardHeader>
 						</Card>
@@ -79,8 +77,8 @@ export default function PagesDocsPage() {
 							<CardHeader>
 								<CardTitle>Surface rhythm</CardTitle>
 								<CardDescription>
-									Use a darker section surface behind lighter cards by default. The
-									third layer stays optional instead of mandatory.
+									Use a darker section surface behind lighter cards by default.
+									The third layer stays optional instead of mandatory.
 								</CardDescription>
 							</CardHeader>
 						</Card>
@@ -106,8 +104,9 @@ export default function PagesDocsPage() {
 						<Badge tone="info">Alternative directions</Badge>
 						<SectionTitle>Other Valid Page Looks</SectionTitle>
 						<SectionDescription>
-							These two options stay within the same component system, but change
-							how the page prioritizes action density and persistent context.
+							These two options stay within the same component system, but
+							change how the page prioritizes action density and persistent
+							context.
 						</SectionDescription>
 					</div>
 				</SectionHeader>
@@ -157,8 +156,8 @@ export default function PagesDocsPage() {
 						<Badge tone="success">Decision rules</Badge>
 						<SectionTitle>How To Pick A Pattern</SectionTitle>
 						<SectionDescription>
-							These rules should stay consistent with the current app architecture
-							and the preview routes linked above.
+							These rules should stay consistent with the current app
+							architecture and the preview routes linked above.
 						</SectionDescription>
 					</div>
 				</SectionHeader>
@@ -167,8 +166,8 @@ export default function PagesDocsPage() {
 						<CardHeader>
 							<CardTitle>Default to Section Stack</CardTitle>
 							<CardDescription>
-								Most module overviews, calmer browse pages, and lighter reference
-								surfaces should start here.
+								Most module overviews, calmer browse pages, and lighter
+								reference surfaces should start here.
 							</CardDescription>
 						</CardHeader>
 					</Card>

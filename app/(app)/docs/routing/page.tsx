@@ -11,10 +11,7 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import {
-	DocsSectionPanel,
-	DocsTextLink,
-} from "@/features/docs/components";
+import { DocsSectionPanel, DocsTextLink } from "@/features/docs/components";
 
 type RouteFileStatus = "Implemented" | "Implement when needed" | "Skip for now";
 
@@ -56,7 +53,8 @@ const routeFileRecommendations: RouteFileRecommendation[] = [
 		file: "global-error.tsx",
 		status: "Implemented",
 		tone: "success",
-		summary: "Cover failures that escape normal route-segment error boundaries.",
+		summary:
+			"Cover failures that escape normal route-segment error boundaries.",
 		reason:
 			"Use a minimal global fallback for catastrophic layout-level failures. It should stay simple, branded, and able to recover with a hard refresh or a link back into the app.",
 	},
@@ -72,7 +70,8 @@ const routeFileRecommendations: RouteFileRecommendation[] = [
 		file: "template.tsx",
 		status: "Skip for now",
 		tone: "neutral",
-		summary: "Only useful when you explicitly need remount-on-navigation behavior.",
+		summary:
+			"Only useful when you explicitly need remount-on-navigation behavior.",
 		reason:
 			"Templates reset state and effects on navigation. That is a specialized tool for things like per-navigation animations or deliberate state resets, not a default routing primitive.",
 	},
@@ -94,8 +93,7 @@ const routePreviewCards: RoutePreviewCard[] = [
 		label: "Live preview",
 		description:
 			"Renders the same 404 fallback UI used when a route or record does not resolve.",
-		note:
-			"Use this route to inspect missing-page and missing-record behavior without forcing a real broken link first.",
+		note: "Use this route to inspect missing-page and missing-record behavior without forcing a real broken link first.",
 	},
 	{
 		href: "/docs/routing/previews/error",
@@ -104,8 +102,7 @@ const routePreviewCards: RoutePreviewCard[] = [
 		label: "Live preview",
 		description:
 			"Uses the implemented segment error boundary with retry-focused UI.",
-		note:
-			"This preview exists because real route failures are not a safe way to inspect the design contract during normal development.",
+		note: "This preview exists because real route failures are not a safe way to inspect the design contract during normal development.",
 	},
 	{
 		href: "/docs/routing/previews/global-error",
@@ -114,8 +111,7 @@ const routePreviewCards: RoutePreviewCard[] = [
 		label: "Visual preview",
 		description:
 			"Shows the same UI used by the root boundary. The real file only appears when the app shell itself fails.",
-		note:
-			"Treat this as a design mirror of the real root fallback, not a flow you should trigger manually in normal work.",
+		note: "Treat this as a design mirror of the real root fallback, not a flow you should trigger manually in normal work.",
 	},
 ];
 
@@ -140,28 +136,12 @@ export default function RoutingDocsPage() {
 						<Badge tone="brand">Next.js App Router</Badge>
 						<SectionTitle>Overview</SectionTitle>
 						<SectionDescription>
-							For this project, the practical baseline is
-							{" "}
-							<code>not-found.tsx</code>
-							,
-							{" "}
-							<code>error.tsx</code>
-							, and
-							{" "}
-							<code>global-error.tsx</code>
-							. Add
-							{" "}
-							<code>loading.tsx</code>
-							{" "}
-							where a route actually waits on async work. Skip
-							{" "}
-							<code>template.tsx</code>
-							{" "}
-							and
-							{" "}
-							<code>default.tsx</code>
-							{" "}
-							unless the architecture changes.
+							For this project, the practical baseline is{" "}
+							<code>not-found.tsx</code>, <code>error.tsx</code>, and{" "}
+							<code>global-error.tsx</code>. Add <code>loading.tsx</code> where
+							a route actually waits on async work. Skip{" "}
+							<code>template.tsx</code> and <code>default.tsx</code> unless the
+							architecture changes.
 						</SectionDescription>
 					</div>
 				</SectionHeader>
@@ -202,8 +182,8 @@ export default function RoutingDocsPage() {
 						<Badge tone="brand">Preview routes</Badge>
 						<SectionTitle>Boundary Previews</SectionTitle>
 						<SectionDescription>
-							The preview routes below are the only place you need to open if you
-							want to inspect the implemented fallback screens.
+							The preview routes below are the only place you need to open if
+							you want to inspect the implemented fallback screens.
 						</SectionDescription>
 					</div>
 				</SectionHeader>

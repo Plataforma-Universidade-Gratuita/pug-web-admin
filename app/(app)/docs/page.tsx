@@ -50,9 +50,9 @@ export default function DocsPage() {
 						<Badge tone="brand">Internal reference</Badge>
 						<SectionTitle>Overview</SectionTitle>
 						<SectionDescription>
-							This route should behave like the default app page pattern:
-							a calm intro at the top, then stacked sections that each own one
-							clear topic. From here, the rest of the docs branch splits into
+							This route should behave like the default app page pattern: a calm
+							intro at the top, then stacked sections that each own one clear
+							topic. From here, the rest of the docs branch splits into
 							primitive references, routing fallbacks, and page-level guidance.
 						</SectionDescription>
 					</div>
@@ -62,7 +62,8 @@ export default function DocsPage() {
 						<CardHeader>
 							<CardTitle>Default Pattern</CardTitle>
 							<CardDescription>
-								`/docs` is a module overview, so `Section Stack` is the right fit.
+								`/docs` is a module overview, so `Section Stack` is the right
+								fit.
 							</CardDescription>
 						</CardHeader>
 					</Card>
@@ -70,8 +71,8 @@ export default function DocsPage() {
 						<CardHeader>
 							<CardTitle>Scope</CardTitle>
 							<CardDescription>
-								Keep top-level docs pages calm and explanatory. Push density down
-								into the deeper operational or preview pages when needed.
+								Keep top-level docs pages calm and explanatory. Push density
+								down into the deeper operational or preview pages when needed.
 							</CardDescription>
 						</CardHeader>
 					</Card>
@@ -79,8 +80,8 @@ export default function DocsPage() {
 						<CardHeader>
 							<CardTitle>Navigation</CardTitle>
 							<CardDescription>
-								Use this page as the stable entry point for the docs area instead
-								of redirecting immediately into one subsection.
+								Use this page as the stable entry point for the docs area
+								instead of redirecting immediately into one subsection.
 							</CardDescription>
 						</CardHeader>
 					</Card>
@@ -140,8 +141,8 @@ export default function DocsPage() {
 						<CardHeader>
 							<CardTitle>Section Stack First</CardTitle>
 							<CardDescription>
-								Use stacked sections for module overviews, landing pages, and calm
-								reference pages like this one.
+								Use stacked sections for module overviews, landing pages, and
+								calm reference pages like this one.
 							</CardDescription>
 						</CardHeader>
 					</Card>
@@ -149,8 +150,8 @@ export default function DocsPage() {
 						<CardHeader>
 							<CardTitle>Promote Only When Needed</CardTitle>
 							<CardDescription>
-								Move into denser workspaces or split-detail layouts only when the
-								job of the page becomes operational or record-centric.
+								Move into denser workspaces or split-detail layouts only when
+								the job of the page becomes operational or record-centric.
 							</CardDescription>
 						</CardHeader>
 					</Card>

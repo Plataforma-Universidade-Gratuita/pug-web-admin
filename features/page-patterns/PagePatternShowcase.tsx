@@ -129,7 +129,9 @@ function PageIntroSection({
 					{meta ? <div className="flex flex-wrap gap-2">{meta}</div> : null}
 					<Badge tone={tone}>{eyebrow}</Badge>
 					<div className="space-y-2">
-						<SectionTitle className="text-3xl sm:text-4xl">{title}</SectionTitle>
+						<SectionTitle className="text-3xl sm:text-4xl">
+							{title}
+						</SectionTitle>
 						<SectionDescription>{description}</SectionDescription>
 					</div>
 				</div>
@@ -150,7 +152,7 @@ function StatCard({
 	detail: string;
 }) {
 	return (
-		<Card className="h-full p-4 shadow-weak">
+		<Card className="shadow-weak h-full p-4">
 			<CardHeader className="space-y-2">
 				<CardDescription>{label}</CardDescription>
 				<CardTitle className="text-2xl">{value}</CardTitle>
@@ -243,7 +245,7 @@ function SectionStackPreview() {
 					</SectionActions>
 				</SectionHeader>
 				<SectionContent className="grid gap-4 lg:grid-cols-2">
-					<Card className="h-full p-4 shadow-weak">
+					<Card className="shadow-weak h-full p-4">
 						<CardHeader>
 							<CardTitle>Schools waiting for review</CardTitle>
 							<CardDescription>
@@ -267,7 +269,7 @@ function SectionStackPreview() {
 						</CardContent>
 					</Card>
 
-					<Card className="h-full p-4 shadow-weak">
+					<Card className="shadow-weak h-full p-4">
 						<CardHeader>
 							<CardTitle>Upcoming milestones</CardTitle>
 							<CardDescription>
@@ -304,7 +306,8 @@ function SectionStackPreview() {
 					<div className="space-y-1">
 						<SectionTitle>Recent signals</SectionTitle>
 						<SectionDescription>
-							Sections can stay broad while cards handle the smaller story slices.
+							Sections can stay broad while cards handle the smaller story
+							slices.
 						</SectionDescription>
 					</div>
 				</SectionHeader>
@@ -325,7 +328,7 @@ function SectionStackPreview() {
 					].map(item => (
 						<Card
 							key={item.title}
-							className="h-full p-4 shadow-weak"
+							className="shadow-weak h-full p-4"
 						>
 							<CardHeader>
 								<CardTitle>{item.title}</CardTitle>
@@ -415,8 +418,8 @@ function OperationsWorkspacePreview() {
 					<div className="space-y-1">
 						<SectionTitle>Queue workspace</SectionTitle>
 						<SectionDescription>
-							The workspace stays inside a section surface, but the cards inside it
-							move closer to the user and carry the operational density.
+							The workspace stays inside a section surface, but the cards inside
+							it move closer to the user and carry the operational density.
 						</SectionDescription>
 					</div>
 					<SectionActions>
@@ -435,7 +438,7 @@ function OperationsWorkspacePreview() {
 					</SectionActions>
 				</SectionHeader>
 				<SectionContent className="space-y-6">
-					<Card className="p-4 shadow-weak">
+					<Card className="shadow-weak p-4">
 						<CardContent className="grid gap-3 pt-0 xl:grid-cols-[minmax(0,1fr)_auto_auto]">
 							<Input
 								type="search"
@@ -476,7 +479,7 @@ function OperationsWorkspacePreview() {
 								className="pt-4"
 							>
 								<div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_18rem]">
-									<Card className="p-4 shadow-weak">
+									<Card className="shadow-weak p-4">
 										<CardHeader>
 											<CardTitle>
 												{value === "incoming"
@@ -486,8 +489,8 @@ function OperationsWorkspacePreview() {
 														: "Recent resolutions"}
 											</CardTitle>
 											<CardDescription>
-												Filters, tabs, and lists move to the top here because the
-												page behaves like a tool.
+												Filters, tabs, and lists move to the top here because
+												the page behaves like a tool.
 											</CardDescription>
 										</CardHeader>
 										<CardContent className="space-y-3 pt-0">
@@ -517,7 +520,7 @@ function OperationsWorkspacePreview() {
 									</Card>
 
 									<div className="space-y-4">
-										<Card className="p-4 shadow-weak">
+										<Card className="shadow-weak p-4">
 											<CardHeader>
 												<CardTitle>SLA today</CardTitle>
 											</CardHeader>
@@ -538,14 +541,14 @@ function OperationsWorkspacePreview() {
 											</CardContent>
 										</Card>
 
-										<Card className="p-4 shadow-weak">
+										<Card className="shadow-weak p-4">
 											<CardHeader>
 												<CardTitle>Guidance</CardTitle>
 											</CardHeader>
 											<CardContent className="space-y-3 pt-0">
 												<p className="ty-helper text-[color:var(--twc-muted)]">
-													Keep the side rail narrow and tactical. It should support
-													the queue, not compete with it.
+													Keep the side rail narrow and tactical. It should
+													support the queue, not compete with it.
 												</p>
 												<Button
 													usage="info"
@@ -650,7 +653,9 @@ function SplitDetailPreview() {
 						</div>
 						<div>
 							<CardTitle>Escola Horizonte</CardTitle>
-							<CardDescription>North district partner since 2021.</CardDescription>
+							<CardDescription>
+								North district partner since 2021.
+							</CardDescription>
 						</div>
 					</CardHeader>
 					<CardContent className="space-y-4 pt-0">
@@ -692,7 +697,7 @@ function SplitDetailPreview() {
 							</div>
 						</SectionHeader>
 						<SectionContent className="grid gap-4 lg:grid-cols-2">
-							<Card className="p-4 shadow-weak">
+							<Card className="shadow-weak p-4">
 								<CardHeader>
 									<CardTitle>Relationship health</CardTitle>
 								</CardHeader>
@@ -703,7 +708,7 @@ function SplitDetailPreview() {
 									</p>
 								</CardContent>
 							</Card>
-							<Card className="p-4 shadow-weak">
+							<Card className="shadow-weak p-4">
 								<CardHeader>
 									<CardTitle>Next checkpoint</CardTitle>
 								</CardHeader>
@@ -767,18 +772,18 @@ function SplitDetailPreview() {
 							</div>
 						</SectionHeader>
 						<SectionContent className="space-y-4">
-							<Card className="p-4 shadow-weak">
+							<Card className="shadow-weak p-4">
 								<CardHeader>
 									<CardTitle>Field visit summary</CardTitle>
 								</CardHeader>
 								<CardContent className="pt-0">
 									<p className="ty-helper text-[color:var(--twc-muted)]">
-										Staffing is stable, reporting cadence is healthy, and the new
-										enrollment cap looks realistic.
+										Staffing is stable, reporting cadence is healthy, and the
+										new enrollment cap looks realistic.
 									</p>
 								</CardContent>
 							</Card>
-							<Card className="p-4 shadow-weak">
+							<Card className="shadow-weak p-4">
 								<CardHeader>
 									<CardTitle>Compliance follow-up</CardTitle>
 								</CardHeader>
@@ -846,8 +851,8 @@ export function PagePatternRecommendation() {
 				<CardHeader>
 					<CardTitle>Overlays</CardTitle>
 					<CardDescription>
-						Use drawers, modals, and popovers to support a page, not to replace a
-						page that deserves its own stable layout.
+						Use drawers, modals, and popovers to support a page, not to replace
+						a page that deserves its own stable layout.
 					</CardDescription>
 				</CardHeader>
 			</Card>
@@ -868,7 +873,7 @@ export function PagePatternLegend() {
 						<CardDescription>{pattern.summary}</CardDescription>
 					</CardHeader>
 					<CardContent className="grid gap-4 pt-1">
-						<Card className="p-4 shadow-weak">
+						<Card className="shadow-weak p-4">
 							<CardHeader className="space-y-2">
 								<CardTitle>Best for</CardTitle>
 							</CardHeader>
@@ -878,7 +883,7 @@ export function PagePatternLegend() {
 								</p>
 							</CardContent>
 						</Card>
-						<Card className="p-4 shadow-weak">
+						<Card className="shadow-weak p-4">
 							<CardHeader className="space-y-2">
 								<CardTitle>Tradeoff</CardTitle>
 							</CardHeader>
@@ -898,11 +903,7 @@ export function PagePatternLegend() {
 	);
 }
 
-export function PagePatternDirectionTag({
-	slug,
-}: {
-	slug: PagePatternSlug;
-}) {
+export function PagePatternDirectionTag({ slug }: { slug: PagePatternSlug }) {
 	const pattern = pagePatternDefinitions.find(item => item.slug === slug);
 
 	if (!pattern) return null;
@@ -920,11 +921,7 @@ export function PagePatternDirectionTag({
 	);
 }
 
-export function PagePatternTitle({
-	slug,
-}: {
-	slug: PagePatternSlug;
-}) {
+export function PagePatternTitle({ slug }: { slug: PagePatternSlug }) {
 	const pattern = pagePatternDefinitions.find(item => item.slug === slug);
 
 	if (!pattern) return null;
@@ -936,7 +933,9 @@ export function PagePatternTitle({
 				<h2 className="text-2xl font-semibold tracking-tight text-[color:var(--twc-text)]">
 					{pattern.name}
 				</h2>
-				<p className="ty-body text-[color:var(--twc-muted)]">{pattern.summary}</p>
+				<p className="ty-body text-[color:var(--twc-muted)]">
+					{pattern.summary}
+				</p>
 			</div>
 		</div>
 	);
@@ -955,8 +954,8 @@ export function PagePatternNote() {
 				<div className="space-y-1">
 					<p className="ty-sm-semibold">Recommendation</p>
 					<p className="ty-helper text-[color:var(--twc-muted)]">
-						Adopt the section stack as the default page grammar, promote only the
-						collection-heavy pages into operations workspaces, and reserve
+						Adopt the section stack as the default page grammar, promote only
+						the collection-heavy pages into operations workspaces, and reserve
 						split-detail pages for records that need persistent context.
 					</p>
 				</div>

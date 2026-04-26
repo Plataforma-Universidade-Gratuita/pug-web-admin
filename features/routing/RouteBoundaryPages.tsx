@@ -18,10 +18,7 @@ export function NotFoundPageContent() {
 	);
 }
 
-export function ErrorPageContent({
-	error,
-	reset,
-}: RouteBoundaryPageProps) {
+export function ErrorPageContent({ error, reset }: RouteBoundaryPageProps) {
 	useEffect(() => {
 		console.error(error);
 	}, [error]);

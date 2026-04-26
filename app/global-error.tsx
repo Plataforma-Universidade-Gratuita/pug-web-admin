@@ -1,7 +1,6 @@
 "use client";
 
 import "@/app/globals.css";
-
 import {
 	GlobalErrorPageContent,
 	type RouteBoundaryPageProps,

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import Link from "next/link";
+
 import clsx from "clsx";
 
 type DocsTextLinkProps = {
@@ -9,11 +10,7 @@ type DocsTextLinkProps = {
 	href: string;
 };
 
-export function DocsTextLink({
-	children,
-	className,
-	href,
-}: DocsTextLinkProps) {
+export function DocsTextLink({ children, className, href }: DocsTextLinkProps) {
 	return (
 		<Link
 			href={href}
