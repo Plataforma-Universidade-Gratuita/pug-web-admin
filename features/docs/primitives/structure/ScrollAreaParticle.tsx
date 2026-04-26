@@ -10,7 +10,6 @@ import {
 	CardTitle,
 	ScrollArea,
 } from "@/components";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
@@ -24,7 +23,11 @@ export default function ScrollAreaParticle() {
 			description={t("docs.structurePrimitives.patternNotes.items.scrollArea")}
 			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
-				{ description: t("docs.structurePrimitives.patternNotes.items.scrollArea") },
+				{
+					description: t(
+						"docs.structurePrimitives.patternNotes.items.scrollArea",
+					),
+				},
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
 			patternNotesSnippet={`<ScrollArea className="h-48">...</ScrollArea>`}
@@ -35,7 +38,9 @@ export default function ScrollAreaParticle() {
 			>
 				<Card className="p-4">
 					<CardHeader>
-						<CardTitle>{t("docs.structurePrimitives.scrollCard.title")}</CardTitle>
+						<CardTitle>
+							{t("docs.structurePrimitives.scrollCard.title")}
+						</CardTitle>
 						<CardDescription>
 							{t("docs.structurePrimitives.scrollCard.description")}
 						</CardDescription>
@@ -50,7 +55,9 @@ export default function ScrollAreaParticle() {
 											className="rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-3"
 										>
 											<p className="ty-sm-semibold">
-												{t(`docs.structurePrimitives.scrollCard.items.${key}.title`)}
+												{t(
+													`docs.structurePrimitives.scrollCard.items.${key}.title`,
+												)}
 											</p>
 											<p className="ty-helper mt-1">
 												{t(

@@ -12,7 +12,6 @@ import {
 	Icon,
 	Toggle,
 } from "@/components";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
@@ -45,14 +44,18 @@ export default function ToggleParticle() {
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-4">
-						<Toggle aria-label={t("docs.toggleControls.cards.single.ariaLabel")}>
+						<Toggle
+							aria-label={t("docs.toggleControls.cards.single.ariaLabel")}
+						>
 							<Icon
 								icon={Bold}
 								className="h-4 w-4"
 							/>
 							<span>{t("docs.toggleControls.cards.single.label")}</span>
 						</Toggle>
-						<Toggle disabled>{t("docs.toggleControls.cards.single.disabledLabel")}</Toggle>
+						<Toggle disabled>
+							{t("docs.toggleControls.cards.single.disabledLabel")}
+						</Toggle>
 					</CardContent>
 				</Card>
 			</ParticleSection>

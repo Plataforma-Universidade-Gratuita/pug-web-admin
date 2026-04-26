@@ -8,12 +8,12 @@ import { ChevronDown, X } from "lucide-react";
 import { Badge } from "@/components/display/badge/Badge";
 import { Icon } from "@/components/display/icon/Icon";
 import { Checkbox } from "@/components/forms/checkbox/Checkbox";
+import { buildVisibleSelections } from "@/components/forms/multi-select/utils";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/overlays/popover/Popover";
-import { buildVisibleSelections } from "@/components/utils";
 import type { MultiSelectProps } from "@/types/client";
 
 export function MultiSelect({

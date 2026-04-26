@@ -5,8 +5,13 @@ import { useState } from "react";
 import { Bold, Grid2x2, Italic, List, Underline } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent, Icon, ToggleGroup, ToggleGroupItem } from "@/components";
-
+import {
+	Card,
+	CardContent,
+	Icon,
+	ToggleGroup,
+	ToggleGroupItem,
+} from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
@@ -95,7 +100,9 @@ export default function ToggleGroupParticle() {
 										icon={icon}
 										className="h-4 w-4"
 									/>
-									<span>{t(`docs.toggleControls.cards.multi.items.${key}`)}</span>
+									<span>
+										{t(`docs.toggleControls.cards.multi.items.${key}`)}
+									</span>
 								</ToggleGroupItem>
 							))}
 						</ToggleGroup>

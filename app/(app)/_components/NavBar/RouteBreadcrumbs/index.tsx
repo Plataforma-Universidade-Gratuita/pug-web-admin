@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { getRouteBreadcrumbs } from "@/app/(app)/_components/NavBar/RouteBreadcrumbs/utils";
 import {
 	Breadcrumb,
 	BreadcrumbCurrent,
@@ -11,49 +12,10 @@ import {
 	BreadcrumbSeparator,
 } from "@/components";
 import { APP_ROUTE_LABELS } from "@/constants/navigation";
-import type { RouteBreadcrumbEntry } from "@/types/client";
-
-function formatRouteSegmentLabel(segment: string) {
-	return segment
-		.split("-")
-		.map(part => part.charAt(0).toUpperCase() + part.slice(1))
-		.join(" ");
-}
-
-function getRouteBreadcrumbs(pathname: string): RouteBreadcrumbEntry[] {
-	const normalizedPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
-
-	if (normalizedPath === "/") {
-		return [];
-	}
-
-	const segments = normalizedPath.split("/").filter(Boolean);
-	const items: RouteBreadcrumbEntry[] = [];
-
-	for (let index = 0; index < segments.length; index += 1) {
-		const segment = segments[index];
-
-		if (!segment) {
-			continue;
-		}
-
-		const href = `/${segments.slice(0, index + 1).join("/")}`;
-		const isCurrent = index === segments.length - 1;
-		const label = APP_ROUTE_LABELS[href] ?? formatRouteSegmentLabel(segment);
-
-		items.push({
-			href,
-			label,
-			current: isCurrent,
-		});
-	}
-
-	return items;
-}
 
 export function RouteBreadcrumbs() {
 	const pathname = usePathname();
-	const items = getRouteBreadcrumbs(pathname);
+	const items = getRouteBreadcrumbs(pathname, APP_ROUTE_LABELS);
 
 	if (items.length === 0) {
 		return null;

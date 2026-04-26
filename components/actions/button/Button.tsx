@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 import { Tooltip } from "@/components";
-import { getAccessibleText } from "@/components/utils";
+import { getAccessibleText } from "@/components/actions/button/utils";
 import {
 	BUTTON_SIZES,
 	BUTTON_USAGES,

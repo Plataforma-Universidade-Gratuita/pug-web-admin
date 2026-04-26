@@ -131,7 +131,7 @@
 	}
 
 	.popover-content {
-		z-index: var(--twc-z-overlay);
+		z-index: 60;
 		width: min(24rem, calc(100vw - 2rem));
 		padding: 1rem;
 	}

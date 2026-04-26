@@ -1,5 +1,8 @@
 @layer components {
 	.app-topbar {
+		position: sticky;
+		top: 0;
+		z-index: 80;
 		border-bottom: 1px solid var(--twc-border-2);
 		background-color: var(--twc-chrome-bg);
 	}
@@ -39,6 +42,7 @@
 	}
 
 	.navbar-shell {
+		position: relative;
 		display: flex;
 		height: 100dvh;
 		flex-direction: column;
@@ -127,6 +131,8 @@
 	}
 
 	.app-sidebar {
+		position: relative;
+		z-index: 80;
 		display: flex;
 		height: 100%;
 		width: 3.75rem;

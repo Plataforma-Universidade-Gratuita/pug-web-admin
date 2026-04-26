@@ -10,7 +10,6 @@ import {
 	CardTitle,
 	Separator,
 } from "@/components";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
@@ -24,7 +23,11 @@ export default function SeparatorParticle() {
 			description={t("docs.structurePrimitives.patternNotes.items.separator")}
 			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
-				{ description: t("docs.structurePrimitives.patternNotes.items.separator") },
+				{
+					description: t(
+						"docs.structurePrimitives.patternNotes.items.separator",
+					),
+				},
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
 			patternNotesSnippet="<Separator />"
@@ -35,7 +38,9 @@ export default function SeparatorParticle() {
 			>
 				<Card className="p-4">
 					<CardHeader>
-						<CardTitle>{t("docs.structurePrimitives.labelCard.title")}</CardTitle>
+						<CardTitle>
+							{t("docs.structurePrimitives.labelCard.title")}
+						</CardTitle>
 						<CardDescription>
 							{t("docs.structurePrimitives.labelCard.description")}
 						</CardDescription>

@@ -13,7 +13,6 @@ import {
 	RadioGroup,
 	RadioGroupItem,
 } from "@/components";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
@@ -40,7 +39,9 @@ export default function RadioGroupParticle() {
 			>
 				<Card className="p-4">
 					<CardHeader>
-						<CardTitle>{t("docs.selectionControls.cards.radio.title")}</CardTitle>
+						<CardTitle>
+							{t("docs.selectionControls.cards.radio.title")}
+						</CardTitle>
 						<CardDescription>
 							{t("docs.selectionControls.cards.radio.description")}
 						</CardDescription>
@@ -55,7 +56,9 @@ export default function RadioGroupParticle() {
 									key={key}
 									value={key}
 									disabled={key === "silent"}
-									label={t(`docs.selectionControls.cards.radio.items.${key}.label`)}
+									label={t(
+										`docs.selectionControls.cards.radio.items.${key}.label`,
+									)}
 									description={t(
 										`docs.selectionControls.cards.radio.items.${key}.description`,
 									)}

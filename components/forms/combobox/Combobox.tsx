@@ -7,14 +7,14 @@ import { ChevronDown, Search, X } from "lucide-react";
 
 import { Icon } from "@/components/display/icon/Icon";
 import {
+	getComboboxSelectedLabel,
+	getSearchableComboboxText,
+} from "@/components/forms/combobox/utils";
+import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/overlays/popover/Popover";
-import {
-	getComboboxSelectedLabel,
-	getSearchableComboboxText,
-} from "@/components/utils";
 import type { ComboboxProps } from "@/types/client";
 
 export function Combobox({

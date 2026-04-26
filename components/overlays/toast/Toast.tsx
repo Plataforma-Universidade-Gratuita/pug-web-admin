@@ -18,7 +18,7 @@ import {
 	resolveToastOffset,
 	resolveToastValue,
 	withToastDefaults,
-} from "@/components/utils";
+} from "@/components/overlays/toast/utils";
 import {
 	TOAST_DEFAULT_DURATION,
 	TOAST_UNDO_DURATION,
@@ -74,83 +74,80 @@ export function ToastProvider(props: ToastProviderProps) {
 	);
 }
 
-function baseToast(message: ReactNode, options?: AppToastOptions) {
-	return sonnerToast(
-		message,
-		withToastDefaults(options, TOAST_DEFAULT_DURATION),
-	);
-}
+export const toast = Object.assign(
+	(message: ReactNode, options?: AppToastOptions) =>
+		sonnerToast(message, withToastDefaults(options, TOAST_DEFAULT_DURATION)),
+	{
+		success(message: ReactNode, options?: AppToastOptions) {
+			return sonnerToast.success(
+				message,
+				withToastDefaults(options, TOAST_DEFAULT_DURATION),
+			);
+		},
+		info(message: ReactNode, options?: AppToastOptions) {
+			return sonnerToast.info(
+				message,
+				withToastDefaults(options, TOAST_DEFAULT_DURATION),
+			);
+		},
+		warning(message: ReactNode, options?: AppToastOptions) {
+			return sonnerToast.warning(
+				message,
+				withToastDefaults(options, TOAST_DEFAULT_DURATION),
+			);
+		},
+		danger(message: ReactNode, options?: AppToastOptions) {
+			return sonnerToast.error(
+				message,
+				withToastDefaults(options, TOAST_DEFAULT_DURATION),
+			);
+		},
+		error(message: ReactNode, options?: AppToastOptions) {
+			return sonnerToast.error(
+				message,
+				withToastDefaults(options, TOAST_DEFAULT_DURATION),
+			);
+		},
+		promise<ToastData>(
+			promise: Promise<ToastData> | (() => Promise<ToastData>),
+			options: AppToastPromiseOptions<ToastData>,
+		) {
+			const { loading, success, error, description, ...rest } = options;
 
-export const toast = Object.assign(baseToast, {
-	success(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.success(
-			message,
-			withToastDefaults(options, TOAST_DEFAULT_DURATION),
-		);
-	},
-	info(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.info(
-			message,
-			withToastDefaults(options, TOAST_DEFAULT_DURATION),
-		);
-	},
-	warning(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.warning(
-			message,
-			withToastDefaults(options, TOAST_DEFAULT_DURATION),
-		);
-	},
-	danger(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.error(
-			message,
-			withToastDefaults(options, TOAST_DEFAULT_DURATION),
-		);
-	},
-	error(message: ReactNode, options?: AppToastOptions) {
-		return sonnerToast.error(
-			message,
-			withToastDefaults(options, TOAST_DEFAULT_DURATION),
-		);
-	},
-	promise<ToastData>(
-		promise: Promise<ToastData> | (() => Promise<ToastData>),
-		options: AppToastPromiseOptions<ToastData>,
-	) {
-		const { loading, success, error, description, ...rest } = options;
+			return sonnerToast.promise(promise, {
+				...withToastDefaults(rest, TOAST_DEFAULT_DURATION),
+				loading,
+				success: data => resolveToastValue(success, data),
+				error: err => resolveToastValue(error, err),
+				description:
+					typeof description === "function"
+						? (data: ToastData) => resolveToastValue(description, data)
+						: description,
+			});
+		},
+		undo(message: ReactNode, options: AppToastUndoOptions) {
+			const { onUndo, undoLabel = "Undo", duration, ...rest } = options;
+			const actionButtonClassName = [
+				rest.classNames?.actionButton,
+				"toast-action-button-brand",
+			]
+				.filter(Boolean)
+				.join(" ");
 
-		return sonnerToast.promise(promise, {
-			...withToastDefaults(rest, TOAST_DEFAULT_DURATION),
-			loading,
-			success: data => resolveToastValue(success, data),
-			error: err => resolveToastValue(error, err),
-			description:
-				typeof description === "function"
-					? (data: ToastData) => resolveToastValue(description, data)
-					: description,
-		});
+			return sonnerToast.message(message, {
+				...withToastDefaults(rest, TOAST_DEFAULT_DURATION),
+				duration: duration ?? TOAST_UNDO_DURATION,
+				icon: <RotateCcw className="h-4 w-4" />,
+				classNames: {
+					...rest.classNames,
+					actionButton: actionButtonClassName,
+				},
+				action: {
+					label: undoLabel,
+					onClick: onUndo,
+				},
+				position: "bottom-right",
+			});
+		},
 	},
-	undo(message: ReactNode, options: AppToastUndoOptions) {
-		const { onUndo, undoLabel = "Undo", duration, ...rest } = options;
-		const actionButtonClassName = [
-			rest.classNames?.actionButton,
-			"toast-action-button-brand",
-		]
-			.filter(Boolean)
-			.join(" ");
-
-		return sonnerToast.message(message, {
-			...withToastDefaults(rest, TOAST_DEFAULT_DURATION),
-			duration: duration ?? TOAST_UNDO_DURATION,
-			icon: <RotateCcw className="h-4 w-4" />,
-			classNames: {
-				...rest.classNames,
-				actionButton: actionButtonClassName,
-			},
-			action: {
-				label: undoLabel,
-				onClick: onUndo,
-			},
-			position: "bottom-right",
-		});
-	},
-});
+);

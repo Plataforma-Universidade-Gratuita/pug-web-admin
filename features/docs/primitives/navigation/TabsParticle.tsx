@@ -3,7 +3,6 @@
 import { useTranslation } from "react-i18next";
 
 import { Card, Tabs, TabsContent, TabsList, TabsTrigger } from "@/components";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 

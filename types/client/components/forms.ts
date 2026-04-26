@@ -1,4 +1,5 @@
 import type {
+	ChangeEventHandler,
 	InputHTMLAttributes,
 	ReactNode,
 	TextareaHTMLAttributes,
@@ -11,10 +12,16 @@ export interface InputProps
 	showPasswordToggle?: boolean;
 }
 
-export type DatePickerProps = Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	"size" | "type"
->;
+export interface DatePickerProps
+	extends Omit<
+		InputHTMLAttributes<HTMLInputElement>,
+		"size" | "type" | "value" | "defaultValue" | "onChange"
+	> {
+	value?: string;
+	defaultValue?: string;
+	onChange?: ChangeEventHandler<HTMLInputElement>;
+	onValueChange?: (value: string) => void;
+}
 
 export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
 

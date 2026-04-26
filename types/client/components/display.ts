@@ -39,6 +39,10 @@ export interface PopoverContentProps {
 	side?: "top" | "right" | "bottom" | "left";
 	align?: "start" | "center" | "end";
 	sideOffset?: number;
+	avoidCollisions?: boolean;
+	collisionPadding?:
+		| number
+		| Partial<Record<"top" | "right" | "bottom" | "left", number>>;
 }
 
 export type IconComponent = ForwardRefExoticComponent<

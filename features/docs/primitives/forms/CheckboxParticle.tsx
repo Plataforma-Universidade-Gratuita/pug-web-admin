@@ -10,7 +10,6 @@ import {
 	CardTitle,
 	Checkbox,
 } from "@/components";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
@@ -24,7 +23,9 @@ export default function CheckboxParticle() {
 			description={t("docs.selectionControls.cards.checkbox.description")}
 			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
-				{ description: t("docs.selectionControls.patternNotes.items.checkbox") },
+				{
+					description: t("docs.selectionControls.patternNotes.items.checkbox"),
+				},
 				{ description: t("docs.selectionControls.patternNotes.items.scope") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
@@ -36,7 +37,9 @@ export default function CheckboxParticle() {
 			>
 				<Card className="p-4">
 					<CardHeader>
-						<CardTitle>{t("docs.selectionControls.cards.checkbox.title")}</CardTitle>
+						<CardTitle>
+							{t("docs.selectionControls.cards.checkbox.title")}
+						</CardTitle>
 						<CardDescription>
 							{t("docs.selectionControls.cards.checkbox.description")}
 						</CardDescription>

@@ -27,14 +27,25 @@ export function PopoverContent({
 	side = "bottom",
 	align = "center",
 	sideOffset = 10,
+	avoidCollisions = true,
+	collisionPadding,
 }: PopoverContentProps) {
+	const contentProps: Record<string, unknown> = {
+		side,
+		align,
+		sideOffset,
+		avoidCollisions,
+	};
+
+	if (collisionPadding !== undefined) {
+		contentProps.collisionPadding = collisionPadding;
+	}
+
 	return (
 		<RadixPopover.Portal>
 			<RadixPopover.Content
-				side={side}
-				align={align}
-				sideOffset={sideOffset}
 				className={clsx("popover-panel popover-content", className)}
+				{...contentProps}
 			>
 				{children}
 				<RadixPopover.Arrow className="popover-arrow" />

@@ -11,7 +11,6 @@ import {
 	Input,
 	Label,
 } from "@/components";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
@@ -36,7 +35,9 @@ export default function LabelParticle() {
 			>
 				<Card className="p-4">
 					<CardHeader>
-						<CardTitle>{t("docs.structurePrimitives.labelCard.title")}</CardTitle>
+						<CardTitle>
+							{t("docs.structurePrimitives.labelCard.title")}
+						</CardTitle>
 						<CardDescription>
 							{t("docs.structurePrimitives.labelCard.description")}
 						</CardDescription>
@@ -47,7 +48,9 @@ export default function LabelParticle() {
 						</Label>
 						<Input
 							id="docs-label-workspace-name"
-							placeholder={t("docs.structurePrimitives.labelCard.namePlaceholder")}
+							placeholder={t(
+								"docs.structurePrimitives.labelCard.namePlaceholder",
+							)}
 						/>
 					</CardContent>
 				</Card>

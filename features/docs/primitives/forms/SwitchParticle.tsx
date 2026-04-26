@@ -12,7 +12,6 @@ import {
 	CardTitle,
 	Switch,
 } from "@/components";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
@@ -39,7 +38,9 @@ export default function SwitchParticle() {
 			>
 				<Card className="p-4">
 					<CardHeader>
-						<CardTitle>{t("docs.selectionControls.cards.switch.title")}</CardTitle>
+						<CardTitle>
+							{t("docs.selectionControls.cards.switch.title")}
+						</CardTitle>
 						<CardDescription>
 							{t("docs.selectionControls.cards.switch.description")}
 						</CardDescription>
@@ -49,13 +50,17 @@ export default function SwitchParticle() {
 							checked={notificationsEnabled}
 							onCheckedChange={setNotificationsEnabled}
 							label={t("docs.selectionControls.cards.switch.item.label")}
-							description={t("docs.selectionControls.cards.switch.item.description")}
+							description={t(
+								"docs.selectionControls.cards.switch.item.description",
+							)}
 						/>
 						<Switch
 							disabled
 							checked={false}
 							label={t("docs.selectionControls.cards.switch.disabled.label")}
-							description={t("docs.selectionControls.cards.switch.disabled.description")}
+							description={t(
+								"docs.selectionControls.cards.switch.disabled.description",
+							)}
 						/>
 					</CardContent>
 				</Card>
