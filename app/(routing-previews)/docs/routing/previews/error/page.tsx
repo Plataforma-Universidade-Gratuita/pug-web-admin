@@ -1,6 +1,6 @@
 "use client";
 
-import { ErrorPageContent } from "@/app/error";
+import { ErrorPageContent } from "@/features/routing/RouteBoundaryPages";
 
 export default function ErrorPreviewPage() {
 	return (

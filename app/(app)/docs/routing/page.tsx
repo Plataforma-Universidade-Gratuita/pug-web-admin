@@ -3,15 +3,18 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
-	Section,
 	SectionContent,
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { RouteBoundaryScreen } from "@/features/routing/RouteBoundaryScreen";
+import {
+	DocsSectionPanel,
+	DocsTextLink,
+} from "@/features/docs/components";
 
 type RouteFileStatus = "Implemented" | "Implement when needed" | "Skip for now";
 
@@ -21,6 +24,15 @@ type RouteFileRecommendation = {
 	tone: "success" | "warning" | "neutral";
 	summary: string;
 	reason: string;
+};
+
+type RoutePreviewCard = {
+	href: string;
+	title: string;
+	tone: "success" | "warning";
+	label: string;
+	description: string;
+	note: string;
 };
 
 const routeFileRecommendations: RouteFileRecommendation[] = [
@@ -74,6 +86,39 @@ const routeFileRecommendations: RouteFileRecommendation[] = [
 	},
 ];
 
+const routePreviewCards: RoutePreviewCard[] = [
+	{
+		href: "/docs/routing/previews/not-found",
+		title: "not-found.tsx",
+		tone: "success",
+		label: "Live preview",
+		description:
+			"Renders the same 404 fallback UI used when a route or record does not resolve.",
+		note:
+			"Use this route to inspect missing-page and missing-record behavior without forcing a real broken link first.",
+	},
+	{
+		href: "/docs/routing/previews/error",
+		title: "error.tsx",
+		tone: "success",
+		label: "Live preview",
+		description:
+			"Uses the implemented segment error boundary with retry-focused UI.",
+		note:
+			"This preview exists because real route failures are not a safe way to inspect the design contract during normal development.",
+	},
+	{
+		href: "/docs/routing/previews/global-error",
+		title: "global-error.tsx",
+		tone: "warning",
+		label: "Visual preview",
+		description:
+			"Shows the same UI used by the root boundary. The real file only appears when the app shell itself fails.",
+		note:
+			"Treat this as a design mirror of the real root fallback, not a flow you should trigger manually in normal work.",
+	},
+];
+
 const statusTone: Record<RouteFileStatus, "success" | "warning" | "neutral"> = {
 	Implemented: "success",
 	"Implement when needed": "warning",
@@ -89,11 +134,11 @@ const routeFileGroups: RouteFileStatus[] = [
 export default function RoutingDocsPage() {
 	return (
 		<main className="mx-auto max-w-6xl space-y-8 p-6 lg:p-8">
-			<Section>
+			<DocsSectionPanel>
 				<SectionHeader>
-					<div className="space-y-3">
+					<div className="max-w-3xl space-y-3">
 						<Badge tone="brand">Next.js App Router</Badge>
-						<SectionTitle>Routing Files</SectionTitle>
+						<SectionTitle>Overview</SectionTitle>
 						<SectionDescription>
 							For this project, the practical baseline is
 							{" "}
@@ -120,154 +165,122 @@ export default function RoutingDocsPage() {
 						</SectionDescription>
 					</div>
 				</SectionHeader>
-				<SectionContent className="space-y-8">
-					<section className="space-y-4">
-						<div className="flex items-center gap-3">
-							<Badge tone="brand">Preview routes</Badge>
-							<p className="ty-sm text-[color:var(--twc-muted)]">
-								Each implemented screen has a matching preview entry so people can
-								inspect the real fallback UI.
-							</p>
-						</div>
-
-						<div className="grid gap-4 xl:grid-cols-3">
-							<Card className="flex h-full flex-col gap-4 overflow-hidden p-4">
-								<div className="flex items-center justify-between gap-3">
-									<CardTitle>
-										<code>not-found.tsx</code>
-									</CardTitle>
-									<Badge tone="success">Live preview</Badge>
-								</div>
-								<CardDescription>
-									Triggers the real 404 boundary through
-									{" "}
-									<code>notFound()</code>
-									.
-								</CardDescription>
-								<RouteBoundaryScreen
-									variant="not-found"
-									mode="preview"
-								/>
-								<CardContent className="pt-0">
-									<a
-										href="/docs/routing/previews/not-found"
-										className="ty-sm-semibold text-[color:var(--color-brand)] underline underline-offset-4"
-									>
-										Open full preview
-									</a>
-								</CardContent>
-							</Card>
-
-							<Card className="flex h-full flex-col gap-4 overflow-hidden p-4">
-								<div className="flex items-center justify-between gap-3">
-									<CardTitle>
-										<code>error.tsx</code>
-									</CardTitle>
-									<Badge tone="success">Live preview</Badge>
-								</div>
-								<CardDescription>
-									Throws a route error and lets the implemented boundary recover.
-								</CardDescription>
-								<RouteBoundaryScreen
-									variant="error"
-									mode="preview"
-									error={
-										new Error(
-											"Preview only: this route failed before it could finish rendering.",
-										)
-									}
-								/>
-								<CardContent className="pt-0">
-									<a
-										href="/docs/routing/previews/error"
-										className="ty-sm-semibold text-[color:var(--color-brand)] underline underline-offset-4"
-									>
-										Open full preview
-									</a>
-								</CardContent>
-							</Card>
-
-							<Card className="flex h-full flex-col gap-4 overflow-hidden p-4">
-								<div className="flex items-center justify-between gap-3">
-									<CardTitle>
-										<code>global-error.tsx</code>
-									</CardTitle>
-									<Badge tone="warning">Visual preview</Badge>
-								</div>
-								<CardDescription>
-									Shows the same UI used by the root boundary. The real file only
-									appears when the app shell itself fails.
-								</CardDescription>
-								<RouteBoundaryScreen
-									variant="global-error"
-									mode="preview"
-									error={
-										new Error(
-											"Preview only: the root app shell would need to fail for the real boundary to appear.",
-										)
-									}
-								/>
-								<CardContent className="pt-0">
-									<a
-										href="/docs/routing/previews/global-error"
-										className="ty-sm-semibold text-[color:var(--color-brand)] underline underline-offset-4"
-									>
-										Open full preview
-									</a>
-								</CardContent>
-							</Card>
-						</div>
-					</section>
-
-					{routeFileGroups.map(group => {
-						const items = routeFileRecommendations.filter(
-							recommendation => recommendation.status === group,
-						);
-
-						return (
-							<section
-								key={group}
-								className="space-y-4"
-							>
-								<div className="flex items-center gap-3">
-									<Badge tone={statusTone[group]}>{group}</Badge>
-									<p className="ty-sm text-[color:var(--twc-muted)]">
-										{group === "Implemented"
-											? "These files are now implemented in the app and previewable from this page."
-											: group === "Implement when needed"
-												? "Add only where route behavior justifies it."
-												: "Specialized files that are unnecessary in the current structure."}
-									</p>
-								</div>
-
-								<div className="grid gap-4 md:grid-cols-2">
-									{items.map(item => (
-										<Card
-											key={item.file}
-											className="flex h-full flex-col justify-between"
-										>
-											<CardHeader className="space-y-3">
-												<div className="flex items-center justify-between gap-3">
-													<CardTitle>
-														<code>{item.file}</code>
-													</CardTitle>
-													<Badge tone={item.tone}>{item.status}</Badge>
-												</div>
-												<CardDescription>{item.summary}</CardDescription>
-											</CardHeader>
-											<CardContent className="pt-0">
-												<p className="ty-sm text-[color:var(--twc-muted)]">
-													{item.reason}
-												</p>
-											</CardContent>
-										</Card>
-									))}
-								</div>
-							</section>
-						);
-					})}
+				<SectionContent className="grid gap-4 md:grid-cols-3">
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>Implemented now</CardTitle>
+							<CardDescription>
+								`not-found.tsx`, `error.tsx`, and `global-error.tsx` form the
+								current routing baseline.
+							</CardDescription>
+						</CardHeader>
+					</Card>
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>Deferred files</CardTitle>
+							<CardDescription>
+								`loading.tsx` stays conditional, while `template.tsx` and
+								`default.tsx` remain out until the routing model changes.
+							</CardDescription>
+						</CardHeader>
+					</Card>
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle>Why previews exist</CardTitle>
+							<CardDescription>
+								Each implemented boundary has a safe route so people can inspect
+								the real fallback UI without forcing a real app failure.
+							</CardDescription>
+						</CardHeader>
+					</Card>
 				</SectionContent>
-			</Section>
+			</DocsSectionPanel>
+
+			<DocsSectionPanel>
+				<SectionHeader>
+					<div className="space-y-3">
+						<Badge tone="brand">Preview routes</Badge>
+						<SectionTitle>Boundary Previews</SectionTitle>
+						<SectionDescription>
+							The preview routes below are the only place you need to open if you
+							want to inspect the implemented fallback screens.
+						</SectionDescription>
+					</div>
+				</SectionHeader>
+				<SectionContent className="grid gap-4 xl:grid-cols-3">
+					{routePreviewCards.map(card => (
+						<Card
+							key={card.href}
+							className="flex h-full flex-col justify-between p-4"
+						>
+							<CardHeader className="space-y-3">
+								<div className="flex flex-wrap items-center justify-between gap-3">
+									<CardTitle>
+										<code>{card.title}</code>
+									</CardTitle>
+									<Badge tone={card.tone}>{card.label}</Badge>
+								</div>
+								<CardDescription>{card.description}</CardDescription>
+							</CardHeader>
+							<CardContent className="pt-0">
+								<p className="ty-sm text-[color:var(--twc-muted)]">
+									{card.note}
+								</p>
+							</CardContent>
+							<CardFooter className="pt-0">
+								<DocsTextLink href={card.href}>Open full preview</DocsTextLink>
+							</CardFooter>
+						</Card>
+					))}
+				</SectionContent>
+			</DocsSectionPanel>
+
+			{routeFileGroups.map(group => {
+				const items = routeFileRecommendations.filter(
+					recommendation => recommendation.status === group,
+				);
+
+				return (
+					<DocsSectionPanel key={group}>
+						<SectionHeader>
+							<div className="space-y-3">
+								<Badge tone={statusTone[group]}>{group}</Badge>
+								<SectionTitle>{group}</SectionTitle>
+								<SectionDescription>
+									{group === "Implemented"
+										? "These files are implemented in the app and previewable from the section above."
+										: group === "Implement when needed"
+											? "Add only where route behavior justifies it."
+											: "Specialized files that are unnecessary in the current structure."}
+								</SectionDescription>
+							</div>
+						</SectionHeader>
+						<SectionContent className="grid gap-4 lg:grid-cols-2">
+							{items.map(item => (
+								<Card
+									key={item.file}
+									className="flex h-full flex-col justify-between p-4"
+								>
+									<CardHeader className="space-y-3">
+										<div className="flex flex-wrap items-center justify-between gap-3">
+											<CardTitle>
+												<code>{item.file}</code>
+											</CardTitle>
+											<Badge tone={item.tone}>{item.status}</Badge>
+										</div>
+										<CardDescription>{item.summary}</CardDescription>
+									</CardHeader>
+									<CardContent className="pt-0">
+										<p className="ty-sm text-[color:var(--twc-muted)]">
+											{item.reason}
+										</p>
+									</CardContent>
+								</Card>
+							))}
+						</SectionContent>
+					</DocsSectionPanel>
+				);
+			})}
 		</main>
 	);
 }

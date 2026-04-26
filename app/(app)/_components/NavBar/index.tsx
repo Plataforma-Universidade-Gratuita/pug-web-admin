@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { RouteBreadcrumbs } from "@/app/(app)/_components/NavBar/RouteBreadcrumbs";
 import { Sidebar } from "@/app/(app)/_components/NavBar/Sidebar";
 import { TopBar } from "@/app/(app)/_components/NavBar/Topbar";
 import { SIDEBAR_STORAGE_KEY } from "@/constants/navigation";
@@ -26,7 +27,12 @@ export function Navbar({ children }: { children: React.ReactNode }) {
 			<div className="navbar-main">
 				<Sidebar collapsed={collapsed} />
 				<main className="navbar-content">
-					<div className="navbar-content-inner">{children}</div>
+					<div className="navbar-content-inner">
+						<div className="space-y-6">
+							<RouteBreadcrumbs />
+							{children}
+						</div>
+					</div>
 				</main>
 			</div>
 		</div>

@@ -28,6 +28,12 @@
 - Components should consume utility classes instead of carrying long visual class contracts inline.
 - Toasts are the special case: keep their Sonner-specific styling in the dedicated toast utility file and wrapper component.
 - App-shell specific styling belongs in `app/styles/utilities/app-shell.css`.
+- The three surface levels should be used to communicate depth: darker surfaces stay farther back, lighter surfaces come closer to the user.
+- Default to separating first-layer and second-layer content with surface contrast rather than leaving everything on the same plane.
+- Sections do not always need their own contrasting surface, but cards should at least contrast against their immediate background.
+- The third surface level is optional and should be used only when another visible step in depth actually helps.
+- Use shadows to reinforce depth or draw attention when something should feel closer to the user.
+- Shadows are commonly appropriate as a default supporting cue, but they are not mandatory on every surface and should not be applied mechanically.
 
 ## Data and validation
 
@@ -48,6 +54,28 @@
 - Every primitive should have a matching docs particle under `features/docs/particles`.
 - New primitives should be exported from `features/docs/index.ts` and rendered on the docs page.
 - Particles should demonstrate meaningful states, including disabled variants when relevant.
+
+## Page patterns
+
+- The default application page grammar is `Section Stack`.
+- `Section Stack` means: centered app shell, optional breadcrumb, one clear page header with title/description/actions, then stacked `Section` surfaces below it.
+- Use `Section Stack` for module home pages, dashboards, calmer overview pages, and lighter reference collections such as `schools`, `courses`, `admins`, and `cities`.
+- Use `Operations Workspace` for collection pages with frequent search, filters, triage, status changes, and queue-like behavior.
+- Preferred `Operations Workspace` targets include `students`, `projects`, `enrollments`, `attendances`, and `staff`. `partner entities` can use it too if the page becomes operationally dense.
+- Use `Split Detail` for important single-record pages that need persistent context while the user reads or edits related information.
+- Preferred `Split Detail` targets include `student/:id`, `project/:id`, and `partner-entity/:id`. `school/:id` should only use it if the page grows beyond simple reference detail.
+- Do not force every heavy workflow into overlays while keeping all pages as `Section Stack`. Some records deserve full detail pages.
+- Overlays support pages; they do not replace page architecture.
+- Use `Popover` for filters, row actions, and tiny decisions.
+- Use `Modal` for confirmations and short one-shot actions.
+- Use `Drawer` for subordinate create, edit, approve, or review flows that belong to the current page context.
+- Prefer shared route-level breadcrumbs owned by the app shell when the path can be derived from routing.
+- Only fall back to page-specific breadcrumb assembly when labels depend on runtime entity data or page-only context.
+- Recommended rule set:
+  - Default to `Section Stack`.
+  - Use `Operations Workspace` for operational collection screens.
+  - Use `Split Detail` for major single-record pages.
+  - Use overlays for mutations and supporting flows, not as a replacement for real record pages.
 
 ## Current patterns to preserve
 

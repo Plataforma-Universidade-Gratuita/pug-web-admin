@@ -1,6 +1,6 @@
 "use client";
 
-import { GlobalErrorPageContent } from "@/app/global-error";
+import { GlobalErrorPageContent } from "@/features/routing/RouteBoundaryPages";
 
 export default function GlobalErrorPreviewPage() {
 	return (

@@ -1,13 +1,4 @@
-import { RouteBoundaryScreen } from "@/features/routing/RouteBoundaryScreen";
-
-export function NotFoundPageContent() {
-	return (
-		<RouteBoundaryScreen
-			variant="not-found"
-			mode="full"
-		/>
-	);
-}
+import { NotFoundPageContent } from "@/features/routing/RouteBoundaryPages";
 
 export default function NotFoundPage() {
 	return <NotFoundPageContent />;

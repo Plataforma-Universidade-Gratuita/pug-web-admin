@@ -55,6 +55,12 @@ export interface TopBarProps {
 	onToggleSidebar: () => void;
 }
 
+export interface RouteBreadcrumbEntry {
+	href: string;
+	label: string;
+	current: boolean;
+}
+
 export interface ThemeSettingOption extends SettingCardOption {
 	value: AppTheme;
 }
