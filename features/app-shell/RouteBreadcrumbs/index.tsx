@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { getRouteBreadcrumbs } from "@/app/(app)/_components/NavBar/RouteBreadcrumbs/utils";
 import {
 	Breadcrumb,
 	BreadcrumbCurrent,
@@ -12,6 +11,7 @@ import {
 	BreadcrumbSeparator,
 } from "@/components";
 import { APP_ROUTE_LABELS } from "@/constants/navigation";
+import { getRouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs/utils";
 
 export function RouteBreadcrumbs() {
 	const pathname = usePathname();

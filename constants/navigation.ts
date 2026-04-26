@@ -11,7 +11,7 @@ export const NAVBAR_PRIMARY_ITEMS = [
 export const APP_ROUTE_LABELS: Record<string, string> = {
 	"/": "Home",
 	"/docs": "Docs",
-	"/docs/components": "Components",
+	"/docs/primitives": "Primitives",
 	"/docs/routing": "Routing",
 	"/docs/routing/previews": "Previews",
 	"/docs/routing/previews/error": "Error",

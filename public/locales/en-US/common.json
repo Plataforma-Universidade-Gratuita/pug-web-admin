@@ -1642,5 +1642,39 @@
 			"dateSection": "Date",
 			"timeSection": "Time"
 		}
+	},
+	"Navbar": {
+		"expand": "Expand sidebar",
+		"collapse": "Collapse sidebar",
+		"navigation": "Primary navigation",
+		"title": "PUG Admin",
+		"subtitle": "Operations workspace",
+		"paths": {
+			"home": "Home",
+			"login": "Login"
+		},
+		"controls": {
+			"theme": {
+				"label": "Theme mode",
+				"placeholder": "Select theme",
+				"options": {
+					"light": "Light",
+					"dark": "Dark",
+					"system": "System"
+				}
+			},
+			"language": {
+				"label": "Language",
+				"placeholder": "Select language",
+				"options": {
+					"en-US": "English",
+					"pt-BR": "Portuguese"
+				},
+				"short": {
+					"en-US": "EN",
+					"pt-BR": "PT"
+				}
+			}
+		}
 	}
 }

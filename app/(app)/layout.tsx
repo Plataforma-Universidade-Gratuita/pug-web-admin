@@ -1,4 +1,4 @@
-import { Navbar } from "@/app/(app)/_components/NavBar";
+import { Navbar } from "@/features/app-shell";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
 	return <Navbar>{children}</Navbar>;

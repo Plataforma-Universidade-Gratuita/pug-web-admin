@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-import { RouteBreadcrumbs } from "@/app/(app)/_components/NavBar/RouteBreadcrumbs";
-import { Sidebar } from "@/app/(app)/_components/NavBar/Sidebar";
-import { TopBar } from "@/app/(app)/_components/NavBar/Topbar";
 import { SIDEBAR_STORAGE_KEY } from "@/constants/navigation";
+import { RouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs";
+import { Sidebar } from "@/features/app-shell/Sidebar";
+import { TopBar } from "@/features/app-shell/Topbar";
 
 export function Navbar({ children }: { children: React.ReactNode }) {
 	const [collapsed, setCollapsed] = useState(true);

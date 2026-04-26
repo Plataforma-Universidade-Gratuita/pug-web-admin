@@ -1642,5 +1642,39 @@
 			"dateSection": "Data",
 			"timeSection": "Horario"
 		}
+	},
+	"Navbar": {
+		"expand": "Expandir barra lateral",
+		"collapse": "Recolher barra lateral",
+		"navigation": "Navegacao principal",
+		"title": "PUG Admin",
+		"subtitle": "Workspace de operacoes",
+		"paths": {
+			"home": "Inicio",
+			"login": "Login"
+		},
+		"controls": {
+			"theme": {
+				"label": "Modo de tema",
+				"placeholder": "Selecionar tema",
+				"options": {
+					"light": "Claro",
+					"dark": "Escuro",
+					"system": "Sistema"
+				}
+			},
+			"language": {
+				"label": "Idioma",
+				"placeholder": "Selecionar idioma",
+				"options": {
+					"en-US": "Ingles",
+					"pt-BR": "Portugues"
+				},
+				"short": {
+					"en-US": "EN",
+					"pt-BR": "PT"
+				}
+			}
+		}
 	}
 }
