@@ -21,6 +21,7 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 	Icon,
@@ -860,29 +861,37 @@ export function PagePatternLegend() {
 			{pagePatternDefinitions.map(pattern => (
 				<Card
 					key={pattern.slug}
-					className="h-full p-4"
+					className="h-full p-5"
 				>
 					<CardHeader className="space-y-3">
-						<div className="flex flex-wrap items-center justify-between gap-3">
-							<CardTitle>{pattern.name}</CardTitle>
-							<Badge tone={pattern.tone}>{pattern.label}</Badge>
-						</div>
+						<CardTitle>{pattern.name}</CardTitle>
 						<CardDescription>{pattern.summary}</CardDescription>
 					</CardHeader>
-					<CardContent className="space-y-4 pt-0">
-						<div className="rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-3">
-							<p className="ty-sm-semibold">Best for</p>
-							<p className="ty-helper mt-1 text-[color:var(--twc-muted)]">
-								{pattern.bestFor}
-							</p>
-						</div>
-						<div className="rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-3">
-							<p className="ty-sm-semibold">Tradeoff</p>
-							<p className="ty-helper mt-1 text-[color:var(--twc-muted)]">
-								{pattern.tradeoff}
-							</p>
-						</div>
+					<CardContent className="grid gap-4 pt-1">
+						<Card className="p-4 shadow-weak">
+							<CardHeader className="space-y-2">
+								<CardTitle>Best for</CardTitle>
+							</CardHeader>
+							<CardContent className="pt-0">
+								<p className="ty-helper text-[color:var(--twc-muted)]">
+									{pattern.bestFor}
+								</p>
+							</CardContent>
+						</Card>
+						<Card className="p-4 shadow-weak">
+							<CardHeader className="space-y-2">
+								<CardTitle>Tradeoff</CardTitle>
+							</CardHeader>
+							<CardContent className="pt-0">
+								<p className="ty-helper text-[color:var(--twc-muted)]">
+									{pattern.tradeoff}
+								</p>
+							</CardContent>
+						</Card>
 					</CardContent>
+					<CardFooter className="pt-3">
+						<Badge tone={pattern.tone}>{pattern.label}</Badge>
+					</CardFooter>
 				</Card>
 			))}
 		</div>

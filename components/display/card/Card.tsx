@@ -109,6 +109,7 @@ export function CardContent({
 	return (
 		<Content
 			className={clsx(
+				"card-content",
 				isLoading ? "flex min-h-10 items-center" : null,
 				className,
 			)}
@@ -124,7 +125,11 @@ export function CardFooter({ children, className, ...props }: CardFooterProps) {
 
 	return (
 		<Footer
-			className={clsx(isLoading ? "flex flex-wrap gap-3" : null, className)}
+			className={clsx(
+				"card-footer",
+				isLoading ? "flex flex-wrap gap-3" : null,
+				className,
+			)}
 			{...props}
 		>
 			{isLoading ? (

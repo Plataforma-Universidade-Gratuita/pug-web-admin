@@ -8,6 +8,7 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 	Icon,
@@ -64,15 +65,15 @@ export default function BadgeParticle() {
 					).map(item => (
 						<Card
 							key={item.key}
-							className="p-4"
+							className="h-full p-5"
 						>
-							<CardHeader>
+							<CardHeader className="space-y-3">
 								<CardTitle>{t(`docs.badge.cards.${item.key}.title`)}</CardTitle>
 								<CardDescription>
 									{t(`docs.badge.cards.${item.key}.description`)}
 								</CardDescription>
 							</CardHeader>
-							<CardContent className="flex flex-wrap items-center gap-3">
+							<CardFooter className="pt-2">
 								<Badge tone={item.tone}>
 									<Icon
 										icon={item.icon}
@@ -80,7 +81,7 @@ export default function BadgeParticle() {
 									/>
 									{t(`docs.badge.cards.${item.key}.label`)}
 								</Badge>
-							</CardContent>
+							</CardFooter>
 						</Card>
 					))}
 				</div>
@@ -94,9 +95,9 @@ export default function BadgeParticle() {
 					{(["soft", "solid", "outline"] as const).map(variant => (
 						<Card
 							key={variant}
-							className="p-4"
+							className="h-full p-5"
 						>
-							<CardHeader>
+							<CardHeader className="space-y-3">
 								<CardTitle>{t(`docs.badge.variants.${variant}`)}</CardTitle>
 							</CardHeader>
 							<CardContent className="flex flex-wrap items-center gap-3">

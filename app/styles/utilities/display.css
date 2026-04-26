@@ -12,6 +12,9 @@
 	}
 
 	.card-root {
+		display: flex;
+		min-width: 0;
+		flex-direction: column;
 		border: 1px solid var(--twc-border-2);
 		border-radius: var(--twc-radius-xl);
 		background-color: var(--twc-surface-1);
@@ -19,7 +22,9 @@
 
 	.card-header {
 		display: grid;
-		gap: 0.25rem;
+		min-width: 0;
+		align-content: start;
+		gap: 0.5rem;
 	}
 
 	.card-title {
@@ -38,6 +43,21 @@
 		letter-spacing: var(--twc-tracking-normal);
 		line-height: var(--twc-leading-relaxed);
 		color: var(--twc-muted);
+	}
+
+	.card-content {
+		min-width: 0;
+		flex: 1 1 auto;
+	}
+
+	.card-footer {
+		display: flex;
+		min-width: 0;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 0.75rem;
+		margin-top: auto;
 	}
 
 	.empty-state-root {
