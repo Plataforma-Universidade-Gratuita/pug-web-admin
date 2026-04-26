@@ -106,7 +106,7 @@
 
 	.toast-tone-brand {
 		--toast-accent-light: var(--color-brand);
-		--toast-accent-dark: color-mix(in srgb, var(--color-brand) 72%, white);
+		--toast-accent-dark: var(--color-brand);
 		--toast-soft-bg: color-mix(
 			in srgb,
 			var(--color-brand) 24%,
@@ -195,7 +195,7 @@
 	html.dark .toast-action-button-brand,
 	html.dark-theme .toast-action-button-brand,
 	html[data-theme="dark"] .toast-action-button-brand {
-		--toast-brand-accent: color-mix(in srgb, var(--color-brand) 72%, white);
+		--toast-brand-accent: var(--color-brand);
 		--toast-brand-bg: color-mix(
 			in srgb,
 			var(--color-brand) 24%,
@@ -238,7 +238,7 @@
 				.dark-theme
 			):not([data-theme="dark"])
 			.toast-action-button-brand {
-			--toast-brand-accent: color-mix(in srgb, var(--color-brand) 72%, white);
+			--toast-brand-accent: var(--color-brand);
 			--toast-brand-bg: color-mix(
 				in srgb,
 				var(--color-brand) 24%,

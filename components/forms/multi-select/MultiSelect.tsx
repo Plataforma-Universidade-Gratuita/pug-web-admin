@@ -84,30 +84,33 @@ export function MultiSelect({
 				<div className="multi-select-overlay">
 					<div className="multi-select-values">
 						{selectedOptions.length > 0 ? (
-							<div className="multi-select-value-list">
-								{visibleOptions.map(option => (
-									<Badge
-										key={option.value}
-										tone="brand"
-										variant="soft"
-										onRemove={
-											disabled ? undefined : () => toggleValue(option.value)
-										}
-										removeLabel={`Remove ${option.label}`}
-										className="max-w-full"
-									>
-										<span className="truncate">{option.label}</span>
-									</Badge>
-								))}
+							<>
+								<div className="multi-select-value-list">
+									{visibleOptions.map(option => (
+										<Badge
+											key={option.value}
+											tone="brand"
+											variant="soft"
+											onRemove={
+												disabled ? undefined : () => toggleValue(option.value)
+											}
+											removeLabel={`Remove ${option.label}`}
+											className="multi-select-selection-badge"
+										>
+											<span className="min-w-0 truncate">{option.label}</span>
+										</Badge>
+									))}
+								</div>
 								{remainingCount > 0 ? (
 									<Badge
 										tone="neutral"
 										variant="outline"
+										className="multi-select-count-badge"
 									>
 										+{remainingCount}
 									</Badge>
 								) : null}
-							</div>
+							</>
 						) : (
 							<span className="multi-select-placeholder">{placeholder}</span>
 						)}

@@ -46,7 +46,7 @@
 	html.dark &,
 	html.dark-theme &,
 	html[data-theme="dark"] & {
-		--badge-accent: color-mix(in srgb, var(--color-brand) 72%, white);
+		--badge-accent: var(--color-brand);
 		--badge-soft-bg: color-mix(
 			in srgb,
 			var(--color-brand) 24%,
@@ -64,7 +64,7 @@
 				.dark-theme
 			):not([data-theme="dark"])
 			& {
-			--badge-accent: color-mix(in srgb, var(--color-brand) 72%, white);
+			--badge-accent: var(--color-brand);
 			--badge-soft-bg: color-mix(
 				in srgb,
 				var(--color-brand) 24%,

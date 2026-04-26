@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 
 import { Skeleton } from "@/components/display/skeleton/Skeleton";

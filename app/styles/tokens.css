@@ -14,7 +14,9 @@
 @import "@radix-ui/colors/white-alpha.css";
 
 @theme {
-	--color-brand: oklch(0.4562 0.1556 18.17);
+	--color-brand-light: oklch(0.4562 0.1556 18.17);
+	--color-brand-dark: color-mix(in srgb, var(--color-brand-light) 80%, white);
+	--color-brand: var(--color-brand-light);
 
 	--color-success-50: var(--grass-1);
 	--color-success-100: var(--grass-2);
