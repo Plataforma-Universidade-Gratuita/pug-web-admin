@@ -3,6 +3,8 @@
 ## Core rules
 
 - Use `@/` for internal imports.
+- Keep all user-facing copy in locales. Do not hardcode text in components, pages, or feature files.
+- When adding or changing copy, update both `public/locales/en-US/common.json` and `public/locales/pt-BR/common.json`.
 - Keep raw constant values under `constants/`.
 - Keep types and interfaces under `types/`.
 - Keep Zod schemas under `schemas/`.
@@ -51,7 +53,7 @@
 
 ## Docs conventions
 
-- Every primitive should have a matching docs particle under `features/docs/particles`.
+- Every primitive should have a matching docs particle under `features/docs/primitives/<category>`.
 - New primitives should be exported from `features/docs/index.ts` and rendered on the docs page.
 - Particles should demonstrate meaningful states, including disabled variants when relevant.
 

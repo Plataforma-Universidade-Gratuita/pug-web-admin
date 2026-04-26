@@ -4,6 +4,7 @@ import {
 	EmptyStateParticle,
 	IconParticle,
 	SectionParticle,
+	SeparatorParticle,
 	SkeletonParticle,
 } from "@/features/docs";
 
@@ -15,6 +16,7 @@ export default function ComponentsDocsPage() {
 			<EmptyStateParticle />
 			<IconParticle />
 			<SectionParticle />
+			<SeparatorParticle />
 			<SkeletonParticle />
 		</main>
 	);

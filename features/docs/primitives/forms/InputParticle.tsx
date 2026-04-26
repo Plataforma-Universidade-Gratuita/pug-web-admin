@@ -9,12 +9,12 @@ import {
 	Icon,
 	Input,
 	Label,
-} from "components";
+} from "@/components";
 import { Mail, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function InputParticle() {
 	const { t } = useTranslation();
@@ -99,7 +99,7 @@ export default function InputParticle() {
 							<Input
 								id="docs-input-search"
 								type="search"
-								defaultValue="Project Atlas"
+								defaultValue={t("docs.input.search.value")}
 								placeholder={t("docs.input.search.placeholder")}
 								leadingIcon={
 									<Icon
@@ -113,17 +113,19 @@ export default function InputParticle() {
 
 					<Card className="p-4">
 						<CardHeader>
-							<CardTitle>Disabled field</CardTitle>
+							<CardTitle>{t("docs.input.cards.disabled.title")}</CardTitle>
 							<CardDescription>
-								Inputs should clearly show when they are unavailable.
+								{t("docs.input.cards.disabled.description")}
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-2">
-							<Label htmlFor="docs-input-disabled">Workspace name</Label>
+							<Label htmlFor="docs-input-disabled">
+								{t("docs.input.cards.disabled.label")}
+							</Label>
 							<Input
 								id="docs-input-disabled"
 								disabled
-								value="Atlas workspace"
+								value={t("docs.input.cards.disabled.value")}
 								readOnly
 							/>
 						</CardContent>

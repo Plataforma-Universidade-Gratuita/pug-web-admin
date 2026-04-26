@@ -2,6 +2,7 @@ import {
 	AccordionParticle,
 	BreadcrumbParticle,
 	DropdownMenuParticle,
+	TabsParticle,
 } from "@/features/docs";
 
 export default function ComponentsDocsPage() {
@@ -10,6 +11,7 @@ export default function ComponentsDocsPage() {
 			<AccordionParticle />
 			<BreadcrumbParticle />
 			<DropdownMenuParticle />
+			<TabsParticle />
 		</main>
 	);
 }
