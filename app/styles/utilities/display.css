@@ -17,7 +17,7 @@
 		flex-direction: column;
 		border: 1px solid var(--twc-border-2);
 		border-radius: var(--twc-radius-xl);
-		background-color: var(--twc-surface-1);
+		background-color: var(--twc-surface-3);
 	}
 
 	.card-header {
@@ -101,6 +101,9 @@
 	.section-root {
 		display: grid;
 		gap: 1.5rem;
+		border: 1px solid var(--twc-border-2);
+		border-radius: var(--twc-radius-xl);
+		background-color: var(--twc-surface-2);
 	}
 
 	.section-header {

@@ -39,7 +39,7 @@ export default function PagesDocsPage() {
 						<Badge tone="brand">Application page language</Badge>
 						<SectionTitle>Overview</SectionTitle>
 						<SectionDescription>
-							`/docs/components` already hints at a usable page system. The
+							`/docs/primitives` already hints at a usable page system. The
 							extracted default is a centered page shell with one clear intro
 							and stacked sections underneath it. The alternatives below keep
 							the same design tokens and components, but shift the composition

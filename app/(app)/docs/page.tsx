@@ -16,9 +16,9 @@ import {
 
 const docsAreas = [
 	{
-		href: "/docs/components",
+		href: "/docs/primitives",
 		label: "Primitives",
-		title: "Components",
+		title: "Primitives",
 		description:
 			"Browse the shared primitive library, states, usage notes, and visual contracts.",
 	},
