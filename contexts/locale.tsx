@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { i18n as I18nInstance } from "i18next";
 
 import type { AppLang, LocaleContextValue } from "@/types/client";
+import { coerceLang } from "@/utils/lang";
 import { applyClientLanguage } from "@/utils/locale";
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
@@ -18,16 +19,40 @@ export function LocaleProvider({
 	initialLang: AppLang;
 	i18n: I18nInstance;
 }) {
-	const [lang, setLangState] = useState<AppLang>(initialLang);
+	const [lang, setLangState] = useState<AppLang>(() => {
+		if (typeof window !== "undefined") {
+			const stored = localStorage.getItem("app-lang");
+			if (stored) return coerceLang(stored);
+		}
+		return coerceLang(initialLang);
+	});
+
+	const setLang = (next: AppLang) => {
+		const canonical = coerceLang(next);
+		setLangState(canonical);
+		if (typeof window !== "undefined") {
+			localStorage.setItem("app-lang", canonical);
+		}
+	};
 
 	useEffect(() => {
 		applyClientLanguage(lang, i18n);
 	}, [i18n, lang]);
 
+	useEffect(() => {
+		const handler = (e: StorageEvent) => {
+			if (e.key === "app-lang" && e.newValue) {
+				setLangState(coerceLang(e.newValue));
+			}
+		};
+		window.addEventListener("storage", handler);
+		return () => window.removeEventListener("storage", handler);
+	}, []);
+
 	const value = useMemo<LocaleContextValue>(
 		() => ({
 			lang,
-			setLang: setLangState,
+			setLang,
 		}),
 		[lang],
 	);

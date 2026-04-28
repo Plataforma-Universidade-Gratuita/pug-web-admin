@@ -2,16 +2,10 @@
 
 import Link from "next/link";
 
-import { Globe, MoonStar, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-	Button,
-	Icon,
-	Tooltip,
-	ToggleGroup,
-	ToggleGroupItem,
-} from "@/components";
+import { Button, Icon, LanguageSelector, ThemeSelector } from "@/components";
 import { NAVBAR_TITLE_ROUTE } from "@/constants/navigation";
 import { useLocale } from "@/contexts/locale";
 import { useTheme } from "@/contexts/theme";
@@ -27,6 +21,16 @@ export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 	const { t } = useTranslation();
 	const { lang, setLang } = useLocale();
 	const { mode, setMode } = useTheme();
+	const themeSelectorOptions = THEME_OPTIONS.map(option => ({
+		value: option.value,
+		icon: option.icon,
+		label: t(getThemeOptionLabel(option.value)),
+	}));
+	const languageSelectorOptions = LANGUAGE_OPTIONS.map(option => ({
+		value: option.value,
+		label: t(getLanguageOptionLabel(option.value)),
+		shortLabel: t(option.shortLabelKey),
+	}));
 
 	return (
 		<header className="app-topbar">
@@ -60,73 +64,18 @@ export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 					</div>
 					<div className="app-topbar-controls">
 						<div className="app-topbar-picker app-topbar-picker-theme">
-							<span className="app-topbar-picker-icon">
-								<Icon
-									icon={MoonStar}
-									size={16}
-								/>
-							</span>
-							<ToggleGroup
-								type="single"
+							<ThemeSelector
 								value={mode}
-								onValueChange={value => {
-									if (value) {
-										setMode(value as typeof mode);
-									}
-								}}
-								className="app-topbar-toggle-group"
-							>
-								{THEME_OPTIONS.map(option => (
-									<Tooltip
-										key={option.value}
-										content={t(getThemeOptionLabel(option.value))}
-									>
-										<ToggleGroupItem
-											value={option.value}
-											aria-label={t(getThemeOptionLabel(option.value))}
-											className="app-topbar-mode-toggle"
-										>
-											<Icon
-												icon={option.icon}
-												size={16}
-											/>
-										</ToggleGroupItem>
-									</Tooltip>
-								))}
-							</ToggleGroup>
+								options={themeSelectorOptions}
+								onValueChange={setMode}
+							/>
 						</div>
 						<div className="app-topbar-picker app-topbar-picker-language">
-							<span className="app-topbar-picker-icon">
-								<Icon
-									icon={Globe}
-									size={16}
-								/>
-							</span>
-							<ToggleGroup
-								type="single"
+							<LanguageSelector
 								value={lang}
-								onValueChange={value => {
-									if (value) {
-										setLang(value as typeof lang);
-									}
-								}}
-								className="app-topbar-toggle-group"
-							>
-								{LANGUAGE_OPTIONS.map(option => (
-									<Tooltip
-										key={option.value}
-										content={t(getLanguageOptionLabel(option.value))}
-									>
-										<ToggleGroupItem
-											value={option.value}
-											aria-label={t(getLanguageOptionLabel(option.value))}
-											className="app-topbar-language-toggle"
-										>
-											{t(option.shortLabelKey)}
-										</ToggleGroupItem>
-									</Tooltip>
-								))}
-							</ToggleGroup>
+								options={languageSelectorOptions}
+								onValueChange={setLang}
+							/>
 						</div>
 					</div>
 				</div>

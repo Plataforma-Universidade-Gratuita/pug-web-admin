@@ -1,4 +1,4 @@
-import { PagePatternFrame } from "../../../../../../features/docs/page-patterns/PagePatternShowcase";
+import { PagePatternFrame } from "@/features/docs/page-patterns/PagePatternShowcase";
 
 export default function OperationsWorkspacePreviewPage() {
 	return (

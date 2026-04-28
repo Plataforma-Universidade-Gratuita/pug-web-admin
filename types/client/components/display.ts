@@ -12,6 +12,8 @@ import type * as RadixSeparator from "@radix-ui/react-separator";
 import type { LucideProps } from "lucide-react";
 
 import { BADGE_TONES, BADGE_VARIANTS } from "@/constants/components";
+import type { AppLang } from "@/types/client/locale";
+import type { AppTheme } from "@/types/client/theme";
 
 export type BadgeTone = keyof typeof BADGE_TONES;
 export type BadgeVariant = keyof typeof BADGE_VARIANTS;
@@ -108,4 +110,30 @@ export interface ScrollAreaProps
 	children: ReactNode;
 	className?: string;
 	viewportClassName?: string;
+}
+
+export interface ThemeSelectorOption {
+	value: AppTheme;
+	icon: IconComponent;
+	label: string;
+}
+
+export interface ThemeSelectorProps {
+	value: AppTheme;
+	options: ThemeSelectorOption[];
+	onValueChange: (value: AppTheme) => void;
+	className?: string;
+}
+
+export interface LanguageSelectorOption {
+	value: AppLang;
+	label: string;
+	shortLabel: string;
+}
+
+export interface LanguageSelectorProps {
+	value: AppLang;
+	options: LanguageSelectorOption[];
+	onValueChange: (value: AppLang) => void;
+	className?: string;
 }

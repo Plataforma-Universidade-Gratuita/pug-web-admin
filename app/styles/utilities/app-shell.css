@@ -16,7 +16,7 @@
 			var(--twc-surface-2) 88%,
 			transparent
 		);
-		color: var(--twc-chrome-fg);
+		color: var(--twc-chrome-fg) !important;
 		box-shadow: var(--twc-shadow-sm);
 		transition:
 			background-color var(--twc-duration-normal) var(--twc-ease-standard),
@@ -36,12 +36,12 @@
 	}
 
 	.app-topbar-link {
-		color: var(--twc-chrome-fg);
+		color: var(--twc-chrome-fg) !important;
 		text-decoration: none;
 	}
 
 	.app-topbar-subtitle {
-		color: var(--twc-chrome-muted);
+		color: var(--twc-chrome-muted) !important;
 	}
 
 	.app-topbar-controls {
@@ -55,15 +55,7 @@
 		min-width: 0;
 		align-items: center;
 		gap: 0.5rem;
-		border: 1px solid color-mix(in oklab, var(--twc-border-2) 78%, transparent);
-		border-radius: var(--twc-radius-circle);
-		background-color: color-mix(
-			in oklab,
-			var(--twc-surface-2) 88%,
-			transparent
-		);
-		padding: 0.25rem;
-		box-shadow: var(--twc-shadow-sm);
+		background: transparent;
 	}
 
 	.app-topbar-picker-icon {
@@ -74,74 +66,16 @@
 		align-items: center;
 		justify-content: center;
 		border-radius: var(--twc-radius-circle);
-		background-color: color-mix(
-			in oklab,
-			var(--twc-surface-3) 76%,
-			transparent
-		);
+		background-color: color-mix(in oklab, var(--white-a12) 10%, transparent);
 		color: var(--twc-chrome-fg);
 	}
 
 	.app-topbar-picker-theme {
-		padding-right: 0.375rem;
+		padding-right: 0;
 	}
 
 	.app-topbar-picker-language {
-		padding-right: 0.375rem;
-	}
-
-	.app-topbar-toggle-group {
-		display: inline-flex;
-		flex-wrap: nowrap;
-		gap: 0.375rem;
-	}
-
-	.app-topbar-mode-toggle,
-	.app-topbar-language-toggle {
-		height: 2rem;
-		min-width: 0;
-		border: none;
-		border-radius: var(--twc-radius-circle);
-		background: transparent;
-		padding: 0.375rem 0.625rem;
-		color: var(--twc-chrome-muted);
-		box-shadow: none;
-	}
-
-	.app-topbar-mode-toggle {
-		width: 2rem;
-		padding: 0;
-	}
-
-	.app-topbar-language-toggle {
-		min-width: 2.5rem;
-		padding-inline: 0.625rem;
-		font-size: var(--twc-text-xs);
-		font-weight: var(--twc-weight-semibold);
-		letter-spacing: 0.08em;
-	}
-
-	.app-topbar-mode-toggle:hover,
-	.app-topbar-language-toggle:hover {
-		background-color: color-mix(
-			in oklab,
-			var(--twc-surface-3) 72%,
-			transparent
-		);
-		color: var(--twc-chrome-fg);
-	}
-
-	.app-topbar-mode-toggle[data-state="on"],
-	.app-topbar-language-toggle[data-state="on"] {
-		background-color: color-mix(in oklab, var(--color-brand) 14%, transparent);
-		color: var(--color-brand);
-	}
-
-	.app-topbar-mode-toggle:focus-visible,
-	.app-topbar-language-toggle:focus-visible {
-		box-shadow:
-			0 0 0 1px var(--twc-focus-ring),
-			0 0 0 4px var(--twc-focus-halo);
+		padding-right: 0;
 	}
 
 	.navbar-shell {
