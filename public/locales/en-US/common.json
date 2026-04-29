@@ -1643,6 +1643,62 @@
 			"timeSection": "Time"
 		}
 	},
+	"auth": {
+		"login": {
+			"brand": {
+				"name": "PUG Web Admin",
+				"subtitle": "Administrator workspace"
+			},
+			"hero": {
+				"badge": "Protected access",
+				"title": "Sign in to keep academic operations controlled and consistent.",
+				"description": "Use your administrator account to access the application shell, review operational areas, and manage the platform with the shared system surface.",
+				"highlights": {
+					"adminOnly": {
+						"title": "Administrator-only access",
+						"description": "The login entry point is reserved for the admin workspace and protected routes."
+					},
+					"session": {
+						"title": "Session continuity",
+						"description": "Secure cookies keep the session stable across the protected application area."
+					},
+					"refresh": {
+						"title": "Automatic token refresh",
+						"description": "Expired access tokens are refreshed through the middleware before the shell is interrupted."
+					}
+				},
+				"note": {
+					"title": "Current access model",
+					"description": "The app redirects authenticated users straight to the shell and keeps login as the only public route."
+				}
+			},
+			"form": {
+				"badge": "Administrator sign in",
+				"title": "Login",
+				"description": "Enter your administrator credentials to continue into the PUG operations workspace.",
+				"fields": {
+					"email": {
+						"label": "Email",
+						"placeholder": "admin@pug.edu.br"
+					},
+					"password": {
+						"label": "Password",
+						"placeholder": "Enter your password"
+					}
+				},
+				"submit": "Continue",
+				"submitPending": "Signing in..."
+			},
+			"validation": {
+				"email": "Enter a valid email address.",
+				"password": "Enter your password."
+			},
+			"feedback": {
+				"success": "Signed in successfully.",
+				"error": "Unable to sign in right now."
+			}
+		}
+	},
 	"Navbar": {
 		"expand": "Expand sidebar",
 		"collapse": "Collapse sidebar",

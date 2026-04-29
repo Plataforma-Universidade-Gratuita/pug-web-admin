@@ -1,15 +1,56 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
 import { LoginForm } from "@/features/auth/login/LoginForm";
 import { LoginHero } from "@/features/auth/login/LoginHero";
+import { FloatingPageControls } from "@/features/floating-page-controls";
 
 export default function Page() {
+	const formCardRef = useRef<HTMLDivElement | null>(null);
+	const [desktopHeroHeight, setDesktopHeroHeight] = useState<number | null>(null);
+
+	useEffect(() => {
+		const card = formCardRef.current;
+		if (!card) {
+			return;
+		}
+
+		const syncHeight = () => {
+			setDesktopHeroHeight(card.getBoundingClientRect().height);
+		};
+
+		syncHeight();
+
+		const observer = new ResizeObserver(() => {
+			syncHeight();
+		});
+
+		observer.observe(card);
+
+		return () => {
+			observer.disconnect();
+		};
+	}, []);
+
 	return (
 		<main className="login-page">
-			<div className="login-page-content">
-				<LoginHero />
-				<LoginForm />
-			</div>
+			<FloatingPageControls />
+			<section className="login-page-content">
+				<div
+					className="login-page-panel login-page-panel-hero"
+					style={
+						desktopHeroHeight ? { height: `${desktopHeroHeight}px` } : undefined
+					}
+				>
+					<LoginHero />
+				</div>
+				<div
+					className="login-page-panel login-page-panel-form"
+				>
+					<LoginForm panelRef={formCardRef} />
+				</div>
+			</section>
 		</main>
 	);
 }

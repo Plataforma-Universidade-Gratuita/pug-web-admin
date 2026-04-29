@@ -1643,6 +1643,62 @@
 			"timeSection": "Horario"
 		}
 	},
+	"auth": {
+		"login": {
+			"brand": {
+				"name": "PUG Web Admin",
+				"subtitle": "Workspace administrativo"
+			},
+			"hero": {
+				"badge": "Acesso protegido",
+				"title": "Entre para manter as operacoes academicas controladas e consistentes.",
+				"description": "Use sua conta administrativa para acessar o app shell, revisar as areas operacionais e gerenciar a plataforma dentro da superficie compartilhada do sistema.",
+				"highlights": {
+					"adminOnly": {
+						"title": "Acesso exclusivo para administradores",
+						"description": "A entrada de login e reservada para o workspace administrativo e para as rotas protegidas."
+					},
+					"session": {
+						"title": "Continuidade de sessao",
+						"description": "Cookies seguros mantem a sessao estavel em toda a area protegida da aplicacao."
+					},
+					"refresh": {
+						"title": "Refresh automatico de token",
+						"description": "Tokens de acesso expirados sao renovados pelo middleware antes de interromper o shell."
+					}
+				},
+				"note": {
+					"title": "Modelo de acesso atual",
+					"description": "A aplicacao redireciona usuarios autenticados direto para o shell e mantem o login como a unica rota publica."
+				}
+			},
+			"form": {
+				"badge": "Login administrativo",
+				"title": "Login",
+				"description": "Informe suas credenciais administrativas para entrar no workspace de operacoes do PUG.",
+				"fields": {
+					"email": {
+						"label": "Email",
+						"placeholder": "admin@pug.edu.br"
+					},
+					"password": {
+						"label": "Senha",
+						"placeholder": "Digite sua senha"
+					}
+				},
+				"submit": "Continuar",
+				"submitPending": "Entrando..."
+			},
+			"validation": {
+				"email": "Informe um email valido.",
+				"password": "Informe sua senha."
+			},
+			"feedback": {
+				"success": "Login realizado com sucesso.",
+				"error": "Nao foi possivel entrar agora."
+			}
+		}
+	},
 	"Navbar": {
 		"expand": "Expandir barra lateral",
 		"collapse": "Recolher barra lateral",

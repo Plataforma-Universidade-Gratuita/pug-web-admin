@@ -269,6 +269,25 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - The third surface level is optional and should only be used when another depth step helps.
 - Use shadows intentionally to reinforce depth or importance, not mechanically everywhere.
 
+## Responsiveness
+
+- The project already has a strong responsive baseline. New work should preserve that quality.
+- Mobile and tablet behavior are first-class requirements, not follow-up polish.
+- Default rule: if a surface is not clearly useful on smaller screens, remove it or collapse it instead of forcing it to fit.
+- Prefer responsive simplification over dense scaling. Hiding secondary support panels on smaller screens is often correct.
+- Text must always fit its container without overlap, clipping, or accidental horizontal scroll.
+- Avoid layouts that depend on one fixed desktop proportion to remain usable.
+- Preserve stable heights and widths for repeated controls where hover states, loading states, or longer labels could shift layout.
+- Shared scroll areas should keep scrolling contained to the intended region and should not introduce horizontal overflow unless that is explicitly the pattern.
+- For app-shell work:
+  - sidebar, topbar, breadcrumbs, and content scroll behavior must remain coherent across breakpoints
+  - collapsed/expanded states should still be usable on smaller viewports
+  - support surfaces such as login heroes should be hidden below desktop when they stop helping the flow
+- Before finishing responsive UI work, check at least:
+  - small mobile width
+  - tablet width
+  - desktop width
+
 ## Localization
 
 - i18n is initialized through the app provider stack.

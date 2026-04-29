@@ -194,6 +194,7 @@ export const ROUTE_BOUNDARY_CONFIG = {
 			"The page may have moved, the URL may be incorrect, or the route may not be available in the current app area.",
 		icon: Compass,
 		tone: "brand",
+		previewNote: undefined,
 	},
 	error: {
 		code: "500",
@@ -202,6 +203,7 @@ export const ROUTE_BOUNDARY_CONFIG = {
 			"The route failed before it could complete. Retry the current view or go back to a stable part of the app.",
 		icon: TriangleAlert,
 		tone: "warning",
+		previewNote: undefined,
 	},
 	"global-error": {
 		code: "Root Boundary",
