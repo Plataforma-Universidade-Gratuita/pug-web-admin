@@ -16,12 +16,12 @@ import {
 	DialogHeader,
 	DialogTitle,
 	Icon,
-} from "components";
+} from "@/components";
 import { ArrowRight, FileText, Info, Layers3 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function DialogParticle() {
 	const { t } = useTranslation();

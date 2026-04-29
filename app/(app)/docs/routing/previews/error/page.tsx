@@ -1,6 +1,6 @@
 "use client";
 
-import { ErrorPageContent } from "../../../../../../features/docs/routing/RouteBoundaryPages";
+import { ErrorPageContent } from "@/features/docs/routing/RouteBoundaryPages";
 
 export default function ErrorPreviewPage() {
 	return (

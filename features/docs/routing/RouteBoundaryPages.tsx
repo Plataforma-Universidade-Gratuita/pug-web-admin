@@ -2,12 +2,8 @@
 
 import { useEffect } from "react";
 
-import { RouteBoundaryScreen } from "features/docs/routing/RouteBoundaryScreen";
-
-export type RouteBoundaryPageProps = {
-	error: Error & { digest?: string };
-	reset: () => void;
-};
+import { RouteBoundaryScreen } from "@/features/docs/routing/RouteBoundaryScreen";
+import type { RouteBoundaryPageProps } from "@/types/client";
 
 export function NotFoundPageContent() {
 	return (

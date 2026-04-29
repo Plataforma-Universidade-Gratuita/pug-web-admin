@@ -13,20 +13,20 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
+import { PAGE_PATTERN_DEFINITIONS } from "@/constants/docs";
 
 import {
 	PagePatternLegend,
 	PagePatternNote,
 	PagePatternRecommendation,
 	PagePatternTitle,
-	pagePatternDefinitions,
-} from "../../../../features/docs/page-patterns/PagePatternShowcase";
+} from "@/features/docs/page-patterns/PagePatternShowcase";
 import {
 	DocsSectionPanel,
 	DocsTextLink,
-} from "../../../../features/docs/primitives";
+} from "@/features/docs/primitives";
 
-const alternativePatterns = pagePatternDefinitions.filter(
+const alternativePatterns = PAGE_PATTERN_DEFINITIONS.filter(
 	pattern => pattern.slug !== "section-stack",
 );
 

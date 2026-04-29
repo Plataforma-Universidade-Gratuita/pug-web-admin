@@ -1,4 +1,4 @@
-import PrimitivesDocsPageContent from "@/features/docs/primitives/PrimitivesDocsPageContent";
+import PrimitivesDocsPageContent from "@/features/docs/PrimitivesDocsPageContent";
 
 export default function PrimitivesDocsPage() {
 	return <PrimitivesDocsPageContent />;

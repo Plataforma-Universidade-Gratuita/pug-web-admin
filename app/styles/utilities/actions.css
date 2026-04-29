@@ -1,5 +1,6 @@
 @layer components {
 	.toggle-root {
+		cursor: pointer;
 		display: inline-flex;
 		height: 2.5rem;
 		align-items: center;

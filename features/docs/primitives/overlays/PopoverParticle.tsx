@@ -13,7 +13,7 @@ import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from "components";
+} from "@/components";
 import {
 	CalendarDays,
 	Filter,
@@ -22,8 +22,8 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function PopoverParticle() {
 	const { t } = useTranslation();

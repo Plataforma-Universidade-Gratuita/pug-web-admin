@@ -1,0 +1,71 @@
+
+> pug-web-admin@0.1.0 dev
+> next dev --port 3001
+
+   ▲ Next.js 15.5.4
+   - Local:        http://localhost:3001
+   - Network:      http://10.1.15.190:3001
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1746ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 593ms (214 modules)
+ ○ Compiling /login ...
+ ✓ Compiled /login in 4.8s (3175 modules)
+ GET /login 200 in 5291ms
+ HEAD /login 200 in 57ms
+ ✓ Compiled in 1031ms (1542 modules)
+ ✓ Compiled in 476ms (1542 modules)
+ ✓ Compiled in 664ms (1542 modules)
+ ✓ Compiled in 694ms (1542 modules)
+ ✓ Compiled in 588ms (1542 modules)
+ ✓ Compiled in 420ms (1542 modules)
+ ✓ Compiled in 610ms (1542 modules)
+ ✓ Compiled in 673ms (1542 modules)
+ ✓ Compiled in 437ms (1542 modules)
+ ✓ Compiled in 459ms (1542 modules)
+ ✓ Compiled in 571ms (1542 modules)
+ ✓ Compiled in 593ms (1542 modules)
+ ✓ Compiled in 324ms (1542 modules)
+ ✓ Compiled in 847ms (1542 modules)
+ ✓ Compiled in 731ms (1542 modules)
+ ✓ Compiled in 730ms (1542 modules)
+ ✓ Compiled in 958ms (1542 modules)
+ ✓ Compiled in 863ms (1542 modules)
+ ✓ Compiled in 512ms (1542 modules)
+ ✓ Compiled in 354ms (1542 modules)
+ ✓ Compiled in 381ms (1542 modules)
+ ✓ Compiled in 399ms (1542 modules)
+ ✓ Compiled in 390ms (1542 modules)
+ ✓ Compiled in 542ms (1542 modules)
+ ✓ Compiled in 422ms (1542 modules)
+ ✓ Compiled in 700ms (1542 modules)
+ ✓ Compiled in 359ms (1542 modules)
+ ✓ Compiled in 339ms (1542 modules)
+ ✓ Compiled in 429ms (1542 modules)
+ ✓ Compiled in 365ms (1542 modules)
+ ✓ Compiled in 410ms (1542 modules)
+ ✓ Compiled in 598ms (1542 modules)
+ ✓ Compiled in 467ms (1542 modules)
+ ✓ Compiled in 491ms (1542 modules)
+ ✓ Compiled in 576ms (1542 modules)
+ ✓ Compiled in 528ms (1542 modules)
+ ✓ Compiled in 422ms (1542 modules)
+ ✓ Compiled in 547ms (1544 modules)
+ ✓ Compiled in 593ms (1544 modules)
+ ✓ Compiled in 545ms (1544 modules)
+ ✓ Compiled in 468ms (1544 modules)
+ ✓ Compiled in 465ms (1544 modules)
+ ✓ Compiled in 427ms (1544 modules)
+ ✓ Compiled in 629ms (1544 modules)
+ ✓ Compiled in 669ms (1544 modules)
+ ✓ Compiled in 703ms (1544 modules)
+ ✓ Compiled in 579ms (1544 modules)
+ ✓ Compiled in 735ms (1544 modules)
+ ✓ Compiled in 600ms (1544 modules)
+ ✓ Compiled in 582ms (1544 modules)
+ ✓ Compiled in 457ms (1545 modules)
+ ✓ Compiled in 532ms (1545 modules)
+ ✓ Compiled in 486ms (1545 modules)
+ ✓ Compiled in 656ms (1545 modules)

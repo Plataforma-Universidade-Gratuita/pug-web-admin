@@ -1,5 +1,6 @@
 @utility btn-base {
 	border-radius: var(--twc-radius-lg);
+	cursor: pointer;
 	font-family: var(--twc-font-sans), serif;
 	font-size: var(--twc-text-sm);
 	font-weight: var(--twc-weight-semibold);

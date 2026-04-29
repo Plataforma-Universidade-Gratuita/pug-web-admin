@@ -1,7 +1,5 @@
 "use client";
 
-import type { ReactNode } from "react";
-
 import {
 	Badge,
 	Button,
@@ -24,7 +22,7 @@ import {
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from "components";
+} from "@/components";
 import {
 	ArrowRight,
 	CalendarRange,
@@ -37,80 +35,16 @@ import {
 	Sparkles,
 	Users,
 } from "lucide-react";
-
-export type PagePatternSlug =
-	| "section-stack"
-	| "operations-workspace"
-	| "split-detail";
-
-type PagePatternDefinition = {
-	slug: PagePatternSlug;
-	name: string;
-	label: string;
-	tone: "brand" | "info" | "success";
-	summary: string;
-	bestFor: string;
-	tradeoff: string;
-};
-
-type PagePatternFrameProps = {
-	slug: PagePatternSlug;
-};
-
-type PageIntroSectionProps = {
-	eyebrow: string;
-	tone: "brand" | "info" | "success";
-	title: string;
-	description: string;
-	actions?: ReactNode;
-	meta?: ReactNode;
-	children?: ReactNode;
-};
-
-const pageSectionClassName =
-	"surface-2 shadow-weak rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] p-6";
-
-const pageStickyRailClassName =
-	"surface-2 shadow-weak h-fit rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] p-4 xl:sticky xl:top-4";
-
-export const pagePatternDefinitions: PagePatternDefinition[] = [
-	{
-		slug: "section-stack",
-		name: "Section Stack",
-		label: "Recommended default",
-		tone: "brand",
-		summary:
-			"A centered shell with one strong page header, then stacked sections that each own their actions and card grid.",
-		bestFor:
-			"Most overview, dashboard, browse, and moderate-detail pages across the app.",
-		tradeoff:
-			"It stays calm and legible, but it is less dense than a workflow-heavy operations surface.",
-	},
-	{
-		slug: "operations-workspace",
-		name: "Operations Workspace",
-		label: "Dense alternative",
-		tone: "info",
-		summary:
-			"A tighter workspace with filters, tabs, queue-like content, and a supporting side rail.",
-		bestFor:
-			"High-frequency admin pages where people triage, review, and move items quickly.",
-		tradeoff:
-			"It raises information density, so it should stay scoped to operational screens.",
-	},
-	{
-		slug: "split-detail",
-		name: "Split Detail",
-		label: "Detail alternative",
-		tone: "success",
-		summary:
-			"A record-focused page with a persistent summary rail on the left and stacked detail sections on the right.",
-		bestFor:
-			"Entity detail, settings, and case-management flows where context must stay visible while editing.",
-		tradeoff:
-			"It works poorly for broad overviews because the left rail competes for width.",
-	},
-];
+import {
+	PAGE_PATTERN_DEFINITIONS,
+	PAGE_PATTERN_SECTION_CLASS_NAME,
+	PAGE_PATTERN_STICKY_RAIL_CLASS_NAME,
+} from "@/constants/docs";
+import type {
+	PageIntroSectionProps,
+	PagePatternFrameProps,
+	PagePatternSlug,
+} from "@/types/client";
 
 function PageIntroSection({
 	eyebrow,
@@ -122,7 +56,7 @@ function PageIntroSection({
 	children,
 }: PageIntroSectionProps) {
 	return (
-		<Section className={pageSectionClassName}>
+		<Section className={PAGE_PATTERN_SECTION_CLASS_NAME}>
 			<SectionHeader>
 				<div className="max-w-3xl space-y-3">
 					{meta ? <div className="flex flex-wrap gap-2">{meta}</div> : null}
@@ -219,7 +153,7 @@ function SectionStackPreview() {
 				</div>
 			</PageIntroSection>
 
-			<Section className={pageSectionClassName}>
+			<Section className={PAGE_PATTERN_SECTION_CLASS_NAME}>
 				<SectionHeader>
 					<div className="space-y-1">
 						<SectionTitle>Priority work</SectionTitle>
@@ -300,7 +234,7 @@ function SectionStackPreview() {
 				</SectionContent>
 			</Section>
 
-			<Section className={pageSectionClassName}>
+			<Section className={PAGE_PATTERN_SECTION_CLASS_NAME}>
 				<SectionHeader>
 					<div className="space-y-1">
 						<SectionTitle>Recent signals</SectionTitle>
@@ -412,7 +346,7 @@ function OperationsWorkspacePreview() {
 				</div>
 			</PageIntroSection>
 
-			<Section className={pageSectionClassName}>
+			<Section className={PAGE_PATTERN_SECTION_CLASS_NAME}>
 				<SectionHeader>
 					<div className="space-y-1">
 						<SectionTitle>Queue workspace</SectionTitle>
@@ -642,7 +576,7 @@ function SplitDetailPreview() {
 			</PageIntroSection>
 
 			<div className="grid gap-6 xl:grid-cols-[18rem_minmax(0,1fr)]">
-				<Card className={pageStickyRailClassName}>
+				<Card className={PAGE_PATTERN_STICKY_RAIL_CLASS_NAME}>
 					<CardHeader className="space-y-3">
 						<div className="flex h-12 w-12 items-center justify-center rounded-[var(--twc-radius-lg)] bg-[color:color-mix(in_oklab,var(--color-brand)_14%,transparent)] text-[color:var(--color-brand)]">
 							<Icon
@@ -685,7 +619,7 @@ function SplitDetailPreview() {
 				</Card>
 
 				<div className="space-y-6">
-					<Section className={pageSectionClassName}>
+					<Section className={PAGE_PATTERN_SECTION_CLASS_NAME}>
 						<SectionHeader>
 							<div className="space-y-1">
 								<SectionTitle>Overview</SectionTitle>
@@ -721,7 +655,7 @@ function SplitDetailPreview() {
 						</SectionContent>
 					</Section>
 
-					<Section className={pageSectionClassName}>
+					<Section className={PAGE_PATTERN_SECTION_CLASS_NAME}>
 						<SectionHeader>
 							<div className="space-y-1">
 								<SectionTitle>Open work</SectionTitle>
@@ -761,7 +695,7 @@ function SplitDetailPreview() {
 						</SectionContent>
 					</Section>
 
-					<Section className={pageSectionClassName}>
+					<Section className={PAGE_PATTERN_SECTION_CLASS_NAME}>
 						<SectionHeader>
 							<div className="space-y-1">
 								<SectionTitle>Recent notes</SectionTitle>
@@ -862,7 +796,7 @@ export function PagePatternRecommendation() {
 export function PagePatternLegend() {
 	return (
 		<div className="grid gap-4 lg:grid-cols-3">
-			{pagePatternDefinitions.map(pattern => (
+			{PAGE_PATTERN_DEFINITIONS.map(pattern => (
 				<Card
 					key={pattern.slug}
 					className="h-full p-5"
@@ -903,7 +837,7 @@ export function PagePatternLegend() {
 }
 
 export function PagePatternDirectionTag({ slug }: { slug: PagePatternSlug }) {
-	const pattern = pagePatternDefinitions.find(item => item.slug === slug);
+	const pattern = PAGE_PATTERN_DEFINITIONS.find(item => item.slug === slug);
 
 	if (!pattern) return null;
 
@@ -921,7 +855,7 @@ export function PagePatternDirectionTag({ slug }: { slug: PagePatternSlug }) {
 }
 
 export function PagePatternTitle({ slug }: { slug: PagePatternSlug }) {
-	const pattern = pagePatternDefinitions.find(item => item.slug === slug);
+	const pattern = PAGE_PATTERN_DEFINITIONS.find(item => item.slug === slug);
 
 	if (!pattern) return null;
 

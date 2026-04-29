@@ -16,12 +16,12 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 	Icon,
-} from "components";
+} from "@/components";
 import { Archive, Ellipsis, Eye, Pencil, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function DropdownMenuParticle() {
 	const { t } = useTranslation();

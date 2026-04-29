@@ -1,14 +1,7 @@
-import type { ReactNode } from "react";
-
 import Link from "next/link";
 
 import clsx from "clsx";
-
-type DocsTextLinkProps = {
-	children: ReactNode;
-	className?: string;
-	href: string;
-};
+import type { DocsTextLinkProps } from "@/types/client";
 
 export function DocsTextLink({ children, className, href }: DocsTextLinkProps) {
 	return (

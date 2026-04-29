@@ -13,38 +13,15 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-
-const docsAreas = [
-	{
-		href: "/docs/primitives",
-		label: "Primitives",
-		title: "Primitives",
-		description:
-			"Browse the shared primitive library, states, usage notes, and visual contracts.",
-	},
-	{
-		href: "/docs/routing",
-		label: "App Router",
-		title: "Routing",
-		description:
-			"Review the implemented Next.js route boundaries and inspect their real preview screens.",
-	},
-	{
-		href: "/docs/pages",
-		label: "Page language",
-		title: "Page Patterns",
-		description:
-			"Compare the default section stack against denser and record-focused page compositions.",
-	},
-] as const;
-
-const sectionPanelClassName =
-	"surface-2 shadow-weak rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] p-6";
+import {
+	DOCS_AREAS,
+	DOCS_SECTION_PANEL_CLASS_NAME,
+} from "@/constants/docs";
 
 export default function DocsPage() {
 	return (
 		<main className="mx-auto max-w-6xl space-y-8 p-6 lg:p-8">
-			<Section className={sectionPanelClassName}>
+			<Section className={DOCS_SECTION_PANEL_CLASS_NAME}>
 				<SectionHeader>
 					<div className="max-w-3xl space-y-3">
 						<Badge tone="brand">Internal reference</Badge>
@@ -88,7 +65,7 @@ export default function DocsPage() {
 				</SectionContent>
 			</Section>
 
-			<Section className={sectionPanelClassName}>
+			<Section className={DOCS_SECTION_PANEL_CLASS_NAME}>
 				<SectionHeader>
 					<div className="space-y-3">
 						<Badge tone="info">Explore</Badge>
@@ -100,7 +77,7 @@ export default function DocsPage() {
 					</div>
 				</SectionHeader>
 				<SectionContent className="grid gap-4 xl:grid-cols-3">
-					{docsAreas.map(area => (
+					{DOCS_AREAS.map(area => (
 						<Card
 							key={area.href}
 							className="flex h-full flex-col justify-between p-4"
@@ -125,7 +102,7 @@ export default function DocsPage() {
 				</SectionContent>
 			</Section>
 
-			<Section className={sectionPanelClassName}>
+			<Section className={DOCS_SECTION_PANEL_CLASS_NAME}>
 				<SectionHeader>
 					<div className="space-y-3">
 						<Badge tone="success">Current guidance</Badge>

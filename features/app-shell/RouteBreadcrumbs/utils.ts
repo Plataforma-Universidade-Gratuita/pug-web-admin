@@ -1,11 +1,5 @@
+import { UNKNOWN_ROUTE_LABEL } from "@/constants/app-shell";
 import type { RouteBreadcrumbEntry } from "@/types/client";
-
-export function formatRouteSegmentLabel(segment: string) {
-	return segment
-		.split("-")
-		.map(part => part.charAt(0).toUpperCase() + part.slice(1))
-		.join(" ");
-}
 
 export function getRouteBreadcrumbs(
 	pathname: string,
@@ -29,7 +23,7 @@ export function getRouteBreadcrumbs(
 
 		const href = `/${segments.slice(0, index + 1).join("/")}`;
 		const isCurrent = index === segments.length - 1;
-		const label = routeLabels[href] ?? formatRouteSegmentLabel(segment);
+		const label = routeLabels[href] ?? UNKNOWN_ROUTE_LABEL;
 
 		items.push({
 			href,

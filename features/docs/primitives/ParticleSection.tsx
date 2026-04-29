@@ -11,10 +11,10 @@ import {
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
-} from "components";
+} from "@/components";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { ParticleSectionProps } from "types/client";
+import type { ParticleSectionProps } from "@/types/client";
 
 export function ParticleSection({
 	title,

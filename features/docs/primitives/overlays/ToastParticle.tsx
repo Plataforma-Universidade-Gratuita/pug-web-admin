@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Icon, toast } from "components";
+import { Button, Icon, toast } from "@/components";
 import {
 	AlertCircle,
 	Bell,
@@ -11,12 +11,9 @@ import {
 	TriangleAlert,
 } from "lucide-react";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
-
-function wait(ms: number) {
-	return new Promise(resolve => window.setTimeout(resolve, ms));
-}
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
+import { wait } from "@/features/docs/primitives/overlays/utils";
 
 export default function ToastParticle() {
 	return (

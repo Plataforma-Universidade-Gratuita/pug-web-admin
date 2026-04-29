@@ -15,11 +15,11 @@ import {
 	SelectLabel,
 	SelectSeparator,
 	SelectTrigger,
-} from "components";
+} from "@/components";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function SelectParticle() {
 	const { t } = useTranslation();

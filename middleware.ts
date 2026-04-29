@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { LOGIN_ROUTE, PUBLIC_ROUTES } from "@/constants/auth";
+import { HOME_ROUTE, LOGIN_ROUTE, PUBLIC_ROUTES } from "@/constants/auth";
 import { validateAdminToken } from "@/utils/auth";
 import {
 	applySessionCookies,
@@ -18,6 +18,14 @@ export async function middleware(request: NextRequest) {
 
 	const isPublic = PUBLIC_ROUTES.includes(pathname);
 	const isValid = accessToken ? validateAdminToken(accessToken).isValid : false;
+
+	if (pathname === LOGIN_ROUTE) {
+		if (isValid) {
+			return NextResponse.redirect(new URL(HOME_ROUTE, request.url));
+		}
+
+		return NextResponse.next();
+	}
 
 	if (isPublic) {
 		return NextResponse.next();

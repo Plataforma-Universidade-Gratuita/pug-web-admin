@@ -17,12 +17,12 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Icon,
-} from "components";
+} from "@/components";
 import { ArrowRight, PanelsTopLeft, SlidersHorizontal } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function DrawerParticle() {
 	const { t } = useTranslation();

@@ -3,87 +3,19 @@
 import type { ReactNode } from "react";
 
 import {
-	Compass,
 	Home,
 	RefreshCcw,
-	ShieldAlert,
-	TriangleAlert,
 } from "lucide-react";
 
 import { Badge, Button, EmptyState, Icon } from "@/components";
 import { HOME_ROUTE } from "@/constants/auth";
-
-type RouteBoundaryVariant = "not-found" | "error" | "global-error";
-type RouteBoundaryMode = "full" | "page" | "preview";
-
-type RouteBoundaryScreenProps = {
-	variant: RouteBoundaryVariant;
-	error?: Error & { digest?: string };
-	mode?: RouteBoundaryMode;
-	onRetry?: () => void;
-};
-
-type RouteBoundaryConfig = {
-	code: string;
-	title: string;
-	description: string;
-	icon: typeof Compass;
-	tone: "brand" | "warning" | "danger";
-	previewNote?: string;
-};
-
-const routeBoundaryConfig: Record<RouteBoundaryVariant, RouteBoundaryConfig> = {
-	"not-found": {
-		code: "404",
-		title: "This route does not exist.",
-		description:
-			"The page may have moved, the URL may be incorrect, or the route may not be available in the current app area.",
-		icon: Compass,
-		tone: "brand",
-	},
-	error: {
-		code: "500",
-		title: "Something broke while rendering this route.",
-		description:
-			"The route failed before it could complete. Retry the current view or go back to a stable part of the app.",
-		icon: TriangleAlert,
-		tone: "warning",
-	},
-	"global-error": {
-		code: "Root Boundary",
-		title: "The app shell failed to load safely.",
-		description:
-			"This is the last-resort fallback for failures that escape normal route boundaries. Reload the app or return to the start.",
-		icon: ShieldAlert,
-		tone: "danger",
-		previewNote:
-			"The real global error screen only appears when the root app shell fails. This preview uses the same UI in a safe route.",
-	},
-};
-
-function screenShellClassName(mode: RouteBoundaryMode) {
-	if (mode === "full") {
-		return "flex min-h-dvh items-center justify-center p-6 sm:p-8";
-	}
-
-	if (mode === "preview") {
-		return "flex min-h-[34rem] items-center justify-center p-4";
-	}
-
-	return "flex min-h-[70vh] items-center justify-center p-6";
-}
-
-function panelClassName(mode: RouteBoundaryMode) {
-	return mode === "preview"
-		? "w-full max-w-4xl rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-2)] p-4 shadow-[var(--twc-shadow-lg)] sm:p-6"
-		: "w-full max-w-3xl rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-2)] p-6 shadow-[var(--twc-shadow-lg)] sm:p-8";
-}
-
-function diagnosticsClassName(mode: RouteBoundaryMode) {
-	return mode === "preview"
-		? "w-full rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)] p-4 text-left"
-		: "w-full rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)] p-4 text-left";
-}
+import { ROUTE_BOUNDARY_CONFIG } from "@/constants/docs";
+import {
+	getRouteBoundaryDiagnosticsClassName,
+	getRouteBoundaryPanelClassName,
+	getRouteBoundaryScreenShellClassName,
+} from "@/features/docs/routing/utils";
+import type { RouteBoundaryScreenProps } from "@/types/client";
 
 export function RouteBoundaryScreen({
 	variant,
@@ -91,7 +23,7 @@ export function RouteBoundaryScreen({
 	mode = "page",
 	onRetry,
 }: RouteBoundaryScreenProps) {
-	const config = routeBoundaryConfig[variant];
+	const config = ROUTE_BOUNDARY_CONFIG[variant];
 	const isPreview = mode === "preview";
 	const shouldShowErrorMessage =
 		variant !== "not-found" &&
@@ -139,8 +71,8 @@ export function RouteBoundaryScreen({
 	}
 
 	return (
-		<main className={screenShellClassName(mode)}>
-			<div className={panelClassName(mode)}>
+		<main className={getRouteBoundaryScreenShellClassName(mode)}>
+			<div className={getRouteBoundaryPanelClassName(mode)}>
 				<EmptyState
 					className="gap-6"
 					icon={
@@ -210,7 +142,7 @@ export function RouteBoundaryScreen({
 						</div>
 
 						{diagnosticItems.length > 0 ? (
-							<div className={diagnosticsClassName(mode)}>
+							<div className={getRouteBoundaryDiagnosticsClassName(mode)}>
 								{diagnosticItems}
 							</div>
 						) : null}

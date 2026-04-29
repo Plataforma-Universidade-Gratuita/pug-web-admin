@@ -12,9 +12,11 @@ import {
 } from "@/components";
 import { APP_ROUTE_LABELS } from "@/constants/navigation";
 import { getRouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs/utils";
+import { useTranslation } from "react-i18next";
 
 export function RouteBreadcrumbs() {
 	const pathname = usePathname();
+	const { t } = useTranslation();
 	const items = getRouteBreadcrumbs(pathname, APP_ROUTE_LABELS);
 
 	if (items.length === 0) {
@@ -28,14 +30,14 @@ export function RouteBreadcrumbs() {
 					{items.map(item => (
 						<BreadcrumbItem key={item.href}>
 							{item.current ? (
-								<BreadcrumbCurrent>{item.label}</BreadcrumbCurrent>
+								<BreadcrumbCurrent>{t(item.label)}</BreadcrumbCurrent>
 							) : (
 								<>
 									<Link
 										href={item.href}
 										className="breadcrumb-link"
 									>
-										{item.label}
+										{t(item.label)}
 									</Link>
 									<BreadcrumbSeparator />
 								</>

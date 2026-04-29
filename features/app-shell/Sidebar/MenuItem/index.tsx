@@ -1,11 +1,6 @@
 "use client";
 
-import Link from "next/link";
-
-import clsx from "clsx";
-import { useTranslation } from "react-i18next";
-
-import { Icon as AppIcon } from "@/components";
+import { SidebarRow } from "@/features/app-shell/Sidebar/SidebarRow";
 import type { MenuItemProps } from "@/types/client";
 
 export function MenuItem({
@@ -14,45 +9,19 @@ export function MenuItem({
 	label,
 	Icon,
 	active,
+	depth = 0,
 }: MenuItemProps) {
-	const { t } = useTranslation();
 	return (
 		<li key={href}>
-			<Link
+			<SidebarRow
+				kind="link"
 				href={href}
-				title={t(label)}
-				aria-current={active ? "page" : undefined}
-				className={clsx(
-					"app-sidebar-item",
-					active ? "app-sidebar-item-active" : null,
-				)}
-				onClick={e => {
-					if (active) {
-						e.preventDefault();
-						return;
-					}
-				}}
-			>
-				<AppIcon
-					icon={Icon}
-					size={20}
-					strokeWidth={2}
-					className={clsx(
-						"app-sidebar-item-icon",
-						active ? "app-sidebar-item-icon-active" : null,
-					)}
-				/>
-				{!collapsed && (
-					<span
-						className={clsx(
-							"app-sidebar-item-label truncate",
-							active ? "app-sidebar-item-label-active" : null,
-						)}
-					>
-						{t(label)}
-					</span>
-				)}
-			</Link>
+				collapsed={collapsed}
+				label={label}
+				Icon={Icon}
+				active={active}
+				depth={depth}
+			/>
 		</li>
 	);
 }

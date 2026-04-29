@@ -1,10 +1,8 @@
 import clsx from "clsx";
 
 import { Section } from "@/components";
+import { DOCS_SECTION_PANEL_CLASS_NAME } from "@/constants/docs";
 import type { SectionProps } from "@/types/client";
-
-export const docsSectionPanelClassName =
-	"surface-2 shadow-weak rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] p-6";
 
 export function DocsSectionPanel({
 	children,
@@ -13,7 +11,7 @@ export function DocsSectionPanel({
 }: SectionProps) {
 	return (
 		<Section
-			className={clsx(docsSectionPanelClassName, className)}
+			className={clsx(DOCS_SECTION_PANEL_CLASS_NAME, className)}
 			{...props}
 		>
 			{children}

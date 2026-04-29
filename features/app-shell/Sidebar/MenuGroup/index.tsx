@@ -2,31 +2,133 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import * as Popover from "@radix-ui/react-popover";
 import clsx from "clsx";
-import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Icon as AppIcon } from "@/components";
-import type { MenuGroupProps } from "@/types/client";
+import {
+	Icon as AppIcon,
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+	ScrollArea,
+} from "@/components";
+import { MenuItem } from "@/features/app-shell/Sidebar/MenuItem";
+import { SidebarRow } from "@/features/app-shell/Sidebar/SidebarRow";
+import {
+	isLeafItem,
+	isNodeActive,
+} from "@/features/app-shell/Sidebar/utils";
+import type {
+	MenuGroupChild,
+	MenuGroupProps,
+	MenuNode,
+} from "@/types/client";
+
+function PopoverGroupList({
+	items,
+	pathname,
+	closePopover,
+	depth = 0,
+}: {
+	items: readonly MenuNode[];
+	pathname: string;
+	closePopover: () => void;
+	depth?: number;
+}) {
+	return (
+		<ul className={clsx("app-sidebar-group-list", depth > 0 && "mt-2")}>
+			{items.map(item =>
+				isLeafItem(item) ? (
+					<li key={item.href}>
+						<SidebarRow
+							kind="link"
+							href={item.href}
+							label={item.label}
+							Icon={item.Icon}
+							active={isNodeActive(pathname, item)}
+							depth={depth}
+							iconSize={16}
+							onSelect={closePopover}
+						/>
+					</li>
+				) : (
+					<PopoverGroup
+						key={`${item.label}-${depth + 1}`}
+						item={item}
+						pathname={pathname}
+						closePopover={closePopover}
+						depth={depth}
+					/>
+				),
+			)}
+		</ul>
+	);
+}
+
+function PopoverGroup({
+	item,
+	pathname,
+	closePopover,
+	depth,
+}: {
+	item: MenuGroupChild;
+	pathname: string;
+	closePopover: () => void;
+	depth: number;
+}) {
+	const [open, setOpen] = useState(() =>
+		item.childrenItems.some(child => isNodeActive(pathname, child)),
+	);
+
+	useEffect(() => {
+		if (item.childrenItems.some(child => isNodeActive(pathname, child))) {
+			setOpen(true);
+		}
+	}, [item.childrenItems, pathname]);
+
+	const active = item.childrenItems.some(child => isNodeActive(pathname, child));
+
+	return (
+		<li>
+			<SidebarRow
+				kind="button"
+				label={item.label}
+				Icon={item.Icon}
+				active={active}
+				depth={depth}
+				iconSize={16}
+				ariaExpanded={open}
+				onPress={() => setOpen(v => !v)}
+			/>
+			<div
+				className="app-sidebar-group-children"
+				data-open={open ? "true" : "false"}
+			>
+				<PopoverGroupList
+					items={item.childrenItems}
+					pathname={pathname}
+					closePopover={closePopover}
+					depth={depth + 1}
+				/>
+			</div>
+		</li>
+	);
+}
 
 export function MenuGroup({
 	collapsed,
 	label,
 	Icon,
 	childrenItems,
+	depth = 0,
 }: MenuGroupProps) {
 	const { t } = useTranslation();
 	const pathname = usePathname();
 
 	const hasActiveChild = useMemo(
-		() =>
-			childrenItems.some(
-				({ href }) => pathname === href || pathname.startsWith(href + "/"),
-			),
+		() => childrenItems.some(item => isNodeActive(pathname, item)),
 		[pathname, childrenItems],
 	);
 
@@ -41,15 +143,28 @@ export function MenuGroup({
 	}, [pathname]);
 
 	const onHeaderClick = () => {
-		if (collapsed) setManualOpen(v => !v);
+		if (collapsed) return;
 		else setOverrideOpen(v => (v === null ? !openExpanded : !v));
 	};
 
 	const Header = (
+		<SidebarRow
+			kind="button"
+			label={label}
+			Icon={Icon}
+			active={hasActiveChild}
+			collapsed={collapsed}
+			depth={depth}
+			ariaExpanded={open}
+			onPress={collapsed ? () => undefined : onHeaderClick}
+		/>
+	);
+
+	const CollapsedTrigger = (
 		<button
 			type="button"
-			aria-expanded={open}
-			onClick={onHeaderClick}
+			aria-label={t(label)}
+			aria-expanded={manualOpen}
 			className={clsx(
 				"app-sidebar-item focus-ring",
 				hasActiveChild ? "app-sidebar-item-active" : null,
@@ -59,75 +174,40 @@ export function MenuGroup({
 				icon={Icon}
 				size={20}
 				strokeWidth={2}
+				tooltipContent={t(label)}
+				decorative
 				className={clsx(
 					"app-sidebar-item-icon",
 					hasActiveChild ? "app-sidebar-item-icon-active" : null,
 				)}
 			/>
-			{!collapsed && (
-				<>
-					<span
-						className={clsx(
-							"app-sidebar-item-label truncate",
-							hasActiveChild ? "app-sidebar-item-label-active" : null,
-						)}
-					>
-						{t(label)}
-					</span>
-					<AppIcon
-						icon={ChevronDown}
-						size={16}
-						className={`transition-transform ${open ? "rotate-180" : ""}`}
-						containerClassName="ml-auto"
-					/>
-				</>
-			)}
 		</button>
 	);
 
 	const ChildrenList = (
 		<ul className="app-sidebar-group-list">
-			{childrenItems.map(({ href, label, Icon }) => {
-				const active = pathname === href || pathname.startsWith(href + "/");
-				return (
-					<li key={href}>
-						<Link
-							href={href}
-							title={t(label)}
-							aria-current={active ? "page" : undefined}
-							className={clsx(
-								"app-sidebar-item",
-								active ? "app-sidebar-item-active" : null,
-							)}
-							onClick={e => {
-								setManualOpen(false);
-								if (active) {
-									e.preventDefault();
-									return;
-								}
-							}}
-						>
-							<AppIcon
-								icon={Icon}
-								size={18}
-								strokeWidth={2}
-								className={clsx(
-									"app-sidebar-item-icon",
-									active ? "app-sidebar-item-icon-active" : null,
-								)}
-							/>
-							<span
-								className={clsx(
-									"app-sidebar-item-label truncate",
-									active ? "app-sidebar-item-label-active" : null,
-								)}
-							>
-								{t(label)}
-							</span>
-						</Link>
-					</li>
-				);
-			})}
+			{childrenItems.map(item =>
+				isLeafItem(item) ? (
+					<MenuItem
+						key={item.href}
+						collapsed={collapsed}
+						href={item.href}
+						label={item.label}
+						Icon={item.Icon}
+						active={isNodeActive(pathname, item)}
+						depth={depth + 1}
+					/>
+				) : (
+					<MenuGroup
+						key={`${item.label}-${depth + 1}`}
+						collapsed={collapsed}
+						label={item.label}
+						Icon={item.Icon}
+						childrenItems={item.childrenItems}
+						depth={depth + 1}
+					/>
+				),
+			)}
 		</ul>
 	);
 
@@ -147,71 +227,34 @@ export function MenuGroup({
 
 	return (
 		<li>
-			<Popover.Root
+			<Popover
 				open={manualOpen}
 				onOpenChange={setManualOpen}
 				modal={false}
 			>
-				<Popover.Trigger asChild>{Header}</Popover.Trigger>
-				<Popover.Portal>
-					<Popover.Content
-						side="right"
-						align="start"
-						sideOffset={15}
-						collisionPadding={8}
-						onCloseAutoFocus={() => setManualOpen(false)}
-						onEscapeKeyDown={() => setManualOpen(false)}
-						className="app-sidebar-popover"
+				<PopoverTrigger>{CollapsedTrigger}</PopoverTrigger>
+				<PopoverContent
+					side="right"
+					align="start"
+					sideOffset={15}
+					collisionPadding={8}
+					onCloseAutoFocus={() => setManualOpen(false)}
+					onEscapeKeyDown={() => setManualOpen(false)}
+					className="app-sidebar-popover"
+				>
+					<div className="app-sidebar-popover-title">{t(label)}</div>
+					<ScrollArea
+						className="app-sidebar-popover-scroll"
+						viewportClassName="app-sidebar-popover-scroll-viewport"
 					>
-						<div className="app-sidebar-popover-title">{t(label)}</div>
-						<ul className="app-sidebar-popover-list">
-							{childrenItems.map(({ href, label, Icon }) => {
-								const active =
-									pathname === href || pathname.startsWith(href + "/");
-								return (
-									<li key={href}>
-										<Link
-											href={href}
-											title={t(label)}
-											aria-current={active ? "page" : undefined}
-											className={clsx(
-												"app-sidebar-item",
-												active ? "app-sidebar-item-active" : null,
-											)}
-											onClick={e => {
-												setManualOpen(false);
-												if (active) {
-													e.preventDefault();
-													return;
-												}
-											}}
-										>
-											<AppIcon
-												icon={Icon}
-												size={16}
-												strokeWidth={2}
-												className={clsx(
-													"app-sidebar-item-icon",
-													active ? "app-sidebar-item-icon-active" : null,
-												)}
-											/>
-											<span
-												className={clsx(
-													"app-sidebar-item-label truncate",
-													active ? "app-sidebar-item-label-active" : null,
-												)}
-											>
-												{t(label)}
-											</span>
-										</Link>
-									</li>
-								);
-							})}
-						</ul>
-						<Popover.Arrow className="app-sidebar-popover-arrow" />
-					</Popover.Content>
-				</Popover.Portal>
-			</Popover.Root>
+						<PopoverGroupList
+							items={childrenItems}
+							pathname={pathname}
+							closePopover={() => setManualOpen(false)}
+						/>
+					</ScrollArea>
+				</PopoverContent>
+			</Popover>
 		</li>
 	);
 }

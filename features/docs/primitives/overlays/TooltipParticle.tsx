@@ -9,7 +9,7 @@ import {
 	CardTitle,
 	Icon,
 	Tooltip,
-} from "components";
+} from "@/components";
 import {
 	ArrowUpRight,
 	CircleHelp,
@@ -20,8 +20,8 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function TooltipParticle() {
 	const { t } = useTranslation();

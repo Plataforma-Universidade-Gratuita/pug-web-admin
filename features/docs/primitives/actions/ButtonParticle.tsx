@@ -8,7 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 	Icon,
-} from "components";
+} from "@/components";
 import {
 	ArrowRight,
 	CheckCircle2,
@@ -21,8 +21,8 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function ButtonParticle() {
 	const { t } = useTranslation();

@@ -1,11 +1,11 @@
 "use client";
 
-import { Button, Card, EmptyState, Icon } from "components";
+import { Button, Card, EmptyState, Icon } from "@/components";
 import { Inbox, Search, ShieldAlert } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function EmptyStateParticle() {
 	const { t } = useTranslation();

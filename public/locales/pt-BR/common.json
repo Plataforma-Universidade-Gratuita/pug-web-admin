@@ -1651,7 +1651,68 @@
 		"subtitle": "Workspace de operacoes",
 		"paths": {
 			"home": "Inicio",
-			"login": "Login"
+			"unknown": "Desconhecido",
+			"login": "Login",
+			"academic": {
+				"root": "Academico",
+				"course": "Cursos",
+				"school": "Escolas",
+				"student": "Estudantes"
+			},
+			"partner": {
+				"root": "Parceiros",
+				"entity": "Entidades",
+				"staff": "Equipe"
+			},
+			"project": {
+				"root": "Projetos",
+				"attendance": "Frequencia",
+				"enrollment": "Matriculas",
+				"project": "Projetos"
+			},
+			"identity": {
+				"root": "Identidade",
+				"account": "Contas",
+				"admin": "Administradores",
+				"user": "Usuarios"
+			},
+			"geo": {
+				"root": "Geografia",
+				"city": "Cidades"
+			},
+			"docs": {
+				"overview": "Visao geral",
+				"root": "Documentacao",
+				"pages": {
+					"root": "Padroes de pagina",
+					"sectionStack": "Section Stack",
+					"operationsWorkspace": "Operations Workspace",
+					"splitDetail": "Split Detail"
+				},
+				"primitives": {
+					"root": "Primitivas",
+					"actions": "Acoes",
+					"display": "Exibicao",
+					"forms": "Formularios",
+					"navigation": "Navegacao",
+					"overlays": "Overlays",
+					"structure": "Estrutura"
+				},
+				"routing": {
+					"root": "Roteamento",
+					"previews": "Previews",
+					"errorPreview": "Preview de erro",
+					"globalErrorPreview": "Preview de erro global",
+					"notFoundPreview": "Preview de nao encontrado"
+				}
+			}
+		},
+		"account": {
+			"label": "Conta",
+			"logout": "Sair",
+			"logoutPending": "Saindo...",
+			"logoutSuccess": "Sessao encerrada com sucesso.",
+			"logoutError": "Nao foi possivel sair agora."
 		},
 		"controls": {
 			"theme": {

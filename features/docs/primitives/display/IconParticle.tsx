@@ -8,12 +8,12 @@ import {
 	CardHeader,
 	CardTitle,
 	Icon,
-} from "components";
+} from "@/components";
 import { Bell, CheckCircle2, Eye, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ParticleContainer } from "../ParticleContainer";
-import { ParticleSection } from "../ParticleSection";
+import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
+import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function IconParticle() {
 	const { t } = useTranslation();

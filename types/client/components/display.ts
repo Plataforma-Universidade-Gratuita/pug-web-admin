@@ -7,6 +7,7 @@ import type {
 } from "react";
 
 import type * as RadixLabel from "@radix-ui/react-label";
+import type * as RadixPopover from "@radix-ui/react-popover";
 import type * as RadixScrollArea from "@radix-ui/react-scroll-area";
 import type * as RadixSeparator from "@radix-ui/react-separator";
 import type { LucideProps } from "lucide-react";
@@ -28,7 +29,9 @@ export interface TooltipProps {
 export interface PopoverProps {
 	children: ReactNode;
 	open?: boolean | undefined;
+	defaultOpen?: boolean | undefined;
 	onOpenChange?: ((open: boolean) => void) | undefined;
+	modal?: boolean | undefined;
 }
 
 export interface PopoverTriggerProps {
@@ -42,9 +45,16 @@ export interface PopoverContentProps {
 	align?: "start" | "center" | "end";
 	sideOffset?: number;
 	avoidCollisions?: boolean;
+	withArrow?: boolean;
 	collisionPadding?:
 		| number
 		| Partial<Record<"top" | "right" | "bottom" | "left", number>>;
+	onCloseAutoFocus?: ComponentPropsWithoutRef<
+		typeof RadixPopover.Content
+	>["onCloseAutoFocus"];
+	onEscapeKeyDown?: ComponentPropsWithoutRef<
+		typeof RadixPopover.Content
+	>["onEscapeKeyDown"];
 }
 
 export type IconComponent = ForwardRefExoticComponent<

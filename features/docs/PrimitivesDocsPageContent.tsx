@@ -14,18 +14,11 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
+import {
+	PRIMITIVE_AREA_KEYS,
+	PRIMITIVE_SUMMARY_CARD_KEYS,
+} from "@/constants/docs";
 import { DocsSectionPanel, DocsTextLink } from "@/features/docs/primitives";
-
-const primitiveAreaKeys = [
-	"actions",
-	"display",
-	"forms",
-	"navigation",
-	"overlays",
-	"structure",
-] as const;
-
-const summaryCardKeys = ["organization", "patterns", "exploration"] as const;
 
 export default function PrimitivesDocsPageContent() {
 	const { t } = useTranslation();
@@ -47,7 +40,7 @@ export default function PrimitivesDocsPageContent() {
 					</div>
 				</SectionHeader>
 				<SectionContent className="grid gap-4 md:grid-cols-3">
-					{summaryCardKeys.map(key => (
+					{PRIMITIVE_SUMMARY_CARD_KEYS.map(key => (
 						<Card
 							key={key}
 							className="p-4"
@@ -80,7 +73,7 @@ export default function PrimitivesDocsPageContent() {
 					</div>
 				</SectionHeader>
 				<SectionContent className="grid gap-4 xl:grid-cols-3">
-					{primitiveAreaKeys.map(key => (
+					{PRIMITIVE_AREA_KEYS.map(key => (
 						<Card
 							key={key}
 							className="flex h-full flex-col justify-between p-4"

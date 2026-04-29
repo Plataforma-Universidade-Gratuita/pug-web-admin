@@ -6,15 +6,10 @@ import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Button, Icon, LanguageSelector, ThemeSelector } from "@/components";
+import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants/app-shell";
 import { NAVBAR_TITLE_ROUTE } from "@/constants/navigation";
 import { useLocale } from "@/contexts/locale";
 import { useTheme } from "@/contexts/theme";
-import {
-	LANGUAGE_OPTIONS,
-	THEME_OPTIONS,
-	getLanguageOptionLabel,
-	getThemeOptionLabel,
-} from "@/features/app-shell/Topbar/utils";
 import type { TopBarProps } from "@/types/client";
 
 export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
@@ -24,11 +19,11 @@ export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 	const themeSelectorOptions = THEME_OPTIONS.map(option => ({
 		value: option.value,
 		icon: option.icon,
-		label: t(getThemeOptionLabel(option.value)),
+		label: t(option.labelKey),
 	}));
 	const languageSelectorOptions = LANGUAGE_OPTIONS.map(option => ({
 		value: option.value,
-		label: t(getLanguageOptionLabel(option.value)),
+		label: t(option.labelKey),
 		shortLabel: t(option.shortLabelKey),
 	}));
 

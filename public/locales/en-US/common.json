@@ -1651,7 +1651,68 @@
 		"subtitle": "Operations workspace",
 		"paths": {
 			"home": "Home",
-			"login": "Login"
+			"unknown": "Unknown",
+			"login": "Login",
+			"academic": {
+				"root": "Academic",
+				"course": "Courses",
+				"school": "Schools",
+				"student": "Students"
+			},
+			"partner": {
+				"root": "Partner",
+				"entity": "Entities",
+				"staff": "Staff"
+			},
+			"project": {
+				"root": "Project",
+				"attendance": "Attendance",
+				"enrollment": "Enrollment",
+				"project": "Projects"
+			},
+			"identity": {
+				"root": "Identity",
+				"account": "Accounts",
+				"admin": "Admins",
+				"user": "Users"
+			},
+			"geo": {
+				"root": "Geo",
+				"city": "Cities"
+			},
+			"docs": {
+				"overview": "Overview",
+				"root": "Docs",
+				"pages": {
+					"root": "Page Patterns",
+					"sectionStack": "Section Stack",
+					"operationsWorkspace": "Operations Workspace",
+					"splitDetail": "Split Detail"
+				},
+				"primitives": {
+					"root": "Primitives",
+					"actions": "Actions",
+					"display": "Display",
+					"forms": "Forms",
+					"navigation": "Navigation",
+					"overlays": "Overlays",
+					"structure": "Structure"
+				},
+				"routing": {
+					"root": "Routing",
+					"previews": "Previews",
+					"errorPreview": "Error Preview",
+					"globalErrorPreview": "Global Error Preview",
+					"notFoundPreview": "Not Found Preview"
+				}
+			}
+		},
+		"account": {
+			"label": "Account",
+			"logout": "Log out",
+			"logoutPending": "Logging out...",
+			"logoutSuccess": "Signed out successfully.",
+			"logoutError": "Unable to sign out right now."
 		},
 		"controls": {
 			"theme": {
