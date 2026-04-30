@@ -5,14 +5,11 @@ import type { Ref } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, ShieldCheck } from "lucide-react";
-import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { login } from "@/api/web/identity/auth";
 import {
-	Badge,
 	Button,
 	Card,
 	CardContent,
@@ -25,6 +22,7 @@ import {
 	toast,
 } from "@/components";
 import { HOME_ROUTE } from "@/constants/auth";
+import { useLocalizedZodForm } from "@/hooks";
 import { createLoginFormSchema } from "@/schemas/client";
 import type { LoginFormValues } from "@/types/client";
 import { WebApiError } from "@/utils/web-api";
@@ -34,13 +32,12 @@ export function LoginForm({ panelRef }: { panelRef?: Ref<HTMLDivElement> }) {
 	const router = useRouter();
 	const [isPending, startTransition] = useTransition();
 	const [error, setError] = useState<string | null>(null);
-	const loginFormSchema = createLoginFormSchema(t);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<LoginFormValues>({
-		resolver: zodResolver(loginFormSchema),
+	} = useLocalizedZodForm<LoginFormValues>({
+		schemaFactory: createLoginFormSchema,
 		defaultValues: {
 			email: "",
 			password: "",
@@ -91,13 +88,6 @@ export function LoginForm({ panelRef }: { panelRef?: Ref<HTMLDivElement> }) {
 								</p>
 							</div>
 						</div>
-						<Badge
-							tone="neutral"
-							variant="outline"
-							className="login-card-badge"
-						>
-							{t("auth.login.form.badge")}
-						</Badge>
 						<div className="space-y-2">
 							<CardTitle className="login-card-title">
 								{t("auth.login.form.title")}

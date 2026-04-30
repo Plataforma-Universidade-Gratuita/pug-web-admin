@@ -11,7 +11,7 @@ import {
 } from "@/utils/cookies";
 import { refreshAdminSession } from "@/utils/session";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 	const accessToken = getAccessTokenFromRequest(request);
 	const refreshToken = getRefreshTokenFromRequest(request);

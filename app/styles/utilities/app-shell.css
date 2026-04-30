@@ -78,6 +78,41 @@
 		padding-right: 0;
 	}
 
+	html.light .app-topbar .selector-pill-root,
+	html.light-theme .app-topbar .selector-pill-root,
+	html[data-theme="light"] .app-topbar .selector-pill-root {
+		border-color: color-mix(in oklab, var(--white-a12) 16%, transparent);
+		background-color: color-mix(
+			in oklab,
+			var(--white-a12) 6%,
+			transparent
+		);
+		box-shadow: inset 0 1px 0
+			color-mix(in oklab, var(--white-a12) 7%, transparent);
+	}
+
+	html.light .app-topbar .selector-pill-item,
+	html.light-theme .app-topbar .selector-pill-item,
+	html[data-theme="light"] .app-topbar .selector-pill-item {
+		color: color-mix(in oklab, var(--white-a12) 72%, transparent);
+	}
+
+	html.light .app-topbar .selector-pill-item:hover,
+	html.light-theme .app-topbar .selector-pill-item:hover,
+	html[data-theme="light"] .app-topbar .selector-pill-item:hover {
+		background-color: color-mix(in oklab, var(--white-a12) 10%, transparent);
+		color: var(--white-a12);
+	}
+
+	html.light .app-topbar .selector-pill-item[aria-checked="true"],
+	html.light-theme .app-topbar .selector-pill-item[aria-checked="true"],
+	html[data-theme="light"] .app-topbar .selector-pill-item[aria-checked="true"] {
+		background-color: color-mix(in oklab, var(--white-a12) 12%, transparent);
+		color: var(--white-a12);
+		box-shadow: inset 0 0 0 1px
+			color-mix(in oklab, var(--white-a12) 8%, transparent);
+	}
+
 	.floating-page-controls {
 		position: fixed;
 		top: 0.875rem;
@@ -87,10 +122,19 @@
 	}
 
 	.floating-page-controls-inner {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
 		pointer-events: auto;
 		padding: 0.375rem 0.5rem;
-		backdrop-filter: blur(12px);
-		box-shadow: none;
+	}
+
+	.floating-page-controls-picker {
+		display: flex;
+		min-width: 0;
+		align-items: center;
+		gap: 0.5rem;
+		background: transparent;
 	}
 
 	html.light .floating-page-controls-inner,
@@ -395,8 +439,59 @@
 	}
 
 	.app-sidebar-account-popover {
-		width: 13rem;
-		padding: 0.375rem;
+		width: max-content;
+		min-width: 13rem;
+		max-width: min(15rem, calc(100vw - 2rem));
+		padding: 0.5rem;
+	}
+
+	.app-sidebar-account-summary {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.75rem;
+		align-items: start;
+		padding: 0.25rem 0.25rem 0.375rem;
+	}
+
+	.app-sidebar-account-popover .separator-horizontal {
+		margin-bottom: 0.25rem;
+	}
+
+	.app-sidebar-account-popover > .button-root:last-child {
+		margin-bottom: 0.25rem;
+	}
+
+	.app-sidebar-account-avatar {
+		display: inline-flex;
+		height: 2rem;
+		width: 2rem;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--twc-radius-lg);
+		background-color: color-mix(in oklab, var(--color-brand) 12%, transparent);
+		color: var(--color-brand);
+	}
+
+	.app-sidebar-account-copy {
+		display: grid;
+		min-width: 0;
+		gap: 0.25rem;
+	}
+
+	.app-sidebar-account-name {
+		font-family: var(--twc-font-sans);
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-semibold);
+		line-height: var(--twc-leading-normal);
+		color: var(--twc-text);
+	}
+
+	.app-sidebar-account-meta {
+		font-family: var(--twc-font-sans);
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-regular);
+		line-height: var(--twc-leading-normal);
+		color: var(--twc-muted);
 	}
 
 	.login-page {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { usePathname } from "next/navigation";
 
@@ -78,17 +78,13 @@ function PopoverGroup({
 	closePopover: () => void;
 	depth: number;
 }) {
-	const [open, setOpen] = useState(() =>
-		item.childrenItems.some(child => isNodeActive(pathname, child)),
-	);
-
-	useEffect(() => {
-		if (item.childrenItems.some(child => isNodeActive(pathname, child))) {
-			setOpen(true);
-		}
-	}, [item.childrenItems, pathname]);
-
 	const active = item.childrenItems.some(child => isNodeActive(pathname, child));
+	const [manualOpenState, setManualOpenState] = useState<{
+		pathname: string;
+		value: boolean;
+	} | null>(null);
+	const open =
+		manualOpenState?.pathname === pathname ? manualOpenState.value : active;
 
 	return (
 		<li>
@@ -100,7 +96,12 @@ function PopoverGroup({
 				depth={depth}
 				iconSize={16}
 				ariaExpanded={open}
-				onPress={() => setOpen(v => !v)}
+				onPress={() =>
+					setManualOpenState({
+						pathname,
+						value: !open,
+					})
+				}
 			/>
 			<div
 				className="app-sidebar-group-children"
@@ -132,19 +133,23 @@ export function MenuGroup({
 		[pathname, childrenItems],
 	);
 
-	const [overrideOpen, setOverrideOpen] = useState<null | boolean>(null);
+	const [overrideState, setOverrideState] = useState<{
+		pathname: string;
+		value: boolean;
+	} | null>(null);
 	const [manualOpen, setManualOpen] = useState(false);
 
-	const openExpanded = overrideOpen ?? hasActiveChild;
+	const openExpanded =
+		overrideState?.pathname === pathname ? overrideState.value : hasActiveChild;
 	const open = collapsed ? manualOpen : openExpanded;
-
-	useEffect(() => {
-		setOverrideOpen(null);
-	}, [pathname]);
 
 	const onHeaderClick = () => {
 		if (collapsed) return;
-		else setOverrideOpen(v => (v === null ? !openExpanded : !v));
+		else
+			setOverrideState({
+				pathname,
+				value: !openExpanded,
+			});
 	};
 
 	const Header = (

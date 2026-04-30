@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import { LogOut, UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -15,21 +16,32 @@ import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
+	Separator,
+	Skeleton,
 	toast,
 } from "@/components";
 import { LOGIN_ROUTE } from "@/constants/auth";
+import { adminQueryKeys, useCurrentAdminQuery } from "@/features/identity/admin/queries";
+import { userQueryKeys, useCurrentUserQuery } from "@/features/identity/user/queries";
 import type { SidebarProps } from "@/types/client";
 
 export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
+	const queryClient = useQueryClient();
 	const router = useRouter();
 	const { t } = useTranslation();
 	const [open, setOpen] = useState(false);
 	const [isPending, startTransition] = useTransition();
+	const { data: admin } = useCurrentAdminQuery();
+	const { data: user } = useCurrentUserQuery();
+	const isProfileLoading = !admin || !user;
 
 	function handleLogout() {
 		startTransition(async () => {
 			try {
 				await logoutAll();
+				await queryClient.invalidateQueries({ queryKey: adminQueryKeys.all });
+				await queryClient.invalidateQueries({ queryKey: userQueryKeys.all });
+				queryClient.clear();
 				setOpen(false);
 				toast.success(t("Navbar.account.logoutSuccess"));
 				router.replace(LOGIN_ROUTE);
@@ -93,6 +105,37 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 				collisionPadding={8}
 				className="app-sidebar-account-popover"
 			>
+				<div className="app-sidebar-account-summary">
+					<div className="app-sidebar-account-avatar">
+						<Icon
+							icon={UserRound}
+							size={16}
+						/>
+					</div>
+					<div className="app-sidebar-account-copy">
+						{isProfileLoading ? (
+							<>
+								<Skeleton className="h-4 w-28 rounded-[var(--twc-radius-square)]" />
+								<Skeleton className="h-3 w-40 rounded-[var(--twc-radius-square)]" />
+								<Skeleton className="h-3 w-24 rounded-[var(--twc-radius-square)]" />
+							</>
+						) : (
+							<>
+								<p className="app-sidebar-account-name">
+									{user?.name ?? t("Navbar.account.fallback")}
+								</p>
+								<p className="app-sidebar-account-meta">
+									{admin?.accountResponse.email ?? t("Navbar.account.fallback")}
+								</p>
+								<p className="app-sidebar-account-meta">
+									{admin?.campus.campusFormatted ??
+										t("Navbar.account.fallback")}
+								</p>
+							</>
+						)}
+					</div>
+				</div>
+				<Separator className="separator-horizontal" />
 				<Button
 					className="w-full justify-start"
 					usage="secondary"

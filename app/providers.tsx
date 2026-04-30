@@ -3,9 +3,11 @@
 import { useState } from "react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { I18nextProvider } from "react-i18next";
 
 import { ToastProvider } from "@/components";
+import { APP_QUERY_CLIENT_OPTIONS } from "@/constants/react-query";
 import { LocaleProvider } from "@/contexts/locale";
 import { ThemeProvider } from "@/contexts/theme";
 import type { ProvidersProps } from "@/types/client";
@@ -19,7 +21,7 @@ export function Providers({
 	initialThemeCookieValue,
 }: ProvidersProps) {
 	const initialLang = coerceLang(initialLangCookieValue);
-	const [qc] = useState(() => new QueryClient());
+	const [qc] = useState(() => new QueryClient(APP_QUERY_CLIENT_OPTIONS));
 	const [i18n] = useState(() => initI18n(initialLang));
 	const initialTheme = coerceTheme(initialThemeCookieValue);
 
@@ -33,6 +35,9 @@ export function Providers({
 					<QueryClientProvider client={qc}>
 						{children}
 						<ToastProvider />
+						{process.env.NODE_ENV === "development" ? (
+							<ReactQueryDevtools initialIsOpen={false} />
+						) : null}
 					</QueryClientProvider>
 				</LocaleProvider>
 			</ThemeProvider>

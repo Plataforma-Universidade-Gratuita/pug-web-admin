@@ -4,8 +4,8 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 
 ## What this project is
 
-- `pug-web-admin` is a Next.js 15 App Router admin interface for the PUG platform.
-- It uses React 19, TypeScript strict mode, Tailwind 4 utility classes, Radix primitives under local wrappers, React Hook Form, Zod, React Query, i18next, Zustand, and Sonner.
+- `pug-web-admin` is a Next.js 16 App Router admin interface for the PUG platform.
+- It uses React 19, TypeScript strict mode, Tailwind 4 utility classes, Radix primitives under local wrappers, React Hook Form, Zod, TanStack Query, i18next, Zustand, and Sonner.
 - The app is split into:
   - authenticated application routes under `app/(app)`
   - auth routes under `app/(auth)`
@@ -39,9 +39,17 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - Package manager: `npm`
 - TypeScript is strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `noImplicitOverride`, `useUnknownInCatchVariables`.
 - Path alias: `@/*`
+- Current core runtime baseline:
+  - `next` `16.2.4`
+  - `react` / `react-dom` `19.2.5`
+  - `typescript` `5.9.3`
+  - `eslint` `9.39.4`
+  - `eslint-config-next` `16.2.4`
 - Main scripts:
   - `npm run dev`
   - `npm run dev:mock`
+  - `npm run dev:turbo`
+  - `npm run dev:mock:turbo`
   - `npm run build`
   - `npm run lint`
   - `npm run lint:fix`
@@ -50,8 +58,10 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - There is a mock API workflow through:
   - `mock-api.env`
   - `scripts/mock-api.mjs`
+  - `scripts/with-env.mjs`
   - `npm run dev:mock`
   - `npm run mock:api`
+- The mock scripts do not rely on `node --env-file`. They use `scripts/with-env.mjs` to load `mock-api.env` and spawn the command with the merged environment.
 
 ## High-level folder contract
 
@@ -59,6 +69,7 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - `components/`: shared design-system primitives
 - `constants/`: raw static configuration, route maps, option lists, design-system config
 - `contexts/`: React providers and related hooks
+- `hooks/`: shared custom hooks
 - `features/`: app features and docs feature surfaces
 - `schemas/`: Zod schemas
 - `types/`: app and UI type contracts
@@ -73,6 +84,7 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - `app/(app)` is the authenticated shell area.
 - `app/(auth)` is the auth area.
 - `app/api` contains the internal API proxy endpoints.
+- `proxy.ts` is the Next 16 request gate for auth/session routing behavior.
 
 ### Current application routes under `app/(app)`
 
@@ -123,13 +135,14 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
   - `refreshToken`
 - Public routes are currently only:
   - `/login`
-- Middleware behavior in `middleware.ts`:
+- Request gate behavior lives in `proxy.ts`:
   - `/login` redirects to `/` when a valid access token already exists
   - protected routes continue when the access token is valid
   - if access token is invalid but refresh token exists, the middleware attempts refresh
   - refreshed tokens are written back via session cookie helpers
   - on failure, session cookies are cleared and the request is redirected to `/login`
 - The matcher intentionally excludes Next static assets, image routes, favicon, and common image extensions.
+- Do not reintroduce `middleware.ts`; Next 16 uses the `proxy.ts` convention here.
 
 ## Root app composition
 
@@ -144,6 +157,9 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
   - `LocaleProvider`
   - `QueryClientProvider`
   - `ToastProvider`
+- The app-wide QueryClient is created in `app/providers.tsx` with defaults from:
+  - `constants/react-query.ts`
+- React Query Devtools are mounted in `app/providers.tsx` in development only, closed by default.
 
 ## Application shell
 
@@ -160,7 +176,12 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
   - the sidebar uses the shared `ScrollArea`
   - collapsed sidebar groups open popovers
   - collapsed sidebar items use the shared `Tooltip`
-  - the sidebar account area has a right-side popover with logout action
+  - the sidebar account area has a right-side popover with authenticated profile information and logout action
+- The account popover currently shows:
+  - user name from `users/me`
+  - account email from `admins/me`
+  - formatted campus from `admins/me`
+- Shell profile hydration is fetched client-side after authentication and should remain query-driven, not manually fetched inside random components.
 - Shell-specific styling belongs in:
   - `app/styles/utilities/app-shell.css`
 
@@ -196,6 +217,90 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - Types:
   - API types: `types/api`
   - client/UI/app types: `types/client`
+
+## TanStack Query conventions
+
+- TanStack Query is the default server-state layer.
+- Use it for:
+  - authenticated `me` endpoints
+  - API-backed detail views
+  - API-backed lists, tables, filters, and dashboards
+  - mutations that should invalidate or refresh cached server state
+- Do not use it for:
+  - form field state
+  - theme or locale state
+  - sidebar collapsed state
+  - modal/popover open state
+  - temporary view-local interaction state
+- Query defaults are centralized in:
+  - `constants/react-query.ts`
+- The current defaults intentionally favor predictable admin-app behavior:
+  - `retry: 1`
+  - `staleTime: 5 minutes`
+  - `refetchOnWindowFocus: false`
+- Query ownership pattern:
+  - raw HTTP calls remain in `api/web/**`
+  - feature-local query keys and query hooks live in feature-local `queries.ts`
+  - components consume query hooks instead of calling `webFetch` directly
+- Current established examples:
+  - `features/identity/account/queries.ts`
+  - `features/identity/admin/queries.ts`
+  - `features/identity/user/queries.ts`
+- Current query key style:
+  - domain-local object with `all` plus narrower key builders such as `me()`
+- When adding mutations:
+  - use `useMutation`
+  - invalidate relevant domain keys on success
+  - prefer conservative invalidation over premature optimistic updates
+- Avoid:
+  - ad hoc string query keys scattered in components
+  - mixing server-state copies into Zustand
+  - direct page/component `fetch` calls for shared authenticated data
+
+## Authenticated profile hydration
+
+- The final shell pattern is:
+  1. login establishes the secure session/token state
+  2. authenticated shell clients fetch profile data from `admins/me` and `users/me`
+  3. shell UI reads those cached query results
+- This is the current source of truth for shell identity UI.
+- The sidebar account popover in `features/app-shell/Sidebar/AccountMenu` should keep using these `me` queries rather than decoding JWT payloads for display data.
+- On logout:
+  - session cookies are cleared through the auth API
+  - related query cache should be invalidated/cleared before redirecting back to `/login`
+
+## Tooling and upgrade realities
+
+- This repo has already been moved onto the current compatible version set for its stack. Do not assume "absolute latest" is automatically usable.
+- In particular:
+  - `eslint` 10 was not left in place
+  - `typescript` 6 was not left in place
+- Current rule of thumb:
+  - upgrade to the latest compatible version, not blindly to the newest published major
+  - validate with `npm run lint` and `npx tsc --noEmit` after dependency changes
+- The repo now uses Next 16's flat ESLint config path in:
+  - `eslint.config.mjs`
+- Do not reintroduce the older `FlatCompat` bridge pattern unless the repo explicitly changes direction again.
+- The current lint/tooling stack is stricter than before and will flag patterns such as synchronous `setState` calls inside effects. Prefer deriving state from props/pathname or using lazy initial state instead of resetting state in effects just to satisfy UI behavior.
+
+## Form and validation conventions
+
+- React Hook Form + Zod is the standard form stack.
+- Localized Zod form setup is centralized in:
+  - `hooks/useLocalizedZodForm.ts`
+- Hook types live in:
+  - `types/client/forms.ts`
+- Use `useLocalizedZodForm` when a form schema is translation-aware.
+- This hook currently standardizes:
+  - schema creation from `t`
+  - resolver wiring through `zodResolver`
+  - revalidation on language change so existing field errors retranslate
+- Keep this separation:
+  - `useLocalizedZodForm` for field validation wiring
+  - feature component for submit behavior
+  - feature component for API/server error handling
+  - feature component for toasts and redirects
+- Do not build a broad global form context for unrelated forms. The shared abstraction here is a hook, not app-wide form state.
 
 ## Component system
 
@@ -394,6 +499,11 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - Login should redirect to `/` when the user is already authenticated.
 - The sidebar does not include a login destination.
 - Account/logout lives in the shell account popover, not in the main navigation list.
+- Authenticated shell profile display should come from `admins/me` and `users/me`, not from hardcoded values or JWT-only assumptions.
+- Shared server-state should use TanStack Query with feature-local `queries.ts`.
+- Shared localized form wiring should use `useLocalizedZodForm` instead of repeating schema/resolver/language-sync code.
+- Request gating should use `proxy.ts`, not `middleware.ts`.
+- Mock runtime scripts should use `scripts/with-env.mjs`, not `node --env-file=...`.
 - The shell and docs areas already use shared `ScrollArea` and overlay primitives; keep that consistency.
 
 ## What to check before finishing work
@@ -412,10 +522,11 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 2. Reuse existing patterns instead of inventing a new structure.
 3. If adding static config, put it in `constants/`.
 4. If adding or moving types, put them in `types/`.
-5. If adding non-trivial reusable helpers, move them to `utils.ts`.
-6. If adding copy, update both locale files.
-7. If adding a primitive, add the matching docs particle.
-8. Run lint and any necessary type checks.
+5. If adding shared custom hook logic, put it in `hooks/`.
+6. If adding non-trivial reusable helpers, move them to `utils.ts`.
+7. If adding copy, update both locale files.
+8. If adding a primitive, add the matching docs particle.
+9. Run lint and any necessary type checks.
 
 ## Exceptions and judgment
 

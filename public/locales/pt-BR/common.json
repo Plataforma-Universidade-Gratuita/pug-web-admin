@@ -1699,6 +1699,29 @@
 			}
 		}
 	},
+	"home": {
+		"currentAccount": {
+			"badge": "TanStack Query",
+			"title": "Conta atual",
+			"description": "Esta secao e o primeiro exemplo compartilhado de estado de servidor. Ela le a conta autenticada pela API com TanStack Query, em vez de controlar fetch localmente na pagina.",
+			"loading": "Carregando conta atual",
+			"fields": {
+				"email": "Email da conta",
+				"type": "Tipo de conta",
+				"status": "Status"
+			},
+			"values": {
+				"active": "Ativa",
+				"inactive": "Inativa"
+			},
+			"lastUpdated": "Ultima atualizacao {{value}}.",
+			"error": {
+				"title": "Nao foi possivel carregar a conta atual.",
+				"description": "Tente a requisicao novamente.",
+				"retry": "Tentar novamente"
+			}
+		}
+	},
 	"Navbar": {
 		"expand": "Expandir barra lateral",
 		"collapse": "Recolher barra lateral",
@@ -1765,6 +1788,7 @@
 		},
 		"account": {
 			"label": "Conta",
+			"fallback": "Indisponivel",
 			"logout": "Sair",
 			"logoutPending": "Saindo...",
 			"logoutSuccess": "Sessao encerrada com sucesso.",

@@ -26,15 +26,15 @@ export function FloatingPageControls() {
 
 	return (
 		<div className="floating-page-controls">
-			<div className="app-topbar-controls floating-page-controls-inner">
-				<div className="app-topbar-picker app-topbar-picker-theme">
+			<div className="floating-page-controls-inner">
+				<div className="floating-page-controls-picker">
 					<ThemeSelector
 						value={mode}
 						options={themeSelectorOptions}
 						onValueChange={setMode}
 					/>
 				</div>
-				<div className="app-topbar-picker app-topbar-picker-language">
+				<div className="floating-page-controls-picker">
 					<LanguageSelector
 						value={lang}
 						options={languageSelectorOptions}

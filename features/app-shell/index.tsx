@@ -9,14 +9,16 @@ import { Sidebar } from "@/features/app-shell/Sidebar";
 import { TopBar } from "@/features/app-shell/Topbar";
 
 export function Navbar({ children }: { children: React.ReactNode }) {
-	const [collapsed, setCollapsed] = useState(true);
+	const [collapsed, setCollapsed] = useState(() => {
+		if (typeof window === "undefined") {
+			return true;
+		}
+
+		return localStorage.getItem(SIDEBAR_STORAGE_KEY) === "1";
+	});
 	const topbarRef = useRef<HTMLDivElement | null>(null);
 	const sidebarRef = useRef<HTMLDivElement | null>(null);
 
-	useEffect(() => {
-		const saved = localStorage.getItem(SIDEBAR_STORAGE_KEY);
-		if (saved) setCollapsed(saved === "1");
-	}, []);
 	useEffect(() => {
 		localStorage.setItem(SIDEBAR_STORAGE_KEY, collapsed ? "1" : "0");
 	}, [collapsed]);

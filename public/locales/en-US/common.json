@@ -1699,6 +1699,29 @@
 			}
 		}
 	},
+	"home": {
+		"currentAccount": {
+			"badge": "TanStack Query",
+			"title": "Current account",
+			"description": "This section is the first shared server-state example. It reads the authenticated account from the API through TanStack Query instead of page-local fetch state.",
+			"loading": "Loading current account",
+			"fields": {
+				"email": "Account email",
+				"type": "Account type",
+				"status": "Status"
+			},
+			"values": {
+				"active": "Active",
+				"inactive": "Inactive"
+			},
+			"lastUpdated": "Last updated {{value}}.",
+			"error": {
+				"title": "Unable to load the current account.",
+				"description": "Try the request again.",
+				"retry": "Retry"
+			}
+		}
+	},
 	"Navbar": {
 		"expand": "Expand sidebar",
 		"collapse": "Collapse sidebar",
@@ -1765,6 +1788,7 @@
 		},
 		"account": {
 			"label": "Account",
+			"fallback": "Unavailable",
 			"logout": "Log out",
 			"logoutPending": "Logging out...",
 			"logoutSuccess": "Signed out successfully.",
