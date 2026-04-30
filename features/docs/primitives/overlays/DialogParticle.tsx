@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+import { ArrowRight, FileText, Info, Layers3 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import {
 	Button,
 	Card,
@@ -17,9 +20,6 @@ import {
 	DialogTitle,
 	Icon,
 } from "@/components";
-import { ArrowRight, FileText, Info, Layers3 } from "lucide-react";
-import { useTranslation } from "react-i18next";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 

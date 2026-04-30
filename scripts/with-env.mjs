@@ -1,6 +1,6 @@
+import { spawn } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { spawn } from "node:child_process";
 
 function parseEnvFile(filePath) {
 	const content = readFileSync(filePath, "utf8");

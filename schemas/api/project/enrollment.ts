@@ -33,3 +33,7 @@ export const EnrollmentResponseSchema = z.object({
 export const EnrollmentCreateRequestSchema = z.object({
 	projectId: z.string(),
 });
+
+export const EnrollmentUpdateRequestSchema = z.object({
+	status: EnrollmentStatusEnum,
+});

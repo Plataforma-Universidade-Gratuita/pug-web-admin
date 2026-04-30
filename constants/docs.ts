@@ -1,8 +1,4 @@
-import {
-	Compass,
-	ShieldAlert,
-	TriangleAlert,
-} from "lucide-react";
+import { Compass, ShieldAlert, TriangleAlert } from "lucide-react";
 
 export const DOCS_SECTION_PANEL_CLASS_NAME =
 	"surface-2 shadow-weak rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] p-6";

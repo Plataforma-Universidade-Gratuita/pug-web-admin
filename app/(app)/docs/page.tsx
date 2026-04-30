@@ -13,10 +13,7 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import {
-	DOCS_AREAS,
-	DOCS_SECTION_PANEL_CLASS_NAME,
-} from "@/constants/docs";
+import { DOCS_AREAS, DOCS_SECTION_PANEL_CLASS_NAME } from "@/constants/docs";
 
 export default function DocsPage() {
 	return (

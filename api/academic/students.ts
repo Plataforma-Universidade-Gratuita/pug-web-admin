@@ -28,7 +28,7 @@ export async function getByCpf(
 	token?: string,
 ): Promise<StudentResponse> {
 	return zfetch(
-		`${BASE}/by-cpf/${cpf}`,
+		`${BASE}${qs({ cpf })}`,
 		{ method: "GET" },
 		StudentResponseSchema,
 		token,
@@ -40,7 +40,7 @@ export async function getByEmail(
 	token?: string,
 ): Promise<StudentResponse> {
 	return zfetch(
-		`${BASE}/by-email/${email}`,
+		`${BASE}${qs({ email })}`,
 		{ method: "GET" },
 		StudentResponseSchema,
 		token,
@@ -52,7 +52,7 @@ export async function getByRegistration(
 	token?: string,
 ): Promise<StudentResponse> {
 	return zfetch(
-		`${BASE}/by-registration/${registration}`,
+		`${BASE}${qs({ registration })}`,
 		{ method: "GET" },
 		StudentResponseSchema,
 		token,

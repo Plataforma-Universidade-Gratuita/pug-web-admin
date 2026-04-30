@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+import { Archive, Ellipsis, Eye, Pencil, Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import {
 	Button,
 	Card,
@@ -17,9 +20,6 @@ import {
 	DropdownMenuTrigger,
 	Icon,
 } from "@/components";
-import { Archive, Ellipsis, Eye, Pencil, Trash2 } from "lucide-react";
-import { useTranslation } from "react-i18next";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 

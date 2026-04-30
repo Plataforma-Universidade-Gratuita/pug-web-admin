@@ -11,6 +11,7 @@ import type {
 	StaffResponse,
 	StaffUpdateRequest,
 } from "@/types/api";
+import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
 const BASE = WEB_API_ROUTE_BASES.partner.staff;
@@ -20,7 +21,7 @@ export async function get(id: string): Promise<StaffResponse> {
 }
 
 export async function getByEmail(email: string): Promise<StaffResponse> {
-	return webFetch(`${BASE}/by-email/${email}`, StaffResponseSchema);
+	return webFetch(`${BASE}${qs({ email })}`, StaffResponseSchema);
 }
 
 export async function getMe(): Promise<StaffResponse> {
@@ -33,14 +34,11 @@ export async function list(q?: string): Promise<StaffResponse[]> {
 }
 
 export async function listByCpf(cpf: string): Promise<StaffResponse[]> {
-	return webFetch(`${BASE}/by-cpf/${cpf}`, z.array(StaffResponseSchema));
+	return webFetch(`${BASE}${qs({ cpf })}`, z.array(StaffResponseSchema));
 }
 
 export async function listByEntity(entityId: string): Promise<StaffResponse[]> {
-	return webFetch(
-		`${BASE}/by-entity/${entityId}`,
-		z.array(StaffResponseSchema),
-	);
+	return webFetch(`${BASE}${qs({ entityId })}`, z.array(StaffResponseSchema));
 }
 
 export async function create(body: StaffCreateRequest): Promise<StaffResponse> {
@@ -61,7 +59,10 @@ export async function update(
 }
 
 export async function deactivate(id: string): Promise<void> {
-	return webVoid(`${BASE}/${id}/deactivate`, { method: "PATCH" });
+	return webVoid(`${BASE}/${id}`, {
+		method: "PATCH",
+		body: JSON.stringify({ active: false }),
+	});
 }
 
 export async function remove(id: string): Promise<void> {

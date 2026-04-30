@@ -7,8 +7,9 @@ import type {
 } from "react-hook-form";
 import type { ZodType } from "zod";
 
-export interface LocalizedZodFormOptions<TValues extends FieldValues>
-	extends Omit<UseFormProps<TValues>, "resolver"> {
+export interface LocalizedZodFormOptions<
+	TValues extends FieldValues,
+> extends Omit<UseFormProps<TValues>, "resolver"> {
 	schemaFactory: (t: TFunction) => ZodType<TValues>;
 	revalidateOnLanguageChange?: boolean;
 }

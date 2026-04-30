@@ -59,19 +59,22 @@ export type AccordionProps =
 				type: "multiple";
 			});
 
-export interface AccordionItemProps
-	extends ComponentPropsWithoutRef<typeof RadixAccordion.Item> {
+export interface AccordionItemProps extends ComponentPropsWithoutRef<
+	typeof RadixAccordion.Item
+> {
 	children: ReactNode;
 	value: string;
 }
 
-export interface AccordionTriggerProps
-	extends ComponentPropsWithoutRef<typeof RadixAccordion.Trigger> {
+export interface AccordionTriggerProps extends ComponentPropsWithoutRef<
+	typeof RadixAccordion.Trigger
+> {
 	children: ReactNode;
 }
 
-export interface AccordionContentProps
-	extends ComponentPropsWithoutRef<typeof RadixAccordion.Content> {
+export interface AccordionContentProps extends ComponentPropsWithoutRef<
+	typeof RadixAccordion.Content
+> {
 	children: ReactNode;
 }
 
@@ -85,29 +88,26 @@ export interface DropdownMenuTriggerProps {
 	children: ReactNode;
 }
 
-export interface DropdownMenuContentProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixDropdownMenu.Content>,
-		"children"
-	> {
+export interface DropdownMenuContentProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixDropdownMenu.Content>,
+	"children"
+> {
 	children: ReactNode;
 	className?: string;
 }
 
-export interface DropdownMenuItemProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixDropdownMenu.Item>,
-		"children"
-	> {
+export interface DropdownMenuItemProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixDropdownMenu.Item>,
+	"children"
+> {
 	children: ReactNode;
 	inset?: boolean;
 }
 
-export interface DropdownMenuLabelProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixDropdownMenu.Label>,
-		"children"
-	> {
+export interface DropdownMenuLabelProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixDropdownMenu.Label>,
+	"children"
+> {
 	children: ReactNode;
 	inset?: boolean;
 }
@@ -135,36 +135,40 @@ export interface SelectProviderProps {
 	value: SelectContextValue;
 }
 
-export interface SelectTriggerProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixSelect.Trigger>,
-		"children"
-	> {
+export interface SelectTriggerProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixSelect.Trigger>,
+	"children"
+> {
 	placeholder?: ReactNode;
 	className?: string;
 }
 
-export interface SelectContentProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixSelect.Content>,
-		"children"
-	> {
+export interface SelectContentProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixSelect.Content>,
+	"children"
+> {
 	children: ReactNode;
 	className?: string;
 }
 
-export interface SelectGroupProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixSelect.Group>, "children"> {
+export interface SelectGroupProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixSelect.Group>,
+	"children"
+> {
 	children: ReactNode;
 }
 
-export interface SelectItemProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixSelect.Item>, "children"> {
+export interface SelectItemProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixSelect.Item>,
+	"children"
+> {
 	children: ReactNode;
 }
 
-export interface SelectLabelProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixSelect.Label>, "children"> {
+export interface SelectLabelProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixSelect.Label>,
+	"children"
+> {
 	children: ReactNode;
 }
 
@@ -172,40 +176,41 @@ export type SelectSeparatorProps = ComponentPropsWithoutRef<
 	typeof RadixSelect.Separator
 >;
 
-export interface CheckboxProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixCheckbox.Root>,
-		"children"
-	> {
+export interface CheckboxProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixCheckbox.Root>,
+	"children"
+> {
 	label?: ReactNode;
 	description?: ReactNode;
 }
 
-export interface RadioGroupProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixRadioGroup.Root>,
-		"children"
-	> {
+export interface RadioGroupProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixRadioGroup.Root>,
+	"children"
+> {
 	children: ReactNode;
 }
 
-export interface RadioGroupItemProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixRadioGroup.Item>,
-		"children"
-	> {
+export interface RadioGroupItemProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixRadioGroup.Item>,
+	"children"
+> {
 	label?: ReactNode;
 	description?: ReactNode;
 }
 
-export interface SwitchProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixSwitch.Root>, "children"> {
+export interface SwitchProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixSwitch.Root>,
+	"children"
+> {
 	label?: ReactNode;
 	description?: ReactNode;
 }
 
-export interface ToggleProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixToggle.Root>, "children"> {
+export interface ToggleProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixToggle.Root>,
+	"children"
+> {
 	children: ReactNode;
 }
 
@@ -221,30 +226,37 @@ export type ToggleGroupProps =
 				type: "multiple";
 			});
 
-export interface ToggleGroupItemProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixToggleGroup.Item>,
-		"children"
-	> {
+export interface ToggleGroupItemProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixToggleGroup.Item>,
+	"children"
+> {
 	children: ReactNode;
 }
 
-export interface TabsProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixTabs.Root>, "children"> {
+export interface TabsProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixTabs.Root>,
+	"children"
+> {
 	children: ReactNode;
 }
 
-export interface TabsListProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixTabs.List>, "children"> {
+export interface TabsListProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixTabs.List>,
+	"children"
+> {
 	children: ReactNode;
 }
 
-export interface TabsTriggerProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixTabs.Trigger>, "children"> {
+export interface TabsTriggerProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixTabs.Trigger>,
+	"children"
+> {
 	children: ReactNode;
 }
 
-export interface TabsContentProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixTabs.Content>, "children"> {
+export interface TabsContentProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixTabs.Content>,
+	"children"
+> {
 	children: ReactNode;
 }

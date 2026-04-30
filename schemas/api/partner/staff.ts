@@ -24,4 +24,5 @@ export const StaffUpdateRequestSchema = z.object({
 	name: z.string().nullable().optional(),
 	email: z.string().nullable().optional(),
 	password: z.string().nullable().optional(),
+	active: z.boolean().nullable().optional(),
 });

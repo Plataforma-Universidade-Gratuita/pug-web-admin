@@ -145,7 +145,9 @@ export function LoginForm({ panelRef }: { panelRef?: Ref<HTMLDivElement> }) {
 											if (error) setError(null);
 										},
 									})}
-									aria-describedby={errors.password ? "password-error" : undefined}
+									aria-describedby={
+										errors.password ? "password-error" : undefined
+									}
 									aria-invalid={errors.password ? "true" : "false"}
 									placeholder={t("auth.login.form.fields.password.placeholder")}
 								/>

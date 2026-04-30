@@ -61,8 +61,10 @@ export type IconComponent = ForwardRefExoticComponent<
 	Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
 >;
 
-export interface IconProps
-	extends Omit<HTMLAttributes<HTMLSpanElement>, "title"> {
+export interface IconProps extends Omit<
+	HTMLAttributes<HTMLSpanElement>,
+	"title"
+> {
 	icon: IconComponent;
 	label?: string;
 	tooltipContent?: ReactNode;
@@ -75,8 +77,10 @@ export interface IconProps
 	align?: "start" | "center" | "end";
 }
 
-export interface EmptyStateProps
-	extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
+export interface EmptyStateProps extends Omit<
+	HTMLAttributes<HTMLDivElement>,
+	"title"
+> {
 	children?: ReactNode;
 	actions?: ReactNode;
 	description: ReactNode;
@@ -97,26 +101,26 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 	removeLabel?: string;
 }
 
-export interface LabelProps
-	extends Omit<ComponentPropsWithoutRef<typeof RadixLabel.Root>, "children"> {
+export interface LabelProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixLabel.Root>,
+	"children"
+> {
 	children: ReactNode;
 }
 
-export interface SeparatorProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixSeparator.Root>,
-		"children"
-	> {
+export interface SeparatorProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixSeparator.Root>,
+	"children"
+> {
 	orientation?: "horizontal" | "vertical";
 	decorative?: boolean;
 	className?: string;
 }
 
-export interface ScrollAreaProps
-	extends Omit<
-		ComponentPropsWithoutRef<typeof RadixScrollArea.Root>,
-		"children"
-	> {
+export interface ScrollAreaProps extends Omit<
+	ComponentPropsWithoutRef<typeof RadixScrollArea.Root>,
+	"children"
+> {
 	children: ReactNode;
 	className?: string;
 	viewportClassName?: string;

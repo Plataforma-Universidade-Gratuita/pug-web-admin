@@ -1,16 +1,6 @@
 "use client";
 
 import {
-	Button,
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-	Icon,
-	Tooltip,
-} from "@/components";
-import {
 	ArrowUpRight,
 	CircleHelp,
 	Info,
@@ -20,6 +10,16 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import {
+	Button,
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+	Icon,
+	Tooltip,
+} from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 

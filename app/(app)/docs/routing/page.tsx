@@ -17,11 +17,7 @@ import {
 	ROUTE_FILE_STATUS_TONE,
 	ROUTE_PREVIEW_CARDS,
 } from "@/constants/docs";
-
-import {
-	DocsSectionPanel,
-	DocsTextLink,
-} from "@/features/docs/primitives";
+import { DocsSectionPanel, DocsTextLink } from "@/features/docs/primitives";
 
 export default function RoutingDocsPage() {
 	return (

@@ -1,5 +1,8 @@
 "use client";
 
+import { ArrowRight, Filter, Plus, Settings2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import {
 	Button,
 	Card,
@@ -14,9 +17,6 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { ArrowRight, Filter, Plus, Settings2 } from "lucide-react";
-import { useTranslation } from "react-i18next";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 

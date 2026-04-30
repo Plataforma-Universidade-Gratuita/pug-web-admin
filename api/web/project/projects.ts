@@ -9,8 +9,10 @@ import {
 import type {
 	ProjectCreateRequest,
 	ProjectResponse,
+	ProjectStatus,
 	ProjectUpdateRequest,
 } from "@/types/api";
+import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
 const BASE = WEB_API_ROUTE_BASES.project.projects;
@@ -23,12 +25,8 @@ export async function list(
 	q?: string,
 	entityId?: string,
 ): Promise<ProjectResponse[]> {
-	const params = new URLSearchParams();
-	if (q) params.set("q", q);
-	if (entityId) params.set("entityId", entityId);
-	const search = params.toString();
 	return webFetch(
-		`${BASE}${search ? `?${search}` : ""}`,
+		`${BASE}${qs({ q, entityId })}`,
 		z.array(ProjectResponseSchema),
 	);
 }
@@ -37,7 +35,7 @@ export async function listByCreatedBy(
 	accountId: string,
 ): Promise<ProjectResponse[]> {
 	return webFetch(
-		`${BASE}/created-by/${accountId}`,
+		`${BASE}${qs({ createdBy: accountId })}`,
 		z.array(ProjectResponseSchema),
 	);
 }
@@ -61,34 +59,34 @@ export async function update(
 	});
 }
 
-export async function cancel(id: string): Promise<ProjectResponse> {
-	return webFetch(`${BASE}/${id}/cancel`, ProjectResponseSchema, {
+async function updateStatus(
+	id: string,
+	status: ProjectStatus,
+): Promise<ProjectResponse> {
+	return webFetch(`${BASE}/${id}`, ProjectResponseSchema, {
 		method: "PATCH",
+		body: JSON.stringify({ status }),
 	});
+}
+
+export async function cancel(id: string): Promise<ProjectResponse> {
+	return updateStatus(id, "CANCELED");
 }
 
 export async function complete(id: string): Promise<ProjectResponse> {
-	return webFetch(`${BASE}/${id}/complete`, ProjectResponseSchema, {
-		method: "PATCH",
-	});
+	return updateStatus(id, "COMPLETED");
 }
 
 export async function hold(id: string): Promise<ProjectResponse> {
-	return webFetch(`${BASE}/${id}/hold`, ProjectResponseSchema, {
-		method: "PATCH",
-	});
+	return updateStatus(id, "ON_HOLD");
 }
 
 export async function retake(id: string): Promise<ProjectResponse> {
-	return webFetch(`${BASE}/${id}/retake`, ProjectResponseSchema, {
-		method: "PATCH",
-	});
+	return updateStatus(id, "PLANNED");
 }
 
 export async function start(id: string): Promise<ProjectResponse> {
-	return webFetch(`${BASE}/${id}/start`, ProjectResponseSchema, {
-		method: "PATCH",
-	});
+	return updateStatus(id, "IN_PROGRESS");
 }
 
 export async function remove(id: string): Promise<void> {

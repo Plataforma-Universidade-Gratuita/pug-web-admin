@@ -45,9 +45,14 @@ export const ProjectUpdateRequestSchema = z.object({
 	description: z.string().nullable().optional(),
 	maxParticipants: z.number().nullable().optional(),
 	offeredHours: z.number().nullable().optional(),
+	status: ProjectStatusEnum.nullable().optional(),
 });
 
 export const ProjectSchoolRequestSchema = z.object({
 	projectId: z.string(),
+	schoolIds: z.array(z.string()),
+});
+
+export const ProjectSchoolAssociationUpdateRequestSchema = z.object({
 	schoolIds: z.array(z.string()),
 });

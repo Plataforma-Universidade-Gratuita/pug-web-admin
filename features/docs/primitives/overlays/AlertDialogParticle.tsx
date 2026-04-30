@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+import { AlertTriangle, ShieldAlert, Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -19,9 +22,6 @@ import {
 	CardTitle,
 	Icon,
 } from "@/components";
-import { AlertTriangle, ShieldAlert, Trash2 } from "lucide-react";
-import { useTranslation } from "react-i18next";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 

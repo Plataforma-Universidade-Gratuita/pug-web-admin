@@ -1,7 +1,6 @@
 "use client";
 
 import "@/app/globals.css";
-
 import { Providers } from "@/app/providers";
 import { GlobalErrorPageContent } from "@/features/docs/routing/RouteBoundaryPages";
 import { FloatingPageControls } from "@/features/floating-page-controls";

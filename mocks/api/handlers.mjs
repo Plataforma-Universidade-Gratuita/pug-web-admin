@@ -135,7 +135,7 @@ function error(status, code, message, details = null) {
 export const mockHandlers = [
 	{
 		method: "POST",
-		path: "/auth/login",
+		path: "/v1/auth/login",
 		async handle(request) {
 			const body = await readJson(request);
 			const email =
@@ -148,7 +148,7 @@ export const mockHandlers = [
 	},
 	{
 		method: "POST",
-		path: "/auth/refresh",
+		path: "/v1/auth/refresh",
 		async handle(request) {
 			const body = await readJson(request);
 			if (typeof body.refreshToken !== "string") {
@@ -165,7 +165,7 @@ export const mockHandlers = [
 	},
 	{
 		method: "POST",
-		path: "/auth/logout",
+		path: "/v1/auth/logout",
 		async handle(request) {
 			const body = await readJson(request);
 			if (typeof body.refreshToken === "string") {
@@ -176,7 +176,7 @@ export const mockHandlers = [
 	},
 	{
 		method: "POST",
-		path: "/auth/logout-all",
+		path: "/v1/auth/logout-all",
 		async handle() {
 			refreshSessions.clear();
 			return noContent();
@@ -184,7 +184,7 @@ export const mockHandlers = [
 	},
 	{
 		method: "GET",
-		path: "/identity/accounts/me",
+		path: "/v1/identity/accounts/me",
 		async handle(request) {
 			const admin = getAdminByToken(request.headers.authorization);
 			if (!admin) {
@@ -196,7 +196,7 @@ export const mockHandlers = [
 	},
 	{
 		method: "GET",
-		path: "/identity/admins/me",
+		path: "/v1/identity/admins/me",
 		async handle(request) {
 			const admin = getAdminByToken(request.headers.authorization);
 			if (!admin) {
@@ -208,7 +208,7 @@ export const mockHandlers = [
 	},
 	{
 		method: "GET",
-		path: "/identity/users/me",
+		path: "/v1/identity/users/me",
 		async handle(request) {
 			const admin = getAdminByToken(request.headers.authorization);
 			if (!admin) {
@@ -220,7 +220,7 @@ export const mockHandlers = [
 	},
 	{
 		method: "GET",
-		path: "/identity/admins",
+		path: "/v1/identity/admins",
 		async handle(request) {
 			const admin = getAdminByToken(request.headers.authorization);
 			if (!admin) {

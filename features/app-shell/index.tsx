@@ -1,27 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { ScrollArea } from "@/components";
-import { SIDEBAR_STORAGE_KEY } from "@/constants/navigation";
 import { RouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs";
 import { Sidebar } from "@/features/app-shell/Sidebar";
 import { TopBar } from "@/features/app-shell/Topbar";
+import { useAppShellStore } from "@/store";
 
 export function Navbar({ children }: { children: React.ReactNode }) {
-	const [collapsed, setCollapsed] = useState(() => {
-		if (typeof window === "undefined") {
-			return true;
-		}
-
-		return localStorage.getItem(SIDEBAR_STORAGE_KEY) === "1";
-	});
+	const collapsed = useAppShellStore(state => state.collapsed);
+	const setCollapsed = useAppShellStore(state => state.setCollapsed);
+	const toggleCollapsed = useAppShellStore(state => state.toggleCollapsed);
 	const topbarRef = useRef<HTMLDivElement | null>(null);
 	const sidebarRef = useRef<HTMLDivElement | null>(null);
-
-	useEffect(() => {
-		localStorage.setItem(SIDEBAR_STORAGE_KEY, collapsed ? "1" : "0");
-	}, [collapsed]);
 	useEffect(() => {
 		if (collapsed) {
 			return;
@@ -49,14 +41,14 @@ export function Navbar({ children }: { children: React.ReactNode }) {
 		return () => {
 			document.removeEventListener("pointerdown", onPointerDown);
 		};
-	}, [collapsed]);
+	}, [collapsed, setCollapsed]);
 
 	return (
 		<div className="navbar-shell">
 			<div ref={topbarRef}>
 				<TopBar
 					collapsed={collapsed}
-					onToggleSidebar={() => setCollapsed(v => !v)}
+					onToggleSidebar={toggleCollapsed}
 				/>
 			</div>
 			<div className="navbar-main">

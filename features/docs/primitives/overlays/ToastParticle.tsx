@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Icon, toast } from "@/components";
 import {
 	AlertCircle,
 	Bell,
@@ -11,6 +10,7 @@ import {
 	TriangleAlert,
 } from "lucide-react";
 
+import { Button, Icon, toast } from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 import { wait } from "@/features/docs/primitives/overlays/utils";

@@ -82,11 +82,7 @@
 	html.light-theme .app-topbar .selector-pill-root,
 	html[data-theme="light"] .app-topbar .selector-pill-root {
 		border-color: color-mix(in oklab, var(--white-a12) 16%, transparent);
-		background-color: color-mix(
-			in oklab,
-			var(--white-a12) 6%,
-			transparent
-		);
+		background-color: color-mix(in oklab, var(--white-a12) 6%, transparent);
 		box-shadow: inset 0 1px 0
 			color-mix(in oklab, var(--white-a12) 7%, transparent);
 	}
@@ -106,7 +102,9 @@
 
 	html.light .app-topbar .selector-pill-item[aria-checked="true"],
 	html.light-theme .app-topbar .selector-pill-item[aria-checked="true"],
-	html[data-theme="light"] .app-topbar .selector-pill-item[aria-checked="true"] {
+	html[data-theme="light"]
+		.app-topbar
+		.selector-pill-item[aria-checked="true"] {
 		background-color: color-mix(in oklab, var(--white-a12) 12%, transparent);
 		color: var(--white-a12);
 		box-shadow: inset 0 0 0 1px
@@ -661,13 +659,12 @@
 		gap: 1rem;
 		border: 1px solid var(--twc-border-2);
 		border-radius: calc(var(--twc-radius-xl) + 0.125rem);
-		background:
-			linear-gradient(
-				145deg,
-				color-mix(in oklab, var(--color-brand) 9%, var(--twc-surface-2)),
-				var(--twc-surface-2) 48%,
-				color-mix(in oklab, var(--color-brand) 5%, var(--twc-surface-3))
-			);
+		background: linear-gradient(
+			145deg,
+			color-mix(in oklab, var(--color-brand) 9%, var(--twc-surface-2)),
+			var(--twc-surface-2) 48%,
+			color-mix(in oklab, var(--color-brand) 5%, var(--twc-surface-3))
+		);
 		padding: 1.25rem;
 		box-shadow: var(--twc-shadow-lg);
 	}

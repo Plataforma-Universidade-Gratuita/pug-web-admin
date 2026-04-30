@@ -43,7 +43,9 @@ export function CurrentAccountSection() {
 				{isError ? (
 					<div className="flex flex-col items-start gap-4 rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4">
 						<div className="space-y-1">
-							<p className="ty-sm-bold">{t("home.currentAccount.error.title")}</p>
+							<p className="ty-sm-bold">
+								{t("home.currentAccount.error.title")}
+							</p>
 							<p className="ty-helper">
 								{error instanceof Error
 									? error.message
@@ -70,7 +72,9 @@ export function CurrentAccountSection() {
 										/>
 									</div>
 									<div>
-										<CardTitle>{t("home.currentAccount.fields.email")}</CardTitle>
+										<CardTitle>
+											{t("home.currentAccount.fields.email")}
+										</CardTitle>
 										<CardDescription>{data.email}</CardDescription>
 									</div>
 								</div>
@@ -87,7 +91,9 @@ export function CurrentAccountSection() {
 										/>
 									</div>
 									<div>
-										<CardTitle>{t("home.currentAccount.fields.type")}</CardTitle>
+										<CardTitle>
+											{t("home.currentAccount.fields.type")}
+										</CardTitle>
 										<CardDescription>
 											{data.accountTypeFormatted}
 										</CardDescription>
@@ -100,7 +106,9 @@ export function CurrentAccountSection() {
 							<CardHeader className="space-y-3">
 								<div className="flex items-center justify-between gap-3">
 									<div>
-										<CardTitle>{t("home.currentAccount.fields.status")}</CardTitle>
+										<CardTitle>
+											{t("home.currentAccount.fields.status")}
+										</CardTitle>
 										<CardDescription>
 											{data.auditInfo.updatedAtFormatted}
 										</CardDescription>

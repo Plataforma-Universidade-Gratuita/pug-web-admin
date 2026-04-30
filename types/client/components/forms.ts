@@ -5,18 +5,19 @@ import type {
 	TextareaHTMLAttributes,
 } from "react";
 
-export interface InputProps
-	extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps extends Omit<
+	InputHTMLAttributes<HTMLInputElement>,
+	"size"
+> {
 	leadingIcon?: ReactNode;
 	trailingIcon?: ReactNode;
 	showPasswordToggle?: boolean;
 }
 
-export interface DatePickerProps
-	extends Omit<
-		InputHTMLAttributes<HTMLInputElement>,
-		"size" | "type" | "value" | "defaultValue" | "onChange"
-	> {
+export interface DatePickerProps extends Omit<
+	InputHTMLAttributes<HTMLInputElement>,
+	"size" | "type" | "value" | "defaultValue" | "onChange"
+> {
 	value?: string;
 	defaultValue?: string;
 	onChange?: ChangeEventHandler<HTMLInputElement>;

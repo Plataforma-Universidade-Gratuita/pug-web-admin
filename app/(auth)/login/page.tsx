@@ -8,7 +8,9 @@ import { FloatingPageControls } from "@/features/floating-page-controls";
 
 export default function Page() {
 	const formCardRef = useRef<HTMLDivElement | null>(null);
-	const [desktopHeroHeight, setDesktopHeroHeight] = useState<number | null>(null);
+	const [desktopHeroHeight, setDesktopHeroHeight] = useState<number | null>(
+		null,
+	);
 
 	useEffect(() => {
 		const card = formCardRef.current;
@@ -45,9 +47,7 @@ export default function Page() {
 				>
 					<LoginHero />
 				</div>
-				<div
-					className="login-page-panel login-page-panel-form"
-				>
+				<div className="login-page-panel login-page-panel-form">
 					<LoginForm panelRef={formCardRef} />
 				</div>
 			</section>

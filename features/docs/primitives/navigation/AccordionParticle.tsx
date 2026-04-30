@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { useTranslation } from "react-i18next";
+
 import {
 	Accordion,
 	AccordionContent,
@@ -12,8 +14,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components";
-import { useTranslation } from "react-i18next";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 

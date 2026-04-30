@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import {
 	Button,
 	Icon,
@@ -12,8 +15,6 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import type { ParticleSectionProps } from "@/types/client";
 
 export function ParticleSection({

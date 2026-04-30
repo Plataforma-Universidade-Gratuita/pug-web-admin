@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { useTranslation } from "react-i18next";
+
 import {
 	Breadcrumb,
 	BreadcrumbCurrent,
@@ -12,7 +14,6 @@ import {
 } from "@/components";
 import { APP_ROUTE_LABELS } from "@/constants/navigation";
 import { getRouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs/utils";
-import { useTranslation } from "react-i18next";
 
 export function RouteBreadcrumbs() {
 	const pathname = usePathname();

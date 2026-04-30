@@ -13,6 +13,7 @@ import type {
 	EntityResponse,
 	EntityUpdateRequest,
 } from "@/types/api";
+import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
 const BASE = WEB_API_ROUTE_BASES.partner.entities;
@@ -22,7 +23,7 @@ export async function get(id: string): Promise<EntityResponse> {
 }
 
 export async function getByCnpj(cnpj: string): Promise<EntityResponse> {
-	return webFetch(`${BASE}/by-cnpj/${cnpj}`, EntityResponseSchema);
+	return webFetch(`${BASE}${qs({ cnpj })}`, EntityResponseSchema);
 }
 
 export async function list(

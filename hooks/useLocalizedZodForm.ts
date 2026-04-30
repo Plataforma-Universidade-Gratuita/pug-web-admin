@@ -4,9 +4,8 @@ import { useEffect, useMemo, useRef } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-
 import type { FieldValues } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import type {
 	LocalizedZodFormOptions,
@@ -24,7 +23,9 @@ export function useLocalizedZodForm<TValues extends FieldValues>({
 	const schema = useMemo(() => schemaFactory(t), [schemaFactory, t]);
 	const resolver = useMemo(
 		() =>
-			zodResolver(schema as Parameters<typeof zodResolver>[0]) as LocalizedZodFormResolver<TValues>,
+			zodResolver(
+				schema as Parameters<typeof zodResolver>[0],
+			) as LocalizedZodFormResolver<TValues>,
 		[schema],
 	);
 	const form = useForm<TValues, undefined, TValues>({

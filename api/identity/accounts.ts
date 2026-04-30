@@ -24,7 +24,7 @@ export async function getByEmail(
 	token?: string,
 ): Promise<AccountResponse> {
 	return zfetch(
-		`${BASE}/by-email/${email}`,
+		`${BASE}${qs({ email })}`,
 		{ method: "GET" },
 		AccountResponseSchema,
 		token,
@@ -52,7 +52,7 @@ export async function listByCpf(
 	token?: string,
 ): Promise<AccountResponse[]> {
 	return zfetch(
-		`${BASE}/by-cpf/${cpf}`,
+		`${BASE}${qs({ cpf })}`,
 		{ method: "GET" },
 		z.array(AccountResponseSchema),
 		token,

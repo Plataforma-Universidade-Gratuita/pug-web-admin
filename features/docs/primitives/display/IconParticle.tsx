@@ -1,5 +1,8 @@
 "use client";
 
+import { Bell, CheckCircle2, Eye, Search } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import {
 	Button,
 	Card,
@@ -9,9 +12,6 @@ import {
 	CardTitle,
 	Icon,
 } from "@/components";
-import { Bell, CheckCircle2, Eye, Search } from "lucide-react";
-import { useTranslation } from "react-i18next";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 

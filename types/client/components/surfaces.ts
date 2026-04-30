@@ -14,8 +14,7 @@ export interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
 	children: ReactNode;
 }
 
-export interface CardDescriptionProps
-	extends HTMLAttributes<HTMLParagraphElement> {
+export interface CardDescriptionProps extends HTMLAttributes<HTMLParagraphElement> {
 	children: ReactNode;
 }
 
@@ -41,8 +40,7 @@ export interface SectionTitleProps extends HTMLAttributes<HTMLHeadingElement> {
 	children: ReactNode;
 }
 
-export interface SectionDescriptionProps
-	extends HTMLAttributes<HTMLParagraphElement> {
+export interface SectionDescriptionProps extends HTMLAttributes<HTMLParagraphElement> {
 	children: ReactNode;
 }
 

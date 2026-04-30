@@ -69,13 +69,15 @@ export interface AlertDialogFooterProps {
 	className?: string;
 }
 
-export interface AlertDialogCancelProps
-	extends ComponentPropsWithoutRef<typeof RadixAlertDialog.Cancel> {
+export interface AlertDialogCancelProps extends ComponentPropsWithoutRef<
+	typeof RadixAlertDialog.Cancel
+> {
 	children: ReactNode;
 }
 
-export interface AlertDialogActionProps
-	extends ComponentPropsWithoutRef<typeof RadixAlertDialog.Action> {
+export interface AlertDialogActionProps extends ComponentPropsWithoutRef<
+	typeof RadixAlertDialog.Action
+> {
 	children: ReactNode;
 }
 

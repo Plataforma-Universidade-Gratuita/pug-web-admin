@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+import { Circle } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import {
 	Button,
 	Card,
@@ -27,9 +30,6 @@ import {
 	SectionTitle,
 	Skeleton,
 } from "@/components";
-import { Circle } from "lucide-react";
-import { useTranslation } from "react-i18next";
-
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 

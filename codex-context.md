@@ -72,6 +72,7 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - `hooks/`: shared custom hooks
 - `features/`: app features and docs feature surfaces
 - `schemas/`: Zod schemas
+- `store/`: Zustand client-state stores
 - `types/`: app and UI type contracts
 - `utils/`: cross-cutting helpers
 - `api/`: fetch clients and API-layer helpers
@@ -256,6 +257,26 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
   - ad hoc string query keys scattered in components
   - mixing server-state copies into Zustand
   - direct page/component `fetch` calls for shared authenticated data
+
+## Zustand conventions
+
+- Zustand is the default client shared-state layer when state should outlive one component but should not be treated as server state.
+- Store files belong under:
+  - `store/`
+- Current established example:
+  - `store/app-shell.ts`
+- Store types belong under:
+  - `types/client/store.ts`
+- Use Zustand for:
+  - app-shell UI state
+  - persisted client preferences
+  - route-level shared workspace state
+  - client coordination state shared across siblings or distant components
+- Do not use Zustand for:
+  - API-backed data that belongs in TanStack Query
+  - form field state that belongs in React Hook Form
+  - theme and locale, which already live in dedicated contexts
+- Keep stores small and domain-oriented. Prefer multiple focused stores over one monolithic global store.
 
 ## Authenticated profile hydration
 

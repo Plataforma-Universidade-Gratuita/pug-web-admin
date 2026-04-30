@@ -3,6 +3,7 @@ import { z } from "zod";
 import {
 	ProjectCreateRequestSchema,
 	ProjectResponseSchema,
+	ProjectSchoolAssociationUpdateRequestSchema,
 	ProjectSchoolRequestSchema,
 	ProjectStatusEnum,
 	ProjectUpdateRequestSchema,
@@ -21,3 +22,6 @@ export type ProjectResponse = z.infer<typeof ProjectResponseSchema>;
 export type ProjectCreateRequest = z.infer<typeof ProjectCreateRequestSchema>;
 export type ProjectUpdateRequest = z.infer<typeof ProjectUpdateRequestSchema>;
 export type ProjectSchoolRequest = z.infer<typeof ProjectSchoolRequestSchema>;
+export type ProjectSchoolAssociationUpdateRequest = z.infer<
+	typeof ProjectSchoolAssociationUpdateRequestSchema
+>;

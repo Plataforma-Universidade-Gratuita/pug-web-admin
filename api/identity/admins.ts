@@ -20,7 +20,7 @@ export async function getByEmail(
 	token?: string,
 ): Promise<AdminResponse> {
 	return zfetch(
-		`${BASE}/by-email/${email}`,
+		`${BASE}${qs({ email })}`,
 		{ method: "GET" },
 		AdminResponseSchema,
 		token,
@@ -48,7 +48,7 @@ export async function listByCpf(
 	token?: string,
 ): Promise<AdminResponse[]> {
 	return zfetch(
-		`${BASE}/by-cpf/${cpf}`,
+		`${BASE}${qs({ cpf })}`,
 		{ method: "GET" },
 		z.array(AdminResponseSchema),
 		token,
@@ -81,7 +81,11 @@ export async function update(
 }
 
 export async function deactivate(id: string, token?: string): Promise<void> {
-	return zvoid(`${BASE}/${id}/deactivate`, { method: "PATCH" }, token);
+	return zvoid(
+		`${BASE}/${id}`,
+		{ method: "PATCH", body: JSON.stringify({ active: false }) },
+		token,
+	);
 }
 
 export async function remove(id: string, token?: string): Promise<void> {

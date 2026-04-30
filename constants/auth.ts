@@ -1,8 +1,4 @@
-import {
-	KeyRound,
-	RefreshCcw,
-	ShieldCheck,
-} from "lucide-react";
+import { KeyRound, RefreshCcw, ShieldCheck } from "lucide-react";
 
 import type { IconComponent, TranslationKey } from "@/types/client";
 

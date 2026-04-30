@@ -18,9 +18,7 @@ export function getRouteBoundaryPanelClassName(mode: RouteBoundaryMode) {
 		: "w-full max-w-3xl rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-2)] p-6 shadow-[var(--twc-shadow-lg)] sm:p-8";
 }
 
-export function getRouteBoundaryDiagnosticsClassName(
-	mode: RouteBoundaryMode,
-) {
+export function getRouteBoundaryDiagnosticsClassName(mode: RouteBoundaryMode) {
 	return mode === "preview"
 		? "w-full rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)] p-4 text-left"
 		: "w-full rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)] p-4 text-left";

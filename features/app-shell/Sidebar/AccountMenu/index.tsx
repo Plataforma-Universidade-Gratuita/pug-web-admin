@@ -21,8 +21,14 @@ import {
 	toast,
 } from "@/components";
 import { LOGIN_ROUTE } from "@/constants/auth";
-import { adminQueryKeys, useCurrentAdminQuery } from "@/features/identity/admin/queries";
-import { userQueryKeys, useCurrentUserQuery } from "@/features/identity/user/queries";
+import {
+	adminQueryKeys,
+	useCurrentAdminQuery,
+} from "@/features/identity/admin/queries";
+import {
+	userQueryKeys,
+	useCurrentUserQuery,
+} from "@/features/identity/user/queries";
 import type { SidebarProps } from "@/types/client";
 
 export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {

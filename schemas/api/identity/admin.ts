@@ -30,4 +30,5 @@ export const AdminUpdateRequestSchema = z.object({
 	email: z.string().nullable().optional(),
 	password: z.string().nullable().optional(),
 	campus: CampiEnum.nullable().optional(),
+	active: z.boolean().nullable().optional(),
 });

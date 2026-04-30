@@ -27,7 +27,7 @@ export async function getByCnpj(
 	token?: string,
 ): Promise<EntityResponse> {
 	return zfetch(
-		`${BASE}/by-cnpj/${cnpj}`,
+		`${BASE}${qs({ cnpj })}`,
 		{ method: "GET" },
 		EntityResponseSchema,
 		token,

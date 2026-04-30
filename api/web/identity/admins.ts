@@ -11,6 +11,7 @@ import type {
 	AdminResponse,
 	AdminUpdateRequest,
 } from "@/types/api";
+import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
 const BASE = WEB_API_ROUTE_BASES.identity.admins;
@@ -20,7 +21,7 @@ export async function get(id: string): Promise<AdminResponse> {
 }
 
 export async function getByEmail(email: string): Promise<AdminResponse> {
-	return webFetch(`${BASE}/by-email/${email}`, AdminResponseSchema);
+	return webFetch(`${BASE}${qs({ email })}`, AdminResponseSchema);
 }
 
 export async function getMe(): Promise<AdminResponse> {
@@ -33,7 +34,7 @@ export async function list(q?: string): Promise<AdminResponse[]> {
 }
 
 export async function listByCpf(cpf: string): Promise<AdminResponse[]> {
-	return webFetch(`${BASE}/by-cpf/${cpf}`, z.array(AdminResponseSchema));
+	return webFetch(`${BASE}${qs({ cpf })}`, z.array(AdminResponseSchema));
 }
 
 export async function create(body: AdminCreateRequest): Promise<AdminResponse> {
@@ -54,7 +55,10 @@ export async function update(
 }
 
 export async function deactivate(id: string): Promise<void> {
-	return webVoid(`${BASE}/${id}/deactivate`, { method: "PATCH" });
+	return webVoid(`${BASE}/${id}`, {
+		method: "PATCH",
+		body: JSON.stringify({ active: false }),
+	});
 }
 
 export async function remove(id: string): Promise<void> {

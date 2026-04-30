@@ -5,56 +5,59 @@ export const JSON_HEADERS: Record<string, string> = {
 	"Content-Type": "application/json",
 };
 
+export const API_VERSION_PREFIX = "/v1";
+export const WEB_API_VERSION_PREFIX = "/api/v1";
+
 export const API_ROUTE_BASES = {
 	academic: {
-		courses: "/academic/courses",
-		schools: "/academic/schools",
-		students: "/academic/students",
+		courses: `${API_VERSION_PREFIX}/academic/courses`,
+		schools: `${API_VERSION_PREFIX}/academic/schools`,
+		students: `${API_VERSION_PREFIX}/academic/students`,
 	},
 	geo: {
-		cities: "/geo/cities",
+		cities: `${API_VERSION_PREFIX}/geo/cities`,
 	},
 	identity: {
-		accounts: "/identity/accounts",
-		admins: "/identity/admins",
-		auth: "/auth",
-		users: "/identity/users",
+		accounts: `${API_VERSION_PREFIX}/identity/accounts`,
+		admins: `${API_VERSION_PREFIX}/identity/admins`,
+		auth: `${API_VERSION_PREFIX}/auth`,
+		users: `${API_VERSION_PREFIX}/identity/users`,
 	},
 	partner: {
-		entities: "/partner/entities",
-		staff: "/partners/staff",
+		entities: `${API_VERSION_PREFIX}/partners/entities`,
+		staff: `${API_VERSION_PREFIX}/partners/staff`,
 	},
 	project: {
-		attendances: "/projects/attendances",
-		enrollments: "/projects/enrollments",
-		projectSchools: "/projects/by-school",
-		projects: "/projects",
+		attendances: `${API_VERSION_PREFIX}/projects/attendances`,
+		enrollments: `${API_VERSION_PREFIX}/projects/enrollments`,
+		projectSchools: `${API_VERSION_PREFIX}/project-school-associations`,
+		projects: `${API_VERSION_PREFIX}/projects`,
 	},
 } as const;
 
 export const WEB_API_ROUTE_BASES = {
 	academic: {
-		courses: "/api/academic/courses",
-		schools: "/api/academic/schools",
-		students: "/api/academic/students",
+		courses: `${WEB_API_VERSION_PREFIX}/academic/courses`,
+		schools: `${WEB_API_VERSION_PREFIX}/academic/schools`,
+		students: `${WEB_API_VERSION_PREFIX}/academic/students`,
 	},
 	geo: {
-		cities: "/api/geo/cities",
+		cities: `${WEB_API_VERSION_PREFIX}/geo/cities`,
 	},
 	identity: {
-		accounts: "/api/identity/accounts",
-		admins: "/api/identity/admins",
-		auth: "/api/auth",
-		users: "/api/identity/users",
+		accounts: `${WEB_API_VERSION_PREFIX}/identity/accounts`,
+		admins: `${WEB_API_VERSION_PREFIX}/identity/admins`,
+		auth: `${WEB_API_VERSION_PREFIX}/auth`,
+		users: `${WEB_API_VERSION_PREFIX}/identity/users`,
 	},
 	partner: {
-		entities: "/api/partner/entities",
-		staff: "/api/partner/staff",
+		entities: `${WEB_API_VERSION_PREFIX}/partners/entities`,
+		staff: `${WEB_API_VERSION_PREFIX}/partners/staff`,
 	},
 	project: {
-		attendances: "/api/project/attendances",
-		enrollments: "/api/project/enrollments",
-		projectSchools: "/api/project/project-schools",
-		projects: "/api/project/projects",
+		attendances: `${WEB_API_VERSION_PREFIX}/projects/attendances`,
+		enrollments: `${WEB_API_VERSION_PREFIX}/projects/enrollments`,
+		projectSchools: `${WEB_API_VERSION_PREFIX}/project-school-associations`,
+		projects: `${WEB_API_VERSION_PREFIX}/projects`,
 	},
 } as const;

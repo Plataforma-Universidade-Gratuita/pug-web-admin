@@ -1,6 +1,19 @@
 "use client";
 
 import {
+	ArrowRight,
+	CalendarRange,
+	FileText,
+	Filter,
+	FolderKanban,
+	LayoutPanelLeft,
+	Plus,
+	Search,
+	Sparkles,
+	Users,
+} from "lucide-react";
+
+import {
 	Badge,
 	Button,
 	Card,
@@ -23,18 +36,6 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@/components";
-import {
-	ArrowRight,
-	CalendarRange,
-	FileText,
-	Filter,
-	FolderKanban,
-	LayoutPanelLeft,
-	Plus,
-	Search,
-	Sparkles,
-	Users,
-} from "lucide-react";
 import {
 	PAGE_PATTERN_DEFINITIONS,
 	PAGE_PATTERN_SECTION_CLASS_NAME,

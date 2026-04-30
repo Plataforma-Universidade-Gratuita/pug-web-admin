@@ -3,6 +3,7 @@ import { z } from "zod";
 import { WEB_API_ROUTE_BASES } from "@/constants/api";
 import { AccountResponseSchema } from "@/schemas/api";
 import type { AccountResponse } from "@/types/api";
+import { qs } from "@/utils/api";
 import { webFetch } from "@/utils/web-api";
 
 const BASE = WEB_API_ROUTE_BASES.identity.accounts;
@@ -12,7 +13,7 @@ export async function get(id: string): Promise<AccountResponse> {
 }
 
 export async function getByEmail(email: string): Promise<AccountResponse> {
-	return webFetch(`${BASE}/by-email/${email}`, AccountResponseSchema);
+	return webFetch(`${BASE}${qs({ email })}`, AccountResponseSchema);
 }
 
 export async function getMe(): Promise<AccountResponse> {
@@ -25,5 +26,5 @@ export async function list(q?: string): Promise<AccountResponse[]> {
 }
 
 export async function listByCpf(cpf: string): Promise<AccountResponse[]> {
-	return webFetch(`${BASE}/by-cpf/${cpf}`, z.array(AccountResponseSchema));
+	return webFetch(`${BASE}${qs({ cpf })}`, z.array(AccountResponseSchema));
 }

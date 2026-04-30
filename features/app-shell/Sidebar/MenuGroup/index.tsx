@@ -16,15 +16,8 @@ import {
 } from "@/components";
 import { MenuItem } from "@/features/app-shell/Sidebar/MenuItem";
 import { SidebarRow } from "@/features/app-shell/Sidebar/SidebarRow";
-import {
-	isLeafItem,
-	isNodeActive,
-} from "@/features/app-shell/Sidebar/utils";
-import type {
-	MenuGroupChild,
-	MenuGroupProps,
-	MenuNode,
-} from "@/types/client";
+import { isLeafItem, isNodeActive } from "@/features/app-shell/Sidebar/utils";
+import type { MenuGroupChild, MenuGroupProps, MenuNode } from "@/types/client";
 
 function PopoverGroupList({
 	items,
@@ -78,7 +71,9 @@ function PopoverGroup({
 	closePopover: () => void;
 	depth: number;
 }) {
-	const active = item.childrenItems.some(child => isNodeActive(pathname, child));
+	const active = item.childrenItems.some(child =>
+		isNodeActive(pathname, child),
+	);
 	const [manualOpenState, setManualOpenState] = useState<{
 		pathname: string;
 		value: boolean;

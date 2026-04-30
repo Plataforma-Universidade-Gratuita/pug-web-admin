@@ -2,10 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import {
-	Home,
-	RefreshCcw,
-} from "lucide-react";
+import { Home, RefreshCcw } from "lucide-react";
 
 import { Badge, Button, EmptyState, Icon } from "@/components";
 import { HOME_ROUTE } from "@/constants/auth";

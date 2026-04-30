@@ -25,7 +25,11 @@ import {
 	UserRoundCog,
 } from "lucide-react";
 
-import type { MenuGroupChild, MenuLeafItem, RouteLabelMap } from "@/types/client";
+import type {
+	MenuGroupChild,
+	MenuLeafItem,
+	RouteLabelMap,
+} from "@/types/client";
 
 export const NAVBAR_TITLE_ROUTE = "/";
 export const SIDEBAR_STORAGE_KEY = "pug.sidebar";

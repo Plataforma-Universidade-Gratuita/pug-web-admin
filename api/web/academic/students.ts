@@ -11,6 +11,7 @@ import type {
 	StudentResponse,
 	StudentUpdateRequest,
 } from "@/types/api";
+import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
 const BASE = WEB_API_ROUTE_BASES.academic.students;
@@ -20,20 +21,17 @@ export async function get(id: string): Promise<StudentResponse> {
 }
 
 export async function getByCpf(cpf: string): Promise<StudentResponse> {
-	return webFetch(`${BASE}/by-cpf/${cpf}`, StudentResponseSchema);
+	return webFetch(`${BASE}${qs({ cpf })}`, StudentResponseSchema);
 }
 
 export async function getByEmail(email: string): Promise<StudentResponse> {
-	return webFetch(`${BASE}/by-email/${email}`, StudentResponseSchema);
+	return webFetch(`${BASE}${qs({ email })}`, StudentResponseSchema);
 }
 
 export async function getByRegistration(
 	registration: string,
 ): Promise<StudentResponse> {
-	return webFetch(
-		`${BASE}/by-registration/${registration}`,
-		StudentResponseSchema,
-	);
+	return webFetch(`${BASE}${qs({ registration })}`, StudentResponseSchema);
 }
 
 export async function getMe(): Promise<StudentResponse> {

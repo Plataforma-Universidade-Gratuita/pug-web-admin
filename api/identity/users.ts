@@ -16,7 +16,7 @@ export async function getByCpf(
 	token?: string,
 ): Promise<UserResponse> {
 	return zfetch(
-		`${BASE}/by-cpf/${cpf}`,
+		`${BASE}${qs({ cpf })}`,
 		{ method: "GET" },
 		UserResponseSchema,
 		token,

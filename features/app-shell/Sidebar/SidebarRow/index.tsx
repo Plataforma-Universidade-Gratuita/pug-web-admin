@@ -26,7 +26,10 @@ export function SidebarRow(props: SidebarRowProps) {
 				icon={Icon}
 				size={iconSize}
 				strokeWidth={2}
-				className={clsx("app-sidebar-item-icon", active && "app-sidebar-item-icon-active")}
+				className={clsx(
+					"app-sidebar-item-icon",
+					active && "app-sidebar-item-icon-active",
+				)}
 			/>
 			{!collapsed ? (
 				<span
@@ -63,7 +66,7 @@ export function SidebarRow(props: SidebarRowProps) {
 				}}
 			>
 				{content}
-			</Link>
+			</Link>,
 		);
 	}
 
@@ -75,6 +78,6 @@ export function SidebarRow(props: SidebarRowProps) {
 			onClick={props.onPress}
 		>
 			{content}
-		</button>
+		</button>,
 	);
 }
