@@ -1,1821 +1,1821 @@
 {
-	"docs": {
-		"shared": {
-			"eyebrow": "UI Particles",
-			"patternNotesTitle": "When to use",
-			"patternNotesApiLabel": "Current primitive API",
-			"expand": "Expand",
-			"collapse": "Collapse",
-			"viewPatternNotes": "View pattern notes",
-			"patternNotesLabel": "Pattern Notes",
-			"closePatternNotes": "Close pattern notes"
-		},
-		"primitivesOverview": {
-			"hero": {
-				"badge": "Primitives",
-				"title": "Primitives Overview",
-				"description": "This section provides a reference for all shared UI primitives. Browse the categories below to explore actionable, display, form, navigation, overlay, and structure components."
-			},
-			"summary": {
-				"organization": {
-					"title": "Organized by role",
-					"description": "Primitives are grouped by their primary UI role for clarity and discoverability."
-				},
-				"patterns": {
-					"title": "Consistent patterns",
-					"description": "All primitives follow the same design system and interaction patterns."
-				},
-				"exploration": {
-					"title": "Explore by category",
-					"description": "Use the cards below to jump into each primitive category and see detailed docs."
-				}
-			},
-			"categories": {
-				"badge": "Categories",
-				"title": "Primitive Categories",
-				"description": "Each category contains related primitives. Click a card to view all primitives in that group."
-			},
-			"areas": {
-				"actions": {
-					"href": "/docs/primitives/actions",
-					"label": "Actions",
-					"title": "Actions",
-					"description": "Buttons, toggles, and other actionable primitives.",
-					"cta": "Open actions"
-				},
-				"display": {
-					"href": "/docs/primitives/display",
-					"label": "Display",
-					"title": "Display",
-					"description": "Cards, badges, icons, and visual display elements.",
-					"cta": "Open display"
-				},
-				"forms": {
-					"href": "/docs/primitives/forms",
-					"label": "Forms",
-					"title": "Forms",
-					"description": "Inputs, selects, checkboxes, and form controls.",
-					"cta": "Open forms"
-				},
-				"navigation": {
-					"href": "/docs/primitives/navigation",
-					"label": "Navigation",
-					"title": "Navigation",
-					"description": "Tabs, accordions, breadcrumbs, and navigation aids.",
-					"cta": "Open navigation"
-				},
-				"overlays": {
-					"href": "/docs/primitives/overlays",
-					"label": "Overlays",
-					"title": "Overlays",
-					"description": "Dialogs, popovers, tooltips, and overlay components.",
-					"cta": "Open overlays"
-				},
-				"structure": {
-					"href": "/docs/primitives/structure",
-					"label": "Structure",
-					"title": "Structure",
-					"description": "Layout, scroll areas, and structural primitives.",
-					"cta": "Open structure"
-				}
-			}
-		},
-		"skeleton": {
-			"title": "Skeleton",
-			"description": "Skeleton is the loading primitive for content that already has a stable layout. In most cases, use it through `Card isLoading` so card slots swap to placeholders automatically.",
-			"patternNotes": {
-				"items": {
-					"automatic": "Prefer automatic loading states for cards. Set `isLoading` on the card and keep the real card structure in place.",
-					"scope": "Use skeletons in the same container that will eventually render the real content so spacing and hierarchy stay stable.",
-					"stability": "Loading placeholders should preserve layout footprint. Avoid swapping between completely different structures while requests are in flight.",
-					"manual": "Use the low-level `Skeleton` primitive directly only when you need custom placeholder shapes outside the built-in card anatomy."
-				},
-				"snippet": "<Card\n  isLoading\n  className=\"flex min-h-40 flex-col justify-between p-4\"\n>\n  <CardHeader>\n    <CardTitle>Card title</CardTitle>\n    <CardDescription>\n      Supporting description.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>\n    <Button usage=\"primary\">Continue</Button>\n  </CardContent>\n</Card>\n\n<Skeleton className=\"h-4 w-24\" />"
-			},
-			"sections": {
-				"cards": {
-					"title": "Automatic card loading",
-					"description": "The card primitive can now replace title, description, content, and footer slots with skeleton placeholders automatically."
-				},
-				"buttonUsage": {
-					"title": "Applied to existing card JSX",
-					"description": "This is the same card structure used in the button docs, but with `isLoading` enabled on the card."
-				},
-				"section": {
-					"title": "Section loading",
-					"description": "Sections can also switch their title, description, actions, and content to loading placeholders through the same pattern."
-				},
-				"dialog": {
-					"title": "Dialog loading",
-					"description": "Dialogs use the same loading context so their title, description, body region, and footer actions stay structurally stable."
-				},
-				"icon": {
-					"title": "Icon loading",
-					"description": "Standalone icons can expose a simple circular skeleton when the icon itself is still resolving."
-				},
-				"layout": {
-					"title": "Layout loading",
-					"description": "Low-level `Header`, `Content`, and `Footer` primitives also support explicit loading placeholders for custom compositions."
-				},
-				"primitive": {
-					"title": "Low-level primitive",
-					"description": "Use the `Skeleton` primitive directly for layouts that do not map to the built-in card anatomy."
-				}
-			},
-			"cardExample": {
-				"title": "Project summary",
-				"description": "This card keeps the exact same JSX in both states. Only the `isLoading` prop changes.",
-				"cta": "Open summary"
-			},
-			"loadingLabels": {
-				"card": "Loading project summary",
-				"usageCard": "Loading button usage example",
-				"section": "Loading project section",
-				"dialog": "Loading project dialog"
-			},
-			"sectionExample": {
-				"title": "Workspace health",
-				"description": "Use the same section structure during loading so the page rhythm stays stable.",
-				"cta": "Refresh data",
-				"content": "The section body can keep its final layout while the content resolves."
-			},
-			"dialogExample": {
-				"title": "Sync workspace",
-				"description": "The dialog keeps its structure while waiting for the content of the current step.",
-				"content": "Once loaded, the body content replaces the placeholder without changing the overall dialog anatomy.",
-				"secondary": "Cancel",
-				"primary": "Continue",
-				"trigger": "Open loading dialog",
-				"note": "Open the preview to inspect the dialog loading state in place."
-			},
-			"primitiveNote": "Use the low-level primitive only when automatic card loading is not enough."
-		},
-		"popover": {
-			"title": "Popover",
-			"description": "Popovers reveal compact, contextual content anchored to a trigger. Use them for inline filters, supporting actions, and lightweight panels that should stay connected to the current layout.",
-			"patternNotes": {
-				"items": {
-					"inline": "Use popovers for content that belongs to the current surface and does not need the interruption level of a dialog.",
-					"scope": "Keep the content compact and tightly scoped to the trigger. If the content becomes long or multi-step, escalate to a dialog or a dedicated route.",
-					"content": "Popover content can mix text, metadata, small forms, and action groups, but it should still feel like one short contextual panel.",
-					"escalation": "Use a popover when users should stay in the current flow. Use a tooltip for hints, a dropdown menu for short action lists, and a dialog for focused tasks."
-				},
-				"snippet": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>\n    <Button usage=\"secondary\" variant=\"flat\">Filters</Button>\n  </PopoverTrigger>\n\n  <PopoverContent align=\"start\">\n    <p className=\"ty-sm-bold\">Refine results</p>\n    <p className=\"ty-helper\">Short contextual panel.</p>\n  </PopoverContent>\n</Popover>"
-			},
-			"sections": {
-				"filters": {
-					"title": "Inline filters",
-					"description": "A popover works well when filters belong to the current list or card and should stay attached to the trigger."
-				},
-				"actions": {
-					"title": "Actions and supporting panels",
-					"description": "Use the same primitive for richer action lists and lightweight contextual panels."
-				}
-			},
-			"examples": {
-				"filters": {
-					"trigger": "Filters",
-					"title": "Refine results",
-					"description": "Keep lightweight filters close to the data set they affect.",
-					"items": {
-						"period": "Period",
-						"status": "Status"
-					},
-					"values": {
-						"period": "Last 30 days",
-						"status": "Active only"
-					},
-					"secondary": "Reset",
-					"primary": "Apply filters",
-					"neighbor": "Date range"
-				},
-				"actions": {
-					"title": "Context actions",
-					"description": "A popover can hold denser actions when a plain tooltip is too small and a dialog would be too disruptive.",
-					"trigger": "Open actions",
-					"items": {
-						"layout": {
-							"title": "Adjust layout",
-							"meta": "Panel"
-						},
-						"rules": {
-							"title": "Review rules",
-							"meta": "Draft"
-						},
-						"owners": {
-							"title": "Manage owners",
-							"meta": "3 assigned"
-						}
-					}
-				},
-				"inline": {
-					"title": "Lightweight panel",
-					"description": "Use the primitive for compact contextual content that should stay anchored near the interaction point.",
-					"trigger": "View options",
-					"panelTitle": "Panel options",
-					"panelDescription": "This kind of content stays close to the trigger instead of interrupting the screen."
-				}
-			}
-		},
-		"dropdownMenu": {
-			"title": "Dropdown Menu",
-			"description": "Dropdown menus expose compact action lists anchored to a trigger. Use them for row actions, card utilities, and grouped secondary commands that would add too much noise as inline buttons.",
-			"patternNotes": {
-				"items": {
-					"compact": "Use dropdown menus for short command lists that belong to one trigger and do not need rich supporting layout.",
-					"scope": "Keep the menu tightly scoped to actions for the current object, row, or surface. If the content becomes explanatory or form-like, switch to a popover or dialog.",
-					"grouping": "Group related actions with labels and separators when the menu mixes primary utilities with lower-frequency or riskier actions.",
-					"escalation": "Use a dropdown menu for compact action selection, a popover for richer lightweight panels, and an alert dialog for consequential confirmation."
-				},
-				"snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>\n    <Button size=\"icon\" usage=\"secondary\" variant=\"ghost\">...</Button>\n  </DropdownMenuTrigger>\n\n  <DropdownMenuContent>\n    <DropdownMenuLabel>Actions</DropdownMenuLabel>\n    <DropdownMenuItem>View details</DropdownMenuItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem>Archive</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
-			},
-			"sections": {
-				"actions": {
-					"title": "Compact actions",
-					"description": "Dropdown menus work best when several supporting actions need to stay available without taking over the layout."
-				}
-			},
-			"cards": {
-				"rowActions": {
-					"title": "Row action menu",
-					"description": "A common admin pattern for compact table or card-row actions.",
-					"rowTitle": "Project Atlas",
-					"rowDescription": "Updated 2 hours ago",
-					"trigger": "Open row actions",
-					"menuLabel": "Project actions",
-					"items": {
-						"view": "View details",
-						"edit": "Edit record",
-						"archive": "Archive project",
-						"delete": "Delete project"
-					}
-				},
-				"grouped": {
-					"title": "Grouped utilities",
-					"description": "Use labels and separators when the menu needs a little more structure without becoming a larger panel.",
-					"trigger": "Open utilities",
-					"sections": {
-						"primary": "Workspace",
-						"secondary": "Lifecycle"
-					},
-					"items": {
-						"overview": "View overview",
-						"members": "Manage members",
-						"archive": "Archive workspace",
-						"transfer": "Transfer ownership"
-					}
-				}
-			}
-		},
-		"select": {
-			"title": "Select",
-			"description": "Select lets users choose one option from a compact list. Use it for filters, form fields, and scoped configuration choices where the current value should remain visible in a single trigger field.",
-			"patternNotes": {
-				"items": {
-					"scope": "Use select when the user must choose one value from a defined set and the currently selected option should stay visible in the field.",
-					"placeholder": "Use a placeholder only when no default selection should be implied. Once a choice exists, the trigger should show the selected value directly.",
-					"grouping": "Group options with labels and separators when the list mixes categories or lifecycle stages that benefit from lightweight structure.",
-					"forms": "Select works well for forms and filters, but if the content needs searching, multi-selection, or richer metadata, consider a different pattern."
-				},
-				"snippet": "<Select value={value} onValueChange={setValue}>\n  <SelectTrigger placeholder=\"Choose status\" />\n  <SelectContent>\n    <SelectItem value=\"active\">Active</SelectItem>\n    <SelectItem value=\"paused\">Paused</SelectItem>\n  </SelectContent>\n</Select>"
-			},
-			"sections": {
-				"filters": {
-					"title": "Filter and field selection",
-					"description": "Select is a strong fit for compact filters and form fields that expose one current value at a time."
-				},
-				"groups": {
-					"title": "Grouped options",
-					"description": "Use labels and separators when a flat list would be harder to scan or reason about."
-				}
-			},
-			"cards": {
-				"status": {
-					"title": "Controlled status filter",
-					"description": "A typical admin filter where the selected value is controlled by surrounding state.",
-					"label": "Status",
-					"placeholder": "Choose status",
-					"options": {
-						"active": "Active",
-						"paused": "Paused",
-						"archived": "Archived"
-					}
-				},
-				"placeholder": {
-					"title": "Unselected field",
-					"description": "Use a placeholder when the user still needs to make an explicit first selection.",
-					"label": "Date range",
-					"placeholder": "Choose range",
-					"options": {
-						"today": "Today",
-						"week": "Last 7 days",
-						"month": "Last 30 days"
-					}
-				},
-				"grouped": {
-					"title": "Grouped workspace actions",
-					"description": "A grouped list can stay compact while still exposing lightweight hierarchy inside the option set.",
-					"label": "Workspace target",
-					"placeholder": "Choose target",
-					"groups": {
-						"workspace": "Workspace",
-						"lifecycle": "Lifecycle"
-					},
-					"options": {
-						"overview": "View overview",
-						"members": "Manage members",
-						"archive": "Archive workspace",
-						"transfer": "Transfer ownership"
-					}
-				}
-			}
-		},
-		"selectionControls": {
-			"title": "Selection Controls",
-			"description": "Checkbox, radio group, and switch all represent user choice, but they communicate different interaction models. Use them according to whether the user is selecting many items, exactly one option, or toggling a setting on and off.",
-			"patternNotes": {
-				"items": {
-					"checkbox": "Use checkbox when the user can independently select zero, one, or many options from a set.",
-					"radio": "Use radio group when exactly one option must be chosen from several mutually exclusive choices.",
-					"switch": "Use switch for immediate on/off settings and binary preferences that read naturally as enabled or disabled.",
-					"scope": "Do not swap these controls casually. The chosen control should match the meaning of the decision, not just the amount of available space."
-				},
-				"snippet": "<Checkbox label=\"Share progress updates\" />\n\n<RadioGroup value={value} onValueChange={setValue}>\n  <RadioGroupItem value=\"email\" label=\"Email\" />\n  <RadioGroupItem value=\"sms\" label=\"SMS\" />\n</RadioGroup>\n\n<Switch label=\"Enable notifications\" />"
-			},
-			"sections": {
-				"comparison": {
-					"title": "Interaction comparison",
-					"description": "These three controls belong together conceptually, but each one signals a different kind of user decision."
-				}
-			},
-			"cards": {
-				"checkbox": {
-					"title": "Checkbox",
-					"description": "Independent choices where more than one option may be enabled at the same time.",
-					"disabled": {
-						"label": "Locked setting",
-						"description": "This option is unavailable in the current workflow."
-					},
-					"items": {
-						"one": {
-							"label": "Share weekly summary",
-							"description": "Send a compact digest of project updates every Friday."
-						},
-						"two": {
-							"label": "Include archived workspaces",
-							"description": "Keep archived items in the same reporting scope."
-						}
-					}
-				},
-				"radio": {
-					"title": "Radio group",
-					"description": "Exclusive choices where one communication mode or policy must be selected.",
-					"items": {
-						"email": {
-							"label": "Email",
-							"description": "Send detailed updates to the primary inbox."
-						},
-						"sms": {
-							"label": "SMS",
-							"description": "Use a shorter message for urgent contact only."
-						},
-						"silent": {
-							"label": "Silent",
-							"description": "Store the update without sending an active notification."
-						}
-					}
-				},
-				"switch": {
-					"title": "Switch",
-					"description": "A binary setting that reads clearly as on or off in the current state.",
-					"disabled": {
-						"label": "System lock",
-						"description": "This preference is controlled by workspace policy."
-					},
-					"item": {
-						"label": "Enable notifications",
-						"description": "Immediately allow alerts for overdue tasks and project status changes."
-					}
-				}
-			}
-		},
-		"toggleControls": {
-			"title": "Toggle Controls",
-			"description": "Toggle and toggle group express pressed state rather than form selection. Use them for view modes, formatting controls, and dense action sets where the control should behave like a button with remembered state.",
-			"patternNotes": {
-				"items": {
-					"toggle": "Use toggle for one pressed/unpressed control that behaves like a stateful action button.",
-					"group": "Use toggle group when several related pressed controls need to behave as one mutually exclusive or multi-select set.",
-					"press": "These controls communicate pressed state, not form semantics. Prefer checkbox, radio group, or switch when the meaning is selection or settings.",
-					"scope": "Toggle controls are strongest in toolbars, view switches, formatting actions, and compact filter chips."
-				},
-				"snippet": "<Toggle aria-label=\"Bold\">Bold</Toggle>\n\n<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grid</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">List</ToggleGroupItem>\n</ToggleGroup>"
-			},
-			"sections": {
-				"usage": {
-					"title": "Single and exclusive usage",
-					"description": "Use a lone toggle for one pressed action, or a single-value toggle group when one view or mode should stay active."
-				},
-				"multi": {
-					"title": "Multi-pressed groups",
-					"description": "A multiple toggle group works when several formatting or filter states may remain active together."
-				}
-			},
-			"cards": {
-				"single": {
-					"title": "Single toggle",
-					"description": "A pressed action that behaves like a stateful button instead of a form field.",
-					"label": "Bold",
-					"ariaLabel": "Toggle bold formatting",
-					"disabledLabel": "Locked"
-				},
-				"view": {
-					"title": "Exclusive view mode",
-					"description": "A single-value toggle group is a good fit for compact view switches such as grid versus list.",
-					"items": {
-						"grid": "Grid",
-						"list": "List"
-					}
-				},
-				"multi": {
-					"title": "Multiple pressed states",
-					"description": "Use multi-select toggle groups for formatting or chip-like controls where several states may remain active.",
-					"items": {
-						"bold": "Bold",
-						"italic": "Italic",
-						"underline": "Underline"
-					}
-				}
-			},
-			"primitives": {
-				"toggleGroupTitle": "Toggle Group"
-			}
-		},
-		"structurePrimitives": {
-			"title": "Structure Primitives",
-			"description": "Tabs, label, separator, and scroll area shape layout and interaction rhythm rather than carrying heavy business meaning on their own. Use them to organize content, connect fields to text, and manage dense surfaces with clearer structure.",
-			"patternNotes": {
-				"items": {
-					"tabs": "Use tabs when several peer sections share one space and users should switch between them without leaving the current page context.",
-					"label": "Use label to associate form text with its field directly instead of relying on nearby typography alone.",
-					"separator": "Use separators sparingly to reinforce grouping or rhythm. They should support hierarchy, not replace spacing and layout decisions.",
-					"scrollArea": "Use scroll areas for constrained regions such as sidebars, panels, and dense lists where native overflow needs better visual handling."
-				},
-				"snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"members\">Members</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Label htmlFor=\"workspace-name\">Workspace name</Label>\n<Separator />\n<ScrollArea className=\"h-48\">...</ScrollArea>"
-			},
-			"sections": {
-				"tabs": {
-					"title": "Tabs",
-					"description": "Tabs are a strong fit when related sections compete for the same page space but should remain quickly accessible."
-				},
-				"structure": {
-					"title": "Label, separator, and scroll area",
-					"description": "These primitives become most useful when they reinforce form structure, metadata rhythm, and constrained overflow in the same composition."
-				}
-			},
-			"tabs": {
-				"items": {
-					"overview": {
-						"label": "Overview",
-						"title": "Workspace overview",
-						"description": "Use a tab when this panel is one peer among several related content areas."
-					},
-					"members": {
-						"label": "Members",
-						"title": "Members and roles",
-						"description": "Tabs keep related sections adjacent without forcing every detail into one long surface."
-					},
-					"history": {
-						"label": "History",
-						"title": "Activity history",
-						"description": "This is useful when users need quick context switching between parallel views."
-					}
-				}
-			},
-			"labelCard": {
-				"title": "Field structure",
-				"description": "Labels and separators support small but important hierarchy decisions inside forms and metadata rows.",
-				"nameLabel": "Workspace name",
-				"namePlaceholder": "Enter workspace name",
-				"leftMeta": "Updated today",
-				"rightMeta": "6 active members"
-			},
-			"primitives": {
-				"labelTitle": "Label",
-				"separatorTitle": "Separator",
-				"scrollAreaTitle": "Scroll Area"
-			},
-			"scrollCard": {
-				"title": "Constrained scrolling",
-				"description": "Scroll areas work well inside panels or cards where longer lists should remain bounded without losing polish.",
-				"items": {
-					"one": {
-						"title": "Activity item one",
-						"description": "Scrollable regions should still preserve readable rhythm and spacing."
-					},
-					"two": {
-						"title": "Activity item two",
-						"description": "Use a scroll area when the parent surface should stay bounded."
-					},
-					"three": {
-						"title": "Activity item three",
-						"description": "This is especially useful for side panels and compact dashboards."
-					},
-					"four": {
-						"title": "Activity item four",
-						"description": "The primitive keeps overflow behavior explicit inside the region."
-					},
-					"five": {
-						"title": "Activity item five",
-						"description": "Longer collections should remain easy to scan even when constrained."
-					},
-					"six": {
-						"title": "Activity item six",
-						"description": "The surrounding card can stay visually stable while the list scrolls."
-					}
-				}
-			}
-		},
-		"input": {
-			"title": "Input",
-			"description": "Input is the base text field primitive for short single-line values. Use it for identifiers, email, passwords, search, and compact form fields where the value should stay visible on one line.",
-			"patternNotes": {
-				"items": {
-					"base": "Use input for short-form values that fit naturally on one line and should remain directly editable in place.",
-					"password": "Password fields can expose a reveal toggle, but the primitive should still behave like one field rather than a separate custom pattern.",
-					"icons": "Leading icons are useful for lightweight context such as search or email, but they should remain supportive rather than carrying essential meaning alone.",
-					"scope": "If the content becomes long-form or multi-paragraph, switch to a text area instead of stretching the input pattern."
-				},
-				"snippet": "<Input type=\"email\" placeholder=\"admin@pug.edu.br\" />\n\n<Input type=\"password\" showPasswordToggle />"
-			},
-			"sections": {
-				"fields": {
-					"title": "Common fields",
-					"description": "The same primitive should handle standard text entry and password reveal behavior without fragmenting the API."
-				},
-				"search": {
-					"title": "Search field",
-					"description": "A lightweight icon can help the field read as search without changing the underlying primitive."
-				}
-			},
-			"cards": {
-				"email": {
-					"title": "Email field",
-					"description": "A standard single-line field with lightweight leading context.",
-					"label": "Email",
-					"placeholder": "admin@pug.edu.br"
-				},
-				"password": {
-					"title": "Password field",
-					"description": "Use the built-in reveal behavior when the field should let users inspect the hidden value temporarily.",
-					"label": "Password",
-					"placeholder": "Enter your password"
-				},
-				"disabled": {
-					"title": "Disabled field",
-					"description": "Inputs should clearly show when they are unavailable.",
-					"label": "Workspace name",
-					"value": "Atlas workspace"
-				}
-			},
-			"search": {
-				"label": "Search",
-				"placeholder": "Search workspaces",
-				"value": "Project Atlas"
-			}
-		},
-		"textArea": {
-			"title": "Text Area",
-			"description": "Text area is the primitive for longer freeform content. Use it when the value needs more than one line, such as notes, feedback, descriptions, or explanatory content.",
-			"patternNotes": {
-				"items": {
-					"longform": "Use text area when the user is expected to write sentences, notes, or any content that naturally spans multiple lines.",
-					"resize": "The field should preserve a comfortable minimum height so longer content does not feel cramped from the first interaction.",
-					"scope": "Do not use a text area for short structured values just because more width is available. Keep single-line fields as inputs.",
-					"rhythm": "Labels, spacing, and surrounding form rhythm matter more with text areas because they occupy noticeably more vertical space."
-				},
-				"snippet": "<TextArea placeholder=\"Add internal notes\" />"
-			},
-			"sections": {
-				"usage": {
-					"title": "Long-form entry",
-					"description": "Text areas are best for content that should stay readable while it grows vertically."
-				}
-			},
-			"cards": {
-				"notes": {
-					"title": "Internal notes",
-					"description": "A compact long-form field for operational notes or supporting detail.",
-					"label": "Notes",
-					"placeholder": "Add internal notes"
-				},
-				"feedback": {
-					"title": "Longer feedback",
-					"description": "Use a taller text area when the expected response is more descriptive and reflective.",
-					"label": "Feedback",
-					"placeholder": "Describe the current experience and what should improve"
-				}
-			}
-		},
-		"datePicker": {
-			"title": "Date Picker",
-			"description": "Date picker captures one calendar date and time in a compact field. This implementation uses a styled calendar popover so the control fits the design system while still staying lightweight and focused on single-value scheduling.",
-			"patternNotes": {
-				"items": {
-					"native": "Use this primitive when the product needs one scheduled point in time and the field should still look and behave like the rest of the form system.",
-					"scope": "This primitive is best for one-off date and time fields such as meetings, due timestamps, releases, and reporting cutoffs.",
-					"constraints": "Use `min` and `max` when the valid scheduling window is known so both the calendar and time selectors communicate the allowed bounds.",
-					"escalation": "If the product later needs ranges, presets, recurring rules, or complex timeline logic, that should become a higher-level composite component instead of stretching this baseline primitive."
-				},
-				"snippet": "<DatePicker defaultValue=\"2026-04-24T14:30\" />\n\n<DatePicker min=\"2026-04-20T09:00\" max=\"2026-04-30T18:00\" />"
-			},
-			"sections": {
-				"fields": {
-					"title": "Date and time fields",
-					"description": "Use the picker when the user needs one timestamp and the control should stay aligned with the shared styling system."
-				}
-			},
-			"cards": {
-				"basic": {
-					"title": "Basic date-time field",
-					"description": "Use it when the user needs one scheduled moment with direct calendar and time selection.",
-					"label": "Review meeting"
-				},
-				"constrained": {
-					"title": "Constrained window",
-					"description": "Min and max boundaries help communicate valid booking windows directly in the picker.",
-					"label": "Publishing window"
-				},
-				"disabled": {
-					"title": "Disabled schedule",
-					"description": "Use a disabled date picker when the scheduled value is fixed by the surrounding workflow.",
-					"label": "Enrollment start"
-				}
-			}
-		},
-		"multiSelect": {
-			"title": "Multi Select",
-			"description": "Multi select lets users choose several values from one compact field. Use it when multiple filters or assignments belong to the same category and should stay grouped under one trigger.",
-			"patternNotes": {
-				"items": {
-					"scope": "Use multi select when the user may choose several values from the same set without needing separate checkboxes in the main layout.",
-					"summary": "The trigger should summarize the current selection compactly instead of trying to render a long unchecked list in the closed state.",
-					"options": "Descriptions can help when option labels alone are not enough, but the list should still remain easy to scan and toggle quickly.",
-					"escalation": "If the option set becomes very large, searchable, or deeply grouped, this should evolve into a richer composite pattern instead of stretching the simple multi-select too far."
-				},
-				"snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose statuses\"\n  options={[\n    { value: \"active\", label: \"Active\" },\n    { value: \"paused\", label: \"Paused\" },\n  ]}\n/>"
-			},
-			"sections": {
-				"filters": {
-					"title": "Grouped multi-value fields",
-					"description": "Multi select is a good fit when several filters or assignments should stay available in one compact field."
-				}
-			},
-			"cards": {
-				"status": {
-					"title": "Status filters",
-					"description": "A common admin filter case where several statuses may remain active together.",
-					"label": "Statuses",
-					"placeholder": "Choose statuses",
-					"options": {
-						"active": "Active",
-						"paused": "Paused",
-						"archived": "Archived"
-					}
-				},
-				"owners": {
-					"title": "Owners and assignees",
-					"description": "Descriptions can help when the selected values represent people or roles rather than simple tags.",
-					"label": "Owners",
-					"placeholder": "Choose owners",
-					"options": {
-						"maria": {
-							"label": "Maria",
-							"description": "Academic coordination"
-						},
-						"joao": {
-							"label": "JoÃ£o",
-							"description": "Project operations"
-						},
-						"ana": {
-							"label": "Ana",
-							"description": "Regional follow-up"
-						}
-					}
-				}
-			}
-		},
-		"accordion": {
-			"title": "Accordion",
-			"description": "Accordions reveal and hide related sections of content within the current page flow. Use them when information should stay available on the page without forcing every detail to be visible at once.",
-			"patternNotes": {
-				"items": {
-					"disclosure": "Use accordions for progressive disclosure when each section can be scanned by its trigger label before the body is opened.",
-					"trigger": "Trigger labels should be short and descriptive enough for users to decide whether the section is relevant before expanding it.",
-					"content": "Accordion content can hold text, metadata, controls, or nested layout blocks, but each item should still represent one coherent topic.",
-					"multi": "Use `type=\"single\"` when sections should compete for attention, and `type=\"multiple\"` when users may need to compare or keep several sections open."
-				},
-				"snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Overview</AccordionTrigger>\n    <AccordionContent>\n      Body content\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
-			},
-			"sections": {
-				"structure": {
-					"title": "Structure",
-					"description": "Accordion items should read clearly in both collapsed and expanded states."
-				},
-				"compact": {
-					"title": "Compact and multi-open usage",
-					"description": "The same primitive works for compact FAQ-style content and denser settings groups."
-				}
-			},
-			"structure": {
-				"items": {
-					"overview": {
-						"title": "Project overview",
-						"description": "Keep the highest-level summary behind a short trigger when the page already has competing content around it."
-					},
-					"roles": {
-						"title": "Roles and owners",
-						"description": "Use an accordion item when supporting ownership details should be reachable without permanently occupying the layout."
-					},
-					"delivery": {
-						"title": "Delivery notes",
-						"description": "Longer explanatory content can live inside the expanded panel as long as the trigger still represents a single topic."
-					}
-				}
-			},
-			"compactCard": {
-				"title": "Compact disclosure",
-				"description": "A denser accordion still works if each item remains easy to scan and the labels stay explicit.",
-				"items": {
-					"timing": {
-						"title": "Response timing",
-						"description": "Use the compact form for short operational guidance and support answers."
-					},
-					"ownership": {
-						"title": "Ownership rules",
-						"description": "The body should answer one narrow question instead of becoming a page hidden behind a trigger."
-					},
-					"escalation": {
-						"title": "Escalation path",
-						"description": "Keep the label decisive so users can tell what they will reveal before opening the item."
-					}
-				}
-			},
-			"multiCard": {
-				"title": "Multiple open sections",
-				"description": "Allow multiple items to remain open when users may need to compare settings or keep several groups visible.",
-				"items": {
-					"filters": {
-						"title": "Saved filters",
-						"description": "Useful when users need to inspect several configuration groups at the same time."
-					},
-					"visibility": {
-						"title": "Visibility rules",
-						"description": "Multi-open mode reduces unnecessary toggling when the user is reviewing related details."
-					},
-					"history": {
-						"title": "Change history",
-						"description": "Use it when independent sections may all deserve attention during the same task."
-					}
-				}
-			}
-		},
-		"button": {
-			"title": "Buttons",
-			"description": "Buttons trigger user actions. Use `usage` to define semantic intent, `variant` to define visual treatment, and `size` to adapt the component to layout density.",
-			"patternNotes": {
-				"items": {
-					"usage": "Set `usage` according to the meaning of the action: primary, secondary, success, info, warning, or danger.",
-					"flat": "Use `variant=\"flat\"` for the default call-to-action treatment.",
-					"ghost": "Use `variant=\"ghost\"` for lower-emphasis actions, dense interfaces, and supporting controls.",
-					"icon": "For icon-only buttons, always provide a readable `title`, `aria-label`, or `tooltipContent` so the component can expose an accessible name."
-				},
-				"snippet": "<Button\n  usage=\"primary | secondary | success | info | warning | danger\"\n  variant=\"flat | ghost\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Saving...\"\n  tooltipContent=\"Add item\"\n/>"
-			},
-			"sections": {
-				"usage": {
-					"title": "Usage",
-					"description": "Choose the semantic usage that matches the outcome of the action."
-				},
-				"variant": {
-					"title": "Variant",
-					"description": "Variants change presentation without changing behavior or semantic intent."
-				},
-				"scale": {
-					"title": "Scale",
-					"description": "Scale the component according to spacing and density requirements."
-				},
-				"states": {
-					"title": "States",
-					"description": "Use the built-in states to keep feedback and interaction rules consistent."
-				}
-			},
-			"usageCards": {
-				"primary": {
-					"name": "Primary",
-					"description": "Default high-emphasis action for confirm and submit flows.",
-					"label": "Save changes"
-				},
-				"secondary": {
-					"name": "Secondary",
-					"description": "Neutral action for companion paths and supporting controls.",
-					"label": "Export report"
-				},
-				"success": {
-					"name": "Success",
-					"description": "Positive action for approvals, completion, or confirmation.",
-					"label": "Mark approved"
-				},
-				"info": {
-					"name": "Info",
-					"description": "Guidance action when you need emphasis without implying risk.",
-					"label": "View details"
-				},
-				"warning": {
-					"name": "Warning",
-					"description": "Cautionary action that deserves review before continuing.",
-					"label": "Review issue"
-				},
-				"danger": {
-					"name": "Danger",
-					"description": "Destructive action for irreversible changes and deletion.",
-					"label": "Revoke access"
-				}
-			},
-			"variantCards": {
-				"flat": {
-					"name": "Flat",
-					"description": "Filled in light mode and softened in dark mode without changing the action meaning."
-				},
-				"ghost": {
-					"name": "Ghost",
-					"description": "Low-chrome action for dense toolbars, lists, and utility affordances."
-				},
-				"label": "Apply style"
-			},
-			"sizes": {
-				"small": "Small",
-				"medium": "Medium",
-				"large": "Large",
-				"iconTitle": "Add item"
-			},
-			"statesCards": {
-				"loading": {
-					"title": "Loading",
-					"button": "Publish",
-					"loadingText": "Publishing..."
-				},
-				"disabled": {
-					"title": "Disabled",
-					"button": "Awaiting changes"
-				},
-				"fullWidth": {
-					"title": "Full width",
-					"button": "Continue setup"
-				}
-			}
-		},
-		"card": {
-			"title": "Card",
-			"description": "Cards group related content into a bounded surface. Use them as layout containers for summaries, supporting actions, and content blocks that should read as a single unit.",
-			"patternNotes": {
-				"items": {
-					"container": "Use cards to group related information, not to create arbitrary visual boxes around every element on the page.",
-					"structure": "Compose cards from header, description, content, and footer only when those slots are actually needed by the content.",
-					"footer": "Use the footer for card-level actions. If the card has no actions, omit the footer entirely.",
-					"behavior": "Cards are structural primitives. Behavior such as dialogs, tooltips, dropdowns, and navigation should come from the elements placed inside them, not from the card itself."
-				},
-				"snippet": "<Card>\n  <CardHeader>\n    <CardTitle>Card title</CardTitle>\n    <CardDescription>\n      Short supporting description.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>Body content</CardContent>\n\n  <CardFooter>\n    <Button variant=\"ghost\">Secondary</Button>\n    <Button usage=\"primary\" variant=\"flat\">Primary</Button>\n  </CardFooter>\n</Card>"
-			},
-			"sections": {
-				"structure": {
-					"title": "Structure",
-					"description": "Cards should expose a predictable internal anatomy without forcing every slot into every use case."
-				},
-				"composition": {
-					"title": "Composition",
-					"description": "Use the same primitive for simple information blocks and for cards that include supporting actions."
-				},
-				"layouts": {
-					"title": "Layout patterns",
-					"description": "Cards can host denser layouts as long as the content still reads as one coherent block."
-				}
-			},
-			"structureCards": {
-				"basic": {
-					"title": "Basic content block",
-					"description": "A card may be nothing more than a title, a short description, and one body region.",
-					"body": "Use this shape for documentation notes, summaries, and supporting content that should sit inside a clear boundary."
-				},
-				"header": {
-					"title": "Header is optional",
-					"description": "Use `CardHeader` when the content needs a visible title and supporting description before the body.",
-					"body": "If the body already carries enough context, do not force extra header copy just to fill space."
-				}
-			},
-			"compositionCards": {
-				"actions": {
-					"title": "Card with actions",
-					"description": "Some cards need a footer because they collect card-level decisions or shortcuts.",
-					"body": "Keep footer actions tied to the content of that card. If actions belong to the entire page or section, place them outside the card instead.",
-					"footer": {
-						"secondary": "Dismiss",
-						"primary": "Review details"
-					}
-				},
-				"summary": {
-					"title": "Summary card",
-					"description": "Cards can also hold compact dashboards and metadata without needing a footer.",
-					"stats": {
-						"items": {
-							"projects": {
-								"label": "Projects",
-								"value": "12 active"
-							},
-							"openTasks": {
-								"label": "Open tasks",
-								"value": "37 pending"
-							}
-						}
-					}
-				}
-			},
-			"layoutCards": {
-				"list": {
-					"title": "Grouped list content",
-					"description": "A card can contain multiple internal rows when they all belong to the same summary or task.",
-					"items": {
-						"overview": {
-							"title": "Overview",
-							"description": "Use a shared surface when rows are part of the same conceptual block."
-						},
-						"composition": {
-							"title": "Composition",
-							"description": "Keep spacing and internal hierarchy consistent across all rows."
-						},
-						"actions": {
-							"title": "Actions stay scoped",
-							"description": "If a row needs an action, it should still feel like part of the same card."
-						}
-					}
-				},
-				"compact": {
-					"title": "Compact marker",
-					"description": "Cards do not need to be tall. Compact content works when the boundary still improves scanability.",
-					"badge": "Docs-ready container"
-				}
-			}
-		},
-		"dialog": {
-			"title": "Dialog",
-			"description": "Dialogs interrupt the current flow to present focused content, decisions, or structured tasks. Use them for content that needs explicit attention without leaving the current page.",
-			"patternNotes": {
-				"items": {
-					"useCase": "Use dialogs for focused tasks, confirmations, or supporting content that should temporarily take priority over the page.",
-					"structure": "Keep the structure predictable: header for title and description, scrollable body for content, and footer for actions.",
-					"actions": "Use the footer for the action hierarchy required by the flow. Some dialogs need one action, some need two, and only some need the full primary/secondary/tertiary set.",
-					"overflow": "When content grows, let only the body scroll. Header and footer should remain fixed within the dialog."
-				},
-				"snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>Dialog title</DialogTitle>\n      <DialogDescription>\n        Short explanation for the dialog.\n      </DialogDescription>\n    </DialogHeader>\n\n    <div className=\"flex-1 overflow-y-auto\">Body content</div>\n\n    <DialogFooter>\n      <Button variant=\"ghost\">Tertiary</Button>\n      <Button usage=\"secondary\" variant=\"flat\">Secondary</Button>\n      <Button usage=\"primary\" variant=\"flat\">Primary</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>"
-			},
-			"sections": {
-				"structure": {
-					"title": "Structure",
-					"description": "Use a consistent layout so users can immediately identify the dialog header, body, and actions."
-				},
-				"footer": {
-					"title": "Footer actions",
-					"description": "Reserve the footer for the action hierarchy instead of mixing structural actions into the body."
-				},
-				"overflow": {
-					"title": "Overflow",
-					"description": "Long content should scroll inside the dialog body while header and footer remain fixed."
-				}
-			},
-			"structureCards": {
-				"basic": {
-					"title": "Basic structure",
-					"description": "A minimal dialog should provide a clear title, a short description, focused content, and explicit dismissal paths.",
-					"trigger": "Open basic dialog"
-				},
-				"description": {
-					"title": "Descriptive header",
-					"description": "Use the description slot for one concise sentence that explains the purpose of the dialog before the body content starts.",
-					"trigger": "Open described dialog"
-				}
-			},
-			"footerCard": {
-				"title": "Action combinations",
-				"description": "Dialog footers do not need three actions every time. Use only the actions the task actually requires, and vary the button usage by the intent of the flow.",
-				"trigger": "Open footer example"
-			},
-			"overflowCard": {
-				"title": "Scrollable body",
-				"description": "When the dialog body is long, only the content region should scroll so context and actions remain visible.",
-				"trigger": "Open overflow example"
-			},
-			"examples": {
-				"basic": {
-					"eyebrow": "Dialog example",
-					"title": "Create workspace",
-					"description": "Use a short description to explain what the dialog is for before the user reviews the body content.",
-					"body": "This example shows a common two-action dialog: a dismissive secondary action and a single primary action for completion.",
-					"footer": {
-						"secondary": "Cancel",
-						"primary": "Create workspace"
-					}
-				},
-				"footer": {
-					"eyebrow": "Action combinations",
-					"title": "Delete project",
-					"description": "This example shows a destructive footer with a low-emphasis tertiary action, a secondary dismissal path, and a danger primary action.",
-					"footer": {
-						"tertiary": "Review dependencies",
-						"secondary": "Keep project",
-						"primary": "Delete project"
-					}
-				},
-				"overflow": {
-					"eyebrow": "Overflow behavior",
-					"title": "Migration notes",
-					"description": "The body region handles overflow so the title and footer remain visible while the user reads longer content.",
-					"paragraphs": {
-						"one": "Dialogs should still feel stable when content becomes long. Header information needs to stay visible so the user never loses context.",
-						"two": "The body is the only region that should scroll. That keeps the action row anchored and prevents the footer from drifting out of view.",
-						"three": "Long-form content in a dialog should still be focused. If the content starts to resemble a full page, reconsider whether a dedicated route is a better fit.",
-						"four": "Descriptions belong near the title, not buried inside the content body. That keeps the purpose of the dialog clear before the user interacts with the details.",
-						"five": "Footer actions should remain compact and predictable. Use the same action order consistently so the primary decision stays easy to find.",
-						"six": "This example intentionally adds enough content to force overflow so the scrolling behavior can be evaluated in a realistic documentation scenario."
-					},
-					"footer": {
-						"primary": "Got it"
-					}
-				}
-			}
-		},
-		"alertDialog": {
-			"title": "Alert Dialog",
-			"description": "Alert dialogs interrupt the current flow for consequential confirmations. Use them when the user must acknowledge risk, permanence, or a meaningful state change before continuing.",
-			"patternNotes": {
-				"items": {
-					"severity": "Use alert dialogs for destructive, high-impact, or irreversible actions that deserve a stronger confirmation pattern than a normal dialog.",
-					"confirmation": "Keep the title and description explicit about what will happen, what is affected, and whether the action can be undone.",
-					"actions": "The footer should stay simple: a clear cancel path and one confirm action with styling that matches the level of risk.",
-					"loading": "Loading support is useful when the confirmation copy or decision context depends on fetched data, but it should remain a scoped exception rather than the default state."
-				},
-				"snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete project</AlertDialogTitle>\n      <AlertDialogDescription>\n        This action cannot be undone.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n\n    <AlertDialogFooter>\n      <AlertDialogCancel>\n        <Button usage=\"secondary\" variant=\"ghost\">Cancel</Button>\n      </AlertDialogCancel>\n      <AlertDialogAction>\n        <Button usage=\"danger\" variant=\"flat\">Delete</Button>\n      </AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
-			},
-			"sections": {
-				"confirmation": {
-					"title": "Confirmation patterns",
-					"description": "Use alert dialogs when the action deserves a forced confirmation with a narrow set of choices."
-				},
-				"loading": {
-					"title": "Loading confirmation state",
-					"description": "If the final confirmation depends on fetched context, the same primitive can hold a temporary loading state without changing the overall anatomy."
-				}
-			},
-			"cards": {
-				"delete": {
-					"title": "Destructive confirmation",
-					"description": "A strong alert dialog pattern for permanent removal or irreversible revocation.",
-					"trigger": "Open delete confirmation"
-				},
-				"archive": {
-					"title": "Cautionary confirmation",
-					"description": "Not every alert dialog is fully destructive, but it should still reflect meaningful impact and explicit intent.",
-					"trigger": "Open archive confirmation"
-				}
-			},
-			"loadingCard": {
-				"title": "Loading before confirm",
-				"description": "Use loading only when the confirmation text depends on context that is still resolving.",
-				"trigger": "Open loading alert dialog"
-			},
-			"examples": {
-				"delete": {
-					"eyebrow": "Destructive action",
-					"title": "Delete project",
-					"description": "Deleting this project permanently removes its records and cannot be undone.",
-					"footer": {
-						"cancel": "Keep project",
-						"confirm": "Delete project"
-					}
-				},
-				"archive": {
-					"eyebrow": "Cautionary action",
-					"title": "Archive workspace",
-					"description": "Archiving removes the workspace from active views and pauses new activity until it is restored.",
-					"footer": {
-						"cancel": "Cancel",
-						"confirm": "Archive workspace"
-					}
-				}
-			},
-			"loadingLabel": "Loading alert dialog context",
-			"loadingExample": {
-				"title": "Delete project",
-				"description": "The final confirmation details are still being loaded before the destructive action is shown.",
-				"cancel": "Keep project",
-				"confirm": "Delete project"
-			}
-		},
-		"emptyState": {
-			"title": "Empty State",
-			"description": "Empty states communicate that content is absent and explain what the user can do next. Use them for first-use moments, empty results, filtered views, and access-related absence of content.",
-			"patternNotes": {
-				"items": {
-					"context": "Match the empty state to the reason content is missing: first use, no results, no access, or a temporarily empty dataset.",
-					"message": "Lead with a clear title and short description that explains why nothing is shown without blaming the user.",
-					"actions": "Add actions only when the user has a meaningful next step. Do not add buttons just to fill the space.",
-					"scope": "Use empty states inside the container that owns the absence of content: a page section, a card, a table region, or a list body."
-				},
-				"snippet": "<EmptyState\n  icon={<Inbox />}\n  title=\"No items yet\"\n  description=\"Create the first item to populate this view.\"\n  actions={\n    <Button usage=\"primary\" variant=\"flat\">New item</Button>\n  }\n/>"
-			},
-			"sections": {
-				"firstUse": {
-					"title": "First-use state",
-					"description": "Use a more inviting empty state when the user has not created any content yet."
-				},
-				"results": {
-					"title": "Results and access states",
-					"description": "Different absence cases need different tone and actions."
-				},
-				"compact": {
-					"title": "Compact inline state",
-					"description": "Use a smaller version when the empty state lives inside a tighter region such as a card or side panel."
-				}
-			},
-			"firstUse": {
-				"title": "No projects yet",
-				"description": "Create the first project to start organizing work, assigning owners, and tracking progress from this area.",
-				"actions": {
-					"secondary": "Import data",
-					"primary": "Create project"
-				}
-			},
-			"results": {
-				"noResults": {
-					"title": "No matching results",
-					"description": "No records matched the current filters. Adjust the criteria or clear filters to broaden the results.",
-					"action": "Clear filters"
-				},
-				"noAccess": {
-					"title": "No accessible workspaces",
-					"description": "This user is not assigned to any workspace yet. Grant access before expecting content in this area."
-				}
-			},
-			"compact": {
-				"title": "Nothing to review",
-				"description": "This queue is empty right now.",
-				"action": "Refresh"
-			}
-		},
-		"icon": {
-			"title": "Icon",
-			"description": "Icons communicate supporting meaning, reinforce actions, and compact visual status. Use the icon primitive so decorative icons stay silent, labeled icons remain accessible, and standalone icons can expose tooltip help when needed.",
-			"patternNotes": {
-				"items": {
-					"decorative": "Use icons as decorative by default when adjacent text already communicates the meaning.",
-					"accessible": "Provide a `label` when the icon must expose meaning on its own. The primitive uses Radix Accessible Icon for that accessible name.",
-					"tooltip": "A labeled standalone icon can also expose a tooltip. If no custom tooltip is provided, the label is reused as the hint.",
-					"buttons": "Inside buttons and other controls, keep the inner icon decorative. Accessibility and tooltip behavior should usually belong to the parent control."
-				},
-				"snippet": "<Icon\n  icon={Search}\n  label=\"Search\"\n  tooltipContent=\"Find records\"\n  size={16}\n  className=\"text-[color:var(--color-brand)]\"\n/>"
-			},
-			"sections": {
-				"decorative": {
-					"title": "Decorative usage",
-					"description": "Most icons are supporting visuals and should not create redundant accessibility output."
-				},
-				"accessibility": {
-					"title": "Accessibility and tooltip",
-					"description": "When an icon stands alone, give it an accessible label and optionally a custom tooltip."
-				},
-				"integration": {
-					"title": "Integration",
-					"description": "Use the same primitive for standalone icons and icons composed inside buttons or other controls."
-				}
-			},
-			"decorativeCards": {
-				"inline": {
-					"title": "Inline support icon",
-					"description": "Decorative icons should reinforce nearby text without competing with it in the accessibility tree.",
-					"body": "Setup completed"
-				},
-				"status": {
-					"title": "Status badge",
-					"description": "Compact status markers often need an icon visually, but not as a separate announcement.",
-					"badge": "Notifications"
-				}
-			},
-			"accessibilityCards": {
-				"tooltip": {
-					"title": "Label-driven tooltip",
-					"description": "When only a label is provided, the icon uses that same value for accessibility and the tooltip hint.",
-					"label": "Search"
-				},
-				"custom": {
-					"title": "Custom tooltip copy",
-					"description": "Use a separate tooltip message when the accessible label should stay short but the visible hint needs more context.",
-					"label": "Preview",
-					"tooltip": "Preview the current record"
-				}
-			},
-			"integrationCard": {
-				"title": "Composed with buttons",
-				"description": "The icon primitive also works inside higher-level controls. In those cases, the parent control still owns the accessible name and tooltip behavior.",
-				"primary": "Search records",
-				"iconButton": "Notifications"
-			}
-		},
-		"section": {
-			"title": "Section",
-			"description": "Sections group related content in normal page flow. Use them to define page structure, introduce a title and supporting description, and optionally attach section-level actions.",
-			"patternNotes": {
-				"items": {
-					"structure": "Use sections to organize page-level content and related blocks, not to add visual decoration by default.",
-					"actions": "Section actions belong in the header when they affect the content of that section as a whole.",
-					"surface": "A section does not require borders, shadows, or depth. Add those treatments only when the surrounding layout needs more separation.",
-					"composition": "Sections often contain cards, lists, forms, and other primitives. They define structure, while inner components define density and behavior."
-				},
-				"snippet": "<Section>\n  <SectionHeader>\n    <div>\n      <SectionTitle>Section title</SectionTitle>\n      <SectionDescription>\n        Supporting description.\n      </SectionDescription>\n    </div>\n\n    <SectionActions>\n      <Button variant=\"ghost\">Filter</Button>\n      <Button usage=\"primary\" variant=\"flat\">New item</Button>\n    </SectionActions>\n  </SectionHeader>\n\n  <SectionContent>\n    <Card>...</Card>\n  </SectionContent>\n</Section>"
-			},
-			"sections": {
-				"structure": {
-					"title": "Structure",
-					"description": "A section establishes hierarchy and grouping without forcing a boxed surface."
-				},
-				"actions": {
-					"title": "Header actions",
-					"description": "Actions can live in the header when they operate on the section content as a whole."
-				},
-				"surface": {
-					"title": "Surface treatment",
-					"description": "Sections may remain plain or receive additional visual treatment depending on the surrounding layout."
-				}
-			},
-			"structureCards": {
-				"basic": {
-					"title": "Default structure",
-					"description": "A section usually combines a heading, a short description, and a body region for related content.",
-					"body": "This is the standard page-level grouping primitive. Use it to introduce content before placing denser blocks such as cards, tables, or forms."
-				},
-				"minimal": {
-					"title": "Minimal section",
-					"description": "The structure stays useful even when the section body is small and the visual treatment is light.",
-					"body": "Not every section needs heavy separation. Sometimes spacing and hierarchy are enough to keep the page understandable."
-				}
-			},
-			"actionsCard": {
-				"title": "Section-level actions",
-				"description": "Header actions should affect the section as a whole, not one individual child element inside it.",
-				"actions": {
-					"filter": "Filter",
-					"primary": "New item"
-				},
-				"items": {
-					"one": {
-						"title": "Active records",
-						"description": "A child block that belongs to the section body."
-					},
-					"two": {
-						"title": "Archived records",
-						"description": "Another child block managed by the same section controls."
-					}
-				}
-			},
-			"surfaceCards": {
-				"decorated": {
-					"title": "Decorated section",
-					"description": "Add surface treatment when the layout needs stronger separation, but keep the same structure primitive underneath.",
-					"body": "The structure stays the same. Only the visual treatment changes to support the page composition.",
-					"action": "Open section settings"
-				},
-				"plain": {
-					"title": "Plain section",
-					"description": "Sections can also remain visually quiet and let surrounding spacing do the grouping work.",
-					"body": "Use the plain form when the page already has enough separation from layout, rhythm, or nearby containers.",
-					"cta": "Review guidance"
-				}
-			}
-		},
-		"tooltip": {
-			"title": "Tooltip",
-			"description": "Tooltips provide short contextual hints for controls and inline UI elements. Use the wrapper directly around custom triggers or rely on automatic tooltips for icon-only buttons.",
-			"patternNotes": {
-				"items": {
-					"clarify": "Use tooltips to clarify compact controls, especially icon-only actions that need visible context on hover or focus.",
-					"reinforce": "Tooltips should reinforce an existing control, not carry essential information by themselves.",
-					"compact": "Keep tooltip copy short and neutral. If the content needs instructions or multiple actions, use another pattern such as helper text, a popover, or a dialog.",
-					"iconButtons": "For icon buttons, the button component already resolves tooltip content from `tooltipContent`, `title`, or the accessible label."
-				},
-				"snippet": "<Tooltip content=\"Open details\" side=\"top\" align=\"center\">\n  <button type=\"button\">Trigger</button>\n</Tooltip>\n\n<Button\n  size=\"icon\"\n  variant=\"ghost\"\n  title=\"Add item\"\n  leadingIcon={<Plus />}\n/>"
-			},
-			"sections": {
-				"automatic": {
-					"title": "Automatic icon tooltip",
-					"description": "Icon buttons resolve tooltip content automatically from the props already used for accessibility."
-				},
-				"placement": {
-					"title": "Placement",
-					"description": "Choose the placement that keeps the hint readable near surrounding layout constraints."
-				},
-				"richContent": {
-					"title": "Rich content",
-					"description": "Tooltip content may include small amounts of structure, but it should remain compact and scannable."
-				},
-				"triggerGuidance": {
-					"title": "Trigger guidance",
-					"description": "Use tooltips as supporting guidance, not as the primary source of meaning."
-				}
-			},
-			"automatic": {
-				"createItem": "Create item",
-				"moreInformation": "More information",
-				"deleteDraft": "Delete draft"
-			},
-			"placementCards": {
-				"top": {
-					"name": "Top",
-					"description": "Default placement for compact controls and icon actions.",
-					"tooltip": "Top tooltip"
-				},
-				"right": {
-					"name": "Right",
-					"description": "Useful beside dense left-aligned navigation and stacked lists.",
-					"tooltip": "Right tooltip"
-				},
-				"bottom": {
-					"name": "Bottom",
-					"description": "Safer when there is no room above the trigger.",
-					"tooltip": "Bottom tooltip"
-				},
-				"left": {
-					"name": "Left",
-					"description": "Works well near right-edge controls and floating actions.",
-					"tooltip": "Left tooltip"
-				},
-				"trigger": "Hover target"
-			},
-			"richContent": {
-				"inlineHint": {
-					"title": "Inline hint",
-					"description": "Wrap custom inline triggers when you need context without changing the surrounding layout.",
-					"prefix": "Status updates are available in the",
-					"link": "activity panel",
-					"suffix": ".",
-					"tooltip": "Opens the activity stream for this workspace."
-				},
-				"compactMetadata": {
-					"title": "Compact metadata",
-					"description": "A small amount of structured content is fine when the hint needs a title and one line of context.",
-					"tooltipTitle": "Opens in new tab",
-					"tooltipBody": "Reference docs are kept separate from the current flow.",
-					"button": "Open docs"
-				}
-			},
-			"triggerGuidance": {
-				"goodFit": {
-					"title": "Good fit",
-					"tooltip": "Need help with button anatomy?"
-				},
-				"needsLabel": {
-					"title": "Still needs a label",
-					"button": "Learn more"
-				},
-				"avoidLongInstructions": {
-					"title": "Avoid long instructions",
-					"description": "If the message starts reading like onboarding copy, use helper text, a popover, or a dialog instead."
-				}
-			}
-		},
-		"badge": {
-			"title": "Badge",
-			"description": "Badges communicate compact status, category, or lifecycle metadata without taking over the layout. Use them when a short label should stay visually distinct inside cards, lists, and detail headers.",
-			"patternNotes": {
-				"items": {
-					"status": "Use badge for short status-like metadata such as active state, review stage, or risk level. It should stay compact and glanceable.",
-					"tone": "Choose tone based on meaning, not decoration. The color should reinforce semantic state without carrying the entire message alone.",
-					"variant": "Use softer variants for dense surfaces and stronger variants only when the badge needs a little more emphasis.",
-					"compact": "Keep badge copy short. If the content needs a sentence, helper text, or multiple actions, it is no longer a badge."
-				},
-				"snippet": "<Badge tone=\"success\">Approved</Badge>\n<Badge tone=\"brand\" variant=\"outline\">Featured</Badge>"
-			},
-			"sections": {
-				"tones": {
-					"title": "Semantic tones",
-					"description": "Badges are most useful when they reinforce state or lifecycle meaning with compact, consistent visual treatment."
-				},
-				"variants": {
-					"title": "Variants",
-					"description": "Use variants to tune emphasis without changing the underlying semantic meaning."
-				}
-			},
-			"cards": {
-				"brand": {
-					"title": "Brand highlight",
-					"description": "Useful for featured entities, promoted filters, or product-owned categories.",
-					"label": "Featured"
-				},
-				"success": {
-					"title": "Healthy state",
-					"description": "A compact positive status inside cards, rows, and detail views.",
-					"label": "Approved"
-				},
-				"warning": {
-					"title": "Needs attention",
-					"description": "A cautionary state that should remain visible without becoming a destructive alert.",
-					"label": "Review soon"
-				},
-				"danger": {
-					"title": "Risk signal",
-					"description": "Use danger badges sparingly for blocked, failed, or high-risk states.",
-					"label": "Blocked"
-				}
-			},
-			"variants": {
-				"soft": "Soft",
-				"solid": "Solid",
-				"outline": "Outline"
-			}
-		},
-		"breadcrumb": {
-			"title": "Breadcrumb",
-			"description": "Breadcrumbs communicate the current location inside nested navigation. Use them when users need quick orientation and a lightweight path back to broader parent areas.",
-			"patternNotes": {
-				"items": {
-					"location": "Use breadcrumbs to orient users inside deeper navigation hierarchies, especially when several parent levels matter to the current page.",
-					"depth": "Keep the trail short and meaningful. If the path becomes noisy or repetitive, the information architecture probably needs adjustment.",
-					"current": "The current page should be visually distinct and should not behave like a navigable link.",
-					"mobile": "Breadcrumbs are helpful context, but they should stay lightweight. On constrained layouts, avoid turning them into dense secondary navigation."
-				},
-				"snippet": "<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"#\">Projects</BreadcrumbLink>\n      <BreadcrumbSeparator />\n    </BreadcrumbItem>\n    <BreadcrumbItem>\n      <BreadcrumbCurrent>Project Atlas</BreadcrumbCurrent>\n    </BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
-			},
-			"sections": {
-				"examples": {
-					"title": "Navigation context",
-					"description": "Breadcrumbs work best when they reinforce page location instead of duplicating a primary nav menu."
-				}
-			},
-			"cards": {
-				"standard": {
-					"title": "Standard page trail",
-					"description": "A simple path for pages that sit one or two levels below a broader parent area.",
-					"items": {
-						"home": "Home",
-						"projects": "Projects",
-						"detail": "Project Atlas"
-					}
-				},
-				"dense": {
-					"title": "Deeper admin path",
-					"description": "Use a slightly denser trail when the user may need to step back through a few related parent views.",
-					"items": {
-						"admin": "Admin",
-						"partners": "Partners",
-						"entity": "Entity profile",
-						"settings": "Settings"
-					}
-				}
-			}
-		},
-		"combobox": {
-			"title": "Combobox",
-			"description": "Combobox combines a trigger field with search and option picking. Use it when users must choose one value from a defined set but the list is long enough that search dramatically improves scanning.",
-			"patternNotes": {
-				"items": {
-					"search": "Use combobox when search or filtering is part of the interaction. If the list is short and obvious, a normal select is usually enough.",
-					"single": "This primitive is best for one chosen value at a time. If users need many selections, prefer a dedicated multi-select pattern.",
-					"metadata": "Combobox options can carry brief supporting metadata, but the option list should still remain fast to scan.",
-					"scope": "Use it for people, places, categories, and other datasets where the user benefits from narrowing the list before choosing."
-				},
-				"snippet": "<Combobox\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose owner\"\n  searchPlaceholder=\"Search owners\"\n  options={options}\n/>"
-			},
-			"sections": {
-				"examples": {
-					"title": "Searchable selection",
-					"description": "Combobox is useful when the selected value should still look like a field, but the underlying option set needs quick filtering."
-				}
-			},
-			"cards": {
-				"people": {
-					"title": "Owner assignment",
-					"description": "A common admin pattern where people are selected from a growing list of options.",
-					"label": "Owner",
-					"placeholder": "Choose owner",
-					"searchPlaceholder": "Search owners",
-					"empty": "No owners found.",
-					"options": {
-						"maria": {
-							"label": "Maria Souza",
-							"description": "Identity operations",
-							"role": "manager"
-						},
-						"joao": {
-							"label": "Joao Lima",
-							"description": "Partner onboarding",
-							"role": "reviewer"
-						},
-						"ana": {
-							"label": "Ana Costa",
-							"description": "Project health",
-							"role": "analyst"
-						}
-					}
-				},
-				"city": {
-					"title": "City search",
-					"description": "Another good fit when locations or categories become too large for a plain select.",
-					"label": "City",
-					"placeholder": "Choose city",
-					"searchPlaceholder": "Search cities",
-					"empty": "No cities found.",
-					"options": {
-						"campinas": {
-							"label": "Campinas",
-							"description": "Sao Paulo"
-						},
-						"osasco": {
-							"label": "Osasco",
-							"description": "Sao Paulo"
-						},
-						"santos": {
-							"label": "Santos",
-							"description": "Coastal region"
-						}
-					}
-				}
-			}
-		},
-		"drawer": {
-			"title": "Drawer",
-			"description": "Drawers reveal focused side panels while keeping the current page visible underneath. Use them for edit flows, details, and filter panels that should preserve more context than a centered dialog.",
-			"patternNotes": {
-				"items": {
-					"context": "Use a drawer when the current page should remain visible and recognizable while the user handles a focused secondary task.",
-					"side": "Choose the side based on layout and task. Right-side detail panels are common, while left-side drawers often work well for filters and supporting tools.",
-					"footer": "Keep footer actions concise and predictable. A drawer should still feel scoped, not like a full page hidden inside a panel.",
-					"escalation": "If the content becomes highly interruptive or needs stronger focus isolation, escalate to a dialog or a dedicated route instead."
-				},
-				"snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent side=\"right\">\n    <DrawerHeader>\n      <DrawerTitle>Project details</DrawerTitle>\n      <DrawerDescription>Review metadata.</DrawerDescription>\n    </DrawerHeader>\n    <DrawerFooter>...</DrawerFooter>\n  </DrawerContent>\n</Drawer>"
-			},
-			"sections": {
-				"examples": {
-					"title": "Panel patterns",
-					"description": "Drawers are strongest when the page context should stay visible while the user reviews or edits adjacent information."
-				}
-			},
-			"cards": {
-				"details": {
-					"title": "Detail panel",
-					"description": "A right-side drawer works well for record details and light edit flows.",
-					"trigger": "Open details drawer"
-				},
-				"filters": {
-					"title": "Filters panel",
-					"description": "A left-side drawer can keep supporting filters available without replacing the whole page.",
-					"trigger": "Open filters drawer"
-				}
-			},
-			"examples": {
-				"details": {
-					"eyebrow": "Details panel",
-					"title": "Project Atlas",
-					"description": "Use the drawer for supporting record detail while the original list or page remains visible underneath.",
-					"items": {
-						"owner": {
-							"title": "Owner",
-							"description": "Maria Souza coordinates approvals and delivery checkpoints."
-						},
-						"status": {
-							"title": "Status",
-							"description": "Currently active with one pending review cycle."
-						},
-						"updated": {
-							"title": "Last update",
-							"description": "Edited two hours ago by the operations team."
-						}
-					},
-					"footer": {
-						"secondary": "Close",
-						"primary": "Open full record"
-					}
-				},
-				"filters": {
-					"eyebrow": "Filters panel",
-					"title": "Refine project list",
-					"description": "A supporting drawer can hold denser filters without breaking the surrounding browsing context.",
-					"items": {
-						"status": {
-							"title": "Status",
-							"description": "Active, paused, and archived visibility."
-						},
-						"owner": {
-							"title": "Owner",
-							"description": "Filter by responsible team or reviewer."
-						},
-						"period": {
-							"title": "Period",
-							"description": "Limit the result set to a time window."
-						}
-					},
-					"footer": {
-						"secondary": "Reset",
-						"primary": "Apply filters"
-					}
-				}
-			}
-		}
-	},
-	"components": {
-		"datePicker": {
-			"placeholder": "Select date and time",
-			"openPicker": "Open date and time picker",
-			"calendarLabel": "Date and time picker calendar",
-			"monthNavigation": "Month navigation",
-			"previousMonth": "Go to previous month",
-			"nextMonth": "Go to next month",
-			"hours": "Hours",
-			"minutes": "Minutes",
-			"clear": "Clear selection",
-			"dateSection": "Date",
-			"timeSection": "Time"
-		}
-	},
-	"auth": {
-		"login": {
-			"brand": {
-				"name": "PUG Web Admin",
-				"subtitle": "Administrator workspace"
-			},
-			"hero": {
-				"badge": "Protected access",
-				"title": "Sign in to keep academic operations controlled and consistent.",
-				"description": "Use your administrator account to access the application shell, review operational areas, and manage the platform with the shared system surface.",
-				"highlights": {
-					"adminOnly": {
-						"title": "Administrator-only access",
-						"description": "The login entry point is reserved for the admin workspace and protected routes."
-					},
-					"session": {
-						"title": "Session continuity",
-						"description": "Secure cookies keep the session stable across the protected application area."
-					},
-					"refresh": {
-						"title": "Automatic token refresh",
-						"description": "Expired access tokens are refreshed through the middleware before the shell is interrupted."
-					}
-				},
-				"note": {
-					"title": "Current access model",
-					"description": "The app redirects authenticated users straight to the shell and keeps login as the only public route."
-				}
-			},
-			"form": {
-				"badge": "Administrator sign in",
-				"title": "Login",
-				"description": "Enter your administrator credentials to continue into the PUG operations workspace.",
-				"fields": {
-					"email": {
-						"label": "Email",
-						"placeholder": "admin@pug.edu.br"
-					},
-					"password": {
-						"label": "Password",
-						"placeholder": "Enter your password"
-					}
-				},
-				"submit": "Continue",
-				"submitPending": "Signing in..."
-			},
-			"validation": {
-				"email": "Enter a valid email address.",
-				"password": "Enter your password."
-			},
-			"feedback": {
-				"success": "Signed in successfully.",
-				"error": "Unable to sign in right now."
-			}
-		}
-	},
-	"home": {
-		"currentAccount": {
-			"badge": "TanStack Query",
-			"title": "Current account",
-			"description": "This section is the first shared server-state example. It reads the authenticated account from the API through TanStack Query instead of page-local fetch state.",
-			"loading": "Loading current account",
-			"fields": {
-				"email": "Account email",
-				"type": "Account type",
-				"status": "Status"
-			},
-			"values": {
-				"active": "Active",
-				"inactive": "Inactive"
-			},
-			"lastUpdated": "Last updated {{value}}.",
-			"error": {
-				"title": "Unable to load the current account.",
-				"description": "Try the request again.",
-				"retry": "Retry"
-			}
-		}
-	},
-	"Navbar": {
-		"expand": "Expand sidebar",
-		"collapse": "Collapse sidebar",
-		"navigation": "Primary navigation",
-		"title": "PUG Admin",
-		"subtitle": "Operations workspace",
-		"paths": {
-			"home": "Home",
-			"unknown": "Unknown",
-			"login": "Login",
-			"academic": {
-				"root": "Academic",
-				"course": "Courses",
-				"school": "Schools",
-				"student": "Students"
-			},
-			"partner": {
-				"root": "Partner",
-				"entity": "Entities",
-				"staff": "Staff"
-			},
-			"project": {
-				"root": "Project",
-				"attendance": "Attendance",
-				"enrollment": "Enrollment",
-				"project": "Projects"
-			},
-			"identity": {
-				"root": "Identity",
-				"account": "Accounts",
-				"admin": "Admins",
-				"user": "Users"
-			},
-			"geo": {
-				"root": "Geo",
-				"city": "Cities"
-			},
-			"docs": {
-				"overview": "Overview",
-				"root": "Docs",
-				"pages": {
-					"root": "Page Patterns",
-					"sectionStack": "Section Stack",
-					"operationsWorkspace": "Operations Workspace",
-					"splitDetail": "Split Detail"
-				},
-				"primitives": {
-					"root": "Primitives",
-					"actions": "Actions",
-					"display": "Display",
-					"forms": "Forms",
-					"navigation": "Navigation",
-					"overlays": "Overlays",
-					"structure": "Structure"
-				},
-				"routing": {
-					"root": "Routing",
-					"previews": "Previews",
-					"errorPreview": "Error Preview",
-					"globalErrorPreview": "Global Error Preview",
-					"notFoundPreview": "Not Found Preview"
-				}
-			}
-		},
-		"account": {
-			"label": "Account",
-			"fallback": "Unavailable",
-			"logout": "Log out",
-			"logoutPending": "Logging out...",
-			"logoutSuccess": "Signed out successfully.",
-			"logoutError": "Unable to sign out right now."
-		},
-		"controls": {
-			"theme": {
-				"label": "Theme mode",
-				"placeholder": "Select theme",
-				"options": {
-					"light": "Light",
-					"dark": "Dark",
-					"system": "System"
-				}
-			},
-			"language": {
-				"label": "Language",
-				"placeholder": "Select language",
-				"options": {
-					"en-US": "English",
-					"pt-BR": "Portuguese"
-				},
-				"short": {
-					"en-US": "EN",
-					"pt-BR": "PT"
-				}
-			}
-		}
-	}
+    "auth": {
+        "login": {
+            "brand": {
+                "name": "PUG Web Admin",
+                "subtitle": "Administrator workspace"
+            },
+            "feedback": {
+                "error": "Unable to sign in right now.",
+                "success": "Signed in successfully."
+            },
+            "form": {
+                "badge": "Administrator sign in",
+                "description": "Enter your administrator credentials to continue into the PUG operations workspace.",
+                "fields": {
+                    "email": {
+                        "label": "Email",
+                        "placeholder": "admin@pug.edu.br"
+                    },
+                    "password": {
+                        "label": "Password",
+                        "placeholder": "Enter your password"
+                    }
+                },
+                "submit": "Continue",
+                "submitPending": "Signing in...",
+                "title": "Login"
+            },
+            "hero": {
+                "badge": "Protected access",
+                "description": "Use your administrator account to access the application shell, review operational areas, and manage the platform with the shared system surface.",
+                "highlights": {
+                    "adminOnly": {
+                        "description": "The login entry point is reserved for the admin workspace and protected routes.",
+                        "title": "Administrator-only access"
+                    },
+                    "refresh": {
+                        "description": "Expired access tokens are refreshed through the middleware before the shell is interrupted.",
+                        "title": "Automatic token refresh"
+                    },
+                    "session": {
+                        "description": "Secure cookies keep the session stable across the protected application area.",
+                        "title": "Session continuity"
+                    }
+                },
+                "note": {
+                    "description": "The app redirects authenticated users straight to the shell and keeps login as the only public route.",
+                    "title": "Current access model"
+                },
+                "title": "Sign in to keep academic operations controlled and consistent."
+            },
+            "validation": {
+                "email": "Enter a valid email address.",
+                "password": "Enter your password."
+            }
+        }
+    },
+    "components": {
+        "datePicker": {
+            "calendarLabel": "Date and time picker calendar",
+            "clear": "Clear selection",
+            "dateSection": "Date",
+            "hours": "Hours",
+            "minutes": "Minutes",
+            "monthNavigation": "Month navigation",
+            "nextMonth": "Go to next month",
+            "openPicker": "Open date and time picker",
+            "placeholder": "Select date and time",
+            "previousMonth": "Go to previous month",
+            "timeSection": "Time"
+        }
+    },
+    "docs": {
+        "accordion": {
+            "compactCard": {
+                "description": "A denser accordion still works if each item remains easy to scan and the labels stay explicit.",
+                "items": {
+                    "escalation": {
+                        "description": "Keep the label decisive so users can tell what they will reveal before opening the item.",
+                        "title": "Escalation path"
+                    },
+                    "ownership": {
+                        "description": "The body should answer one narrow question instead of becoming a page hidden behind a trigger.",
+                        "title": "Ownership rules"
+                    },
+                    "timing": {
+                        "description": "Use the compact form for short operational guidance and support answers.",
+                        "title": "Response timing"
+                    }
+                },
+                "title": "Compact disclosure"
+            },
+            "description": "Accordions reveal and hide related sections of content within the current page flow. Use them when information should stay available on the page without forcing every detail to be visible at once.",
+            "multiCard": {
+                "description": "Allow multiple items to remain open when users may need to compare settings or keep several groups visible.",
+                "items": {
+                    "filters": {
+                        "description": "Useful when users need to inspect several configuration groups at the same time.",
+                        "title": "Saved filters"
+                    },
+                    "history": {
+                        "description": "Use it when independent sections may all deserve attention during the same task.",
+                        "title": "Change history"
+                    },
+                    "visibility": {
+                        "description": "Multi-open mode reduces unnecessary toggling when the user is reviewing related details.",
+                        "title": "Visibility rules"
+                    }
+                },
+                "title": "Multiple open sections"
+            },
+            "patternNotes": {
+                "items": {
+                    "content": "Accordion content can hold text, metadata, controls, or nested layout blocks, but each item should still represent one coherent topic.",
+                    "disclosure": "Use accordions for progressive disclosure when each section can be scanned by its trigger label before the body is opened.",
+                    "multi": "Use `type=\"single\"` when sections should compete for attention, and `type=\"multiple\"` when users may need to compare or keep several sections open.",
+                    "trigger": "Trigger labels should be short and descriptive enough for users to decide whether the section is relevant before expanding it."
+                },
+                "snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Overview</AccordionTrigger>\n    <AccordionContent>\n      Body content\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
+            },
+            "sections": {
+                "compact": {
+                    "description": "The same primitive works for compact FAQ-style content and denser settings groups.",
+                    "title": "Compact and multi-open usage"
+                },
+                "structure": {
+                    "description": "Accordion items should read clearly in both collapsed and expanded states.",
+                    "title": "Structure"
+                }
+            },
+            "structure": {
+                "items": {
+                    "delivery": {
+                        "description": "Longer explanatory content can live inside the expanded panel as long as the trigger still represents a single topic.",
+                        "title": "Delivery notes"
+                    },
+                    "overview": {
+                        "description": "Keep the highest-level summary behind a short trigger when the page already has competing content around it.",
+                        "title": "Project overview"
+                    },
+                    "roles": {
+                        "description": "Use an accordion item when supporting ownership details should be reachable without permanently occupying the layout.",
+                        "title": "Roles and owners"
+                    }
+                }
+            },
+            "title": "Accordion"
+        },
+        "alertDialog": {
+            "cards": {
+                "archive": {
+                    "description": "Not every alert dialog is fully destructive, but it should still reflect meaningful impact and explicit intent.",
+                    "title": "Cautionary confirmation",
+                    "trigger": "Open archive confirmation"
+                },
+                "delete": {
+                    "description": "A strong alert dialog pattern for permanent removal or irreversible revocation.",
+                    "title": "Destructive confirmation",
+                    "trigger": "Open delete confirmation"
+                }
+            },
+            "description": "Alert dialogs interrupt the current flow for consequential confirmations. Use them when the user must acknowledge risk, permanence, or a meaningful state change before continuing.",
+            "examples": {
+                "archive": {
+                    "description": "Archiving removes the workspace from active views and pauses new activity until it is restored.",
+                    "eyebrow": "Cautionary action",
+                    "footer": {
+                        "cancel": "Cancel",
+                        "confirm": "Archive workspace"
+                    },
+                    "title": "Archive workspace"
+                },
+                "delete": {
+                    "description": "Deleting this project permanently removes its records and cannot be undone.",
+                    "eyebrow": "Destructive action",
+                    "footer": {
+                        "cancel": "Keep project",
+                        "confirm": "Delete project"
+                    },
+                    "title": "Delete project"
+                }
+            },
+            "loadingCard": {
+                "description": "Use loading only when the confirmation text depends on context that is still resolving.",
+                "title": "Loading before confirm",
+                "trigger": "Open loading alert dialog"
+            },
+            "loadingExample": {
+                "cancel": "Keep project",
+                "confirm": "Delete project",
+                "description": "The final confirmation details are still being loaded before the destructive action is shown.",
+                "title": "Delete project"
+            },
+            "loadingLabel": "Loading alert dialog context",
+            "patternNotes": {
+                "items": {
+                    "actions": "The footer should stay simple: a clear cancel path and one confirm action with styling that matches the level of risk.",
+                    "confirmation": "Keep the title and description explicit about what will happen, what is affected, and whether the action can be undone.",
+                    "loading": "Loading support is useful when the confirmation copy or decision context depends on fetched data, but it should remain a scoped exception rather than the default state.",
+                    "severity": "Use alert dialogs for destructive, high-impact, or irreversible actions that deserve a stronger confirmation pattern than a normal dialog."
+                },
+                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete project</AlertDialogTitle>\n      <AlertDialogDescription>\n        This action cannot be undone.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n\n    <AlertDialogFooter>\n      <AlertDialogCancel>\n        <Button usage=\"secondary\" variant=\"ghost\">Cancel</Button>\n      </AlertDialogCancel>\n      <AlertDialogAction>\n        <Button usage=\"danger\" variant=\"flat\">Delete</Button>\n      </AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
+            },
+            "sections": {
+                "confirmation": {
+                    "description": "Use alert dialogs when the action deserves a forced confirmation with a narrow set of choices.",
+                    "title": "Confirmation patterns"
+                },
+                "loading": {
+                    "description": "If the final confirmation depends on fetched context, the same primitive can hold a temporary loading state without changing the overall anatomy.",
+                    "title": "Loading confirmation state"
+                }
+            },
+            "title": "Alert Dialog"
+        },
+        "badge": {
+            "cards": {
+                "brand": {
+                    "description": "Useful for featured entities, promoted filters, or product-owned categories.",
+                    "label": "Featured",
+                    "title": "Brand highlight"
+                },
+                "danger": {
+                    "description": "Use danger badges sparingly for blocked, failed, or high-risk states.",
+                    "label": "Blocked",
+                    "title": "Risk signal"
+                },
+                "success": {
+                    "description": "A compact positive status inside cards, rows, and detail views.",
+                    "label": "Approved",
+                    "title": "Healthy state"
+                },
+                "warning": {
+                    "description": "A cautionary state that should remain visible without becoming a destructive alert.",
+                    "label": "Review soon",
+                    "title": "Needs attention"
+                }
+            },
+            "description": "Badges communicate compact status, category, or lifecycle metadata without taking over the layout. Use them when a short label should stay visually distinct inside cards, lists, and detail headers.",
+            "patternNotes": {
+                "items": {
+                    "compact": "Keep badge copy short. If the content needs a sentence, helper text, or multiple actions, it is no longer a badge.",
+                    "status": "Use badge for short status-like metadata such as active state, review stage, or risk level. It should stay compact and glanceable.",
+                    "tone": "Choose tone based on meaning, not decoration. The color should reinforce semantic state without carrying the entire message alone.",
+                    "variant": "Use softer variants for dense surfaces and stronger variants only when the badge needs a little more emphasis."
+                },
+                "snippet": "<Badge tone=\"success\">Approved</Badge>\n<Badge tone=\"brand\" variant=\"outline\">Featured</Badge>"
+            },
+            "sections": {
+                "tones": {
+                    "description": "Badges are most useful when they reinforce state or lifecycle meaning with compact, consistent visual treatment.",
+                    "title": "Semantic tones"
+                },
+                "variants": {
+                    "description": "Use variants to tune emphasis without changing the underlying semantic meaning.",
+                    "title": "Variants"
+                }
+            },
+            "title": "Badge",
+            "variants": {
+                "outline": "Outline",
+                "soft": "Soft",
+                "solid": "Solid"
+            }
+        },
+        "breadcrumb": {
+            "cards": {
+                "dense": {
+                    "description": "Use a slightly denser trail when the user may need to step back through a few related parent views.",
+                    "items": {
+                        "admin": "Admin",
+                        "entity": "Entity profile",
+                        "partners": "Partners",
+                        "settings": "Settings"
+                    },
+                    "title": "Deeper admin path"
+                },
+                "standard": {
+                    "description": "A simple path for pages that sit one or two levels below a broader parent area.",
+                    "items": {
+                        "detail": "Project Atlas",
+                        "home": "Home",
+                        "projects": "Projects"
+                    },
+                    "title": "Standard page trail"
+                }
+            },
+            "description": "Breadcrumbs communicate the current location inside nested navigation. Use them when users need quick orientation and a lightweight path back to broader parent areas.",
+            "patternNotes": {
+                "items": {
+                    "current": "The current page should be visually distinct and should not behave like a navigable link.",
+                    "depth": "Keep the trail short and meaningful. If the path becomes noisy or repetitive, the information architecture probably needs adjustment.",
+                    "location": "Use breadcrumbs to orient users inside deeper navigation hierarchies, especially when several parent levels matter to the current page.",
+                    "mobile": "Breadcrumbs are helpful context, but they should stay lightweight. On constrained layouts, avoid turning them into dense secondary navigation."
+                },
+                "snippet": "<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"#\">Projects</BreadcrumbLink>\n      <BreadcrumbSeparator />\n    </BreadcrumbItem>\n    <BreadcrumbItem>\n      <BreadcrumbCurrent>Project Atlas</BreadcrumbCurrent>\n    </BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
+            },
+            "sections": {
+                "examples": {
+                    "description": "Breadcrumbs work best when they reinforce page location instead of duplicating a primary nav menu.",
+                    "title": "Navigation context"
+                }
+            },
+            "title": "Breadcrumb"
+        },
+        "button": {
+            "description": "Buttons trigger user actions. Use `usage` to define semantic intent, `variant` to define visual treatment, and `size` to adapt the component to layout density.",
+            "patternNotes": {
+                "items": {
+                    "flat": "Use `variant=\"flat\"` for the default call-to-action treatment.",
+                    "ghost": "Use `variant=\"ghost\"` for lower-emphasis actions, dense interfaces, and supporting controls.",
+                    "icon": "For icon-only buttons, always provide a readable `title`, `aria-label`, or `tooltipContent` so the component can expose an accessible name.",
+                    "usage": "Set `usage` according to the meaning of the action: primary, secondary, success, info, warning, or danger."
+                },
+                "snippet": "<Button\n  usage=\"primary | secondary | success | info | warning | danger\"\n  variant=\"flat | ghost\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Saving...\"\n  tooltipContent=\"Add item\"\n/>"
+            },
+            "sections": {
+                "scale": {
+                    "description": "Scale the component according to spacing and density requirements.",
+                    "title": "Scale"
+                },
+                "states": {
+                    "description": "Use the built-in states to keep feedback and interaction rules consistent.",
+                    "title": "States"
+                },
+                "usage": {
+                    "description": "Choose the semantic usage that matches the outcome of the action.",
+                    "title": "Usage"
+                },
+                "variant": {
+                    "description": "Variants change presentation without changing behavior or semantic intent.",
+                    "title": "Variant"
+                }
+            },
+            "sizes": {
+                "iconTitle": "Add item",
+                "large": "Large",
+                "medium": "Medium",
+                "small": "Small"
+            },
+            "statesCards": {
+                "disabled": {
+                    "button": "Awaiting changes",
+                    "title": "Disabled"
+                },
+                "fullWidth": {
+                    "button": "Continue setup",
+                    "title": "Full width"
+                },
+                "loading": {
+                    "button": "Publish",
+                    "loadingText": "Publishing...",
+                    "title": "Loading"
+                }
+            },
+            "title": "Buttons",
+            "usageCards": {
+                "danger": {
+                    "description": "Destructive action for irreversible changes and deletion.",
+                    "label": "Revoke access",
+                    "name": "Danger"
+                },
+                "info": {
+                    "description": "Guidance action when you need emphasis without implying risk.",
+                    "label": "View details",
+                    "name": "Info"
+                },
+                "primary": {
+                    "description": "Default high-emphasis action for confirm and submit flows.",
+                    "label": "Save changes",
+                    "name": "Primary"
+                },
+                "secondary": {
+                    "description": "Neutral action for companion paths and supporting controls.",
+                    "label": "Export report",
+                    "name": "Secondary"
+                },
+                "success": {
+                    "description": "Positive action for approvals, completion, or confirmation.",
+                    "label": "Mark approved",
+                    "name": "Success"
+                },
+                "warning": {
+                    "description": "Cautionary action that deserves review before continuing.",
+                    "label": "Review issue",
+                    "name": "Warning"
+                }
+            },
+            "variantCards": {
+                "flat": {
+                    "description": "Filled in light mode and softened in dark mode without changing the action meaning.",
+                    "name": "Flat"
+                },
+                "ghost": {
+                    "description": "Low-chrome action for dense toolbars, lists, and utility affordances.",
+                    "name": "Ghost"
+                },
+                "label": "Apply style"
+            }
+        },
+        "card": {
+            "compositionCards": {
+                "actions": {
+                    "body": "Keep footer actions tied to the content of that card. If actions belong to the entire page or section, place them outside the card instead.",
+                    "description": "Some cards need a footer because they collect card-level decisions or shortcuts.",
+                    "footer": {
+                        "primary": "Review details",
+                        "secondary": "Dismiss"
+                    },
+                    "title": "Card with actions"
+                },
+                "summary": {
+                    "description": "Cards can also hold compact dashboards and metadata without needing a footer.",
+                    "stats": {
+                        "items": {
+                            "openTasks": {
+                                "label": "Open tasks",
+                                "value": "37 pending"
+                            },
+                            "projects": {
+                                "label": "Projects",
+                                "value": "12 active"
+                            }
+                        }
+                    },
+                    "title": "Summary card"
+                }
+            },
+            "description": "Cards group related content into a bounded surface. Use them as layout containers for summaries, supporting actions, and content blocks that should read as a single unit.",
+            "layoutCards": {
+                "compact": {
+                    "badge": "Docs-ready container",
+                    "description": "Cards do not need to be tall. Compact content works when the boundary still improves scanability.",
+                    "title": "Compact marker"
+                },
+                "list": {
+                    "description": "A card can contain multiple internal rows when they all belong to the same summary or task.",
+                    "items": {
+                        "actions": {
+                            "description": "If a row needs an action, it should still feel like part of the same card.",
+                            "title": "Actions stay scoped"
+                        },
+                        "composition": {
+                            "description": "Keep spacing and internal hierarchy consistent across all rows.",
+                            "title": "Composition"
+                        },
+                        "overview": {
+                            "description": "Use a shared surface when rows are part of the same conceptual block.",
+                            "title": "Overview"
+                        }
+                    },
+                    "title": "Grouped list content"
+                }
+            },
+            "patternNotes": {
+                "items": {
+                    "behavior": "Cards are structural primitives. Behavior such as dialogs, tooltips, dropdowns, and navigation should come from the elements placed inside them, not from the card itself.",
+                    "container": "Use cards to group related information, not to create arbitrary visual boxes around every element on the page.",
+                    "footer": "Use the footer for card-level actions. If the card has no actions, omit the footer entirely.",
+                    "structure": "Compose cards from header, description, content, and footer only when those slots are actually needed by the content."
+                },
+                "snippet": "<Card>\n  <CardHeader>\n    <CardTitle>Card title</CardTitle>\n    <CardDescription>\n      Short supporting description.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>Body content</CardContent>\n\n  <CardFooter>\n    <Button variant=\"ghost\">Secondary</Button>\n    <Button usage=\"primary\" variant=\"flat\">Primary</Button>\n  </CardFooter>\n</Card>"
+            },
+            "sections": {
+                "composition": {
+                    "description": "Use the same primitive for simple information blocks and for cards that include supporting actions.",
+                    "title": "Composition"
+                },
+                "layouts": {
+                    "description": "Cards can host denser layouts as long as the content still reads as one coherent block.",
+                    "title": "Layout patterns"
+                },
+                "structure": {
+                    "description": "Cards should expose a predictable internal anatomy without forcing every slot into every use case.",
+                    "title": "Structure"
+                }
+            },
+            "structureCards": {
+                "basic": {
+                    "body": "Use this shape for documentation notes, summaries, and supporting content that should sit inside a clear boundary.",
+                    "description": "A card may be nothing more than a title, a short description, and one body region.",
+                    "title": "Basic content block"
+                },
+                "header": {
+                    "body": "If the body already carries enough context, do not force extra header copy just to fill space.",
+                    "description": "Use `CardHeader` when the content needs a visible title and supporting description before the body.",
+                    "title": "Header is optional"
+                }
+            },
+            "title": "Card"
+        },
+        "combobox": {
+            "cards": {
+                "city": {
+                    "description": "Another good fit when locations or categories become too large for a plain select.",
+                    "empty": "No cities found.",
+                    "label": "City",
+                    "options": {
+                        "campinas": {
+                            "description": "Sao Paulo",
+                            "label": "Campinas"
+                        },
+                        "osasco": {
+                            "description": "Sao Paulo",
+                            "label": "Osasco"
+                        },
+                        "santos": {
+                            "description": "Coastal region",
+                            "label": "Santos"
+                        }
+                    },
+                    "placeholder": "Choose city",
+                    "searchPlaceholder": "Search cities",
+                    "title": "City search"
+                },
+                "people": {
+                    "description": "A common admin pattern where people are selected from a growing list of options.",
+                    "empty": "No owners found.",
+                    "label": "Owner",
+                    "options": {
+                        "ana": {
+                            "description": "Project health",
+                            "label": "Ana Costa",
+                            "role": "analyst"
+                        },
+                        "joao": {
+                            "description": "Partner onboarding",
+                            "label": "Joao Lima",
+                            "role": "reviewer"
+                        },
+                        "maria": {
+                            "description": "Identity operations",
+                            "label": "Maria Souza",
+                            "role": "manager"
+                        }
+                    },
+                    "placeholder": "Choose owner",
+                    "searchPlaceholder": "Search owners",
+                    "title": "Owner assignment"
+                }
+            },
+            "description": "Combobox combines a trigger field with search and option picking. Use it when users must choose one value from a defined set but the list is long enough that search dramatically improves scanning.",
+            "patternNotes": {
+                "items": {
+                    "metadata": "Combobox options can carry brief supporting metadata, but the option list should still remain fast to scan.",
+                    "scope": "Use it for people, places, categories, and other datasets where the user benefits from narrowing the list before choosing.",
+                    "search": "Use combobox when search or filtering is part of the interaction. If the list is short and obvious, a normal select is usually enough.",
+                    "single": "This primitive is best for one chosen value at a time. If users need many selections, prefer a dedicated multi-select pattern."
+                },
+                "snippet": "<Combobox\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose owner\"\n  searchPlaceholder=\"Search owners\"\n  options={options}\n/>"
+            },
+            "sections": {
+                "examples": {
+                    "description": "Combobox is useful when the selected value should still look like a field, but the underlying option set needs quick filtering.",
+                    "title": "Searchable selection"
+                }
+            },
+            "title": "Combobox"
+        },
+        "datePicker": {
+            "cards": {
+                "basic": {
+                    "description": "Use it when the user needs one scheduled moment with direct calendar and time selection.",
+                    "label": "Review meeting",
+                    "title": "Basic date-time field"
+                },
+                "constrained": {
+                    "description": "Min and max boundaries help communicate valid booking windows directly in the picker.",
+                    "label": "Publishing window",
+                    "title": "Constrained window"
+                },
+                "disabled": {
+                    "description": "Use a disabled date picker when the scheduled value is fixed by the surrounding workflow.",
+                    "label": "Enrollment start",
+                    "title": "Disabled schedule"
+                }
+            },
+            "description": "Date picker captures one calendar date and time in a compact field. This implementation uses a styled calendar popover so the control fits the design system while still staying lightweight and focused on single-value scheduling.",
+            "patternNotes": {
+                "items": {
+                    "constraints": "Use `min` and `max` when the valid scheduling window is known so both the calendar and time selectors communicate the allowed bounds.",
+                    "escalation": "If the product later needs ranges, presets, recurring rules, or complex timeline logic, that should become a higher-level composite component instead of stretching this baseline primitive.",
+                    "native": "Use this primitive when the product needs one scheduled point in time and the field should still look and behave like the rest of the form system.",
+                    "scope": "This primitive is best for one-off date and time fields such as meetings, due timestamps, releases, and reporting cutoffs."
+                },
+                "snippet": "<DatePicker defaultValue=\"2026-04-24T14:30\" />\n\n<DatePicker min=\"2026-04-20T09:00\" max=\"2026-04-30T18:00\" />"
+            },
+            "sections": {
+                "fields": {
+                    "description": "Use the picker when the user needs one timestamp and the control should stay aligned with the shared styling system.",
+                    "title": "Date and time fields"
+                }
+            },
+            "title": "Date Picker"
+        },
+        "dialog": {
+            "description": "Dialogs interrupt the current flow to present focused content, decisions, or structured tasks. Use them for content that needs explicit attention without leaving the current page.",
+            "examples": {
+                "basic": {
+                    "body": "This example shows a common two-action dialog: a dismissive secondary action and a single primary action for completion.",
+                    "description": "Use a short description to explain what the dialog is for before the user reviews the body content.",
+                    "eyebrow": "Dialog example",
+                    "footer": {
+                        "primary": "Create workspace",
+                        "secondary": "Cancel"
+                    },
+                    "title": "Create workspace"
+                },
+                "footer": {
+                    "description": "This example shows a destructive footer with a low-emphasis tertiary action, a secondary dismissal path, and a danger primary action.",
+                    "eyebrow": "Action combinations",
+                    "footer": {
+                        "primary": "Delete project",
+                        "secondary": "Keep project",
+                        "tertiary": "Review dependencies"
+                    },
+                    "title": "Delete project"
+                },
+                "overflow": {
+                    "description": "The body region handles overflow so the title and footer remain visible while the user reads longer content.",
+                    "eyebrow": "Overflow behavior",
+                    "footer": {
+                        "primary": "Got it"
+                    },
+                    "paragraphs": {
+                        "five": "Footer actions should remain compact and predictable. Use the same action order consistently so the primary decision stays easy to find.",
+                        "four": "Descriptions belong near the title, not buried inside the content body. That keeps the purpose of the dialog clear before the user interacts with the details.",
+                        "one": "Dialogs should still feel stable when content becomes long. Header information needs to stay visible so the user never loses context.",
+                        "six": "This example intentionally adds enough content to force overflow so the scrolling behavior can be evaluated in a realistic documentation scenario.",
+                        "three": "Long-form content in a dialog should still be focused. If the content starts to resemble a full page, reconsider whether a dedicated route is a better fit.",
+                        "two": "The body is the only region that should scroll. That keeps the action row anchored and prevents the footer from drifting out of view."
+                    },
+                    "title": "Migration notes"
+                }
+            },
+            "footerCard": {
+                "description": "Dialog footers do not need three actions every time. Use only the actions the task actually requires, and vary the button usage by the intent of the flow.",
+                "title": "Action combinations",
+                "trigger": "Open footer example"
+            },
+            "overflowCard": {
+                "description": "When the dialog body is long, only the content region should scroll so context and actions remain visible.",
+                "title": "Scrollable body",
+                "trigger": "Open overflow example"
+            },
+            "patternNotes": {
+                "items": {
+                    "actions": "Use the footer for the action hierarchy required by the flow. Some dialogs need one action, some need two, and only some need the full primary/secondary/tertiary set.",
+                    "overflow": "When content grows, let only the body scroll. Header and footer should remain fixed within the dialog.",
+                    "structure": "Keep the structure predictable: header for title and description, scrollable body for content, and footer for actions.",
+                    "useCase": "Use dialogs for focused tasks, confirmations, or supporting content that should temporarily take priority over the page."
+                },
+                "snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>Dialog title</DialogTitle>\n      <DialogDescription>\n        Short explanation for the dialog.\n      </DialogDescription>\n    </DialogHeader>\n\n    <div className=\"flex-1 overflow-y-auto\">Body content</div>\n\n    <DialogFooter>\n      <Button variant=\"ghost\">Tertiary</Button>\n      <Button usage=\"secondary\" variant=\"flat\">Secondary</Button>\n      <Button usage=\"primary\" variant=\"flat\">Primary</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>"
+            },
+            "sections": {
+                "footer": {
+                    "description": "Reserve the footer for the action hierarchy instead of mixing structural actions into the body.",
+                    "title": "Footer actions"
+                },
+                "overflow": {
+                    "description": "Long content should scroll inside the dialog body while header and footer remain fixed.",
+                    "title": "Overflow"
+                },
+                "structure": {
+                    "description": "Use a consistent layout so users can immediately identify the dialog header, body, and actions.",
+                    "title": "Structure"
+                }
+            },
+            "structureCards": {
+                "basic": {
+                    "description": "A minimal dialog should provide a clear title, a short description, focused content, and explicit dismissal paths.",
+                    "title": "Basic structure",
+                    "trigger": "Open basic dialog"
+                },
+                "description": {
+                    "description": "Use the description slot for one concise sentence that explains the purpose of the dialog before the body content starts.",
+                    "title": "Descriptive header",
+                    "trigger": "Open described dialog"
+                }
+            },
+            "title": "Dialog"
+        },
+        "drawer": {
+            "cards": {
+                "details": {
+                    "description": "A right-side drawer works well for record details and light edit flows.",
+                    "title": "Detail panel",
+                    "trigger": "Open details drawer"
+                },
+                "filters": {
+                    "description": "A left-side drawer can keep supporting filters available without replacing the whole page.",
+                    "title": "Filters panel",
+                    "trigger": "Open filters drawer"
+                }
+            },
+            "description": "Drawers reveal focused side panels while keeping the current page visible underneath. Use them for edit flows, details, and filter panels that should preserve more context than a centered dialog.",
+            "examples": {
+                "details": {
+                    "description": "Use the drawer for supporting record detail while the original list or page remains visible underneath.",
+                    "eyebrow": "Details panel",
+                    "footer": {
+                        "primary": "Open full record",
+                        "secondary": "Close"
+                    },
+                    "items": {
+                        "owner": {
+                            "description": "Maria Souza coordinates approvals and delivery checkpoints.",
+                            "title": "Owner"
+                        },
+                        "status": {
+                            "description": "Currently active with one pending review cycle.",
+                            "title": "Status"
+                        },
+                        "updated": {
+                            "description": "Edited two hours ago by the operations team.",
+                            "title": "Last update"
+                        }
+                    },
+                    "title": "Project Atlas"
+                },
+                "filters": {
+                    "description": "A supporting drawer can hold denser filters without breaking the surrounding browsing context.",
+                    "eyebrow": "Filters panel",
+                    "footer": {
+                        "primary": "Apply filters",
+                        "secondary": "Reset"
+                    },
+                    "items": {
+                        "owner": {
+                            "description": "Filter by responsible team or reviewer.",
+                            "title": "Owner"
+                        },
+                        "period": {
+                            "description": "Limit the result set to a time window.",
+                            "title": "Period"
+                        },
+                        "status": {
+                            "description": "Active, paused, and archived visibility.",
+                            "title": "Status"
+                        }
+                    },
+                    "title": "Refine project list"
+                }
+            },
+            "patternNotes": {
+                "items": {
+                    "context": "Use a drawer when the current page should remain visible and recognizable while the user handles a focused secondary task.",
+                    "escalation": "If the content becomes highly interruptive or needs stronger focus isolation, escalate to a dialog or a dedicated route instead.",
+                    "footer": "Keep footer actions concise and predictable. A drawer should still feel scoped, not like a full page hidden inside a panel.",
+                    "side": "Choose the side based on layout and task. Right-side detail panels are common, while left-side drawers often work well for filters and supporting tools."
+                },
+                "snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent side=\"right\">\n    <DrawerHeader>\n      <DrawerTitle>Project details</DrawerTitle>\n      <DrawerDescription>Review metadata.</DrawerDescription>\n    </DrawerHeader>\n    <DrawerFooter>...</DrawerFooter>\n  </DrawerContent>\n</Drawer>"
+            },
+            "sections": {
+                "examples": {
+                    "description": "Drawers are strongest when the page context should stay visible while the user reviews or edits adjacent information.",
+                    "title": "Panel patterns"
+                }
+            },
+            "title": "Drawer"
+        },
+        "dropdownMenu": {
+            "cards": {
+                "grouped": {
+                    "description": "Use labels and separators when the menu needs a little more structure without becoming a larger panel.",
+                    "items": {
+                        "archive": "Archive workspace",
+                        "members": "Manage members",
+                        "overview": "View overview",
+                        "transfer": "Transfer ownership"
+                    },
+                    "sections": {
+                        "primary": "Workspace",
+                        "secondary": "Lifecycle"
+                    },
+                    "title": "Grouped utilities",
+                    "trigger": "Open utilities"
+                },
+                "rowActions": {
+                    "description": "A common admin pattern for compact table or card-row actions.",
+                    "items": {
+                        "archive": "Archive project",
+                        "delete": "Delete project",
+                        "edit": "Edit record",
+                        "view": "View details"
+                    },
+                    "menuLabel": "Project actions",
+                    "rowDescription": "Updated 2 hours ago",
+                    "rowTitle": "Project Atlas",
+                    "title": "Row action menu",
+                    "trigger": "Open row actions"
+                }
+            },
+            "description": "Dropdown menus expose compact action lists anchored to a trigger. Use them for row actions, card utilities, and grouped secondary commands that would add too much noise as inline buttons.",
+            "patternNotes": {
+                "items": {
+                    "compact": "Use dropdown menus for short command lists that belong to one trigger and do not need rich supporting layout.",
+                    "escalation": "Use a dropdown menu for compact action selection, a popover for richer lightweight panels, and an alert dialog for consequential confirmation.",
+                    "grouping": "Group related actions with labels and separators when the menu mixes primary utilities with lower-frequency or riskier actions.",
+                    "scope": "Keep the menu tightly scoped to actions for the current object, row, or surface. If the content becomes explanatory or form-like, switch to a popover or dialog."
+                },
+                "snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>\n    <Button size=\"icon\" usage=\"secondary\" variant=\"ghost\">...</Button>\n  </DropdownMenuTrigger>\n\n  <DropdownMenuContent>\n    <DropdownMenuLabel>Actions</DropdownMenuLabel>\n    <DropdownMenuItem>View details</DropdownMenuItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem>Archive</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+            },
+            "sections": {
+                "actions": {
+                    "description": "Dropdown menus work best when several supporting actions need to stay available without taking over the layout.",
+                    "title": "Compact actions"
+                }
+            },
+            "title": "Dropdown Menu"
+        },
+        "emptyState": {
+            "compact": {
+                "action": "Refresh",
+                "description": "This queue is empty right now.",
+                "title": "Nothing to review"
+            },
+            "description": "Empty states communicate that content is absent and explain what the user can do next. Use them for first-use moments, empty results, filtered views, and access-related absence of content.",
+            "firstUse": {
+                "actions": {
+                    "primary": "Create project",
+                    "secondary": "Import data"
+                },
+                "description": "Create the first project to start organizing work, assigning owners, and tracking progress from this area.",
+                "title": "No projects yet"
+            },
+            "patternNotes": {
+                "items": {
+                    "actions": "Add actions only when the user has a meaningful next step. Do not add buttons just to fill the space.",
+                    "context": "Match the empty state to the reason content is missing: first use, no results, no access, or a temporarily empty dataset.",
+                    "message": "Lead with a clear title and short description that explains why nothing is shown without blaming the user.",
+                    "scope": "Use empty states inside the container that owns the absence of content: a page section, a card, a table region, or a list body."
+                },
+                "snippet": "<EmptyState\n  icon={<Inbox />}\n  title=\"No items yet\"\n  description=\"Create the first item to populate this view.\"\n  actions={\n    <Button usage=\"primary\" variant=\"flat\">New item</Button>\n  }\n/>"
+            },
+            "results": {
+                "noAccess": {
+                    "description": "This user is not assigned to any workspace yet. Grant access before expecting content in this area.",
+                    "title": "No accessible workspaces"
+                },
+                "noResults": {
+                    "action": "Clear filters",
+                    "description": "No records matched the current filters. Adjust the criteria or clear filters to broaden the results.",
+                    "title": "No matching results"
+                }
+            },
+            "sections": {
+                "compact": {
+                    "description": "Use a smaller version when the empty state lives inside a tighter region such as a card or side panel.",
+                    "title": "Compact inline state"
+                },
+                "firstUse": {
+                    "description": "Use a more inviting empty state when the user has not created any content yet.",
+                    "title": "First-use state"
+                },
+                "results": {
+                    "description": "Different absence cases need different tone and actions.",
+                    "title": "Results and access states"
+                }
+            },
+            "title": "Empty State"
+        },
+        "icon": {
+            "accessibilityCards": {
+                "custom": {
+                    "description": "Use a separate tooltip message when the accessible label should stay short but the visible hint needs more context.",
+                    "label": "Preview",
+                    "title": "Custom tooltip copy",
+                    "tooltip": "Preview the current record"
+                },
+                "tooltip": {
+                    "description": "When only a label is provided, the icon uses that same value for accessibility and the tooltip hint.",
+                    "label": "Search",
+                    "title": "Label-driven tooltip"
+                }
+            },
+            "decorativeCards": {
+                "inline": {
+                    "body": "Setup completed",
+                    "description": "Decorative icons should reinforce nearby text without competing with it in the accessibility tree.",
+                    "title": "Inline support icon"
+                },
+                "status": {
+                    "badge": "Notifications",
+                    "description": "Compact status markers often need an icon visually, but not as a separate announcement.",
+                    "title": "Status badge"
+                }
+            },
+            "description": "Icons communicate supporting meaning, reinforce actions, and compact visual status. Use the icon primitive so decorative icons stay silent, labeled icons remain accessible, and standalone icons can expose tooltip help when needed.",
+            "integrationCard": {
+                "description": "The icon primitive also works inside higher-level controls. In those cases, the parent control still owns the accessible name and tooltip behavior.",
+                "iconButton": "Notifications",
+                "primary": "Search records",
+                "title": "Composed with buttons"
+            },
+            "patternNotes": {
+                "items": {
+                    "accessible": "Provide a `label` when the icon must expose meaning on its own. The primitive uses Radix Accessible Icon for that accessible name.",
+                    "buttons": "Inside buttons and other controls, keep the inner icon decorative. Accessibility and tooltip behavior should usually belong to the parent control.",
+                    "decorative": "Use icons as decorative by default when adjacent text already communicates the meaning.",
+                    "tooltip": "A labeled standalone icon can also expose a tooltip. If no custom tooltip is provided, the label is reused as the hint."
+                },
+                "snippet": "<Icon\n  icon={Search}\n  label=\"Search\"\n  tooltipContent=\"Find records\"\n  size={16}\n  className=\"text-[color:var(--color-brand)]\"\n/>"
+            },
+            "sections": {
+                "accessibility": {
+                    "description": "When an icon stands alone, give it an accessible label and optionally a custom tooltip.",
+                    "title": "Accessibility and tooltip"
+                },
+                "decorative": {
+                    "description": "Most icons are supporting visuals and should not create redundant accessibility output.",
+                    "title": "Decorative usage"
+                },
+                "integration": {
+                    "description": "Use the same primitive for standalone icons and icons composed inside buttons or other controls.",
+                    "title": "Integration"
+                }
+            },
+            "title": "Icon"
+        },
+        "input": {
+            "cards": {
+                "disabled": {
+                    "description": "Inputs should clearly show when they are unavailable.",
+                    "label": "Workspace name",
+                    "title": "Disabled field",
+                    "value": "Atlas workspace"
+                },
+                "email": {
+                    "description": "A standard single-line field with lightweight leading context.",
+                    "label": "Email",
+                    "placeholder": "admin@pug.edu.br",
+                    "title": "Email field"
+                },
+                "password": {
+                    "description": "Use the built-in reveal behavior when the field should let users inspect the hidden value temporarily.",
+                    "label": "Password",
+                    "placeholder": "Enter your password",
+                    "title": "Password field"
+                }
+            },
+            "description": "Input is the base text field primitive for short single-line values. Use it for identifiers, email, passwords, search, and compact form fields where the value should stay visible on one line.",
+            "patternNotes": {
+                "items": {
+                    "base": "Use input for short-form values that fit naturally on one line and should remain directly editable in place.",
+                    "icons": "Leading icons are useful for lightweight context such as search or email, but they should remain supportive rather than carrying essential meaning alone.",
+                    "password": "Password fields can expose a reveal toggle, but the primitive should still behave like one field rather than a separate custom pattern.",
+                    "scope": "If the content becomes long-form or multi-paragraph, switch to a text area instead of stretching the input pattern."
+                },
+                "snippet": "<Input type=\"email\" placeholder=\"admin@pug.edu.br\" />\n\n<Input type=\"password\" showPasswordToggle />"
+            },
+            "search": {
+                "label": "Search",
+                "placeholder": "Search workspaces",
+                "value": "Project Atlas"
+            },
+            "sections": {
+                "fields": {
+                    "description": "The same primitive should handle standard text entry and password reveal behavior without fragmenting the API.",
+                    "title": "Common fields"
+                },
+                "search": {
+                    "description": "A lightweight icon can help the field read as search without changing the underlying primitive.",
+                    "title": "Search field"
+                }
+            },
+            "title": "Input"
+        },
+        "multiSelect": {
+            "cards": {
+                "owners": {
+                    "description": "Descriptions can help when the selected values represent people or roles rather than simple tags.",
+                    "label": "Owners",
+                    "options": {
+                        "ana": {
+                            "description": "Regional follow-up",
+                            "label": "Ana"
+                        },
+                        "joao": {
+                            "description": "Project operations",
+                            "label": "JoÃ£o"
+                        },
+                        "maria": {
+                            "description": "Academic coordination",
+                            "label": "Maria"
+                        }
+                    },
+                    "placeholder": "Choose owners",
+                    "title": "Owners and assignees"
+                },
+                "status": {
+                    "description": "A common admin filter case where several statuses may remain active together.",
+                    "label": "Statuses",
+                    "options": {
+                        "active": "Active",
+                        "archived": "Archived",
+                        "paused": "Paused"
+                    },
+                    "placeholder": "Choose statuses",
+                    "title": "Status filters"
+                }
+            },
+            "description": "Multi select lets users choose several values from one compact field. Use it when multiple filters or assignments belong to the same category and should stay grouped under one trigger.",
+            "patternNotes": {
+                "items": {
+                    "escalation": "If the option set becomes very large, searchable, or deeply grouped, this should evolve into a richer composite pattern instead of stretching the simple multi-select too far.",
+                    "options": "Descriptions can help when option labels alone are not enough, but the list should still remain easy to scan and toggle quickly.",
+                    "scope": "Use multi select when the user may choose several values from the same set without needing separate checkboxes in the main layout.",
+                    "summary": "The trigger should summarize the current selection compactly instead of trying to render a long unchecked list in the closed state."
+                },
+                "snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose statuses\"\n  options={[\n    { value: \"active\", label: \"Active\" },\n    { value: \"paused\", label: \"Paused\" },\n  ]}\n/>"
+            },
+            "sections": {
+                "filters": {
+                    "description": "Multi select is a good fit when several filters or assignments should stay available in one compact field.",
+                    "title": "Grouped multi-value fields"
+                }
+            },
+            "title": "Multi Select"
+        },
+        "popover": {
+            "description": "Popovers reveal compact, contextual content anchored to a trigger. Use them for inline filters, supporting actions, and lightweight panels that should stay connected to the current layout.",
+            "examples": {
+                "actions": {
+                    "description": "A popover can hold denser actions when a plain tooltip is too small and a dialog would be too disruptive.",
+                    "items": {
+                        "layout": {
+                            "meta": "Panel",
+                            "title": "Adjust layout"
+                        },
+                        "owners": {
+                            "meta": "3 assigned",
+                            "title": "Manage owners"
+                        },
+                        "rules": {
+                            "meta": "Draft",
+                            "title": "Review rules"
+                        }
+                    },
+                    "title": "Context actions",
+                    "trigger": "Open actions"
+                },
+                "filters": {
+                    "description": "Keep lightweight filters close to the data set they affect.",
+                    "items": {
+                        "period": "Period",
+                        "status": "Status"
+                    },
+                    "neighbor": "Date range",
+                    "primary": "Apply filters",
+                    "secondary": "Reset",
+                    "title": "Refine results",
+                    "trigger": "Filters",
+                    "values": {
+                        "period": "Last 30 days",
+                        "status": "Active only"
+                    }
+                },
+                "inline": {
+                    "description": "Use the primitive for compact contextual content that should stay anchored near the interaction point.",
+                    "panelDescription": "This kind of content stays close to the trigger instead of interrupting the screen.",
+                    "panelTitle": "Panel options",
+                    "title": "Lightweight panel",
+                    "trigger": "View options"
+                }
+            },
+            "patternNotes": {
+                "items": {
+                    "content": "Popover content can mix text, metadata, small forms, and action groups, but it should still feel like one short contextual panel.",
+                    "escalation": "Use a popover when users should stay in the current flow. Use a tooltip for hints, a dropdown menu for short action lists, and a dialog for focused tasks.",
+                    "inline": "Use popovers for content that belongs to the current surface and does not need the interruption level of a dialog.",
+                    "scope": "Keep the content compact and tightly scoped to the trigger. If the content becomes long or multi-step, escalate to a dialog or a dedicated route."
+                },
+                "snippet": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>\n    <Button usage=\"secondary\" variant=\"flat\">Filters</Button>\n  </PopoverTrigger>\n\n  <PopoverContent align=\"start\">\n    <p className=\"ty-sm-bold\">Refine results</p>\n    <p className=\"ty-helper\">Short contextual panel.</p>\n  </PopoverContent>\n</Popover>"
+            },
+            "sections": {
+                "actions": {
+                    "description": "Use the same primitive for richer action lists and lightweight contextual panels.",
+                    "title": "Actions and supporting panels"
+                },
+                "filters": {
+                    "description": "A popover works well when filters belong to the current list or card and should stay attached to the trigger.",
+                    "title": "Inline filters"
+                }
+            },
+            "title": "Popover"
+        },
+        "primitivesOverview": {
+            "areas": {
+                "actions": {
+                    "cta": "Open actions",
+                    "description": "Buttons, toggles, and other actionable primitives.",
+                    "href": "/docs/primitives/actions",
+                    "label": "Actions",
+                    "title": "Actions"
+                },
+                "display": {
+                    "cta": "Open display",
+                    "description": "Cards, badges, icons, and visual display elements.",
+                    "href": "/docs/primitives/display",
+                    "label": "Display",
+                    "title": "Display"
+                },
+                "forms": {
+                    "cta": "Open forms",
+                    "description": "Inputs, selects, checkboxes, and form controls.",
+                    "href": "/docs/primitives/forms",
+                    "label": "Forms",
+                    "title": "Forms"
+                },
+                "navigation": {
+                    "cta": "Open navigation",
+                    "description": "Tabs, accordions, breadcrumbs, and navigation aids.",
+                    "href": "/docs/primitives/navigation",
+                    "label": "Navigation",
+                    "title": "Navigation"
+                },
+                "overlays": {
+                    "cta": "Open overlays",
+                    "description": "Dialogs, popovers, tooltips, and overlay components.",
+                    "href": "/docs/primitives/overlays",
+                    "label": "Overlays",
+                    "title": "Overlays"
+                },
+                "structure": {
+                    "cta": "Open structure",
+                    "description": "Layout, scroll areas, and structural primitives.",
+                    "href": "/docs/primitives/structure",
+                    "label": "Structure",
+                    "title": "Structure"
+                }
+            },
+            "categories": {
+                "badge": "Categories",
+                "description": "Each category contains related primitives. Click a card to view all primitives in that group.",
+                "title": "Primitive Categories"
+            },
+            "hero": {
+                "badge": "Primitives",
+                "description": "This section provides a reference for all shared UI primitives. Browse the categories below to explore actionable, display, form, navigation, overlay, and structure components.",
+                "title": "Primitives Overview"
+            },
+            "summary": {
+                "exploration": {
+                    "description": "Use the cards below to jump into each primitive category and see detailed docs.",
+                    "title": "Explore by category"
+                },
+                "organization": {
+                    "description": "Primitives are grouped by their primary UI role for clarity and discoverability.",
+                    "title": "Organized by role"
+                },
+                "patterns": {
+                    "description": "All primitives follow the same design system and interaction patterns.",
+                    "title": "Consistent patterns"
+                }
+            }
+        },
+        "section": {
+            "actionsCard": {
+                "actions": {
+                    "filter": "Filter",
+                    "primary": "New item"
+                },
+                "description": "Header actions should affect the section as a whole, not one individual child element inside it.",
+                "items": {
+                    "one": {
+                        "description": "A child block that belongs to the section body.",
+                        "title": "Active records"
+                    },
+                    "two": {
+                        "description": "Another child block managed by the same section controls.",
+                        "title": "Archived records"
+                    }
+                },
+                "title": "Section-level actions"
+            },
+            "description": "Sections group related content in normal page flow. Use them to define page structure, introduce a title and supporting description, and optionally attach section-level actions.",
+            "patternNotes": {
+                "items": {
+                    "actions": "Section actions belong in the header when they affect the content of that section as a whole.",
+                    "composition": "Sections often contain cards, lists, forms, and other primitives. They define structure, while inner components define density and behavior.",
+                    "structure": "Use sections to organize page-level content and related blocks, not to add visual decoration by default.",
+                    "surface": "A section does not require borders, shadows, or depth. Add those treatments only when the surrounding layout needs more separation."
+                },
+                "snippet": "<Section>\n  <SectionHeader>\n    <div>\n      <SectionTitle>Section title</SectionTitle>\n      <SectionDescription>\n        Supporting description.\n      </SectionDescription>\n    </div>\n\n    <SectionActions>\n      <Button variant=\"ghost\">Filter</Button>\n      <Button usage=\"primary\" variant=\"flat\">New item</Button>\n    </SectionActions>\n  </SectionHeader>\n\n  <SectionContent>\n    <Card>...</Card>\n  </SectionContent>\n</Section>"
+            },
+            "sections": {
+                "actions": {
+                    "description": "Actions can live in the header when they operate on the section content as a whole.",
+                    "title": "Header actions"
+                },
+                "structure": {
+                    "description": "A section establishes hierarchy and grouping without forcing a boxed surface.",
+                    "title": "Structure"
+                },
+                "surface": {
+                    "description": "Sections may remain plain or receive additional visual treatment depending on the surrounding layout.",
+                    "title": "Surface treatment"
+                }
+            },
+            "structureCards": {
+                "basic": {
+                    "body": "This is the standard page-level grouping primitive. Use it to introduce content before placing denser blocks such as cards, tables, or forms.",
+                    "description": "A section usually combines a heading, a short description, and a body region for related content.",
+                    "title": "Default structure"
+                },
+                "minimal": {
+                    "body": "Not every section needs heavy separation. Sometimes spacing and hierarchy are enough to keep the page understandable.",
+                    "description": "The structure stays useful even when the section body is small and the visual treatment is light.",
+                    "title": "Minimal section"
+                }
+            },
+            "surfaceCards": {
+                "decorated": {
+                    "action": "Open section settings",
+                    "body": "The structure stays the same. Only the visual treatment changes to support the page composition.",
+                    "description": "Add surface treatment when the layout needs stronger separation, but keep the same structure primitive underneath.",
+                    "title": "Decorated section"
+                },
+                "plain": {
+                    "body": "Use the plain form when the page already has enough separation from layout, rhythm, or nearby containers.",
+                    "cta": "Review guidance",
+                    "description": "Sections can also remain visually quiet and let surrounding spacing do the grouping work.",
+                    "title": "Plain section"
+                }
+            },
+            "title": "Section"
+        },
+        "select": {
+            "cards": {
+                "grouped": {
+                    "description": "A grouped list can stay compact while still exposing lightweight hierarchy inside the option set.",
+                    "groups": {
+                        "lifecycle": "Lifecycle",
+                        "workspace": "Workspace"
+                    },
+                    "label": "Workspace target",
+                    "options": {
+                        "archive": "Archive workspace",
+                        "members": "Manage members",
+                        "overview": "View overview",
+                        "transfer": "Transfer ownership"
+                    },
+                    "placeholder": "Choose target",
+                    "title": "Grouped workspace actions"
+                },
+                "placeholder": {
+                    "description": "Use a placeholder when the user still needs to make an explicit first selection.",
+                    "label": "Date range",
+                    "options": {
+                        "month": "Last 30 days",
+                        "today": "Today",
+                        "week": "Last 7 days"
+                    },
+                    "placeholder": "Choose range",
+                    "title": "Unselected field"
+                },
+                "status": {
+                    "description": "A typical admin filter where the selected value is controlled by surrounding state.",
+                    "label": "Status",
+                    "options": {
+                        "active": "Active",
+                        "archived": "Archived",
+                        "paused": "Paused"
+                    },
+                    "placeholder": "Choose status",
+                    "title": "Controlled status filter"
+                }
+            },
+            "description": "Select lets users choose one option from a compact list. Use it for filters, form fields, and scoped configuration choices where the current value should remain visible in a single trigger field.",
+            "patternNotes": {
+                "items": {
+                    "forms": "Select works well for forms and filters, but if the content needs searching, multi-selection, or richer metadata, consider a different pattern.",
+                    "grouping": "Group options with labels and separators when the list mixes categories or lifecycle stages that benefit from lightweight structure.",
+                    "placeholder": "Use a placeholder only when no default selection should be implied. Once a choice exists, the trigger should show the selected value directly.",
+                    "scope": "Use select when the user must choose one value from a defined set and the currently selected option should stay visible in the field."
+                },
+                "snippet": "<Select value={value} onValueChange={setValue}>\n  <SelectTrigger placeholder=\"Choose status\" />\n  <SelectContent>\n    <SelectItem value=\"active\">Active</SelectItem>\n    <SelectItem value=\"paused\">Paused</SelectItem>\n  </SelectContent>\n</Select>"
+            },
+            "sections": {
+                "filters": {
+                    "description": "Select is a strong fit for compact filters and form fields that expose one current value at a time.",
+                    "title": "Filter and field selection"
+                },
+                "groups": {
+                    "description": "Use labels and separators when a flat list would be harder to scan or reason about.",
+                    "title": "Grouped options"
+                }
+            },
+            "title": "Select"
+        },
+        "selectionControls": {
+            "cards": {
+                "checkbox": {
+                    "description": "Independent choices where more than one option may be enabled at the same time.",
+                    "disabled": {
+                        "description": "This option is unavailable in the current workflow.",
+                        "label": "Locked setting"
+                    },
+                    "items": {
+                        "one": {
+                            "description": "Send a compact digest of project updates every Friday.",
+                            "label": "Share weekly summary"
+                        },
+                        "two": {
+                            "description": "Keep archived items in the same reporting scope.",
+                            "label": "Include archived workspaces"
+                        }
+                    },
+                    "title": "Checkbox"
+                },
+                "radio": {
+                    "description": "Exclusive choices where one communication mode or policy must be selected.",
+                    "items": {
+                        "email": {
+                            "description": "Send detailed updates to the primary inbox.",
+                            "label": "Email"
+                        },
+                        "silent": {
+                            "description": "Store the update without sending an active notification.",
+                            "label": "Silent"
+                        },
+                        "sms": {
+                            "description": "Use a shorter message for urgent contact only.",
+                            "label": "SMS"
+                        }
+                    },
+                    "title": "Radio group"
+                },
+                "switch": {
+                    "description": "A binary setting that reads clearly as on or off in the current state.",
+                    "disabled": {
+                        "description": "This preference is controlled by workspace policy.",
+                        "label": "System lock"
+                    },
+                    "item": {
+                        "description": "Immediately allow alerts for overdue tasks and project status changes.",
+                        "label": "Enable notifications"
+                    },
+                    "title": "Switch"
+                }
+            },
+            "description": "Checkbox, radio group, and switch all represent user choice, but they communicate different interaction models. Use them according to whether the user is selecting many items, exactly one option, or toggling a setting on and off.",
+            "patternNotes": {
+                "items": {
+                    "checkbox": "Use checkbox when the user can independently select zero, one, or many options from a set.",
+                    "radio": "Use radio group when exactly one option must be chosen from several mutually exclusive choices.",
+                    "scope": "Do not swap these controls casually. The chosen control should match the meaning of the decision, not just the amount of available space.",
+                    "switch": "Use switch for immediate on/off settings and binary preferences that read naturally as enabled or disabled."
+                },
+                "snippet": "<Checkbox label=\"Share progress updates\" />\n\n<RadioGroup value={value} onValueChange={setValue}>\n  <RadioGroupItem value=\"email\" label=\"Email\" />\n  <RadioGroupItem value=\"sms\" label=\"SMS\" />\n</RadioGroup>\n\n<Switch label=\"Enable notifications\" />"
+            },
+            "sections": {
+                "comparison": {
+                    "description": "These three controls belong together conceptually, but each one signals a different kind of user decision.",
+                    "title": "Interaction comparison"
+                }
+            },
+            "title": "Selection Controls"
+        },
+        "shared": {
+            "closePatternNotes": "Close pattern notes",
+            "collapse": "Collapse",
+            "expand": "Expand",
+            "eyebrow": "UI Particles",
+            "patternNotesApiLabel": "Current primitive API",
+            "patternNotesLabel": "Pattern Notes",
+            "patternNotesTitle": "When to use",
+            "viewPatternNotes": "View pattern notes"
+        },
+        "skeleton": {
+            "cardExample": {
+                "cta": "Open summary",
+                "description": "This card keeps the exact same JSX in both states. Only the `isLoading` prop changes.",
+                "title": "Project summary"
+            },
+            "description": "Skeleton is the loading primitive for content that already has a stable layout. In most cases, use it through `Card isLoading` so card slots swap to placeholders automatically.",
+            "dialogExample": {
+                "content": "Once loaded, the body content replaces the placeholder without changing the overall dialog anatomy.",
+                "description": "The dialog keeps its structure while waiting for the content of the current step.",
+                "note": "Open the preview to inspect the dialog loading state in place.",
+                "primary": "Continue",
+                "secondary": "Cancel",
+                "title": "Sync workspace",
+                "trigger": "Open loading dialog"
+            },
+            "loadingLabels": {
+                "card": "Loading project summary",
+                "dialog": "Loading project dialog",
+                "section": "Loading project section",
+                "usageCard": "Loading button usage example"
+            },
+            "patternNotes": {
+                "items": {
+                    "automatic": "Prefer automatic loading states for cards. Set `isLoading` on the card and keep the real card structure in place.",
+                    "manual": "Use the low-level `Skeleton` primitive directly only when you need custom placeholder shapes outside the built-in card anatomy.",
+                    "scope": "Use skeletons in the same container that will eventually render the real content so spacing and hierarchy stay stable.",
+                    "stability": "Loading placeholders should preserve layout footprint. Avoid swapping between completely different structures while requests are in flight."
+                },
+                "snippet": "<Card\n  isLoading\n  className=\"flex min-h-40 flex-col justify-between p-4\"\n>\n  <CardHeader>\n    <CardTitle>Card title</CardTitle>\n    <CardDescription>\n      Supporting description.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>\n    <Button usage=\"primary\">Continue</Button>\n  </CardContent>\n</Card>\n\n<Skeleton className=\"h-4 w-24\" />"
+            },
+            "primitiveNote": "Use the low-level primitive only when automatic card loading is not enough.",
+            "sectionExample": {
+                "content": "The section body can keep its final layout while the content resolves.",
+                "cta": "Refresh data",
+                "description": "Use the same section structure during loading so the page rhythm stays stable.",
+                "title": "Workspace health"
+            },
+            "sections": {
+                "buttonUsage": {
+                    "description": "This is the same card structure used in the button docs, but with `isLoading` enabled on the card.",
+                    "title": "Applied to existing card JSX"
+                },
+                "cards": {
+                    "description": "The card primitive can now replace title, description, content, and footer slots with skeleton placeholders automatically.",
+                    "title": "Automatic card loading"
+                },
+                "dialog": {
+                    "description": "Dialogs use the same loading context so their title, description, body region, and footer actions stay structurally stable.",
+                    "title": "Dialog loading"
+                },
+                "icon": {
+                    "description": "Standalone icons can expose a simple circular skeleton when the icon itself is still resolving.",
+                    "title": "Icon loading"
+                },
+                "layout": {
+                    "description": "Low-level `Header`, `Content`, and `Footer` primitives also support explicit loading placeholders for custom compositions.",
+                    "title": "Layout loading"
+                },
+                "primitive": {
+                    "description": "Use the `Skeleton` primitive directly for layouts that do not map to the built-in card anatomy.",
+                    "title": "Low-level primitive"
+                },
+                "section": {
+                    "description": "Sections can also switch their title, description, actions, and content to loading placeholders through the same pattern.",
+                    "title": "Section loading"
+                }
+            },
+            "title": "Skeleton"
+        },
+        "structurePrimitives": {
+            "description": "Tabs, label, separator, and scroll area shape layout and interaction rhythm rather than carrying heavy business meaning on their own. Use them to organize content, connect fields to text, and manage dense surfaces with clearer structure.",
+            "labelCard": {
+                "description": "Labels and separators support small but important hierarchy decisions inside forms and metadata rows.",
+                "leftMeta": "Updated today",
+                "nameLabel": "Workspace name",
+                "namePlaceholder": "Enter workspace name",
+                "rightMeta": "6 active members",
+                "title": "Field structure"
+            },
+            "patternNotes": {
+                "items": {
+                    "label": "Use label to associate form text with its field directly instead of relying on nearby typography alone.",
+                    "scrollArea": "Use scroll areas for constrained regions such as sidebars, panels, and dense lists where native overflow needs better visual handling.",
+                    "separator": "Use separators sparingly to reinforce grouping or rhythm. They should support hierarchy, not replace spacing and layout decisions.",
+                    "tabs": "Use tabs when several peer sections share one space and users should switch between them without leaving the current page context."
+                },
+                "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"members\">Members</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Label htmlFor=\"workspace-name\">Workspace name</Label>\n<Separator />\n<ScrollArea className=\"h-48\">...</ScrollArea>"
+            },
+            "primitives": {
+                "labelTitle": "Label",
+                "scrollAreaTitle": "Scroll Area",
+                "separatorTitle": "Separator"
+            },
+            "scrollCard": {
+                "description": "Scroll areas work well inside panels or cards where longer lists should remain bounded without losing polish.",
+                "items": {
+                    "five": {
+                        "description": "Longer collections should remain easy to scan even when constrained.",
+                        "title": "Activity item five"
+                    },
+                    "four": {
+                        "description": "The primitive keeps overflow behavior explicit inside the region.",
+                        "title": "Activity item four"
+                    },
+                    "one": {
+                        "description": "Scrollable regions should still preserve readable rhythm and spacing.",
+                        "title": "Activity item one"
+                    },
+                    "six": {
+                        "description": "The surrounding card can stay visually stable while the list scrolls.",
+                        "title": "Activity item six"
+                    },
+                    "three": {
+                        "description": "This is especially useful for side panels and compact dashboards.",
+                        "title": "Activity item three"
+                    },
+                    "two": {
+                        "description": "Use a scroll area when the parent surface should stay bounded.",
+                        "title": "Activity item two"
+                    }
+                },
+                "title": "Constrained scrolling"
+            },
+            "sections": {
+                "structure": {
+                    "description": "These primitives become most useful when they reinforce form structure, metadata rhythm, and constrained overflow in the same composition.",
+                    "title": "Label, separator, and scroll area"
+                },
+                "tabs": {
+                    "description": "Tabs are a strong fit when related sections compete for the same page space but should remain quickly accessible.",
+                    "title": "Tabs"
+                }
+            },
+            "tabs": {
+                "items": {
+                    "history": {
+                        "description": "This is useful when users need quick context switching between parallel views.",
+                        "label": "History",
+                        "title": "Activity history"
+                    },
+                    "members": {
+                        "description": "Tabs keep related sections adjacent without forcing every detail into one long surface.",
+                        "label": "Members",
+                        "title": "Members and roles"
+                    },
+                    "overview": {
+                        "description": "Use a tab when this panel is one peer among several related content areas.",
+                        "label": "Overview",
+                        "title": "Workspace overview"
+                    }
+                }
+            },
+            "title": "Structure Primitives"
+        },
+        "textArea": {
+            "cards": {
+                "feedback": {
+                    "description": "Use a taller text area when the expected response is more descriptive and reflective.",
+                    "label": "Feedback",
+                    "placeholder": "Describe the current experience and what should improve",
+                    "title": "Longer feedback"
+                },
+                "notes": {
+                    "description": "A compact long-form field for operational notes or supporting detail.",
+                    "label": "Notes",
+                    "placeholder": "Add internal notes",
+                    "title": "Internal notes"
+                }
+            },
+            "description": "Text area is the primitive for longer freeform content. Use it when the value needs more than one line, such as notes, feedback, descriptions, or explanatory content.",
+            "patternNotes": {
+                "items": {
+                    "longform": "Use text area when the user is expected to write sentences, notes, or any content that naturally spans multiple lines.",
+                    "resize": "The field should preserve a comfortable minimum height so longer content does not feel cramped from the first interaction.",
+                    "rhythm": "Labels, spacing, and surrounding form rhythm matter more with text areas because they occupy noticeably more vertical space.",
+                    "scope": "Do not use a text area for short structured values just because more width is available. Keep single-line fields as inputs."
+                },
+                "snippet": "<TextArea placeholder=\"Add internal notes\" />"
+            },
+            "sections": {
+                "usage": {
+                    "description": "Text areas are best for content that should stay readable while it grows vertically.",
+                    "title": "Long-form entry"
+                }
+            },
+            "title": "Text Area"
+        },
+        "toggleControls": {
+            "cards": {
+                "multi": {
+                    "description": "Use multi-select toggle groups for formatting or chip-like controls where several states may remain active.",
+                    "items": {
+                        "bold": "Bold",
+                        "italic": "Italic",
+                        "underline": "Underline"
+                    },
+                    "title": "Multiple pressed states"
+                },
+                "single": {
+                    "ariaLabel": "Toggle bold formatting",
+                    "description": "A pressed action that behaves like a stateful button instead of a form field.",
+                    "disabledLabel": "Locked",
+                    "label": "Bold",
+                    "title": "Single toggle"
+                },
+                "view": {
+                    "description": "A single-value toggle group is a good fit for compact view switches such as grid versus list.",
+                    "items": {
+                        "grid": "Grid",
+                        "list": "List"
+                    },
+                    "title": "Exclusive view mode"
+                }
+            },
+            "description": "Toggle and toggle group express pressed state rather than form selection. Use them for view modes, formatting controls, and dense action sets where the control should behave like a button with remembered state.",
+            "patternNotes": {
+                "items": {
+                    "group": "Use toggle group when several related pressed controls need to behave as one mutually exclusive or multi-select set.",
+                    "press": "These controls communicate pressed state, not form semantics. Prefer checkbox, radio group, or switch when the meaning is selection or settings.",
+                    "scope": "Toggle controls are strongest in toolbars, view switches, formatting actions, and compact filter chips.",
+                    "toggle": "Use toggle for one pressed/unpressed control that behaves like a stateful action button."
+                },
+                "snippet": "<Toggle aria-label=\"Bold\">Bold</Toggle>\n\n<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grid</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">List</ToggleGroupItem>\n</ToggleGroup>"
+            },
+            "primitives": {
+                "toggleGroupTitle": "Toggle Group"
+            },
+            "sections": {
+                "multi": {
+                    "description": "A multiple toggle group works when several formatting or filter states may remain active together.",
+                    "title": "Multi-pressed groups"
+                },
+                "usage": {
+                    "description": "Use a lone toggle for one pressed action, or a single-value toggle group when one view or mode should stay active.",
+                    "title": "Single and exclusive usage"
+                }
+            },
+            "title": "Toggle Controls"
+        },
+        "tooltip": {
+            "automatic": {
+                "createItem": "Create item",
+                "deleteDraft": "Delete draft",
+                "moreInformation": "More information"
+            },
+            "description": "Tooltips provide short contextual hints for controls and inline UI elements. Use the wrapper directly around custom triggers or rely on automatic tooltips for icon-only buttons.",
+            "patternNotes": {
+                "items": {
+                    "clarify": "Use tooltips to clarify compact controls, especially icon-only actions that need visible context on hover or focus.",
+                    "compact": "Keep tooltip copy short and neutral. If the content needs instructions or multiple actions, use another pattern such as helper text, a popover, or a dialog.",
+                    "iconButtons": "For icon buttons, the button component already resolves tooltip content from `tooltipContent`, `title`, or the accessible label.",
+                    "reinforce": "Tooltips should reinforce an existing control, not carry essential information by themselves."
+                },
+                "snippet": "<Tooltip content=\"Open details\" side=\"top\" align=\"center\">\n  <button type=\"button\">Trigger</button>\n</Tooltip>\n\n<Button\n  size=\"icon\"\n  variant=\"ghost\"\n  title=\"Add item\"\n  leadingIcon={<Plus />}\n/>"
+            },
+            "placementCards": {
+                "bottom": {
+                    "description": "Safer when there is no room above the trigger.",
+                    "name": "Bottom",
+                    "tooltip": "Bottom tooltip"
+                },
+                "left": {
+                    "description": "Works well near right-edge controls and floating actions.",
+                    "name": "Left",
+                    "tooltip": "Left tooltip"
+                },
+                "right": {
+                    "description": "Useful beside dense left-aligned navigation and stacked lists.",
+                    "name": "Right",
+                    "tooltip": "Right tooltip"
+                },
+                "top": {
+                    "description": "Default placement for compact controls and icon actions.",
+                    "name": "Top",
+                    "tooltip": "Top tooltip"
+                },
+                "trigger": "Hover target"
+            },
+            "richContent": {
+                "compactMetadata": {
+                    "button": "Open docs",
+                    "description": "A small amount of structured content is fine when the hint needs a title and one line of context.",
+                    "title": "Compact metadata",
+                    "tooltipBody": "Reference docs are kept separate from the current flow.",
+                    "tooltipTitle": "Opens in new tab"
+                },
+                "inlineHint": {
+                    "description": "Wrap custom inline triggers when you need context without changing the surrounding layout.",
+                    "link": "activity panel",
+                    "prefix": "Status updates are available in the",
+                    "suffix": ".",
+                    "title": "Inline hint",
+                    "tooltip": "Opens the activity stream for this workspace."
+                }
+            },
+            "sections": {
+                "automatic": {
+                    "description": "Icon buttons resolve tooltip content automatically from the props already used for accessibility.",
+                    "title": "Automatic icon tooltip"
+                },
+                "placement": {
+                    "description": "Choose the placement that keeps the hint readable near surrounding layout constraints.",
+                    "title": "Placement"
+                },
+                "richContent": {
+                    "description": "Tooltip content may include small amounts of structure, but it should remain compact and scannable.",
+                    "title": "Rich content"
+                },
+                "triggerGuidance": {
+                    "description": "Use tooltips as supporting guidance, not as the primary source of meaning.",
+                    "title": "Trigger guidance"
+                }
+            },
+            "title": "Tooltip",
+            "triggerGuidance": {
+                "avoidLongInstructions": {
+                    "description": "If the message starts reading like onboarding copy, use helper text, a popover, or a dialog instead.",
+                    "title": "Avoid long instructions"
+                },
+                "goodFit": {
+                    "title": "Good fit",
+                    "tooltip": "Need help with button anatomy?"
+                },
+                "needsLabel": {
+                    "button": "Learn more",
+                    "title": "Still needs a label"
+                }
+            }
+        }
+    },
+    "home": {
+        "currentAccount": {
+            "badge": "TanStack Query",
+            "description": "This section is the first shared server-state example. It reads the authenticated account from the API through TanStack Query instead of page-local fetch state.",
+            "error": {
+                "description": "Try the request again.",
+                "retry": "Retry",
+                "title": "Unable to load the current account."
+            },
+            "fields": {
+                "email": "Account email",
+                "status": "Status",
+                "type": "Account type"
+            },
+            "lastUpdated": "Last updated {{value}}.",
+            "loading": "Loading current account",
+            "title": "Current account",
+            "values": {
+                "active": "Active",
+                "inactive": "Inactive"
+            }
+        }
+    },
+    "Navbar": {
+        "account": {
+            "fallback": "Unavailable",
+            "label": "Account",
+            "logout": "Log out",
+            "logoutError": "Unable to sign out right now.",
+            "logoutPending": "Logging out...",
+            "logoutSuccess": "Signed out successfully."
+        },
+        "collapse": "Collapse sidebar",
+        "controls": {
+            "language": {
+                "label": "Language",
+                "options": {
+                    "en-US": "English",
+                    "pt-BR": "Portuguese"
+                },
+                "placeholder": "Select language",
+                "short": {
+                    "en-US": "EN",
+                    "pt-BR": "PT"
+                }
+            },
+            "theme": {
+                "label": "Theme mode",
+                "options": {
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "System"
+                },
+                "placeholder": "Select theme"
+            }
+        },
+        "expand": "Expand sidebar",
+        "navigation": "Primary navigation",
+        "paths": {
+            "academic": {
+                "course": "Courses",
+                "root": "Academic",
+                "school": "Schools",
+                "student": "Students"
+            },
+            "docs": {
+                "overview": "Overview",
+                "pages": {
+                    "operationsWorkspace": "Operations Workspace",
+                    "root": "Page Patterns",
+                    "sectionStack": "Section Stack",
+                    "splitDetail": "Split Detail"
+                },
+                "primitives": {
+                    "actions": "Actions",
+                    "display": "Display",
+                    "forms": "Forms",
+                    "navigation": "Navigation",
+                    "overlays": "Overlays",
+                    "root": "Primitives",
+                    "structure": "Structure"
+                },
+                "root": "Docs",
+                "routing": {
+                    "errorPreview": "Error Preview",
+                    "globalErrorPreview": "Global Error Preview",
+                    "notFoundPreview": "Not Found Preview",
+                    "previews": "Previews",
+                    "root": "Routing"
+                }
+            },
+            "geo": {
+                "city": "Cities",
+                "root": "Geo"
+            },
+            "home": "Home",
+            "identity": {
+                "account": "Accounts",
+                "admin": "Admins",
+                "root": "Identity",
+                "user": "Users"
+            },
+            "login": "Login",
+            "partner": {
+                "entity": "Entities",
+                "root": "Partner",
+                "staff": "Staff"
+            },
+            "project": {
+                "attendance": "Attendance",
+                "enrollment": "Enrollment",
+                "project": "Projects",
+                "root": "Project"
+            },
+            "unknown": "Unknown"
+        },
+        "subtitle": "Operations workspace",
+        "title": "PUG Admin"
+    }
 }

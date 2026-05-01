@@ -9,10 +9,11 @@
 		"dev:mock:turbo": "node ./scripts/with-env.mjs mock-api.env next dev --turbopack",
 		"build": "next build --turbopack",
 		"mock:api": "node ./scripts/with-env.mjs mock-api.env node ./scripts/mock-api.mjs",
+		"trans": "node ./scripts/reorderTranslations.js dev && node ./scripts/checkMissingTranslations.js",
 		"start": "next start",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"format": "prettier --write . && npm run lint:fix && tsc --noEmit",
+		"format": "prettier --write . && npm run lint:fix && tsc --noEmit && npm run trans",
 		"format:check": "prettier --check . && npm run lint"
 	},
 	"dependencies": {

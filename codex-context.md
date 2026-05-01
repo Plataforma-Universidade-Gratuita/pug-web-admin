@@ -212,6 +212,9 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - The `api/` folder contains client-facing API helpers.
 - `app/api/**/route.ts` acts as the internal proxy layer.
 - Shared API utilities live under `utils/` and `api/web/`.
+- Shared API error normalization and mutation toast helpers live under:
+  - `utils/api-errors.ts`
+  - `utils/mutation-toast.ts`
 - Schemas:
   - server/API schemas: `schemas/api`
   - client schemas: `schemas/client`
@@ -253,6 +256,14 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
   - use `useMutation`
   - invalidate relevant domain keys on success
   - prefer conservative invalidation over premature optimistic updates
+  - use `createToastMutationOptions` for opt-in mutation success/error toasts instead of hand-rolling Sonner calls in every mutation
+- Query error rule:
+  - do not globally toast query failures by default
+  - prefer inline empty/error states for query surfaces
+- Mutation toast rule:
+  - success toasts are opt-in and should be reserved for explicit user actions
+  - error toasts should go through `getApiErrorToastContent` / `createToastMutationOptions`
+  - do not build blanket transport-level success toasts for all API calls
 - Avoid:
   - ad hoc string query keys scattered in components
   - mixing server-state copies into Zustand
@@ -349,6 +360,9 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 ### Important current primitive conventions
 
 - `sonner` must be consumed through the local toast primitive, not directly in feature code.
+- For API-driven mutation feedback:
+  - normalize API/Web API errors through `utils/api-errors.ts`
+  - prefer `createToastMutationOptions` over open-coded toast `onSuccess`/`onError` branches
 - `ScrollArea` is the shared scroll container primitive.
 - `Tooltip`, `Popover`, `Dialog`, `Drawer`, `AlertDialog`, `DropdownMenu`, `Tabs`, `Accordion`, and form controls are all wrapped locally.
 - Icons should use the local `Icon` primitive where that contract already exists.
