@@ -214,14 +214,21 @@ export interface ToggleProps extends Omit<
 	children: ReactNode;
 }
 
+export type ToggleGroupVariant = "spaced" | "pill";
+export type ToggleGroupColorVariant = "default" | "chrome";
+
 export type ToggleGroupProps =
 	| ({
 			children: ReactNode;
+			variant?: ToggleGroupVariant;
+			colorVariant?: ToggleGroupColorVariant;
 	  } & Omit<RadixToggleGroup.ToggleGroupSingleProps, "type" | "children"> & {
 				type?: "single";
 			})
 	| ({
 			children: ReactNode;
+			variant?: ToggleGroupVariant;
+			colorVariant?: ToggleGroupColorVariant;
 	  } & Omit<RadixToggleGroup.ToggleGroupMultipleProps, "type" | "children"> & {
 				type: "multiple";
 			});
@@ -231,6 +238,7 @@ export interface ToggleGroupItemProps extends Omit<
 	"children"
 > {
 	children: ReactNode;
+	tooltipContent?: ReactNode;
 }
 
 export interface TabsProps extends Omit<

@@ -32,6 +32,7 @@ export function FloatingPageControls() {
 						value={mode}
 						options={themeSelectorOptions}
 						onValueChange={setMode}
+						colorVariant="default"
 					/>
 				</div>
 				<div className="floating-page-controls-picker">
@@ -39,6 +40,7 @@ export function FloatingPageControls() {
 						value={lang}
 						options={languageSelectorOptions}
 						onValueChange={setLang}
+						colorVariant="default"
 					/>
 				</div>
 			</div>

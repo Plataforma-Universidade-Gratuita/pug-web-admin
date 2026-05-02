@@ -10,9 +10,16 @@ import type * as RadixLabel from "@radix-ui/react-label";
 import type * as RadixPopover from "@radix-ui/react-popover";
 import type * as RadixScrollArea from "@radix-ui/react-scroll-area";
 import type * as RadixSeparator from "@radix-ui/react-separator";
+import type {
+	ColumnDef,
+	Row,
+	RowData,
+	SortingState,
+} from "@tanstack/react-table";
 import type { LucideProps } from "lucide-react";
 
 import { BADGE_TONES, BADGE_VARIANTS } from "@/constants/components";
+import type { ToggleGroupColorVariant } from "@/types/client/components/controls";
 import type { AppLang } from "@/types/client/locale";
 import type { AppTheme } from "@/types/client/theme";
 
@@ -136,6 +143,7 @@ export interface ThemeSelectorProps {
 	value: AppTheme;
 	options: ThemeSelectorOption[];
 	onValueChange: (value: AppTheme) => void;
+	colorVariant?: ToggleGroupColorVariant;
 	className?: string;
 }
 
@@ -149,5 +157,21 @@ export interface LanguageSelectorProps {
 	value: AppLang;
 	options: LanguageSelectorOption[];
 	onValueChange: (value: AppLang) => void;
+	colorVariant?: ToggleGroupColorVariant;
 	className?: string;
+}
+
+export interface TableProps<
+	TData extends RowData,
+> extends HTMLAttributes<HTMLDivElement> {
+	data: TData[];
+	columns: ColumnDef<TData, unknown>[];
+	caption?: ReactNode;
+	emptyState?: ReactNode;
+	isLoading?: boolean;
+	loadingLabel?: string;
+	loadingRowCount?: number;
+	enableSorting?: boolean;
+	initialSorting?: SortingState;
+	getRowId?: (originalRow: TData, index: number, parent?: Row<TData>) => string;
 }

@@ -36,6 +36,7 @@
 
 	.scroll-area-scrollbar-horizontal {
 		display: flex;
+		flex-direction: column;
 		height: 0.625rem;
 		touch-action: none;
 		padding: 0.125rem;

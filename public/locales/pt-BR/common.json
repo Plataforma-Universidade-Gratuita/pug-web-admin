@@ -304,31 +304,63 @@
             "title": "Breadcrumb"
         },
         "button": {
-            "description": "BotÃµes disparam aÃ§Ãµes do usuÃ¡rio. Use `usage` para definir a intenÃ§Ã£o semÃ¢ntica, `variant` para definir o tratamento visual e `size` para adaptar o componente Ã  densidade do layout.",
+            "actionOrderCard": {
+                "description": "Em linhas com varias acoes, coloque a principal na extrema direita e mantenha as decisoes de apoio a esquerda.",
+                "left": "Excluir rascunho",
+                "middle": "Salvar rascunho",
+                "right": "Publicar",
+                "title": "Acao primaria na direita"
+            },
+            "defaultCard": {
+                "description": "Estes exemplos mostram o contrato mais estrito: botao padrao, primary explicito e a acao secondary cinza por padrao.",
+                "explicit": "Primary explicito",
+                "primary": "Salvar alteracoes",
+                "secondary": "Cancelar",
+                "title": "Defaults guiados por variante"
+            },
+            "description": "Botoes disparam acoes do usuario. O contrato agora e mais estrito: `variant=\"primary\"` e a acao principal flat, `variant=\"secondary\"` e a acao de apoio no padrao ghost, e `usage` muda a cor quando o significado muda.",
             "patternNotes": {
                 "items": {
+                    "actionOrder": "Quando houver varias acoes juntas, coloque a primaria na extrema direita. As acoes de apoio ficam a esquerda.",
+                    "default": "Use o botao sem props como acao primaria base. Ele ja renderiza com enfase de marca e tamanho medio.",
                     "flat": "Use `variant=\"flat\"` para o tratamento padrÃ£o de call to action.",
-                    "ghost": "Use `variant=\"ghost\"` para aÃ§Ãµes de menor Ãªnfase, interfaces densas e controles de apoio.",
-                    "icon": "Para botÃµes somente com Ã­cone, sempre forneÃ§a um `title`, `aria-label` ou `tooltipContent` legÃ­vel para que o componente exponha um nome acessÃ­vel.",
-                    "usage": "Defina `usage` de acordo com o significado da aÃ§Ã£o: primary, secondary, success, info, warning ou danger."
+                    "icon": "Para botoes somente com icone, sempre forneca um `title`, `aria-label` ou `tooltipContent` legivel para expor um nome acessivel.",
+                    "primaryVariant": "Use `variant=\"primary\"` para a call to action principal. Esse e o padrao preenchido.",
+                    "secondaryVariant": "Use `variant=\"secondary\"` para acoes de apoio e alternativas. Esse e o padrao ghost."
                 },
-                "snippet": "<Button\n  usage=\"primary | secondary | success | info | warning | danger\"\n  variant=\"flat | ghost\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Saving...\"\n  tooltipContent=\"Add item\"\n/>"
+                "snippet": "<Button>Salvar alteracoes</Button>\n\n<Button variant=\"secondary\">Cancelar</Button>\n\n<Button\n  variant=\"primary | secondary\"\n  usage=\"primary | secondary | success | info | warning | danger\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Salvando...\"\n  tooltipContent=\"Adicionar item\"\n/>"
             },
             "sections": {
+                "actionOrder": {
+                    "description": "Acoes primarias ficam na extrema direita. Acoes secundarias e alternativas se acumulam a esquerda em ordem decrescente de enfase.",
+                    "title": "Ordem das acoes"
+                },
+                "default": {
+                    "description": "Comece pelo botao primary padrao antes de adicionar overrides. O papel secundario deve ser expresso pela variante, nao por estilo improvisado.",
+                    "title": "Contrato padrao"
+                },
+                "primaryVariant": {
+                    "description": "A variante primary e o estilo preenchido da acao principal. Reserve-a para a acao principal mais a direita e mude `usage` apenas quando a intencao semantica mudar.",
+                    "title": "Cores da variante primary"
+                },
                 "scale": {
-                    "description": "Ajuste a escala do componente de acordo com o espaÃ§amento e a densidade da interface.",
+                    "description": "Mantenha medium como tamanho padrao. Va para small, large ou icon apenas quando a densidade do layout realmente pedir.",
                     "title": "Escala"
                 },
+                "secondaryVariant": {
+                    "description": "A variante secondary e o estilo ghost. Ela e o padrao para acoes de menor enfase e controles de apoio.",
+                    "title": "Cores da variante secondary"
+                },
                 "states": {
-                    "description": "Use os estados embutidos para manter o feedback e as regras de interaÃ§Ã£o consistentes.",
+                    "description": "Use os estados embutidos para manter feedback e interacao consistentes.",
                     "title": "Estados"
                 },
                 "usage": {
-                    "description": "Escolha o uso semÃ¢ntico que corresponde ao resultado esperado da aÃ§Ã£o.",
+                    "description": "Escolha o uso semantico que corresponde ao resultado da acao. A forma visual pode continuar consistente enquanto a intencao muda.",
                     "title": "Uso"
                 },
                 "variant": {
-                    "description": "As variantes mudam a apresentaÃ§Ã£o sem alterar o comportamento ou a intenÃ§Ã£o semÃ¢ntica.",
+                    "description": "Mantenha `flat` como tratamento normal e use `ghost` apenas quando a acao deve recuar visualmente.",
                     "title": "Variante"
                 }
             },
@@ -387,15 +419,14 @@
                 }
             },
             "variantCards": {
-                "flat": {
-                    "description": "Preenchido no modo claro e suavizado no modo escuro sem alterar o significado da aÃ§Ã£o.",
-                    "name": "Flat"
+                "primary": {
+                    "description": "Padrao preenchido para a acao principal.",
+                    "name": "Primary"
                 },
-                "ghost": {
-                    "description": "AÃ§Ã£o de baixo destaque para barras de ferramentas densas, listas e controles utilitÃ¡rios.",
-                    "name": "Ghost"
-                },
-                "label": "Aplicar estilo"
+                "secondary": {
+                    "description": "Padrao ghost para acoes de apoio.",
+                    "name": "Secondary"
+                }
             }
         },
         "card": {
@@ -1523,6 +1554,64 @@
             },
             "title": "Structure Primitives"
         },
+        "table": {
+            "caption": "Uma primitiva de tabela compartilhada baseada em TanStack Table e estilizada para as superficies do sistema.",
+            "columns": {
+                "campus": "Campus",
+                "name": "Projeto",
+                "status": "Status",
+                "updatedAt": "Atualizado"
+            },
+            "description": "Table e a primitiva compartilhada para listas operacionais densas que ainda precisam de hierarquia clara, tratamento de overflow horizontal e estados previsiveis de vazio e loading.",
+            "empty": {
+                "description": "Passe um empty state escopado quando a colecao nao tiver linhas, em vez de deixar a regiao visualmente indefinida.",
+                "title": "Nenhum projeto nesta visao"
+            },
+            "loadingLabel": "Carregando linhas da tabela",
+            "patternNotes": {
+                "items": {
+                    "columns": "Mantenha as definicoes de coluna perto da feature dona dos dados. A primitiva deve continuar responsavel por renderizacao, row models e comportamento da superficie.",
+                    "headless": "TanStack Table e usado como engine headless. A primitiva compartilhada controla o contrato visual enquanto as features controlam seus dados e o comportamento das colunas.",
+                    "overflow": "Envolva a tabela com a scroll area compartilhada para que datasets largos continuem usaveis sem deslocar o layout mais amplo da pagina.",
+                    "sorting": "Sorting ja vem embutido para colunas ordenaveis, mas deve permanecer discreto e operacional, sem transformar a tabela em uma planilha."
+                },
+                "snippet": "<Table\n  data={rows}\n  columns={columns}\n  caption=\"Projetos operacionais\"\n  emptyState={<EmptyState title=\"Sem linhas\" description=\"Ajuste seus filtros.\" />}\n/>"
+            },
+            "rows": {
+                "atlas": {
+                    "campus": "Campus Norte",
+                    "name": "Projeto Atlas",
+                    "updatedAt": "ha 2 horas"
+                },
+                "connections": {
+                    "campus": "Campus Centro",
+                    "name": "Conexoes Comunitarias",
+                    "updatedAt": "Ontem"
+                },
+                "labs": {
+                    "campus": "Campus Oeste",
+                    "name": "Laboratorios de Inovacao",
+                    "updatedAt": "ha 3 dias"
+                }
+            },
+            "sections": {
+                "states": {
+                    "description": "A mesma primitiva deve permanecer coerente durante o loading e quando a colecao resolver para zero linhas.",
+                    "title": "Estados de loading e vazio"
+                },
+                "structure": {
+                    "description": "Uma tabela operacional basica deve parecer legivel antes de qualquer filtro, acao ou paginacao especifica de feature ao seu redor.",
+                    "title": "Estrutura de lista operacional"
+                }
+            },
+            "statesNote": "Mantenha comportamentos avancados como acoes de linha, filtros, paginacao ou virtualizacao fora da primitiva ate que uma feature real os exija.",
+            "status": {
+                "active": "Ativo",
+                "hold": "Em espera",
+                "planning": "Planejamento"
+            },
+            "title": "Table"
+        },
         "textArea": {
             "cards": {
                 "feedback": {
@@ -1558,6 +1647,19 @@
         },
         "toggleControls": {
             "cards": {
+                "chrome": {
+                    "description": "Use a variante chrome em fundos coloridos. Os itens podem ficar compactos e usar tooltip embutido.",
+                    "locale": {
+                        "english": "Ingles",
+                        "portuguese": "Portugues"
+                    },
+                    "theme": {
+                        "dark": "Escuro",
+                        "light": "Claro",
+                        "system": "Sistema"
+                    },
+                    "title": "Variante chrome"
+                },
                 "multi": {
                     "description": "Use toggle groups de mÃºltipla seleÃ§Ã£o para formataÃ§Ã£o ou controles em forma de chip em que vÃ¡rios estados possam continuar ativos.",
                     "items": {
@@ -1567,9 +1669,18 @@
                     },
                     "title": "VÃ¡rios estados pressionados"
                 },
+                "pill": {
+                    "description": "Use a variante pill quando estados relacionados devem parecer colados em um unico controle segmentado.",
+                    "items": {
+                        "dark": "Escuro",
+                        "light": "Claro",
+                        "system": "Sistema"
+                    },
+                    "title": "Variante pill"
+                },
                 "single": {
                     "ariaLabel": "Alternar formataÃ§Ã£o em negrito",
-                    "description": "Uma aÃ§Ã£o pressionada que se comporta como botÃ£o com estado, e nÃ£o como campo de formulÃ¡rio.",
+                    "description": "Use o toggle unico como padrao de acao pressionada na superficie normal do app.",
                     "disabledLabel": "Bloqueado",
                     "label": "Negrito",
                     "title": "Toggle Ãºnico"
@@ -1583,23 +1694,45 @@
                     "title": "Modo de visualizaÃ§Ã£o exclusivo"
                 }
             },
-            "description": "Toggle e toggle group expressam estado pressionado em vez de seleÃ§Ã£o de formulÃ¡rio. Use para modos de visualizaÃ§Ã£o, controles de formataÃ§Ã£o e conjuntos densos de aÃ§Ãµes em que o componente deve se comportar como um botÃ£o com estado persistente.",
+            "description": "Toggle e toggle group expressam estado pressionado em vez de selecao de formulario. O toggle unico usa o tratamento padrao de superficie, enquanto toggle groups agora tem um contrato mais restrito: `spaced` ou `pill`, com `chrome` opcional para fundos coloridos.",
             "patternNotes": {
+                "groupSnippet": "<ToggleGroup variant=\"pill\" colorVariant=\"chrome\" value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"light\" tooltipContent=\"Claro\">\n    <Sun />\n  </ToggleGroupItem>\n  <ToggleGroupItem value=\"dark\" tooltipContent=\"Escuro\">\n    <Moon />\n  </ToggleGroupItem>\n</ToggleGroup>",
                 "items": {
+                    "chrome": "Use `colorVariant=\"chrome\"` apenas em superficies coloridas, como a topbar do shell. Os itens tambem aceitam `tooltipContent` diretamente.",
+                    "defaultSurface": "Use o toggle unico como padrao de acao pressionada em superficies neutras.",
                     "group": "Use toggle group quando vÃ¡rios controles pressionados relacionados precisarem funcionar como um conjunto exclusivo ou multi-seleÃ§Ã£o.",
+                    "pill": "Use `variant=\"pill\"` quando os itens devem parecer um controle segmentado unico, e nao botoes separados.",
                     "press": "Esses controles comunicam estado pressionado, nÃ£o semÃ¢ntica de formulÃ¡rio. Prefira checkbox, radio group ou switch quando o significado for seleÃ§Ã£o ou configuraÃ§Ã£o.",
                     "scope": "Toggle controls funcionam melhor em toolbars, trocas de visualizaÃ§Ã£o, aÃ§Ãµes de formataÃ§Ã£o e chips compactos de filtro.",
+                    "spaced": "Use `ToggleGroup` com a variante padrao `spaced` para toolbars, trocas de visualizacao e linhas de filtro.",
                     "toggle": "Use toggle para um Ãºnico controle pressionado/nÃ£o pressionado que se comporta como um botÃ£o de aÃ§Ã£o com estado."
                 },
+                "singleSnippet": "<Toggle aria-label=\"Negrito\">Negrito</Toggle>",
                 "snippet": "<Toggle aria-label=\"Negrito\">Negrito</Toggle>\n\n<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grade</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">Lista</ToggleGroupItem>\n</ToggleGroup>"
             },
             "primitives": {
                 "toggleGroupTitle": "Toggle Group"
             },
             "sections": {
+                "chrome": {
+                    "description": "Use a variante chrome quando o grupo estiver em um fundo de marca ou outra superficie colorida.",
+                    "title": "Chrome em superficies coloridas"
+                },
+                "default": {
+                    "description": "Este e o controle base de acao pressionada para superficies neutras.",
+                    "title": "Toggle unico padrao"
+                },
                 "multi": {
                     "description": "Um toggle group mÃºltiplo funciona quando vÃ¡rios estados de formataÃ§Ã£o ou filtro podem permanecer ativos ao mesmo tempo.",
                     "title": "Grupos com vÃ¡rios estados pressionados"
+                },
+                "pill": {
+                    "description": "A variante pill transforma o grupo em um controle conectado para escolhas exclusivas compactas.",
+                    "title": "Variante pill"
+                },
+                "spaced": {
+                    "description": "O layout padrao do toggle group mantem os itens separados. Use em toolbars, grupos de formatacao e trocas de visualizacao.",
+                    "title": "Variante spaced"
                 },
                 "usage": {
                     "description": "Use um toggle isolado para uma aÃ§Ã£o pressionada, ou um toggle group de valor Ãºnico quando um modo ou visualizaÃ§Ã£o deve permanecer ativo.",

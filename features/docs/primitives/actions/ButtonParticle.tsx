@@ -8,7 +8,6 @@ import {
 	OctagonAlert,
 	Plus,
 	ShieldAlert,
-	Zap,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -24,6 +23,15 @@ import {
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
+const USAGE_ITEMS = [
+	{ key: "primary", icon: ArrowRight },
+	{ key: "secondary", icon: Download },
+	{ key: "success", icon: CheckCircle2 },
+	{ key: "info", icon: Info },
+	{ key: "warning", icon: OctagonAlert },
+	{ key: "danger", icon: ShieldAlert },
+] as const;
+
 export default function ButtonParticle() {
 	const { t } = useTranslation();
 
@@ -34,144 +42,111 @@ export default function ButtonParticle() {
 			description={t("docs.button.description")}
 			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
-				{ description: t("docs.button.patternNotes.items.usage") },
-				{ description: t("docs.button.patternNotes.items.flat") },
-				{ description: t("docs.button.patternNotes.items.ghost") },
+				{ description: t("docs.button.patternNotes.items.default") },
+				{ description: t("docs.button.patternNotes.items.primaryVariant") },
+				{ description: t("docs.button.patternNotes.items.secondaryVariant") },
+				{ description: t("docs.button.patternNotes.items.actionOrder") },
 				{ description: t("docs.button.patternNotes.items.icon") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
 			patternNotesSnippet={t("docs.button.patternNotes.snippet")}
 		>
 			<ParticleSection
-				title={t("docs.button.sections.usage.title")}
-				description={t("docs.button.sections.usage.description")}
+				title={t("docs.button.sections.default.title")}
+				description={t("docs.button.sections.default.description")}
+				defaultExpanded
 			>
-				<div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-					{[
-						{
-							key: "primary",
-							usage: "primary" as const,
-							icon: (
+				<Card className="p-4">
+					<CardHeader>
+						<CardTitle>{t("docs.button.defaultCard.title")}</CardTitle>
+						<CardDescription>
+							{t("docs.button.defaultCard.description")}
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="flex flex-wrap items-center gap-3">
+						<Button>{t("docs.button.defaultCard.primary")}</Button>
+						<Button
+							variant="primary"
+							usage="primary"
+							size="md"
+							trailingIcon={
 								<Icon
 									icon={ArrowRight}
 									className="h-4 w-4"
 								/>
-							),
-						},
-						{
-							key: "secondary",
-							usage: "secondary" as const,
-							icon: (
-								<Icon
-									icon={Download}
-									className="h-4 w-4"
-								/>
-							),
-						},
-						{
-							key: "success",
-							usage: "success" as const,
-							icon: (
-								<Icon
-									icon={CheckCircle2}
-									className="h-4 w-4"
-								/>
-							),
-						},
-						{
-							key: "info",
-							usage: "info" as const,
-							icon: (
-								<Icon
-									icon={Info}
-									className="h-4 w-4"
-								/>
-							),
-						},
-						{
-							key: "warning",
-							usage: "warning" as const,
-							icon: (
-								<Icon
-									icon={OctagonAlert}
-									className="h-4 w-4"
-								/>
-							),
-						},
-						{
-							key: "danger",
-							usage: "danger" as const,
-							icon: (
-								<Icon
-									icon={ShieldAlert}
-									className="h-4 w-4"
-								/>
-							),
-						},
-					].map(item => (
-						<Card
-							key={item.key}
-							className="flex min-h-40 flex-col justify-between p-4"
+							}
 						>
-							<CardHeader>
-								<CardTitle>
-									{t(`docs.button.usageCards.${item.key}.name`)}
-								</CardTitle>
-								<CardDescription>
-									{t(`docs.button.usageCards.${item.key}.description`)}
-								</CardDescription>
-							</CardHeader>
-							<CardContent>
-								<Button
-									usage={item.usage}
-									trailingIcon={item.icon}
-								>
-									{t(`docs.button.usageCards.${item.key}.label`)}
-								</Button>
-							</CardContent>
-						</Card>
-					))}
-				</div>
+							{t("docs.button.defaultCard.explicit")}
+						</Button>
+						<Button variant="secondary">
+							{t("docs.button.defaultCard.secondary")}
+						</Button>
+					</CardContent>
+				</Card>
 			</ParticleSection>
 
 			<ParticleSection
-				title={t("docs.button.sections.variant.title")}
-				description={t("docs.button.sections.variant.description")}
+				title={t("docs.button.sections.primaryVariant.title")}
+				description={t("docs.button.sections.primaryVariant.description")}
 			>
-				<div className="grid gap-4 md:grid-cols-2">
-					{[
-						{ key: "flat", variant: "flat" as const },
-						{ key: "ghost", variant: "ghost" as const },
-					].map(item => (
-						<Card
-							key={item.key}
-							className="flex min-h-40 flex-col justify-between p-4"
-						>
-							<CardHeader>
-								<CardTitle>
-									{t(`docs.button.variantCards.${item.key}.name`)}
-								</CardTitle>
-								<CardDescription>
-									{t(`docs.button.variantCards.${item.key}.description`)}
-								</CardDescription>
-							</CardHeader>
-							<CardContent>
-								<Button
-									usage="primary"
-									variant={item.variant}
-									leadingIcon={
-										<Icon
-											icon={Zap}
-											className="h-4 w-4"
-										/>
-									}
-								>
-									{t("docs.button.variantCards.label")}
-								</Button>
-							</CardContent>
-						</Card>
-					))}
-				</div>
+				<Card className="p-4">
+					<CardHeader>
+						<CardTitle>{t("docs.button.variantCards.primary.name")}</CardTitle>
+						<CardDescription>
+							{t("docs.button.variantCards.primary.description")}
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="flex flex-wrap items-center gap-3">
+						{USAGE_ITEMS.map(item => (
+							<Button
+								key={item.key}
+								variant="primary"
+								usage={item.key}
+								trailingIcon={
+									<Icon
+										icon={item.icon}
+										className="h-4 w-4"
+									/>
+								}
+							>
+								{t(`docs.button.usageCards.${item.key}.label`)}
+							</Button>
+						))}
+					</CardContent>
+				</Card>
+			</ParticleSection>
+
+			<ParticleSection
+				title={t("docs.button.sections.secondaryVariant.title")}
+				description={t("docs.button.sections.secondaryVariant.description")}
+			>
+				<Card className="p-4">
+					<CardHeader>
+						<CardTitle>
+							{t("docs.button.variantCards.secondary.name")}
+						</CardTitle>
+						<CardDescription>
+							{t("docs.button.variantCards.secondary.description")}
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="flex flex-wrap items-center gap-3">
+						{USAGE_ITEMS.map(item => (
+							<Button
+								key={item.key}
+								variant="secondary"
+								usage={item.key}
+								trailingIcon={
+									<Icon
+										icon={item.icon}
+										className="h-4 w-4"
+									/>
+								}
+							>
+								{t(`docs.button.usageCards.${item.key}.label`)}
+							</Button>
+						))}
+					</CardContent>
+				</Card>
 			</ParticleSection>
 
 			<ParticleSection
@@ -188,8 +163,6 @@ export default function ButtonParticle() {
 							<Button
 								key={item.key}
 								size={item.size}
-								usage="secondary"
-								variant="flat"
 								leadingIcon={
 									<Icon
 										icon={Plus}
@@ -202,8 +175,7 @@ export default function ButtonParticle() {
 						))}
 						<Button
 							size="icon"
-							usage="secondary"
-							variant="ghost"
+							variant="secondary"
 							title={t("docs.button.sizes.iconTitle")}
 							leadingIcon={
 								<Icon
@@ -227,7 +199,6 @@ export default function ButtonParticle() {
 							<Button
 								isLoading
 								loadingText={t("docs.button.statesCards.loading.loadingText")}
-								usage="primary"
 							>
 								{t("docs.button.statesCards.loading.button")}
 							</Button>
@@ -237,8 +208,7 @@ export default function ButtonParticle() {
 						<CardTitle>{t("docs.button.statesCards.disabled.title")}</CardTitle>
 						<CardContent>
 							<Button
-								usage="secondary"
-								variant="flat"
+								variant="secondary"
 								disabled
 							>
 								{t("docs.button.statesCards.disabled.button")}
@@ -253,7 +223,6 @@ export default function ButtonParticle() {
 							<Button
 								className="w-full"
 								usage="info"
-								variant="flat"
 								trailingIcon={
 									<Icon
 										icon={ArrowRight}
@@ -266,6 +235,43 @@ export default function ButtonParticle() {
 						</CardContent>
 					</Card>
 				</div>
+			</ParticleSection>
+
+			<ParticleSection
+				title={t("docs.button.sections.actionOrder.title")}
+				description={t("docs.button.sections.actionOrder.description")}
+			>
+				<Card className="p-4">
+					<CardHeader>
+						<CardTitle>{t("docs.button.actionOrderCard.title")}</CardTitle>
+						<CardDescription>
+							{t("docs.button.actionOrderCard.description")}
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<div className="flex flex-wrap items-center justify-end gap-3">
+							<Button
+								variant="secondary"
+								usage="danger"
+							>
+								{t("docs.button.actionOrderCard.left")}
+							</Button>
+							<Button variant="secondary">
+								{t("docs.button.actionOrderCard.middle")}
+							</Button>
+							<Button
+								trailingIcon={
+									<Icon
+										icon={ArrowRight}
+										className="h-4 w-4"
+									/>
+								}
+							>
+								{t("docs.button.actionOrderCard.right")}
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
 			</ParticleSection>
 		</ParticleContainer>
 	);

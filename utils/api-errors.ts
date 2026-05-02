@@ -1,4 +1,7 @@
-import type { ApiErrorToastContent, ApiErrorToastOptions } from "@/types/client";
+import type {
+	ApiErrorToastContent,
+	ApiErrorToastOptions,
+} from "@/types/client";
 import { ApiError } from "@/utils/api";
 import { WebApiError } from "@/utils/web-api";
 
@@ -23,8 +26,7 @@ export function getApiErrorToastContent(
 	error: unknown,
 	options: ApiErrorToastOptions,
 ): ApiErrorToastContent {
-	const description =
-		getApiErrorMessage(error) ?? options.fallbackDescription;
+	const description = getApiErrorMessage(error) ?? options.fallbackDescription;
 
 	return {
 		title: options.fallbackTitle,

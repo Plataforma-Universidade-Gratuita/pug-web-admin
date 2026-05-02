@@ -45,9 +45,9 @@
 		background: linear-gradient(
 			90deg,
 			transparent 0%,
-			color-mix(in oklab, white 34%, transparent) 35%,
-			color-mix(in oklab, white 96%, transparent) 50%,
-			color-mix(in oklab, white 34%, transparent) 65%,
+			color-mix(in oklab, var(--twc-border-2) 34%, transparent) 35%,
+			color-mix(in oklab, var(--twc-border-3) 58%, transparent) 50%,
+			color-mix(in oklab, var(--twc-border-2) 34%, transparent) 65%,
 			transparent 100%
 		);
 		opacity: 0.95;

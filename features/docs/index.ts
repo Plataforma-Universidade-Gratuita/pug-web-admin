@@ -21,6 +21,7 @@ export { default as SectionParticle } from "./primitives/display/SectionParticle
 export { default as SelectParticle } from "./primitives/forms/SelectParticle";
 export { default as SeparatorParticle } from "./primitives/display/SeparatorParticle";
 export { default as SkeletonParticle } from "./primitives/display/SkeletonParticle";
+export { default as TableParticle } from "./primitives/display/TableParticle";
 export { default as ScrollAreaParticle } from "./primitives/structure/ScrollAreaParticle";
 export { default as SwitchParticle } from "./primitives/forms/SwitchParticle";
 export { default as TabsParticle } from "./primitives/navigation/TabsParticle";

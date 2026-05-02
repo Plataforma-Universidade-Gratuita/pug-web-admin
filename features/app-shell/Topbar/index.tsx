@@ -63,6 +63,7 @@ export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 								value={mode}
 								options={themeSelectorOptions}
 								onValueChange={setMode}
+								colorVariant="chrome"
 							/>
 						</div>
 						<div className="app-topbar-picker app-topbar-picker-language">
@@ -70,6 +71,7 @@ export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 								value={lang}
 								options={languageSelectorOptions}
 								onValueChange={setLang}
+								colorVariant="chrome"
 							/>
 						</div>
 					</div>

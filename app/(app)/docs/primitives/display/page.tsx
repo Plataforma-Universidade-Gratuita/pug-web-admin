@@ -6,6 +6,7 @@ import {
 	SectionParticle,
 	SeparatorParticle,
 	SkeletonParticle,
+	TableParticle,
 } from "@/features/docs";
 
 export default function ComponentsDocsPage() {
@@ -18,6 +19,7 @@ export default function ComponentsDocsPage() {
 			<SectionParticle />
 			<SeparatorParticle />
 			<SkeletonParticle />
+			<TableParticle />
 		</main>
 	);
 }

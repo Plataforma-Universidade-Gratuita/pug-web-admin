@@ -1,8 +1,5 @@
 "use client";
 
-import clsx from "clsx";
-
-import { Tooltip } from "@/components";
 import {
 	ToggleGroup,
 	ToggleGroupItem,
@@ -11,6 +8,7 @@ import type { AppLang, LanguageSelectorProps } from "@/types/client";
 
 export function LanguageSelector({
 	className,
+	colorVariant = "default",
 	onValueChange,
 	options,
 	value,
@@ -18,28 +16,27 @@ export function LanguageSelector({
 	return (
 		<ToggleGroup
 			type="single"
+			variant="pill"
+			colorVariant={colorVariant}
 			value={value ?? options[0]?.value}
 			onValueChange={nextValue => {
 				if (nextValue) {
 					onValueChange(nextValue as AppLang);
 				}
 			}}
-			className={clsx("selector-pill-root", className)}
+			className={className}
 		>
 			{options.map(option => (
-				<Tooltip
+				<ToggleGroupItem
 					key={option.value}
-					content={option.label}
+					value={option.value}
+					aria-label={option.label}
+					title={option.label}
+					className="toggle-group-item-short-label"
+					tooltipContent={option.label}
 				>
-					<ToggleGroupItem
-						value={option.value}
-						aria-label={option.label}
-						title={option.label}
-						className="selector-pill-item selector-pill-item-label"
-					>
-						{option.shortLabel}
-					</ToggleGroupItem>
-				</Tooltip>
+					{option.shortLabel}
+				</ToggleGroupItem>
 			))}
 		</ToggleGroup>
 	);

@@ -78,33 +78,79 @@
 		padding-right: 0;
 	}
 
-	html.light .app-topbar .selector-pill-root,
-	html.light-theme .app-topbar .selector-pill-root,
-	html[data-theme="light"] .app-topbar .selector-pill-root {
+	html.light .app-topbar .toggle-group-color-chrome,
+	html.light-theme .app-topbar .toggle-group-color-chrome,
+	html[data-theme="light"] .app-topbar .toggle-group-color-chrome {
 		border-color: color-mix(in oklab, var(--white-a12) 16%, transparent);
 		background-color: color-mix(in oklab, var(--white-a12) 6%, transparent);
 		box-shadow: inset 0 1px 0
 			color-mix(in oklab, var(--white-a12) 7%, transparent);
 	}
 
-	html.light .app-topbar .selector-pill-item,
-	html.light-theme .app-topbar .selector-pill-item,
-	html[data-theme="light"] .app-topbar .selector-pill-item {
+	html.light .app-topbar .toggle-group-color-chrome .toggle-group-item-pill,
+	html.light-theme
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill,
+	html[data-theme="light"]
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill {
 		color: color-mix(in oklab, var(--white-a12) 72%, transparent);
 	}
 
-	html.light .app-topbar .selector-pill-item:hover,
-	html.light-theme .app-topbar .selector-pill-item:hover,
-	html[data-theme="light"] .app-topbar .selector-pill-item:hover {
+	html.light
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill:hover,
+	html.light-theme
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill:hover,
+	html[data-theme="light"]
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill:hover {
 		background-color: color-mix(in oklab, var(--white-a12) 10%, transparent);
 		color: var(--white-a12);
 	}
 
-	html.light .app-topbar .selector-pill-item[aria-checked="true"],
-	html.light-theme .app-topbar .selector-pill-item[aria-checked="true"],
+	html.light
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill[data-state="on"],
+	html.light
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill[aria-checked="true"],
+	html.light
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill[aria-pressed="true"],
+	html.light-theme
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill[data-state="on"],
+	html.light-theme
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill[aria-checked="true"],
+	html.light-theme
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill[aria-pressed="true"],
 	html[data-theme="light"]
 		.app-topbar
-		.selector-pill-item[aria-checked="true"] {
+		.toggle-group-color-chrome
+		.toggle-group-item-pill[data-state="on"],
+	html[data-theme="light"]
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill[aria-checked="true"],
+	html[data-theme="light"]
+		.app-topbar
+		.toggle-group-color-chrome
+		.toggle-group-item-pill[aria-pressed="true"] {
 		background-color: color-mix(in oklab, var(--white-a12) 12%, transparent);
 		color: var(--white-a12);
 		box-shadow: inset 0 0 0 1px

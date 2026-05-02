@@ -22,19 +22,25 @@ export default function ToggleParticle() {
 		<ParticleContainer
 			eyebrow={t("docs.shared.eyebrow")}
 			title={t("docs.toggleControls.cards.single.title")}
-			description={t("docs.toggleControls.cards.single.description")}
+			description={t("docs.toggleControls.description")}
 			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
 				{ description: t("docs.toggleControls.patternNotes.items.toggle") },
+				{
+					description: t(
+						"docs.toggleControls.patternNotes.items.defaultSurface",
+					),
+				},
 				{ description: t("docs.toggleControls.patternNotes.items.press") },
 				{ description: t("docs.toggleControls.patternNotes.items.scope") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
-			patternNotesSnippet={`<Toggle aria-label="${t("docs.toggleControls.cards.single.ariaLabel")}">${t("docs.toggleControls.cards.single.label")}</Toggle>`}
+			patternNotesSnippet={t("docs.toggleControls.patternNotes.singleSnippet")}
 		>
 			<ParticleSection
-				title={t("docs.toggleControls.sections.usage.title")}
-				description={t("docs.toggleControls.sections.usage.description")}
+				title={t("docs.toggleControls.sections.default.title")}
+				description={t("docs.toggleControls.sections.default.description")}
+				defaultExpanded
 			>
 				<Card className="p-4">
 					<CardHeader>
@@ -44,18 +50,20 @@ export default function ToggleParticle() {
 						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-4">
-						<Toggle
-							aria-label={t("docs.toggleControls.cards.single.ariaLabel")}
-						>
-							<Icon
-								icon={Bold}
-								className="h-4 w-4"
-							/>
-							<span>{t("docs.toggleControls.cards.single.label")}</span>
-						</Toggle>
-						<Toggle disabled>
-							{t("docs.toggleControls.cards.single.disabledLabel")}
-						</Toggle>
+						<div className="flex flex-wrap items-center gap-3">
+							<Toggle
+								aria-label={t("docs.toggleControls.cards.single.ariaLabel")}
+							>
+								<Icon
+									icon={Bold}
+									className="h-4 w-4"
+								/>
+								<span>{t("docs.toggleControls.cards.single.label")}</span>
+							</Toggle>
+							<Toggle disabled>
+								{t("docs.toggleControls.cards.single.disabledLabel")}
+							</Toggle>
+						</div>
 					</CardContent>
 				</Card>
 			</ParticleSection>

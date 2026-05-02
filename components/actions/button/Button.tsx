@@ -22,10 +22,13 @@ export function Button({
 	title,
 	tooltipContent,
 	type = "button",
-	usage = "primary",
-	variant = "flat",
+	usage,
+	variant = "primary",
 	...props
 }: ButtonProps) {
+	const resolvedUsage =
+		usage ??
+		(variant === "secondary" || variant === "ghost" ? "secondary" : "primary");
 	const label = isLoading && loadingText ? loadingText : children;
 	const derivedAriaLabel =
 		ariaLabel ??
@@ -51,7 +54,7 @@ export function Button({
 			title={size === "icon" ? undefined : title}
 			className={clsx(
 				"btn-base focus-ring inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap disabled:pointer-events-none disabled:shadow-none",
-				BUTTON_USAGES[usage],
+				BUTTON_USAGES[resolvedUsage],
 				BUTTON_VARIANTS[variant],
 				BUTTON_SIZES[size],
 				size === "icon" && "rounded-full",

@@ -9,6 +9,7 @@ export * from "./display/language-selector/LanguageSelector";
 export * from "./display/section/Section";
 export * from "./display/separator/Separator";
 export * from "./display/skeleton/Skeleton";
+export * from "./display/table/Table";
 export * from "./display/theme-selector/ThemeSelector";
 export * from "./forms/checkbox/Checkbox";
 export * from "./forms/combobox/Combobox";

@@ -8,8 +8,10 @@ export const BUTTON_USAGES = {
 } as const;
 
 export const BUTTON_VARIANTS = {
-	flat: "btn-variant-flat",
-	ghost: "btn-variant-ghost",
+	primary: "btn-variant-primary",
+	secondary: "btn-variant-secondary",
+	flat: "btn-variant-primary",
+	ghost: "btn-variant-secondary",
 } as const;
 
 export const BUTTON_SIZES = {

@@ -1,10 +1,7 @@
 import type { UseMutationOptions } from "@tanstack/react-query";
 
 import { toast } from "@/components";
-import type {
-	MutationToastOptions,
-	ResolvedToastValue,
-} from "@/types/client";
+import type { MutationToastOptions, ResolvedToastValue } from "@/types/client";
 import { getApiErrorToastContent } from "@/utils/api-errors";
 
 function resolveToastValue<TArgs extends unknown[]>(
@@ -35,12 +32,7 @@ export function createToastMutationOptions<
 		if (!options.success) return;
 
 		toast.success(
-			resolveToastValue(
-				options.success.title,
-				data,
-				variables,
-				onMutateResult,
-			),
+			resolveToastValue(options.success.title, data, variables, onMutateResult),
 			{
 				description: resolveToastValue(
 					options.success.description,

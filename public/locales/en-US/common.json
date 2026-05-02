@@ -304,31 +304,63 @@
             "title": "Breadcrumb"
         },
         "button": {
-            "description": "Buttons trigger user actions. Use `usage` to define semantic intent, `variant` to define visual treatment, and `size` to adapt the component to layout density.",
+            "actionOrderCard": {
+                "description": "In multi-action rows, place the main action at the far right and keep supporting decisions to its left.",
+                "left": "Delete draft",
+                "middle": "Save as draft",
+                "right": "Publish",
+                "title": "Right-most primary action"
+            },
+            "defaultCard": {
+                "description": "These examples show the stricter contract: default button, explicit primary, and the default grey secondary action.",
+                "explicit": "Explicit primary",
+                "primary": "Save changes",
+                "secondary": "Cancel",
+                "title": "Variant-driven defaults"
+            },
+            "description": "Buttons trigger user actions. The contract is now stricter: `variant=\"primary\"` is the main flat action, `variant=\"secondary\"` is the lower-emphasis ghost action, and `usage` changes the color when the meaning changes.",
             "patternNotes": {
                 "items": {
+                    "actionOrder": "When actions are grouped, place the primary action at the far right. Supporting actions stay to its left.",
+                    "default": "Use the no-props button as the baseline primary action. It already renders as medium-sized brand emphasis.",
                     "flat": "Use `variant=\"flat\"` for the default call-to-action treatment.",
-                    "ghost": "Use `variant=\"ghost\"` for lower-emphasis actions, dense interfaces, and supporting controls.",
-                    "icon": "For icon-only buttons, always provide a readable `title`, `aria-label`, or `tooltipContent` so the component can expose an accessible name.",
-                    "usage": "Set `usage` according to the meaning of the action: primary, secondary, success, info, warning, or danger."
+                    "icon": "For icon-only buttons, always provide a readable `title`, `aria-label`, or `tooltipContent` so the component exposes an accessible name.",
+                    "primaryVariant": "Use `variant=\"primary\"` for the main call to action. This is the filled pattern.",
+                    "secondaryVariant": "Use `variant=\"secondary\"` for supporting and fallback actions. This is the ghost pattern."
                 },
-                "snippet": "<Button\n  usage=\"primary | secondary | success | info | warning | danger\"\n  variant=\"flat | ghost\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Saving...\"\n  tooltipContent=\"Add item\"\n/>"
+                "snippet": "<Button>Save changes</Button>\n\n<Button variant=\"secondary\">Cancel</Button>\n\n<Button\n  variant=\"primary | secondary\"\n  usage=\"primary | secondary | success | info | warning | danger\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Saving...\"\n  tooltipContent=\"Add item\"\n/>"
             },
             "sections": {
+                "actionOrder": {
+                    "description": "Primary actions stay on the far right. Secondary and fallback actions stack to the left in decreasing emphasis.",
+                    "title": "Action order"
+                },
+                "default": {
+                    "description": "Start with the default primary button before reaching for overrides. Secondary intent should be expressed through the variant, not by ad hoc styling.",
+                    "title": "Default contract"
+                },
+                "primaryVariant": {
+                    "description": "Primary variant is the filled action style. Keep it for the right-most main action and change `usage` only when the semantic intent changes.",
+                    "title": "Primary variant colors"
+                },
                 "scale": {
-                    "description": "Scale the component according to spacing and density requirements.",
+                    "description": "Keep medium as the standard size. Move to small, large, or icon only when layout density truly requires it.",
                     "title": "Scale"
+                },
+                "secondaryVariant": {
+                    "description": "Secondary variant is the ghost action style. It is the default fallback for lower-emphasis actions and supporting controls.",
+                    "title": "Secondary variant colors"
                 },
                 "states": {
                     "description": "Use the built-in states to keep feedback and interaction rules consistent.",
                     "title": "States"
                 },
                 "usage": {
-                    "description": "Choose the semantic usage that matches the outcome of the action.",
+                    "description": "Choose the semantic usage that matches the outcome of the action. The visual shape can stay consistent while the intent changes.",
                     "title": "Usage"
                 },
                 "variant": {
-                    "description": "Variants change presentation without changing behavior or semantic intent.",
+                    "description": "Keep `flat` as the normal treatment and use `ghost` only when the action should recede.",
                     "title": "Variant"
                 }
             },
@@ -387,15 +419,14 @@
                 }
             },
             "variantCards": {
-                "flat": {
-                    "description": "Filled in light mode and softened in dark mode without changing the action meaning.",
-                    "name": "Flat"
+                "primary": {
+                    "description": "Filled pattern for the main action.",
+                    "name": "Primary"
                 },
-                "ghost": {
-                    "description": "Low-chrome action for dense toolbars, lists, and utility affordances.",
-                    "name": "Ghost"
-                },
-                "label": "Apply style"
+                "secondary": {
+                    "description": "Ghost pattern for supporting actions.",
+                    "name": "Secondary"
+                }
             }
         },
         "card": {
@@ -1523,6 +1554,64 @@
             },
             "title": "Structure Primitives"
         },
+        "table": {
+            "caption": "A shared table primitive built on TanStack Table and styled for the system surfaces.",
+            "columns": {
+                "campus": "Campus",
+                "name": "Project",
+                "status": "Status",
+                "updatedAt": "Updated"
+            },
+            "description": "Table is the shared primitive for dense operational lists that still need clear hierarchy, horizontal overflow handling, and predictable empty and loading states.",
+            "empty": {
+                "description": "Pass a scoped empty state when the collection has no rows instead of leaving the region visually unresolved.",
+                "title": "No projects in this view"
+            },
+            "loadingLabel": "Loading table rows",
+            "patternNotes": {
+                "items": {
+                    "columns": "Keep column definitions close to the feature that owns the data. The primitive should stay responsible for rendering, row models, and surface behavior.",
+                    "headless": "TanStack Table is used as a headless engine. The shared primitive owns the visual contract while features own their data and column behavior.",
+                    "overflow": "Wrap the table in the shared scroll area so wide datasets remain usable without shifting the broader page layout.",
+                    "sorting": "Sorting is built in for sortable columns, but it should stay quiet and operational rather than turning the table into a spreadsheet clone."
+                },
+                "snippet": "<Table\n  data={rows}\n  columns={columns}\n  caption=\"Operational projects\"\n  emptyState={<EmptyState title=\"No rows\" description=\"Adjust your filters.\" />}\n/>"
+            },
+            "rows": {
+                "atlas": {
+                    "campus": "North Campus",
+                    "name": "Project Atlas",
+                    "updatedAt": "2 hours ago"
+                },
+                "connections": {
+                    "campus": "Downtown Campus",
+                    "name": "Community Connections",
+                    "updatedAt": "Yesterday"
+                },
+                "labs": {
+                    "campus": "West Campus",
+                    "name": "Innovation Labs",
+                    "updatedAt": "3 days ago"
+                }
+            },
+            "sections": {
+                "states": {
+                    "description": "The same primitive should stay coherent during loading and when the collection resolves to zero rows.",
+                    "title": "Loading and empty states"
+                },
+                "structure": {
+                    "description": "A basic operational table should feel readable before any feature-specific filters, actions, or pagination are added around it.",
+                    "title": "Operational list structure"
+                }
+            },
+            "statesNote": "Keep advanced behaviors such as row actions, filters, pagination, or virtualization outside the primitive until a real feature demands them.",
+            "status": {
+                "active": "Active",
+                "hold": "On hold",
+                "planning": "Planning"
+            },
+            "title": "Table"
+        },
         "textArea": {
             "cards": {
                 "feedback": {
@@ -1558,6 +1647,19 @@
         },
         "toggleControls": {
             "cards": {
+                "chrome": {
+                    "description": "Use the chrome color variant on colored backgrounds. Items can stay compact and rely on built-in tooltip support.",
+                    "locale": {
+                        "english": "English",
+                        "portuguese": "Portuguese"
+                    },
+                    "theme": {
+                        "dark": "Dark",
+                        "light": "Light",
+                        "system": "System"
+                    },
+                    "title": "Chrome color variant"
+                },
                 "multi": {
                     "description": "Use multi-select toggle groups for formatting or chip-like controls where several states may remain active.",
                     "items": {
@@ -1567,9 +1669,18 @@
                     },
                     "title": "Multiple pressed states"
                 },
+                "pill": {
+                    "description": "Use the pill variant when related states should feel glued together as one segmented control.",
+                    "items": {
+                        "dark": "Dark",
+                        "light": "Light",
+                        "system": "System"
+                    },
+                    "title": "Pill variant"
+                },
                 "single": {
                     "ariaLabel": "Toggle bold formatting",
-                    "description": "A pressed action that behaves like a stateful button instead of a form field.",
+                    "description": "Use the single toggle as the default pressed-action pattern on the standard surface.",
                     "disabledLabel": "Locked",
                     "label": "Bold",
                     "title": "Single toggle"
@@ -1583,23 +1694,45 @@
                     "title": "Exclusive view mode"
                 }
             },
-            "description": "Toggle and toggle group express pressed state rather than form selection. Use them for view modes, formatting controls, and dense action sets where the control should behave like a button with remembered state.",
+            "description": "Toggle and toggle group express pressed state rather than form selection. The default single toggle uses the standard surface treatment, while toggle groups now have a constrained contract: `spaced` or `pill`, with optional `chrome` for colored backgrounds.",
             "patternNotes": {
+                "groupSnippet": "<ToggleGroup variant=\"pill\" colorVariant=\"chrome\" value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"light\" tooltipContent=\"Light\">\n    <Sun />\n  </ToggleGroupItem>\n  <ToggleGroupItem value=\"dark\" tooltipContent=\"Dark\">\n    <Moon />\n  </ToggleGroupItem>\n</ToggleGroup>",
                 "items": {
+                    "chrome": "Use `colorVariant=\"chrome\"` only on colored surfaces such as the shell topbar. Toggle group items can expose `tooltipContent` directly.",
+                    "defaultSurface": "Use the single toggle as the default pressed-action surface on neutral app backgrounds.",
                     "group": "Use toggle group when several related pressed controls need to behave as one mutually exclusive or multi-select set.",
+                    "pill": "Use `variant=\"pill\"` when the items should read as one connected control instead of separate buttons.",
                     "press": "These controls communicate pressed state, not form semantics. Prefer checkbox, radio group, or switch when the meaning is selection or settings.",
                     "scope": "Toggle controls are strongest in toolbars, view switches, formatting actions, and compact filter chips.",
+                    "spaced": "Use `ToggleGroup` with the default `spaced` variant for regular toolbars, view switches, and filter rows.",
                     "toggle": "Use toggle for one pressed/unpressed control that behaves like a stateful action button."
                 },
+                "singleSnippet": "<Toggle aria-label=\"Bold\">Bold</Toggle>",
                 "snippet": "<Toggle aria-label=\"Bold\">Bold</Toggle>\n\n<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grid</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">List</ToggleGroupItem>\n</ToggleGroup>"
             },
             "primitives": {
                 "toggleGroupTitle": "Toggle Group"
             },
             "sections": {
+                "chrome": {
+                    "description": "Use the chrome color variant when the group sits on a branded or colored background.",
+                    "title": "Chrome on colored surfaces"
+                },
+                "default": {
+                    "description": "This is the baseline pressed-action control for neutral surfaces.",
+                    "title": "Default single toggle"
+                },
                 "multi": {
                     "description": "A multiple toggle group works when several formatting or filter states may remain active together.",
                     "title": "Multi-pressed groups"
+                },
+                "pill": {
+                    "description": "The pill variant turns the group into one connected control for compact mutually exclusive choices.",
+                    "title": "Pill group variant"
+                },
+                "spaced": {
+                    "description": "The default toggle group layout keeps items separated. Use it for toolbars, formatting sets, and view switches.",
+                    "title": "Spaced group variant"
                 },
                 "usage": {
                     "description": "Use a lone toggle for one pressed action, or a single-value toggle group when one view or mode should stay active.",

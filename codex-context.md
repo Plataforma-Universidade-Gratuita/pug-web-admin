@@ -366,6 +366,36 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - `ScrollArea` is the shared scroll container primitive.
 - `Tooltip`, `Popover`, `Dialog`, `Drawer`, `AlertDialog`, `DropdownMenu`, `Tabs`, `Accordion`, and form controls are all wrapped locally.
 - Icons should use the local `Icon` primitive where that contract already exists.
+- Button contract:
+  - the canonical button variants are `primary` and `secondary`
+  - `variant="primary"` is the main filled action pattern
+  - `variant="secondary"` is the lower-emphasis ghost action pattern
+  - default button contract is:
+    - `variant="primary"`
+    - `usage="primary"`
+    - `size="md"`
+  - when `variant="secondary"` is used without an explicit `usage`, it should render with the neutral grey action treatment
+  - `usage` still controls semantic color meaning:
+    - `primary`
+    - `secondary`
+    - `success`
+    - `info`
+    - `warning`
+    - `danger`
+  - `flat` and `ghost` remain compatibility aliases only; do not prefer them in new code
+- Button action ordering rule:
+  - in grouped actions, the primary action belongs at the far right
+  - secondary and fallback actions stack to the left in decreasing emphasis
+- Toggle contract:
+  - single `Toggle` is the default neutral-surface pressed-action pattern
+  - `ToggleGroup` now has constrained variants:
+    - `spaced`
+    - `pill`
+  - `ToggleGroup` color variants are:
+    - `default`
+    - `chrome`
+  - use `chrome` only on colored surfaces such as the app-shell topbar
+  - `ToggleGroupItem` supports `tooltipContent` directly; do not rebuild selector-specific tooltip wrappers around theme/language controls
 
 ## Styling system
 

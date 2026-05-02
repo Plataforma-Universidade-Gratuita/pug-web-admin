@@ -6,4 +6,5 @@ export * from "./language-selector/LanguageSelector";
 export * from "./section/Section";
 export * from "./separator/Separator";
 export * from "./skeleton/Skeleton";
+export * from "./table/Table";
 export * from "./theme-selector/ThemeSelector";

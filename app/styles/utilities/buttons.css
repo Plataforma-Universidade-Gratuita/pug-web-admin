@@ -125,7 +125,7 @@
 	--btn-outline: color-mix(in oklab, var(--color-danger-800) 36%, transparent);
 }
 
-@utility btn-variant-flat {
+@utility btn-variant-primary {
 	--btn-flat-border: transparent;
 	--btn-flat-bg: var(--btn-accent);
 	--btn-flat-color: var(--btn-contrast);
@@ -168,7 +168,7 @@
 	}
 }
 
-@utility btn-variant-ghost {
+@utility btn-variant-secondary {
 	border: 1px solid transparent;
 	background-color: transparent;
 	color: var(--btn-accent);
