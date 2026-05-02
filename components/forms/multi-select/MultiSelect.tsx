@@ -91,7 +91,7 @@ export function MultiSelect({
 										<Badge
 											key={option.value}
 											tone={selectionTone}
-											variant="soft"
+											variant="primary"
 											onRemove={
 												disabled ? undefined : () => toggleValue(option.value)
 											}
@@ -105,7 +105,7 @@ export function MultiSelect({
 								{remainingCount > 0 ? (
 									<Badge
 										tone="neutral"
-										variant="outline"
+										variant="secondary"
 										className="multi-select-count-badge"
 									>
 										+{remainingCount}

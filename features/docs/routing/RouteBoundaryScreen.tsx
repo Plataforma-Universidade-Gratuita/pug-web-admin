@@ -132,7 +132,7 @@ export function RouteBoundaryScreen({
 							<Badge tone={config.tone}>{config.code}</Badge>
 							<Badge
 								tone="neutral"
-								variant="outline"
+								variant="secondary"
 							>
 								{isPreview ? "Preview" : "Live fallback"}
 							</Badge>

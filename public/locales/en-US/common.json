@@ -262,9 +262,9 @@
                     "compact": "Keep badge copy short. If the content needs a sentence, helper text, or multiple actions, it is no longer a badge.",
                     "status": "Use badge for short status-like metadata such as active state, review stage, compact category, or risk level. It should stay compact and glanceable.",
                     "tone": "Choose tone based on meaning, not decoration. The color should reinforce semantic state without carrying the entire message alone.",
-                    "variant": "Choose tone first and use variant only to tune emphasis inside the current surface."
+                    "variant": "Choose tone first and use variant only to tune emphasis inside the current surface. `primary` is solid in light mode and soft in dark mode. `secondary` is the outline treatment."
                 },
-                "snippet": "<Badge tone=\"success\">Approved</Badge>\n<Badge tone=\"brand\" variant=\"outline\">Featured</Badge>"
+                "snippet": "<Badge tone=\"success\" variant=\"primary\">Approved</Badge>\n<Badge tone=\"success\" variant=\"secondary\">Approved</Badge>"
             },
             "sections": {
                 "tones": {
@@ -272,15 +272,14 @@
                     "title": "Semantic tones"
                 },
                 "variants": {
-                    "description": "Use variants to tune emphasis without changing the underlying semantic meaning.",
-                    "title": "Variants"
+                    "description": "Use `primary` for the default emphasized badge. It renders solid in light mode and soft in dark mode. Use `secondary` when the badge should stay outlined.",
+                    "title": "Variant emphasis"
                 }
             },
             "title": "Badge",
             "variants": {
-                "outline": "Outline",
-                "soft": "Soft",
-                "solid": "Solid"
+                "primary": "Primary",
+                "secondary": "Secondary"
             }
         },
         "button": {
@@ -404,7 +403,7 @@
             "compositionCards": {
                 "actions": {
                     "body": "Keep footer actions tied to the content of that card. If actions belong to the entire page or section, place them outside the card instead.",
-                    "description": "Some cards need a footer because they collect card-level decisions or shortcuts.",
+                    "description": "Some cards need a footer because they collect card-level decisions or compact metadata.",
                     "footer": {
                         "primary": "Review details",
                         "secondary": "Dismiss"
@@ -432,6 +431,7 @@
             "layoutCards": {
                 "compact": {
                     "badge": "Docs-ready container",
+                    "body": "Use the footer for compact metadata such as badges or icons when the information still belongs to that single card.",
                     "description": "Cards do not need to be tall. Compact content works when the boundary still improves scanability.",
                     "title": "Compact marker"
                 },
@@ -457,15 +457,15 @@
             "patternNotes": {
                 "items": {
                     "behavior": "Cards are structural primitives. Behavior such as dialogs, tooltips, dropdowns, and navigation should come from the elements placed inside them, not from the card itself.",
-                    "container": "Use cards to group related information, not to create arbitrary visual boxes around every element on the page.",
-                    "footer": "Use the footer for card-level actions. If the card has no actions, omit the footer entirely.",
-                    "structure": "Compose cards from header, description, content, and footer only when those slots are actually needed by the content."
+                    "container": "Use cards for one bounded unit such as a repeated item, compact summary, or contained tool. Do not use cards as page structure or arbitrary wrappers around everything.",
+                    "footer": "Card footer is for card-level actions or compact metadata only. If the card has neither, omit the footer entirely.",
+                    "structure": "Compose cards from header, description, content, and footer only when those slots are actually needed. Header descriptions should stay short, and the header icon belongs on the left through the `icon` prop."
                 },
-                "snippet": "<Card>\n  <CardHeader>\n    <CardTitle>Card title</CardTitle>\n    <CardDescription>\n      Short supporting description.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>Body content</CardContent>\n\n  <CardFooter>\n    <Button variant=\"ghost\">Secondary</Button>\n    <Button usage=\"primary\" variant=\"flat\">Primary</Button>\n  </CardFooter>\n</Card>"
+                "snippet": "<Card>\n  <CardHeader icon={FolderKanban}>\n    <CardTitle>Card title</CardTitle>\n    <CardDescription>\n      Short supporting description.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>Body content</CardContent>\n\n  <CardFooter>\n    <Button variant=\"secondary\">Secondary</Button>\n    <Button>Primary</Button>\n  </CardFooter>\n</Card>"
             },
             "sections": {
                 "composition": {
-                    "description": "Use the same primitive for simple information blocks and for cards that include supporting actions.",
+                    "description": "Use the same primitive for compact information blocks, bounded summaries, and cards that include supporting actions or metadata.",
                     "title": "Composition"
                 },
                 "layouts": {
@@ -485,7 +485,7 @@
                 },
                 "header": {
                     "body": "If the body already carries enough context, do not force extra header copy just to fill space.",
-                    "description": "Use `CardHeader` when the content needs a visible title and supporting description before the body.",
+                    "description": "Use `CardHeader` when the content needs a visible title and short supporting description before the body. Pass the optional left icon through the header prop, not as manual child layout.",
                     "title": "Header is optional"
                 }
             },
@@ -831,7 +831,7 @@
                     "message": "Lead with a clear title and short description that explains why nothing is shown without blaming the user.",
                     "scope": "Use empty states inside the container that owns the absence of content: a page section, a card, a table region, or a list body."
                 },
-                "snippet": "<EmptyState\n  icon={<Inbox />}\n  title=\"No items yet\"\n  description=\"Create the first item to populate this view.\"\n  actions={\n    <Button usage=\"primary\" variant=\"flat\">New item</Button>\n  }\n/>"
+                "snippet": "<EmptyState\n  icon={<Inbox />}\n  title=\"No items yet\"\n  description=\"Create the first item to populate this view.\"\n  actions={\n    <Button>New item</Button>\n  }\n/>"
             },
             "results": {
                 "noAccess": {
@@ -982,7 +982,7 @@
                         },
                         "joao": {
                             "description": "Project operations",
-                            "label": "JoÃ£o"
+                            "label": "JoÃƒÆ’Ã‚Â£o"
                         },
                         "maria": {
                             "description": "Academic coordination",
@@ -1182,16 +1182,16 @@
             "description": "Sections group related content in normal page flow. Use them to define page structure, introduce a title and supporting description, and optionally attach section-level actions.",
             "patternNotes": {
                 "items": {
-                    "actions": "Section actions belong in the header when they affect the content of that section as a whole.",
-                    "composition": "Sections often contain cards, lists, forms, and other primitives. They define structure, while inner components define density and behavior.",
-                    "structure": "Use sections to organize page-level content and related blocks, not to add visual decoration by default.",
-                    "surface": "A section does not require borders, shadows, or depth. Add those treatments only when the surrounding layout needs more separation."
+                    "actions": "Section actions belong in the header only when they operate on the section as a whole. Keep the primary action on the far right and support actions to its left.",
+                    "composition": "Sections group content. Cards, tables, forms, and other dense surfaces belong inside `SectionContent` when they need more framing or behavior.",
+                    "structure": "Use sections to organize page-level content groups and introduce them with title and short description. Do not treat section itself as a decorative card.",
+                    "surface": "A section should usually remain visually quiet. If everything inside is one compact framed object, use a `Card` instead of forcing the section to become the surface."
                 },
-                "snippet": "<Section>\n  <SectionHeader>\n    <div>\n      <SectionTitle>Section title</SectionTitle>\n      <SectionDescription>\n        Supporting description.\n      </SectionDescription>\n    </div>\n\n    <SectionActions>\n      <Button variant=\"ghost\">Filter</Button>\n      <Button usage=\"primary\" variant=\"flat\">New item</Button>\n    </SectionActions>\n  </SectionHeader>\n\n  <SectionContent>\n    <Card>...</Card>\n  </SectionContent>\n</Section>"
+                "snippet": "<Section>\n  <SectionHeader>\n    <div>\n      <SectionTitle>Section title</SectionTitle>\n      <SectionDescription>\n        Short supporting description.\n      </SectionDescription>\n    </div>\n\n    <SectionActions>\n      <Button variant=\"secondary\">Filter</Button>\n      <Button>New item</Button>\n    </SectionActions>\n  </SectionHeader>\n\n  <SectionContent>\n    <Card>...</Card>\n  </SectionContent>\n</Section>"
             },
             "sections": {
                 "actions": {
-                    "description": "Actions can live in the header when they operate on the section content as a whole.",
+                    "description": "Actions belong in the header only when they affect the whole section. Keep their hierarchy predictable, with the main action on the far right.",
                     "title": "Header actions"
                 },
                 "structure": {
@@ -1199,8 +1199,8 @@
                     "title": "Structure"
                 },
                 "surface": {
-                    "description": "Sections may remain plain or receive additional visual treatment depending on the surrounding layout.",
-                    "title": "Surface treatment"
+                    "description": "Sections should usually stay plain and let inner components carry stronger framing when needed.",
+                    "title": "Sections versus surfaces"
                 }
             },
             "structureCards": {
@@ -1216,17 +1216,25 @@
                 }
             },
             "surfaceCards": {
-                "decorated": {
-                    "action": "Open section settings",
-                    "body": "The structure stays the same. Only the visual treatment changes to support the page composition.",
-                    "description": "Add surface treatment when the layout needs stronger separation, but keep the same structure primitive underneath.",
-                    "title": "Decorated section"
+                "cardsInside": {
+                    "description": "Use section as the page-level grouping band, then place cards inside when the content itself needs a framed surface.",
+                    "items": {
+                        "one": {
+                            "description": "A compact framed item that belongs to the same section body.",
+                            "title": "Workspace summary"
+                        },
+                        "two": {
+                            "description": "Another child surface under the same section heading and action set.",
+                            "title": "Open tasks"
+                        }
+                    },
+                    "title": "Cards inside a section"
                 },
-                "plain": {
-                    "body": "Use the plain form when the page already has enough separation from layout, rhythm, or nearby containers.",
+                "plainBand": {
+                    "body": "Use the plain form when the page already has enough layout rhythm and the content does not need an extra framed surface.",
                     "cta": "Review guidance",
-                    "description": "Sections can also remain visually quiet and let surrounding spacing do the grouping work.",
-                    "title": "Plain section"
+                    "description": "A section can stay visually quiet and still provide clear hierarchy for a new content group.",
+                    "title": "Plain grouping band"
                 }
             },
             "title": "Section"
@@ -1381,6 +1389,9 @@
             "viewPatternNotes": "View pattern notes"
         },
         "skeleton": {
+            "alertDialogExample": {
+                "trigger": "Open loading alert dialog"
+            },
             "cardExample": {
                 "cta": "Open summary",
                 "description": "This card keeps the exact same JSX in both states. Only the `isLoading` prop changes.",
@@ -1388,15 +1399,21 @@
             },
             "description": "Skeleton is the loading primitive for content that already has a stable layout. In most cases, use it through `Card isLoading` so card slots swap to placeholders automatically.",
             "dialogExample": {
-                "note": "Open the preview to inspect the dialog loading state in place.",
-                "title": "Sync workspace",
                 "trigger": "Open loading dialog"
             },
+            "drawerExample": {
+                "trigger": "Open loading drawer"
+            },
             "loadingLabels": {
+                "alertDialog": "Loading project alert dialog",
                 "card": "Loading project summary",
                 "dialog": "Loading project dialog",
+                "drawer": "Loading project drawer",
                 "section": "Loading project section",
                 "usageCard": "Loading button usage example"
+            },
+            "overlaysExample": {
+                "note": "Open each overlay to inspect the loading state in place."
             },
             "patternNotes": {
                 "items": {
@@ -1406,6 +1423,9 @@
                     "stability": "Loading placeholders should preserve layout footprint. Avoid swapping between completely different structures while requests are in flight."
                 },
                 "snippet": "<Card\n  isLoading\n  className=\"flex min-h-40 flex-col justify-between p-4\"\n>\n  <CardHeader>\n    <CardTitle>Card title</CardTitle>\n    <CardDescription>\n      Supporting description.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>\n    <Button usage=\"primary\">Continue</Button>\n  </CardContent>\n</Card>\n\n<Skeleton className=\"h-4 w-24\" />"
+            },
+            "popoverExample": {
+                "trigger": "Open loading popover"
             },
             "primitiveNote": "Use the low-level primitive only when automatic card loading is not enough.",
             "sectionExample": {
@@ -1423,10 +1443,6 @@
                     "description": "The card primitive can now replace title, description, content, and footer slots with skeleton placeholders automatically.",
                     "title": "Automatic card loading"
                 },
-                "dialog": {
-                    "description": "Dialogs use the same loading context so their title, close affordance, and scrollable body remain structurally stable.",
-                    "title": "Dialog loading"
-                },
                 "icon": {
                     "description": "Standalone icons can expose a simple circular skeleton when the icon itself is still resolving.",
                     "title": "Icon loading"
@@ -1434,6 +1450,10 @@
                 "layout": {
                     "description": "Low-level `Header`, `Content`, and `Footer` primitives also support explicit loading placeholders for custom compositions.",
                     "title": "Layout loading"
+                },
+                "overlays": {
+                    "description": "Overlays can expose stable loading surfaces without inventing fake internal structure while the real content is still unresolved.",
+                    "title": "Overlay loading"
                 },
                 "primitive": {
                     "description": "Use the `Skeleton` primitive directly for layouts that do not map to the built-in card anatomy.",
@@ -1543,6 +1563,12 @@
             }
         },
         "table": {
+            "actions": {
+                "delete": "Delete",
+                "edit": "Edit",
+                "save": "Save",
+                "view": "View details"
+            },
             "caption": "A shared table primitive built on TanStack Table and styled for the system surfaces.",
             "columns": {
                 "campus": "Campus",
@@ -1558,12 +1584,13 @@
             "loadingLabel": "Loading table rows",
             "patternNotes": {
                 "items": {
+                    "actions": "Use `getRowActions` when the last column should expose row-level actions. The primitive owns the three-dots trigger and dropdown shell; features own only the menu items.",
                     "columns": "Keep column definitions close to the feature that owns the data. The primitive should stay responsible for rendering, row models, and surface behavior.",
                     "headless": "TanStack Table is used as a headless engine. The shared primitive owns the visual contract while features own their data and column behavior.",
                     "overflow": "Wrap the table in the shared scroll area so wide datasets remain usable without shifting the broader page layout.",
                     "sorting": "Sorting is built in for sortable columns, but it should stay quiet and operational rather than turning the table into a spreadsheet clone."
                 },
-                "snippet": "<Table\n  data={rows}\n  columns={columns}\n  caption=\"Operational projects\"\n  emptyState={<EmptyState title=\"No rows\" description=\"Adjust your filters.\" />}\n/>"
+                "snippet": "<Table\n  data={rows}\n  columns={columns}\n  caption=\"Operational projects\"\n  getRowActions={(row) => (\n    <>\n      <DropdownMenuPrimaryItem icon={Eye} label=\"View details\" />\n      <DropdownMenuItem icon={Pencil} label=\"Edit\" />\n      <DropdownMenuSeparator />\n      <DropdownMenuDangerItem icon={Trash2} label=\"Delete\" />\n    </>\n  )}\n  emptyState={<EmptyState title=\"No rows\" description=\"Adjust your filters.\" />}\n/>"
             },
             "rows": {
                 "atlas": {
@@ -1592,7 +1619,7 @@
                     "title": "Operational list structure"
                 }
             },
-            "statesNote": "Keep advanced behaviors such as row actions, filters, pagination, or virtualization outside the primitive until a real feature demands them.",
+            "statesNote": "Row actions are now a built-in last-column pattern through `getRowActions`. Keep heavier behaviors such as selection, pagination, or virtualization out of the primitive until a real feature demands them.",
             "status": {
                 "active": "Active",
                 "hold": "On hold",

@@ -10,6 +10,10 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/actions/button/Button";
 import { Icon } from "@/components/display/icon/Icon";
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
+import {
+	SkeletonPanelBlock,
+	SkeletonTextBlock,
+} from "@/components/display/skeleton/presets";
 import { Header } from "@/components/structure/layout/Layout";
 import { ScrollArea } from "@/components/structure/scroll-area/ScrollArea";
 import { APP_TOPBAR_HEIGHT } from "@/constants/components";
@@ -75,7 +79,21 @@ export function DialogContent({ children, className }: DialogContentProps) {
 					}
 				>
 					{isLoading ? <span className="sr-only">{loadingLabel}</span> : null}
-					{children}
+					{isLoading ? (
+						<div
+							aria-hidden="true"
+							className="dialog-loading-shell"
+						>
+							<Skeleton className="dialog-loading-block" />
+						</div>
+					) : (
+						children
+					)}
+					{isLoading ? (
+						<RadixDialog.Title className="sr-only">
+							{loadingLabel}
+						</RadixDialog.Title>
+					) : null}
 				</RadixDialog.Content>
 			</div>
 		</RadixDialog.Portal>
@@ -141,11 +159,10 @@ export function DialogBody({ children, className }: DialogBodyProps) {
 					className="dialog-body-scroll"
 					viewportClassName="dialog-body-viewport"
 				>
-					<div className={clsx("dialog-body-inner space-y-2", className)}>
-						<Skeleton className="h-3 w-full" />
-						<Skeleton className="h-3 w-[72%]" />
-						<Skeleton className="h-3 w-[84%]" />
-						<Skeleton className="h-3 w-[64%]" />
+					<div className={clsx("dialog-body-inner grid gap-4", className)}>
+						<SkeletonTextBlock lines={["w-full", "w-[78%]", "w-[84%]"]} />
+						<SkeletonPanelBlock heightClassName="h-28" />
+						<SkeletonTextBlock lines={["w-[68%]", "w-[52%]"]} />
 					</div>
 				</ScrollArea>
 			</div>

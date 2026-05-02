@@ -31,35 +31,26 @@ export const BADGE_TONES = {
 } as const;
 
 export const BADGE_VARIANTS = {
-	soft: "",
-	solid: "",
-	outline: "",
+	primary: "",
+	secondary: "",
 } as const;
 
 export const BADGE_STYLES = {
-	soft: {
-		neutral: "badge-tone-neutral badge-variant-soft",
-		brand: "badge-tone-brand badge-variant-soft",
-		success: "badge-tone-success badge-variant-soft",
-		info: "badge-tone-info badge-variant-soft",
-		warning: "badge-tone-warning badge-variant-soft",
-		danger: "badge-tone-danger badge-variant-soft",
+	primary: {
+		neutral: "badge-tone-neutral badge-variant-primary",
+		brand: "badge-tone-brand badge-variant-primary",
+		success: "badge-tone-success badge-variant-primary",
+		info: "badge-tone-info badge-variant-primary",
+		warning: "badge-tone-warning badge-variant-primary",
+		danger: "badge-tone-danger badge-variant-primary",
 	},
-	solid: {
-		neutral: "badge-tone-neutral badge-variant-solid",
-		brand: "badge-tone-brand badge-variant-solid",
-		success: "badge-tone-success badge-variant-solid",
-		info: "badge-tone-info badge-variant-solid",
-		warning: "badge-tone-warning badge-variant-solid",
-		danger: "badge-tone-danger badge-variant-solid",
-	},
-	outline: {
-		neutral: "badge-tone-neutral badge-variant-outline",
-		brand: "badge-tone-brand badge-variant-outline",
-		success: "badge-tone-success badge-variant-outline",
-		info: "badge-tone-info badge-variant-outline",
-		warning: "badge-tone-warning badge-variant-outline",
-		danger: "badge-tone-danger badge-variant-outline",
+	secondary: {
+		neutral: "badge-tone-neutral badge-variant-secondary",
+		brand: "badge-tone-brand badge-variant-secondary",
+		success: "badge-tone-success badge-variant-secondary",
+		info: "badge-tone-info badge-variant-secondary",
+		warning: "badge-tone-warning badge-variant-secondary",
+		danger: "badge-tone-danger badge-variant-secondary",
 	},
 } as const;
 

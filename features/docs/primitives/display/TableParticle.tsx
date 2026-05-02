@@ -3,10 +3,27 @@
 import { useMemo } from "react";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import { CircleAlert, FolderKanban } from "lucide-react";
+import {
+	CircleAlert,
+	Eye,
+	FolderKanban,
+	Pencil,
+	Save,
+	Trash2,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Badge, EmptyState, Icon, Table } from "@/components";
+import {
+	Badge,
+	DropdownMenuDangerItem,
+	DropdownMenuItem,
+	DropdownMenuPrimaryItem,
+	DropdownMenuSeparator,
+	DropdownMenuSuccessItem,
+	EmptyState,
+	Icon,
+	Table,
+} from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
@@ -92,6 +109,7 @@ export default function TableParticle() {
 				{ description: t("docs.table.patternNotes.items.columns") },
 				{ description: t("docs.table.patternNotes.items.sorting") },
 				{ description: t("docs.table.patternNotes.items.overflow") },
+				{ description: t("docs.table.patternNotes.items.actions") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
 			patternNotesSnippet={t("docs.table.patternNotes.snippet")}
@@ -105,6 +123,31 @@ export default function TableParticle() {
 					data={rows}
 					columns={columns}
 					caption={t("docs.table.caption")}
+					getRowActions={() => (
+						<>
+							<DropdownMenuPrimaryItem
+								icon={Eye}
+								label={t("docs.table.actions.view")}
+								onSelect={event => event.preventDefault()}
+							/>
+							<DropdownMenuItem
+								icon={Pencil}
+								label={t("docs.table.actions.edit")}
+								onSelect={event => event.preventDefault()}
+							/>
+							<DropdownMenuSeparator />
+							<DropdownMenuSuccessItem
+								icon={Save}
+								label={t("docs.table.actions.save")}
+								onSelect={event => event.preventDefault()}
+							/>
+							<DropdownMenuDangerItem
+								icon={Trash2}
+								label={t("docs.table.actions.delete")}
+								onSelect={event => event.preventDefault()}
+							/>
+						</>
+					)}
 				/>
 			</ParticleSection>
 

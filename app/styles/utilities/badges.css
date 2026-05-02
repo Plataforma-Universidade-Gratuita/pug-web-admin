@@ -131,7 +131,7 @@
 	--badge-soft-border: color-mix(in srgb, var(--color-danger) 28%, transparent);
 }
 
-@utility badge-variant-soft {
+@utility badge-variant-primary {
 	border-color: var(--badge-accent);
 	background-color: var(--badge-accent);
 	color: var(--badge-contrast);
@@ -156,13 +156,7 @@
 	}
 }
 
-@utility badge-variant-solid {
-	border-color: var(--badge-accent);
-	background-color: var(--badge-accent);
-	color: var(--badge-contrast);
-}
-
-@utility badge-variant-outline {
+@utility badge-variant-secondary {
 	border-color: var(--badge-accent);
 	background-color: transparent;
 	color: var(--badge-accent);

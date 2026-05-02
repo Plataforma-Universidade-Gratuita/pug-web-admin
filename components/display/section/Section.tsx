@@ -3,7 +3,12 @@
 import clsx from "clsx";
 
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
-import { Content, Footer, Header } from "@/components/structure/layout/Layout";
+import {
+	SkeletonActionGroup,
+	SkeletonPanelBlock,
+	SkeletonTextBlock,
+} from "@/components/display/skeleton/presets";
+import { Content } from "@/components/structure/layout/Layout";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
 	SectionActionsProps,
@@ -31,7 +36,16 @@ export function Section({
 				{...props}
 			>
 				{isLoading ? <span className="sr-only">{loadingLabel}</span> : null}
-				{children}
+				{isLoading ? (
+					<div
+						aria-hidden="true"
+						className="section-loading-shell"
+					>
+						<Skeleton className="section-loading-block" />
+					</div>
+				) : (
+					children
+				)}
 			</section>
 		</LoadingProvider>
 	);
@@ -43,12 +57,12 @@ export function SectionHeader({
 	...props
 }: SectionHeaderProps) {
 	return (
-		<Header
+		<header
 			className={clsx("section-header", className)}
 			{...props}
 		>
 			{children}
-		</Header>
+		</header>
 	);
 }
 
@@ -87,13 +101,11 @@ export function SectionDescription({
 
 	if (isLoading) {
 		return (
-			<div
-				className={clsx("space-y-2", className)}
+			<SkeletonTextBlock
+				className={className}
+				lines={["w-full", "w-[68%]"]}
 				{...props}
-			>
-				<Skeleton className="h-3 w-full" />
-				<Skeleton className="h-3 w-[68%]" />
-			</div>
+			/>
 		);
 	}
 
@@ -122,12 +134,21 @@ export function SectionContent({
 			>
 				<div
 					aria-hidden="true"
-					className="space-y-3"
+					className="grid gap-4"
 				>
-					<Skeleton className="h-24 rounded-[var(--twc-radius-lg)]" />
+					<div className="grid gap-3 rounded-[var(--twc-radius-xl)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-3)] p-4">
+						<Skeleton className="h-4 w-[28%]" />
+						<SkeletonTextBlock lines={["w-full", "w-[84%]"]} />
+					</div>
 					<div className="grid gap-3 md:grid-cols-2">
-						<Skeleton className="h-12 rounded-[var(--twc-radius-lg)]" />
-						<Skeleton className="h-12 rounded-[var(--twc-radius-lg)]" />
+						<div className="grid gap-3 rounded-[var(--twc-radius-xl)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-3)] p-4">
+							<Skeleton className="h-4 w-[42%]" />
+							<SkeletonPanelBlock heightClassName="h-14" />
+						</div>
+						<div className="grid gap-3 rounded-[var(--twc-radius-xl)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-3)] p-4">
+							<Skeleton className="h-4 w-[38%]" />
+							<SkeletonPanelBlock heightClassName="h-14" />
+						</div>
 					</div>
 				</div>
 			</Content>
@@ -153,21 +174,21 @@ export function SectionActions({
 
 	if (isLoading) {
 		return (
-			<Footer
+			<div
 				className={clsx("section-actions", className)}
 				{...props}
 			>
-				<Skeleton className="h-10 w-32 rounded-full" />
-			</Footer>
+				<SkeletonActionGroup className="justify-end" />
+			</div>
 		);
 	}
 
 	return (
-		<Footer
+		<div
 			className={clsx("section-actions", className)}
 			{...props}
 		>
 			{children}
-		</Footer>
+		</div>
 	);
 }

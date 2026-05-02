@@ -11,7 +11,7 @@ export function Badge({
 	children,
 	className,
 	tone = "neutral",
-	variant = "soft",
+	variant = "primary",
 	onRemove,
 	removeLabel = "Remove badge",
 	...props

@@ -13,7 +13,7 @@ export function LoginHero() {
 				<div className="login-hero-header">
 					<Badge
 						tone="brand"
-						variant="soft"
+						variant="primary"
 						className="login-hero-badge"
 					>
 						<Icon

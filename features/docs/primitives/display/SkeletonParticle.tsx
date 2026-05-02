@@ -6,6 +6,8 @@ import { Circle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
+	AlertDialog,
+	AlertDialogContent,
 	Button,
 	Card,
 	CardContent,
@@ -13,13 +15,15 @@ import {
 	CardHeader,
 	CardTitle,
 	Dialog,
-	DialogBody,
 	DialogContent,
-	DialogHeader,
-	DialogTitle,
+	Drawer,
+	DrawerContent,
 	Footer,
 	Header,
 	Icon,
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
 	Content,
 	Section,
 	SectionActions,
@@ -35,6 +39,10 @@ import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 export default function SkeletonParticle() {
 	const { t } = useTranslation();
 	const [isDialogPreviewOpen, setIsDialogPreviewOpen] = useState(false);
+	const [isDrawerPreviewOpen, setIsDrawerPreviewOpen] = useState(false);
+	const [isAlertDialogPreviewOpen, setIsAlertDialogPreviewOpen] =
+		useState(false);
+	const [isPopoverPreviewOpen, setIsPopoverPreviewOpen] = useState(false);
 
 	return (
 		<ParticleContainer
@@ -166,10 +174,7 @@ export default function SkeletonParticle() {
 								</SectionDescription>
 							</div>
 							<SectionActions>
-								<Button
-									usage="primary"
-									variant="flat"
-								>
+								<Button usage="primary">
 									{t("docs.skeleton.sectionExample.cta")}
 								</Button>
 							</SectionActions>
@@ -194,10 +199,7 @@ export default function SkeletonParticle() {
 								</SectionDescription>
 							</div>
 							<SectionActions>
-								<Button
-									usage="primary"
-									variant="flat"
-								>
+								<Button usage="primary">
 									{t("docs.skeleton.sectionExample.cta")}
 								</Button>
 							</SectionActions>
@@ -214,20 +216,41 @@ export default function SkeletonParticle() {
 			</ParticleSection>
 
 			<ParticleSection
-				title={t("docs.skeleton.sections.dialog.title")}
-				description={t("docs.skeleton.sections.dialog.description")}
+				title={t("docs.skeleton.sections.overlays.title")}
+				description={t("docs.skeleton.sections.overlays.description")}
 			>
-				<Card className="space-y-4 p-4">
+				<Card className="p-4">
 					<CardContent className="flex flex-wrap items-center gap-3">
-						<Button
-							usage="primary"
-							variant="flat"
-							onClick={() => setIsDialogPreviewOpen(true)}
-						>
+						<Button onClick={() => setIsDialogPreviewOpen(true)}>
 							{t("docs.skeleton.dialogExample.trigger")}
 						</Button>
+						<Button
+							variant="secondary"
+							onClick={() => setIsDrawerPreviewOpen(true)}
+						>
+							{t("docs.skeleton.drawerExample.trigger")}
+						</Button>
+						<Button
+							variant="secondary"
+							onClick={() => setIsAlertDialogPreviewOpen(true)}
+						>
+							{t("docs.skeleton.alertDialogExample.trigger")}
+						</Button>
+						<Popover
+							open={isPopoverPreviewOpen}
+							onOpenChange={setIsPopoverPreviewOpen}
+						>
+							<PopoverTrigger>
+								<Button variant="secondary">
+									{t("docs.skeleton.popoverExample.trigger")}
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent className="w-80">
+								<Skeleton className="h-40 rounded-[var(--twc-radius-lg)]" />
+							</PopoverContent>
+						</Popover>
 					</CardContent>
-					<p className="ty-helper">{t("docs.skeleton.dialogExample.note")}</p>
+					<p className="ty-helper">{t("docs.skeleton.overlaysExample.note")}</p>
 				</Card>
 				<Dialog
 					open={isDialogPreviewOpen}
@@ -235,17 +258,24 @@ export default function SkeletonParticle() {
 					isLoading
 					loadingLabel={t("docs.skeleton.loadingLabels.dialog")}
 				>
-					<DialogContent>
-						<DialogHeader>
-							<DialogTitle>
-								{t("docs.skeleton.dialogExample.title")}
-							</DialogTitle>
-						</DialogHeader>
-						<DialogBody>
-							<Content isLoading />
-						</DialogBody>
-					</DialogContent>
+					<DialogContent>{null}</DialogContent>
 				</Dialog>
+				<Drawer
+					open={isDrawerPreviewOpen}
+					onOpenChange={setIsDrawerPreviewOpen}
+					isLoading
+					loadingLabel={t("docs.skeleton.loadingLabels.drawer")}
+				>
+					<DrawerContent>{null}</DrawerContent>
+				</Drawer>
+				<AlertDialog
+					open={isAlertDialogPreviewOpen}
+					onOpenChange={setIsAlertDialogPreviewOpen}
+					isLoading
+					loadingLabel={t("docs.skeleton.loadingLabels.alertDialog")}
+				>
+					<AlertDialogContent>{null}</AlertDialogContent>
+				</AlertDialog>
 			</ParticleSection>
 
 			<ParticleSection

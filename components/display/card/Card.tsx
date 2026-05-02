@@ -2,7 +2,13 @@
 
 import clsx from "clsx";
 
+import { Icon } from "@/components/display/icon/Icon";
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
+import {
+	SkeletonActionGroup,
+	SkeletonPanelBlock,
+	SkeletonTextBlock,
+} from "@/components/display/skeleton/presets";
 import { Content, Footer, Header } from "@/components/structure/layout/Layout";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
@@ -31,19 +37,50 @@ export function Card({
 				{...props}
 			>
 				{isLoading ? <span className="sr-only">{loadingLabel}</span> : null}
-				{children}
+				{isLoading ? (
+					<div
+						aria-hidden="true"
+						className="card-loading-shell"
+					>
+						<Skeleton className="card-loading-block" />
+					</div>
+				) : (
+					children
+				)}
 			</div>
 		</LoadingProvider>
 	);
 }
 
-export function CardHeader({ children, className, ...props }: CardHeaderProps) {
+export function CardHeader({
+	children,
+	className,
+	icon,
+	...props
+}: CardHeaderProps) {
+	const { isLoading } = useLoading();
+
 	return (
 		<Header
 			className={clsx("card-header", className)}
 			{...props}
 		>
-			{children}
+			{icon ? (
+				<div
+					aria-hidden="true"
+					className="card-header-icon"
+				>
+					{isLoading ? (
+						<Skeleton className="h-5 w-5 rounded-[var(--twc-radius-sm)]" />
+					) : (
+						<Icon
+							icon={icon}
+							className="h-5 w-5 text-[color:var(--color-brand)]"
+						/>
+					)}
+				</div>
+			) : null}
+			<div className="card-header-copy">{children}</div>
 		</Header>
 	);
 }
@@ -79,13 +116,11 @@ export function CardDescription({
 
 	if (isLoading) {
 		return (
-			<div
-				className={clsx("space-y-2", className)}
+			<SkeletonTextBlock
+				className={className}
+				lines={["w-full", "w-[72%]"]}
 				{...props}
-			>
-				<Skeleton className="h-3 w-full" />
-				<Skeleton className="h-3 w-[72%]" />
-			</div>
+			/>
 		);
 	}
 
@@ -110,12 +145,19 @@ export function CardContent({
 		<Content
 			className={clsx(
 				"card-content",
-				isLoading ? "flex min-h-10 items-center" : null,
+				isLoading ? "grid gap-3" : null,
 				className,
 			)}
 			{...props}
 		>
-			{isLoading ? <Skeleton className="h-10 w-32 rounded-full" /> : children}
+			{isLoading ? (
+				<>
+					<SkeletonTextBlock lines={["w-full", "w-[82%]", "w-[64%]"]} />
+					<SkeletonPanelBlock heightClassName="h-16" />
+				</>
+			) : (
+				children
+			)}
 		</Content>
 	);
 }
@@ -125,21 +167,10 @@ export function CardFooter({ children, className, ...props }: CardFooterProps) {
 
 	return (
 		<Footer
-			className={clsx(
-				"card-footer",
-				isLoading ? "flex flex-wrap gap-3" : null,
-				className,
-			)}
+			className={clsx("card-footer", isLoading ? "min-h-10" : null, className)}
 			{...props}
 		>
-			{isLoading ? (
-				<>
-					<Skeleton className="h-10 w-24 rounded-full" />
-					<Skeleton className="h-10 w-32 rounded-full" />
-				</>
-			) : (
-				children
-			)}
+			{isLoading ? <SkeletonActionGroup /> : children}
 		</Footer>
 	);
 }

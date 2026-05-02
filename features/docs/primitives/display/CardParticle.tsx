@@ -84,16 +84,11 @@ export default function CardParticle() {
 						<CardContent className="ty-body mt-6 flex-1">
 							{t("docs.card.compositionCards.actions.body")}
 						</CardContent>
-						<CardFooter className="mt-6 flex flex-wrap justify-end gap-3">
-							<Button
-								usage="secondary"
-								variant="ghost"
-							>
+						<CardFooter className="mt-6">
+							<Button variant="secondary">
 								{t("docs.card.compositionCards.actions.footer.secondary")}
 							</Button>
 							<Button
-								usage="primary"
-								variant="flat"
 								trailingIcon={
 									<Icon
 										icon={ArrowRight}
@@ -107,21 +102,13 @@ export default function CardParticle() {
 					</Card>
 
 					<Card className="flex min-h-52 flex-col p-4">
-						<CardHeader className="flex items-start gap-3 space-y-0">
-							<div className="surface-2 flex h-10 w-10 items-center justify-center rounded-[var(--twc-radius-lg)]">
-								<Icon
-									icon={FolderKanban}
-									className="h-5 w-5 text-[color:var(--color-brand)]"
-								/>
-							</div>
-							<div className="space-y-1">
-								<CardTitle>
-									{t("docs.card.compositionCards.summary.title")}
-								</CardTitle>
-								<CardDescription>
-									{t("docs.card.compositionCards.summary.description")}
-								</CardDescription>
-							</div>
+						<CardHeader icon={FolderKanban}>
+							<CardTitle>
+								{t("docs.card.compositionCards.summary.title")}
+							</CardTitle>
+							<CardDescription>
+								{t("docs.card.compositionCards.summary.description")}
+							</CardDescription>
 						</CardHeader>
 						<CardContent className="mt-6 grid gap-3 sm:grid-cols-2">
 							<div className="surface-2 rounded-[var(--twc-radius-lg)] p-3">
@@ -195,7 +182,10 @@ export default function CardParticle() {
 								{t("docs.card.layoutCards.compact.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent className="mt-6">
+						<CardContent className="ty-body mt-6">
+							{t("docs.card.layoutCards.compact.body")}
+						</CardContent>
+						<CardFooter className="mt-6 justify-start">
 							<div className="surface-2 inline-flex items-center gap-2 rounded-full px-3 py-2">
 								<Icon
 									icon={LayoutPanelTop}
@@ -205,7 +195,7 @@ export default function CardParticle() {
 									{t("docs.card.layoutCards.compact.badge")}
 								</span>
 							</div>
-						</CardContent>
+						</CardFooter>
 					</Card>
 				</div>
 			</ParticleSection>

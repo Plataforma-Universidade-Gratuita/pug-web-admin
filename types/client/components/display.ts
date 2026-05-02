@@ -178,4 +178,5 @@ export interface TableProps<
 	enableSorting?: boolean;
 	initialSorting?: SortingState;
 	getRowId?: (originalRow: TData, index: number, parent?: Row<TData>) => string;
+	getRowActions?: ((row: TData) => ReactNode) | undefined;
 }

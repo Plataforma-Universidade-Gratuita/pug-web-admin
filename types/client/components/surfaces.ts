@@ -1,5 +1,7 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
+import type { IconComponent } from "@/types/client/components/display";
+
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 	children: ReactNode;
 	isLoading?: boolean;
@@ -8,6 +10,7 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 export interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
 	children: ReactNode;
+	icon?: IconComponent;
 }
 
 export interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {

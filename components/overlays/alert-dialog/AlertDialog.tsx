@@ -8,6 +8,10 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/actions/button/Button";
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
+import {
+	SkeletonActionGroup,
+	SkeletonTextBlock,
+} from "@/components/display/skeleton/presets";
 import { Footer, Header } from "@/components/structure/layout/Layout";
 import { APP_TOPBAR_HEIGHT } from "@/constants/components";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
@@ -67,7 +71,21 @@ export function AlertDialogContent({
 						role={isLoading ? "status" : undefined}
 					>
 						{isLoading ? <span className="sr-only">{loadingLabel}</span> : null}
-						{children}
+						{isLoading ? (
+							<div
+								aria-hidden="true"
+								className="alert-dialog-loading-shell"
+							>
+								<Skeleton className="alert-dialog-loading-block" />
+							</div>
+						) : (
+							children
+						)}
+						{isLoading ? (
+							<RadixAlertDialog.Title className="sr-only">
+								{loadingLabel}
+							</RadixAlertDialog.Title>
+						) : null}
 					</RadixAlertDialog.Content>
 				</div>
 			</RadixAlertDialog.Portal>
@@ -134,10 +152,10 @@ export function AlertDialogDescription({
 
 	if (isLoading) {
 		return (
-			<div className={clsx("space-y-2", className)}>
-				<Skeleton className="h-3 w-full" />
-				<Skeleton className="h-3 w-[76%]" />
-			</div>
+			<SkeletonTextBlock
+				className={className}
+				lines={["w-full", "w-[76%]"]}
+			/>
 		);
 	}
 
@@ -172,17 +190,23 @@ export function AlertDialogFooter({
 			className={clsx("alert-dialog-footer dialog-footer", className)}
 			isLoading={isLoading}
 		>
-			<RadixAlertDialog.Cancel asChild>
-				<Button variant="secondary">{cancelLabel}</Button>
-			</RadixAlertDialog.Cancel>
-			<RadixAlertDialog.Action asChild>
-				<Button
-					usage={actionUsage}
-					onClick={onAction}
-				>
-					{actionLabel}
-				</Button>
-			</RadixAlertDialog.Action>
+			{isLoading ? (
+				<SkeletonActionGroup />
+			) : (
+				<>
+					<RadixAlertDialog.Cancel asChild>
+						<Button variant="secondary">{cancelLabel}</Button>
+					</RadixAlertDialog.Cancel>
+					<RadixAlertDialog.Action asChild>
+						<Button
+							usage={actionUsage}
+							onClick={onAction}
+						>
+							{actionLabel}
+						</Button>
+					</RadixAlertDialog.Action>
+				</>
+			)}
 		</Footer>
 	);
 }

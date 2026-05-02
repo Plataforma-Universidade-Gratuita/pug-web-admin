@@ -91,28 +91,30 @@ export default function BadgeParticle() {
 				title={t("docs.badge.sections.variants.title")}
 				description={t("docs.badge.sections.variants.description")}
 			>
-				<div className="grid gap-4 md:grid-cols-3">
-					{(["soft", "solid", "outline"] as const).map(variant => (
+				<div className="grid gap-4 md:grid-cols-2">
+					{(
+						[
+							{ key: "brand", tone: "brand" as const },
+							{ key: "success", tone: "success" as const },
+						] as const
+					).map(item => (
 						<Card
-							key={variant}
+							key={item.key}
 							className="h-full p-5"
 						>
 							<CardHeader className="space-y-3">
-								<CardTitle>{t(`docs.badge.variants.${variant}`)}</CardTitle>
+								<CardTitle>{t(`docs.badge.cards.${item.key}.title`)}</CardTitle>
 							</CardHeader>
 							<CardContent className="flex flex-wrap items-center gap-3">
-								<Badge
-									tone="brand"
-									variant={variant}
-								>
-									{t("docs.badge.cards.brand.label")}
-								</Badge>
-								<Badge
-									tone="success"
-									variant={variant}
-								>
-									{t("docs.badge.cards.success.label")}
-								</Badge>
+								{(["primary", "secondary"] as const).map(variant => (
+									<Badge
+										key={variant}
+										tone={item.tone}
+										variant={variant}
+									>
+										{t(`docs.badge.variants.${variant}`)}
+									</Badge>
+								))}
 							</CardContent>
 						</Card>
 					))}

@@ -12,6 +12,11 @@ import { Button } from "@/components/actions/button/Button";
 import { Icon } from "@/components/display/icon/Icon";
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
 import {
+	SkeletonActionGroup,
+	SkeletonPanelBlock,
+	SkeletonTextBlock,
+} from "@/components/display/skeleton/presets";
+import {
 	AlertDialog,
 	AlertDialogContent,
 	AlertDialogDescription,
@@ -103,7 +108,21 @@ export function DrawerContent({
 					style={{ "--drawer-body-max-height": bodyMaxHeight } as CSSProperties}
 				>
 					{isLoading ? <span className="sr-only">{loadingLabel}</span> : null}
-					{children}
+					{isLoading ? (
+						<div
+							aria-hidden="true"
+							className="drawer-loading-shell"
+						>
+							<Skeleton className="drawer-loading-block" />
+						</div>
+					) : (
+						children
+					)}
+					{isLoading ? (
+						<RadixDialog.Title className="sr-only">
+							{loadingLabel}
+						</RadixDialog.Title>
+					) : null}
 				</RadixDialog.Content>
 			</div>
 		</RadixDialog.Portal>
@@ -167,10 +186,10 @@ export function DrawerDescription({
 
 	if (isLoading) {
 		return (
-			<div className={clsx("space-y-2", className)}>
-				<Skeleton className="h-3 w-full" />
-				<Skeleton className="h-3 w-[72%]" />
-			</div>
+			<SkeletonTextBlock
+				className={className}
+				lines={["w-full", "w-[72%]"]}
+			/>
 		);
 	}
 
@@ -191,11 +210,13 @@ export function DrawerBody({ children, className }: DrawerBodyProps) {
 					className="drawer-body-scroll"
 					viewportClassName="drawer-body-viewport"
 				>
-					<div className={clsx("drawer-body-inner space-y-2", className)}>
-						<Skeleton className="h-3 w-full" />
-						<Skeleton className="h-3 w-[72%]" />
-						<Skeleton className="h-3 w-[84%]" />
-						<Skeleton className="h-3 w-[64%]" />
+					<div className={clsx("drawer-body-inner grid gap-4", className)}>
+						<SkeletonTextBlock lines={["w-full", "w-[76%]"]} />
+						<div className="grid gap-3 md:grid-cols-2">
+							<SkeletonPanelBlock heightClassName="h-12" />
+							<SkeletonPanelBlock heightClassName="h-12" />
+						</div>
+						<SkeletonPanelBlock heightClassName="h-40" />
 					</div>
 				</ScrollArea>
 			</div>
@@ -234,33 +255,39 @@ export function DrawerFooter({
 				className={clsx("drawer-footer", className)}
 				isLoading={isLoading}
 			>
-				<Button
-					variant="secondary"
-					usage="danger"
-					leadingIcon={
-						<Icon
-							icon={Eraser}
-							className="h-4 w-4"
-						/>
-					}
-					onClick={() => setIsClearConfirmOpen(true)}
-				>
-					{clearLabel}
-				</Button>
-				<Button
-					usage={actionVariant === "create" ? "success" : "info"}
-					leadingIcon={
-						actionIcon ? (
-							<Icon
-								icon={actionIcon}
-								className="h-4 w-4"
-							/>
-						) : undefined
-					}
-					onClick={onAction}
-				>
-					{actionLabel}
-				</Button>
+				{isLoading ? (
+					<SkeletonActionGroup className="w-full justify-between" />
+				) : (
+					<>
+						<Button
+							variant="secondary"
+							usage="danger"
+							leadingIcon={
+								<Icon
+									icon={Eraser}
+									className="h-4 w-4"
+								/>
+							}
+							onClick={() => setIsClearConfirmOpen(true)}
+						>
+							{clearLabel}
+						</Button>
+						<Button
+							usage={actionVariant === "create" ? "success" : "info"}
+							leadingIcon={
+								actionIcon ? (
+									<Icon
+										icon={actionIcon}
+										className="h-4 w-4"
+									/>
+								) : undefined
+							}
+							onClick={onAction}
+						>
+							{actionLabel}
+						</Button>
+					</>
+				)}
 			</Footer>
 
 			<AlertDialog

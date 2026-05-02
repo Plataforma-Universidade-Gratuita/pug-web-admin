@@ -26,3 +26,5 @@ export function Skeleton({
 		/>
 	);
 }
+
+export * from "@/components/display/skeleton/presets";

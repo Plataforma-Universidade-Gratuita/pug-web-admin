@@ -413,6 +413,46 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
   - use badges for compact semantic metadata such as status, lifecycle stage, compact category, or risk
   - keep badge copy short and glanceable
   - choose tone first based on meaning, then variant only to tune emphasis
+  - `primary` is the default emphasized badge treatment
+  - `primary` renders solid in light mode and soft in dark mode
+  - `secondary` is the outline badge treatment
+- EmptyState contract:
+  - use empty state to explain why content is absent inside the container that owns that absence
+  - match the message to the reason: first use, no results, no access, or temporarily empty data
+  - add actions only when there is a meaningful next step; do not fill the surface with decorative buttons
+  - keep the title and description short, clear, and scoped to the missing content
+- Skeleton contract:
+  - the base `Skeleton` primitive stays intentionally simple; the consistency work belongs in the premade loading compositions
+  - card, section, dialog, drawer, and alert dialog loading states should present as single full-surface loading blocks
+  - do not fake internal CTA, metadata, or form structure inside those premade loading states
+  - use more detailed skeleton compositions only when a feature explicitly needs manual loading layout inside its own surface
+- Section contract:
+  - use section as a page-level grouping band for related content
+  - section introduces a content group through `SectionHeader`, `SectionTitle`, optional short `SectionDescription`, and optional `SectionActions`
+  - section itself should usually stay visually quiet; do not use it as a card substitute
+  - if everything inside is one compact framed object, prefer `Card` instead of forcing section to become the surface
+  - `SectionActions` belong in the header only when they affect the section as a whole
+  - keep the primary action at the far right and support actions to its left
+  - use `SectionContent` to host the real body, which may contain cards, tables, forms, lists, or other denser primitives
+- Card contract:
+  - use card for one bounded unit such as a repeated item, compact summary, or contained tool
+  - do not use card as page structure or as an arbitrary wrapper around unrelated content
+  - `CardHeader` supports an optional left icon through its `icon` prop; do not manually rebuild icon-plus-title header layout in children
+  - `CardDescription` should stay short; if the copy grows into broader page guidance, that content likely belongs in a section instead
+  - `CardFooter` is for card-level actions or compact metadata only, such as buttons, badges, or icons
+  - if a card has no card-level actions or metadata, omit the footer entirely
+  - primary footer action stays on the far right, with support actions to its left
+- Table contract:
+  - table is the shared primitive for dense operational lists that still need predictable empty, loading, and overflow behavior
+  - keep feature-owned data columns in the passed `columns` array
+  - when a row-level action menu is needed, use `getRowActions`
+  - `getRowActions` appends a built-in last action column with the three-dots trigger and dropdown shell already handled by the primitive
+  - features should pass only the dropdown menu items for that row; do not rebuild the trigger or action-column plumbing per feature
+  - the action column stays narrow, fixed-width, and last; it is not a sortable data column
+  - the action column is sticky on the right so it remains visible while the rest of the table scrolls horizontally
+  - sticky behavior is implemented with `position: sticky; right: 0` on both the header cell and each body cell of the action column
+  - the sticky cells carry a matching background so content scrolling beneath them stays hidden
+  - keep heavier behaviors such as row selection, pagination, and virtualization out of the primitive until a real feature requires them
 - Label contract:
   - use `Label` to bind visible field text to the control directly
   - labels belong to inputs, text areas, comboboxes, and other named fields that remain discoverable after interaction begins
@@ -758,8 +798,8 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 
 ## What to check before finishing work
 
-- Run `npm run lint`.
-- If the change is structural or type-heavy, also run `tsc --noEmit` when appropriate.
+- Use `npm run format` as the default validation command when checking work. It already runs formatting, lint fix, typecheck, and translation validation.
+- If there is a specific reason to run something narrower, prefer that as a follow-up rather than replacing the default validation step silently.
 - Verify new routes are reflected in navigation config and locale labels.
 - Verify new copy exists in both locale files.
 - Verify constants, types, and helper functions are in the correct folders.
@@ -781,8 +821,8 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 ## Exceptions and judgment
 
 - Next.js framework exports that must stay in route/layout files, such as `metadata` or route `config`, should remain in those files.
-- React contexts are runtime objects and stay in `contexts/`; they are not “raw constants”.
+- React contexts are runtime objects and stay in `contexts/`; they are not â€œraw constantsâ€.
 - Component declarations exported as `const` through `forwardRef` are still components, not misplaced constants.
 - Do not move logic out of a `.tsx` file just to satisfy formality when it is tightly coupled to local state and would become harder to read.
 
-If there is any conflict between an existing file and this document, prefer the repo’s currently working shared patterns, then update this context file when the architectural rule has clearly changed.
+If there is any conflict between an existing file and this document, prefer the repoâ€™s currently working shared patterns, then update this context file when the architectural rule has clearly changed.

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Filter, Plus, Settings2 } from "lucide-react";
+import { ArrowRight, Filter, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -98,8 +98,7 @@ export default function SectionParticle() {
 							</div>
 							<SectionActions>
 								<Button
-									usage="secondary"
-									variant="ghost"
+									variant="secondary"
 									leadingIcon={
 										<Icon
 											icon={Filter}
@@ -110,8 +109,6 @@ export default function SectionParticle() {
 									{t("docs.section.actionsCard.actions.filter")}
 								</Button>
 								<Button
-									usage="primary"
-									variant="flat"
 									leadingIcon={
 										<Icon
 											icon={Plus}
@@ -155,33 +152,46 @@ export default function SectionParticle() {
 			>
 				<div className="grid gap-4 md:grid-cols-2">
 					<Card className="p-4">
-						<Section className="surface-2 rounded-[var(--twc-radius-xl)] p-4">
+						<Section>
 							<SectionHeader>
 								<div className="space-y-1">
 									<SectionTitle>
-										{t("docs.section.surfaceCards.decorated.title")}
+										{t("docs.section.surfaceCards.cardsInside.title")}
 									</SectionTitle>
 									<SectionDescription>
-										{t("docs.section.surfaceCards.decorated.description")}
+										{t("docs.section.surfaceCards.cardsInside.description")}
 									</SectionDescription>
 								</div>
-								<SectionActions>
-									<Button
-										size="icon"
-										usage="secondary"
-										variant="ghost"
-										title={t("docs.section.surfaceCards.decorated.action")}
-										leadingIcon={
-											<Icon
-												icon={Settings2}
-												className="h-4 w-4"
-											/>
-										}
-									/>
-								</SectionActions>
 							</SectionHeader>
-							<SectionContent className="ty-body">
-								{t("docs.section.surfaceCards.decorated.body")}
+							<SectionContent className="grid gap-3 md:grid-cols-2">
+								<Card className="p-4">
+									<CardHeader>
+										<CardTitle>
+											{t(
+												"docs.section.surfaceCards.cardsInside.items.one.title",
+											)}
+										</CardTitle>
+										<CardDescription>
+											{t(
+												"docs.section.surfaceCards.cardsInside.items.one.description",
+											)}
+										</CardDescription>
+									</CardHeader>
+								</Card>
+								<Card className="p-4">
+									<CardHeader>
+										<CardTitle>
+											{t(
+												"docs.section.surfaceCards.cardsInside.items.two.title",
+											)}
+										</CardTitle>
+										<CardDescription>
+											{t(
+												"docs.section.surfaceCards.cardsInside.items.two.description",
+											)}
+										</CardDescription>
+									</CardHeader>
+								</Card>
 							</SectionContent>
 						</Section>
 					</Card>
@@ -191,20 +201,19 @@ export default function SectionParticle() {
 							<SectionHeader>
 								<div className="space-y-1">
 									<SectionTitle>
-										{t("docs.section.surfaceCards.plain.title")}
+										{t("docs.section.surfaceCards.plainBand.title")}
 									</SectionTitle>
 									<SectionDescription>
-										{t("docs.section.surfaceCards.plain.description")}
+										{t("docs.section.surfaceCards.plainBand.description")}
 									</SectionDescription>
 								</div>
 							</SectionHeader>
 							<SectionContent className="space-y-3">
 								<p className="ty-body">
-									{t("docs.section.surfaceCards.plain.body")}
+									{t("docs.section.surfaceCards.plainBand.body")}
 								</p>
 								<Button
-									usage="info"
-									variant="ghost"
+									variant="secondary"
 									trailingIcon={
 										<Icon
 											icon={ArrowRight}
@@ -212,7 +221,7 @@ export default function SectionParticle() {
 										/>
 									}
 								>
-									{t("docs.section.surfaceCards.plain.cta")}
+									{t("docs.section.surfaceCards.plainBand.cta")}
 								</Button>
 							</SectionContent>
 						</Section>

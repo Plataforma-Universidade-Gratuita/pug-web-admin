@@ -293,7 +293,7 @@ function OperationsWorkspacePreview() {
 						<Badge tone="info">Live workspace</Badge>
 						<Badge
 							tone="warning"
-							variant="outline"
+							variant="secondary"
 						>
 							4 items need attention
 						</Badge>
@@ -522,7 +522,7 @@ function SplitDetailPreview() {
 						<Badge tone="success">Active</Badge>
 						<Badge
 							tone="neutral"
-							variant="outline"
+							variant="secondary"
 						>
 							Last sync 12 minutes ago
 						</Badge>
@@ -847,7 +847,7 @@ export function PagePatternDirectionTag({ slug }: { slug: PagePatternSlug }) {
 			<Badge tone={pattern.tone}>{pattern.label}</Badge>
 			<Badge
 				tone="neutral"
-				variant="outline"
+				variant="secondary"
 			>
 				Preview
 			</Badge>

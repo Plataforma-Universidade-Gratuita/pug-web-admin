@@ -41,15 +41,12 @@ export default function EmptyStateParticle() {
 						description={t("docs.emptyState.firstUse.description")}
 						actions={
 							<>
-								<Button
-									usage="secondary"
-									variant="ghost"
-								>
+								<Button variant="secondary">
 									{t("docs.emptyState.firstUse.actions.secondary")}
 								</Button>
 								<Button
+									variant="primary"
 									usage="primary"
-									variant="flat"
 								>
 									{t("docs.emptyState.firstUse.actions.primary")}
 								</Button>
@@ -75,10 +72,7 @@ export default function EmptyStateParticle() {
 							title={t("docs.emptyState.results.noResults.title")}
 							description={t("docs.emptyState.results.noResults.description")}
 							actions={
-								<Button
-									usage="secondary"
-									variant="ghost"
-								>
+								<Button variant="secondary">
 									{t("docs.emptyState.results.noResults.action")}
 								</Button>
 							}
@@ -118,7 +112,7 @@ export default function EmptyStateParticle() {
 						actions={
 							<Button
 								usage="info"
-								variant="ghost"
+								variant="secondary"
 							>
 								{t("docs.emptyState.compact.action")}
 							</Button>
