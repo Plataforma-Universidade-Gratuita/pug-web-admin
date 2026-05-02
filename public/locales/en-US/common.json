@@ -90,9 +90,9 @@
                 },
                 "title": "Compact disclosure"
             },
-            "description": "Accordions reveal and hide related sections of content within the current page flow. Use them when information should stay available on the page without forcing every detail to be visible at once.",
+            "description": "Accordion is the secondary-disclosure primitive for stacked content inside the current page flow. Use it when details should stay nearby without competing as primary layout or primary navigation.",
             "multiCard": {
-                "description": "Allow multiple items to remain open when users may need to compare settings or keep several groups visible.",
+                "description": "Allow multiple items to remain open only when comparison or simultaneous review is genuinely useful.",
                 "items": {
                     "filters": {
                         "description": "Useful when users need to inspect several configuration groups at the same time.",
@@ -112,21 +112,34 @@
             "patternNotes": {
                 "items": {
                     "content": "Accordion content can hold text, metadata, controls, or nested layout blocks, but each item should still represent one coherent topic.",
-                    "disclosure": "Use accordions for progressive disclosure when each section can be scanned by its trigger label before the body is opened.",
-                    "multi": "Use `type=\"single\"` when sections should compete for attention, and `type=\"multiple\"` when users may need to compare or keep several sections open.",
+                    "disclosure": "Use accordion when each section can be understood from its trigger label before the body is opened.",
+                    "multi": "Use `type=\"single\"` when sections should compete for attention. Use `type=\"multiple\"` when users may need to compare or keep several sections open together.",
+                    "secondary": "Treat accordion as secondary disclosure inside sections, cards, and settings groups. Do not use it as primary navigation or primary page switching.",
                     "trigger": "Trigger labels should be short and descriptive enough for users to decide whether the section is relevant before expanding it."
                 },
-                "snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Overview</AccordionTrigger>\n    <AccordionContent>\n      Body content\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
+                "snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Overview</AccordionTrigger>\n    <AccordionContent>\n      Secondary supporting details\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
             },
             "sections": {
                 "compact": {
-                    "description": "The same primitive works for compact FAQ-style content and denser settings groups.",
+                    "description": "Use the same primitive for short operational guidance and dense supporting notes inside an existing card or section.",
                     "title": "Compact and multi-open usage"
+                },
+                "multiple": {
+                    "description": "Multi-open mode is for review and comparison cases where several supporting groups may need to stay visible at once.",
+                    "title": "Multiple open sections"
+                },
+                "single": {
+                    "description": "Single-open accordion is the default when one section should lead and neighboring sections should recede.",
+                    "title": "Single disclosure"
                 },
                 "structure": {
                     "description": "Accordion items should read clearly in both collapsed and expanded states.",
                     "title": "Structure"
                 }
+            },
+            "singleCard": {
+                "description": "This is the baseline accordion pattern for supporting detail inside the current page surface.",
+                "title": "Default stacked disclosure"
             },
             "structure": {
                 "items": {
@@ -792,27 +805,13 @@
         },
         "dropdownMenu": {
             "cards": {
-                "grouped": {
-                    "description": "Use labels and separators when the menu needs a little more structure without becoming a larger panel.",
-                    "items": {
-                        "archive": "Archive workspace",
-                        "members": "Manage members",
-                        "overview": "View overview",
-                        "transfer": "Transfer ownership"
-                    },
-                    "sections": {
-                        "primary": "Workspace",
-                        "secondary": "Lifecycle"
-                    },
-                    "title": "Grouped utilities",
-                    "trigger": "Open utilities"
-                },
                 "rowActions": {
-                    "description": "A common admin pattern for compact table or card-row actions.",
+                    "description": "This is now the standard dropdown pattern for the app.",
                     "items": {
                         "archive": "Archive project",
                         "delete": "Delete project",
                         "edit": "Edit record",
+                        "save": "Save changes",
                         "view": "View details"
                     },
                     "menuLabel": "Project actions",
@@ -822,19 +821,39 @@
                     "trigger": "Open row actions"
                 }
             },
-            "description": "Dropdown menus expose compact action lists anchored to a trigger. Use them for row actions, card utilities, and grouped secondary commands that would add too much noise as inline buttons.",
+            "confirm": {
+                "archive": {
+                    "action": "Confirm archive",
+                    "description": "Archiving will remove this record from the active workflow while preserving its history.",
+                    "title": "Archive this record?"
+                },
+                "cancel": "Cancel",
+                "delete": {
+                    "action": "Confirm deletion",
+                    "description": "Deletion is destructive and should only happen when the record should no longer exist.",
+                    "title": "Delete this record?"
+                },
+                "save": {
+                    "action": "Confirm save",
+                    "description": "Saving will persist the current changes for this record.",
+                    "title": "Save changes?"
+                }
+            },
+            "description": "Dropdown menus now follow one constrained pattern: compact row-action menus with icons on every item, a brand-accented first option, neutral supporting options, and an optional final semantic action group.",
             "patternNotes": {
                 "items": {
+                    "brandFirst": "The first option is the primary row action and should use the brand accent. All regular supporting options stay neutral.",
                     "compact": "Use dropdown menus for short command lists that belong to one trigger and do not need rich supporting layout.",
-                    "escalation": "Use a dropdown menu for compact action selection, a popover for richer lightweight panels, and an alert dialog for consequential confirmation.",
-                    "grouping": "Group related actions with labels and separators when the menu mixes primary utilities with lower-frequency or riskier actions.",
+                    "confirmation": "Meaningful actions from the final semantic group should open an alert dialog before execution.",
+                    "escalation": "The current item may remain highlighted, but it should still react on hover so the state does not feel inert.",
+                    "grouping": "If the menu contains meaningful actions at the end, use the dedicated semantic item components and keep the order success, warning/archive, then danger/delete.",
                     "scope": "Keep the menu tightly scoped to actions for the current object, row, or surface. If the content becomes explanatory or form-like, switch to a popover or dialog."
                 },
-                "snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>\n    <Button size=\"icon\" usage=\"secondary\" variant=\"ghost\">...</Button>\n  </DropdownMenuTrigger>\n\n  <DropdownMenuContent>\n    <DropdownMenuLabel>Actions</DropdownMenuLabel>\n    <DropdownMenuItem>View details</DropdownMenuItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem>Archive</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+                "snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>...</DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuPrimaryItem\n      icon={Eye}\n      label=\"View details\"\n    />\n    <DropdownMenuItem\n      icon={Pencil}\n      label=\"Edit details\"\n    />\n    <DropdownMenuSeparator />\n    <DropdownMenuSuccessItem\n      icon={Save}\n      label=\"Save changes\"\n    />\n    <DropdownMenuWarningItem\n      icon={Archive}\n      label=\"Archive item\"\n    />\n    <DropdownMenuDangerItem\n      icon={Trash2}\n      label=\"Delete item\"\n    />\n  </DropdownMenuContent>\n</DropdownMenu>"
             },
             "sections": {
                 "actions": {
-                    "description": "Dropdown menus work best when several supporting actions need to stay available without taking over the layout.",
+                    "description": "Use one compact row-action menu pattern across the app. The first item is brand-accented, regular support actions stay neutral, and the final semantic actions are opt-in.",
                     "title": "Compact actions"
                 }
             },
@@ -1471,6 +1490,10 @@
         },
         "structurePrimitives": {
             "description": "Tabs, label, separator, and scroll area shape layout and interaction rhythm rather than carrying heavy business meaning on their own. Use them to organize content, connect fields to text, and manage dense surfaces with clearer structure.",
+            "iconTabs": {
+                "description": "This variant keeps the same tab behavior while shrinking each trigger to an icon button-sized control.",
+                "title": "Icon variant with tooltip labels"
+            },
             "labelCard": {
                 "description": "Labels and separators support small but important hierarchy decisions inside forms and metadata rows.",
                 "leftMeta": "Updated today",
@@ -1481,12 +1504,13 @@
             },
             "patternNotes": {
                 "items": {
+                    "iconTabs": "Icon-only tabs are supported through `TabsList variant=\"icon\"`. In this mode, each trigger should expose `tooltipContent` so the tab label remains discoverable.",
                     "label": "Use label to associate form text with its field directly instead of relying on nearby typography alone.",
                     "scrollArea": "Use scroll areas for constrained regions such as sidebars, panels, and dense lists where native overflow needs better visual handling.",
                     "separator": "Use separators sparingly to reinforce grouping or rhythm. They should support hierarchy, not replace spacing and layout decisions.",
                     "tabs": "Use tabs when several peer sections share one space and users should switch between them without leaving the current page context."
                 },
-                "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"members\">Members</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Label htmlFor=\"workspace-name\">Workspace name</Label>\n<Separator />\n<ScrollArea className=\"h-48\">...</ScrollArea>"
+                "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"members\">Members</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Tabs defaultValue=\"overview\">\n  <TabsList variant=\"icon\">\n    <TabsTrigger value=\"overview\" tooltipContent=\"Overview\">\n      <Icon />\n    </TabsTrigger>\n  </TabsList>\n</Tabs>"
             },
             "primitives": {
                 "labelTitle": "Label",
@@ -1524,6 +1548,10 @@
                 "title": "Constrained scrolling"
             },
             "sections": {
+                "iconTabs": {
+                    "description": "Use icon-only tabs only when the labels are already familiar or space is tight. In that case, keep the meaning available through tooltips.",
+                    "title": "Icon-only tabs"
+                },
                 "structure": {
                     "description": "These primitives become most useful when they reinforce form structure, metadata rhythm, and constrained overflow in the same composition.",
                     "title": "Label, separator, and scroll area"

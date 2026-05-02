@@ -12,6 +12,7 @@
 	}
 
 	.accordion-trigger {
+		cursor: pointer;
 		display: flex;
 		width: 100%;
 		align-items: center;
@@ -19,6 +20,14 @@
 		gap: 1rem;
 		padding: 1rem;
 		text-align: left;
+	}
+
+	.accordion-trigger:hover {
+		background-color: color-mix(
+			in oklab,
+			var(--twc-surface-2) 56%,
+			transparent
+		);
 	}
 
 	.accordion-trigger[data-state="open"] {
@@ -122,17 +131,95 @@
 
 	.dropdown-item {
 		display: flex;
-		cursor: default;
+		cursor: pointer;
 		align-items: center;
 		gap: 0.75rem;
 		border-radius: var(--twc-radius-lg);
 		padding: 0.5rem 0.75rem;
 		outline: none;
 		user-select: none;
+		transition:
+			background-color var(--twc-duration-normal) var(--twc-ease-standard),
+			color var(--twc-duration-normal) var(--twc-ease-standard);
 	}
 
+	.dropdown-item .icon-root {
+		flex-shrink: 0;
+	}
+
+	.dropdown-item:hover,
 	.dropdown-item[data-highlighted="true"] {
 		background-color: var(--twc-surface-1);
+	}
+
+	.dropdown-item-current {
+		background-color: color-mix(
+			in oklab,
+			var(--color-brand) 10%,
+			var(--twc-surface-2)
+		);
+		color: var(--color-brand);
+	}
+
+	.dropdown-item-current:hover,
+	.dropdown-item-current[data-highlighted="true"] {
+		background-color: color-mix(
+			in oklab,
+			var(--color-brand) 14%,
+			var(--twc-surface-2)
+		);
+	}
+
+	.dropdown-item-tone-brand {
+		color: var(--color-brand);
+	}
+
+	.dropdown-item-tone-brand:hover,
+	.dropdown-item-tone-brand[data-highlighted="true"] {
+		background-color: color-mix(
+			in oklab,
+			var(--color-brand) 12%,
+			var(--twc-surface-2)
+		);
+	}
+
+	.dropdown-item-tone-success {
+		color: var(--color-success-800);
+	}
+
+	.dropdown-item-tone-success:hover,
+	.dropdown-item-tone-success[data-highlighted="true"] {
+		background-color: color-mix(
+			in oklab,
+			var(--color-success-800) 10%,
+			var(--twc-surface-2)
+		);
+	}
+
+	.dropdown-item-tone-warning {
+		color: var(--color-warning-800);
+	}
+
+	.dropdown-item-tone-warning:hover,
+	.dropdown-item-tone-warning[data-highlighted="true"] {
+		background-color: color-mix(
+			in oklab,
+			var(--color-warning-800) 12%,
+			var(--twc-surface-2)
+		);
+	}
+
+	.dropdown-item-tone-danger {
+		color: var(--color-danger-800);
+	}
+
+	.dropdown-item-tone-danger:hover,
+	.dropdown-item-tone-danger[data-highlighted="true"] {
+		background-color: color-mix(
+			in oklab,
+			var(--color-danger-800) 10%,
+			var(--twc-surface-2)
+		);
 	}
 
 	.dropdown-item[data-disabled="true"] {
@@ -159,7 +246,17 @@
 		padding: 0.25rem;
 	}
 
+	.tabs-list-icon {
+		gap: 0.25rem;
+		padding: 0.25rem;
+	}
+
 	.tabs-trigger {
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
 		border-radius: calc(var(--twc-radius-lg) - 0.25rem);
 		padding: 0.5rem 0.75rem;
 		font-size: var(--twc-text-sm);
@@ -167,7 +264,14 @@
 		transition:
 			background-color var(--twc-duration-normal) var(--twc-ease-standard),
 			box-shadow var(--twc-duration-normal) var(--twc-ease-standard),
-			opacity var(--twc-duration-normal) var(--twc-ease-standard);
+			opacity var(--twc-duration-normal) var(--twc-ease-standard),
+			color var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.tabs-trigger-icon {
+		height: 2.25rem;
+		width: 2.25rem;
+		padding: 0;
 	}
 
 	.tabs-trigger:hover {

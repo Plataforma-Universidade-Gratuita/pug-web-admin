@@ -90,9 +90,9 @@
                 },
                 "title": "Divulgacao compacta"
             },
-            "description": "Accordions revelam e escondem secoes relacionadas de conteudo dentro do fluxo atual da pagina. Use quando a informacao deve continuar disponivel na pagina sem obrigar todos os detalhes a ficarem visiveis ao mesmo tempo.",
+            "description": "Accordion e a primitiva de divulgacao secundaria para conteudo empilhado dentro do fluxo atual da pagina. Use quando os detalhes precisam permanecer proximos sem competir como layout principal ou navegacao principal.",
             "multiCard": {
-                "description": "Permita varios itens abertos ao mesmo tempo quando a pessoa puder precisar comparar configuracoes ou manter grupos visiveis em paralelo.",
+                "description": "Permita varios itens abertos apenas quando comparacao ou revisao simultanea for realmente util.",
                 "items": {
                     "filters": {
                         "description": "Util quando a pessoa precisa inspecionar varios grupos de configuracao ao mesmo tempo.",
@@ -112,21 +112,34 @@
             "patternNotes": {
                 "items": {
                     "content": "O conteudo do accordion pode conter texto, metadados, controles ou blocos de layout, mas cada item ainda deve representar um unico topico coerente.",
-                    "disclosure": "Use accordions para divulgacao progressiva quando cada secao puder ser compreendida pelo rotulo do trigger antes da abertura.",
-                    "multi": "Use `type=\"single\"` quando as secoes competirem por atencao e `type=\"multiple\"` quando a pessoa puder precisar comparar ou manter varias secoes abertas.",
+                    "disclosure": "Use accordion quando cada secao puder ser compreendida pelo rotulo do trigger antes da abertura.",
+                    "multi": "Use `type=\"single\"` quando as secoes devem competir por atencao. Use `type=\"multiple\"` quando a pessoa puder precisar comparar ou manter varias secoes abertas ao mesmo tempo.",
+                    "secondary": "Trate accordion como divulgacao secundaria dentro de secoes, cards e grupos de configuracao. Nao use como navegacao principal ou como troca principal de pagina.",
                     "trigger": "Os rotulos do trigger devem ser curtos e descritivos o suficiente para que a pessoa decida se a secao e relevante antes de expandi-la."
                 },
-                "snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Visao geral</AccordionTrigger>\n    <AccordionContent>\n      Conteudo principal\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
+                "snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Visao geral</AccordionTrigger>\n    <AccordionContent>\n      Detalhes secundarios de apoio\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
             },
             "sections": {
                 "compact": {
-                    "description": "A mesma primitiva funciona para conteudo compacto em estilo FAQ e para grupos de configuracoes mais densos.",
+                    "description": "Use a mesma primitiva para orientacao operacional curta e notas densas de apoio dentro de um card ou secao existente.",
                     "title": "Uso compacto e multiaberto"
+                },
+                "multiple": {
+                    "description": "O modo multiaberto e para casos de revisao e comparacao em que varios grupos de apoio precisam ficar visiveis ao mesmo tempo.",
+                    "title": "Varias secoes abertas"
+                },
+                "single": {
+                    "description": "Accordion de item unico aberto e o padrao quando uma secao deve liderar e as vizinhas devem recuar.",
+                    "title": "Divulgacao unica"
                 },
                 "structure": {
                     "description": "Os itens do accordion devem continuar claros tanto fechados quanto abertos.",
                     "title": "Estrutura"
                 }
+            },
+            "singleCard": {
+                "description": "Este e o padrao base de accordion para detalhes de apoio dentro da superficie atual da pagina.",
+                "title": "Divulgacao empilhada padrao"
             },
             "structure": {
                 "items": {
@@ -792,27 +805,13 @@
         },
         "dropdownMenu": {
             "cards": {
-                "grouped": {
-                    "description": "Use labels e separadores quando o menu precisar de um pouco mais de estrutura sem virar um painel maior.",
-                    "items": {
-                        "archive": "Arquivar workspace",
-                        "members": "Gerenciar membros",
-                        "overview": "Ver visÃ£o geral",
-                        "transfer": "Transferir ownership"
-                    },
-                    "sections": {
-                        "primary": "Workspace",
-                        "secondary": "Ciclo de vida"
-                    },
-                    "title": "Utilidades agrupadas",
-                    "trigger": "Abrir utilidades"
-                },
                 "rowActions": {
-                    "description": "Um padrÃ£o comum de admin para aÃ§Ãµes compactas de tabela ou linha em card.",
+                    "description": "Este agora e o padrao de dropdown para o app.",
                     "items": {
                         "archive": "Arquivar projeto",
                         "delete": "Excluir projeto",
                         "edit": "Editar registro",
+                        "save": "Salvar alteracoes",
                         "view": "Ver detalhes"
                     },
                     "menuLabel": "AÃ§Ãµes do projeto",
@@ -822,19 +821,39 @@
                     "trigger": "Abrir aÃ§Ãµes da linha"
                 }
             },
-            "description": "Dropdown menus expÃµem listas compactas de aÃ§Ãµes ancoradas a um gatilho. Use para aÃ§Ãµes de linha, utilidades em cards e comandos secundÃ¡rios agrupados que gerariam ruÃ­do demais como botÃµes inline.",
+            "confirm": {
+                "archive": {
+                    "action": "Confirmar arquivamento",
+                    "description": "Arquivar vai remover este registro do fluxo ativo, preservando seu historico.",
+                    "title": "Arquivar este registro?"
+                },
+                "cancel": "Cancelar",
+                "delete": {
+                    "action": "Confirmar exclusao",
+                    "description": "Excluir e destrutivo e so deve acontecer quando o registro nao deve mais existir.",
+                    "title": "Excluir este registro?"
+                },
+                "save": {
+                    "action": "Confirmar salvamento",
+                    "description": "Salvar vai persistir as alteracoes atuais deste registro.",
+                    "title": "Salvar alteracoes?"
+                }
+            },
+            "description": "Dropdown menus agora seguem um unico padrao restrito: menus compactos de acoes de linha com icone em todos os itens, primeira opcao destacada com a cor da marca, opcoes de apoio neutras e um grupo final semantico opcional.",
             "patternNotes": {
                 "items": {
+                    "brandFirst": "A primeira opcao e a acao principal da linha e deve usar o destaque da marca. Todas as opcoes regulares de apoio permanecem neutras.",
                     "compact": "Use dropdown menus para listas curtas de comandos que pertencem a um Ãºnico gatilho e nÃ£o precisam de layout de apoio rico.",
-                    "escalation": "Use dropdown menu para seleÃ§Ã£o compacta de aÃ§Ãµes, popover para painÃ©is leves mais ricos e alert dialog para confirmaÃ§Ãµes consequentes.",
-                    "grouping": "Agrupe aÃ§Ãµes relacionadas com labels e separadores quando o menu misturar utilidades principais com aÃ§Ãµes menos frequentes ou mais arriscadas.",
+                    "confirmation": "Acoes significativas do grupo semantico final devem abrir um alert dialog antes da execucao.",
+                    "escalation": "O item atual pode permanecer destacado, mas ainda deve reagir ao hover para que o estado nao pareca inerte.",
+                    "grouping": "Se o menu tiver acoes significativas no final, use os componentes semanticos dedicados e mantenha a ordem success, warning/archive e depois danger/delete.",
                     "scope": "Mantenha o menu bem escopado Ã s aÃ§Ãµes do objeto, linha ou superfÃ­cie atual. Se o conteÃºdo ficar explicativo ou parecido com formulÃ¡rio, troque por popover ou dialog."
                 },
-                "snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>\n    <Button size=\"icon\" usage=\"secondary\" variant=\"ghost\">...</Button>\n  </DropdownMenuTrigger>\n\n  <DropdownMenuContent>\n    <DropdownMenuLabel>AÃ§Ãµes</DropdownMenuLabel>\n    <DropdownMenuItem>Ver detalhes</DropdownMenuItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem>Arquivar</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+                "snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>...</DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuPrimaryItem\n      icon={Eye}\n      label=\"Ver detalhes\"\n    />\n    <DropdownMenuItem\n      icon={Pencil}\n      label=\"Editar detalhes\"\n    />\n    <DropdownMenuSeparator />\n    <DropdownMenuSuccessItem\n      icon={Save}\n      label=\"Salvar alteracoes\"\n    />\n    <DropdownMenuWarningItem\n      icon={Archive}\n      label=\"Arquivar item\"\n    />\n    <DropdownMenuDangerItem\n      icon={Trash2}\n      label=\"Excluir item\"\n    />\n  </DropdownMenuContent>\n</DropdownMenu>"
             },
             "sections": {
                 "actions": {
-                    "description": "Dropdown menus funcionam melhor quando vÃ¡rias aÃ§Ãµes de apoio precisam continuar disponÃ­veis sem dominar o layout.",
+                    "description": "Use um unico padrao compacto de acoes de linha pelo app. O primeiro item usa destaque da marca, as acoes regulares de apoio ficam neutras e as acoes semanticas finais sao opcionais.",
                     "title": "AÃ§Ãµes compactas"
                 }
             },
@@ -1471,6 +1490,10 @@
         },
         "structurePrimitives": {
             "description": "Tabs, label, separator e scroll area organizam layout e ritmo de interaÃ§Ã£o mais do que carregam significado de negÃ³cio por si sÃ³. Use para estruturar conteÃºdo, conectar texto a campos e controlar superfÃ­cies densas com mais clareza.",
+            "iconTabs": {
+                "description": "Esta variante preserva o comportamento da tab enquanto reduz cada trigger para um controle do tamanho de um botao de icone.",
+                "title": "Variante com icone e tooltip"
+            },
             "labelCard": {
                 "description": "Labels e separators sustentam pequenas, mas importantes, decisÃµes de hierarquia dentro de formulÃ¡rios e linhas de metadados.",
                 "leftMeta": "Atualizado hoje",
@@ -1481,12 +1504,13 @@
             },
             "patternNotes": {
                 "items": {
+                    "iconTabs": "Tabs somente com icone sao suportadas por `TabsList variant=\"icon\"`. Nesse modo, cada trigger deve expor `tooltipContent` para que o nome da tab continue descobrivel.",
                     "label": "Use label para associar diretamente o texto do formulÃ¡rio ao seu campo, em vez de depender apenas da tipografia ao redor.",
                     "scrollArea": "Use scroll areas em regiÃµes restritas como sidebars, painÃ©is e listas densas em que o overflow nativo precisa de um tratamento visual melhor.",
                     "separator": "Use separators com parcimÃ´nia para reforÃ§ar agrupamento ou ritmo. Eles devem apoiar a hierarquia, nÃ£o substituir decisÃµes de espaÃ§amento e layout.",
                     "tabs": "Use tabs quando vÃ¡rias seÃ§Ãµes paralelas compartilharem o mesmo espaÃ§o e a pessoa precisar alternar entre elas sem sair do contexto atual da pÃ¡gina."
                 },
-                "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">VisÃ£o geral</TabsTrigger>\n    <TabsTrigger value=\"members\">Membros</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Label htmlFor=\"workspace-name\">Nome do workspace</Label>\n<Separator />\n<ScrollArea className=\"h-48\">...</ScrollArea>"
+                "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Visao geral</TabsTrigger>\n    <TabsTrigger value=\"members\">Membros</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Tabs defaultValue=\"overview\">\n  <TabsList variant=\"icon\">\n    <TabsTrigger value=\"overview\" tooltipContent=\"Visao geral\">\n      <Icon />\n    </TabsTrigger>\n  </TabsList>\n</Tabs>"
             },
             "primitives": {
                 "labelTitle": "Label",
@@ -1524,6 +1548,10 @@
                 "title": "Rolagem restrita"
             },
             "sections": {
+                "iconTabs": {
+                    "description": "Use tabs somente com icone apenas quando os r?tulos ja forem familiares ou o espaco estiver apertado. Nesse caso, mantenha o significado disponivel via tooltip.",
+                    "title": "Tabs somente com icone"
+                },
                 "structure": {
                     "description": "Essas primitivas ficam mais Ãºteis quando reforÃ§am estrutura de formulÃ¡rio, ritmo de metadados e overflow restrito dentro da mesma composiÃ§Ã£o.",
                     "title": "Label, separator e scroll area"

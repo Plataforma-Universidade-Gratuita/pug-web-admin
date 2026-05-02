@@ -1,7 +1,6 @@
 export { default as AccordionParticle } from "./primitives/navigation/AccordionParticle";
 export { default as AlertDialogParticle } from "./primitives/overlays/AlertDialogParticle";
 export { default as BadgeParticle } from "./primitives/display/BadgeParticle";
-export { default as BreadcrumbParticle } from "./primitives/navigation/BreadcrumbParticle";
 export { default as ButtonParticle } from "./primitives/actions/ButtonParticle";
 export { default as CardParticle } from "./primitives/display/CardParticle";
 export { default as CheckboxParticle } from "./primitives/forms/CheckboxParticle";

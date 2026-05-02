@@ -3,6 +3,7 @@
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 import clsx from "clsx";
 
+import { Icon } from "@/components";
 import type {
 	DropdownMenuContentProps,
 	DropdownMenuItemProps,
@@ -57,23 +58,72 @@ export function DropdownMenuContent({
 	);
 }
 
-export function DropdownMenuItem({
-	children,
+function DropdownMenuBaseItem({
 	className,
+	current = false,
+	icon,
 	inset = false,
+	label,
+	tone = "default",
 	...props
 }: DropdownMenuItemProps) {
 	return (
 		<RadixDropdownMenu.Item
 			className={clsx(
 				"dropdown-item focus-ring",
+				current && "dropdown-item-current",
 				inset ? "dropdown-item-inset" : null,
+				tone !== "default" && `dropdown-item-tone-${tone}`,
 				className,
 			)}
 			{...props}
 		>
-			{children}
+			<Icon
+				icon={icon}
+				className="h-4 w-4"
+			/>
+			<span className="ty-sm-semibold">{label}</span>
 		</RadixDropdownMenu.Item>
+	);
+}
+
+export function DropdownMenuItem(props: DropdownMenuItemProps) {
+	return <DropdownMenuBaseItem {...props} />;
+}
+
+export function DropdownMenuPrimaryItem(props: DropdownMenuItemProps) {
+	return (
+		<DropdownMenuBaseItem
+			tone="brand"
+			{...props}
+		/>
+	);
+}
+
+export function DropdownMenuSuccessItem(props: DropdownMenuItemProps) {
+	return (
+		<DropdownMenuBaseItem
+			tone="success"
+			{...props}
+		/>
+	);
+}
+
+export function DropdownMenuWarningItem(props: DropdownMenuItemProps) {
+	return (
+		<DropdownMenuBaseItem
+			tone="warning"
+			{...props}
+		/>
+	);
+}
+
+export function DropdownMenuDangerItem(props: DropdownMenuItemProps) {
+	return (
+		<DropdownMenuBaseItem
+			tone="danger"
+			{...props}
+		/>
 	);
 }
 

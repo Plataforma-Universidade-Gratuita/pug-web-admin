@@ -396,6 +396,53 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
     - `chrome`
   - use `chrome` only on colored surfaces such as the app-shell topbar
   - `ToggleGroupItem` supports `tooltipContent` directly; do not rebuild selector-specific tooltip wrappers around theme/language controls
+- Tabs contract:
+  - default tabs are label-based
+  - `TabsList` supports:
+    - `variant="default"`
+    - `variant="icon"`
+  - icon-only tabs should provide `tooltipContent` on each `TabsTrigger` so the label remains discoverable
+- Breadcrumb contract:
+  - breadcrumb is primarily a shell/page-layout support primitive, not a general feature-surface primitive
+  - the expected real use case is the shared app-shell route path
+  - keep `Breadcrumb` in the component system because the shell uses it
+  - do not treat breadcrumb as a broadly reusable docs primitive unless a real second product use case appears
+- Accordion contract:
+  - accordion is a secondary-disclosure primitive for stacked content inside the current page flow
+  - use it for:
+    - compact operational guidance
+    - metadata breakdowns
+    - advanced settings groups
+    - FAQ/reference-style supporting content
+  - do not use it for:
+    - primary navigation
+    - main page switching
+    - replacing tabs
+    - replacing drawers or dialogs
+  - keep one visual pattern only; do not add casual presentation variants without a real product need
+  - `type="single"` is the default mindset when sections should compete for attention
+  - `type="multiple"` is for review/compare cases where several supporting groups may need to remain open together
+  - `AccordionTrigger` owns the chevron and disclosure behavior; consumers should not rebuild that trigger-row pattern manually
+- Dropdown menu contract:
+  - dropdown menus now use one constrained pattern: compact row-action menus
+  - every menu item must include an icon
+  - the first option is the primary row action and should use the brand-accented item pattern
+  - regular supporting options stay neutral
+  - if the menu includes meaningful actions at the end, use the dedicated semantic components:
+    - `DropdownMenuSuccessItem`
+    - `DropdownMenuWarningItem`
+    - `DropdownMenuDangerItem`
+  - those semantic final-group items are optional, but if present they must appear in this order:
+    - success / save
+    - warning / archive
+    - danger / delete
+  - meaningful final-group actions should trigger an `AlertDialog` confirmation before execution
+  - dropdown item structure is owned by the primitive itself; consumers should pass:
+    - `icon`
+    - `label`
+    - optional `current`
+    - optional semantic item component choice
+      and should not manually compose icon-plus-label children markup
 
 ## Styling system
 

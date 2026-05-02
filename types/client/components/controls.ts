@@ -1,7 +1,9 @@
 import type {
 	ButtonHTMLAttributes,
 	ComponentPropsWithoutRef,
+	ForwardRefExoticComponent,
 	ReactNode,
+	RefAttributes,
 } from "react";
 
 import type * as RadixAccordion from "@radix-ui/react-accordion";
@@ -13,6 +15,7 @@ import type * as RadixSwitch from "@radix-ui/react-switch";
 import type * as RadixTabs from "@radix-ui/react-tabs";
 import type * as RadixToggle from "@radix-ui/react-toggle";
 import type * as RadixToggleGroup from "@radix-ui/react-toggle-group";
+import type { LucideProps } from "lucide-react";
 
 import {
 	BUTTON_SIZES,
@@ -100,8 +103,13 @@ export interface DropdownMenuItemProps extends Omit<
 	ComponentPropsWithoutRef<typeof RadixDropdownMenu.Item>,
 	"children"
 > {
-	children: ReactNode;
 	inset?: boolean;
+	current?: boolean;
+	tone?: "default" | "brand" | "success" | "warning" | "danger";
+	label: ReactNode;
+	icon: ForwardRefExoticComponent<
+		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+	>;
 }
 
 export interface DropdownMenuLabelProps extends Omit<
@@ -248,11 +256,14 @@ export interface TabsProps extends Omit<
 	children: ReactNode;
 }
 
+export type TabsListVariant = "default" | "icon";
+
 export interface TabsListProps extends Omit<
 	ComponentPropsWithoutRef<typeof RadixTabs.List>,
 	"children"
 > {
 	children: ReactNode;
+	variant?: TabsListVariant;
 }
 
 export interface TabsTriggerProps extends Omit<
@@ -260,6 +271,7 @@ export interface TabsTriggerProps extends Omit<
 	"children"
 > {
 	children: ReactNode;
+	tooltipContent?: ReactNode;
 }
 
 export interface TabsContentProps extends Omit<
