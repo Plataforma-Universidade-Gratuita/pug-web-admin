@@ -161,67 +161,77 @@
         },
         "alertDialog": {
             "cards": {
-                "archive": {
-                    "description": "Nem todo alert dialog e totalmente destrutivo, mas ele ainda deve refletir impacto relevante e intencao explicita.",
-                    "title": "Confirmacao cautelosa",
-                    "trigger": "Abrir confirmacao de arquivamento"
+                "default": {
+                    "title": "Confirmacao padrao",
+                    "description": "Acao primaria com cor da marca e sem overhead por padrao.",
+                    "trigger": "Abrir confirmacao padrao"
                 },
-                "delete": {
-                    "description": "Um padrao forte de alert dialog para remocao permanente ou revogacao irreversivel.",
-                    "title": "Confirmacao destrutiva",
-                    "trigger": "Abrir confirmacao de exclusao"
+                "success": {
+                    "title": "Confirmacao success",
+                    "description": "Use success quando a confirmacao representa um commit positivo ou uma conclusao.",
+                    "trigger": "Abrir confirmacao success"
+                },
+                "warning": {
+                    "title": "Confirmacao warning",
+                    "description": "Use warning quando a acao e relevante e cautelosa, mas nao totalmente destrutiva.",
+                    "trigger": "Abrir confirmacao warning"
+                },
+                "danger": {
+                    "title": "Confirmacao danger",
+                    "description": "Use danger para acoes destrutivas ou irreversiveis.",
+                    "trigger": "Abrir confirmacao danger"
                 }
             },
-            "description": "Alert dialogs interrompem o fluxo atual para confirmacoes consequentes. Use quando a pessoa precisa reconhecer risco, permanencia ou uma mudanca importante de estado antes de continuar.",
+            "description": "Alert dialog agora segue um unico padrao fixo de confirmacao: titulo obrigatorio, subtitulo opcional, overhead opcional por variante e um footer com exatamente duas acoes.",
             "examples": {
-                "archive": {
-                    "description": "Arquivar remove o workspace das visoes ativas e pausa novas atividades ate que ele seja restaurado.",
-                    "eyebrow": "Acao cautelosa",
+                "default": {
+                    "title": "Enviar estas alteracoes?",
+                    "description": "Confirme para aplicar a atualizacao atual neste registro.",
                     "footer": {
                         "cancel": "Cancelar",
-                        "confirm": "Arquivar workspace"
-                    },
-                    "title": "Arquivar workspace"
+                        "confirm": "Confirmar alteracoes"
+                    }
                 },
-                "delete": {
-                    "description": "Excluir este projeto remove seus registros permanentemente e nao pode ser desfeito.",
-                    "eyebrow": "Acao destrutiva",
+                "success": {
+                    "title": "Marcar este fluxo como concluido?",
+                    "description": "Confirme para finalizar este fluxo e manter o estado resultante visivel para a equipe.",
                     "footer": {
-                        "cancel": "Manter projeto",
-                        "confirm": "Excluir projeto"
-                    },
-                    "title": "Excluir projeto"
+                        "cancel": "Cancelar",
+                        "confirm": "Marcar como concluido"
+                    }
+                },
+                "warning": {
+                    "title": "Arquivar este registro?",
+                    "description": "Arquivar remove este registro do fluxo ativo, preservando seu historico.",
+                    "footer": {
+                        "cancel": "Cancelar",
+                        "confirm": "Arquivar registro"
+                    }
+                },
+                "danger": {
+                    "title": "Excluir este registro?",
+                    "description": "Excluir remove este registro permanentemente e nao pode ser desfeito.",
+                    "footer": {
+                        "cancel": "Cancelar",
+                        "confirm": "Excluir registro"
+                    }
                 }
             },
-            "loadingCard": {
-                "description": "Use loading apenas quando o texto de confirmacao depender de contexto que ainda esta sendo resolvido.",
-                "title": "Loading antes de confirmar",
-                "trigger": "Abrir alert dialog em loading"
-            },
-            "loadingExample": {
-                "cancel": "Manter projeto",
-                "confirm": "Excluir projeto",
-                "description": "Os detalhes finais da confirmacao ainda estao sendo carregados antes de mostrar a acao destrutiva.",
-                "title": "Excluir projeto"
-            },
-            "loadingLabel": "Carregando contexto do alert dialog",
             "patternNotes": {
                 "items": {
-                    "actions": "O footer deve permanecer simples: um caminho claro de cancelamento e uma unica acao de confirmacao com estilo coerente ao nivel de risco.",
+                    "actions": "O footer sempre contem exatamente dois botoes: uma acao secundaria neutra para cancelar e uma acao primaria para confirmar.",
                     "confirmation": "Mantenha titulo e descricao explicitos sobre o que vai acontecer, o que sera afetado e se a acao pode ser desfeita.",
                     "loading": "O suporte a loading e util quando o texto de confirmacao ou o contexto da decisao depende de dados buscados, mas isso deve ser uma excecao bem escopada e nao o estado padrao.",
-                    "severity": "Use alert dialogs para acoes destrutivas, de alto impacto ou irreversiveis que pedem uma confirmacao mais forte do que um dialog comum."
+                    "severity": "Use a variante para combinar o tom da acao: default, success, warning ou danger.",
+                    "fixed": "Alert dialog e uma superficie fixa de confirmacao. Ele sempre tem titulo, pode ter uma descricao curta de apoio e nao usa uma secao livre de corpo.",
+                    "overhead": "As variantes controlam o overhead: nenhum no default, Acao positiva no success, Acao cautelosa no warning e Acao destrutiva no danger."
                 },
-                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Excluir projeto</AlertDialogTitle>\n      <AlertDialogDescription>\n        Esta acao nao pode ser desfeita.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n\n    <AlertDialogFooter>\n      <AlertDialogCancel>\n        <Button usage=\"secondary\" variant=\"ghost\">Cancelar</Button>\n      </AlertDialogCancel>\n      <AlertDialogAction>\n        <Button usage=\"danger\" variant=\"flat\">Excluir</Button>\n      </AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
+                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent variant=\"danger\">\n    <AlertDialogHeader>\n      <AlertDialogTitle>Excluir projeto?</AlertDialogTitle>\n      <AlertDialogDescription>\n        Esta acao nao pode ser desfeita.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter\n      cancelLabel=\"Cancelar\"\n      actionLabel=\"Excluir projeto\"\n    />\n  </AlertDialogContent>\n</AlertDialog>"
             },
             "sections": {
-                "confirmation": {
-                    "description": "Use alert dialogs quando a acao merece uma confirmacao forÃ§ada com um conjunto estreito de escolhas.",
-                    "title": "Padroes de confirmacao"
-                },
-                "loading": {
-                    "description": "Se a confirmacao final depender de contexto buscado, a mesma primitiva pode sustentar um loading temporario sem mudar a anatomia geral.",
-                    "title": "Confirmacao em loading"
+                "variants": {
+                    "title": "Variantes de confirmacao",
+                    "description": "Todos os alert dialogs usam o mesmo layout. So a variante semantica e o texto mudam."
                 }
             },
             "title": "Alert Dialog"
@@ -1978,5 +1988,12 @@
         },
         "subtitle": "Workspace de operacoes",
         "title": "PUG Admin"
+    },
+    "AlertDialog": {
+        "overhead": {
+            "success": "Acao positiva",
+            "warning": "Acao cautelosa",
+            "danger": "Acao destrutiva"
+        }
     }
 }

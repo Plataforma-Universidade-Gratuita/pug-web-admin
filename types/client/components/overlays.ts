@@ -1,6 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
-
-import type * as RadixAlertDialog from "@radix-ui/react-alert-dialog";
+import type { ReactNode } from "react";
 
 export interface DialogProps {
 	children: ReactNode;
@@ -44,14 +42,18 @@ export interface AlertDialogProps {
 	loadingLabel?: string;
 }
 
+export type AlertDialogVariant = "default" | "success" | "warning" | "danger";
+
 export interface AlertDialogContentProps {
 	children: ReactNode;
 	className?: string;
+	variant?: AlertDialogVariant;
 }
 
 export interface AlertDialogHeaderProps {
 	children: ReactNode;
 	className?: string;
+	overhead?: ReactNode;
 }
 
 export interface AlertDialogTitleProps {
@@ -65,20 +67,10 @@ export interface AlertDialogDescriptionProps {
 }
 
 export interface AlertDialogFooterProps {
-	children: ReactNode;
 	className?: string;
-}
-
-export interface AlertDialogCancelProps extends ComponentPropsWithoutRef<
-	typeof RadixAlertDialog.Cancel
-> {
-	children: ReactNode;
-}
-
-export interface AlertDialogActionProps extends ComponentPropsWithoutRef<
-	typeof RadixAlertDialog.Action
-> {
-	children: ReactNode;
+	cancelLabel: ReactNode;
+	actionLabel: ReactNode;
+	onAction?: () => void;
 }
 
 export type DrawerSide = "top" | "right" | "bottom" | "left";

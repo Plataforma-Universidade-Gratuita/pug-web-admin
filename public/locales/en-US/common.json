@@ -161,67 +161,77 @@
         },
         "alertDialog": {
             "cards": {
-                "archive": {
-                    "description": "Not every alert dialog is fully destructive, but it should still reflect meaningful impact and explicit intent.",
-                    "title": "Cautionary confirmation",
-                    "trigger": "Open archive confirmation"
+                "default": {
+                    "title": "Default confirmation",
+                    "description": "Brand primary action with no overhead label by default.",
+                    "trigger": "Open default confirmation"
                 },
-                "delete": {
-                    "description": "A strong alert dialog pattern for permanent removal or irreversible revocation.",
-                    "title": "Destructive confirmation",
-                    "trigger": "Open delete confirmation"
+                "success": {
+                    "title": "Success confirmation",
+                    "description": "Use success when the confirmation represents a positive commit or completion step.",
+                    "trigger": "Open success confirmation"
+                },
+                "warning": {
+                    "title": "Warning confirmation",
+                    "description": "Use warning when the action is meaningful and cautionary, but not fully destructive.",
+                    "trigger": "Open warning confirmation"
+                },
+                "danger": {
+                    "title": "Danger confirmation",
+                    "description": "Use danger for destructive or irreversible actions.",
+                    "trigger": "Open danger confirmation"
                 }
             },
-            "description": "Alert dialogs interrupt the current flow for consequential confirmations. Use them when the user must acknowledge risk, permanence, or a meaningful state change before continuing.",
+            "description": "Alert dialog now follows one fixed confirmation pattern: title required, optional subtitle, optional overhead by variant, and a footer with exactly two actions.",
             "examples": {
-                "archive": {
-                    "description": "Archiving removes the workspace from active views and pauses new activity until it is restored.",
-                    "eyebrow": "Cautionary action",
+                "default": {
+                    "title": "Submit these changes?",
+                    "description": "Confirm to apply the current update to this record.",
                     "footer": {
                         "cancel": "Cancel",
-                        "confirm": "Archive workspace"
-                    },
-                    "title": "Archive workspace"
+                        "confirm": "Confirm changes"
+                    }
                 },
-                "delete": {
-                    "description": "Deleting this project permanently removes its records and cannot be undone.",
-                    "eyebrow": "Destructive action",
+                "success": {
+                    "title": "Mark this workflow complete?",
+                    "description": "Confirm to finalize this workflow and keep the resulting state visible to the team.",
                     "footer": {
-                        "cancel": "Keep project",
-                        "confirm": "Delete project"
-                    },
-                    "title": "Delete project"
+                        "cancel": "Cancel",
+                        "confirm": "Mark complete"
+                    }
+                },
+                "warning": {
+                    "title": "Archive this record?",
+                    "description": "Archiving removes this record from the active workflow while preserving its history.",
+                    "footer": {
+                        "cancel": "Cancel",
+                        "confirm": "Archive record"
+                    }
+                },
+                "danger": {
+                    "title": "Delete this record?",
+                    "description": "Deleting permanently removes this record and cannot be undone.",
+                    "footer": {
+                        "cancel": "Cancel",
+                        "confirm": "Delete record"
+                    }
                 }
             },
-            "loadingCard": {
-                "description": "Use loading only when the confirmation text depends on context that is still resolving.",
-                "title": "Loading before confirm",
-                "trigger": "Open loading alert dialog"
-            },
-            "loadingExample": {
-                "cancel": "Keep project",
-                "confirm": "Delete project",
-                "description": "The final confirmation details are still being loaded before the destructive action is shown.",
-                "title": "Delete project"
-            },
-            "loadingLabel": "Loading alert dialog context",
             "patternNotes": {
                 "items": {
-                    "actions": "The footer should stay simple: a clear cancel path and one confirm action with styling that matches the level of risk.",
+                    "actions": "The footer always contains exactly two buttons: a neutral secondary cancel action and one primary confirm action.",
                     "confirmation": "Keep the title and description explicit about what will happen, what is affected, and whether the action can be undone.",
                     "loading": "Loading support is useful when the confirmation copy or decision context depends on fetched data, but it should remain a scoped exception rather than the default state.",
-                    "severity": "Use alert dialogs for destructive, high-impact, or irreversible actions that deserve a stronger confirmation pattern than a normal dialog."
+                    "severity": "Use the variant to match the action tone: default, success, warning, or danger.",
+                    "fixed": "Alert dialog is a fixed confirmation surface. It always has a title, may have a short supporting description, and does not use a free-form body section.",
+                    "overhead": "Variants control the overhead label: none for default, Positive Action for success, Cautionary Action for warning, and Destructive Action for danger."
                 },
-                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete project</AlertDialogTitle>\n      <AlertDialogDescription>\n        This action cannot be undone.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n\n    <AlertDialogFooter>\n      <AlertDialogCancel>\n        <Button usage=\"secondary\" variant=\"ghost\">Cancel</Button>\n      </AlertDialogCancel>\n      <AlertDialogAction>\n        <Button usage=\"danger\" variant=\"flat\">Delete</Button>\n      </AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
+                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent variant=\"danger\">\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete project?</AlertDialogTitle>\n      <AlertDialogDescription>\n        This action cannot be undone.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter\n      cancelLabel=\"Cancel\"\n      actionLabel=\"Delete project\"\n    />\n  </AlertDialogContent>\n</AlertDialog>"
             },
             "sections": {
-                "confirmation": {
-                    "description": "Use alert dialogs when the action deserves a forced confirmation with a narrow set of choices.",
-                    "title": "Confirmation patterns"
-                },
-                "loading": {
-                    "description": "If the final confirmation depends on fetched context, the same primitive can hold a temporary loading state without changing the overall anatomy.",
-                    "title": "Loading confirmation state"
+                "variants": {
+                    "title": "Confirmation variants",
+                    "description": "All alert dialogs use the same layout. Only the semantic variant and copy change."
                 }
             },
             "title": "Alert Dialog"
@@ -1978,5 +1988,12 @@
         },
         "subtitle": "Operations workspace",
         "title": "PUG Admin"
+    },
+    "AlertDialog": {
+        "overhead": {
+            "success": "Positive Action",
+            "warning": "Cautionary Action",
+            "danger": "Destructive Action"
+        }
     }
 }

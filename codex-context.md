@@ -442,7 +442,29 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
     - `label`
     - optional `current`
     - optional semantic item component choice
-      and should not manually compose icon-plus-label children markup
+    and should not manually compose icon-plus-label children markup
+- Alert dialog contract:
+  - alert dialog now follows one fixed confirmation pattern
+  - it should always have:
+    - a required title
+    - an optional supporting description
+    - a footer with exactly two buttons
+  - it should not use a free-form content/body section for arbitrary layout
+  - the footer owns the button pattern; consumers should not manually compose cancel/confirm buttons inside it
+  - footer actions are always:
+    - neutral secondary cancel button
+    - primary confirm button
+  - the separator above the footer is always present
+  - supported variants are:
+    - `default`
+    - `success`
+    - `warning`
+    - `danger`
+  - variant behavior:
+    - `default`: brand primary confirm button, no overhead by default
+    - `success`: success confirm button, positive-action overhead by default
+    - `warning`: warning confirm button, cautionary-action overhead by default
+    - `danger`: danger confirm button, destructive-action overhead by default
 
 ## Styling system
 

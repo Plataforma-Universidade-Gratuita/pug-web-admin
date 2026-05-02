@@ -7,8 +7,6 @@ import { useTranslation } from "react-i18next";
 
 import {
 	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
 	AlertDialogContent,
 	AlertDialogDescription,
 	AlertDialogFooter,
@@ -167,33 +165,25 @@ export default function DropdownMenuParticle() {
 					if (!open) setConfirmAction(null);
 				}}
 			>
-				<AlertDialogContent>
+				<AlertDialogContent
+					variant={
+						confirmAction === "save"
+							? "success"
+							: confirmAction === "archive"
+								? "warning"
+								: "danger"
+					}
+				>
 					<AlertDialogHeader>
 						<AlertDialogTitle>{confirmCopy?.title}</AlertDialogTitle>
 						<AlertDialogDescription>
 							{confirmCopy?.description}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
-					<AlertDialogFooter>
-						<AlertDialogCancel>
-							<Button variant="secondary">
-								{t("docs.dropdownMenu.confirm.cancel")}
-							</Button>
-						</AlertDialogCancel>
-						<AlertDialogAction>
-							<Button
-								usage={
-									confirmAction === "save"
-										? "success"
-										: confirmAction === "archive"
-											? "warning"
-											: "danger"
-								}
-							>
-								{confirmCopy?.actionLabel}
-							</Button>
-						</AlertDialogAction>
-					</AlertDialogFooter>
+					<AlertDialogFooter
+						cancelLabel={t("docs.dropdownMenu.confirm.cancel")}
+						actionLabel={confirmCopy?.actionLabel ?? ""}
+					/>
 				</AlertDialogContent>
 			</AlertDialog>
 		</>
