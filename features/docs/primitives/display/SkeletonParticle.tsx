@@ -13,9 +13,8 @@ import {
 	CardHeader,
 	CardTitle,
 	Dialog,
+	DialogBody,
 	DialogContent,
-	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	Footer,
@@ -237,28 +236,14 @@ export default function SkeletonParticle() {
 					loadingLabel={t("docs.skeleton.loadingLabels.dialog")}
 				>
 					<DialogContent>
-						<DialogHeader className="p-6 pb-4">
+						<DialogHeader>
 							<DialogTitle>
 								{t("docs.skeleton.dialogExample.title")}
 							</DialogTitle>
-							<DialogDescription>
-								{t("docs.skeleton.dialogExample.description")}
-							</DialogDescription>
 						</DialogHeader>
-						<div className="flex-1 p-6 pt-0">
+						<DialogBody>
 							<Content isLoading />
-						</div>
-						<DialogFooter>
-							<Button variant="ghost">
-								{t("docs.skeleton.dialogExample.secondary")}
-							</Button>
-							<Button
-								usage="primary"
-								variant="flat"
-							>
-								{t("docs.skeleton.dialogExample.primary")}
-							</Button>
-						</DialogFooter>
+						</DialogBody>
 					</DialogContent>
 				</Dialog>
 			</ParticleSection>

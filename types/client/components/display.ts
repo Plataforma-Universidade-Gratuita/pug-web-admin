@@ -56,6 +56,9 @@ export interface PopoverContentProps {
 	collisionPadding?:
 		| number
 		| Partial<Record<"top" | "right" | "bottom" | "left", number>>;
+	collisionBoundary?: ComponentPropsWithoutRef<
+		typeof RadixPopover.Content
+	>["collisionBoundary"];
 	onCloseAutoFocus?: ComponentPropsWithoutRef<
 		typeof RadixPopover.Content
 	>["onCloseAutoFocus"];

@@ -1,4 +1,11 @@
 {
+    "AlertDialog": {
+        "overhead": {
+            "danger": "Destructive Action",
+            "success": "Positive Action",
+            "warning": "Cautionary Action"
+        }
+    },
     "auth": {
         "login": {
             "brand": {
@@ -56,6 +63,9 @@
         }
     },
     "components": {
+        "common": {
+            "cancel": "Cancel"
+        },
         "datePicker": {
             "calendarLabel": "Date and time picker calendar",
             "clear": "Clear selection",
@@ -68,6 +78,12 @@
             "placeholder": "Select date and time",
             "previousMonth": "Go to previous month",
             "timeSection": "Time"
+        },
+        "dialog": {
+            "close": "Close dialog"
+        },
+        "drawer": {
+            "close": "Close drawer"
         }
     },
     "docs": {
@@ -161,77 +177,77 @@
         },
         "alertDialog": {
             "cards": {
+                "danger": {
+                    "description": "Use danger for destructive or irreversible actions.",
+                    "title": "Danger confirmation",
+                    "trigger": "Open danger confirmation"
+                },
                 "default": {
-                    "title": "Default confirmation",
                     "description": "Brand primary action with no overhead label by default.",
+                    "title": "Default confirmation",
                     "trigger": "Open default confirmation"
                 },
                 "success": {
-                    "title": "Success confirmation",
                     "description": "Use success when the confirmation represents a positive commit or completion step.",
+                    "title": "Success confirmation",
                     "trigger": "Open success confirmation"
                 },
                 "warning": {
-                    "title": "Warning confirmation",
                     "description": "Use warning when the action is meaningful and cautionary, but not fully destructive.",
+                    "title": "Warning confirmation",
                     "trigger": "Open warning confirmation"
-                },
-                "danger": {
-                    "title": "Danger confirmation",
-                    "description": "Use danger for destructive or irreversible actions.",
-                    "trigger": "Open danger confirmation"
                 }
             },
-            "description": "Alert dialog now follows one fixed confirmation pattern: title required, optional subtitle, optional overhead by variant, and a footer with exactly two actions.",
+            "description": "Alert dialog follows one fixed confirmation pattern: required title, optional short supporting description, variant-controlled overhead, and a footer with exactly two actions.",
             "examples": {
-                "default": {
-                    "title": "Submit these changes?",
-                    "description": "Confirm to apply the current update to this record.",
-                    "footer": {
-                        "cancel": "Cancel",
-                        "confirm": "Confirm changes"
-                    }
-                },
-                "success": {
-                    "title": "Mark this workflow complete?",
-                    "description": "Confirm to finalize this workflow and keep the resulting state visible to the team.",
-                    "footer": {
-                        "cancel": "Cancel",
-                        "confirm": "Mark complete"
-                    }
-                },
-                "warning": {
-                    "title": "Archive this record?",
-                    "description": "Archiving removes this record from the active workflow while preserving its history.",
-                    "footer": {
-                        "cancel": "Cancel",
-                        "confirm": "Archive record"
-                    }
-                },
                 "danger": {
-                    "title": "Delete this record?",
                     "description": "Deleting permanently removes this record and cannot be undone.",
                     "footer": {
                         "cancel": "Cancel",
                         "confirm": "Delete record"
-                    }
+                    },
+                    "title": "Delete this record?"
+                },
+                "default": {
+                    "description": "Confirm to apply the current update to this record.",
+                    "footer": {
+                        "cancel": "Cancel",
+                        "confirm": "Confirm changes"
+                    },
+                    "title": "Submit these changes?"
+                },
+                "success": {
+                    "description": "Confirm to finalize this workflow and keep the resulting state visible to the team.",
+                    "footer": {
+                        "cancel": "Cancel",
+                        "confirm": "Mark complete"
+                    },
+                    "title": "Mark this workflow complete?"
+                },
+                "warning": {
+                    "description": "Archiving removes this record from the active workflow while preserving its history.",
+                    "footer": {
+                        "cancel": "Cancel",
+                        "confirm": "Archive record"
+                    },
+                    "title": "Archive this record?"
                 }
             },
             "patternNotes": {
                 "items": {
-                    "actions": "The footer always contains exactly two buttons: a neutral secondary cancel action and one primary confirm action.",
+                    "actions": "The footer always contains exactly two buttons: a neutral `secondary` cancel button and a confirm button in the semantic tone of the variant.",
                     "confirmation": "Keep the title and description explicit about what will happen, what is affected, and whether the action can be undone.",
+                    "fixed": "Alert dialog is a fixed confirmation surface. Do not use a free-form body, custom footer layouts, or arbitrary button combinations.",
                     "loading": "Loading support is useful when the confirmation copy or decision context depends on fetched data, but it should remain a scoped exception rather than the default state.",
-                    "severity": "Use the variant to match the action tone: default, success, warning, or danger.",
-                    "fixed": "Alert dialog is a fixed confirmation surface. It always has a title, may have a short supporting description, and does not use a free-form body section.",
-                    "overhead": "Variants control the overhead label: none for default, Positive Action for success, Cautionary Action for warning, and Destructive Action for danger."
+                    "overhead": "Variants control the overhead label: none for default, Positive Action for success, Cautionary Action for warning, and Destructive Action for danger.",
+                    "severity": "Use the variant to match the action tone: default, success, warning, or danger."
                 },
-                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent variant=\"danger\">\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete project?</AlertDialogTitle>\n      <AlertDialogDescription>\n        This action cannot be undone.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter\n      cancelLabel=\"Cancel\"\n      actionLabel=\"Delete project\"\n    />\n  </AlertDialogContent>\n</AlertDialog>"
+                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent variant=\"danger\">\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete record?</AlertDialogTitle>\n      <AlertDialogDescription>\n        This action cannot be undone.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter\n      cancelLabel=\"Cancel\"\n      actionLabel=\"Delete record\"\n    />\n  </AlertDialogContent>\n</AlertDialog>"
             },
             "sections": {
                 "variants": {
-                    "title": "Confirmation variants",
-                    "description": "All alert dialogs use the same layout. Only the semantic variant and copy change."
+                    "description": "All alert dialogs use the same layout. Only the semantic variant and copy change.",
+                    "title": "Confirmation variants"
                 }
             },
             "title": "Alert Dialog"
@@ -263,9 +279,9 @@
             "patternNotes": {
                 "items": {
                     "compact": "Keep badge copy short. If the content needs a sentence, helper text, or multiple actions, it is no longer a badge.",
-                    "status": "Use badge for short status-like metadata such as active state, review stage, or risk level. It should stay compact and glanceable.",
+                    "status": "Use badge for short status-like metadata such as active state, review stage, compact category, or risk level. It should stay compact and glanceable.",
                     "tone": "Choose tone based on meaning, not decoration. The color should reinforce semantic state without carrying the entire message alone.",
-                    "variant": "Use softer variants for dense surfaces and stronger variants only when the badge needs a little more emphasis."
+                    "variant": "Choose tone first and use variant only to tune emphasis inside the current surface."
                 },
                 "snippet": "<Badge tone=\"success\">Approved</Badge>\n<Badge tone=\"brand\" variant=\"outline\">Featured</Badge>"
             },
@@ -344,14 +360,14 @@
             "description": "Buttons trigger user actions. The contract is now stricter: `variant=\"primary\"` is the main flat action, `variant=\"secondary\"` is the lower-emphasis ghost action, and `usage` changes the color when the meaning changes.",
             "patternNotes": {
                 "items": {
-                    "actionOrder": "When actions are grouped, place the primary action at the far right. Supporting actions stay to its left.",
-                    "default": "Use the no-props button as the baseline primary action. It already renders as medium-sized brand emphasis.",
+                    "actionOrder": "In grouped actions, the primary action always belongs on the far right. Supporting and fallback actions stack to the left in decreasing emphasis.",
+                    "default": "The default button already defines the main contract: `variant=\"primary\"`, `usage=\"primary\"`, and `size=\"md\"`. Use that baseline unless there is a clear reason to change emphasis.",
                     "flat": "Use `variant=\"flat\"` for the default call-to-action treatment.",
                     "icon": "For icon-only buttons, always provide a readable `title`, `aria-label`, or `tooltipContent` so the component exposes an accessible name.",
-                    "primaryVariant": "Use `variant=\"primary\"` for the main call to action. This is the filled pattern.",
-                    "secondaryVariant": "Use `variant=\"secondary\"` for supporting and fallback actions. This is the ghost pattern."
+                    "primaryVariant": "Use `variant=\"primary\"` for the main action in the set. Change `usage` only when the semantic color meaning changes, not to redefine the hierarchy of the button.",
+                    "secondaryVariant": "Use `variant=\"secondary\"` for supporting or dismissive actions. Without an explicit `usage`, it should remain neutral and grey."
                 },
-                "snippet": "<Button>Save changes</Button>\n\n<Button variant=\"secondary\">Cancel</Button>\n\n<Button\n  variant=\"primary | secondary\"\n  usage=\"primary | secondary | success | info | warning | danger\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Saving...\"\n  tooltipContent=\"Add item\"\n/>"
+                "snippet": "<div className=\"flex justify-end gap-3\">\n  <Button variant=\"secondary\" usage=\"danger\">Delete draft</Button>\n  <Button variant=\"secondary\">Save draft</Button>\n  <Button>Publish</Button>\n</div>"
             },
             "sections": {
                 "actionOrder": {
@@ -567,6 +583,11 @@
                     "searchPlaceholder": "Search cities",
                     "title": "City search"
                 },
+                "disabled": {
+                    "description": "A disabled combobox should keep the chosen value and context visible without suggesting that search or selection is still available.",
+                    "label": "Reviewer",
+                    "title": "Disabled combobox"
+                },
                 "people": {
                     "description": "A common admin pattern where people are selected from a growing list of options.",
                     "empty": "No owners found.",
@@ -596,10 +617,10 @@
             "description": "Combobox combines a trigger field with search and option picking. Use it when users must choose one value from a defined set but the list is long enough that search dramatically improves scanning.",
             "patternNotes": {
                 "items": {
-                    "metadata": "Combobox options can carry brief supporting metadata, but the option list should still remain fast to scan.",
-                    "scope": "Use it for people, places, categories, and other datasets where the user benefits from narrowing the list before choosing.",
+                    "metadata": "Options may carry a short description or other supporting metadata, but the list should still remain fast to scan.",
+                    "scope": "Use it for people, places, categories, and other datasets where the user benefits from narrowing the list before choosing while still landing on one selected value.",
                     "search": "Use combobox when search or filtering is part of the interaction. If the list is short and obvious, a normal select is usually enough.",
-                    "single": "This primitive is best for one chosen value at a time. If users need many selections, prefer a dedicated multi-select pattern."
+                    "single": "This primitive is for one chosen value at a time. If users need many selections, use a dedicated multi-select pattern instead of stretching combobox behavior."
                 },
                 "snippet": "<Combobox\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose owner\"\n  searchPlaceholder=\"Search owners\"\n  options={options}\n/>"
             },
@@ -648,167 +669,156 @@
             "title": "Date Picker"
         },
         "dialog": {
-            "description": "Dialogs interrupt the current flow to present focused content, decisions, or structured tasks. Use them for content that needs explicit attention without leaving the current page.",
+            "description": "Dialogs interrupt the current flow to present focused content that needs attention without becoming a confirmation surface. Use them for notes, supporting details, and short focused reads tied to the current page.",
             "examples": {
                 "basic": {
-                    "body": "This example shows a common two-action dialog: a dismissive secondary action and a single primary action for completion.",
-                    "description": "Use a short description to explain what the dialog is for before the user reviews the body content.",
-                    "eyebrow": "Dialog example",
-                    "footer": {
-                        "primary": "Create workspace",
-                        "secondary": "Cancel"
-                    },
-                    "title": "Create workspace"
-                },
-                "footer": {
-                    "description": "This example shows a destructive footer with a low-emphasis tertiary action, a secondary dismissal path, and a danger primary action.",
-                    "eyebrow": "Action combinations",
-                    "footer": {
-                        "primary": "Delete project",
-                        "secondary": "Keep project",
-                        "tertiary": "Review dependencies"
-                    },
-                    "title": "Delete project"
+                    "body": "Use a dialog when the user needs to read or review focused supporting content without leaving the current page.",
+                    "title": "Workspace notes"
                 },
                 "overflow": {
-                    "description": "The body region handles overflow so the title and footer remain visible while the user reads longer content.",
-                    "eyebrow": "Overflow behavior",
-                    "footer": {
-                        "primary": "Got it"
-                    },
+                    "eyebrow": "Scrollable notes",
                     "paragraphs": {
-                        "five": "Footer actions should remain compact and predictable. Use the same action order consistently so the primary decision stays easy to find.",
-                        "four": "Descriptions belong near the title, not buried inside the content body. That keeps the purpose of the dialog clear before the user interacts with the details.",
-                        "one": "Dialogs should still feel stable when content becomes long. Header information needs to stay visible so the user never loses context.",
-                        "six": "This example intentionally adds enough content to force overflow so the scrolling behavior can be evaluated in a realistic documentation scenario.",
-                        "three": "Long-form content in a dialog should still be focused. If the content starts to resemble a full page, reconsider whether a dedicated route is a better fit.",
-                        "two": "The body is the only region that should scroll. That keeps the action row anchored and prevents the footer from drifting out of view."
+                        "five": "This keeps the layout stable while longer notes remain readable and bounded inside the same surface.",
+                        "four": "Longer reads are acceptable as long as the dialog still feels like supporting content instead of a full page squeezed into an overlay.",
+                        "one": "When content grows, only the body region should scroll. The header should remain fixed so the user keeps the title and close affordance in view.",
+                        "six": "If the content starts to demand editing flows, multi-step actions, or dense navigation, move it to another pattern instead of stretching the dialog.",
+                        "three": "The separator between header and body should stay visible so the content area reads as a distinct scrollable region.",
+                        "two": "Dialogs in this system do not use footer actions. They are for focused content, not confirmation hierarchies."
                     },
                     "title": "Migration notes"
+                },
+                "overhead": {
+                    "body": "The optional overhead works well when the dialog belongs to a named pattern such as migration notes, reference context, or operational guidance.",
+                    "eyebrow": "Pattern notes",
+                    "title": "Implementation guidance"
                 }
             },
-            "footerCard": {
-                "description": "Dialog footers do not need three actions every time. Use only the actions the task actually requires, and vary the button usage by the intent of the flow.",
-                "title": "Action combinations",
-                "trigger": "Open footer example"
-            },
             "overflowCard": {
-                "description": "When the dialog body is long, only the content region should scroll so context and actions remain visible.",
+                "description": "Long content should stay bounded inside a vertically scrollable body while the header remains fixed.",
                 "title": "Scrollable body",
                 "trigger": "Open overflow example"
             },
             "patternNotes": {
                 "items": {
-                    "actions": "Use the footer for the action hierarchy required by the flow. Some dialogs need one action, some need two, and only some need the full primary/secondary/tertiary set.",
-                    "overflow": "When content grows, let only the body scroll. Header and footer should remain fixed within the dialog.",
-                    "structure": "Keep the structure predictable: header for title and description, scrollable body for content, and footer for actions.",
-                    "useCase": "Use dialogs for focused tasks, confirmations, or supporting content that should temporarily take priority over the page."
+                    "content": "Dialog content is required. Use it for notes, supporting explanations, structured read-only information, or short focused content blocks tied to the current page.",
+                    "header": "Do not use a subtitle below the title in this pattern. If extra context is needed, put it in the body or use the overhead as a small framing label above the title.",
+                    "overflow": "When content grows, only the body should scroll. The body uses the shared ScrollArea so the header remains visible.",
+                    "structure": "The structure is fixed: optional overhead, required title, top close button, separator, and required body. There is no footer.",
+                    "useCase": "Use dialog for focused supporting content, notes, and short reads. When the primary job is confirming an action, use `AlertDialog` instead of `Dialog`."
                 },
-                "snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>Dialog title</DialogTitle>\n      <DialogDescription>\n        Short explanation for the dialog.\n      </DialogDescription>\n    </DialogHeader>\n\n    <div className=\"flex-1 overflow-y-auto\">Body content</div>\n\n    <DialogFooter>\n      <Button variant=\"ghost\">Tertiary</Button>\n      <Button usage=\"secondary\" variant=\"flat\">Secondary</Button>\n      <Button usage=\"primary\" variant=\"flat\">Primary</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>"
+                "snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader overhead=\"Pattern notes\">\n      <DialogTitle>Implementation guidance</DialogTitle>\n    </DialogHeader>\n    <DialogBody>\n      Body content\n    </DialogBody>\n  </DialogContent>\n</Dialog>"
             },
             "sections": {
-                "footer": {
-                    "description": "Reserve the footer for the action hierarchy instead of mixing structural actions into the body.",
-                    "title": "Footer actions"
-                },
                 "overflow": {
-                    "description": "Long content should scroll inside the dialog body while header and footer remain fixed.",
+                    "description": "Long content should scroll inside the dialog body while the header remains fixed and the close affordance stays visible.",
                     "title": "Overflow"
                 },
                 "structure": {
-                    "description": "Use a consistent layout so users can immediately identify the dialog header, body, and actions.",
+                    "description": "The dialog structure is fixed: optional overhead, required title, close button, separator, and required content body.",
                     "title": "Structure"
                 }
             },
             "structureCards": {
                 "basic": {
-                    "description": "A minimal dialog should provide a clear title, a short description, focused content, and explicit dismissal paths.",
-                    "title": "Basic structure",
+                    "description": "A minimal dialog should provide a clear title and focused content without adding footer actions or descriptive subtitle copy.",
+                    "title": "Default structure",
                     "trigger": "Open basic dialog"
                 },
-                "description": {
-                    "description": "Use the description slot for one concise sentence that explains the purpose of the dialog before the body content starts.",
-                    "title": "Descriptive header",
-                    "trigger": "Open described dialog"
+                "overhead": {
+                    "description": "Use overhead only when it adds a small framing label above the title, such as notes, reference, or guidance.",
+                    "title": "Optional overhead",
+                    "trigger": "Open overhead dialog"
                 }
             },
             "title": "Dialog"
         },
         "drawer": {
             "cards": {
-                "details": {
-                    "description": "A right-side drawer works well for record details and light edit flows.",
-                    "title": "Detail panel",
-                    "trigger": "Open details drawer"
+                "create": {
+                    "description": "Use a right-side drawer for denser create flows that should stay tied to the current page context.",
+                    "title": "Create entity drawer",
+                    "trigger": "Open create drawer"
                 },
                 "filters": {
-                    "description": "A left-side drawer can keep supporting filters available without replacing the whole page.",
-                    "title": "Filters panel",
+                    "description": "Use the same right-side panel for richer filters when a small popover would become cramped or too fragmented.",
+                    "title": "Heavy filters drawer",
                     "trigger": "Open filters drawer"
                 }
             },
-            "description": "Drawers reveal focused side panels while keeping the current page visible underneath. Use them for edit flows, details, and filter panels that should preserve more context than a centered dialog.",
+            "description": "Drawers are the workflow overlay for heavier filters, creation flows, and denser subordinate work. In this system they are right-side panels with a structured header, scrollable body, and fixed task footer.",
             "examples": {
-                "details": {
-                    "description": "Use the drawer for supporting record detail while the original list or page remains visible underneath.",
-                    "eyebrow": "Details panel",
-                    "footer": {
-                        "primary": "Open full record",
-                        "secondary": "Close"
+                "create": {
+                    "clear": {
+                        "action": "Clear draft",
+                        "description": "Clearing removes all current values from the drawer body. This affects only the current draft.",
+                        "title": "Clear this draft?"
                     },
-                    "items": {
-                        "owner": {
-                            "description": "Maria Souza coordinates approvals and delivery checkpoints.",
-                            "title": "Owner"
+                    "description": "Set the initial record details before creating the new entity.",
+                    "eyebrow": "Partner entity",
+                    "footer": {
+                        "action": "Create entity"
+                    },
+                    "sections": {
+                        "general": {
+                            "description": "Name, classification, and the baseline values needed to open the record.",
+                            "title": "General data"
                         },
-                        "status": {
-                            "description": "Currently active with one pending review cycle.",
-                            "title": "Status"
+                        "ownership": {
+                            "description": "Assign the responsible area and connect the entity to the correct campus context.",
+                            "title": "Ownership and campus"
                         },
-                        "updated": {
-                            "description": "Edited two hours ago by the operations team.",
-                            "title": "Last update"
+                        "review": {
+                            "description": "Keep a final compact review step when the creation flow contains more than one dense block.",
+                            "title": "Review before creation"
                         }
                     },
-                    "title": "Project Atlas"
+                    "title": "Create entity"
                 },
                 "filters": {
-                    "description": "A supporting drawer can hold denser filters without breaking the surrounding browsing context.",
-                    "eyebrow": "Filters panel",
-                    "footer": {
-                        "primary": "Apply filters",
-                        "secondary": "Reset"
+                    "clear": {
+                        "action": "Clear filters",
+                        "description": "Clearing removes the current filter values from this drawer and returns the panel to its initial state.",
+                        "title": "Clear these filters?"
                     },
-                    "items": {
-                        "owner": {
-                            "description": "Filter by responsible team or reviewer.",
-                            "title": "Owner"
+                    "description": "Adjust the active list view with broader filtering criteria without leaving the workspace.",
+                    "eyebrow": "Project list",
+                    "footer": {
+                        "action": "Apply filters"
+                    },
+                    "groups": {
+                        "advanced": {
+                            "description": "Reserve the deeper accordion groups for less frequent criteria so the drawer stays scannable.",
+                            "title": "Advanced filters"
                         },
-                        "period": {
-                            "description": "Limit the result set to a time window.",
-                            "title": "Period"
+                        "campus": {
+                            "description": "Use secondary grouped controls for broader narrowing dimensions that do not need to stay visible all the time.",
+                            "title": "Campus"
                         },
                         "status": {
-                            "description": "Active, paused, and archived visibility.",
+                            "description": "Keep high-signal state filters near the top so the most common narrowing actions stay easy to reach.",
                             "title": "Status"
                         }
                     },
-                    "title": "Refine project list"
+                    "title": "Refine filters"
                 }
             },
             "patternNotes": {
                 "items": {
-                    "context": "Use a drawer when the current page should remain visible and recognizable while the user handles a focused secondary task.",
-                    "escalation": "If the content becomes highly interruptive or needs stronger focus isolation, escalate to a dialog or a dedicated route instead.",
-                    "footer": "Keep footer actions concise and predictable. A drawer should still feel scoped, not like a full page hidden inside a panel.",
-                    "side": "Choose the side based on layout and task. Right-side detail panels are common, while left-side drawers often work well for filters and supporting tools."
+                    "body": "The body is required and vertically scrollable through the shared ScrollArea. Use tabs for peer workflow sections and accordion for secondary disclosure inside the panel.",
+                    "clear": "The clear action should confirm through AlertDialog because it destroys local progress or filter setup.",
+                    "context": "Use drawer for heavy filtering, creation flows, and denser subordinate work that should remain attached to the current page.",
+                    "escalation": "If the surface becomes mostly informational, use Dialog instead. If it becomes simple anchored micro-interaction, reduce it to Popover.",
+                    "footer": "The footer is always present and task-oriented: clear on the left, primary action on the right. Do not place a close action in the footer.",
+                    "header": "The header supports overhead, required title, short description, and a top-right close button. Keep dismissal structural, not task-oriented.",
+                    "primary": "Use `info` for Apply filters and `success` for Create. The primary action should run directly; only destructive reset needs confirmation.",
+                    "side": "In this app, drawers are right-side panels. Keep the placement consistent instead of switching sides by feature."
                 },
-                "snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent side=\"right\">\n    <DrawerHeader>\n      <DrawerTitle>Project details</DrawerTitle>\n      <DrawerDescription>Review metadata.</DrawerDescription>\n    </DrawerHeader>\n    <DrawerFooter>...</DrawerFooter>\n  </DrawerContent>\n</Drawer>"
+                "snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent>\n    <DrawerHeader overhead=\"Project list\">\n      <DrawerTitle>Refine filters</DrawerTitle>\n      <DrawerDescription>\n        Adjust the active list view with broader criteria.\n      </DrawerDescription>\n    </DrawerHeader>\n    <DrawerBody>...</DrawerBody>\n    <DrawerFooter\n      actionVariant=\"filters\"\n      clearLabel=\"Clear filters\"\n      clearConfirmTitle=\"Clear these filters?\"\n      clearConfirmDescription=\"This removes the current filter values.\"\n      actionLabel=\"Apply filters\"\n    />\n  </DrawerContent>\n</Drawer>"
             },
             "sections": {
                 "examples": {
-                    "description": "Drawers are strongest when the page context should stay visible while the user reviews or edits adjacent information.",
-                    "title": "Panel patterns"
+                    "description": "Use one right-side drawer pattern for creation and heavy filtering so the workflow stays predictable across the app.",
+                    "title": "Workflow patterns"
                 }
             },
             "title": "Drawer"
@@ -853,13 +863,13 @@
             "patternNotes": {
                 "items": {
                     "brandFirst": "The first option is the primary row action and should use the brand accent. All regular supporting options stay neutral.",
-                    "compact": "Use dropdown menus for short command lists that belong to one trigger and do not need rich supporting layout.",
-                    "confirmation": "Meaningful actions from the final semantic group should open an alert dialog before execution.",
+                    "compact": "Dropdown menu now follows one compact row-action pattern. Do not use this component as a generic navigation list or a menu for broad settings surfaces.",
+                    "confirmation": "Meaningful actions in the final group should open an `AlertDialog` before execution to confirm the user?s intent.",
                     "escalation": "The current item may remain highlighted, but it should still react on hover so the state does not feel inert.",
-                    "grouping": "If the menu contains meaningful actions at the end, use the dedicated semantic item components and keep the order success, warning/archive, then danger/delete.",
-                    "scope": "Keep the menu tightly scoped to actions for the current object, row, or surface. If the content becomes explanatory or form-like, switch to a popover or dialog."
+                    "grouping": "When a semantic final group exists, use only `DropdownMenuSuccessItem`, `DropdownMenuWarningItem`, and `DropdownMenuDangerItem`, in that order.",
+                    "scope": "Use dropdown menu for actions related to the current item, especially in lists, tables, and operational rows."
                 },
-                "snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>...</DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuPrimaryItem\n      icon={Eye}\n      label=\"View details\"\n    />\n    <DropdownMenuItem\n      icon={Pencil}\n      label=\"Edit details\"\n    />\n    <DropdownMenuSeparator />\n    <DropdownMenuSuccessItem\n      icon={Save}\n      label=\"Save changes\"\n    />\n    <DropdownMenuWarningItem\n      icon={Archive}\n      label=\"Archive item\"\n    />\n    <DropdownMenuDangerItem\n      icon={Trash2}\n      label=\"Delete item\"\n    />\n  </DropdownMenuContent>\n</DropdownMenu>"
+                "snippet": "<DropdownMenuContent>\n  <DropdownMenuPrimaryItem icon={Eye} label=\"View details\" />\n  <DropdownMenuItem icon={Pencil} label=\"Edit record\" />\n  <DropdownMenuSeparator />\n  <DropdownMenuSuccessItem icon={Save} label=\"Save changes\" />\n  <DropdownMenuWarningItem icon={Archive} label=\"Archive record\" />\n  <DropdownMenuDangerItem icon={Trash2} label=\"Delete record\" />\n</DropdownMenuContent>"
             },
             "sections": {
                 "actions": {
@@ -1079,68 +1089,68 @@
             "title": "Multi Select"
         },
         "popover": {
-            "description": "Popovers reveal compact, contextual content anchored to a trigger. Use them for inline filters, supporting actions, and lightweight panels that should stay connected to the current layout.",
+            "description": "Popover is the small contextual surface anchored to a trigger. Use it for quick filters, supporting metadata, and local choices that should stay inside the current flow.",
             "examples": {
-                "actions": {
-                    "description": "A popover can hold denser actions when a plain tooltip is too small and a dialog would be too disruptive.",
-                    "items": {
-                        "layout": {
-                            "meta": "Panel",
-                            "title": "Adjust layout"
-                        },
-                        "owners": {
-                            "meta": "3 assigned",
-                            "title": "Manage owners"
-                        },
-                        "rules": {
-                            "meta": "Draft",
-                            "title": "Review rules"
-                        }
+                "inline": {
+                    "description": "For tiny interface adjustments, the popover can stay even leaner.",
+                    "options": {
+                        "comfortable": "Comfortable",
+                        "compact": "Compact"
                     },
-                    "title": "Context actions",
-                    "trigger": "Open actions"
+                    "panelTitle": "List density",
+                    "title": "Local choice",
+                    "trigger": "Density"
                 },
-                "filters": {
-                    "description": "Keep lightweight filters close to the data set they affect.",
-                    "items": {
-                        "period": "Period",
-                        "status": "Status"
-                    },
-                    "neighbor": "Date range",
-                    "primary": "Apply filters",
-                    "secondary": "Reset",
-                    "title": "Refine results",
-                    "trigger": "Filters",
-                    "values": {
+                "quickFilters": {
+                    "description": "Apply small adjustments without leaving the current surface.",
+                    "neighbor": "Full date range",
+                    "options": {
+                        "campus": "Main campus",
                         "period": "Last 30 days",
                         "status": "Active only"
-                    }
+                    },
+                    "title": "Refine list",
+                    "trigger": "Quick filters"
                 },
-                "inline": {
-                    "description": "Use the primitive for compact contextual content that should stay anchored near the interaction point.",
-                    "panelDescription": "This kind of content stays close to the trigger instead of interrupting the screen.",
-                    "panelTitle": "Panel options",
-                    "title": "Lightweight panel",
-                    "trigger": "View options"
+                "support": {
+                    "description": "A popover can carry helpful context without turning into an action menu or a dialog.",
+                    "items": {
+                        "owner": {
+                            "label": "Owner",
+                            "value": "Maria Souza"
+                        },
+                        "review": {
+                            "label": "Review",
+                            "value": "Pending today"
+                        },
+                        "visibility": {
+                            "label": "Visibility",
+                            "value": "Internal team"
+                        }
+                    },
+                    "panelDescription": "Short metadata and extra context stay close to the interaction point.",
+                    "panelTitle": "Quick summary",
+                    "title": "Supporting panel",
+                    "trigger": "Open context"
                 }
             },
             "patternNotes": {
                 "items": {
-                    "content": "Popover content can mix text, metadata, small forms, and action groups, but it should still feel like one short contextual panel.",
-                    "escalation": "Use a popover when users should stay in the current flow. Use a tooltip for hints, a dropdown menu for short action lists, and a dialog for focused tasks.",
-                    "inline": "Use popovers for content that belongs to the current surface and does not need the interruption level of a dialog.",
-                    "scope": "Keep the content compact and tightly scoped to the trigger. If the content becomes long or multi-step, escalate to a dialog or a dedicated route."
+                    "anchored": "Popover should stay connected to the trigger and its immediate context. It is not a loose mini dialog on the screen.",
+                    "compact": "Keep the content short, readable, and contained. Once it starts feeling like a full task, it has outgrown the pattern.",
+                    "escalation": "If it becomes a short action list, use dropdown menu. If it becomes heavy filtering, create, or edit work, use drawer. If it becomes focused reading, use dialog.",
+                    "singlePurpose": "Each popover should resolve one local intent: a quick filter, a short supporting panel, or a tiny contextual choice."
                 },
-                "snippet": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>\n    <Button usage=\"secondary\" variant=\"flat\">Filters</Button>\n  </PopoverTrigger>\n\n  <PopoverContent align=\"start\">\n    <p className=\"ty-sm-bold\">Refine results</p>\n    <p className=\"ty-helper\">Short contextual panel.</p>\n  </PopoverContent>\n</Popover>"
+                "snippet": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>\n    <Button usage=\"secondary\" variant=\"secondary\">Quick filters</Button>\n  </PopoverTrigger>\n\n  <PopoverContent align=\"start\" className=\"space-y-3\">\n    <p className=\"ty-sm-bold\">Refine list</p>\n    <p className=\"ty-helper\">Small immediate adjustments.</p>\n  </PopoverContent>\n</Popover>"
             },
             "sections": {
-                "actions": {
-                    "description": "Use the same primitive for richer action lists and lightweight contextual panels.",
-                    "title": "Actions and supporting panels"
+                "quickFilters": {
+                    "description": "Use popover when the filter is small, local, and can be applied without opening a full drawer.",
+                    "title": "Quick filters"
                 },
-                "filters": {
-                    "description": "A popover works well when filters belong to the current list or card and should stay attached to the trigger.",
-                    "title": "Inline filters"
+                "support": {
+                    "description": "Popover also works well for short panels of context, metadata, or local preferences.",
+                    "title": "Supporting context"
                 }
             },
             "title": "Popover"
@@ -1404,6 +1414,8 @@
             "patternNotes": {
                 "items": {
                     "checkbox": "Use checkbox when the user can independently select zero, one, or many options from a set.",
+                    "descriptions": "Checkbox and radio rows can carry a short supporting description when the choice needs one more line of context.",
+                    "immediate": "Switch should represent a live binary setting. If the user is choosing one option from a set, use radio group instead.",
                     "radio": "Use radio group when exactly one option must be chosen from several mutually exclusive choices.",
                     "scope": "Do not swap these controls casually. The chosen control should match the meaning of the decision, not just the amount of available space.",
                     "switch": "Use switch for immediate on/off settings and binary preferences that read naturally as enabled or disabled."
@@ -1476,7 +1488,7 @@
                     "title": "Automatic card loading"
                 },
                 "dialog": {
-                    "description": "Dialogs use the same loading context so their title, description, body region, and footer actions stay structurally stable.",
+                    "description": "Dialogs use the same loading context so their title, close affordance, and scrollable body remain structurally stable.",
                     "title": "Dialog loading"
                 },
                 "icon": {
@@ -1514,13 +1526,18 @@
             },
             "patternNotes": {
                 "items": {
-                    "iconTabs": "Icon-only tabs are supported through `TabsList variant=\"icon\"`. In this mode, each trigger should expose `tooltipContent` so the tab label remains discoverable.",
+                    "iconTabs": "Icon-only tabs should use `TabsList variant=\"icon\"` and expose `tooltipContent` on each trigger so the tab label remains discoverable.",
                     "label": "Use label to associate form text with its field directly instead of relying on nearby typography alone.",
-                    "scrollArea": "Use scroll areas for constrained regions such as sidebars, panels, and dense lists where native overflow needs better visual handling.",
+                    "labelSupport": "Label belongs on inputs, text areas, comboboxes, and other fields that need a persistent visible name. Placeholder text does not replace that job.",
+                    "scrollArea": "Use `ScrollArea` in bounded regions such as sidebars, panels, dialogs, drawers, and dense lists. It needs a defined height or a real height cap for scrolling to happen.",
+                    "scrollAreaBounded": "Do not use `ScrollArea` as a wrapper for the whole page. It exists to contain overflow inside an already bounded surface.",
+                    "scrollAreaViewport": "Keep inner content padding and rhythm local to the content, but leave scrollbar and viewport behavior to the shared component.",
                     "separator": "Use separators sparingly to reinforce grouping or rhythm. They should support hierarchy, not replace spacing and layout decisions.",
-                    "tabs": "Use tabs when several peer sections share one space and users should switch between them without leaving the current page context."
+                    "separatorRhythm": "Separator works best between related blocks, metadata rows, and section transitions. Do not use it as loose decoration.",
+                    "tabs": "Use tabs when several peer sections share the same space and the user needs to switch between them without leaving the route."
                 },
-                "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"members\">Members</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Tabs defaultValue=\"overview\">\n  <TabsList variant=\"icon\">\n    <TabsTrigger value=\"overview\" tooltipContent=\"Overview\">\n      <Icon />\n    </TabsTrigger>\n  </TabsList>\n</Tabs>"
+                "scrollAreaSnippet": "<ScrollArea className=\"h-48\">\n  <div className=\"space-y-3 p-4\">...</div>\n</ScrollArea>",
+                "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"members\">Members</TabsTrigger>\n  </TabsList>\n</Tabs>\n\n<Tabs defaultValue=\"overview\">\n  <TabsList variant=\"icon\">\n    <TabsTrigger value=\"overview\" tooltipContent=\"Overview\">\n      <Icon />\n    </TabsTrigger>\n  </TabsList>\n</Tabs>"
             },
             "primitives": {
                 "labelTitle": "Label",
@@ -1652,6 +1669,12 @@
         },
         "textArea": {
             "cards": {
+                "disabled": {
+                    "description": "Longform fields also need an obvious disabled state when the content is informational only.",
+                    "label": "Audit note",
+                    "title": "Disabled text area",
+                    "value": "This note is generated automatically."
+                },
                 "feedback": {
                     "description": "Use a taller text area when the expected response is more descriptive and reflective.",
                     "label": "Feedback",
@@ -1670,7 +1693,7 @@
                 "items": {
                     "longform": "Use text area when the user is expected to write sentences, notes, or any content that naturally spans multiple lines.",
                     "resize": "The field should preserve a comfortable minimum height so longer content does not feel cramped from the first interaction.",
-                    "rhythm": "Labels, spacing, and surrounding form rhythm matter more with text areas because they occupy noticeably more vertical space.",
+                    "rhythm": "Labels, spacing, and surrounding form rhythm matter even more with text areas because they occupy much more vertical space than a normal input.",
                     "scope": "Do not use a text area for short structured values just because more width is available. Keep single-line fields as inputs."
                 },
                 "snippet": "<TextArea placeholder=\"Add internal notes\" />"
@@ -1682,6 +1705,75 @@
                 }
             },
             "title": "Text Area"
+        },
+        "toast": {
+            "async": {
+                "apiError": {
+                    "button": "API error",
+                    "description": "You do not have permission to delete this enrollment.",
+                    "title": "403 Forbidden"
+                },
+                "promise": {
+                    "button": "Promise toast",
+                    "description": "{{value}} are now active for all admins.",
+                    "error": "Unable to save settings",
+                    "loading": "Saving settings...",
+                    "success": "{{value}} saved"
+                },
+                "undo": {
+                    "button": "Undo preview",
+                    "description": "Use this state only when the action can actually be undone safely.",
+                    "title": "User deleted"
+                }
+            },
+            "description": "Toast is the transient feedback pattern for low-friction confirmations, async work, and short errors that should not take over the flow.",
+            "patternNotes": {
+                "items": {
+                    "description": "The title carries the main message. The description earns its place only when it adds one useful line of context.",
+                    "neutral": "Use the neutral toast by default for routine confirmations. Semantic tones are for states that need extra emphasis.",
+                    "promise": "For async work, use `toast.promise` so the toast reflects the real lifecycle of the operation instead of stacking manual loading, success, and error calls.",
+                    "scope": "Toast does not replace inline validation, dialog, or alert dialog. Use it for brief feedback that should not create a new flow."
+                },
+                "snippet": "toast(\"Settings saved\", {\n  description: \"All profile changes are now live.\",\n});\n\ntoast.success(\"Enrollment updated\", {\n  description: \"The new classroom is now assigned.\",\n});\n\ntoast.promise(saveSettings(), {\n  loading: \"Saving settings...\",\n  success: \"Settings saved\",\n  error: \"Unable to save settings\",\n  description: \"The notification preferences were updated.\",\n});\n\ntoast.danger(\"403 Forbidden\", {\n  description: \"You do not have permission to delete this enrollment.\",\n});"
+            },
+            "sections": {
+                "async": {
+                    "description": "Promise toasts should mirror the real request lifecycle. For everything else, keep the feedback short and explicit.",
+                    "title": "Async work and errors"
+                },
+                "variants": {
+                    "description": "Neutral and semantic treatments for the most common feedback states.",
+                    "title": "Intent variants"
+                }
+            },
+            "title": "Toast",
+            "variants": {
+                "danger": {
+                    "button": "Danger",
+                    "description": "The request was rejected by the server.",
+                    "title": "Update failed"
+                },
+                "info": {
+                    "button": "Info",
+                    "description": "New records are being pulled from the API.",
+                    "title": "Sync started"
+                },
+                "neutral": {
+                    "button": "Neutral",
+                    "description": "Your changes are available on this device.",
+                    "title": "Draft saved"
+                },
+                "success": {
+                    "button": "Success",
+                    "description": "The profile details were saved successfully.",
+                    "title": "User updated"
+                },
+                "warning": {
+                    "button": "Warning",
+                    "description": "Less than 10% of the quota is available.",
+                    "title": "Storage almost full"
+                }
+            }
         },
         "toggleControls": {
             "cards": {
@@ -1736,17 +1828,17 @@
             "patternNotes": {
                 "groupSnippet": "<ToggleGroup variant=\"pill\" colorVariant=\"chrome\" value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"light\" tooltipContent=\"Light\">\n    <Sun />\n  </ToggleGroupItem>\n  <ToggleGroupItem value=\"dark\" tooltipContent=\"Dark\">\n    <Moon />\n  </ToggleGroupItem>\n</ToggleGroup>",
                 "items": {
-                    "chrome": "Use `colorVariant=\"chrome\"` only on colored surfaces such as the shell topbar. Toggle group items can expose `tooltipContent` directly.",
-                    "defaultSurface": "Use the single toggle as the default pressed-action surface on neutral app backgrounds.",
-                    "group": "Use toggle group when several related pressed controls need to behave as one mutually exclusive or multi-select set.",
-                    "pill": "Use `variant=\"pill\"` when the items should read as one connected control instead of separate buttons.",
+                    "chrome": "Use `colorVariant=\"chrome\"` only on colored surfaces such as top bars and branded panels. Outside that context, keep the group on the default color variant.",
+                    "defaultSurface": "Use the single `Toggle` as the default pressed-action pattern on neutral surfaces. It should not turn into a substitute for checkbox, radio group, or switch.",
+                    "group": "Use `ToggleGroup` when several related states need to behave as one coherent set, whether exclusive or multi-pressed.",
+                    "pill": "Use the `pill` variant when the items should read as one connected segmented control with no gaps between parts.",
                     "press": "These controls communicate pressed state, not form semantics. Prefer checkbox, radio group, or switch when the meaning is selection or settings.",
                     "scope": "Toggle controls are strongest in toolbars, view switches, formatting actions, and compact filter chips.",
-                    "spaced": "Use `ToggleGroup` with the default `spaced` variant for regular toolbars, view switches, and filter rows.",
+                    "spaced": "Use the `spaced` variant for toolbars, view switches, and formatting groups where each item should remain clearly separate.",
                     "toggle": "Use toggle for one pressed/unpressed control that behaves like a stateful action button."
                 },
-                "singleSnippet": "<Toggle aria-label=\"Bold\">Bold</Toggle>",
-                "snippet": "<Toggle aria-label=\"Bold\">Bold</Toggle>\n\n<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grid</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">List</ToggleGroupItem>\n</ToggleGroup>"
+                "singleSnippet": "<Toggle aria-label=\"Bold\">\n  <Icon icon={Bold} />\n  <span>Bold</span>\n</Toggle>",
+                "snippet": "<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grid</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">List</ToggleGroupItem>\n</ToggleGroup>\n\n<ToggleGroup variant=\"pill\" value={theme} onValueChange={setTheme}>\n  <ToggleGroupItem value=\"light\">Light</ToggleGroupItem>\n  <ToggleGroupItem value=\"dark\">Dark</ToggleGroupItem>\n  <ToggleGroupItem value=\"system\">System</ToggleGroupItem>\n</ToggleGroup>"
             },
             "primitives": {
                 "toggleGroupTitle": "Toggle Group"
@@ -1790,10 +1882,10 @@
                 "items": {
                     "clarify": "Use tooltips to clarify compact controls, especially icon-only actions that need visible context on hover or focus.",
                     "compact": "Keep tooltip copy short and neutral. If the content needs instructions or multiple actions, use another pattern such as helper text, a popover, or a dialog.",
-                    "iconButtons": "For icon buttons, the button component already resolves tooltip content from `tooltipContent`, `title`, or the accessible label.",
+                    "iconButtons": "For icon buttons, the button primitive already resolves tooltip content from `tooltipContent`, `title`, or the accessible label.",
                     "reinforce": "Tooltips should reinforce an existing control, not carry essential information by themselves."
                 },
-                "snippet": "<Tooltip content=\"Open details\" side=\"top\" align=\"center\">\n  <button type=\"button\">Trigger</button>\n</Tooltip>\n\n<Button\n  size=\"icon\"\n  variant=\"ghost\"\n  title=\"Add item\"\n  leadingIcon={<Plus />}\n/>"
+                "snippet": "<Tooltip content=\"Open details\" side=\"top\" align=\"center\">\n  <button type=\"button\">Trigger</button>\n</Tooltip>\n\n<Button\n  size=\"icon\"\n  variant=\"secondary\"\n  title=\"Add item\"\n  leadingIcon={<Plus />}\n/>"
             },
             "placementCards": {
                 "bottom": {
@@ -1988,12 +2080,5 @@
         },
         "subtitle": "Operations workspace",
         "title": "PUG Admin"
-    },
-    "AlertDialog": {
-        "overhead": {
-            "success": "Positive Action",
-            "warning": "Cautionary Action",
-            "danger": "Destructive Action"
-        }
     }
 }

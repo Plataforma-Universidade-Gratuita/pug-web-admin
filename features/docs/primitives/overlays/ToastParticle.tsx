@@ -6,9 +6,9 @@ import {
 	CheckCircle2,
 	Info,
 	LoaderCircle,
-	RotateCcw,
 	TriangleAlert,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Button, Icon, toast } from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
@@ -16,64 +16,32 @@ import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 import { wait } from "@/features/docs/primitives/overlays/utils";
 
 export default function ToastParticle() {
+	const { t } = useTranslation();
+
 	return (
 		<ParticleContainer
-			eyebrow="Feedback"
-			title="Toast"
-			description="Transient feedback for neutral updates, async work, and reversible actions."
-			patternNotesTitle="Toast guidance"
+			eyebrow={t("docs.shared.eyebrow")}
+			title={t("docs.toast.title")}
+			description={t("docs.toast.description")}
+			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
-				{
-					description:
-						"Use the neutral toast for routine confirmations and reserve intentional variants for state changes that need extra emphasis.",
-				},
-				{
-					description:
-						"Descriptions should add one useful line of context, not repeat the title.",
-				},
-				{
-					description:
-						"Undo is the preferred pattern for deletes or updates that can be reversed quickly.",
-				},
-				{
-					description:
-						"Promise toasts should reflect the real lifecycle of the async operation instead of stacking separate loading and success calls.",
-				},
+				{ description: t("docs.toast.patternNotes.items.neutral") },
+				{ description: t("docs.toast.patternNotes.items.description") },
+				{ description: t("docs.toast.patternNotes.items.promise") },
+				{ description: t("docs.toast.patternNotes.items.scope") },
 			]}
-			patternNotesApiLabel="Toast API"
-			patternNotesSnippet={`toast("Settings saved", {
-	description: "All profile changes are now live.",
-});
-
-toast.success("Enrollment updated", {
-	description: "The new classroom is now assigned.",
-});
-
-toast.undo("Student removed from the group", {
-	description: "You have 5 seconds to restore the enrollment.",
-	onUndo: () => restoreStudent(),
-});
-
-toast.promise(saveSettings(), {
-	loading: "Saving settings...",
-	success: "Settings saved",
-	error: "Unable to save settings",
-	description: "The notification preferences were updated.",
-});
-
-toast.danger("403 Forbidden", {
-	description: "You do not have permission to delete this enrollment.",
-});`}
+			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
+			patternNotesSnippet={t("docs.toast.patternNotes.snippet")}
 		>
 			<ParticleSection
-				title="Intent variants"
-				description="Neutral and intentional color treatments for the most common feedback states."
+				title={t("docs.toast.sections.variants.title")}
+				description={t("docs.toast.sections.variants.description")}
 				defaultExpanded
 			>
 				<div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
 					<Button
 						usage="secondary"
-						variant="flat"
+						variant="secondary"
 						leadingIcon={
 							<Icon
 								icon={Bell}
@@ -81,16 +49,16 @@ toast.danger("403 Forbidden", {
 							/>
 						}
 						onClick={() =>
-							toast("Draft saved", {
-								description: "Your changes are available on this device.",
+							toast(t("docs.toast.variants.neutral.title"), {
+								description: t("docs.toast.variants.neutral.description"),
 							})
 						}
 					>
-						Neutral
+						{t("docs.toast.variants.neutral.button")}
 					</Button>
 					<Button
 						usage="info"
-						variant="flat"
+						variant="secondary"
 						leadingIcon={
 							<Icon
 								icon={Info}
@@ -98,16 +66,16 @@ toast.danger("403 Forbidden", {
 							/>
 						}
 						onClick={() =>
-							toast.info("Sync started", {
-								description: "New records are being pulled from the API.",
+							toast.info(t("docs.toast.variants.info.title"), {
+								description: t("docs.toast.variants.info.description"),
 							})
 						}
 					>
-						Info
+						{t("docs.toast.variants.info.button")}
 					</Button>
 					<Button
 						usage="success"
-						variant="flat"
+						variant="secondary"
 						leadingIcon={
 							<Icon
 								icon={CheckCircle2}
@@ -115,16 +83,16 @@ toast.danger("403 Forbidden", {
 							/>
 						}
 						onClick={() =>
-							toast.success("User updated", {
-								description: "The profile details were saved successfully.",
+							toast.success(t("docs.toast.variants.success.title"), {
+								description: t("docs.toast.variants.success.description"),
 							})
 						}
 					>
-						Success
+						{t("docs.toast.variants.success.button")}
 					</Button>
 					<Button
 						usage="warning"
-						variant="flat"
+						variant="secondary"
 						leadingIcon={
 							<Icon
 								icon={TriangleAlert}
@@ -132,16 +100,16 @@ toast.danger("403 Forbidden", {
 							/>
 						}
 						onClick={() =>
-							toast.warning("Storage almost full", {
-								description: "Less than 10% of the quota is available.",
+							toast.warning(t("docs.toast.variants.warning.title"), {
+								description: t("docs.toast.variants.warning.description"),
 							})
 						}
 					>
-						Warning
+						{t("docs.toast.variants.warning.button")}
 					</Button>
 					<Button
 						usage="danger"
-						variant="flat"
+						variant="secondary"
 						leadingIcon={
 							<Icon
 								icon={TriangleAlert}
@@ -149,19 +117,19 @@ toast.danger("403 Forbidden", {
 							/>
 						}
 						onClick={() =>
-							toast.danger("Update failed", {
-								description: "The request was rejected by the server.",
+							toast.danger(t("docs.toast.variants.danger.title"), {
+								description: t("docs.toast.variants.danger.description"),
 							})
 						}
 					>
-						Danger
+						{t("docs.toast.variants.danger.button")}
 					</Button>
 				</div>
 			</ParticleSection>
 
 			<ParticleSection
-				title="Async and undo"
-				description="Promise-driven feedback and reversible actions use the same API surface."
+				title={t("docs.toast.sections.async.title")}
+				description={t("docs.toast.sections.async.description")}
 				defaultExpanded
 			>
 				<div className="grid gap-3 md:grid-cols-3">
@@ -177,41 +145,38 @@ toast.danger("403 Forbidden", {
 							toast.promise(
 								wait(1200).then(() => "Notification preferences"),
 								{
-									loading: "Saving settings...",
-									success: value => `${value} saved`,
-									error: "Unable to save settings",
+									loading: t("docs.toast.async.promise.loading"),
+									success: value =>
+										t("docs.toast.async.promise.success", { value }),
+									error: t("docs.toast.async.promise.error"),
 									description: value =>
-										`${value} are now active for all admins.`,
+										t("docs.toast.async.promise.description", { value }),
 								},
 							)
 						}
 					>
-						Promise toast
+						{t("docs.toast.async.promise.button")}
 					</Button>
 					<Button
 						usage="secondary"
-						variant="flat"
+						variant="secondary"
 						leadingIcon={
 							<Icon
-								icon={RotateCcw}
+								icon={Bell}
 								className="h-4 w-4"
 							/>
 						}
 						onClick={() =>
-							toast.undo("User deleted", {
-								description: "The account will be restored if you undo now.",
-								onUndo: () =>
-									toast.info("Delete reverted", {
-										description: "The user was added back to the directory.",
-									}),
+							toast(t("docs.toast.async.undo.title"), {
+								description: t("docs.toast.async.undo.description"),
 							})
 						}
 					>
-						Undo toast
+						{t("docs.toast.async.undo.button")}
 					</Button>
 					<Button
 						usage="danger"
-						variant="flat"
+						variant="secondary"
 						leadingIcon={
 							<Icon
 								icon={AlertCircle}
@@ -219,13 +184,12 @@ toast.danger("403 Forbidden", {
 							/>
 						}
 						onClick={() =>
-							toast.danger("403 Forbidden", {
-								description:
-									"You do not have permission to delete this enrollment.",
+							toast.danger(t("docs.toast.async.apiError.title"), {
+								description: t("docs.toast.async.apiError.description"),
 							})
 						}
 					>
-						API error
+						{t("docs.toast.async.apiError.button")}
 					</Button>
 				</div>
 			</ParticleSection>

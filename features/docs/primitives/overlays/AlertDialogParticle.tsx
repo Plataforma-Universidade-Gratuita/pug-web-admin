@@ -64,7 +64,9 @@ export default function AlertDialogParticle() {
 								className="flex min-h-44 flex-col justify-between p-4"
 							>
 								<CardHeader>
-									<CardTitle>{t(`docs.alertDialog.cards.${key}.title`)}</CardTitle>
+									<CardTitle>
+										{t(`docs.alertDialog.cards.${key}.title`)}
+									</CardTitle>
 									<CardDescription>
 										{t(`docs.alertDialog.cards.${key}.description`)}
 									</CardDescription>
@@ -97,9 +99,7 @@ export default function AlertDialogParticle() {
 				</ParticleSection>
 			</ParticleContainer>
 
-			{(
-				["default", "success", "warning", "danger"] as const
-			).map(key => (
+			{(["default", "success", "warning", "danger"] as const).map(key => (
 				<AlertDialog
 					key={key}
 					open={openKey === key}

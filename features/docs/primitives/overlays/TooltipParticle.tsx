@@ -50,7 +50,7 @@ export default function TooltipParticle() {
 						<Button
 							size="icon"
 							usage="primary"
-							variant="flat"
+							variant="primary"
 							title={t("docs.tooltip.automatic.createItem")}
 							leadingIcon={
 								<Icon
@@ -62,7 +62,7 @@ export default function TooltipParticle() {
 						<Button
 							size="icon"
 							usage="secondary"
-							variant="ghost"
+							variant="secondary"
 							tooltipContent={t("docs.tooltip.automatic.moreInformation")}
 							aria-label={t("docs.tooltip.automatic.moreInformation")}
 							leadingIcon={
@@ -75,7 +75,7 @@ export default function TooltipParticle() {
 						<Button
 							size="icon"
 							usage="danger"
-							variant="ghost"
+							variant="secondary"
 							title={t("docs.tooltip.automatic.deleteDraft")}
 							leadingIcon={
 								<Icon
@@ -231,7 +231,7 @@ export default function TooltipParticle() {
 						<CardContent>
 							<Button
 								usage="secondary"
-								variant="ghost"
+								variant="secondary"
 								leadingIcon={
 									<Icon
 										icon={Info}

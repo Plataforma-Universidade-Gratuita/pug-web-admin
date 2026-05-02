@@ -140,7 +140,7 @@ export default function IconParticle() {
 					<CardContent className="mt-6 flex flex-wrap gap-3">
 						<Button
 							usage="primary"
-							variant="flat"
+							variant="primary"
 							leadingIcon={
 								<Icon
 									icon={Search}
@@ -153,7 +153,7 @@ export default function IconParticle() {
 						<Button
 							size="icon"
 							usage="secondary"
-							variant="ghost"
+							variant="secondary"
 							title={t("docs.icon.integrationCard.iconButton")}
 							leadingIcon={
 								<Icon

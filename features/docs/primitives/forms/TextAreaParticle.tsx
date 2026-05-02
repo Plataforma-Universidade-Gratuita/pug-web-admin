@@ -76,17 +76,19 @@ export default function TextAreaParticle() {
 
 					<Card className="p-4">
 						<CardHeader>
-							<CardTitle>Disabled text area</CardTitle>
+							<CardTitle>{t("docs.textArea.cards.disabled.title")}</CardTitle>
 							<CardDescription>
-								Longform fields should also expose an obvious disabled state.
+								{t("docs.textArea.cards.disabled.description")}
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-2">
-							<Label htmlFor="docs-textarea-disabled">Audit note</Label>
+							<Label htmlFor="docs-textarea-disabled">
+								{t("docs.textArea.cards.disabled.label")}
+							</Label>
 							<TextArea
 								id="docs-textarea-disabled"
 								disabled
-								defaultValue="This note is generated automatically."
+								defaultValue={t("docs.textArea.cards.disabled.value")}
 							/>
 						</CardContent>
 					</Card>

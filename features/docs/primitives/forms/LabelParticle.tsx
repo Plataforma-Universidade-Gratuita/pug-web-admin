@@ -25,6 +25,11 @@ export default function LabelParticle() {
 			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
 				{ description: t("docs.structurePrimitives.patternNotes.items.label") },
+				{
+					description: t(
+						"docs.structurePrimitives.patternNotes.items.labelSupport",
+					),
+				},
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
 			patternNotesSnippet={`<Label htmlFor="workspace-name">${t("docs.structurePrimitives.labelCard.nameLabel")}</Label>`}

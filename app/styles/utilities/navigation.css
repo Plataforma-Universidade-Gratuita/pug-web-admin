@@ -237,9 +237,23 @@
 		gap: 1rem;
 	}
 
+	.tabs-list-scroll {
+		width: 100%;
+	}
+
+	.tabs-list-scroll-viewport {
+		width: 100%;
+	}
+
+	.tabs-list-scroll-viewport > div {
+		display: block !important;
+		width: max-content;
+		min-width: 100%;
+	}
+
 	.tabs-list {
 		display: inline-flex;
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
 		gap: 0.5rem;
 		border-radius: var(--twc-radius-lg);
 		background-color: var(--twc-surface-1);

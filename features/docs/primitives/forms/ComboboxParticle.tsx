@@ -107,14 +107,15 @@ export default function ComboboxParticle() {
 
 					<Card className="p-4">
 						<CardHeader>
-							<CardTitle>Disabled combobox</CardTitle>
+							<CardTitle>{t("docs.combobox.cards.disabled.title")}</CardTitle>
 							<CardDescription>
-								A disabled combobox should keep context without exposing
-								interactive affordances.
+								{t("docs.combobox.cards.disabled.description")}
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-2">
-							<Label htmlFor="docs-combobox-disabled">Reviewer</Label>
+							<Label htmlFor="docs-combobox-disabled">
+								{t("docs.combobox.cards.disabled.label")}
+							</Label>
 							<Combobox
 								id="docs-combobox-disabled"
 								disabled

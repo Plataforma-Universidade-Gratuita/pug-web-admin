@@ -28,9 +28,21 @@ export default function ScrollAreaParticle() {
 						"docs.structurePrimitives.patternNotes.items.scrollArea",
 					),
 				},
+				{
+					description: t(
+						"docs.structurePrimitives.patternNotes.items.scrollAreaBounded",
+					),
+				},
+				{
+					description: t(
+						"docs.structurePrimitives.patternNotes.items.scrollAreaViewport",
+					),
+				},
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
-			patternNotesSnippet={`<ScrollArea className="h-48">...</ScrollArea>`}
+			patternNotesSnippet={t(
+				"docs.structurePrimitives.patternNotes.scrollAreaSnippet",
+			)}
 		>
 			<ParticleSection
 				title={t("docs.structurePrimitives.scrollCard.title")}

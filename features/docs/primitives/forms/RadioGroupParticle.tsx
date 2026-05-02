@@ -28,6 +28,11 @@ export default function RadioGroupParticle() {
 			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
 				{ description: t("docs.selectionControls.patternNotes.items.radio") },
+				{
+					description: t(
+						"docs.selectionControls.patternNotes.items.descriptions",
+					),
+				},
 				{ description: t("docs.selectionControls.patternNotes.items.scope") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}

@@ -366,6 +366,43 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - `ScrollArea` is the shared scroll container primitive.
 - `Tooltip`, `Popover`, `Dialog`, `Drawer`, `AlertDialog`, `DropdownMenu`, `Tabs`, `Accordion`, and form controls are all wrapped locally.
 - Icons should use the local `Icon` primitive where that contract already exists.
+- Form field semantics:
+  - `Input` is the default single-line field
+  - use `TextArea` only for genuinely long-form content such as notes, feedback, and explanations
+  - `Combobox` is the searchable single-selection field for longer option sets; it is not the multi-select pattern
+  - `Checkbox` is for independent choices
+  - `RadioGroup` is for one required or mutually exclusive choice within a set
+  - `Switch` is for live binary settings that read naturally as enabled or disabled
+- Form field structure:
+  - keep a visible `Label` with fields that need a persistent name
+  - do not rely on placeholder text as the only field label
+  - field-level descriptions are appropriate for checkbox, radio, switch, and combobox items when one extra line clarifies the decision
+- Input contract:
+  - keep `Input` for short structured values
+  - the password reveal behavior is built into the primitive through `showPasswordToggle`
+  - leading or trailing icons should stay supportive rather than replacing the field label
+- Text area contract:
+  - preserve a comfortable minimum height
+  - use it where vertical growth is expected and readable
+  - do not swap to `TextArea` just because a layout has spare width
+- Combobox contract:
+  - use it when search materially improves option picking
+  - option rows may carry short supporting metadata
+  - if the option set is short and obvious, prefer a normal select-style control instead
+- Icon contract:
+  - icons are decorative by default when adjacent text already communicates meaning
+  - provide `label` only when a standalone icon needs to expose meaning on its own
+  - when icons are used inside buttons or other controls, the parent control should own accessibility and tooltip behavior
+- Badge contract:
+  - use badges for compact semantic metadata such as status, lifecycle stage, compact category, or risk
+  - keep badge copy short and glanceable
+  - choose tone first based on meaning, then variant only to tune emphasis
+- Label contract:
+  - use `Label` to bind visible field text to the control directly
+  - labels belong to inputs, text areas, comboboxes, and other named fields that remain discoverable after interaction begins
+- Separator contract:
+  - use separators sparingly to reinforce grouping, metadata rhythm, or section transitions
+  - separators support hierarchy; they do not replace spacing and layout decisions
 - Button contract:
   - the canonical button variants are `primary` and `secondary`
   - `variant="primary"` is the main filled action pattern
@@ -402,6 +439,8 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
     - `variant="default"`
     - `variant="icon"`
   - icon-only tabs should provide `tooltipContent` on each `TabsTrigger` so the label remains discoverable
+  - tabs use the shared `ScrollArea` for horizontal overflow
+  - keep tab lists on one line and let them scroll horizontally when the set exceeds the available width
 - Breadcrumb contract:
   - breadcrumb is primarily a shell/page-layout support primitive, not a general feature-surface primitive
   - the expected real use case is the shared app-shell route path
@@ -442,7 +481,7 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
     - `label`
     - optional `current`
     - optional semantic item component choice
-    and should not manually compose icon-plus-label children markup
+      and should not manually compose icon-plus-label children markup
 - Alert dialog contract:
   - alert dialog now follows one fixed confirmation pattern
   - it should always have:
@@ -465,6 +504,67 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
     - `success`: success confirm button, positive-action overhead by default
     - `warning`: warning confirm button, cautionary-action overhead by default
     - `danger`: danger confirm button, destructive-action overhead by default
+- Dialog contract:
+  - dialog now follows one fixed content pattern and should be visually distinct from alert dialog
+  - it supports:
+    - optional overhead
+    - required title
+    - required content/body
+  - it does not support:
+    - subtitle/description below the title
+    - footer actions
+  - the header always includes:
+    - title block
+    - top-right close button
+    - separator below the header
+  - the content area always uses the shared `ScrollArea` for vertical overflow
+  - use dialog for focused supporting content, notes, and short read/review surfaces
+  - use alert dialog instead when the user is confirming intent for an action
+- Drawer contract:
+  - drawer is the workflow overlay for:
+    - heavy filtering
+    - creation flows
+    - denser subordinate work that should remain attached to the current page
+  - drawers in this app are right-side panels; do not vary the side by feature
+  - the header supports:
+    - optional overhead
+    - required title
+    - short supporting description
+    - top-right close button
+  - the separator below the header is always present
+  - the body is required and vertically scrollable through the shared `ScrollArea`
+  - tabs and accordion are appropriate inside drawers when the workflow is genuinely dense:
+    - use tabs for peer workflow sections
+    - use accordion for secondary disclosure inside the panel
+  - the footer is always present and task-oriented:
+    - clear action on the left
+    - primary action on the right
+  - do not place a close action in the drawer footer; dismissal belongs in the header
+  - the clear action should confirm through `AlertDialog`
+  - primary drawer action semantics:
+    - `Apply filters` uses `info`
+    - `Create` uses `success`
+  - primary drawer actions execute directly; only destructive reset/clear requires confirmation
+- Tooltip contract:
+  - tooltips are short contextual hints for compact controls and inline UI
+  - they reinforce an existing trigger and should not carry essential meaning by themselves
+  - for icon buttons, prefer the button primitive's built-in tooltip resolution through `tooltipContent`, `title`, or accessible label
+  - if the content becomes instructional or multi-step, move to helper text, popover, dialog, or another richer pattern
+- Popover contract:
+  - use popover for compact anchored content that belongs to the current surface
+  - good fits are quick filters, tiny local choices, account/support panels, and short metadata blocks
+  - keep each popover single-purpose and compact; it should not grow into a full workflow
+  - popover does not have a footer pattern and should not behave like a mini dialog
+  - if the content becomes a short action list, prefer dropdown menu
+  - if the content becomes heavy filtering, create/edit work, or dense review, escalate to drawer
+  - if the content becomes focused reading or supporting information that deserves its own interruption, escalate to dialog
+- Toast contract:
+  - use the local toast primitive for transient feedback only
+  - neutral toast is the default for routine confirmations
+  - semantic toasts (`info`, `success`, `warning`, `danger`) are for states that need stronger meaning or urgency
+  - the title carries the main message; description adds one useful extra line of context only when needed
+  - use `toast.promise` for async lifecycle feedback instead of stacking separate loading and success calls
+  - do not use toast as a substitute for inline validation, dialog, or alert dialog
 
 ## Styling system
 
@@ -612,7 +712,7 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 
 - Overlays support pages. They do not replace page architecture.
 - Use:
-  - `Popover` for filters, row actions, tiny decisions
+  - `Popover` for quick filters, tiny decisions, and compact supporting panels
   - `Dialog`/modal for confirmations and short one-shot actions
   - `Drawer` for subordinate create/edit/review flows tied to the current page
 

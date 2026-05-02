@@ -1,16 +1,22 @@
 "use client";
 
+import type { CSSProperties } from "react";
+
 import * as RadixDialog from "@radix-ui/react-dialog";
 import clsx from "clsx";
+import { X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
+import { Button } from "@/components/actions/button/Button";
+import { Icon } from "@/components/display/icon/Icon";
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
-import { Footer, Header } from "@/components/structure/layout/Layout";
+import { Header } from "@/components/structure/layout/Layout";
+import { ScrollArea } from "@/components/structure/scroll-area/ScrollArea";
 import { APP_TOPBAR_HEIGHT } from "@/constants/components";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
+	DialogBodyProps,
 	DialogContentProps,
-	DialogDescriptionProps,
-	DialogFooterProps,
 	DialogHeaderProps,
 	DialogProps,
 	DialogTitleProps,
@@ -43,6 +49,8 @@ export function Dialog({
 
 export function DialogContent({ children, className }: DialogContentProps) {
 	const { isLoading, loadingLabel } = useLoading();
+	const maxHeight = `calc(100dvh - ${APP_TOPBAR_HEIGHT} - 2rem)`;
+	const bodyMaxHeight = `calc(100dvh - ${APP_TOPBAR_HEIGHT} - 10rem)`;
 
 	return (
 		<RadixDialog.Portal>
@@ -59,7 +67,12 @@ export function DialogContent({ children, className }: DialogContentProps) {
 						className,
 					)}
 					role={isLoading ? "status" : undefined}
-					style={{ maxHeight: `calc(100dvh - ${APP_TOPBAR_HEIGHT} - 2rem)` }}
+					style={
+						{
+							maxHeight,
+							"--dialog-body-max-height": bodyMaxHeight,
+						} as CSSProperties
+					}
 				>
 					{isLoading ? <span className="sr-only">{loadingLabel}</span> : null}
 					{children}
@@ -69,9 +82,33 @@ export function DialogContent({ children, className }: DialogContentProps) {
 	);
 }
 
-export function DialogHeader({ children, className }: DialogHeaderProps) {
+export function DialogHeader({
+	children,
+	className,
+	overhead,
+}: DialogHeaderProps) {
+	const { t } = useTranslation();
+
 	return (
-		<Header className={clsx("dialog-header", className)}>{children}</Header>
+		<Header className={clsx("dialog-header", className)}>
+			<div className="dialog-header-main">
+				{overhead ? <p className="dialog-overhead">{overhead}</p> : null}
+				{children}
+			</div>
+			<RadixDialog.Close asChild>
+				<Button
+					size="icon"
+					variant="secondary"
+					title={t("components.dialog.close")}
+					aria-label={t("components.dialog.close")}
+				>
+					<Icon
+						icon={X}
+						className="h-4 w-4"
+					/>
+				</Button>
+			</RadixDialog.Close>
+		</Header>
 	);
 }
 
@@ -94,37 +131,35 @@ export function DialogTitle({ children, className }: DialogTitleProps) {
 	);
 }
 
-export function DialogDescription({
-	children,
-	className,
-}: DialogDescriptionProps) {
+export function DialogBody({ children, className }: DialogBodyProps) {
 	const { isLoading } = useLoading();
 
 	if (isLoading) {
 		return (
-			<div className={clsx("space-y-2", className)}>
-				<Skeleton className="h-3 w-full" />
-				<Skeleton className="h-3 w-[72%]" />
+			<div className="dialog-body">
+				<ScrollArea
+					className="dialog-body-scroll"
+					viewportClassName="dialog-body-viewport"
+				>
+					<div className={clsx("dialog-body-inner space-y-2", className)}>
+						<Skeleton className="h-3 w-full" />
+						<Skeleton className="h-3 w-[72%]" />
+						<Skeleton className="h-3 w-[84%]" />
+						<Skeleton className="h-3 w-[64%]" />
+					</div>
+				</ScrollArea>
 			</div>
 		);
 	}
 
 	return (
-		<RadixDialog.Description className={clsx("dialog-description", className)}>
-			{children}
-		</RadixDialog.Description>
-	);
-}
-
-export function DialogFooter({ children, className }: DialogFooterProps) {
-	const { isLoading } = useLoading();
-
-	return (
-		<Footer
-			className={clsx("dialog-footer", className)}
-			isLoading={isLoading}
-		>
-			{children}
-		</Footer>
+		<div className="dialog-body">
+			<ScrollArea
+				className="dialog-body-scroll"
+				viewportClassName="dialog-body-viewport"
+			>
+				<div className={clsx("dialog-body-inner", className)}>{children}</div>
+			</ScrollArea>
+		</div>
 	);
 }

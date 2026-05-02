@@ -1,5 +1,7 @@
 "use client";
 
+import { createContext, useContext, useMemo, useRef } from "react";
+
 import * as RadixPopover from "@radix-ui/react-popover";
 import clsx from "clsx";
 
@@ -9,6 +11,12 @@ import type {
 	PopoverTriggerProps,
 } from "@/types/client";
 
+type PopoverContextValue = {
+	triggerRef: React.RefObject<HTMLSpanElement | null>;
+};
+
+const PopoverContext = createContext<PopoverContextValue | null>(null);
+
 export function Popover({
 	children,
 	open,
@@ -16,17 +24,33 @@ export function Popover({
 	onOpenChange,
 	modal,
 }: PopoverProps) {
-	// Only pass open/onOpenChange if they are defined, to avoid TS error with exactOptionalPropertyTypes
+	const triggerRef = useRef<HTMLSpanElement | null>(null);
+	const contextValue = useMemo(() => ({ triggerRef }), []);
 	const rootProps: Record<string, unknown> = {};
 	if (open !== undefined) rootProps.open = open;
 	if (defaultOpen !== undefined) rootProps.defaultOpen = defaultOpen;
 	if (onOpenChange !== undefined) rootProps.onOpenChange = onOpenChange;
 	if (modal !== undefined) rootProps.modal = modal;
-	return <RadixPopover.Root {...rootProps}>{children}</RadixPopover.Root>;
+	return (
+		<PopoverContext.Provider value={contextValue}>
+			<RadixPopover.Root {...rootProps}>{children}</RadixPopover.Root>
+		</PopoverContext.Provider>
+	);
 }
 
 export function PopoverTrigger({ children }: PopoverTriggerProps) {
-	return <RadixPopover.Trigger asChild>{children}</RadixPopover.Trigger>;
+	const context = useContext(PopoverContext);
+
+	return (
+		<RadixPopover.Trigger asChild>
+			<span
+				ref={context?.triggerRef}
+				className="inline-flex shrink-0"
+			>
+				{children}
+			</span>
+		</RadixPopover.Trigger>
+	);
 }
 
 export function PopoverContent({
@@ -37,10 +61,17 @@ export function PopoverContent({
 	sideOffset = 10,
 	avoidCollisions = true,
 	collisionPadding,
+	collisionBoundary,
 	withArrow = true,
 	onCloseAutoFocus,
 	onEscapeKeyDown,
 }: PopoverContentProps) {
+	const context = useContext(PopoverContext);
+	const shellBoundary = context?.triggerRef.current?.closest(
+		".navbar-content, .navbar-content-scroll-viewport, .login-page-content",
+	);
+	const resolvedCollisionBoundary =
+		collisionBoundary ?? shellBoundary ?? undefined;
 	const contentProps: Record<string, unknown> = {
 		side,
 		align,
@@ -52,6 +83,10 @@ export function PopoverContent({
 
 	if (collisionPadding !== undefined) {
 		contentProps.collisionPadding = collisionPadding;
+	}
+
+	if (resolvedCollisionBoundary !== undefined) {
+		contentProps.collisionBoundary = resolvedCollisionBoundary;
 	}
 
 	return (

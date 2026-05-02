@@ -27,6 +27,9 @@ export default function SwitchParticle() {
 			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
 				{ description: t("docs.selectionControls.patternNotes.items.switch") },
+				{
+					description: t("docs.selectionControls.patternNotes.items.immediate"),
+				},
 				{ description: t("docs.selectionControls.patternNotes.items.scope") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}

@@ -1,11 +1,11 @@
 "use client";
 
-import { LoaderCircle, X } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
-	Button,
 	Dialog,
+	DialogBody,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
@@ -29,29 +29,10 @@ export function ParticlePatternNotes({
 			onOpenChange={onOpenChange}
 		>
 			<DialogContent>
-				<div className="border-default-2 flex items-start justify-between gap-4 border-b p-6">
-					<DialogHeader>
-						<p className="ty-sm-semibold tracking-[0.12em] text-[color:var(--twc-muted)] uppercase">
-							{t("docs.shared.patternNotesLabel")}
-						</p>
-						<DialogTitle>{title}</DialogTitle>
-					</DialogHeader>
-					<Button
-						size="icon"
-						variant="ghost"
-						usage="secondary"
-						aria-label={t("docs.shared.closePatternNotes")}
-						onClick={() => onOpenChange(false)}
-						leadingIcon={
-							<Icon
-								icon={X}
-								className="h-4 w-4"
-							/>
-						}
-					/>
-				</div>
-
-				<div className="flex-1 space-y-4 overflow-y-auto p-6">
+				<DialogHeader overhead={t("docs.shared.patternNotesLabel")}>
+					<DialogTitle>{title}</DialogTitle>
+				</DialogHeader>
+				<DialogBody className="space-y-4">
 					<ul className="ty-helper space-y-3">
 						{items.map((item, index) => (
 							<li key={index}>{item.description}</li>
@@ -70,7 +51,7 @@ export function ParticlePatternNotes({
 							{snippet}
 						</pre>
 					</div>
-				</div>
+				</DialogBody>
 			</DialogContent>
 		</Dialog>
 	);

@@ -32,6 +32,31 @@
 		max-width: 42rem;
 	}
 
+	.dialog-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+		border-bottom: 1px solid var(--twc-border-2);
+		padding: 1.5rem;
+	}
+
+	.dialog-header-main {
+		display: grid;
+		min-width: 0;
+		gap: 0.5rem;
+	}
+
+	.dialog-overhead {
+		font-family: var(--twc-font-sans);
+		font-size: var(--twc-text-xs);
+		font-weight: var(--twc-weight-semibold);
+		letter-spacing: 0.12em;
+		line-height: 1;
+		text-transform: uppercase;
+		color: var(--twc-muted);
+	}
+
 	.alert-dialog-content {
 		max-width: 32rem;
 	}
@@ -50,11 +75,6 @@
 		color: var(--twc-muted);
 	}
 
-	.dialog-header {
-		display: grid;
-		gap: 0.5rem;
-	}
-
 	.dialog-description {
 		font-family: var(--twc-font-sans);
 		font-size: var(--twc-text-sm);
@@ -62,6 +82,23 @@
 		letter-spacing: var(--twc-tracking-normal);
 		line-height: var(--twc-leading-relaxed);
 		color: var(--twc-muted);
+	}
+
+	.dialog-body {
+		min-height: 0;
+		flex: 1;
+	}
+
+	.dialog-body-scroll {
+		max-height: var(--dialog-body-max-height);
+	}
+
+	.dialog-body-viewport {
+		max-height: var(--dialog-body-max-height);
+	}
+
+	.dialog-body-inner {
+		padding: 1.5rem;
 	}
 
 	.dialog-footer {
@@ -130,8 +167,44 @@
 	}
 
 	.drawer-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+		border-bottom: 1px solid var(--twc-border-2);
+		padding: 1.5rem;
+	}
+
+	.drawer-header-main {
 		display: grid;
+		min-width: 0;
 		gap: 0.5rem;
+	}
+
+	.drawer-overhead {
+		font-family: var(--twc-font-sans);
+		font-size: var(--twc-text-xs);
+		font-weight: var(--twc-weight-semibold);
+		letter-spacing: 0.12em;
+		line-height: 1;
+		text-transform: uppercase;
+		color: var(--twc-muted);
+	}
+
+	.drawer-body {
+		min-height: 0;
+		flex: 1;
+	}
+
+	.drawer-body-scroll {
+		max-height: var(--drawer-body-max-height);
+	}
+
+	.drawer-body-viewport {
+		max-height: var(--drawer-body-max-height);
+	}
+
+	.drawer-body-inner {
 		padding: 1.5rem;
 	}
 
@@ -140,12 +213,11 @@
 		margin-top: auto;
 		display: flex;
 		flex-shrink: 0;
-		flex-wrap: wrap;
 		align-items: center;
-		justify-content: flex-end;
+		justify-content: space-between;
 		gap: 0.75rem;
 		border-top: 1px solid var(--twc-border-2);
-		padding: 1.5rem;
+		padding: 1rem 1.5rem;
 	}
 
 	.popover-content {

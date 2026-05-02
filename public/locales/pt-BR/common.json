@@ -1,4 +1,11 @@
 {
+    "AlertDialog": {
+        "overhead": {
+            "danger": "Acao destrutiva",
+            "success": "Acao positiva",
+            "warning": "Acao cautelosa"
+        }
+    },
     "auth": {
         "login": {
             "brand": {
@@ -56,6 +63,9 @@
         }
     },
     "components": {
+        "common": {
+            "cancel": "Cancelar"
+        },
         "datePicker": {
             "calendarLabel": "Calendario do seletor de data e hora",
             "clear": "Limpar selecao",
@@ -68,6 +78,12 @@
             "placeholder": "Selecione data e hora",
             "previousMonth": "Ir para o mes anterior",
             "timeSection": "Horario"
+        },
+        "dialog": {
+            "close": "Fechar dialog"
+        },
+        "drawer": {
+            "close": "Fechar drawer"
         }
     },
     "docs": {
@@ -161,77 +177,77 @@
         },
         "alertDialog": {
             "cards": {
+                "danger": {
+                    "description": "Use danger para acoes destrutivas ou irreversiveis.",
+                    "title": "Confirmacao danger",
+                    "trigger": "Abrir confirmacao danger"
+                },
                 "default": {
-                    "title": "Confirmacao padrao",
                     "description": "Acao primaria com cor da marca e sem overhead por padrao.",
+                    "title": "Confirmacao padrao",
                     "trigger": "Abrir confirmacao padrao"
                 },
                 "success": {
-                    "title": "Confirmacao success",
                     "description": "Use success quando a confirmacao representa um commit positivo ou uma conclusao.",
+                    "title": "Confirmacao success",
                     "trigger": "Abrir confirmacao success"
                 },
                 "warning": {
-                    "title": "Confirmacao warning",
                     "description": "Use warning quando a acao e relevante e cautelosa, mas nao totalmente destrutiva.",
+                    "title": "Confirmacao warning",
                     "trigger": "Abrir confirmacao warning"
-                },
-                "danger": {
-                    "title": "Confirmacao danger",
-                    "description": "Use danger para acoes destrutivas ou irreversiveis.",
-                    "trigger": "Abrir confirmacao danger"
                 }
             },
-            "description": "Alert dialog agora segue um unico padrao fixo de confirmacao: titulo obrigatorio, subtitulo opcional, overhead opcional por variante e um footer com exatamente duas acoes.",
+            "description": "Alert dialog segue um unico padrao fixo de confirmacao: titulo obrigatorio, descricao curta opcional, overhead controlado por variante e footer com exatamente duas acoes.",
             "examples": {
-                "default": {
-                    "title": "Enviar estas alteracoes?",
-                    "description": "Confirme para aplicar a atualizacao atual neste registro.",
-                    "footer": {
-                        "cancel": "Cancelar",
-                        "confirm": "Confirmar alteracoes"
-                    }
-                },
-                "success": {
-                    "title": "Marcar este fluxo como concluido?",
-                    "description": "Confirme para finalizar este fluxo e manter o estado resultante visivel para a equipe.",
-                    "footer": {
-                        "cancel": "Cancelar",
-                        "confirm": "Marcar como concluido"
-                    }
-                },
-                "warning": {
-                    "title": "Arquivar este registro?",
-                    "description": "Arquivar remove este registro do fluxo ativo, preservando seu historico.",
-                    "footer": {
-                        "cancel": "Cancelar",
-                        "confirm": "Arquivar registro"
-                    }
-                },
                 "danger": {
-                    "title": "Excluir este registro?",
                     "description": "Excluir remove este registro permanentemente e nao pode ser desfeito.",
                     "footer": {
                         "cancel": "Cancelar",
                         "confirm": "Excluir registro"
-                    }
+                    },
+                    "title": "Excluir este registro?"
+                },
+                "default": {
+                    "description": "Confirme para aplicar a atualizacao atual neste registro.",
+                    "footer": {
+                        "cancel": "Cancelar",
+                        "confirm": "Confirmar alteracoes"
+                    },
+                    "title": "Enviar estas alteracoes?"
+                },
+                "success": {
+                    "description": "Confirme para finalizar este fluxo e manter o estado resultante visivel para a equipe.",
+                    "footer": {
+                        "cancel": "Cancelar",
+                        "confirm": "Marcar como concluido"
+                    },
+                    "title": "Marcar este fluxo como concluido?"
+                },
+                "warning": {
+                    "description": "Arquivar remove este registro do fluxo ativo, preservando seu historico.",
+                    "footer": {
+                        "cancel": "Cancelar",
+                        "confirm": "Arquivar registro"
+                    },
+                    "title": "Arquivar este registro?"
                 }
             },
             "patternNotes": {
                 "items": {
-                    "actions": "O footer sempre contem exatamente dois botoes: uma acao secundaria neutra para cancelar e uma acao primaria para confirmar.",
+                    "actions": "O footer sempre contem exatamente dois botoes: cancelar neutro em `secondary` e confirmar no tom semantico da variante.",
                     "confirmation": "Mantenha titulo e descricao explicitos sobre o que vai acontecer, o que sera afetado e se a acao pode ser desfeita.",
+                    "fixed": "Alert dialog e uma superficie de confirmacao fixa. Nao use corpo livre, footer customizado ou combinacoes arbitrarias de botoes.",
                     "loading": "O suporte a loading e util quando o texto de confirmacao ou o contexto da decisao depende de dados buscados, mas isso deve ser uma excecao bem escopada e nao o estado padrao.",
-                    "severity": "Use a variante para combinar o tom da acao: default, success, warning ou danger.",
-                    "fixed": "Alert dialog e uma superficie fixa de confirmacao. Ele sempre tem titulo, pode ter uma descricao curta de apoio e nao usa uma secao livre de corpo.",
-                    "overhead": "As variantes controlam o overhead: nenhum no default, Acao positiva no success, Acao cautelosa no warning e Acao destrutiva no danger."
+                    "overhead": "As variantes controlam o overhead: nenhum no default, Acao positiva no success, Acao cautelosa no warning e Acao destrutiva no danger.",
+                    "severity": "Use a variante para combinar o tom da acao: default, success, warning ou danger."
                 },
-                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent variant=\"danger\">\n    <AlertDialogHeader>\n      <AlertDialogTitle>Excluir projeto?</AlertDialogTitle>\n      <AlertDialogDescription>\n        Esta acao nao pode ser desfeita.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter\n      cancelLabel=\"Cancelar\"\n      actionLabel=\"Excluir projeto\"\n    />\n  </AlertDialogContent>\n</AlertDialog>"
+                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent variant=\"danger\">\n    <AlertDialogHeader>\n      <AlertDialogTitle>Excluir registro?</AlertDialogTitle>\n      <AlertDialogDescription>\n        Esta acao nao pode ser desfeita.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter\n      cancelLabel=\"Cancelar\"\n      actionLabel=\"Excluir registro\"\n    />\n  </AlertDialogContent>\n</AlertDialog>"
             },
             "sections": {
                 "variants": {
-                    "title": "Variantes de confirmacao",
-                    "description": "Todos os alert dialogs usam o mesmo layout. So a variante semantica e o texto mudam."
+                    "description": "Todos os alert dialogs usam o mesmo layout. So a variante semantica e o texto mudam.",
+                    "title": "Variantes de confirmacao"
                 }
             },
             "title": "Alert Dialog"
@@ -263,9 +279,9 @@
             "patternNotes": {
                 "items": {
                     "compact": "Mantenha o texto curto. Se o conteudo exigir frase, texto auxiliar ou varias acoes, ja nao e mais um badge.",
-                    "status": "Use badge para metadados curtos como status, etapa de revisao ou nivel de risco. Ele deve permanecer compacto e facil de escanear.",
+                    "status": "Use badge para metadados curtos como status, etapa de revisao, categoria compacta ou nivel de risco. Ele deve permanecer compacto e facil de escanear.",
                     "tone": "Escolha o tom pela semantica, nao pela decoracao. A cor deve reforcar o estado sem carregar sozinha toda a mensagem.",
-                    "variant": "Use variantes mais suaves em superficies densas e variantes mais fortes apenas quando o badge precisar de um pouco mais de destaque."
+                    "variant": "Escolha o tom primeiro e use a variante apenas para ajustar enfase dentro da superficie atual."
                 },
                 "snippet": "<Badge tone=\"success\">Aprovado</Badge>\n<Badge tone=\"brand\" variant=\"outline\">Destaque</Badge>"
             },
@@ -344,14 +360,14 @@
             "description": "Botoes disparam acoes do usuario. O contrato agora e mais estrito: `variant=\"primary\"` e a acao principal flat, `variant=\"secondary\"` e a acao de apoio no padrao ghost, e `usage` muda a cor quando o significado muda.",
             "patternNotes": {
                 "items": {
-                    "actionOrder": "Quando houver varias acoes juntas, coloque a primaria na extrema direita. As acoes de apoio ficam a esquerda.",
-                    "default": "Use o botao sem props como acao primaria base. Ele ja renderiza com enfase de marca e tamanho medio.",
+                    "actionOrder": "Em grupos de acoes, a acao primaria fica sempre na extrema direita. Acoes de apoio e fallback devem empilhar a esquerda em ordem decrescente de enfase.",
+                    "default": "O botao padrao ja define o contrato principal: `variant=\"primary\"`, `usage=\"primary\"` e `size=\"md\"`. Use esse padrao quando nao houver motivo claro para mudar o nivel de enfase.",
                     "flat": "Use `variant=\"flat\"` para o tratamento padrÃ£o de call to action.",
                     "icon": "Para botoes somente com icone, sempre forneca um `title`, `aria-label` ou `tooltipContent` legivel para expor um nome acessivel.",
-                    "primaryVariant": "Use `variant=\"primary\"` para a call to action principal. Esse e o padrao preenchido.",
-                    "secondaryVariant": "Use `variant=\"secondary\"` para acoes de apoio e alternativas. Esse e o padrao ghost."
+                    "primaryVariant": "Use `variant=\"primary\"` para a acao principal do grupo. Mude `usage` apenas para variar a semantica da cor, nao para redefinir a hierarquia do botao.",
+                    "secondaryVariant": "Use `variant=\"secondary\"` para acoes de apoio ou saida. Sem `usage` explicito, ele deve permanecer neutro e acinzentado."
                 },
-                "snippet": "<Button>Salvar alteracoes</Button>\n\n<Button variant=\"secondary\">Cancelar</Button>\n\n<Button\n  variant=\"primary | secondary\"\n  usage=\"primary | secondary | success | info | warning | danger\"\n  size=\"sm | md | lg | icon\"\n  leadingIcon={<Icon />}\n  trailingIcon={<Icon />}\n  isLoading\n  loadingText=\"Salvando...\"\n  tooltipContent=\"Adicionar item\"\n/>"
+                "snippet": "<div className=\"flex justify-end gap-3\">\n  <Button variant=\"secondary\" usage=\"danger\">Excluir rascunho</Button>\n  <Button variant=\"secondary\">Salvar rascunho</Button>\n  <Button>Publicar</Button>\n</div>"
             },
             "sections": {
                 "actionOrder": {
@@ -567,6 +583,11 @@
                     "searchPlaceholder": "Buscar cidades",
                     "title": "Busca de cidade"
                 },
+                "disabled": {
+                    "description": "Um combobox desabilitado deve manter o valor e o contexto visiveis sem sugerir que ainda ha uma busca ou selecao disponivel.",
+                    "label": "Revisor",
+                    "title": "Combobox desabilitado"
+                },
                 "people": {
                     "description": "Um padrao comum de admin em que pessoas sao escolhidas em uma lista cada vez maior.",
                     "empty": "Nenhum responsavel encontrado.",
@@ -596,10 +617,10 @@
             "description": "Combobox combina um campo gatilho com busca e selecao de opcao. Use quando a pessoa precisa escolher um valor dentro de um conjunto definido, mas a lista ja e grande o bastante para que a busca melhore muito a navegacao.",
             "patternNotes": {
                 "items": {
-                    "metadata": "As opcoes podem carregar metadado curto de apoio, mas a lista ainda deve permanecer rapida de escanear.",
-                    "scope": "Use para pessoas, lugares, categorias e outros conjuntos em que vale a pena reduzir a lista antes de escolher.",
+                    "metadata": "As opcoes podem carregar uma descricao curta ou outro metadado de apoio, mas a lista ainda deve permanecer rapida de escanear.",
+                    "scope": "Use para pessoas, lugares, categorias e outros conjuntos em que vale a pena reduzir a lista antes de escolher, mantendo a interacao como selecao de um unico valor.",
                     "search": "Use combobox quando busca ou filtragem fizer parte da interacao. Se a lista for curta e obvia, um select normal costuma bastar.",
-                    "single": "Essa primitiva funciona melhor para um valor por vez. Se a pessoa precisar selecionar varios, prefira um padrao dedicado de multi-select."
+                    "single": "Essa primitiva e para um valor por vez. Se a pessoa precisar selecionar varios itens, use um padrao dedicado de multi-select em vez de esticar o combobox."
                 },
                 "snippet": "<Combobox\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Escolha o responsavel\"\n  searchPlaceholder=\"Buscar responsaveis\"\n  options={options}\n/>"
             },
@@ -648,167 +669,156 @@
             "title": "Date Picker"
         },
         "dialog": {
-            "description": "Dialogs interrompem o fluxo atual para apresentar conteÃºdo focado, decisÃµes ou tarefas estruturadas. Use esse padrÃ£o para conteÃºdo que exige atenÃ§Ã£o explÃ­cita sem tirar o usuÃ¡rio da pÃ¡gina atual.",
+            "description": "Dialogs interrompem o fluxo atual para apresentar conteudo focado que precisa de atencao sem virar uma superficie de confirmacao. Use para notas, detalhes de apoio e leituras curtas focadas na pagina atual.",
             "examples": {
                 "basic": {
-                    "body": "Este exemplo mostra um dialog comum com duas aÃ§Ãµes: uma aÃ§Ã£o secundÃ¡ria de fechamento e uma Ãºnica aÃ§Ã£o primÃ¡ria para conclusÃ£o.",
-                    "description": "Use uma descriÃ§Ã£o curta para explicar o objetivo do dialog antes que o usuÃ¡rio analise o conteÃºdo principal.",
-                    "eyebrow": "Exemplo de dialog",
-                    "footer": {
-                        "primary": "Criar workspace",
-                        "secondary": "Cancelar"
-                    },
-                    "title": "Criar workspace"
-                },
-                "footer": {
-                    "description": "Este exemplo mostra um footer destrutivo com uma aÃ§Ã£o terciÃ¡ria de baixa Ãªnfase, uma aÃ§Ã£o secundÃ¡ria de saÃ­da e uma aÃ§Ã£o primÃ¡ria de perigo.",
-                    "eyebrow": "CombinaÃ§Ãµes de aÃ§Ãµes",
-                    "footer": {
-                        "primary": "Excluir projeto",
-                        "secondary": "Manter projeto",
-                        "tertiary": "Revisar dependÃªncias"
-                    },
-                    "title": "Excluir projeto"
+                    "body": "Use dialog quando a pessoa precisa ler ou revisar conteudo de apoio focado sem sair da pagina atual.",
+                    "title": "Notas do workspace"
                 },
                 "overflow": {
-                    "description": "A regiÃ£o do corpo lida com o overflow para que tÃ­tulo e footer permaneÃ§am visÃ­veis enquanto o usuÃ¡rio lÃª conteÃºdos mais longos.",
-                    "eyebrow": "Comportamento de overflow",
-                    "footer": {
-                        "primary": "Entendi"
-                    },
+                    "eyebrow": "Notas rolaveis",
                     "paragraphs": {
-                        "five": "As aÃ§Ãµes do footer devem permanecer compactas e previsÃ­veis. Use sempre a mesma ordem para que a decisÃ£o principal seja fÃ¡cil de localizar.",
-                        "four": "DescriÃ§Ãµes pertencem perto do tÃ­tulo, nÃ£o escondidas no meio do conteÃºdo. Isso deixa o propÃ³sito do dialog claro antes da interaÃ§Ã£o com os detalhes.",
-                        "one": "Dialogs ainda devem parecer estÃ¡veis quando o conteÃºdo fica longo. As informaÃ§Ãµes do header precisam continuar visÃ­veis para que o usuÃ¡rio nÃ£o perca contexto.",
-                        "six": "Este exemplo adiciona conteÃºdo suficiente para forÃ§ar overflow, permitindo avaliar o comportamento de rolagem em um cenÃ¡rio de documentaÃ§Ã£o mais realista.",
-                        "three": "ConteÃºdo longo dentro de um dialog ainda precisa ser focado. Se comeÃ§ar a parecer uma pÃ¡gina inteira, vale reconsiderar se uma rota dedicada faz mais sentido.",
-                        "two": "O corpo deve ser a Ãºnica regiÃ£o rolÃ¡vel. Isso mantÃ©m a linha de aÃ§Ãµes ancorada e impede que o footer desapareÃ§a da tela."
+                        "five": "Isso mantem o layout estavel enquanto notas maiores continuam legiveis e limitadas dentro da mesma superficie.",
+                        "four": "Leituras mais longas sao aceitaveis desde que o dialog continue parecendo conteudo de apoio, e nao uma pagina inteira espremida em overlay.",
+                        "one": "Quando o conteudo cresce, apenas o corpo deve rolar. O header deve permanecer fixo para manter titulo e controle de fechamento visiveis.",
+                        "six": "Se o conteudo passar a exigir fluxos de edicao, varias etapas ou navegacao densa, mude para outro padrao em vez de esticar o dialog.",
+                        "three": "O separator entre header e corpo deve continuar visivel para que a area de conteudo seja lida como uma regiao rolavel distinta.",
+                        "two": "Dialogs neste sistema nao usam footer de acoes. Eles servem para conteudo focado, nao para hierarquias de confirmacao."
                     },
-                    "title": "Notas de migraÃ§Ã£o"
+                    "title": "Notas de migracao"
+                },
+                "overhead": {
+                    "body": "O overhead opcional funciona bem quando o dialog pertence a um padrao nomeado, como notas de migracao, contexto de referencia ou orientacao operacional.",
+                    "eyebrow": "Pattern notes",
+                    "title": "Guia de implementacao"
                 }
             },
-            "footerCard": {
-                "description": "O footer do dialog nÃ£o precisa ter trÃªs aÃ§Ãµes sempre. Use apenas as aÃ§Ãµes que a tarefa realmente exige e varie o uso do botÃ£o conforme a intenÃ§Ã£o do fluxo.",
-                "title": "CombinaÃ§Ãµes de aÃ§Ãµes",
-                "trigger": "Abrir exemplo de footer"
-            },
             "overflowCard": {
-                "description": "Quando o corpo do dialog for longo, apenas a regiÃ£o de conteÃºdo deve rolar para manter contexto e aÃ§Ãµes visÃ­veis.",
-                "title": "Corpo rolÃ¡vel",
+                "description": "Conteudos longos devem permanecer limitados dentro de um corpo com rolagem vertical enquanto o header fica fixo.",
+                "title": "Corpo rolavel",
                 "trigger": "Abrir exemplo de overflow"
             },
             "patternNotes": {
                 "items": {
-                    "actions": "Use o footer com a hierarquia de aÃ§Ãµes exigida pelo fluxo. Alguns dialogs pedem uma aÃ§Ã£o, outros pedem duas, e sÃ³ alguns precisam do conjunto completo com aÃ§Ã£o primÃ¡ria, secundÃ¡ria e terciÃ¡ria.",
-                    "overflow": "Quando o conteÃºdo crescer, deixe apenas o corpo rolar. Header e footer devem permanecer fixos dentro do dialog.",
-                    "structure": "Mantenha a estrutura previsÃ­vel: header para tÃ­tulo e descriÃ§Ã£o, corpo rolÃ¡vel para conteÃºdo e footer para aÃ§Ãµes.",
-                    "useCase": "Use dialogs para tarefas focadas, confirmaÃ§Ãµes ou conteÃºdo de apoio que precisa ganhar prioridade temporÃ¡ria sobre a pÃ¡gina."
+                    "content": "O conteudo do dialog e obrigatorio. Use para notas, explicacoes de apoio, informacoes estruturadas de leitura ou pequenos blocos focados ligados a pagina atual.",
+                    "header": "Nao use subtitulo abaixo do titulo neste padrao. Se precisar de contexto extra, coloque-o no corpo ou use o overhead como pequeno enquadramento acima do titulo.",
+                    "overflow": "Quando o conteudo crescer, apenas o corpo deve rolar. O corpo usa a ScrollArea compartilhada para manter o header visivel.",
+                    "structure": "A estrutura e fixa: overhead opcional, titulo obrigatorio, botao de fechar no topo, separator e corpo obrigatorio. Nao existe footer.",
+                    "useCase": "Use dialog para conteudo de apoio focado, notas e leituras curtas. Quando a prioridade principal for confirmar uma acao, use `AlertDialog` em vez de `Dialog`."
                 },
-                "snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader>\n      <DialogTitle>TÃ­tulo do dialog</DialogTitle>\n      <DialogDescription>\n        ExplicaÃ§Ã£o curta sobre o propÃ³sito do dialog.\n      </DialogDescription>\n    </DialogHeader>\n\n    <div className=\"flex-1 overflow-y-auto\">ConteÃºdo do corpo</div>\n\n    <DialogFooter>\n      <Button variant=\"ghost\">TerciÃ¡ria</Button>\n      <Button usage=\"secondary\" variant=\"flat\">SecundÃ¡ria</Button>\n      <Button usage=\"primary\" variant=\"flat\">PrimÃ¡ria</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>"
+                "snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader overhead=\"Pattern notes\">\n      <DialogTitle>Guia de implementacao</DialogTitle>\n    </DialogHeader>\n    <DialogBody>\n      Conteudo do corpo\n    </DialogBody>\n  </DialogContent>\n</Dialog>"
             },
             "sections": {
-                "footer": {
-                    "description": "Reserve o footer para a hierarquia de aÃ§Ãµes em vez de misturar aÃ§Ãµes estruturais no corpo.",
-                    "title": "AÃ§Ãµes de footer"
-                },
                 "overflow": {
-                    "description": "ConteÃºdos longos devem rolar dentro do corpo do dialog enquanto header e footer permanecem fixos.",
+                    "description": "Conteudos longos devem rolar dentro do corpo enquanto o header permanece fixo e o controle de fechamento continua visivel.",
                     "title": "Overflow"
                 },
                 "structure": {
-                    "description": "Use uma estrutura consistente para que o usuÃ¡rio identifique imediatamente header, corpo e aÃ§Ãµes.",
+                    "description": "A estrutura do dialog e fixa: overhead opcional, titulo obrigatorio, botao de fechar, separator e corpo obrigatorio.",
                     "title": "Estrutura"
                 }
             },
             "structureCards": {
                 "basic": {
-                    "description": "Um dialog mÃ­nimo deve oferecer um tÃ­tulo claro, uma descriÃ§Ã£o curta, conteÃºdo focado e caminhos explÃ­citos de fechamento.",
-                    "title": "Estrutura bÃ¡sica",
-                    "trigger": "Abrir dialog bÃ¡sico"
+                    "description": "Um dialog minimo deve oferecer titulo claro e conteudo focado sem adicionar footer de acoes ou subtitulo descritivo.",
+                    "title": "Estrutura padrao",
+                    "trigger": "Abrir dialog padrao"
                 },
-                "description": {
-                    "description": "Use a descriÃ§Ã£o para uma frase curta que explique o propÃ³sito do dialog antes do inÃ­cio do conteÃºdo principal.",
-                    "title": "Header descritivo",
-                    "trigger": "Abrir dialog descritivo"
+                "overhead": {
+                    "description": "Use overhead apenas quando ele acrescentar um pequeno rotulo acima do titulo, como notas, referencia ou orientacao.",
+                    "title": "Overhead opcional",
+                    "trigger": "Abrir dialog com overhead"
                 }
             },
             "title": "Dialog"
         },
         "drawer": {
             "cards": {
-                "details": {
-                    "description": "Um drawer a direita funciona bem para detalhes de registro e fluxos leves de edicao.",
-                    "title": "Painel de detalhes",
-                    "trigger": "Abrir drawer de detalhes"
+                "create": {
+                    "description": "Use um drawer na direita para fluxos de criacao mais densos que devem permanecer ligados ao contexto da pagina atual.",
+                    "title": "Drawer de criacao",
+                    "trigger": "Abrir drawer de criacao"
                 },
                 "filters": {
-                    "description": "Um drawer a esquerda pode manter filtros de apoio disponiveis sem substituir a pagina inteira.",
-                    "title": "Painel de filtros",
+                    "description": "Use o mesmo painel lateral para filtros mais pesados quando um popover pequeno ficar apertado ou fragmentado demais.",
+                    "title": "Drawer de filtros pesados",
                     "trigger": "Abrir drawer de filtros"
                 }
             },
-            "description": "Drawers revelam paineis laterais focados mantendo a pagina atual visivel ao fundo. Use para fluxos de edicao, detalhes e paineis de filtro que devem preservar mais contexto do que um dialog centralizado.",
+            "description": "Drawers sao o overlay de workflow para filtros pesados, fluxos de criacao e trabalho subordinado mais denso. Neste sistema eles sao paineis pela direita com header estruturado, corpo rolavel e footer fixo de tarefa.",
             "examples": {
-                "details": {
-                    "description": "Use o drawer para detalhe de registro enquanto a lista ou pagina original continua visivel ao fundo.",
-                    "eyebrow": "Painel de detalhes",
-                    "footer": {
-                        "primary": "Abrir registro completo",
-                        "secondary": "Fechar"
+                "create": {
+                    "clear": {
+                        "action": "Limpar rascunho",
+                        "description": "Limpar remove todos os valores atuais do corpo do drawer. Isso afeta apenas o rascunho atual.",
+                        "title": "Limpar este rascunho?"
                     },
-                    "items": {
-                        "owner": {
-                            "description": "Maria Souza coordena aprovacoes e checkpoints de entrega.",
-                            "title": "Responsavel"
+                    "description": "Defina os detalhes iniciais do registro antes de criar a nova entidade.",
+                    "eyebrow": "Entidade parceira",
+                    "footer": {
+                        "action": "Criar entidade"
+                    },
+                    "sections": {
+                        "general": {
+                            "description": "Nome, classificacao e os valores basicos necessarios para abrir o registro.",
+                            "title": "Dados gerais"
                         },
-                        "status": {
-                            "description": "Atualmente ativo com um ciclo de revisao pendente.",
-                            "title": "Status"
+                        "ownership": {
+                            "description": "Associe a area responsavel e conecte a entidade ao contexto correto de campus.",
+                            "title": "Responsabilidade e campus"
                         },
-                        "updated": {
-                            "description": "Editado ha duas horas pela equipe de operacoes.",
-                            "title": "Ultima atualizacao"
+                        "review": {
+                            "description": "Mantenha uma etapa final compacta de revisao quando o fluxo de criacao contiver mais de um bloco denso.",
+                            "title": "Revisar antes de criar"
                         }
                     },
-                    "title": "Projeto Atlas"
+                    "title": "Criar entidade"
                 },
                 "filters": {
-                    "description": "Um drawer de apoio pode conter filtros mais densos sem quebrar o contexto de navegacao ao redor.",
-                    "eyebrow": "Painel de filtros",
-                    "footer": {
-                        "primary": "Aplicar filtros",
-                        "secondary": "Limpar"
+                    "clear": {
+                        "action": "Limpar filtros",
+                        "description": "Limpar remove os valores atuais de filtro deste drawer e retorna o painel ao estado inicial.",
+                        "title": "Limpar estes filtros?"
                     },
-                    "items": {
-                        "owner": {
-                            "description": "Filtrar por equipe responsavel ou revisor.",
-                            "title": "Responsavel"
+                    "description": "Ajuste a visualizacao ativa da lista com criterios mais amplos sem sair do workspace.",
+                    "eyebrow": "Lista de projetos",
+                    "footer": {
+                        "action": "Aplicar filtros"
+                    },
+                    "groups": {
+                        "advanced": {
+                            "description": "Reserve os grupos mais profundos em accordion para criterios menos frequentes, mantendo o drawer mais escaneavel.",
+                            "title": "Filtros avancados"
                         },
-                        "period": {
-                            "description": "Limita o conjunto de resultados a uma janela de tempo.",
-                            "title": "Periodo"
+                        "campus": {
+                            "description": "Use controles agrupados secundarios para dimensoes de recorte mais amplas que nao precisam ficar visiveis o tempo todo.",
+                            "title": "Campus"
                         },
                         "status": {
-                            "description": "Visibilidade de ativos, pausados e arquivados.",
+                            "description": "Mantenha os filtros de maior sinal perto do topo para que as acoes de recorte mais comuns continuem faceis de acessar.",
                             "title": "Status"
                         }
                     },
-                    "title": "Refinar lista de projetos"
+                    "title": "Refinar filtros"
                 }
             },
             "patternNotes": {
                 "items": {
-                    "context": "Use drawer quando a pagina atual deve continuar visivel e reconhecivel enquanto a pessoa resolve uma tarefa secundaria focada.",
-                    "escalation": "Se o conteudo ficar muito interruptivo ou precisar de isolamento maior de foco, escale para dialog ou rota dedicada.",
-                    "footer": "Mantenha as acoes do footer concisas e previsiveis. Um drawer ainda deve parecer escopado, e nao uma pagina inteira escondida em um painel.",
-                    "side": "Escolha o lado com base no layout e na tarefa. Paineis de detalhe a direita sao comuns, enquanto drawers a esquerda costumam funcionar bem para filtros e ferramentas de apoio."
+                    "body": "O corpo e obrigatorio e rola verticalmente com a ScrollArea compartilhada. Use tabs para secoes pares do workflow e accordion para divulgacao secundaria dentro do painel.",
+                    "clear": "A acao de limpar deve confirmar via AlertDialog porque destr?i progresso local ou a configuracao atual de filtros.",
+                    "context": "Use drawer para filtros pesados, fluxos de criacao e trabalho subordinado mais denso que deve permanecer ligado a pagina atual.",
+                    "escalation": "Se a superficie se tornar majoritariamente informativa, use Dialog. Se virar uma microinteracao ancorada e simples, reduza para Popover.",
+                    "footer": "O footer esta sempre presente e orientado a tarefa: limpar a esquerda, acao primaria a direita. Nao coloque botao de fechar no footer.",
+                    "header": "O header suporta overhead, titulo obrigatorio, descricao curta e botao de fechar no topo direito. Mantenha o fechamento como acao estrutural, nao de tarefa.",
+                    "primary": "Use `info` para Aplicar filtros e `success` para Criar. A acao primaria executa direto; apenas o reset destrutivo pede confirmacao.",
+                    "side": "Neste app, drawers sao paineis pela direita. Mantenha o posicionamento consistente em vez de variar o lado por feature."
                 },
-                "snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent side=\"right\">\n    <DrawerHeader>\n      <DrawerTitle>Detalhes do projeto</DrawerTitle>\n      <DrawerDescription>Revise os metadados.</DrawerDescription>\n    </DrawerHeader>\n    <DrawerFooter>...</DrawerFooter>\n  </DrawerContent>\n</Drawer>"
+                "snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent>\n    <DrawerHeader overhead=\"Lista de projetos\">\n      <DrawerTitle>Refinar filtros</DrawerTitle>\n      <DrawerDescription>\n        Ajuste a visualizacao ativa com criterios mais amplos.\n      </DrawerDescription>\n    </DrawerHeader>\n    <DrawerBody>...</DrawerBody>\n    <DrawerFooter\n      actionVariant=\"filters\"\n      clearLabel=\"Limpar filtros\"\n      clearConfirmTitle=\"Limpar estes filtros?\"\n      clearConfirmDescription=\"Isso remove os valores atuais de filtro.\"\n      actionLabel=\"Aplicar filtros\"\n    />\n  </DrawerContent>\n</Drawer>"
             },
             "sections": {
                 "examples": {
-                    "description": "Drawers sao mais fortes quando o contexto da pagina deve permanecer visivel enquanto a pessoa revisa ou edita informacoes adjacentes.",
-                    "title": "Padroes de painel"
+                    "description": "Use um unico padrao de drawer pela direita para criacao e filtros pesados, mantendo o workflow previsivel em todo o app.",
+                    "title": "Padroes de workflow"
                 }
             },
             "title": "Drawer"
@@ -853,13 +863,13 @@
             "patternNotes": {
                 "items": {
                     "brandFirst": "A primeira opcao e a acao principal da linha e deve usar o destaque da marca. Todas as opcoes regulares de apoio permanecem neutras.",
-                    "compact": "Use dropdown menus para listas curtas de comandos que pertencem a um Ãºnico gatilho e nÃ£o precisam de layout de apoio rico.",
-                    "confirmation": "Acoes significativas do grupo semantico final devem abrir um alert dialog antes da execucao.",
+                    "compact": "Dropdown menu agora segue um unico padrao compacto de acoes de linha. Nao use esse componente como lista generica de navegacao ou menu de configuracoes extensas.",
+                    "confirmation": "Acoes significativas do grupo final devem abrir um `AlertDialog` antes da execucao para confirmar a intencao da pessoa.",
                     "escalation": "O item atual pode permanecer destacado, mas ainda deve reagir ao hover para que o estado nao pareca inerte.",
-                    "grouping": "Se o menu tiver acoes significativas no final, use os componentes semanticos dedicados e mantenha a ordem success, warning/archive e depois danger/delete.",
-                    "scope": "Mantenha o menu bem escopado Ã s aÃ§Ãµes do objeto, linha ou superfÃ­cie atual. Se o conteÃºdo ficar explicativo ou parecido com formulÃ¡rio, troque por popover ou dialog."
+                    "grouping": "Quando houver grupo final semantico, use apenas `DropdownMenuSuccessItem`, `DropdownMenuWarningItem` e `DropdownMenuDangerItem`, nesta ordem.",
+                    "scope": "Use dropdown menu para acoes relacionadas ao item atual, especialmente em listas, tabelas e rows operacionais."
                 },
-                "snippet": "<DropdownMenu>\n  <DropdownMenuTrigger>...</DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuPrimaryItem\n      icon={Eye}\n      label=\"Ver detalhes\"\n    />\n    <DropdownMenuItem\n      icon={Pencil}\n      label=\"Editar detalhes\"\n    />\n    <DropdownMenuSeparator />\n    <DropdownMenuSuccessItem\n      icon={Save}\n      label=\"Salvar alteracoes\"\n    />\n    <DropdownMenuWarningItem\n      icon={Archive}\n      label=\"Arquivar item\"\n    />\n    <DropdownMenuDangerItem\n      icon={Trash2}\n      label=\"Excluir item\"\n    />\n  </DropdownMenuContent>\n</DropdownMenu>"
+                "snippet": "<DropdownMenuContent>\n  <DropdownMenuPrimaryItem icon={Eye} label=\"Ver detalhes\" />\n  <DropdownMenuItem icon={Pencil} label=\"Editar registro\" />\n  <DropdownMenuSeparator />\n  <DropdownMenuSuccessItem icon={Save} label=\"Salvar alteracoes\" />\n  <DropdownMenuWarningItem icon={Archive} label=\"Arquivar registro\" />\n  <DropdownMenuDangerItem icon={Trash2} label=\"Excluir registro\" />\n</DropdownMenuContent>"
             },
             "sections": {
                 "actions": {
@@ -955,10 +965,10 @@
             },
             "patternNotes": {
                 "items": {
-                    "accessible": "ForneÃ§a um `label` quando o Ã­cone precisar expor significado sozinho. A primitiva usa Radix Accessible Icon para esse nome acessÃ­vel.",
-                    "buttons": "Dentro de botÃµes e outros controles, mantenha o Ã­cone interno como decorativo. A acessibilidade e o tooltip normalmente devem pertencer ao controle pai.",
-                    "decorative": "Use Ã­cones como decorativos por padrÃ£o quando o texto ao lado jÃ¡ comunica o significado.",
-                    "tooltip": "Um Ã­cone isolado com `label` tambÃ©m pode expor tooltip. Se nenhum tooltip customizado for informado, o prÃ³prio label vira a dica visÃ­vel."
+                    "accessible": "Forneca um `label` quando o icone precisar expor significado sozinho. A primitiva usa Radix Accessible Icon para esse nome acessivel.",
+                    "buttons": "Dentro de botoes e outros controles, mantenha o icone interno como decorativo. A acessibilidade e o tooltip normalmente devem pertencer ao controle pai.",
+                    "decorative": "Use icones como decorativos por padrao quando o texto ao lado ja comunicar o significado.",
+                    "tooltip": "Um icone isolado com `label` tambem pode expor tooltip. Se nenhum tooltip customizado for informado, o proprio label vira a dica visivel."
                 },
                 "snippet": "<Icon\n  icon={Search}\n  label=\"Buscar\"\n  tooltipContent=\"Encontrar registros\"\n  size={16}\n  className=\"text-[color:var(--color-brand)]\"\n/>"
             },
@@ -1079,68 +1089,68 @@
             "title": "Multi Select"
         },
         "popover": {
-            "description": "Popovers revelam conteudo contextual e compacto ancorado a um gatilho. Use para filtros inline, acoes de apoio e paineis leves que devem permanecer conectados ao layout atual.",
+            "description": "Popover e a superficie contextual pequena e ancorada a um gatilho. Use para filtros rapidos, metadados de apoio e escolhas locais que devem permanecer no fluxo atual.",
             "examples": {
-                "actions": {
-                    "description": "Um popover pode conter acoes mais densas quando um tooltip e pequeno demais e um dialog seria disruptivo demais.",
-                    "items": {
-                        "layout": {
-                            "meta": "Painel",
-                            "title": "Ajustar layout"
-                        },
-                        "owners": {
-                            "meta": "3 vinculados",
-                            "title": "Gerenciar responsaveis"
-                        },
-                        "rules": {
-                            "meta": "Rascunho",
-                            "title": "Revisar regras"
-                        }
+                "inline": {
+                    "description": "Para ajustes pequenos de interface, o popover pode ficar ainda mais enxuto.",
+                    "options": {
+                        "comfortable": "Confortavel",
+                        "compact": "Compacta"
                     },
-                    "title": "Acoes contextuais",
-                    "trigger": "Abrir acoes"
+                    "panelTitle": "Densidade da lista",
+                    "title": "Escolha local",
+                    "trigger": "Densidade"
                 },
-                "filters": {
-                    "description": "Mantenha filtros leves proximos ao conjunto de dados que eles afetam.",
-                    "items": {
-                        "period": "Periodo",
-                        "status": "Status"
-                    },
-                    "neighbor": "Intervalo de datas",
-                    "primary": "Aplicar filtros",
-                    "secondary": "Limpar",
-                    "title": "Refinar resultados",
-                    "trigger": "Filtros",
-                    "values": {
+                "quickFilters": {
+                    "description": "Aplique ajustes pequenos sem sair da superficie atual.",
+                    "neighbor": "Periodo completo",
+                    "options": {
+                        "campus": "Campus central",
                         "period": "Ultimos 30 dias",
                         "status": "Somente ativos"
-                    }
+                    },
+                    "title": "Refinar lista",
+                    "trigger": "Filtros rapidos"
                 },
-                "inline": {
-                    "description": "Use a primitiva para conteudo contextual compacto que deve permanecer ancorado perto do ponto de interacao.",
-                    "panelDescription": "Esse tipo de conteudo fica perto do gatilho em vez de interromper a tela.",
-                    "panelTitle": "Opcoes do painel",
-                    "title": "Painel leve",
-                    "trigger": "Ver opcoes"
+                "support": {
+                    "description": "Um popover pode carregar contexto util sem virar menu de acoes nem dialog.",
+                    "items": {
+                        "owner": {
+                            "label": "Responsavel",
+                            "value": "Maria Souza"
+                        },
+                        "review": {
+                            "label": "Revisao",
+                            "value": "Pendente hoje"
+                        },
+                        "visibility": {
+                            "label": "Visibilidade",
+                            "value": "Equipe interna"
+                        }
+                    },
+                    "panelDescription": "Metadados curtos e contexto adicional continuam perto do ponto de interacao.",
+                    "panelTitle": "Resumo rapido",
+                    "title": "Painel de apoio",
+                    "trigger": "Abrir contexto"
                 }
             },
             "patternNotes": {
                 "items": {
-                    "content": "O conteudo do popover pode combinar texto, metadados, pequenos formularios e grupos de acoes, mas ainda deve parecer um painel contextual curto.",
-                    "escalation": "Use popover quando o usuario deve permanecer no fluxo atual. Use tooltip para dicas, dropdown menu para listas curtas de acoes e dialog para tarefas focadas.",
-                    "inline": "Use popovers para conteudo que pertence a superficie atual e nao precisa do nivel de interrupcao de um dialog.",
-                    "scope": "Mantenha o conteudo compacto e bem escopado ao gatilho. Se o conteudo ficar longo ou em varias etapas, escale para dialog ou rota dedicada."
+                    "anchored": "Popover deve permanecer conectado ao gatilho e ao contexto imediato. Ele nao e um mini dialog solto na tela.",
+                    "compact": "Mantenha o conteudo curto, legivel e contido. Se ele comecar a parecer uma tarefa inteira, ja passou do ponto.",
+                    "escalation": "Se virar lista curta de acoes, use dropdown menu. Se virar filtro pesado, criacao ou edicao, use drawer. Se virar leitura focada, use dialog.",
+                    "singlePurpose": "Cada popover deve resolver uma unica intencao local: um filtro rapido, um painel curto de apoio ou uma pequena escolha contextual."
                 },
-                "snippet": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>\n    <Button usage=\"secondary\" variant=\"flat\">Filtros</Button>\n  </PopoverTrigger>\n\n  <PopoverContent align=\"start\">\n    <p className=\"ty-sm-bold\">Refinar resultados</p>\n    <p className=\"ty-helper\">Painel contextual curto.</p>\n  </PopoverContent>\n</Popover>"
+                "snippet": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>\n    <Button usage=\"secondary\" variant=\"secondary\">Filtros rapidos</Button>\n  </PopoverTrigger>\n\n  <PopoverContent align=\"start\" className=\"space-y-3\">\n    <p className=\"ty-sm-bold\">Refinar lista</p>\n    <p className=\"ty-helper\">Ajustes pequenos e imediatos.</p>\n  </PopoverContent>\n</Popover>"
             },
             "sections": {
-                "actions": {
-                    "description": "Use a mesma primitiva para listas de acoes mais ricas e paineis contextuais leves.",
-                    "title": "Acoes e paineis de apoio"
+                "quickFilters": {
+                    "description": "Use popover quando o filtro e pequeno, local e pode ser aplicado sem abrir um drawer inteiro.",
+                    "title": "Filtros rapidos"
                 },
-                "filters": {
-                    "description": "Um popover funciona bem quando os filtros pertencem a lista ou card atual e devem permanecer ligados ao gatilho.",
-                    "title": "Filtros inline"
+                "support": {
+                    "description": "Popover tambem funciona bem para paineis curtos de contexto, metadado ou preferencias locais.",
+                    "title": "Apoio contextual"
                 }
             },
             "title": "Popover"
@@ -1404,6 +1414,8 @@
             "patternNotes": {
                 "items": {
                     "checkbox": "Use checkbox quando a pessoa puder selecionar zero, uma ou vÃ¡rias opÃ§Ãµes de forma independente dentro de um conjunto.",
+                    "descriptions": "Checkbox e radio group podem usar uma descricao curta por item quando a decisao precisa de uma linha extra de contexto.",
+                    "immediate": "Switch deve representar uma configuracao binaria viva. Se a pessoa estiver escolhendo uma opcao entre varias, use radio group em vez dele.",
                     "radio": "Use radio group quando exatamente uma opÃ§Ã£o precisar ser escolhida entre vÃ¡rias alternativas mutuamente exclusivas.",
                     "scope": "NÃ£o troque esses controles casualmente. O controle escolhido deve combinar com o significado da decisÃ£o, nÃ£o apenas com o espaÃ§o disponÃ­vel.",
                     "switch": "Use switch para configuraÃ§Ãµes imediatas de ligado/desligado e preferÃªncias binÃ¡rias que faÃ§am sentido como habilitado ou desabilitado."
@@ -1476,7 +1488,7 @@
                     "title": "Loading automatico em cards"
                 },
                 "dialog": {
-                    "description": "Dialogs usam o mesmo contexto de loading para manter titulo, descricao, corpo e acoes estaveis enquanto o conteudo carrega.",
+                    "description": "Dialogs usam o mesmo contexto de loading para manter titulo, controle de fechamento e corpo rolavel estruturalmente estaveis.",
                     "title": "Loading em dialog"
                 },
                 "icon": {
@@ -1514,13 +1526,18 @@
             },
             "patternNotes": {
                 "items": {
-                    "iconTabs": "Tabs somente com icone sao suportadas por `TabsList variant=\"icon\"`. Nesse modo, cada trigger deve expor `tooltipContent` para que o nome da tab continue descobrivel.",
-                    "label": "Use label para associar diretamente o texto do formulÃ¡rio ao seu campo, em vez de depender apenas da tipografia ao redor.",
-                    "scrollArea": "Use scroll areas em regiÃµes restritas como sidebars, painÃ©is e listas densas em que o overflow nativo precisa de um tratamento visual melhor.",
-                    "separator": "Use separators com parcimÃ´nia para reforÃ§ar agrupamento ou ritmo. Eles devem apoiar a hierarquia, nÃ£o substituir decisÃµes de espaÃ§amento e layout.",
-                    "tabs": "Use tabs quando vÃ¡rias seÃ§Ãµes paralelas compartilharem o mesmo espaÃ§o e a pessoa precisar alternar entre elas sem sair do contexto atual da pÃ¡gina."
+                    "iconTabs": "Tabs somente com icone devem usar `TabsList variant=\"icon\"` e expor `tooltipContent` em cada trigger para manter o nome da tab descobrivel.",
+                    "label": "Use label para associar diretamente o texto do formulario ao seu campo, em vez de depender apenas da tipografia ao redor.",
+                    "labelSupport": "Label pertence a inputs, text areas, comboboxes e outros campos que precisam de um nome persistente. Placeholder nao substitui esse papel.",
+                    "scrollArea": "Use `ScrollArea` em regioes limitadas como sidebars, paineis, dialogs, drawers e listas densas. Ele precisa de uma altura definida ou de um limite real de altura para que a rolagem aconteca.",
+                    "scrollAreaBounded": "Nao use `ScrollArea` como wrapper da pagina inteira. Ele serve para conter overflow dentro de uma superficie ja delimitada.",
+                    "scrollAreaViewport": "Mantenha o conteudo interno com padding e ritmo proprios, mas deixe a responsabilidade da barra e do viewport no componente compartilhado.",
+                    "separator": "Use separators com parcimonia para reforcar agrupamento ou ritmo. Eles devem apoiar a hierarquia, nao substituir decisoes de espacamento e layout.",
+                    "separatorRhythm": "Separator funciona melhor entre blocos relacionados, linhas de metadado e transicoes de secao. Nao use como enfeite solto.",
+                    "tabs": "Use tabs quando varias se??es pares compartilham o mesmo espaco e a pessoa precisa alternar entre elas sem trocar de rota."
                 },
-                "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Visao geral</TabsTrigger>\n    <TabsTrigger value=\"members\">Membros</TabsTrigger>\n  </TabsList>\n\n  <TabsContent value=\"overview\">...</TabsContent>\n</Tabs>\n\n<Tabs defaultValue=\"overview\">\n  <TabsList variant=\"icon\">\n    <TabsTrigger value=\"overview\" tooltipContent=\"Visao geral\">\n      <Icon />\n    </TabsTrigger>\n  </TabsList>\n</Tabs>"
+                "scrollAreaSnippet": "<ScrollArea className=\"h-48\">\n  <div className=\"space-y-3 p-4\">...</div>\n</ScrollArea>",
+                "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Visao geral</TabsTrigger>\n    <TabsTrigger value=\"members\">Membros</TabsTrigger>\n  </TabsList>\n</Tabs>\n\n<Tabs defaultValue=\"overview\">\n  <TabsList variant=\"icon\">\n    <TabsTrigger value=\"overview\" tooltipContent=\"Visao geral\">\n      <Icon />\n    </TabsTrigger>\n  </TabsList>\n</Tabs>"
             },
             "primitives": {
                 "labelTitle": "Label",
@@ -1652,6 +1669,12 @@
         },
         "textArea": {
             "cards": {
+                "disabled": {
+                    "description": "Campos de texto longo tambem precisam de um estado desabilitado claro quando o conteudo e somente informativo.",
+                    "label": "Nota de auditoria",
+                    "title": "Text area desabilitada",
+                    "value": "Esta nota e gerada automaticamente."
+                },
                 "feedback": {
                     "description": "Use uma text area mais alta quando a resposta esperada for mais descritiva e reflexiva.",
                     "label": "Feedback",
@@ -1668,10 +1691,10 @@
             "description": "Text area Ã© a primitiva para conteÃºdo livre mais longo. Use quando o valor precisar de mais de uma linha, como notas, feedback, descriÃ§Ãµes ou conteÃºdo explicativo.",
             "patternNotes": {
                 "items": {
-                    "longform": "Use text area quando a pessoa for escrever frases, notas ou qualquer conteÃºdo que naturalmente ocupe vÃ¡rias linhas.",
-                    "resize": "O campo deve preservar uma altura mÃ­nima confortÃ¡vel para que conteÃºdos maiores nÃ£o pareÃ§am apertados desde a primeira interaÃ§Ã£o.",
-                    "rhythm": "Labels, espaÃ§amento e o ritmo do formulÃ¡rio ao redor importam ainda mais em text areas porque elas ocupam bem mais altura.",
-                    "scope": "NÃ£o use text area para valores curtos e estruturados sÃ³ porque existe mais largura disponÃ­vel. Campos de uma linha continuam sendo input."
+                    "longform": "Use text area quando a pessoa for escrever frases, notas ou qualquer conteudo que naturalmente ocupe varias linhas.",
+                    "resize": "O campo deve preservar uma altura minima confortavel para que conteudos maiores nao parecam apertados desde a primeira interacao.",
+                    "rhythm": "Label, espacamento e o ritmo do formulario ao redor importam ainda mais em text areas porque elas ocupam bem mais altura que um input comum.",
+                    "scope": "Nao use text area para valores curtos e estruturados so porque existe mais largura disponivel. Campos de uma linha continuam sendo input."
                 },
                 "snippet": "<TextArea placeholder=\"Adicione notas internas\" />"
             },
@@ -1682,6 +1705,75 @@
                 }
             },
             "title": "Text Area"
+        },
+        "toast": {
+            "async": {
+                "apiError": {
+                    "button": "Erro de API",
+                    "description": "Voce nao tem permissao para excluir esta matricula.",
+                    "title": "403 Proibido"
+                },
+                "promise": {
+                    "button": "Promise toast",
+                    "description": "{{value}} agora estao ativas para todos os admins.",
+                    "error": "Nao foi possivel salvar as configuracoes",
+                    "loading": "Salvando configuracoes...",
+                    "success": "{{value}} salvas"
+                },
+                "undo": {
+                    "button": "Undo preview",
+                    "description": "Use este estado apenas quando a acao realmente puder ser desfeita de forma segura.",
+                    "title": "Usuario excluido"
+                }
+            },
+            "description": "Toast e o feedback transiente para confirmacoes de baixa friccao, trabalho assincrono e erros curtos que nao merecem roubar o fluxo inteiro.",
+            "patternNotes": {
+                "items": {
+                    "description": "O titulo deve carregar a mensagem principal. A descricao entra so para uma linha extra de contexto util.",
+                    "neutral": "Use o toast neutro por padrao para confirmacoes rotineiras. Tons semanticos entram quando o estado precisa de mais enfase visual.",
+                    "promise": "Para trabalho assincrono, use `toast.promise` para refletir o ciclo real da operacao, em vez de empilhar loading, sucesso e erro manualmente.",
+                    "scope": "Toast nao substitui validacao inline, dialog ou alert dialog. Use-o para feedback breve que nao exige um novo fluxo."
+                },
+                "snippet": "toast(\"Configuracoes salvas\", {\n  description: \"As alteracoes do perfil ja estao ativas.\",\n});\n\ntoast.success(\"Matricula atualizada\", {\n  description: \"A nova turma ja esta atribuida.\",\n});\n\ntoast.promise(saveSettings(), {\n  loading: \"Salvando configuracoes...\",\n  success: \"Configuracoes salvas\",\n  error: \"Nao foi possivel salvar as configuracoes\",\n  description: \"As preferencias de notificacao foram atualizadas.\",\n});\n\ntoast.danger(\"403 Proibido\", {\n  description: \"Voce nao tem permissao para excluir esta matricula.\",\n});"
+            },
+            "sections": {
+                "async": {
+                    "description": "Promise toasts devem espelhar a vida real da requisicao. Para o resto, mantenha o feedback curto e explicito.",
+                    "title": "Trabalho assincrono e erros"
+                },
+                "variants": {
+                    "description": "Tratamentos neutros e semanticos para os estados de feedback mais comuns.",
+                    "title": "Variantes de intencao"
+                }
+            },
+            "title": "Toast",
+            "variants": {
+                "danger": {
+                    "button": "Danger",
+                    "description": "A requisicao foi rejeitada pelo servidor.",
+                    "title": "Atualizacao falhou"
+                },
+                "info": {
+                    "button": "Info",
+                    "description": "Novos registros estao sendo buscados na API.",
+                    "title": "Sincronizacao iniciada"
+                },
+                "neutral": {
+                    "button": "Neutro",
+                    "description": "Suas alteracoes estao disponiveis neste dispositivo.",
+                    "title": "Rascunho salvo"
+                },
+                "success": {
+                    "button": "Sucesso",
+                    "description": "Os dados do perfil foram salvos com sucesso.",
+                    "title": "Usuario atualizado"
+                },
+                "warning": {
+                    "button": "Aviso",
+                    "description": "Menos de 10% da cota ainda esta disponivel.",
+                    "title": "Armazenamento quase cheio"
+                }
+            }
         },
         "toggleControls": {
             "cards": {
@@ -1736,17 +1828,17 @@
             "patternNotes": {
                 "groupSnippet": "<ToggleGroup variant=\"pill\" colorVariant=\"chrome\" value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"light\" tooltipContent=\"Claro\">\n    <Sun />\n  </ToggleGroupItem>\n  <ToggleGroupItem value=\"dark\" tooltipContent=\"Escuro\">\n    <Moon />\n  </ToggleGroupItem>\n</ToggleGroup>",
                 "items": {
-                    "chrome": "Use `colorVariant=\"chrome\"` apenas em superficies coloridas, como a topbar do shell. Os itens tambem aceitam `tooltipContent` diretamente.",
-                    "defaultSurface": "Use o toggle unico como padrao de acao pressionada em superficies neutras.",
-                    "group": "Use toggle group quando vÃ¡rios controles pressionados relacionados precisarem funcionar como um conjunto exclusivo ou multi-seleÃ§Ã£o.",
-                    "pill": "Use `variant=\"pill\"` quando os itens devem parecer um controle segmentado unico, e nao botoes separados.",
+                    "chrome": "Use `colorVariant=\"chrome\"` apenas sobre fundos coloridos, como topbars e superficies de marca. Fora disso, mantenha o grupo no colorVariant padrao.",
+                    "defaultSurface": "Use o `Toggle` unico como padrao de acao pressionada em superficies neutras. Ele nao deve virar substituto de checkbox, radio group ou switch.",
+                    "group": "Use `ToggleGroup` quando varios estados relacionados precisarem funcionar como um conjunto coerente, seja exclusivo ou multi-pressionado.",
+                    "pill": "Use a variante `pill` quando os itens devem parecer um controle segmentado unico, sem espacamento entre as partes.",
                     "press": "Esses controles comunicam estado pressionado, nÃ£o semÃ¢ntica de formulÃ¡rio. Prefira checkbox, radio group ou switch quando o significado for seleÃ§Ã£o ou configuraÃ§Ã£o.",
                     "scope": "Toggle controls funcionam melhor em toolbars, trocas de visualizaÃ§Ã£o, aÃ§Ãµes de formataÃ§Ã£o e chips compactos de filtro.",
-                    "spaced": "Use `ToggleGroup` com a variante padrao `spaced` para toolbars, trocas de visualizacao e linhas de filtro.",
+                    "spaced": "Use a variante `spaced` em toolbars, trocas de visualizacao e grupos de formatacao em que cada item deve permanecer claramente separado.",
                     "toggle": "Use toggle para um Ãºnico controle pressionado/nÃ£o pressionado que se comporta como um botÃ£o de aÃ§Ã£o com estado."
                 },
-                "singleSnippet": "<Toggle aria-label=\"Negrito\">Negrito</Toggle>",
-                "snippet": "<Toggle aria-label=\"Negrito\">Negrito</Toggle>\n\n<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grade</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">Lista</ToggleGroupItem>\n</ToggleGroup>"
+                "singleSnippet": "<Toggle aria-label=\"Negrito\">\n  <Icon icon={Bold} />\n  <span>Negrito</span>\n</Toggle>",
+                "snippet": "<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grid</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">Lista</ToggleGroupItem>\n</ToggleGroup>\n\n<ToggleGroup variant=\"pill\" value={theme} onValueChange={setTheme}>\n  <ToggleGroupItem value=\"light\">Claro</ToggleGroupItem>\n  <ToggleGroupItem value=\"dark\">Escuro</ToggleGroupItem>\n  <ToggleGroupItem value=\"system\">Sistema</ToggleGroupItem>\n</ToggleGroup>"
             },
             "primitives": {
                 "toggleGroupTitle": "Toggle Group"
@@ -1790,10 +1882,10 @@
                 "items": {
                     "clarify": "Use tooltips para esclarecer controles compactos, especialmente aÃ§Ãµes somente com Ã­cone que precisam de contexto visÃ­vel no hover ou no foco.",
                     "compact": "Mantenha o texto curto e neutro. Se o conteÃºdo precisar de instruÃ§Ãµes ou mÃºltiplas aÃ§Ãµes, prefira outro padrÃ£o, como texto auxiliar, popover ou dialog.",
-                    "iconButtons": "Para botÃµes com Ã­cone, o prÃ³prio componente de botÃ£o jÃ¡ resolve o conteÃºdo do tooltip a partir de `tooltipContent`, `title` ou do rÃ³tulo acessÃ­vel.",
+                    "iconButtons": "Para botoes com icone, o proprio componente de botao ja resolve o conteudo do tooltip a partir de `tooltipContent`, `title` ou do rotulo acessivel.",
                     "reinforce": "O tooltip deve reforÃ§ar um controle existente, nÃ£o carregar sozinho a informaÃ§Ã£o principal."
                 },
-                "snippet": "<Tooltip content=\"Abrir detalhes\" side=\"top\" align=\"center\">\n  <button type=\"button\">Gatilho</button>\n</Tooltip>\n\n<Button\n  size=\"icon\"\n  variant=\"ghost\"\n  title=\"Adicionar item\"\n  leadingIcon={<Plus />}\n/>"
+                "snippet": "<Tooltip content=\"Abrir detalhes\" side=\"top\" align=\"center\">\n  <button type=\"button\">Gatilho</button>\n</Tooltip>\n\n<Button\n  size=\"icon\"\n  variant=\"secondary\"\n  title=\"Adicionar item\"\n  leadingIcon={<Plus />}\n/>"
             },
             "placementCards": {
                 "bottom": {
@@ -1988,12 +2080,5 @@
         },
         "subtitle": "Workspace de operacoes",
         "title": "PUG Admin"
-    },
-    "AlertDialog": {
-        "overhead": {
-            "success": "Acao positiva",
-            "warning": "Acao cautelosa",
-            "danger": "Acao destrutiva"
-        }
     }
 }

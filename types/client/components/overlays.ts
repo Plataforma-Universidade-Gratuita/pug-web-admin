@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import type { LucideIcon } from "lucide-react";
+
 export interface DialogProps {
 	children: ReactNode;
 	open?: boolean | undefined;
@@ -17,6 +19,7 @@ export interface DialogContentProps {
 export interface DialogHeaderProps {
 	children: ReactNode;
 	className?: string;
+	overhead?: ReactNode;
 }
 
 export interface DialogTitleProps {
@@ -24,12 +27,7 @@ export interface DialogTitleProps {
 	className?: string;
 }
 
-export interface DialogDescriptionProps {
-	children: ReactNode;
-	className?: string;
-}
-
-export interface DialogFooterProps {
+export interface DialogBodyProps {
 	children: ReactNode;
 	className?: string;
 }
@@ -101,6 +99,7 @@ export interface DrawerContentProps {
 export interface DrawerHeaderProps {
 	children: ReactNode;
 	className?: string;
+	overhead?: ReactNode;
 }
 
 export interface DrawerTitleProps {
@@ -113,7 +112,21 @@ export interface DrawerDescriptionProps {
 	className?: string;
 }
 
-export interface DrawerFooterProps {
+export type DrawerVariant = "filters" | "create";
+
+export interface DrawerBodyProps {
 	children: ReactNode;
 	className?: string;
+}
+
+export interface DrawerFooterProps {
+	className?: string;
+	clearConfirmDescription: ReactNode;
+	clearConfirmTitle: ReactNode;
+	clearLabel: ReactNode;
+	actionLabel: ReactNode;
+	actionIcon?: LucideIcon;
+	actionVariant?: DrawerVariant;
+	onAction?: () => void;
+	onClear?: () => void;
 }

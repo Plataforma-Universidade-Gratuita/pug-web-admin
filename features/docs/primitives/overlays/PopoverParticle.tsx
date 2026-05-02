@@ -2,12 +2,7 @@
 
 import { useState } from "react";
 
-import {
-	CalendarDays,
-	Filter,
-	MoreHorizontal,
-	SlidersHorizontal,
-} from "lucide-react";
+import { CalendarDays, Filter, Info, SlidersHorizontal } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -27,8 +22,8 @@ import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function PopoverParticle() {
 	const { t } = useTranslation();
-	const [isFilterOpen, setIsFilterOpen] = useState(false);
-	const [isActionsOpen, setIsActionsOpen] = useState(false);
+	const [isQuickFiltersOpen, setIsQuickFiltersOpen] = useState(false);
+	const [isSupportOpen, setIsSupportOpen] = useState(false);
 
 	return (
 		<ParticleContainer
@@ -37,28 +32,28 @@ export default function PopoverParticle() {
 			description={t("docs.popover.description")}
 			patternNotesTitle={t("docs.shared.patternNotesTitle")}
 			patternNotesItems={[
-				{ description: t("docs.popover.patternNotes.items.inline") },
-				{ description: t("docs.popover.patternNotes.items.scope") },
-				{ description: t("docs.popover.patternNotes.items.content") },
+				{ description: t("docs.popover.patternNotes.items.anchored") },
+				{ description: t("docs.popover.patternNotes.items.compact") },
+				{ description: t("docs.popover.patternNotes.items.singlePurpose") },
 				{ description: t("docs.popover.patternNotes.items.escalation") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
 			patternNotesSnippet={t("docs.popover.patternNotes.snippet")}
 		>
 			<ParticleSection
-				title={t("docs.popover.sections.filters.title")}
-				description={t("docs.popover.sections.filters.description")}
+				title={t("docs.popover.sections.quickFilters.title")}
+				description={t("docs.popover.sections.quickFilters.description")}
 			>
 				<Card className="p-4">
 					<CardContent className="flex flex-wrap items-center gap-3">
 						<Popover
-							open={isFilterOpen}
-							onOpenChange={setIsFilterOpen}
+							open={isQuickFiltersOpen}
+							onOpenChange={setIsQuickFiltersOpen}
 						>
 							<PopoverTrigger>
 								<Button
 									usage="secondary"
-									variant="flat"
+									variant="secondary"
 									leadingIcon={
 										<Icon
 											icon={Filter}
@@ -66,60 +61,39 @@ export default function PopoverParticle() {
 										/>
 									}
 								>
-									{t("docs.popover.examples.filters.trigger")}
+									{t("docs.popover.examples.quickFilters.trigger")}
 								</Button>
 							</PopoverTrigger>
 							<PopoverContent
 								align="start"
-								className="space-y-4"
+								className="space-y-3"
 							>
 								<div className="space-y-1">
 									<p className="ty-sm-bold">
-										{t("docs.popover.examples.filters.title")}
+										{t("docs.popover.examples.quickFilters.title")}
 									</p>
 									<p className="ty-helper">
-										{t("docs.popover.examples.filters.description")}
+										{t("docs.popover.examples.quickFilters.description")}
 									</p>
 								</div>
-								<div className="grid gap-3 sm:grid-cols-2">
-									<div className="surface-1 rounded-[var(--twc-radius-lg)] p-3">
-										<p className="ty-helper">
-											{t("docs.popover.examples.filters.items.period")}
-										</p>
-										<p className="ty-sm-semibold">
-											{t("docs.popover.examples.filters.values.period")}
-										</p>
-									</div>
-									<div className="surface-1 rounded-[var(--twc-radius-lg)] p-3">
-										<p className="ty-helper">
-											{t("docs.popover.examples.filters.items.status")}
-										</p>
-										<p className="ty-sm-semibold">
-											{t("docs.popover.examples.filters.values.status")}
-										</p>
-									</div>
-								</div>
-								<div className="flex flex-wrap justify-end gap-3">
-									<Button
-										usage="secondary"
-										variant="ghost"
-										onClick={() => setIsFilterOpen(false)}
-									>
-										{t("docs.popover.examples.filters.secondary")}
-									</Button>
-									<Button
-										usage="primary"
-										variant="flat"
-										onClick={() => setIsFilterOpen(false)}
-									>
-										{t("docs.popover.examples.filters.primary")}
-									</Button>
+								<div className="flex flex-wrap gap-2">
+									{(["status", "period", "campus"] as const).map(key => (
+										<Button
+											key={key}
+											size="sm"
+											usage="secondary"
+											variant="secondary"
+											onClick={() => setIsQuickFiltersOpen(false)}
+										>
+											{t(`docs.popover.examples.quickFilters.options.${key}`)}
+										</Button>
+									))}
 								</div>
 							</PopoverContent>
 						</Popover>
 						<Button
 							usage="secondary"
-							variant="ghost"
+							variant="secondary"
 							leadingIcon={
 								<Icon
 									icon={CalendarDays}
@@ -127,61 +101,73 @@ export default function PopoverParticle() {
 								/>
 							}
 						>
-							{t("docs.popover.examples.filters.neighbor")}
+							{t("docs.popover.examples.quickFilters.neighbor")}
 						</Button>
 					</CardContent>
 				</Card>
 			</ParticleSection>
 
 			<ParticleSection
-				title={t("docs.popover.sections.actions.title")}
-				description={t("docs.popover.sections.actions.description")}
+				title={t("docs.popover.sections.support.title")}
+				description={t("docs.popover.sections.support.description")}
 			>
 				<div className="grid gap-4 md:grid-cols-2">
 					<Card className="flex min-h-44 flex-col justify-between p-4">
 						<CardHeader>
-							<CardTitle>{t("docs.popover.examples.actions.title")}</CardTitle>
+							<CardTitle>{t("docs.popover.examples.support.title")}</CardTitle>
 							<CardDescription>
-								{t("docs.popover.examples.actions.description")}
+								{t("docs.popover.examples.support.description")}
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
 							<Popover
-								open={isActionsOpen}
-								onOpenChange={setIsActionsOpen}
+								open={isSupportOpen}
+								onOpenChange={setIsSupportOpen}
 							>
 								<PopoverTrigger>
 									<Button
 										size="icon"
 										usage="secondary"
-										variant="ghost"
-										tooltipContent={t("docs.popover.examples.actions.trigger")}
+										variant="secondary"
+										tooltipContent={t("docs.popover.examples.support.trigger")}
 									>
 										<Icon
-											icon={MoreHorizontal}
+											icon={Info}
 											className="h-4 w-4"
 										/>
 									</Button>
 								</PopoverTrigger>
 								<PopoverContent
 									align="end"
-									className="space-y-2"
+									className="max-w-72 space-y-3"
 								>
-									{(["layout", "rules", "owners"] as const).map(key => (
-										<button
-											key={key}
-											type="button"
-											className="interactive-surface border-default-2 surface-1 focus-ring flex w-full items-center justify-between rounded-[var(--twc-radius-lg)] border px-3 py-2 text-left"
-											onClick={() => setIsActionsOpen(false)}
-										>
-											<span className="ty-sm-semibold">
-												{t(`docs.popover.examples.actions.items.${key}.title`)}
-											</span>
-											<span className="ty-helper">
-												{t(`docs.popover.examples.actions.items.${key}.meta`)}
-											</span>
-										</button>
-									))}
+									<div className="space-y-1">
+										<p className="ty-sm-bold">
+											{t("docs.popover.examples.support.panelTitle")}
+										</p>
+										<p className="ty-helper">
+											{t("docs.popover.examples.support.panelDescription")}
+										</p>
+									</div>
+									<div className="space-y-2">
+										{(["owner", "review", "visibility"] as const).map(key => (
+											<div
+												key={key}
+												className="surface-1 rounded-[var(--twc-radius-lg)] p-3"
+											>
+												<p className="ty-helper">
+													{t(
+														`docs.popover.examples.support.items.${key}.label`,
+													)}
+												</p>
+												<p className="ty-sm-semibold">
+													{t(
+														`docs.popover.examples.support.items.${key}.value`,
+													)}
+												</p>
+											</div>
+										))}
+									</div>
 								</PopoverContent>
 							</Popover>
 						</CardContent>
@@ -197,18 +183,18 @@ export default function PopoverParticle() {
 						<CardContent>
 							<Popover>
 								<PopoverTrigger>
-									<button
-										type="button"
-										className="border-default-2 surface-2 focus-ring inline-flex items-center gap-2 rounded-full border px-3 py-2"
+									<Button
+										usage="secondary"
+										variant="secondary"
+										leadingIcon={
+											<Icon
+												icon={SlidersHorizontal}
+												className="h-4 w-4"
+											/>
+										}
 									>
-										<Icon
-											icon={SlidersHorizontal}
-											className="h-4 w-4"
-										/>
-										<span className="ty-sm-semibold">
-											{t("docs.popover.examples.inline.trigger")}
-										</span>
-									</button>
+										{t("docs.popover.examples.inline.trigger")}
+									</Button>
 								</PopoverTrigger>
 								<PopoverContent
 									align="start"
@@ -217,9 +203,18 @@ export default function PopoverParticle() {
 									<p className="ty-sm-bold">
 										{t("docs.popover.examples.inline.panelTitle")}
 									</p>
-									<p className="ty-helper">
-										{t("docs.popover.examples.inline.panelDescription")}
-									</p>
+									<div className="space-y-2">
+										{(["comfortable", "compact"] as const).map(key => (
+											<Button
+												key={key}
+												className="w-full justify-start"
+												usage="secondary"
+												variant="secondary"
+											>
+												{t(`docs.popover.examples.inline.options.${key}`)}
+											</Button>
+										))}
+									</div>
 								</PopoverContent>
 							</Popover>
 						</CardContent>

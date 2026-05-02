@@ -2,10 +2,19 @@
 
 import { useState } from "react";
 
-import { ArrowRight, PanelsTopLeft, SlidersHorizontal } from "lucide-react";
+import {
+	ArrowRight,
+	PanelsTopLeft,
+	Plus,
+	SlidersHorizontal,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
 	Button,
 	Card,
 	CardContent,
@@ -13,21 +22,26 @@ import {
 	CardHeader,
 	CardTitle,
 	Drawer,
-	DrawerClose,
+	DrawerBody,
 	DrawerContent,
 	DrawerDescription,
 	DrawerFooter,
 	DrawerHeader,
 	DrawerTitle,
 	Icon,
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
 } from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
 export default function DrawerParticle() {
 	const { t } = useTranslation();
-	const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+	const [isCreateOpen, setIsCreateOpen] = useState(false);
 	const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+	const [createTab, setCreateTab] = useState("general");
 
 	return (
 		<ParticleContainer
@@ -38,7 +52,11 @@ export default function DrawerParticle() {
 			patternNotesItems={[
 				{ description: t("docs.drawer.patternNotes.items.context") },
 				{ description: t("docs.drawer.patternNotes.items.side") },
+				{ description: t("docs.drawer.patternNotes.items.header") },
+				{ description: t("docs.drawer.patternNotes.items.body") },
 				{ description: t("docs.drawer.patternNotes.items.footer") },
+				{ description: t("docs.drawer.patternNotes.items.clear") },
+				{ description: t("docs.drawer.patternNotes.items.primary") },
 				{ description: t("docs.drawer.patternNotes.items.escalation") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
@@ -51,24 +69,22 @@ export default function DrawerParticle() {
 				<div className="grid gap-4 md:grid-cols-2">
 					<Card className="flex min-h-44 flex-col justify-between p-4">
 						<CardHeader>
-							<CardTitle>{t("docs.drawer.cards.details.title")}</CardTitle>
+							<CardTitle>{t("docs.drawer.cards.create.title")}</CardTitle>
 							<CardDescription>
-								{t("docs.drawer.cards.details.description")}
+								{t("docs.drawer.cards.create.description")}
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
 							<Button
-								usage="primary"
-								variant="flat"
 								leadingIcon={
 									<Icon
 										icon={PanelsTopLeft}
 										className="h-4 w-4"
 									/>
 								}
-								onClick={() => setIsDetailsOpen(true)}
+								onClick={() => setIsCreateOpen(true)}
 							>
-								{t("docs.drawer.cards.details.trigger")}
+								{t("docs.drawer.cards.create.trigger")}
 							</Button>
 						</CardContent>
 					</Card>
@@ -82,8 +98,7 @@ export default function DrawerParticle() {
 						</CardHeader>
 						<CardContent>
 							<Button
-								usage="secondary"
-								variant="ghost"
+								variant="secondary"
 								leadingIcon={
 									<Icon
 										icon={SlidersHorizontal}
@@ -100,60 +115,63 @@ export default function DrawerParticle() {
 			</ParticleSection>
 
 			<Drawer
-				open={isDetailsOpen}
-				onOpenChange={setIsDetailsOpen}
+				open={isCreateOpen}
+				onOpenChange={setIsCreateOpen}
 			>
-				<DrawerContent side="right">
-					<DrawerHeader className="border-default-2 border-b">
-						<p className="ty-sm-semibold tracking-[0.12em] text-[color:var(--twc-muted)] uppercase">
-							{t("docs.drawer.examples.details.eyebrow")}
-						</p>
-						<DrawerTitle>{t("docs.drawer.examples.details.title")}</DrawerTitle>
+				<DrawerContent>
+					<DrawerHeader overhead={t("docs.drawer.examples.create.eyebrow")}>
+						<DrawerTitle>{t("docs.drawer.examples.create.title")}</DrawerTitle>
 						<DrawerDescription className="ty-helper">
-							{t("docs.drawer.examples.details.description")}
+							{t("docs.drawer.examples.create.description")}
 						</DrawerDescription>
 					</DrawerHeader>
 
-					<div className="flex-1 space-y-4 overflow-y-auto p-6">
-						{(["owner", "status", "updated"] as const).map(key => (
-							<div
-								key={key}
-								className="border-default-2 rounded-[var(--twc-radius-lg)] border p-4"
-							>
-								<p className="ty-sm-semibold">
-									{t(`docs.drawer.examples.details.items.${key}.title`)}
-								</p>
-								<p className="ty-helper mt-1">
-									{t(`docs.drawer.examples.details.items.${key}.description`)}
-								</p>
-							</div>
-						))}
-					</div>
+					<DrawerBody>
+						<Tabs
+							value={createTab}
+							onValueChange={setCreateTab}
+						>
+							<TabsList>
+								{(["general", "ownership", "review"] as const).map(key => (
+									<TabsTrigger
+										key={key}
+										value={key}
+									>
+										{t(`docs.drawer.examples.create.sections.${key}.title`)}
+									</TabsTrigger>
+								))}
+							</TabsList>
+							{(["general", "ownership", "review"] as const).map(key => (
+								<TabsContent
+									key={key}
+									value={key}
+									className="border-default-2 mt-4 rounded-[var(--twc-radius-lg)] border p-4"
+								>
+									<p className="ty-sm-semibold">
+										{t(`docs.drawer.examples.create.sections.${key}.title`)}
+									</p>
+									<p className="ty-helper mt-2">
+										{t(
+											`docs.drawer.examples.create.sections.${key}.description`,
+										)}
+									</p>
+								</TabsContent>
+							))}
+						</Tabs>
+					</DrawerBody>
 
-					<DrawerFooter>
-						<DrawerClose>
-							<Button
-								usage="secondary"
-								variant="ghost"
-							>
-								{t("docs.drawer.examples.details.footer.secondary")}
-							</Button>
-						</DrawerClose>
-						<DrawerClose>
-							<Button
-								usage="primary"
-								variant="flat"
-								trailingIcon={
-									<Icon
-										icon={ArrowRight}
-										className="h-4 w-4"
-									/>
-								}
-							>
-								{t("docs.drawer.examples.details.footer.primary")}
-							</Button>
-						</DrawerClose>
-					</DrawerFooter>
+					<DrawerFooter
+						actionVariant="create"
+						clearLabel={t("docs.drawer.examples.create.clear.action")}
+						clearConfirmTitle={t("docs.drawer.examples.create.clear.title")}
+						clearConfirmDescription={t(
+							"docs.drawer.examples.create.clear.description",
+						)}
+						actionLabel={t("docs.drawer.examples.create.footer.action")}
+						actionIcon={Plus}
+						onAction={() => setIsCreateOpen(false)}
+						onClear={() => setCreateTab("general")}
+					/>
 				</DrawerContent>
 			</Drawer>
 
@@ -161,51 +179,51 @@ export default function DrawerParticle() {
 				open={isFiltersOpen}
 				onOpenChange={setIsFiltersOpen}
 			>
-				<DrawerContent side="left">
-					<DrawerHeader className="border-default-2 border-b">
-						<p className="ty-sm-semibold tracking-[0.12em] text-[color:var(--twc-muted)] uppercase">
-							{t("docs.drawer.examples.filters.eyebrow")}
-						</p>
+				<DrawerContent>
+					<DrawerHeader overhead={t("docs.drawer.examples.filters.eyebrow")}>
 						<DrawerTitle>{t("docs.drawer.examples.filters.title")}</DrawerTitle>
 						<DrawerDescription className="ty-helper">
 							{t("docs.drawer.examples.filters.description")}
 						</DrawerDescription>
 					</DrawerHeader>
 
-					<div className="flex-1 space-y-3 overflow-y-auto p-6">
-						{(["status", "owner", "period"] as const).map(key => (
-							<div
-								key={key}
-								className="border-default-2 rounded-[var(--twc-radius-lg)] border p-4"
-							>
-								<p className="ty-sm-semibold">
-									{t(`docs.drawer.examples.filters.items.${key}.title`)}
-								</p>
-								<p className="ty-helper mt-1">
-									{t(`docs.drawer.examples.filters.items.${key}.description`)}
-								</p>
-							</div>
-						))}
-					</div>
+					<DrawerBody className="space-y-4">
+						<Accordion
+							type="multiple"
+							defaultValue={["status"]}
+						>
+							{(["status", "campus", "advanced"] as const).map(key => (
+								<AccordionItem
+									key={key}
+									value={key}
+								>
+									<AccordionTrigger>
+										{t(`docs.drawer.examples.filters.groups.${key}.title`)}
+									</AccordionTrigger>
+									<AccordionContent>
+										<p className="ty-body">
+											{t(
+												`docs.drawer.examples.filters.groups.${key}.description`,
+											)}
+										</p>
+									</AccordionContent>
+								</AccordionItem>
+							))}
+						</Accordion>
+					</DrawerBody>
 
-					<DrawerFooter>
-						<DrawerClose>
-							<Button
-								usage="secondary"
-								variant="ghost"
-							>
-								{t("docs.drawer.examples.filters.footer.secondary")}
-							</Button>
-						</DrawerClose>
-						<DrawerClose>
-							<Button
-								usage="info"
-								variant="flat"
-							>
-								{t("docs.drawer.examples.filters.footer.primary")}
-							</Button>
-						</DrawerClose>
-					</DrawerFooter>
+					<DrawerFooter
+						actionVariant="filters"
+						clearLabel={t("docs.drawer.examples.filters.clear.action")}
+						clearConfirmTitle={t("docs.drawer.examples.filters.clear.title")}
+						clearConfirmDescription={t(
+							"docs.drawer.examples.filters.clear.description",
+						)}
+						actionLabel={t("docs.drawer.examples.filters.footer.action")}
+						actionIcon={ArrowRight}
+						onAction={() => setIsFiltersOpen(false)}
+						onClear={() => undefined}
+					/>
 				</DrawerContent>
 			</Drawer>
 		</ParticleContainer>

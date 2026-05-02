@@ -1,12 +1,26 @@
 "use client";
 
 import type { CSSProperties } from "react";
+import { useState } from "react";
 
 import * as RadixDialog from "@radix-ui/react-dialog";
 import clsx from "clsx";
+import { Eraser, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
+import { Button } from "@/components/actions/button/Button";
+import { Icon } from "@/components/display/icon/Icon";
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
+import {
+	AlertDialog,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter as AlertDialogFooterActions,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from "@/components/overlays/alert-dialog/AlertDialog";
 import { Footer, Header } from "@/components/structure/layout/Layout";
+import { ScrollArea } from "@/components/structure/scroll-area/ScrollArea";
 import {
 	APP_TOPBAR_HEIGHT,
 	DRAWER_MOTION_STYLES,
@@ -14,6 +28,7 @@ import {
 } from "@/constants/components";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
+	DrawerBodyProps,
 	DrawerCloseProps,
 	DrawerContentProps,
 	DrawerDescriptionProps,
@@ -63,6 +78,7 @@ export function DrawerContent({
 	side = "right",
 }: DrawerContentProps) {
 	const { isLoading, loadingLabel } = useLoading();
+	const bodyMaxHeight = `calc(100dvh - ${APP_TOPBAR_HEIGHT} - 11rem)`;
 
 	return (
 		<RadixDialog.Portal>
@@ -84,6 +100,7 @@ export function DrawerContent({
 						className,
 					)}
 					role={isLoading ? "status" : undefined}
+					style={{ "--drawer-body-max-height": bodyMaxHeight } as CSSProperties}
 				>
 					{isLoading ? <span className="sr-only">{loadingLabel}</span> : null}
 					{children}
@@ -93,9 +110,33 @@ export function DrawerContent({
 	);
 }
 
-export function DrawerHeader({ children, className }: DrawerHeaderProps) {
+export function DrawerHeader({
+	children,
+	className,
+	overhead,
+}: DrawerHeaderProps) {
+	const { t } = useTranslation();
+
 	return (
-		<Header className={clsx("drawer-header", className)}>{children}</Header>
+		<Header className={clsx("drawer-header", className)}>
+			<div className="drawer-header-main">
+				{overhead ? <p className="drawer-overhead">{overhead}</p> : null}
+				{children}
+			</div>
+			<RadixDialog.Close asChild>
+				<Button
+					size="icon"
+					variant="secondary"
+					title={t("components.drawer.close")}
+					aria-label={t("components.drawer.close")}
+				>
+					<Icon
+						icon={X}
+						className="h-4 w-4"
+					/>
+				</Button>
+			</RadixDialog.Close>
+		</Header>
 	);
 }
 
@@ -140,15 +181,109 @@ export function DrawerDescription({
 	);
 }
 
-export function DrawerFooter({ children, className }: DrawerFooterProps) {
+export function DrawerBody({ children, className }: DrawerBodyProps) {
 	const { isLoading } = useLoading();
 
+	if (isLoading) {
+		return (
+			<div className="drawer-body">
+				<ScrollArea
+					className="drawer-body-scroll"
+					viewportClassName="drawer-body-viewport"
+				>
+					<div className={clsx("drawer-body-inner space-y-2", className)}>
+						<Skeleton className="h-3 w-full" />
+						<Skeleton className="h-3 w-[72%]" />
+						<Skeleton className="h-3 w-[84%]" />
+						<Skeleton className="h-3 w-[64%]" />
+					</div>
+				</ScrollArea>
+			</div>
+		);
+	}
+
 	return (
-		<Footer
-			className={clsx("drawer-footer", className)}
-			isLoading={isLoading}
-		>
-			{children}
-		</Footer>
+		<div className="drawer-body">
+			<ScrollArea
+				className="drawer-body-scroll"
+				viewportClassName="drawer-body-viewport"
+			>
+				<div className={clsx("drawer-body-inner", className)}>{children}</div>
+			</ScrollArea>
+		</div>
+	);
+}
+
+export function DrawerFooter({
+	className,
+	clearConfirmDescription,
+	clearConfirmTitle,
+	clearLabel,
+	actionLabel,
+	actionIcon,
+	actionVariant = "filters",
+	onAction,
+	onClear,
+}: DrawerFooterProps) {
+	const { isLoading } = useLoading();
+	const { t } = useTranslation();
+	const [isClearConfirmOpen, setIsClearConfirmOpen] = useState(false);
+	return (
+		<>
+			<Footer
+				className={clsx("drawer-footer", className)}
+				isLoading={isLoading}
+			>
+				<Button
+					variant="secondary"
+					usage="danger"
+					leadingIcon={
+						<Icon
+							icon={Eraser}
+							className="h-4 w-4"
+						/>
+					}
+					onClick={() => setIsClearConfirmOpen(true)}
+				>
+					{clearLabel}
+				</Button>
+				<Button
+					usage={actionVariant === "create" ? "success" : "info"}
+					leadingIcon={
+						actionIcon ? (
+							<Icon
+								icon={actionIcon}
+								className="h-4 w-4"
+							/>
+						) : undefined
+					}
+					onClick={onAction}
+				>
+					{actionLabel}
+				</Button>
+			</Footer>
+
+			<AlertDialog
+				open={isClearConfirmOpen}
+				onOpenChange={setIsClearConfirmOpen}
+			>
+				<AlertDialogContent variant="danger">
+					<AlertDialogHeader>
+						<AlertDialogTitle>{clearConfirmTitle}</AlertDialogTitle>
+						<AlertDialogDescription>
+							{clearConfirmDescription}
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooterActions
+						cancelLabel={t("common.cancel")}
+						actionLabel={clearLabel}
+						onAction={() => {
+							onClear?.();
+							setIsClearConfirmOpen(false);
+						}}
+					/>
+				</AlertDialogContent>
+			</AlertDialog>
+		</>
 	);
 }

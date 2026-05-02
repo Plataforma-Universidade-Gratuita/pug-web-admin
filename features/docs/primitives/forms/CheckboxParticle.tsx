@@ -26,6 +26,11 @@ export default function CheckboxParticle() {
 				{
 					description: t("docs.selectionControls.patternNotes.items.checkbox"),
 				},
+				{
+					description: t(
+						"docs.selectionControls.patternNotes.items.descriptions",
+					),
+				},
 				{ description: t("docs.selectionControls.patternNotes.items.scope") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}

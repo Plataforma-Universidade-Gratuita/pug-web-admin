@@ -28,6 +28,11 @@ export default function SeparatorParticle() {
 						"docs.structurePrimitives.patternNotes.items.separator",
 					),
 				},
+				{
+					description: t(
+						"docs.structurePrimitives.patternNotes.items.separatorRhythm",
+					),
+				},
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
 			patternNotesSnippet="<Separator />"

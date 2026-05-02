@@ -6,6 +6,7 @@ import * as RadixTabs from "@radix-ui/react-tabs";
 import clsx from "clsx";
 
 import { Tooltip } from "@/components";
+import { ScrollArea } from "@/components/structure/scroll-area/ScrollArea";
 import type {
 	TabsContentProps,
 	TabsListProps,
@@ -35,16 +36,21 @@ export function TabsList({
 }: TabsListProps) {
 	return (
 		<TabsVariantContext.Provider value={variant}>
-			<RadixTabs.List
-				className={clsx(
-					"tabs-list",
-					variant === "icon" && "tabs-list-icon",
-					className,
-				)}
-				{...props}
+			<ScrollArea
+				className="tabs-list-scroll"
+				viewportClassName="tabs-list-scroll-viewport"
 			>
-				{children}
-			</RadixTabs.List>
+				<RadixTabs.List
+					className={clsx(
+						"tabs-list",
+						variant === "icon" && "tabs-list-icon",
+						className,
+					)}
+					{...props}
+				>
+					{children}
+				</RadixTabs.List>
+			</ScrollArea>
 		</TabsVariantContext.Provider>
 	);
 }

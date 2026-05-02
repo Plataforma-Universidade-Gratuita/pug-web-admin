@@ -36,7 +36,7 @@ export default function TabsParticle() {
 				},
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
-			patternNotesSnippet={`<Tabs defaultValue="overview">\n  <TabsList variant="icon">\n    <TabsTrigger\n      value="overview"\n      tooltipContent="${t("docs.structurePrimitives.tabs.items.overview.label")}"\n    >\n      <Icon />\n    </TabsTrigger>\n  </TabsList>\n</Tabs>`}
+			patternNotesSnippet={t("docs.structurePrimitives.patternNotes.snippet")}
 		>
 			<ParticleSection
 				title={t("docs.structurePrimitives.sections.tabs.title")}
