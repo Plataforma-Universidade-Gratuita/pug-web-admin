@@ -1,9 +1,9 @@
 {
     "AlertDialog": {
         "overhead": {
-            "danger": "Acao destrutiva",
-            "success": "Acao positiva",
-            "warning": "Acao cautelosa"
+            "danger": "Ação destrutiva",
+            "success": "Ação positiva",
+            "warning": "Ação cautelosa"
         }
     },
     "auth": {
@@ -13,12 +13,11 @@
                 "subtitle": "Workspace administrativo"
             },
             "feedback": {
-                "error": "Nao foi possivel entrar agora.",
+                "error": "Não foi possível entrar agora.",
                 "success": "Login realizado com sucesso."
             },
             "form": {
-                "badge": "Login administrativo",
-                "description": "Informe suas credenciais administrativas para entrar no workspace de operacoes do PUG.",
+                "description": "Informe suas credenciais administrativas para entrar no workspace de operações do PUG.",
                 "fields": {
                     "email": {
                         "label": "Email",
@@ -35,7 +34,6 @@
             },
             "hero": {
                 "badge": "Acesso protegido",
-                "description": "Use sua conta administrativa para acessar o app shell, revisar as areas operacionais e gerenciar a plataforma dentro da superficie compartilhada do sistema.",
                 "highlights": {
                     "adminOnly": {
                         "description": "A entrada de login e reservada para o workspace administrativo e para as rotas protegidas.",
@@ -43,38 +41,30 @@
                     },
                     "refresh": {
                         "description": "Tokens de acesso expirados sao renovados pelo middleware antes de interromper o shell.",
-                        "title": "Refresh automatico de token"
+                        "title": "Refresh automático de token"
                     },
                     "session": {
-                        "description": "Cookies seguros mantem a sessao estavel em toda a area protegida da aplicacao.",
-                        "title": "Continuidade de sessao"
+                        "description": "Cookies seguros mantém a sessão estável em toda a area protegida da aplicação.",
+                        "title": "Continuidade de sessão"
                     }
                 },
-                "note": {
-                    "description": "A aplicacao redireciona usuarios autenticados direto para o shell e mantem o login como a unica rota publica.",
-                    "title": "Modelo de acesso atual"
-                },
-                "title": "Entre para manter as operacoes academicas controladas e consistentes."
+                "title": "Entre para manter as operações acadêmicas controladas e consistentes."
             },
             "validation": {
-                "email": "Informe um email valido.",
+                "email": "Informe um email válido.",
                 "password": "Informe sua senha."
             }
         }
     },
     "components": {
-        "common": {
-            "cancel": "Cancelar"
-        },
         "datePicker": {
             "calendarLabel": "Calendario do seletor de data",
-            "clear": "Limpar selecao",
-            "dateSection": "Data",
-            "monthNavigation": "Navegacao de meses",
-            "nextMonth": "Ir para o proximo mes",
+            "clear": "Limpar seleção",
+            "monthNavigation": "Navegação de meses",
+            "nextMonth": "Ir para o próximo mês",
             "openPicker": "Abrir seletor de data",
             "placeholder": "Selecione a data",
-            "previousMonth": "Ir para o mes anterior",
+            "previousMonth": "Ir para o mês anterior",
             "today": "Hoje"
         },
         "dialog": {
@@ -87,87 +77,82 @@
     "docs": {
         "accordion": {
             "compactCard": {
-                "description": "Um accordion mais denso ainda funciona se cada item continuar facil de escanear e os rotulos permanecerem explicitos.",
+                "description": "Um accordion mais denso ainda funciona se cada item continuar fácil de escanear e os rótulos permanecerem explícitos.",
                 "items": {
                     "escalation": {
-                        "description": "Mantenha o rotulo decisivo para que a pessoa saiba o que sera revelado antes de abrir o item.",
+                        "description": "Mantenha o rótulo decisivo para que a pessoa saiba o que será revelado antes de abrir o item.",
                         "title": "Fluxo de escalonamento"
                     },
                     "ownership": {
-                        "description": "O corpo deve responder a uma pergunta estreita em vez de virar uma pagina escondida atras de um trigger.",
+                        "description": "O corpo deve responder a uma pergunta estreita em vez de virar uma pagina escondida atrás de um trigger.",
                         "title": "Regras de ownership"
                     },
                     "timing": {
-                        "description": "Use a forma compacta para orientacoes operacionais curtas e respostas de suporte.",
+                        "description": "Use a forma compacta para orientações operacionais curtas e respostas de suporte.",
                         "title": "Tempo de resposta"
                     }
                 },
                 "title": "Divulgacao compacta"
             },
-            "description": "Accordion e a primitiva de divulgacao secundaria para conteudo empilhado dentro do fluxo atual da pagina. Use quando os detalhes precisam permanecer proximos sem competir como layout principal ou navegacao principal.",
+            "description": "Accordion e a primitiva de divulgação secundária para conteúdo empilhado dentro do fluxo atual da pagina. Use quando os detalhes precisam permanecer próximos sem competir como layout principal ou navegação principal.",
             "multiCard": {
-                "description": "Permita varios itens abertos apenas quando comparacao ou revisao simultanea for realmente util.",
+                "description": "Permita vários itens abertos apenas quando comparação ou revisão simultanea for realmente util.",
                 "items": {
                     "filters": {
-                        "description": "Util quando a pessoa precisa inspecionar varios grupos de configuracao ao mesmo tempo.",
+                        "description": "Util quando a pessoa precisa inspecionar vários grupos de configuração ao mesmo tempo.",
                         "title": "Filtros salvos"
                     },
                     "history": {
-                        "description": "Use quando secoes independentes puderem merecer atencao durante a mesma tarefa.",
-                        "title": "Historico de alteracoes"
+                        "description": "Use quando seções independentes puderem merecer atenção durante a mesma tarefa.",
+                        "title": "Histórico de alterações"
                     },
                     "visibility": {
-                        "description": "O modo multiaberto reduz trocas desnecessarias quando a pessoa esta revisando detalhes relacionados.",
+                        "description": "O modo multi aberto reduz trocas desnecessárias quando a pessoa esta revisando detalhes relacionados.",
                         "title": "Regras de visibilidade"
                     }
                 },
-                "title": "Varias secoes abertas"
+                "title": "Várias seções abertas"
             },
             "patternNotes": {
                 "items": {
-                    "content": "O conteudo do accordion pode conter texto, metadados, controles ou blocos de layout, mas cada item ainda deve representar um unico topico coerente.",
-                    "disclosure": "Use accordion quando cada secao puder ser compreendida pelo rotulo do trigger antes da abertura.",
-                    "multi": "Use `type=\"single\"` quando as secoes devem competir por atencao. Use `type=\"multiple\"` quando a pessoa puder precisar comparar ou manter varias secoes abertas ao mesmo tempo.",
-                    "secondary": "Trate accordion como divulgacao secundaria dentro de secoes, cards e grupos de configuracao. Nao use como navegacao principal ou como troca principal de pagina.",
-                    "trigger": "Os rotulos do trigger devem ser curtos e descritivos o suficiente para que a pessoa decida se a secao e relevante antes de expandi-la."
+                    "disclosure": "Use accordion quando cada seção puder ser compreendida pelo rótulo do trigger antes da abertura.",
+                    "multi": "Use `type=\"single\"` quando as seções devem competir por atenção. Use `type=\"multiple\"` quando a pessoa puder precisar comparar ou manter várias seções abertas ao mesmo tempo.",
+                    "secondary": "Trate accordion como divulgação secundária dentro de seções, cards e grupos de configuração. Não use como navegação principal ou como troca principal de pagina.",
+                    "trigger": "Os rótulos do trigger devem ser curtos e descritivos o suficiente para que a pessoa decida se a seção e relevante antes de expandi-la."
                 },
-                "snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Visao geral</AccordionTrigger>\n    <AccordionContent>\n      Detalhes secundarios de apoio\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
+                "snippet": "<Accordion type=\"single\" collapsible>\n  <AccordionItem value=\"overview\">\n    <AccordionTrigger>Visão geral</AccordionTrigger>\n    <AccordionContent>\n      Detalhes secundários de apoio\n    </AccordionContent>\n  </AccordionItem>\n</Accordion>"
             },
             "sections": {
                 "compact": {
-                    "description": "Use a mesma primitiva para orientacao operacional curta e notas densas de apoio dentro de um card ou secao existente.",
-                    "title": "Uso compacto e multiaberto"
+                    "description": "Use a mesma primitiva para orientação operacional curta e notas densas de apoio dentro de um card ou seção existente.",
+                    "title": "Uso compacto e multi aberto"
                 },
                 "multiple": {
-                    "description": "O modo multiaberto e para casos de revisao e comparacao em que varios grupos de apoio precisam ficar visiveis ao mesmo tempo.",
-                    "title": "Varias secoes abertas"
+                    "description": "O modo multi aberto e para casos de revisão e comparação em que vários grupos de apoio precisam ficar visíveis ao mesmo tempo.",
+                    "title": "Várias seções abertas"
                 },
                 "single": {
-                    "description": "Accordion de item unico aberto e o padrao quando uma secao deve liderar e as vizinhas devem recuar.",
-                    "title": "Divulgacao unica"
-                },
-                "structure": {
-                    "description": "Os itens do accordion devem continuar claros tanto fechados quanto abertos.",
-                    "title": "Estrutura"
+                    "description": "Accordion de item único aberto e o padrão quando uma seção deve liderar e as vizinhas devem recuar.",
+                    "title": "Divulgação única"
                 }
             },
             "singleCard": {
-                "description": "Este e o padrao base de accordion para detalhes de apoio dentro da superficie atual da pagina.",
-                "title": "Divulgacao empilhada padrao"
+                "description": "Este e o padrão base de accordion para detalhes de apoio dentro da superfície atual da pagina.",
+                "title": "Divulgação empilhada padrão"
             },
             "structure": {
                 "items": {
                     "delivery": {
-                        "description": "Conteudo explicativo mais longo pode viver dentro do painel expandido desde que o trigger ainda represente um unico topico.",
+                        "description": "Conteúdo explicativo mais longo pode viver dentro do painel expandido desde que o trigger ainda represente um único tópico.",
                         "title": "Notas de entrega"
                     },
                     "overview": {
-                        "description": "Mantenha o resumo de mais alto nivel atras de um trigger curto quando a pagina ja tiver outros blocos competindo por espaco.",
-                        "title": "Visao geral do projeto"
+                        "description": "Mantenha o resumo de mais alto nível atrás de um trigger curto quando a pagina já tiver outros blocos competindo por espaço.",
+                        "title": "Visão geral do projeto"
                     },
                     "roles": {
-                        "description": "Use um item de accordion quando detalhes de ownership precisarem estar acessiveis sem ocupar o layout o tempo todo.",
-                        "title": "Papeis e responsaveis"
+                        "description": "Use um item de accordion quando detalhes de ownership precisarem estar acessíveis sem ocupar o layout o tempo todo.",
+                        "title": "Papeis e responsáveis"
                     }
                 }
             },
@@ -176,30 +161,30 @@
         "alertDialog": {
             "cards": {
                 "danger": {
-                    "description": "Use danger para acoes destrutivas ou irreversiveis.",
-                    "title": "Confirmacao danger",
-                    "trigger": "Abrir confirmacao danger"
+                    "description": "Use danger para ações destrutivas ou irreversíveis.",
+                    "title": "Confirmação danger",
+                    "trigger": "Abrir confirmação danger"
                 },
                 "default": {
-                    "description": "Acao primaria com cor da marca e sem overhead por padrao.",
-                    "title": "Confirmacao padrao",
-                    "trigger": "Abrir confirmacao padrao"
+                    "description": "Ação primária com cor da marca e sem overhead por padrão.",
+                    "title": "Confirmação padrão",
+                    "trigger": "Abrir confirmação padrão"
                 },
                 "success": {
-                    "description": "Use success quando a confirmacao representa um commit positivo ou uma conclusao.",
-                    "title": "Confirmacao success",
-                    "trigger": "Abrir confirmacao success"
+                    "description": "Use success quando a confirmação representa um commit positivo ou uma conclusao.",
+                    "title": "Confirmação success",
+                    "trigger": "Abrir confirmação success"
                 },
                 "warning": {
-                    "description": "Use warning quando a acao e relevante e cautelosa, mas nao totalmente destrutiva.",
-                    "title": "Confirmacao warning",
-                    "trigger": "Abrir confirmacao warning"
+                    "description": "Use warning quando a ação e relevante e cautelosa, mas não totalmente destrutiva.",
+                    "title": "Confirmação warning",
+                    "trigger": "Abrir confirmação warning"
                 }
             },
-            "description": "Alert dialog segue um unico padrao fixo de confirmacao: titulo obrigatorio, descricao curta opcional, overhead controlado por variante e footer com exatamente duas acoes.",
+            "description": "Alert dialog segue um único padrão fixo de confirmação: título obrigatório, descrição curta opcional, overhead controlado por variante e footer com exatamente duas ações.",
             "examples": {
                 "danger": {
-                    "description": "Excluir remove este registro permanentemente e nao pode ser desfeito.",
+                    "description": "Excluir remove este registro permanentemente e não pode ser desfeito.",
                     "footer": {
                         "cancel": "Cancelar",
                         "confirm": "Excluir registro"
@@ -207,15 +192,15 @@
                     "title": "Excluir este registro?"
                 },
                 "default": {
-                    "description": "Confirme para aplicar a atualizacao atual neste registro.",
+                    "description": "Confirme para aplicar a atualização atual neste registro.",
                     "footer": {
                         "cancel": "Cancelar",
-                        "confirm": "Confirmar alteracoes"
+                        "confirm": "Confirmar alterações"
                     },
-                    "title": "Enviar estas alteracoes?"
+                    "title": "Enviar estas alterações?"
                 },
                 "success": {
-                    "description": "Confirme para finalizar este fluxo e manter o estado resultante visivel para a equipe.",
+                    "description": "Confirme para finalizar este fluxo e manter o estado resultante visível para a equipe.",
                     "footer": {
                         "cancel": "Cancelar",
                         "confirm": "Marcar como concluido"
@@ -223,7 +208,7 @@
                     "title": "Marcar este fluxo como concluido?"
                 },
                 "warning": {
-                    "description": "Arquivar remove este registro do fluxo ativo, preservando seu historico.",
+                    "description": "Arquivar remove este registro do fluxo ativo, preservando seu histórico.",
                     "footer": {
                         "cancel": "Cancelar",
                         "confirm": "Arquivar registro"
@@ -233,19 +218,17 @@
             },
             "patternNotes": {
                 "items": {
-                    "actions": "O footer sempre contem exatamente dois botoes: cancelar neutro em `secondary` e confirmar no tom semantico da variante.",
-                    "confirmation": "Mantenha titulo e descricao explicitos sobre o que vai acontecer, o que sera afetado e se a acao pode ser desfeita.",
-                    "fixed": "Alert dialog e uma superficie de confirmacao fixa. Nao use corpo livre, footer customizado ou combinacoes arbitrarias de botoes.",
-                    "loading": "O suporte a loading e util quando o texto de confirmacao ou o contexto da decisao depende de dados buscados, mas isso deve ser uma excecao bem escopada e nao o estado padrao.",
-                    "overhead": "As variantes controlam o overhead: nenhum no default, Acao positiva no success, Acao cautelosa no warning e Acao destrutiva no danger.",
-                    "severity": "Use a variante para combinar o tom da acao: default, success, warning ou danger."
+                    "actions": "O footer sempre contem exatamente dois botões: cancelar neutro em `secondary` e confirmar no tom semântico da variante.",
+                    "fixed": "Alert dialog e uma superficie de confirmação fixa. Não use corpo livre, footer customizado ou combinações arbitrárias de botões.",
+                    "overhead": "As variantes controlam o overhead: nenhum no default, Ação positiva no success, Ação cautelosa no warning e Ação destrutiva no danger.",
+                    "severity": "Use a variante para combinar o tom da ação: default, success, warning ou danger."
                 },
-                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent variant=\"danger\">\n    <AlertDialogHeader>\n      <AlertDialogTitle>Excluir registro?</AlertDialogTitle>\n      <AlertDialogDescription>\n        Esta acao nao pode ser desfeita.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter\n      cancelLabel=\"Cancelar\"\n      actionLabel=\"Excluir registro\"\n    />\n  </AlertDialogContent>\n</AlertDialog>"
+                "snippet": "<AlertDialog open={open} onOpenChange={setOpen}>\n  <AlertDialogContent variant=\"danger\">\n    <AlertDialogHeader>\n      <AlertDialogTitle>Excluir registro?</AlertDialogTitle>\n      <AlertDialogDescription>\n        Esta ação não pode ser desfeita.\n      </AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter\n      cancelLabel=\"Cancelar\"\n      actionLabel=\"Excluir registro\"\n    />\n  </AlertDialogContent>\n</AlertDialog>"
             },
             "sections": {
                 "variants": {
-                    "description": "Todos os alert dialogs usam o mesmo layout. So a variante semantica e o texto mudam.",
-                    "title": "Variantes de confirmacao"
+                    "description": "Todos os alert dialogs usam o mesmo layout. So a variante semântica e o texto mudam.",
+                    "title": "Variantes de confirmação"
                 }
             },
             "title": "Alert Dialog"
@@ -258,7 +241,7 @@
                     "title": "Destaque de marca"
                 },
                 "danger": {
-                    "description": "Use badges de danger com parcimonia para estados bloqueados, falhos ou de alto risco.",
+                    "description": "Use badges de danger com parcimônia para estados bloqueados, falhos ou de alto risco.",
                     "label": "Bloqueado",
                     "title": "Sinal de risco"
                 },
@@ -268,18 +251,18 @@
                     "title": "Estado saudavel"
                 },
                 "warning": {
-                    "description": "Um estado de cautela que deve permanecer visivel sem virar um alerta destrutivo.",
+                    "description": "Um estado de cautela que deve permanecer visível sem virar um alerta destrutivo.",
                     "label": "Revisar logo",
                     "title": "Pede atencao"
                 }
             },
-            "description": "Badges comunicam status, categoria ou metadado de ciclo de vida de forma compacta, sem dominar o layout. Use quando um rotulo curto precisa ficar visualmente destacado em cards, listas e cabecalhos de detalhe.",
+            "description": "Badges comunicam status, categoria ou metadado de ciclo de vida de forma compacta, sem dominar o layout. Use quando um rótulo curto precisa ficar visualmente destacado em cards, listas e cabeçalhos de detalhe.",
             "patternNotes": {
                 "items": {
-                    "compact": "Mantenha o texto curto. Se o conteudo exigir frase, texto auxiliar ou varias acoes, ja nao e mais um badge.",
-                    "status": "Use badge para metadados curtos como status, etapa de revisao, categoria compacta ou nivel de risco. Ele deve permanecer compacto e facil de escanear.",
-                    "tone": "Escolha o tom pela semantica, nao pela decoracao. A cor deve reforcar o estado sem carregar sozinha toda a mensagem.",
-                    "variant": "Escolha o tom primeiro e use a variante apenas para ajustar enfase dentro da superficie atual."
+                    "compact": "Mantenha o texto curto. Se o conteúdo exigir frase, texto auxiliar ou várias ações, já não e mais um badge.",
+                    "status": "Use badge para metadados curtos como status, etapa de revisao, categoria compacta ou nivel de risco. Ele deve permanecer compacto e fácil de escanear.",
+                    "tone": "Escolha o tom pela semântica, não pela decoração. A cor deve reforcar o estado sem carregar sozinha toda a mensagem.",
+                    "variant": "Escolha o tom primeiro e use a variante apenas para ajustar ênfase dentro da superficie atual."
                 },
                 "snippet": "<Badge tone=\"success\">Aprovado</Badge>\n<Badge tone=\"brand\" variant=\"outline\">Destaque</Badge>"
             },
@@ -289,7 +272,7 @@
                     "title": "Tons semanticos"
                 },
                 "variants": {
-                    "description": "Use variantes para ajustar enfase sem mudar o significado semantico.",
+                    "description": "Use variantes para ajustar ênfase sem mudar o significado semântico.",
                     "title": "Variantes"
                 }
             },
@@ -300,120 +283,71 @@
                 "solid": "Solid"
             }
         },
-        "breadcrumb": {
-            "cards": {
-                "dense": {
-                    "description": "Use uma trilha um pouco mais densa quando a pessoa puder precisar voltar por algumas visoes pai relacionadas.",
-                    "items": {
-                        "admin": "Admin",
-                        "entity": "Perfil da entidade",
-                        "partners": "Parceiros",
-                        "settings": "Configuracoes"
-                    },
-                    "title": "Caminho admin mais profundo"
-                },
-                "standard": {
-                    "description": "Um caminho simples para paginas que ficam um ou dois niveis abaixo de uma area maior.",
-                    "items": {
-                        "detail": "Projeto Atlas",
-                        "home": "Inicio",
-                        "projects": "Projetos"
-                    },
-                    "title": "Trilha padrao de pagina"
-                }
-            },
-            "description": "Breadcrumbs comunicam a localizacao atual dentro de uma navegacao aninhada. Use quando a pessoa precisar de orientacao rapida e de um caminho leve de volta para areas pai.",
-            "patternNotes": {
-                "items": {
-                    "current": "A pagina atual deve ficar visualmente distinta e nao deve se comportar como um link navegavel.",
-                    "depth": "Mantenha a trilha curta e significativa. Se o caminho ficar barulhento ou repetitivo, a arquitetura da informacao provavelmente precisa de ajuste.",
-                    "location": "Use breadcrumbs para orientar a pessoa em hierarquias mais profundas, especialmente quando varios niveis pai importam para a tela atual.",
-                    "mobile": "Breadcrumbs sao contexto util, mas devem permanecer leves. Em layouts pequenos, evite transformalos em navegacao secundaria densa."
-                },
-                "snippet": "<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"#\">Projetos</BreadcrumbLink>\n      <BreadcrumbSeparator />\n    </BreadcrumbItem>\n    <BreadcrumbItem>\n      <BreadcrumbCurrent>Projeto Atlas</BreadcrumbCurrent>\n    </BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
-            },
-            "sections": {
-                "examples": {
-                    "description": "Breadcrumbs funcionam melhor quando reforcam a localizacao da pagina, e nao quando duplicam o menu principal.",
-                    "title": "Contexto de navegacao"
-                }
-            },
-            "title": "Breadcrumb"
-        },
         "button": {
             "actionOrderCard": {
-                "description": "Em linhas com varias acoes, coloque a principal na extrema direita e mantenha as decisoes de apoio a esquerda.",
+                "description": "Em linhas com várias ações, coloque a principal na extrema direita e mantenha as decisoes de apoio a esquerda.",
                 "left": "Excluir rascunho",
                 "middle": "Salvar rascunho",
                 "right": "Publicar",
-                "title": "Acao primaria na direita"
+                "title": "Ação primária na direita"
             },
             "defaultCard": {
-                "description": "Estes exemplos mostram o contrato mais estrito: botao padrao, primary explicito e a acao secondary cinza por padrao.",
-                "explicit": "Primary explicito",
-                "primary": "Salvar alteracoes",
+                "description": "Estes exemplos mostram o contrato mais estrito: botão padrão, primary explícito e a ação secondary cinza por padrão.",
+                "explicit": "Primary explícito",
+                "primary": "Salvar alterações",
                 "secondary": "Cancelar",
                 "title": "Defaults guiados por variante"
             },
-            "description": "Botoes disparam acoes do usuario. O contrato agora e mais estrito: `variant=\"primary\"` e a acao principal flat, `variant=\"secondary\"` e a acao de apoio no padrao ghost, e `usage` muda a cor quando o significado muda.",
+            "description": "Botões disparam ações do usuário. O contrato agora e mais estrito: `variant=\"primary\"` e a ação principal flat, `variant=\"secondary\"` e a ação de apoio no padrão ghost, e `usage` muda a cor quando o significado muda.",
             "patternNotes": {
                 "items": {
-                    "actionOrder": "Em grupos de acoes, a acao primaria fica sempre na extrema direita. Acoes de apoio e fallback devem empilhar a esquerda em ordem decrescente de enfase.",
-                    "default": "O botao padrao ja define o contrato principal: `variant=\"primary\"`, `usage=\"primary\"` e `size=\"md\"`. Use esse padrao quando nao houver motivo claro para mudar o nivel de enfase.",
-                    "flat": "Use `variant=\"flat\"` para o tratamento padrÃ£o de call to action.",
-                    "icon": "Para botoes somente com icone, sempre forneca um `title`, `aria-label` ou `tooltipContent` legivel para expor um nome acessivel.",
-                    "primaryVariant": "Use `variant=\"primary\"` para a acao principal do grupo. Mude `usage` apenas para variar a semantica da cor, nao para redefinir a hierarquia do botao.",
-                    "secondaryVariant": "Use `variant=\"secondary\"` para acoes de apoio ou saida. Sem `usage` explicito, ele deve permanecer neutro e acinzentado."
+                    "actionOrder": "Em grupos de ações, a ação primária fica sempre na extrema direita. Ações de apoio e fallback devem empilhar a esquerda em ordem decrescente de ênfase.",
+                    "default": "O botão padrão já define o contrato principal: `variant=\"primary\"`, `usage=\"primary\"` e `size=\"md\"`. Use esse padrão quando não houver motivo claro para mudar o nivel de ênfase.",
+                    "icon": "Para botões somente com icone, sempre forneca um `title`, `aria-label` ou `tooltipContent` legível para expor um nome acessível.",
+                    "primaryVariant": "Use `variant=\"primary\"` para a ação principal do grupo. Mude `usage` apenas para variar a semântica da cor, não para redefinir a hierarquia do botão.",
+                    "secondaryVariant": "Use `variant=\"secondary\"` para ações de apoio ou saida. Sem `usage` explícito, ele deve permanecer neutro e acinzentado."
                 },
                 "snippet": "<div className=\"flex justify-end gap-3\">\n  <Button variant=\"secondary\" usage=\"danger\">Excluir rascunho</Button>\n  <Button variant=\"secondary\">Salvar rascunho</Button>\n  <Button>Publicar</Button>\n</div>"
             },
             "sections": {
                 "actionOrder": {
-                    "description": "Acoes primarias ficam na extrema direita. Acoes secundarias e alternativas se acumulam a esquerda em ordem decrescente de enfase.",
-                    "title": "Ordem das acoes"
+                    "description": "Ações primarias ficam na extrema direita. Ações secundarias e alternativas se acumulam a esquerda em ordem decrescente de ênfase.",
+                    "title": "Ordem das ações"
                 },
                 "default": {
-                    "description": "Comece pelo botao primary padrao antes de adicionar overrides. O papel secundario deve ser expresso pela variante, nao por estilo improvisado.",
-                    "title": "Contrato padrao"
+                    "description": "Comece pelo botão primary padrão antes de adicionar overrides. O papel secundário deve ser expresso pela variante, não por estilo improvisado.",
+                    "title": "Contrato padrão"
                 },
                 "primaryVariant": {
-                    "description": "A variante primary e o estilo preenchido da acao principal. Reserve-a para a acao principal mais a direita e mude `usage` apenas quando a intencao semantica mudar.",
+                    "description": "A variante primary e o estilo preenchido da ação principal. Reserve-a para a ação principal mais a direita e mude `usage` apenas quando a intenção semântica mudar.",
                     "title": "Cores da variante primary"
                 },
                 "scale": {
-                    "description": "Mantenha medium como tamanho padrao. Va para small, large ou icon apenas quando a densidade do layout realmente pedir.",
+                    "description": "Mantenha medium como tamanho padrão. Va para small, large ou icon apenas quando a densidade do layout realmente pedir.",
                     "title": "Escala"
                 },
                 "secondaryVariant": {
-                    "description": "A variante secondary e o estilo ghost. Ela e o padrao para acoes de menor enfase e controles de apoio.",
+                    "description": "A variante secondary e o estilo ghost. Ela e o padrão para ações de menor ênfase e controles de apoio.",
                     "title": "Cores da variante secondary"
                 },
                 "states": {
-                    "description": "Use os estados embutidos para manter feedback e interacao consistentes.",
+                    "description": "Use os estados embutidos para manter feedback e interação consistentes.",
                     "title": "Estados"
-                },
-                "usage": {
-                    "description": "Escolha o uso semantico que corresponde ao resultado da acao. A forma visual pode continuar consistente enquanto a intencao muda.",
-                    "title": "Uso"
-                },
-                "variant": {
-                    "description": "Mantenha `flat` como tratamento normal e use `ghost` apenas quando a acao deve recuar visualmente.",
-                    "title": "Variante"
                 }
             },
             "sizes": {
                 "iconTitle": "Adicionar item",
                 "large": "Grande",
-                "medium": "MÃ©dio",
+                "medium": "Médio",
                 "small": "Pequeno"
             },
             "statesCards": {
                 "disabled": {
-                    "button": "Aguardando alteraÃ§Ãµes",
+                    "button": "Aguardando alterações",
                     "title": "Desabilitado"
                 },
                 "fullWidth": {
-                    "button": "Continuar configuraÃ§Ã£o",
+                    "button": "Continuar configuração",
                     "title": "Largura total"
                 },
                 "loading": {
@@ -422,46 +356,46 @@
                     "title": "Carregando"
                 }
             },
-            "title": "BotÃµes",
+            "title": "Botões",
             "usageCards": {
                 "danger": {
-                    "description": "AÃ§Ã£o destrutiva para mudanÃ§as irreversÃ­veis e exclusÃ£o.",
+                    "description": "Ação destrutiva para mudanças irreversíveis e exclusão.",
                     "label": "Revogar acesso",
                     "name": "Perigo"
                 },
                 "info": {
-                    "description": "AÃ§Ã£o de orientaÃ§Ã£o quando vocÃª precisa de Ãªnfase sem implicar risco.",
+                    "description": "Ação de orientação quando você precisa de ênfase sem implicar risco.",
                     "label": "Ver detalhes",
-                    "name": "InformaÃ§Ã£o"
+                    "name": "Informação"
                 },
                 "primary": {
-                    "description": "AÃ§Ã£o padrÃ£o de alta Ãªnfase para fluxos de confirmaÃ§Ã£o e envio.",
-                    "label": "Salvar alteraÃ§Ãµes",
-                    "name": "PrimÃ¡rio"
+                    "description": "Ação padrão de alta ênfase para fluxos de confirmação e envio.",
+                    "label": "Salvar alterações",
+                    "name": "Primário"
                 },
                 "secondary": {
-                    "description": "AÃ§Ã£o neutra para caminhos complementares e controles de apoio.",
-                    "label": "Exportar relatÃ³rio",
-                    "name": "SecundÃ¡rio"
+                    "description": "Ação neutra para caminhos complementares e controles de apoio.",
+                    "label": "Exportar relatório",
+                    "name": "Secundário"
                 },
                 "success": {
-                    "description": "AÃ§Ã£o positiva para aprovaÃ§Ãµes, conclusÃ£o ou confirmaÃ§Ã£o.",
+                    "description": "Ação positiva para aprovações, conclusão ou confirmação.",
                     "label": "Marcar como aprovado",
                     "name": "Sucesso"
                 },
                 "warning": {
-                    "description": "AÃ§Ã£o de cautela que merece revisÃ£o antes de continuar.",
+                    "description": "Ação de cautela que merece revisão antes de continuar.",
                     "label": "Revisar problema",
                     "name": "Aviso"
                 }
             },
             "variantCards": {
                 "primary": {
-                    "description": "Padrao preenchido para a acao principal.",
+                    "description": "Padrão preenchido para a ação principal.",
                     "name": "Primary"
                 },
                 "secondary": {
-                    "description": "Padrao ghost para acoes de apoio.",
+                    "description": "Padrão ghost para ações de apoio.",
                     "name": "Secondary"
                 }
             }
@@ -469,16 +403,16 @@
         "card": {
             "compositionCards": {
                 "actions": {
-                    "body": "Mantenha as aÃ§Ãµes do footer vinculadas ao conteÃºdo daquele card. Se as aÃ§Ãµes pertencerem Ã  pÃ¡gina ou Ã  seÃ§Ã£o inteira, coloque-as fora do card.",
-                    "description": "Alguns cards precisam de footer porque concentram decisÃµes ou atalhos relacionados ao prÃ³prio conteÃºdo.",
+                    "body": "Mantenha as ações do footer vinculadas ao conteúdo daquele card. Se as ações pertencerem Á  página ou Á  seção inteira, coloque-as fora do card.",
+                    "description": "Alguns cards precisam de footer porque concentram decisões ou atalhos relacionados ao próprio conteúdo.",
                     "footer": {
                         "primary": "Revisar detalhes",
                         "secondary": "Fechar"
                     },
-                    "title": "Card com aÃ§Ãµes"
+                    "title": "Card com ações"
                 },
                 "summary": {
-                    "description": "Cards tambÃ©m podem acomodar dashboards compactos e metadados sem precisar de footer.",
+                    "description": "Cards também podem acomodar dashboards compactos e metadados sem precisar de footer.",
                     "stats": {
                         "items": {
                             "openTasks": {
@@ -494,65 +428,65 @@
                     "title": "Card de resumo"
                 }
             },
-            "description": "Cards agrupam conteÃºdo relacionado dentro de uma superfÃ­cie delimitada. Use esse padrÃ£o como contÃªiner de layout para resumos, aÃ§Ãµes de apoio e blocos de conteÃºdo que devem ser lidos como uma Ãºnica unidade.",
+            "description": "Cards agrupam conteúdo relacionado dentro de uma superfície delimitada. Use esse padrão como contêiner de layout para resumos, ações de apoio e blocos de conteúdo que devem ser lidos como uma única unidade.",
             "layoutCards": {
                 "compact": {
-                    "badge": "ContÃªiner pronto para docs",
-                    "description": "Cards nÃ£o precisam ser altos. ConteÃºdo compacto funciona quando o limite ainda melhora a leitura rÃ¡pida.",
+                    "badge": "Contêiner pronto para docs",
+                    "description": "Cards não precisam ser altos. Conteúdo compacto funciona quando o limite ainda melhora a leitura rápida.",
                     "title": "Marcador compacto"
                 },
                 "list": {
-                    "description": "Um card pode conter vÃ¡rias linhas internas quando todas fazem parte do mesmo resumo ou da mesma tarefa.",
+                    "description": "Um card pode conter várias linhas internas quando todas fazem parte do mesmo resumo ou da mesma tarefa.",
                     "items": {
                         "actions": {
-                            "description": "Se uma linha precisar de aÃ§Ã£o, ela ainda deve parecer parte do mesmo card.",
-                            "title": "AÃ§Ãµes continuam escopadas"
+                            "description": "Se uma linha precisar de ação, ela ainda deve parecer parte do mesmo card.",
+                            "title": "Ações continuam escopadas"
                         },
                         "composition": {
-                            "description": "Mantenha o espaÃ§amento e a hierarquia interna consistentes entre todas as linhas.",
-                            "title": "ComposiÃ§Ã£o"
+                            "description": "Mantenha o espaçamento e a hierarquia interna consistentes entre todas as linhas.",
+                            "title": "Composição"
                         },
                         "overview": {
-                            "description": "Use uma superfÃ­cie compartilhada quando as linhas fizerem parte do mesmo bloco conceitual.",
-                            "title": "VisÃ£o geral"
+                            "description": "Use uma superfície compartilhada quando as linhas fizerem parte do mesmo bloco conceitual.",
+                            "title": "Visão geral"
                         }
                     },
-                    "title": "ConteÃºdo em lista agrupada"
+                    "title": "Conteúdo em lista agrupada"
                 }
             },
             "patternNotes": {
                 "items": {
-                    "behavior": "Cards sÃ£o primitivas estruturais. Comportamentos como dialogs, tooltips, dropdowns e navegaÃ§Ã£o devem vir dos elementos internos, nÃ£o do card em si.",
-                    "container": "Use cards para agrupar informaÃ§Ãµes relacionadas, nÃ£o para criar caixas visuais arbitrÃ¡rias ao redor de qualquer elemento da pÃ¡gina.",
-                    "footer": "Use o footer para aÃ§Ãµes do prÃ³prio card. Se o card nÃ£o tiver aÃ§Ãµes, omita o footer por completo.",
-                    "structure": "Componha cards com header, descriÃ§Ã£o, conteÃºdo e footer apenas quando esses slots realmente fizerem sentido para o conteÃºdo."
+                    "behavior": "Cards são primitivas estruturais. Comportamentos como dialogs, tooltips, dropdowns e navegação devem vir dos elementos internos, não do card em si.",
+                    "container": "Use cards para agrupar informações relacionadas, não para criar caixas visuais arbitrárias ao redor de qualquer elemento da página.",
+                    "footer": "Use o footer para ações do próprio card. Se o card não tiver ações, omita o footer por completo.",
+                    "structure": "Componha cards com header, descrição, conteúdo e footer apenas quando esses slots realmente fizerem sentido para o conteúdo."
                 },
-                "snippet": "<Card>\n  <CardHeader>\n    <CardTitle>TÃ­tulo do card</CardTitle>\n    <CardDescription>\n      DescriÃ§Ã£o curta de apoio.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>ConteÃºdo principal</CardContent>\n\n  <CardFooter>\n    <Button variant=\"ghost\">SecundÃ¡ria</Button>\n    <Button usage=\"primary\" variant=\"flat\">PrimÃ¡ria</Button>\n  </CardFooter>\n</Card>"
+                "snippet": "<Card>\n  <CardHeader>\n    <CardTitle>Título do card</CardTitle>\n    <CardDescription>\n      Descrição curta de apoio.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>Conteúdo principal</CardContent>\n\n  <CardFooter>\n    <Button variant=\"ghost\">Secundária</Button>\n    <Button usage=\"primary\" variant=\"flat\">Primária</Button>\n  </CardFooter>\n</Card>"
             },
             "sections": {
                 "composition": {
-                    "description": "Use a mesma primitiva tanto para blocos simples de informaÃ§Ã£o quanto para cards com aÃ§Ãµes de apoio.",
-                    "title": "ComposiÃ§Ã£o"
+                    "description": "Use a mesma primitiva tanto para blocos simples de informação quanto para cards com ações de apoio.",
+                    "title": "Composição"
                 },
                 "layouts": {
-                    "description": "Cards podem receber layouts mais densos, desde que o conteÃºdo continue sendo lido como um bloco coerente.",
-                    "title": "PadrÃµes de layout"
+                    "description": "Cards podem receber layouts mais densos, desde que o conteúdo continue sendo lido como um bloco coerente.",
+                    "title": "Padrões de layout"
                 },
                 "structure": {
-                    "description": "Cards devem expor uma anatomia interna previsÃ­vel sem obrigar todos os slots em todos os cenÃ¡rios.",
+                    "description": "Cards devem expor uma anatomia interna previsível sem obrigar todos os slots em todos os cenários.",
                     "title": "Estrutura"
                 }
             },
             "structureCards": {
                 "basic": {
-                    "body": "Use esse formato para notas de documentaÃ§Ã£o, resumos e conteÃºdos de apoio que precisam ficar dentro de um limite claro.",
-                    "description": "Um card pode ser apenas um tÃ­tulo, uma descriÃ§Ã£o curta e uma regiÃ£o de conteÃºdo.",
-                    "title": "Bloco bÃ¡sico de conteÃºdo"
+                    "body": "Use esse formato para notas de documentação, resumos e conteúdos de apoio que precisam ficar dentro de um limite claro.",
+                    "description": "Um card pode ser apenas um título, uma descrição curta e uma região de conteúdo.",
+                    "title": "Bloco básico de conteúdo"
                 },
                 "header": {
-                    "body": "Se o corpo jÃ¡ trouxer contexto suficiente, nÃ£o force texto extra no header sÃ³ para preencher espaÃ§o.",
-                    "description": "Use `CardHeader` quando o conteÃºdo precisar de um tÃ­tulo visÃ­vel e de uma descriÃ§Ã£o curta antes do corpo.",
-                    "title": "Header Ã© opcional"
+                    "body": "Se o corpo já trouxer contexto suficiente, não force texto extra no header só para preencher espaço.",
+                    "description": "Use `CardHeader` quando o conteúdo precisar de um título visível e de uma descrição curta antes do corpo.",
+                    "title": "Header é opcional"
                 }
             },
             "title": "Card"
@@ -573,7 +507,7 @@
                             "label": "Osasco"
                         },
                         "santos": {
-                            "description": "Regiao litoranea",
+                            "description": "Região litorânea",
                             "label": "Santos"
                         }
                     },
@@ -582,17 +516,17 @@
                     "title": "Busca de cidade"
                 },
                 "disabled": {
-                    "description": "Um combobox desabilitado deve manter o valor e o contexto visiveis sem sugerir que ainda ha uma busca ou selecao disponivel.",
+                    "description": "Um combobox desabilitado deve manter o valor e o contexto visíveis sem sugerir que ainda ha uma busca ou seleção disponível.",
                     "label": "Revisor",
                     "title": "Combobox desabilitado"
                 },
                 "people": {
-                    "description": "Um padrao comum de admin em que pessoas sao escolhidas em uma lista cada vez maior.",
-                    "empty": "Nenhum responsavel encontrado.",
-                    "label": "Responsavel",
+                    "description": "Um padrão comum de admin em que pessoas sao escolhidas em uma lista cada vez maior.",
+                    "empty": "Nenhum responsável encontrado.",
+                    "label": "Responsável",
                     "options": {
                         "ana": {
-                            "description": "Saude de projetos",
+                            "description": "Saúde de projetos",
                             "label": "Ana Costa",
                             "role": "analista"
                         },
@@ -602,30 +536,30 @@
                             "role": "revisor"
                         },
                         "maria": {
-                            "description": "Operacoes de identidade",
+                            "description": "Operações de identidade",
                             "label": "Maria Souza",
                             "role": "gerente"
                         }
                     },
-                    "placeholder": "Escolha o responsavel",
-                    "searchPlaceholder": "Buscar responsaveis",
-                    "title": "Atribuicao de responsavel"
+                    "placeholder": "Escolha o responsável",
+                    "searchPlaceholder": "Buscar responsáveis",
+                    "title": "Atribuição de responsável"
                 }
             },
-            "description": "Combobox combina um campo gatilho com busca e selecao de opcao. Use quando a pessoa precisa escolher um valor dentro de um conjunto definido, mas a lista ja e grande o bastante para que a busca melhore muito a navegacao.",
+            "description": "Combobox combina um campo gatilho com busca e seleção de opção. Use quando a pessoa precisa escolher um valor dentro de um conjunto definido, mas a lista já e grande o bastante para que a busca melhore muito a navegação.",
             "patternNotes": {
                 "items": {
-                    "metadata": "As opcoes podem carregar uma descricao curta ou outro metadado de apoio, mas a lista ainda deve permanecer rapida de escanear.",
-                    "scope": "Use para pessoas, lugares, categorias e outros conjuntos em que vale a pena reduzir a lista antes de escolher, mantendo a interacao como selecao de um unico valor.",
-                    "search": "Use combobox quando busca ou filtragem fizer parte da interacao. Se a lista for curta e obvia, um select normal costuma bastar.",
-                    "single": "Essa primitiva e para um valor por vez. Se a pessoa precisar selecionar varios itens, use um padrao dedicado de multi-select em vez de esticar o combobox."
+                    "metadata": "As opções podem carregar uma descrição curta ou outro metadado de apoio, mas a lista ainda deve permanecer rapida de escanear.",
+                    "scope": "Use para pessoas, lugares, categorias e outros conjuntos em que vale a pena reduzir a lista antes de escolher, mantendo a interação como seleção de um único valor.",
+                    "search": "Use combobox quando busca ou filtragem fizer parte da interação. Se a lista for curta e obvia, um select normal costuma bastar.",
+                    "single": "Essa primitiva e para um valor por vez. Se a pessoa precisar selecionar vários itens, use um padrão dedicado de multi-select em vez de esticar o combobox."
                 },
-                "snippet": "<Combobox\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Escolha o responsavel\"\n  searchPlaceholder=\"Buscar responsaveis\"\n  options={options}\n/>"
+                "snippet": "<Combobox\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Escolha o responsável\"\n  searchPlaceholder=\"Buscar responsáveis\"\n  options={options}\n/>"
             },
             "sections": {
                 "examples": {
-                    "description": "Combobox e util quando o valor escolhido ainda deve se parecer com um campo, mas o conjunto de opcoes precisa de filtragem rapida.",
-                    "title": "Selecao com busca"
+                    "description": "Combobox e util quando o valor escolhido ainda deve se parecer com um campo, mas o conjunto de opções precisa de filtragem rapida.",
+                    "title": "Seleção com busca"
                 }
             },
             "title": "Combobox"
@@ -633,97 +567,96 @@
         "datePicker": {
             "cards": {
                 "basic": {
-                    "description": "Use quando a pessoa precisar de uma unica data de calendario e o campo ainda deva permanecer alinhado ao sistema compartilhado de formularios.",
+                    "description": "Use quando a pessoa precisar de uma única data de calendario e o campo ainda deva permanecer alinhado ao sistema compartilhado de formularios.",
                     "label": "Data de revisao",
-                    "title": "Campo basico de data"
+                    "title": "Campo básico de data"
                 },
                 "constrained": {
-                    "description": "Limites de minimo e maximo restringem qual unico dia pode ser selecionado e mostram diretamente a janela permitida no picker.",
+                    "description": "Limites de mínimo e máximo restringem qual único dia pode ser selecionado e mostram diretamente a janela permitida no picker.",
                     "label": "Data de publicacao",
                     "title": "Janela restrita"
                 },
                 "disabled": {
                     "description": "Use um date picker desabilitado quando o dia selecionado for fixado pelo fluxo ao redor.",
-                    "label": "Inicio da matricula",
+                    "label": "Início da matrícula",
                     "title": "Data desabilitada"
                 }
             },
-            "description": "Date picker captura uma unica data de calendario em um campo compacto. A interface e apenas de data, mas o valor emitido continua normalizado para meia-noite para permanecer compativel com contratos de datetime do backend.",
+            "description": "Date picker captura uma única data de calendario em um campo compacto. A interface e apenas de data, mas o valor emitido continua normalizado para meia-noite para permanecer compativel com contratos de datetime do backend.",
             "patternNotes": {
                 "items": {
-                    "constraints": "Use `min` e `max` quando um unico dia selecionado precisar permanecer dentro de uma janela permitida conhecida para que o calendario comunique diretamente esses limites.",
+                    "constraints": "Use `min` e `max` quando um único dia selecionado precisar permanecer dentro de uma janela permitida conhecida para que o calendario comunique diretamente esses limites.",
                     "escalation": "Se o produto depois precisar de intervalos, atalhos, recorrencia ou logica temporal mais complexa, isso deve virar um componente composto de nivel superior em vez de esticar esta primitiva base.",
-                    "native": "Use esta primitiva quando o produto precisar de um unico dia de calendario e o campo ainda deva parecer parte do restante do sistema de formularios.",
+                    "native": "Use esta primitiva quando o produto precisar de um único dia de calendario e o campo ainda deva parecer parte do restante do sistema de formularios.",
                     "scope": "A interface e apenas de data, mas os valores emitidos permanecem no formato de datetime do backend em meia-noite para o dia escolhido."
                 },
                 "snippet": "<DatePicker defaultValue=\"2026-04-24T00:00\" />\n\n<DatePicker min=\"2026-04-20T00:00\" max=\"2026-04-30T00:00\" />"
             },
             "sections": {
                 "fields": {
-                    "description": "Use o picker quando a pessoa precisar de um unico dia e o controle deva permanecer alinhado ao sistema compartilhado de estilos.",
+                    "description": "Use o picker quando a pessoa precisar de um único dia e o controle deva permanecer alinhado ao sistema compartilhado de estilos.",
                     "title": "Campos de data"
                 }
             },
             "title": "Date Picker"
         },
         "dialog": {
-            "description": "Dialogs interrompem o fluxo atual para apresentar conteudo focado que precisa de atencao sem virar uma superficie de confirmacao. Use para notas, detalhes de apoio e leituras curtas focadas na pagina atual.",
+            "description": "Dialogs interrompem o fluxo atual para apresentar conteúdo focado que precisa de atencao sem virar uma superficie de confirmação. Use para notas, detalhes de apoio e leituras curtas focadas na pagina atual.",
             "examples": {
                 "basic": {
-                    "body": "Use dialog quando a pessoa precisa ler ou revisar conteudo de apoio focado sem sair da pagina atual.",
+                    "body": "Use dialog quando a pessoa precisa ler ou revisar conteúdo de apoio focado sem sair da pagina atual.",
                     "title": "Notas do workspace"
                 },
                 "overflow": {
-                    "eyebrow": "Notas rolaveis",
+                    "eyebrow": "Notas roláveis",
                     "paragraphs": {
-                        "five": "Isso mantem o layout estavel enquanto notas maiores continuam legiveis e limitadas dentro da mesma superficie.",
-                        "four": "Leituras mais longas sao aceitaveis desde que o dialog continue parecendo conteudo de apoio, e nao uma pagina inteira espremida em overlay.",
-                        "one": "Quando o conteudo cresce, apenas o corpo deve rolar. O header deve permanecer fixo para manter titulo e controle de fechamento visiveis.",
-                        "six": "Se o conteudo passar a exigir fluxos de edicao, varias etapas ou navegacao densa, mude para outro padrao em vez de esticar o dialog.",
-                        "three": "O separator entre header e corpo deve continuar visivel para que a area de conteudo seja lida como uma regiao rolavel distinta.",
-                        "two": "Dialogs neste sistema nao usam footer de acoes. Eles servem para conteudo focado, nao para hierarquias de confirmacao."
+                        "five": "Isso mantem o layout estável enquanto notas maiores continuam legíveis e limitadas dentro da mesma superficie.",
+                        "four": "Leituras mais longas sao aceitaveis desde que o dialog continue parecendo conteúdo de apoio, e não uma pagina inteira espremida em overlay.",
+                        "one": "Quando o conteúdo cresce, apenas o corpo deve rolar. O header deve permanecer fixo para manter título e controle de fechamento visíveis.",
+                        "six": "Se o conteúdo passar a exigir fluxos de edicao, várias etapas ou navegação densa, mude para outro padrão em vez de esticar o dialog.",
+                        "three": "O separator entre header e corpo deve continuar visível para que a area de conteúdo seja lida como uma região rolável distinta.",
+                        "two": "Dialogs neste sistema não usam footer de ações. Eles servem para conteúdo focado, não para hierarquias de confirmação."
                     },
-                    "title": "Notas de migracao"
+                    "title": "Notas de migração"
                 },
                 "overhead": {
-                    "body": "O overhead opcional funciona bem quando o dialog pertence a um padrao nomeado, como notas de migracao, contexto de referencia ou orientacao operacional.",
+                    "body": "O overhead opcional funciona bem quando o dialog pertence a um padrão nomeado, como notas de migração, contexto de referencia ou orientação operacional.",
                     "eyebrow": "Pattern notes",
-                    "title": "Guia de implementacao"
+                    "title": "Guia de implementação"
                 }
             },
             "overflowCard": {
                 "description": "Conteudos longos devem permanecer limitados dentro de um corpo com rolagem vertical enquanto o header fica fixo.",
-                "title": "Corpo rolavel",
+                "title": "Corpo rolável",
                 "trigger": "Abrir exemplo de overflow"
             },
             "patternNotes": {
                 "items": {
-                    "content": "O conteudo do dialog e obrigatorio. Use para notas, explicacoes de apoio, informacoes estruturadas de leitura ou pequenos blocos focados ligados a pagina atual.",
-                    "header": "Nao use subtitulo abaixo do titulo neste padrao. Se precisar de contexto extra, coloque-o no corpo ou use o overhead como pequeno enquadramento acima do titulo.",
-                    "overflow": "Quando o conteudo crescer, apenas o corpo deve rolar. O corpo usa a ScrollArea compartilhada para manter o header visivel.",
-                    "structure": "A estrutura e fixa: overhead opcional, titulo obrigatorio, botao de fechar no topo, separator e corpo obrigatorio. Nao existe footer.",
-                    "useCase": "Use dialog para conteudo de apoio focado, notas e leituras curtas. Quando a prioridade principal for confirmar uma acao, use `AlertDialog` em vez de `Dialog`."
+                    "header": "Não use subtitulo abaixo do título neste padrão. Se precisar de contexto extra, coloque-o no corpo ou use o overhead como pequeno enquadramento acima do título.",
+                    "overflow": "Quando o conteúdo crescer, apenas o corpo deve rolar. O corpo usa a ScrollArea compartilhada para manter o header visível.",
+                    "structure": "A estrutura e fixa: overhead opcional, título obrigatório, botão de fechar no topo, separator e corpo obrigatório. Não existe footer.",
+                    "useCase": "Use dialog para conteúdo de apoio focado, notas e leituras curtas. Quando a prioridade principal for confirmar uma ação, use `AlertDialog` em vez de `Dialog`."
                 },
-                "snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader overhead=\"Pattern notes\">\n      <DialogTitle>Guia de implementacao</DialogTitle>\n    </DialogHeader>\n    <DialogBody>\n      Conteudo do corpo\n    </DialogBody>\n  </DialogContent>\n</Dialog>"
+                "snippet": "<Dialog open={open} onOpenChange={setOpen}>\n  <DialogContent>\n    <DialogHeader overhead=\"Pattern notes\">\n      <DialogTitle>Guia de implementação</DialogTitle>\n    </DialogHeader>\n    <DialogBody>\n      Conteudo do corpo\n    </DialogBody>\n  </DialogContent>\n</Dialog>"
             },
             "sections": {
                 "overflow": {
-                    "description": "Conteudos longos devem rolar dentro do corpo enquanto o header permanece fixo e o controle de fechamento continua visivel.",
+                    "description": "Conteudos longos devem rolar dentro do corpo enquanto o header permanece fixo e o controle de fechamento continua visível.",
                     "title": "Overflow"
                 },
                 "structure": {
-                    "description": "A estrutura do dialog e fixa: overhead opcional, titulo obrigatorio, botao de fechar, separator e corpo obrigatorio.",
+                    "description": "A estrutura do dialog e fixa: overhead opcional, título obrigatório, botão de fechar, separator e corpo obrigatório.",
                     "title": "Estrutura"
                 }
             },
             "structureCards": {
                 "basic": {
-                    "description": "Um dialog minimo deve oferecer titulo claro e conteudo focado sem adicionar footer de acoes ou subtitulo descritivo.",
-                    "title": "Estrutura padrao",
-                    "trigger": "Abrir dialog padrao"
+                    "description": "Um dialog mínimo deve oferecer título claro e conteúdo focado sem adicionar footer de ações ou subtitulo descritivo.",
+                    "title": "Estrutura padrão",
+                    "trigger": "Abrir dialog padrão"
                 },
                 "overhead": {
-                    "description": "Use overhead apenas quando ele acrescentar um pequeno rotulo acima do titulo, como notas, referencia ou orientacao.",
+                    "description": "Use overhead apenas quando ele acrescentar um pequeno rótulo acima do título, como notas, referencia ou orientação.",
                     "title": "Overhead opcional",
                     "trigger": "Abrir dialog com overhead"
                 }
@@ -733,9 +666,9 @@
         "drawer": {
             "cards": {
                 "create": {
-                    "description": "Use um drawer na direita para fluxos de criacao mais densos que devem permanecer ligados ao contexto da pagina atual.",
-                    "title": "Drawer de criacao",
-                    "trigger": "Abrir drawer de criacao"
+                    "description": "Use um drawer na direita para fluxos de criação mais densos que devem permanecer ligados ao contexto da pagina atual.",
+                    "title": "Drawer de criação",
+                    "trigger": "Abrir drawer de criação"
                 },
                 "filters": {
                     "description": "Use o mesmo painel lateral para filtros mais pesados quando um popover pequeno ficar apertado ou fragmentado demais.",
@@ -743,7 +676,7 @@
                     "trigger": "Abrir drawer de filtros"
                 }
             },
-            "description": "Drawers sao o overlay de workflow para filtros pesados, fluxos de criacao e trabalho subordinado mais denso. Neste sistema eles sao paineis pela direita com header estruturado, corpo rolavel e footer fixo de tarefa.",
+            "description": "Drawers sao o overlay de workflow para filtros pesados, fluxos de criação e trabalho subordinado mais denso. Neste sistema eles sao paineis pela direita com header estruturado, corpo rolável e footer fixo de tarefa.",
             "examples": {
                 "create": {
                     "clear": {
@@ -758,15 +691,15 @@
                     },
                     "sections": {
                         "general": {
-                            "description": "Nome, classificacao e os valores basicos necessarios para abrir o registro.",
+                            "description": "Nome, classificação e os valores básicos necessários para abrir o registro.",
                             "title": "Dados gerais"
                         },
                         "ownership": {
-                            "description": "Associe a area responsavel e conecte a entidade ao contexto correto de campus.",
+                            "description": "Associe a area responsável e conecte a entidade ao contexto correto de campus.",
                             "title": "Responsabilidade e campus"
                         },
                         "review": {
-                            "description": "Mantenha uma etapa final compacta de revisao quando o fluxo de criacao contiver mais de um bloco denso.",
+                            "description": "Mantenha uma etapa final compacta de revisao quando o fluxo de criação contiver mais de um bloco denso.",
                             "title": "Revisar antes de criar"
                         }
                     },
@@ -778,22 +711,22 @@
                         "description": "Limpar remove os valores atuais de filtro deste drawer e retorna o painel ao estado inicial.",
                         "title": "Limpar estes filtros?"
                     },
-                    "description": "Ajuste a visualizacao ativa da lista com criterios mais amplos sem sair do workspace.",
+                    "description": "Ajuste a visualização ativa da lista com criterios mais amplos sem sair do workspace.",
                     "eyebrow": "Lista de projetos",
                     "footer": {
                         "action": "Aplicar filtros"
                     },
                     "groups": {
                         "advanced": {
-                            "description": "Reserve os grupos mais profundos em accordion para criterios menos frequentes, mantendo o drawer mais escaneavel.",
+                            "description": "Reserve os grupos mais profundos em accordion para criterios menos frequentes, mantendo o drawer mais escaneável.",
                             "title": "Filtros avancados"
                         },
                         "campus": {
-                            "description": "Use controles agrupados secundarios para dimensoes de recorte mais amplas que nao precisam ficar visiveis o tempo todo.",
+                            "description": "Use controles agrupados secundários para dimensões de recorte mais amplas que não precisam ficar visíveis o tempo todo.",
                             "title": "Campus"
                         },
                         "status": {
-                            "description": "Mantenha os filtros de maior sinal perto do topo para que as acoes de recorte mais comuns continuem faceis de acessar.",
+                            "description": "Mantenha os filtros de maior sinal perto do topo para que as ações de recorte mais comuns continuem fáceis de acessar.",
                             "title": "Status"
                         }
                     },
@@ -802,20 +735,20 @@
             },
             "patternNotes": {
                 "items": {
-                    "body": "O corpo e obrigatorio e rola verticalmente com a ScrollArea compartilhada. Use tabs para secoes pares do workflow e accordion para divulgacao secundaria dentro do painel.",
-                    "clear": "A acao de limpar deve confirmar via AlertDialog porque destr?i progresso local ou a configuracao atual de filtros.",
-                    "context": "Use drawer para filtros pesados, fluxos de criacao e trabalho subordinado mais denso que deve permanecer ligado a pagina atual.",
+                    "body": "O corpo e obrigatório e rola verticalmente com a ScrollArea compartilhada. Use tabs para seções pares do workflow e accordion para divulgação secundária dentro do painel.",
+                    "clear": "A ação de limpar deve confirmar via AlertDialog porque destrói progresso local ou a configuração atual de filtros.",
+                    "context": "Use drawer para filtros pesados, fluxos de criação e trabalho subordinado mais denso que deve permanecer ligado a pagina atual.",
                     "escalation": "Se a superficie se tornar majoritariamente informativa, use Dialog. Se virar uma microinteracao ancorada e simples, reduza para Popover.",
-                    "footer": "O footer esta sempre presente e orientado a tarefa: limpar a esquerda, acao primaria a direita. Nao coloque botao de fechar no footer.",
-                    "header": "O header suporta overhead, titulo obrigatorio, descricao curta e botao de fechar no topo direito. Mantenha o fechamento como acao estrutural, nao de tarefa.",
-                    "primary": "Use `info` para Aplicar filtros e `success` para Criar. A acao primaria executa direto; apenas o reset destrutivo pede confirmacao.",
+                    "footer": "O footer esta sempre presente e orientado a tarefa: limpar a esquerda, ação primária a direita. Não coloque botão de fechar no footer.",
+                    "header": "O header suporta overhead, título obrigatório, descrição curta e botão de fechar no topo direito. Mantenha o fechamento como ação estrutural, não de tarefa.",
+                    "primary": "Use `info` para Aplicar filtros e `success` para Criar. A ação primária executa direto; apenas o reset destrutivo pede confirmação.",
                     "side": "Neste app, drawers sao paineis pela direita. Mantenha o posicionamento consistente em vez de variar o lado por feature."
                 },
-                "snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent>\n    <DrawerHeader overhead=\"Lista de projetos\">\n      <DrawerTitle>Refinar filtros</DrawerTitle>\n      <DrawerDescription>\n        Ajuste a visualizacao ativa com criterios mais amplos.\n      </DrawerDescription>\n    </DrawerHeader>\n    <DrawerBody>...</DrawerBody>\n    <DrawerFooter\n      actionVariant=\"filters\"\n      clearLabel=\"Limpar filtros\"\n      clearConfirmTitle=\"Limpar estes filtros?\"\n      clearConfirmDescription=\"Isso remove os valores atuais de filtro.\"\n      actionLabel=\"Aplicar filtros\"\n    />\n  </DrawerContent>\n</Drawer>"
+                "snippet": "<Drawer open={open} onOpenChange={setOpen}>\n  <DrawerContent>\n    <DrawerHeader overhead=\"Lista de projetos\">\n      <DrawerTitle>Refinar filtros</DrawerTitle>\n      <DrawerDescription>\n        Ajuste a visualização ativa com criterios mais amplos.\n      </DrawerDescription>\n    </DrawerHeader>\n    <DrawerBody>...</DrawerBody>\n    <DrawerFooter\n      actionVariant=\"filters\"\n      clearLabel=\"Limpar filtros\"\n      clearConfirmTitle=\"Limpar estes filtros?\"\n      clearConfirmDescription=\"Isso remove os valores atuais de filtro.\"\n      actionLabel=\"Aplicar filtros\"\n    />\n  </DrawerContent>\n</Drawer>"
             },
             "sections": {
                 "examples": {
-                    "description": "Use um unico padrao de drawer pela direita para criacao e filtros pesados, mantendo o workflow previsivel em todo o app.",
+                    "description": "Use um único padrão de drawer pela direita para criação e filtros pesados, mantendo o workflow previsível em todo o app.",
                     "title": "Padroes de workflow"
                 }
             },
@@ -824,55 +757,54 @@
         "dropdownMenu": {
             "cards": {
                 "rowActions": {
-                    "description": "Este agora e o padrao de dropdown para o app.",
+                    "description": "Este agora e o padrão de dropdown para o app.",
                     "items": {
                         "archive": "Arquivar projeto",
                         "delete": "Excluir projeto",
                         "edit": "Editar registro",
-                        "save": "Salvar alteracoes",
+                        "save": "Salvar alterações",
                         "view": "Ver detalhes"
                     },
-                    "menuLabel": "AÃ§Ãµes do projeto",
-                    "rowDescription": "Atualizado hÃ¡ 2 horas",
+                    "menuLabel": "Ações do projeto",
+                    "rowDescription": "Atualizado há 2 horas",
                     "rowTitle": "Projeto Atlas",
-                    "title": "Menu de aÃ§Ãµes da linha",
-                    "trigger": "Abrir aÃ§Ãµes da linha"
+                    "title": "Menu de ações da linha",
+                    "trigger": "Abrir ações da linha"
                 }
             },
             "confirm": {
                 "archive": {
                     "action": "Confirmar arquivamento",
-                    "description": "Arquivar vai remover este registro do fluxo ativo, preservando seu historico.",
+                    "description": "Arquivar vai remover este registro do fluxo ativo, preservando seu histórico.",
                     "title": "Arquivar este registro?"
                 },
                 "cancel": "Cancelar",
                 "delete": {
-                    "action": "Confirmar exclusao",
-                    "description": "Excluir e destrutivo e so deve acontecer quando o registro nao deve mais existir.",
+                    "action": "Confirmar exclusão",
+                    "description": "Excluir e destrutivo e só deve acontecer quando o registro não deve mais existir.",
                     "title": "Excluir este registro?"
                 },
                 "save": {
                     "action": "Confirmar salvamento",
-                    "description": "Salvar vai persistir as alteracoes atuais deste registro.",
-                    "title": "Salvar alteracoes?"
+                    "description": "Salvar vai persistir as alterações atuais deste registro.",
+                    "title": "Salvar alterações?"
                 }
             },
-            "description": "Dropdown menus agora seguem um unico padrao restrito: menus compactos de acoes de linha com icone em todos os itens, primeira opcao destacada com a cor da marca, opcoes de apoio neutras e um grupo final semantico opcional.",
+            "description": "Dropdown menus agora seguem um único padrão restrito: menus compactos de ações de linha com icone em todos os itens, primeira opção destacada com a cor da marca, opções de apoio neutras e um grupo final semântico opcional.",
             "patternNotes": {
                 "items": {
-                    "brandFirst": "A primeira opcao e a acao principal da linha e deve usar o destaque da marca. Todas as opcoes regulares de apoio permanecem neutras.",
-                    "compact": "Dropdown menu agora segue um unico padrao compacto de acoes de linha. Nao use esse componente como lista generica de navegacao ou menu de configuracoes extensas.",
-                    "confirmation": "Acoes significativas do grupo final devem abrir um `AlertDialog` antes da execucao para confirmar a intencao da pessoa.",
-                    "escalation": "O item atual pode permanecer destacado, mas ainda deve reagir ao hover para que o estado nao pareca inerte.",
-                    "grouping": "Quando houver grupo final semantico, use apenas `DropdownMenuSuccessItem`, `DropdownMenuWarningItem` e `DropdownMenuDangerItem`, nesta ordem.",
-                    "scope": "Use dropdown menu para acoes relacionadas ao item atual, especialmente em listas, tabelas e rows operacionais."
+                    "brandFirst": "A primeira opção e a ação principal da linha e deve usar o destaque da marca. Todas as opções regulares de apoio permanecem neutras.",
+                    "compact": "Dropdown menu agora segue um único padrão compacto de ações de linha. Não use esse componente como lista generica de navegação ou menu de configurações extensas.",
+                    "confirmation": "Ações significativas do grupo final devem abrir um `AlertDialog` antes da execução para confirmar a intenção da pessoa.",
+                    "grouping": "Quando houver grupo final semântico, use apenas `DropdownMenuSuccessItem`, `DropdownMenuWarningItem` e `DropdownMenuDangerItem`, nesta ordem.",
+                    "scope": "Use dropdown menu para ações relacionadas ao item atual, especialmente em listas, tabelas e rows operacionais."
                 },
-                "snippet": "<DropdownMenuContent>\n  <DropdownMenuPrimaryItem icon={Eye} label=\"Ver detalhes\" />\n  <DropdownMenuItem icon={Pencil} label=\"Editar registro\" />\n  <DropdownMenuSeparator />\n  <DropdownMenuSuccessItem icon={Save} label=\"Salvar alteracoes\" />\n  <DropdownMenuWarningItem icon={Archive} label=\"Arquivar registro\" />\n  <DropdownMenuDangerItem icon={Trash2} label=\"Excluir registro\" />\n</DropdownMenuContent>"
+                "snippet": "<DropdownMenuContent>\n  <DropdownMenuPrimaryItem icon={Eye} label=\"Ver detalhes\" />\n  <DropdownMenuItem icon={Pencil} label=\"Editar registro\" />\n  <DropdownMenuSeparator />\n  <DropdownMenuSuccessItem icon={Save} label=\"Salvar alterações\" />\n  <DropdownMenuWarningItem icon={Archive} label=\"Arquivar registro\" />\n  <DropdownMenuDangerItem icon={Trash2} label=\"Excluir registro\" />\n</DropdownMenuContent>"
             },
             "sections": {
                 "actions": {
-                    "description": "Use um unico padrao compacto de acoes de linha pelo app. O primeiro item usa destaque da marca, as acoes regulares de apoio ficam neutras e as acoes semanticas finais sao opcionais.",
-                    "title": "AÃ§Ãµes compactas"
+                    "description": "Use um único padrão compacto de ações de linha pelo app. O primeiro item usa destaque da marca, as ações regulares de apoio ficam neutras e as ações semanticas finais sao opcionais.",
+                    "title": "Ações compactas"
                 }
             },
             "title": "Dropdown Menu"
@@ -880,49 +812,49 @@
         "emptyState": {
             "compact": {
                 "action": "Atualizar",
-                "description": "Esta fila estÃ¡ vazia no momento.",
+                "description": "Esta fila está vazia no momento.",
                 "title": "Nada para revisar"
             },
-            "description": "Empty states comunicam a ausÃªncia de conteÃºdo e orientam o prÃ³ximo passo do usuÃ¡rio. Use esse padrÃ£o em cenÃ¡rios de primeiro uso, resultados vazios, filtros sem retorno e casos em que o conteÃºdo nÃ£o estÃ¡ disponÃ­vel.",
+            "description": "Empty states comunicam a ausência de conteúdo e orientam o próximo passo do usuário. Use esse padrão em cenários de primeiro uso, resultados vazios, filtros sem retorno e casos em que o conteúdo não está disponível.",
             "firstUse": {
                 "actions": {
                     "primary": "Criar projeto",
                     "secondary": "Importar dados"
                 },
-                "description": "Crie o primeiro projeto para comeÃ§ar a organizar o trabalho, definir responsÃ¡veis e acompanhar o progresso nesta Ã¡rea.",
+                "description": "Crie o primeiro projeto para começar a organizar o trabalho, definir responsáveis e acompanhar o progresso nesta área.",
                 "title": "Nenhum projeto ainda"
             },
             "patternNotes": {
                 "items": {
-                    "actions": "Adicione aÃ§Ãµes apenas quando houver um prÃ³ximo passo realmente Ãºtil. NÃ£o coloque botÃµes sÃ³ para ocupar espaÃ§o.",
-                    "context": "Ajuste o empty state ao motivo da ausÃªncia de conteÃºdo: primeiro uso, nenhum resultado, falta de acesso ou um conjunto temporariamente vazio.",
-                    "message": "Comece com um tÃ­tulo claro e uma descriÃ§Ã£o curta que explique por que nada estÃ¡ sendo exibido, sem culpar o usuÃ¡rio.",
-                    "scope": "Use empty states dentro do contÃªiner que possui a ausÃªncia de conteÃºdo: uma section da pÃ¡gina, um card, uma regiÃ£o de tabela ou o corpo de uma lista."
+                    "actions": "Adicione ações apenas quando houver um próximo passo realmente útil. Não coloque botões só para ocupar espaço.",
+                    "context": "Ajuste o empty state ao motivo da ausência de conteúdo: primeiro uso, nenhum resultado, falta de acesso ou um conjunto temporariamente vazio.",
+                    "message": "Comece com um título claro e uma descrição curta que explique por que nada está sendo exibido, sem culpar o usuário.",
+                    "scope": "Use empty states dentro do contêiner que possui a ausência de conteúdo: uma section da página, um card, uma região de tabela ou o corpo de uma lista."
                 },
-                "snippet": "<EmptyState\n  icon={<Inbox />}\n  title=\"Nenhum item ainda\"\n  description=\"Crie o primeiro item para preencher esta visualizaÃ§Ã£o.\"\n  actions={\n    <Button usage=\"primary\" variant=\"flat\">Novo item</Button>\n  }\n/>"
+                "snippet": "<EmptyState\n  icon={<Inbox />}\n  title=\"Nenhum item ainda\"\n  description=\"Crie o primeiro item para preencher esta visualização.\"\n  actions={\n    <Button usage=\"primary\" variant=\"flat\">Novo item</Button>\n  }\n/>"
             },
             "results": {
                 "noAccess": {
-                    "description": "Este usuÃ¡rio ainda nÃ£o estÃ¡ atribuÃ­do a nenhum workspace. Conceda acesso antes de esperar conteÃºdo nesta Ã¡rea.",
-                    "title": "Nenhum workspace acessÃ­vel"
+                    "description": "Este usuário ainda não está atribuído a nenhum workspace. Conceda acesso antes de esperar conteúdo nesta área.",
+                    "title": "Nenhum workspace acessível"
                 },
                 "noResults": {
                     "action": "Limpar filtros",
-                    "description": "Nenhum registro corresponde aos filtros atuais. Ajuste os critÃ©rios ou limpe os filtros para ampliar os resultados.",
+                    "description": "Nenhum registro corresponde aos filtros atuais. Ajuste os critérios ou limpe os filtros para ampliar os resultados.",
                     "title": "Nenhum resultado correspondente"
                 }
             },
             "sections": {
                 "compact": {
-                    "description": "Use uma versÃ£o menor quando o empty state estiver dentro de uma regiÃ£o mais apertada, como um card ou painel lateral.",
+                    "description": "Use uma versão menor quando o empty state estiver dentro de uma região mais apertada, como um card ou painel lateral.",
                     "title": "Estado inline compacto"
                 },
                 "firstUse": {
-                    "description": "Use um empty state mais convidativo quando o usuÃ¡rio ainda nÃ£o criou nenhum conteÃºdo.",
+                    "description": "Use um empty state mais convidativo quando o usuário ainda não criou nenhum conteúdo.",
                     "title": "Estado de primeiro uso"
                 },
                 "results": {
-                    "description": "Casos diferentes de ausÃªncia pedem tom e aÃ§Ãµes diferentes.",
+                    "description": "Casos diferentes de ausência pedem tom e ações diferentes.",
                     "title": "Resultados e acesso"
                 }
             },
@@ -931,57 +863,57 @@
         "icon": {
             "accessibilityCards": {
                 "custom": {
-                    "description": "Use uma mensagem de tooltip separada quando o label acessÃ­vel precisar ser curto, mas a dica visÃ­vel exigir mais contexto.",
+                    "description": "Use uma mensagem de tooltip separada quando o label acessível precisar ser curto, mas a dica visível exigir mais contexto.",
                     "label": "Visualizar",
                     "title": "Tooltip com texto customizado",
                     "tooltip": "Visualizar o registro atual"
                 },
                 "tooltip": {
-                    "description": "Quando apenas o label Ã© informado, o Ã­cone reutiliza esse valor tanto para acessibilidade quanto para a dica do tooltip.",
+                    "description": "Quando apenas o label é informado, o ícone reutiliza esse valor tanto para acessibilidade quanto para a dica do tooltip.",
                     "label": "Buscar",
                     "title": "Tooltip a partir do label"
                 }
             },
             "decorativeCards": {
                 "inline": {
-                    "body": "ConfiguraÃ§Ã£o concluÃ­da",
-                    "description": "Ãcones decorativos devem reforÃ§ar o texto prÃ³ximo sem competir com ele na Ã¡rvore de acessibilidade.",
-                    "title": "Ãcone inline de apoio"
+                    "body": "Configuração concluída",
+                    "description": "Ácones decorativos devem reforçar o texto próximo sem competir com ele na árvore de acessibilidade.",
+                    "title": "Ácone inline de apoio"
                 },
                 "status": {
-                    "badge": "NotificaÃ§Ãµes",
-                    "description": "Marcadores compactos de status muitas vezes precisam de Ã­cone visual, mas nÃ£o de um anÃºncio separado.",
+                    "badge": "Notificações",
+                    "description": "Marcadores compactos de status muitas vezes precisam de ícone visual, mas não de um anúncio separado.",
                     "title": "Badge de status"
                 }
             },
-            "description": "Ãcones comunicam significado de apoio, reforÃ§am aÃ§Ãµes e condensam estado visual. Use a primitiva de Ã­cone para manter Ã­cones decorativos silenciosos, Ã­cones com significado acessÃ­veis e Ã­cones isolados com tooltip quando necessÃ¡rio.",
+            "description": "Ácones comunicam significado de apoio, reforçam ações e condensam estado visual. Use a primitiva de ícone para manter ícones decorativos silenciosos, ícones com significado acessíveis e ícones isolados com tooltip quando necessário.",
             "integrationCard": {
-                "description": "A primitiva de Ã­cone tambÃ©m funciona dentro de controles mais complexos. Nesses casos, o nome acessÃ­vel e o tooltip continuam pertencendo ao controle pai.",
-                "iconButton": "NotificaÃ§Ãµes",
+                "description": "A primitiva de ícone também funciona dentro de controles mais complexos. Nesses casos, o nome acessível e o tooltip continuam pertencendo ao controle pai.",
+                "iconButton": "Notificações",
                 "primary": "Buscar registros",
-                "title": "ComposiÃ§Ã£o com botÃµes"
+                "title": "Composição com botões"
             },
             "patternNotes": {
                 "items": {
-                    "accessible": "Forneca um `label` quando o icone precisar expor significado sozinho. A primitiva usa Radix Accessible Icon para esse nome acessivel.",
-                    "buttons": "Dentro de botoes e outros controles, mantenha o icone interno como decorativo. A acessibilidade e o tooltip normalmente devem pertencer ao controle pai.",
-                    "decorative": "Use icones como decorativos por padrao quando o texto ao lado ja comunicar o significado.",
-                    "tooltip": "Um icone isolado com `label` tambem pode expor tooltip. Se nenhum tooltip customizado for informado, o proprio label vira a dica visivel."
+                    "accessible": "Forneca um `label` quando o icone precisar expor significado sozinho. A primitiva usa Radix Accessible Icon para esse nome acessível.",
+                    "buttons": "Dentro de botões e outros controles, mantenha o icone interno como decorativo. A acessibilidade e o tooltip normalmente devem pertencer ao controle pai.",
+                    "decorative": "Use icones como decorativos por padrão quando o texto ao lado já comunicar o significado.",
+                    "tooltip": "Um icone isolado com `label` também pode expor tooltip. Se nenhum tooltip customizado for informado, o próprio label vira a dica visível."
                 },
                 "snippet": "<Icon\n  icon={Search}\n  label=\"Buscar\"\n  tooltipContent=\"Encontrar registros\"\n  size={16}\n  className=\"text-[color:var(--color-brand)]\"\n/>"
             },
             "sections": {
                 "accessibility": {
-                    "description": "Quando um Ã­cone aparece sozinho, forneÃ§a um label acessÃ­vel e, se necessÃ¡rio, um tooltip especÃ­fico.",
+                    "description": "Quando um ícone aparece sozinho, forneça um label acessível e, se necessário, um tooltip específico.",
                     "title": "Acessibilidade e tooltip"
                 },
                 "decorative": {
-                    "description": "A maioria dos Ã­cones Ã© visual de apoio e nÃ£o deve gerar saÃ­da redundante de acessibilidade.",
+                    "description": "A maioria dos ícones é visual de apoio e não deve gerar saída redundante de acessibilidade.",
                     "title": "Uso decorativo"
                 },
                 "integration": {
-                    "description": "Use a mesma primitiva para Ã­cones isolados e para Ã­cones compostos dentro de botÃµes ou outros controles.",
-                    "title": "IntegraÃ§Ã£o"
+                    "description": "Use a mesma primitiva para ícones isolados e para ícones compostos dentro de botões ou outros controles.",
+                    "title": "Integração"
                 }
             },
             "title": "Icon"
@@ -995,25 +927,25 @@
                     "value": "Workspace Atlas"
                 },
                 "email": {
-                    "description": "Um campo simples de uma linha com contexto visual leve Ã  esquerda.",
+                    "description": "Um campo simples de uma linha com contexto visual leve Á  esquerda.",
                     "label": "Email",
                     "placeholder": "admin@pug.edu.br",
                     "title": "Campo de email"
                 },
                 "password": {
-                    "description": "Use o comportamento embutido de revelaÃ§Ã£o quando o campo precisar permitir inspeÃ§Ã£o temporÃ¡ria do valor oculto.",
+                    "description": "Use o comportamento embutido de revelação quando o campo precisar permitir inspeção temporária do valor oculto.",
                     "label": "Senha",
                     "placeholder": "Digite sua senha",
                     "title": "Campo de senha"
                 }
             },
-            "description": "Input Ã© a primitiva base de campo de texto para valores curtos em uma Ãºnica linha. Use para identificadores, email, senha, busca e campos compactos de formulÃ¡rio em que o valor deve permanecer visÃ­vel em uma linha.",
+            "description": "Input é a primitiva base de campo de texto para valores curtos em uma única linha. Use para identificadores, email, senha, busca e campos compactos de formulário em que o valor deve permanecer visível em uma linha.",
             "patternNotes": {
                 "items": {
-                    "base": "Use input para valores curtos que cabem naturalmente em uma linha e devem continuar editÃ¡veis diretamente no lugar.",
-                    "icons": "Ãcones Ã  esquerda ajudam com contexto leve, como busca ou email, mas devem continuar sendo apoio e nÃ£o carregar sozinhos o significado essencial.",
-                    "password": "Campos de senha podem expor um toggle de revelaÃ§Ã£o, mas a primitiva ainda deve se comportar como um Ãºnico campo e nÃ£o como um padrÃ£o separado.",
-                    "scope": "Se o conteÃºdo virar texto longo ou multi-parÃ¡grafo, troque para text area em vez de forÃ§ar o padrÃ£o de input."
+                    "base": "Use input para valores curtos que cabem naturalmente em uma linha e devem continuar editáveis diretamente no lugar.",
+                    "icons": "Ácones Á  esquerda ajudam com contexto leve, como busca ou email, mas devem continuar sendo apoio e não carregar sozinhos o significado essencial.",
+                    "password": "Campos de senha podem expor um toggle de revelação, mas a primitiva ainda deve se comportar como um único campo e não como um padrão separado.",
+                    "scope": "Se o conteúdo virar texto longo ou multi-parágrafo, troque para text area em vez de forçar o padrão de input."
                 },
                 "snippet": "<Input type=\"email\" placeholder=\"admin@pug.edu.br\" />\n\n<Input type=\"password\" showPasswordToggle />"
             },
@@ -1024,11 +956,11 @@
             },
             "sections": {
                 "fields": {
-                    "description": "A mesma primitiva deve atender campos de texto padrÃ£o e comportamento de revelaÃ§Ã£o de senha sem fragmentar a API.",
+                    "description": "A mesma primitiva deve atender campos de texto padrão e comportamento de revelação de senha sem fragmentar a API.",
                     "title": "Campos comuns"
                 },
                 "search": {
-                    "description": "Um Ã­cone leve pode ajudar o campo a ser lido como busca sem mudar a primitiva subjacente.",
+                    "description": "Um ícone leve pode ajudar o campo a ser lido como busca sem mudar a primitiva subjacente.",
                     "title": "Campo de busca"
                 }
             },
@@ -1037,32 +969,31 @@
         "multiSelect": {
             "cards": {
                 "disabled": {
-                    "description": "Multi-select desabilitado deve preservar o contexto selecionado, mas impedir edicoes.",
                     "label": "Tags",
                     "title": "Multi-select desabilitado"
                 },
                 "owners": {
-                    "description": "Descricoes ajudam quando os valores escolhidos representam pessoas ou papeis, e o tom dos badges pode reforcar a semantica do conjunto.",
-                    "label": "ResponsÃ¡veis",
+                    "description": "Descricoes ajudam quando os valores escolhidos representam pessoas ou papeis, e o tom dos badges pode reforcar a semântica do conjunto.",
+                    "label": "Responsáveis",
                     "options": {
                         "ana": {
                             "description": "Acompanhamento regional",
                             "label": "Ana"
                         },
                         "joao": {
-                            "description": "OperaÃ§Ãµes do projeto",
-                            "label": "JoÃ£o"
+                            "description": "Operações do projeto",
+                            "label": "João"
                         },
                         "maria": {
-                            "description": "CoordenaÃ§Ã£o acadÃªmica",
+                            "description": "Coordenação acadêmica",
                             "label": "Maria"
                         }
                     },
-                    "placeholder": "Escolha os responsÃ¡veis",
-                    "title": "ResponsÃ¡veis e atribuÃ­dos"
+                    "placeholder": "Escolha os responsáveis",
+                    "title": "Responsáveis e atribuídos"
                 },
                 "status": {
-                    "description": "Um caso comum de admin em que vÃ¡rios status podem continuar ativos ao mesmo tempo.",
+                    "description": "Um caso comum de admin em que vários status podem continuar ativos ao mesmo tempo.",
                     "label": "Status",
                     "options": {
                         "active": "Ativo",
@@ -1073,21 +1004,21 @@
                     "title": "Filtros de status"
                 }
             },
-            "description": "Multi select permite que a pessoa escolha vÃ¡rios valores dentro de um Ãºnico campo compacto. Use quando mÃºltiplos filtros ou atribuiÃ§Ãµes pertencerem Ã  mesma categoria e devam permanecer agrupados em um sÃ³ gatilho.",
+            "description": "Multi select permite que a pessoa escolha vários valores dentro de um único campo compacto. Use quando múltiplos filtros ou atribuições pertencerem Á  mesma categoria e devam permanecer agrupados em um só gatilho.",
             "patternNotes": {
                 "items": {
-                    "escalation": "Se o conjunto ficar muito grande, pesquisavel ou profundamente agrupado, evolua para um padrao mais rico em vez de forcar demais o multi-select simples.",
-                    "options": "Descricoes ajudam quando os valores representam pessoas, papeis ou estados menos obvios, mas a lista ainda deve permanecer facil de escanear e alternar.",
-                    "scope": "Use multi-select quando a pessoa puder escolher varios valores do mesmo conjunto sem precisar espalhar checkboxes pela interface principal.",
-                    "summary": "O trigger deve resumir a selecao de forma compacta por meio de badges, em vez de tentar mostrar uma lista longa no estado fechado.",
-                    "tone": "Os badges de selecao usam o tom brand por padrao. So troque para outro tom quando o conjunto representar uma semantica real, como perigo, aviso ou informacao."
+                    "escalation": "Se o conjunto ficar muito grande, pesquisável ou profundamente agrupado, evolua para um padrão mais rico em vez de forçar demais o multi-select simples.",
+                    "options": "Descricoes ajudam quando os valores representam pessoas, papeis ou estados menos obvios, mas a lista ainda deve permanecer fácil de escanear e alternar.",
+                    "scope": "Use multi-select quando a pessoa puder escolher vários valores do mesmo conjunto sem precisar espalhar checkboxes pela interface principal.",
+                    "summary": "O trigger deve resumir a seleção de forma compacta por meio de badges, em vez de tentar mostrar uma lista longa no estado fechado.",
+                    "tone": "Os badges de seleção usam o tom brand por padrão. So troque para outro tom quando o conjunto representar uma semântica real, como perigo, aviso ou informação."
                 },
                 "snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Escolha status\"\n  selectionTone=\"brand\"\n  options={[\n    { value: \"active\", label: \"Ativo\" },\n    { value: \"paused\", label: \"Pausado\" },\n  ]}\n/>"
             },
             "sections": {
                 "filters": {
-                    "description": "Multi select Ã© um bom encaixe quando vÃ¡rios filtros ou atribuiÃ§Ãµes devem permanecer disponÃ­veis em um Ãºnico campo compacto.",
-                    "title": "Campos agrupados com mÃºltiplos valores"
+                    "description": "Multi select é um bom encaixe quando vários filtros ou atribuições devem permanecer disponíveis em um único campo compacto.",
+                    "title": "Campos agrupados com múltiplos valores"
                 }
             },
             "title": "Multi Select"
@@ -1110,17 +1041,17 @@
                     "neighbor": "Periodo completo",
                     "options": {
                         "campus": "Campus central",
-                        "period": "Ultimos 30 dias",
+                        "period": "Últimos 30 dias",
                         "status": "Somente ativos"
                     },
                     "title": "Refinar lista",
                     "trigger": "Filtros rapidos"
                 },
                 "support": {
-                    "description": "Um popover pode carregar contexto util sem virar menu de acoes nem dialog.",
+                    "description": "Um popover pode carregar contexto util sem virar menu de ações nem dialog.",
                     "items": {
                         "owner": {
-                            "label": "Responsavel",
+                            "label": "Responsável",
                             "value": "Maria Souza"
                         },
                         "review": {
@@ -1132,7 +1063,7 @@
                             "value": "Equipe interna"
                         }
                     },
-                    "panelDescription": "Metadados curtos e contexto adicional continuam perto do ponto de interacao.",
+                    "panelDescription": "Metadados curtos e contexto adicional continuam perto do ponto de interação.",
                     "panelTitle": "Resumo rapido",
                     "title": "Painel de apoio",
                     "trigger": "Abrir contexto"
@@ -1140,10 +1071,10 @@
             },
             "patternNotes": {
                 "items": {
-                    "anchored": "Popover deve permanecer conectado ao gatilho e ao contexto imediato. Ele nao e um mini dialog solto na tela.",
-                    "compact": "Mantenha o conteudo curto, legivel e contido. Se ele comecar a parecer uma tarefa inteira, ja passou do ponto.",
-                    "escalation": "Se virar lista curta de acoes, use dropdown menu. Se virar filtro pesado, criacao ou edicao, use drawer. Se virar leitura focada, use dialog.",
-                    "singlePurpose": "Cada popover deve resolver uma unica intencao local: um filtro rapido, um painel curto de apoio ou uma pequena escolha contextual."
+                    "anchored": "Popover deve permanecer conectado ao gatilho e ao contexto imediato. Ele não e um mini dialog solto na tela.",
+                    "compact": "Mantenha o conteúdo curto, legível e contido. Se ele começar a parecer uma tarefa inteira, já passou do ponto.",
+                    "escalation": "Se virar lista curta de ações, use dropdown menu. Se virar filtro pesado, criação ou edicao, use drawer. Se virar leitura focada, use dialog.",
+                    "singlePurpose": "Cada popover deve resolver uma única intenção local: um filtro rapido, um painel curto de apoio ou uma pequena escolha contextual."
                 },
                 "snippet": "<Popover open={open} onOpenChange={setOpen}>\n  <PopoverTrigger>\n    <Button usage=\"secondary\" variant=\"secondary\">Filtros rapidos</Button>\n  </PopoverTrigger>\n\n  <PopoverContent align=\"start\" className=\"space-y-3\">\n    <p className=\"ty-sm-bold\">Refinar lista</p>\n    <p className=\"ty-helper\">Ajustes pequenos e imediatos.</p>\n  </PopoverContent>\n</Popover>"
             },
@@ -1153,7 +1084,7 @@
                     "title": "Filtros rapidos"
                 },
                 "support": {
-                    "description": "Popover tambem funciona bem para paineis curtos de contexto, metadado ou preferencias locais.",
+                    "description": "Popover também funciona bem para paineis curtos de contexto, metadado ou preferencias locais.",
                     "title": "Apoio contextual"
                 }
             },
@@ -1162,11 +1093,11 @@
         "primitivesOverview": {
             "areas": {
                 "actions": {
-                    "cta": "Abrir acoes",
-                    "description": "Botoes, toggles e outras primitivas acionaveis.",
+                    "cta": "Abrir ações",
+                    "description": "Botões, toggles e outras primitivas acionaveis.",
                     "href": "/docs/primitives/actions",
-                    "label": "Acoes",
-                    "title": "Acoes"
+                    "label": "Ações",
+                    "title": "Ações"
                 },
                 "display": {
                     "cta": "Abrir exibicao",
@@ -1183,11 +1114,11 @@
                     "title": "Formularios"
                 },
                 "navigation": {
-                    "cta": "Abrir navegacao",
-                    "description": "Tabs, accordions, breadcrumbs e recursos de navegacao.",
+                    "cta": "Abrir navegação",
+                    "description": "Tabs, accordions, breadcrumbs e recursos de navegação.",
                     "href": "/docs/primitives/navigation",
-                    "label": "Navegacao",
-                    "title": "Navegacao"
+                    "label": "Navegação",
+                    "title": "Navegação"
                 },
                 "overlays": {
                     "cta": "Abrir overlays",
@@ -1211,7 +1142,7 @@
             },
             "hero": {
                 "badge": "Primitivas",
-                "description": "Esta secao oferece uma referencia para todas as primitivas compartilhadas de UI. Navegue pelas categorias abaixo para explorar componentes de acao, exibicao, formulario, navegacao, overlay e estrutura.",
+                "description": "Esta seção oferece uma referencia para todas as primitivas compartilhadas de UI. Navegue pelas categorias abaixo para explorar componentes de ação, exibicao, formulario, navegação, overlay e estrutura.",
                 "title": "Visao geral das primitivas"
             },
             "summary": {
@@ -1224,7 +1155,7 @@
                     "title": "Organizadas por papel"
                 },
                 "patterns": {
-                    "description": "Todas as primitivas seguem o mesmo design system e os mesmos padroes de interacao.",
+                    "description": "Todas as primitivas seguem o mesmo design system e os mesmos padrões de interação.",
                     "title": "Padroes consistentes"
                 }
             }
@@ -1235,66 +1166,66 @@
                     "filter": "Filtrar",
                     "primary": "Novo item"
                 },
-                "description": "As aÃ§Ãµes do header devem afetar a section inteira, nÃ£o apenas um elemento filho isolado dentro dela.",
+                "description": "As ações do header devem afetar a section inteira, não apenas um elemento filho isolado dentro dela.",
                 "items": {
                     "one": {
                         "description": "Um bloco filho que pertence ao corpo da section.",
                         "title": "Registros ativos"
                     },
                     "two": {
-                        "description": "Outro bloco filho controlado pelas mesmas aÃ§Ãµes da section.",
+                        "description": "Outro bloco filho controlado pelas mesmas ações da section.",
                         "title": "Registros arquivados"
                     }
                 },
-                "title": "AÃ§Ãµes no nÃ­vel da section"
+                "title": "Ações no nível da section"
             },
-            "description": "Sections agrupam conteÃºdo relacionado dentro do fluxo normal da pÃ¡gina. Use esse padrÃ£o para definir estrutura, introduzir um tÃ­tulo com descriÃ§Ã£o de apoio e, quando necessÃ¡rio, anexar aÃ§Ãµes no nÃ­vel da seÃ§Ã£o.",
+            "description": "Sections agrupam conteúdo relacionado dentro do fluxo normal da página. Use esse padrão para definir estrutura, introduzir um título com descrição de apoio e, quando necessário, anexar ações no nível da seção.",
             "patternNotes": {
                 "items": {
-                    "actions": "As aÃ§Ãµes da section pertencem ao header quando afetam o conteÃºdo daquela section como um todo.",
-                    "composition": "Sections geralmente contÃªm cards, listas, formulÃ¡rios e outras primitivas. Elas definem a estrutura, enquanto os componentes internos definem densidade e comportamento.",
-                    "structure": "Use sections para organizar conteÃºdo em nÃ­vel de pÃ¡gina e blocos relacionados, nÃ£o para adicionar decoraÃ§Ã£o visual por padrÃ£o.",
-                    "surface": "Uma section nÃ£o exige borda, sombra ou profundidade. Adicione esses tratamentos apenas quando o layout ao redor pedir mais separaÃ§Ã£o."
+                    "actions": "As ações da section pertencem ao header quando afetam o conteúdo daquela section como um todo.",
+                    "composition": "Sections geralmente contêm cards, listas, formulários e outras primitivas. Elas definem a estrutura, enquanto os componentes internos definem densidade e comportamento.",
+                    "structure": "Use sections para organizar conteúdo em nível de página e blocos relacionados, não para adicionar decoração visual por padrão.",
+                    "surface": "Uma section não exige borda, sombra ou profundidade. Adicione esses tratamentos apenas quando o layout ao redor pedir mais separação."
                 },
-                "snippet": "<Section>\n  <SectionHeader>\n    <div>\n      <SectionTitle>TÃ­tulo da section</SectionTitle>\n      <SectionDescription>\n        DescriÃ§Ã£o de apoio.\n      </SectionDescription>\n    </div>\n\n    <SectionActions>\n      <Button variant=\"ghost\">Filtrar</Button>\n      <Button usage=\"primary\" variant=\"flat\">Novo item</Button>\n    </SectionActions>\n  </SectionHeader>\n\n  <SectionContent>\n    <Card>...</Card>\n  </SectionContent>\n</Section>"
+                "snippet": "<Section>\n  <SectionHeader>\n    <div>\n      <SectionTitle>Título da section</SectionTitle>\n      <SectionDescription>\n        Descrição de apoio.\n      </SectionDescription>\n    </div>\n\n    <SectionActions>\n      <Button variant=\"ghost\">Filtrar</Button>\n      <Button usage=\"primary\" variant=\"flat\">Novo item</Button>\n    </SectionActions>\n  </SectionHeader>\n\n  <SectionContent>\n    <Card>...</Card>\n  </SectionContent>\n</Section>"
             },
             "sections": {
                 "actions": {
-                    "description": "As aÃ§Ãµes podem viver no header quando operam sobre o conteÃºdo da section como um todo.",
-                    "title": "AÃ§Ãµes no header"
+                    "description": "As ações podem viver no header quando operam sobre o conteúdo da section como um todo.",
+                    "title": "Ações no header"
                 },
                 "structure": {
-                    "description": "Uma section estabelece hierarquia e agrupamento sem forÃ§ar uma superfÃ­cie encaixotada.",
+                    "description": "Uma section estabelece hierarquia e agrupamento sem forçar uma superfície encaixotada.",
                     "title": "Estrutura"
                 },
                 "surface": {
                     "description": "Sections podem permanecer simples ou receber tratamento visual adicional, conforme a necessidade do layout ao redor.",
-                    "title": "Tratamento de superfÃ­cie"
+                    "title": "Tratamento de superfície"
                 }
             },
             "structureCards": {
                 "basic": {
-                    "body": "Essa Ã© a primitiva de agrupamento em nÃ­vel de pÃ¡gina. Use-a para introduzir conteÃºdo antes de blocos mais densos, como cards, tabelas ou formulÃ¡rios.",
-                    "description": "Uma section normalmente combina tÃ­tulo, descriÃ§Ã£o curta e uma regiÃ£o de conteÃºdo relacionado.",
-                    "title": "Estrutura padrÃ£o"
+                    "body": "Essa é a primitiva de agrupamento em nível de página. Use-a para introduzir conteúdo antes de blocos mais densos, como cards, tabelas ou formulários.",
+                    "description": "Uma section normalmente combina título, descrição curta e uma região de conteúdo relacionado.",
+                    "title": "Estrutura padrão"
                 },
                 "minimal": {
-                    "body": "Nem toda section precisa de separaÃ§Ã£o pesada. Em muitos casos, espaÃ§amento e hierarquia jÃ¡ bastam para manter a pÃ¡gina compreensÃ­vel.",
-                    "description": "A estrutura continua Ãºtil mesmo quando o conteÃºdo Ã© pequeno e o tratamento visual Ã© leve.",
-                    "title": "Section mÃ­nima"
+                    "body": "Nem toda section precisa de separação pesada. Em muitos casos, espaçamento e hierarquia já bastam para manter a página compreensível.",
+                    "description": "A estrutura continua útil mesmo quando o conteúdo é pequeno e o tratamento visual é leve.",
+                    "title": "Section mínima"
                 }
             },
             "surfaceCards": {
                 "decorated": {
-                    "action": "Abrir configuraÃ§Ãµes da section",
-                    "body": "A estrutura continua a mesma. O que muda Ã© apenas o tratamento visual para apoiar a composiÃ§Ã£o da pÃ¡gina.",
-                    "description": "Adicione tratamento de superfÃ­cie quando o layout pedir uma separaÃ§Ã£o mais forte, mas preserve a mesma primitiva estrutural por baixo.",
+                    "action": "Abrir configurações da section",
+                    "body": "A estrutura continua a mesma. O que muda é apenas o tratamento visual para apoiar a composição da página.",
+                    "description": "Adicione tratamento de superfície quando o layout pedir uma separação mais forte, mas preserve a mesma primitiva estrutural por baixo.",
                     "title": "Section decorada"
                 },
                 "plain": {
-                    "body": "Use a forma simples quando a pÃ¡gina jÃ¡ tiver separaÃ§Ã£o suficiente por layout, ritmo visual ou contÃªineres prÃ³ximos.",
-                    "cta": "Revisar orientaÃ§Ã£o",
-                    "description": "Sections tambÃ©m podem permanecer visualmente discretas e deixar o agrupamento por conta do espaÃ§amento ao redor.",
+                    "body": "Use a forma simples quando a página já tiver separação suficiente por layout, ritmo visual ou contêineres próximos.",
+                    "cta": "Revisar orientação",
+                    "description": "Sections também podem permanecer visualmente discretas e deixar o agrupamento por conta do espaçamento ao redor.",
                     "title": "Section simples"
                 }
             },
@@ -1303,7 +1234,6 @@
         "select": {
             "cards": {
                 "disabled": {
-                    "description": "Select desabilitado deve preservar o valor escolhido e a leitura do campo, mas bloquear a interacao.",
                     "label": "Status do projeto",
                     "options": {
                         "active": "Ativo",
@@ -1313,7 +1243,7 @@
                     "title": "Select desabilitado"
                 },
                 "grouped": {
-                    "description": "Uma lista agrupada pode continuar compacta e ainda expor hierarquia leve dentro do conjunto de opÃ§Ãµes.",
+                    "description": "Uma lista agrupada pode continuar compacta e ainda expor hierarquia leve dentro do conjunto de opções.",
                     "groups": {
                         "lifecycle": "Ciclo de vida",
                         "workspace": "Workspace"
@@ -1322,25 +1252,25 @@
                     "options": {
                         "archive": "Arquivar workspace",
                         "members": "Gerenciar membros",
-                        "overview": "Ver visÃ£o geral",
+                        "overview": "Ver visão geral",
                         "transfer": "Transferir ownership"
                     },
                     "placeholder": "Escolha o destino",
-                    "title": "AÃ§Ãµes agrupadas de workspace"
+                    "title": "Ações agrupadas de workspace"
                 },
                 "placeholder": {
-                    "description": "Use placeholder quando a pessoa ainda precisa fazer uma primeira escolha explÃ­cita.",
+                    "description": "Use placeholder quando a pessoa ainda precisa fazer uma primeira escolha explícita.",
                     "label": "Intervalo de datas",
                     "options": {
-                        "month": "Ãšltimos 30 dias",
+                        "month": "Últimos 30 dias",
                         "today": "Hoje",
-                        "week": "Ãšltimos 7 dias"
+                        "week": "Últimos 7 dias"
                     },
                     "placeholder": "Escolha o intervalo",
-                    "title": "Campo ainda sem seleÃ§Ã£o"
+                    "title": "Campo ainda sem seleção"
                 },
                 "status": {
-                    "description": "Um filtro tÃ­pico de admin em que o valor selecionado Ã© controlado pelo estado ao redor.",
+                    "description": "Um filtro típico de admin em que o valor selecionado é controlado pelo estado ao redor.",
                     "label": "Status",
                     "options": {
                         "active": "Ativo",
@@ -1351,25 +1281,25 @@
                     "title": "Filtro de status controlado"
                 }
             },
-            "description": "Select permite que a pessoa escolha uma opÃ§Ã£o dentro de uma lista compacta. Use para filtros, campos de formulÃ¡rio e escolhas de configuraÃ§Ã£o escopadas em que o valor atual deve permanecer visÃ­vel em um Ãºnico campo gatilho.",
+            "description": "Select permite que a pessoa escolha uma opção dentro de uma lista compacta. Use para filtros, campos de formulário e escolhas de configuração escopadas em que o valor atual deve permanecer visível em um único campo gatilho.",
             "patternNotes": {
                 "items": {
-                    "clear": "Quando houver valor selecionado, o trigger pode oferecer limpeza direta sem abrir o painel, mas isso nao muda o papel do select como escolha de um unico valor.",
-                    "forms": "Select funciona bem em formularios e filtros compactos. Se o conteudo precisar de busca, metadado rico ou multi-selecao, suba para outra primitiva.",
-                    "grouping": "Agrupe opcoes com labels e separators quando o conjunto misturar categorias, areas ou etapas de ciclo de vida que ganham clareza com hierarquia leve.",
-                    "placeholder": "Use placeholder so quando nenhuma selecao inicial deve ser implicita. Assim que houver valor, o trigger deve exibi-lo claramente.",
-                    "scope": "Use select quando a pessoa precisa escolher um valor dentro de um conjunto definido e o valor atual deve permanecer visivel no proprio campo."
+                    "clear": "Quando houver valor selecionado, o trigger pode oferecer limpeza direta sem abrir o painel, mas isso não muda o papel do select como escolha de um único valor.",
+                    "forms": "Select funciona bem em formularios e filtros compactos. Se o conteúdo precisar de busca, metadado rico ou multi-seleção, suba para outra primitiva.",
+                    "grouping": "Agrupe opções com labels e separators quando o conjunto misturar categorias, areas ou etapas de ciclo de vida que ganham clareza com hierarquia leve.",
+                    "placeholder": "Use placeholder só quando nenhuma seleção inicial deve ser implícita. Assim que houver valor, o trigger deve exibi-lo claramente.",
+                    "scope": "Use select quando a pessoa precisa escolher um valor dentro de um conjunto definido e o valor atual deve permanecer visível no próprio campo."
                 },
                 "snippet": "<Select value={value} onValueChange={setValue}>\n  <SelectTrigger placeholder=\"Escolha o status\" />\n  <SelectContent>\n    <SelectItem value=\"active\">Ativo</SelectItem>\n    <SelectItem value=\"paused\">Pausado</SelectItem>\n  </SelectContent>\n</Select>"
             },
             "sections": {
                 "filters": {
-                    "description": "Select Ã© um bom encaixe para filtros compactos e campos de formulÃ¡rio que expÃµem um Ãºnico valor atual por vez.",
-                    "title": "SeleÃ§Ã£o em filtros e campos"
+                    "description": "Select é um bom encaixe para filtros compactos e campos de formulário que expõem um único valor atual por vez.",
+                    "title": "Seleção em filtros e campos"
                 },
                 "groups": {
-                    "description": "Use labels e separadores quando uma lista plana ficar mais difÃ­cil de escanear ou entender.",
-                    "title": "OpÃ§Ãµes agrupadas"
+                    "description": "Use labels e separadores quando uma lista plana ficar mais difícil de escanear ou entender.",
+                    "title": "Opções agrupadas"
                 }
             },
             "title": "Select"
@@ -1377,32 +1307,32 @@
         "selectionControls": {
             "cards": {
                 "checkbox": {
-                    "description": "Escolhas independentes em que mais de uma opÃ§Ã£o pode ficar ativa ao mesmo tempo.",
+                    "description": "Escolhas independentes em que mais de uma opção pode ficar ativa ao mesmo tempo.",
                     "disabled": {
-                        "description": "Esta opcao esta indisponivel no fluxo atual.",
-                        "label": "Configuracao bloqueada"
+                        "description": "Esta opção esta indisponível no fluxo atual.",
+                        "label": "Configuração bloqueada"
                     },
                     "items": {
                         "one": {
-                            "description": "Enviar um resumo compacto das atualizaÃ§Ãµes do projeto toda sexta-feira.",
+                            "description": "Enviar um resumo compacto das atualizações do projeto toda sexta-feira.",
                             "label": "Compartilhar resumo semanal"
                         },
                         "two": {
-                            "description": "Manter itens arquivados dentro do mesmo escopo de relatÃ³rio.",
+                            "description": "Manter itens arquivados dentro do mesmo escopo de relatório.",
                             "label": "Incluir workspaces arquivados"
                         }
                     },
                     "title": "Checkbox"
                 },
                 "radio": {
-                    "description": "Escolhas exclusivas em que um modo de comunicaÃ§Ã£o ou polÃ­tica precisa ser selecionado.",
+                    "description": "Escolhas exclusivas em que um modo de comunicação ou política precisa ser selecionado.",
                     "items": {
                         "email": {
-                            "description": "Enviar atualizaÃ§Ãµes detalhadas para a caixa de entrada principal.",
+                            "description": "Enviar atualizações detalhadas para a caixa de entrada principal.",
                             "label": "Email"
                         },
                         "silent": {
-                            "description": "Registrar a atualizaÃ§Ã£o sem enviar uma notificaÃ§Ã£o ativa.",
+                            "description": "Registrar a atualização sem enviar uma notificação ativa.",
                             "label": "Silencioso"
                         },
                         "sms": {
@@ -1413,47 +1343,42 @@
                     "title": "Radio group"
                 },
                 "switch": {
-                    "description": "Uma configuraÃ§Ã£o binÃ¡ria que se lÃª com clareza como ligada ou desligada no estado atual.",
+                    "description": "Uma configuração binária que se lê com clareza como ligada ou desligada no estado atual.",
                     "disabled": {
                         "description": "Esta preferencia e controlada pela politica do workspace.",
                         "label": "Bloqueio do sistema"
                     },
                     "item": {
-                        "description": "Permitir imediatamente alertas sobre tarefas atrasadas e mudanÃ§as de status do projeto.",
-                        "label": "Habilitar notificaÃ§Ãµes"
+                        "description": "Permitir imediatamente alertas sobre tarefas atrasadas e mudanças de status do projeto.",
+                        "label": "Habilitar notificações"
                     },
                     "title": "Switch"
                 }
             },
-            "description": "Checkbox, radio group e switch representam escolha do usuÃ¡rio, mas comunicam modelos de interaÃ§Ã£o diferentes. Use cada um conforme a pessoa estiver selecionando vÃ¡rios itens, exatamente uma opÃ§Ã£o ou alternando uma configuraÃ§Ã£o entre ligado e desligado.",
             "patternNotes": {
                 "items": {
-                    "checkbox": "Use checkbox quando a pessoa puder selecionar zero, uma ou vÃ¡rias opÃ§Ãµes de forma independente dentro de um conjunto.",
-                    "descriptions": "Checkbox e radio group podem usar uma descricao curta por item quando a decisao precisa de uma linha extra de contexto.",
-                    "immediate": "Switch deve representar uma configuracao binaria viva. Se a pessoa estiver escolhendo uma opcao entre varias, use radio group em vez dele.",
-                    "radio": "Use radio group quando exatamente uma opÃ§Ã£o precisar ser escolhida entre vÃ¡rias alternativas mutuamente exclusivas.",
-                    "scope": "NÃ£o troque esses controles casualmente. O controle escolhido deve combinar com o significado da decisÃ£o, nÃ£o apenas com o espaÃ§o disponÃ­vel.",
-                    "switch": "Use switch para configuraÃ§Ãµes imediatas de ligado/desligado e preferÃªncias binÃ¡rias que faÃ§am sentido como habilitado ou desabilitado."
-                },
-                "snippet": "<Checkbox label=\"Compartilhar atualizaÃ§Ãµes de progresso\" />\n\n<RadioGroup value={value} onValueChange={setValue}>\n  <RadioGroupItem value=\"email\" label=\"Email\" />\n  <RadioGroupItem value=\"sms\" label=\"SMS\" />\n</RadioGroup>\n\n<Switch label=\"Habilitar notificaÃ§Ãµes\" />"
+                    "checkbox": "Use checkbox quando a pessoa puder selecionar zero, uma ou várias opções de forma independente dentro de um conjunto.",
+                    "descriptions": "Checkbox e radio group podem usar uma descrição curta por item quando a decisao precisa de uma linha extra de contexto.",
+                    "immediate": "Switch deve representar uma configuração binaria viva. Se a pessoa estiver escolhendo uma opção entre várias, use radio group em vez dele.",
+                    "radio": "Use radio group quando exatamente uma opção precisar ser escolhida entre várias alternativas mutuamente exclusivas.",
+                    "scope": "Não troque esses controles casualmente. O controle escolhido deve combinar com o significado da decisão, não apenas com o espaço disponível.",
+                    "switch": "Use switch para configurações imediatas de ligado/desligado e preferências binárias que façam sentido como habilitado ou desabilitado."
+                }
             },
             "sections": {
                 "comparison": {
-                    "description": "Esses trÃªs controles pertencem Ã  mesma famÃ­lia conceitual, mas cada um sinaliza um tipo diferente de decisÃ£o.",
-                    "title": "ComparaÃ§Ã£o de interaÃ§Ã£o"
+                    "title": "Comparação de interação"
                 }
-            },
-            "title": "Selection Controls"
+            }
         },
         "shared": {
-            "closePatternNotes": "Fechar notas do padrÃ£o",
             "collapse": "Recolher",
             "expand": "Expandir",
-            "eyebrow": "PartÃ­culas de UI",
+            "eyebrow": "Partículas de UI",
             "patternNotesApiLabel": "API atual do componente",
-            "patternNotesLabel": "Notas do padrÃ£o",
+            "patternNotesLabel": "Notas do padrão",
             "patternNotesTitle": "Quando usar",
-            "viewPatternNotes": "Ver notas do padrÃ£o"
+            "viewPatternNotes": "Ver notas do padrão"
         },
         "skeleton": {
             "cardExample": {
@@ -1461,37 +1386,33 @@
                 "description": "Este card mantem exatamente o mesmo JSX nos dois estados. Apenas a prop `isLoading` muda.",
                 "title": "Resumo do projeto"
             },
-            "description": "Skeleton e a primitiva de carregamento para conteudo que ja possui um layout estavel. Na maioria dos casos, use via `Card isLoading` para que os slots do card virem placeholders automaticamente.",
+            "description": "Skeleton e a primitiva de carregamento para conteúdo que já possui um layout estável. Na maioria dos casos, use via `Card isLoading` para que os slots do card virem placeholders automaticamente.",
             "dialogExample": {
-                "content": "Depois de carregado, o conteudo do corpo substitui o placeholder sem mudar a anatomia geral do dialog.",
-                "description": "O dialog mantem sua estrutura enquanto aguarda o conteudo da etapa atual.",
                 "note": "Abra o preview para inspecionar o estado de loading do dialog em uso.",
-                "primary": "Continuar",
-                "secondary": "Cancelar",
                 "title": "Sincronizar workspace",
                 "trigger": "Abrir dialog em loading"
             },
             "loadingLabels": {
                 "card": "Carregando resumo do projeto",
                 "dialog": "Carregando dialog do projeto",
-                "section": "Carregando secao do projeto",
+                "section": "Carregando seção do projeto",
                 "usageCard": "Carregando exemplo de uso de button"
             },
             "patternNotes": {
                 "items": {
-                    "automatic": "Prefira estados de loading automaticos para cards. Defina `isLoading` no card e mantenha a estrutura real do card no JSX.",
-                    "manual": "Use a primitiva `Skeleton` diretamente apenas quando precisar de formas customizadas fora da anatomia padrao de card.",
-                    "scope": "Use skeletons no mesmo conteiner que vai renderizar o conteudo final para manter espaco, ritmo e hierarquia estaveis.",
-                    "stability": "Os placeholders devem preservar a area ocupada pelo layout. Evite trocar por estruturas totalmente diferentes enquanto a requisicao estiver em andamento."
+                    "automatic": "Prefira estados de loading automáticos para cards. Defina `isLoading` no card e mantenha a estrutura real do card no JSX.",
+                    "manual": "Use a primitiva `Skeleton` diretamente apenas quando precisar de formas customizadas fora da anatomia padrão de card.",
+                    "scope": "Use skeletons no mesmo conteiner que vai renderizar o conteúdo final para manter espaco, ritmo e hierarquia estáveis.",
+                    "stability": "Os placeholders devem preservar a area ocupada pelo layout. Evite trocar por estruturas totalmente diferentes enquanto a requisição estiver em andamento."
                 },
-                "snippet": "<Card\n  isLoading\n  className=\"flex min-h-40 flex-col justify-between p-4\"\n>\n  <CardHeader>\n    <CardTitle>Titulo do card</CardTitle>\n    <CardDescription>\n      Descricao de apoio.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>\n    <Button usage=\"primary\">Continuar</Button>\n  </CardContent>\n</Card>\n\n<Skeleton className=\"h-4 w-24\" />"
+                "snippet": "<Card\n  isLoading\n  className=\"flex min-h-40 flex-col justify-between p-4\"\n>\n  <CardHeader>\n    <CardTitle>Título do card</CardTitle>\n    <CardDescription>\n      Descrição de apoio.\n    </CardDescription>\n  </CardHeader>\n\n  <CardContent>\n    <Button usage=\"primary\">Continuar</Button>\n  </CardContent>\n</Card>\n\n<Skeleton className=\"h-4 w-24\" />"
             },
-            "primitiveNote": "Use a primitiva de baixo nivel apenas quando o loading automatico de card nao for suficiente.",
+            "primitiveNote": "Use a primitiva de baixo nivel apenas quando o loading automático de card não for suficiente.",
             "sectionExample": {
-                "content": "O corpo da section pode manter o layout final enquanto o conteudo e resolvido.",
+                "content": "O corpo da section pode manter o layout final enquanto o conteúdo e resolvido.",
                 "cta": "Atualizar dados",
-                "description": "Use a mesma estrutura de section durante o loading para manter o ritmo da pagina estavel.",
-                "title": "Saude do workspace"
+                "description": "Use a mesma estrutura de section durante o loading para manter o ritmo da pagina estável.",
+                "title": "Saúde do workspace"
             },
             "sections": {
                 "buttonUsage": {
@@ -1500,39 +1421,38 @@
                 },
                 "cards": {
                     "description": "A primitiva de card agora pode substituir automaticamente title, description, content e footer por placeholders de skeleton.",
-                    "title": "Loading automatico em cards"
+                    "title": "Loading automático em cards"
                 },
                 "dialog": {
-                    "description": "Dialogs usam o mesmo contexto de loading para manter titulo, controle de fechamento e corpo rolavel estruturalmente estaveis.",
+                    "description": "Dialogs usam o mesmo contexto de loading para manter título, controle de fechamento e corpo rolável estruturalmente estáveis.",
                     "title": "Loading em dialog"
                 },
                 "icon": {
-                    "description": "Icones isolados podem mostrar um skeleton circular simples quando o proprio icone ainda estiver sendo resolvido.",
+                    "description": "Icones isolados podem mostrar um skeleton circular simples quando o próprio icone ainda estiver sendo resolvido.",
                     "title": "Loading em icon"
                 },
                 "layout": {
-                    "description": "As primitivas de baixo nivel `Header`, `Content` e `Footer` tambem suportam placeholders de loading explicitos para composicoes customizadas.",
+                    "description": "As primitivas de baixo nivel `Header`, `Content` e `Footer` também suportam placeholders de loading explícitos para composicoes customizadas.",
                     "title": "Loading em layout"
                 },
                 "primitive": {
-                    "description": "Use `Skeleton` diretamente em layouts que nao se encaixam na anatomia padrao de card.",
+                    "description": "Use `Skeleton` diretamente em layouts que não se encaixam na anatomia padrão de card.",
                     "title": "Primitiva de baixo nivel"
                 },
                 "section": {
-                    "description": "Sections tambem podem trocar title, description, actions e content por placeholders de loading usando o mesmo padrao.",
+                    "description": "Sections também podem trocar title, description, actions e content por placeholders de loading usando o mesmo padrão.",
                     "title": "Loading em section"
                 }
             },
             "title": "Skeleton"
         },
         "structurePrimitives": {
-            "description": "Tabs, label, separator e scroll area organizam layout e ritmo de interaÃ§Ã£o mais do que carregam significado de negÃ³cio por si sÃ³. Use para estruturar conteÃºdo, conectar texto a campos e controlar superfÃ­cies densas com mais clareza.",
             "iconTabs": {
-                "description": "Esta variante preserva o comportamento da tab enquanto reduz cada trigger para um controle do tamanho de um botao de icone.",
+                "description": "Esta variante preserva o comportamento da tab enquanto reduz cada trigger para um controle do tamanho de um botão de icone.",
                 "title": "Variante com icone e tooltip"
             },
             "labelCard": {
-                "description": "Labels e separators sustentam pequenas, mas importantes, decisÃµes de hierarquia dentro de formulÃ¡rios e linhas de metadados.",
+                "description": "Labels e separators sustentam pequenas, mas importantes, decisões de hierarquia dentro de formulários e linhas de metadados.",
                 "leftMeta": "Atualizado hoje",
                 "nameLabel": "Nome do workspace",
                 "namePlaceholder": "Digite o nome do workspace",
@@ -1543,13 +1463,13 @@
                 "items": {
                     "iconTabs": "Tabs somente com icone devem usar `TabsList variant=\"icon\"` e expor `tooltipContent` em cada trigger para manter o nome da tab descobrivel.",
                     "label": "Use label para associar diretamente o texto do formulario ao seu campo, em vez de depender apenas da tipografia ao redor.",
-                    "labelSupport": "Label pertence a inputs, text areas, comboboxes e outros campos que precisam de um nome persistente. Placeholder nao substitui esse papel.",
+                    "labelSupport": "Label pertence a inputs, text areas, comboboxes e outros campos que precisam de um nome persistente. Placeholder não substitui esse papel.",
                     "scrollArea": "Use `ScrollArea` em regioes limitadas como sidebars, paineis, dialogs, drawers e listas densas. Ele precisa de uma altura definida ou de um limite real de altura para que a rolagem aconteca.",
-                    "scrollAreaBounded": "Nao use `ScrollArea` como wrapper da pagina inteira. Ele serve para conter overflow dentro de uma superficie ja delimitada.",
-                    "scrollAreaViewport": "Mantenha o conteudo interno com padding e ritmo proprios, mas deixe a responsabilidade da barra e do viewport no componente compartilhado.",
-                    "separator": "Use separators com parcimonia para reforcar agrupamento ou ritmo. Eles devem apoiar a hierarquia, nao substituir decisoes de espacamento e layout.",
-                    "separatorRhythm": "Separator funciona melhor entre blocos relacionados, linhas de metadado e transicoes de secao. Nao use como enfeite solto.",
-                    "tabs": "Use tabs quando varias se??es pares compartilham o mesmo espaco e a pessoa precisa alternar entre elas sem trocar de rota."
+                    "scrollAreaBounded": "Não use `ScrollArea` como wrapper da pagina inteira. Ele serve para conter overflow dentro de uma superficie já delimitada.",
+                    "scrollAreaViewport": "Mantenha o conteúdo interno com padding e ritmo próprios, mas deixe a responsabilidade da barra e do viewport no componente compartilhado.",
+                    "separator": "Use separators com parcimônia para reforcar agrupamento ou ritmo. Eles devem apoiar a hierarquia, não substituir decisoes de espaçamento e layout.",
+                    "separatorRhythm": "Separator funciona melhor entre blocos relacionados, linhas de metadado e transições de seção. Não use como enfeite solto.",
+                    "tabs": "Use tabs quando várias seções pares compartilham o mesmo espaco e a pessoa precisa alternar entre elas sem trocar de rota."
                 },
                 "scrollAreaSnippet": "<ScrollArea className=\"h-48\">\n  <div className=\"space-y-3 p-4\">...</div>\n</ScrollArea>",
                 "snippet": "<Tabs defaultValue=\"overview\">\n  <TabsList>\n    <TabsTrigger value=\"overview\">Visao geral</TabsTrigger>\n    <TabsTrigger value=\"members\">Membros</TabsTrigger>\n  </TabsList>\n</Tabs>\n\n<Tabs defaultValue=\"overview\">\n  <TabsList variant=\"icon\">\n    <TabsTrigger value=\"overview\" tooltipContent=\"Visao geral\">\n      <Icon />\n    </TabsTrigger>\n  </TabsList>\n</Tabs>"
@@ -1560,30 +1480,30 @@
                 "separatorTitle": "Separator"
             },
             "scrollCard": {
-                "description": "Scroll areas funcionam bem dentro de painÃ©is ou cards em que listas maiores precisam continuar limitadas sem perder polimento visual.",
+                "description": "Scroll areas funcionam bem dentro de painéis ou cards em que listas maiores precisam continuar limitadas sem perder polimento visual.",
                 "items": {
                     "five": {
-                        "description": "ColeÃ§Ãµes maiores devem continuar fÃ¡ceis de escanear mesmo quando restritas.",
+                        "description": "Coleções maiores devem continuar fáceis de escanear mesmo quando restritas.",
                         "title": "Item de atividade cinco"
                     },
                     "four": {
-                        "description": "A primitiva mantÃ©m o comportamento de overflow explÃ­cito dentro da regiÃ£o.",
+                        "description": "A primitiva mantém o comportamento de overflow explícito dentro da região.",
                         "title": "Item de atividade quatro"
                     },
                     "one": {
-                        "description": "RegiÃµes rolÃ¡veis ainda devem preservar ritmo e espaÃ§amento legÃ­veis.",
+                        "description": "Regiões roláveis ainda devem preservar ritmo e espaçamento legíveis.",
                         "title": "Item de atividade um"
                     },
                     "six": {
-                        "description": "O card ao redor pode permanecer visualmente estÃ¡vel enquanto a lista rola.",
+                        "description": "O card ao redor pode permanecer visualmente estável enquanto a lista rola.",
                         "title": "Item de atividade seis"
                     },
                     "three": {
-                        "description": "Isso Ã© especialmente Ãºtil para side panels e dashboards compactos.",
-                        "title": "Item de atividade trÃªs"
+                        "description": "Isso é especialmente útil para side panels e dashboards compactos.",
+                        "title": "Item de atividade três"
                     },
                     "two": {
-                        "description": "Use uma scroll area quando a superfÃ­cie pai precisar permanecer limitada.",
+                        "description": "Use uma scroll area quando a superfície pai precisar permanecer limitada.",
                         "title": "Item de atividade dois"
                     }
                 },
@@ -1591,38 +1511,36 @@
             },
             "sections": {
                 "iconTabs": {
-                    "description": "Use tabs somente com icone apenas quando os r?tulos ja forem familiares ou o espaco estiver apertado. Nesse caso, mantenha o significado disponivel via tooltip.",
+                    "description": "Use tabs somente com icone apenas quando os rótulos já forem familiares ou o espaco estiver apertado. Nesse caso, mantenha o significado disponível via tooltip.",
                     "title": "Tabs somente com icone"
                 },
                 "structure": {
-                    "description": "Essas primitivas ficam mais Ãºteis quando reforÃ§am estrutura de formulÃ¡rio, ritmo de metadados e overflow restrito dentro da mesma composiÃ§Ã£o.",
                     "title": "Label, separator e scroll area"
                 },
                 "tabs": {
-                    "description": "Tabs se encaixam bem quando seÃ§Ãµes relacionadas competem pelo mesmo espaÃ§o da pÃ¡gina, mas precisam continuar rapidamente acessÃ­veis.",
+                    "description": "Tabs se encaixam bem quando seções relacionadas competem pelo mesmo espaço da página, mas precisam continuar rapidamente acessíveis.",
                     "title": "Tabs"
                 }
             },
             "tabs": {
                 "items": {
                     "history": {
-                        "description": "Isso Ã© Ãºtil quando a pessoa precisa alternar rapidamente entre visÃµes paralelas.",
-                        "label": "HistÃ³rico",
-                        "title": "HistÃ³rico de atividades"
+                        "description": "Isso é útil quando a pessoa precisa alternar rapidamente entre visões paralelas.",
+                        "label": "Histórico",
+                        "title": "Histórico de atividades"
                     },
                     "members": {
-                        "description": "Tabs mantÃªm seÃ§Ãµes relacionadas lado a lado sem forÃ§ar todos os detalhes dentro de uma Ãºnica superfÃ­cie longa.",
+                        "description": "Tabs mantêm seções relacionadas lado a lado sem forçar todos os detalhes dentro de uma única superfície longa.",
                         "label": "Membros",
-                        "title": "Membros e papÃ©is"
+                        "title": "Membros e papéis"
                     },
                     "overview": {
-                        "description": "Use uma tab quando esse painel for um par entre vÃ¡rias Ã¡reas de conteÃºdo relacionadas.",
-                        "label": "VisÃ£o geral",
-                        "title": "VisÃ£o geral do workspace"
+                        "description": "Use uma tab quando esse painel for um par entre várias áreas de conteúdo relacionadas.",
+                        "label": "Visão geral",
+                        "title": "Visão geral do workspace"
                     }
                 }
-            },
-            "title": "Structure Primitives"
+            }
         },
         "table": {
             "caption": "Uma primitiva de tabela compartilhada baseada em TanStack Table e estilizada para as superficies do sistema.",
@@ -1632,18 +1550,18 @@
                 "status": "Status",
                 "updatedAt": "Atualizado"
             },
-            "description": "Table e a primitiva compartilhada para listas operacionais densas que ainda precisam de hierarquia clara, tratamento de overflow horizontal e estados previsiveis de vazio e loading.",
+            "description": "Table e a primitiva compartilhada para listas operacionais densas que ainda precisam de hierarquia clara, tratamento de overflow horizontal e estados previsíveis de vazio e loading.",
             "empty": {
-                "description": "Passe um empty state escopado quando a colecao nao tiver linhas, em vez de deixar a regiao visualmente indefinida.",
+                "description": "Passe um empty state escopado quando a colecao não tiver linhas, em vez de deixar a região visualmente indefinida.",
                 "title": "Nenhum projeto nesta visao"
             },
             "loadingLabel": "Carregando linhas da tabela",
             "patternNotes": {
                 "items": {
-                    "columns": "Mantenha as definicoes de coluna perto da feature dona dos dados. A primitiva deve continuar responsavel por renderizacao, row models e comportamento da superficie.",
+                    "columns": "Mantenha as definicoes de coluna perto da feature dona dos dados. A primitiva deve continuar responsável por renderizacao, row models e comportamento da superficie.",
                     "headless": "TanStack Table e usado como engine headless. A primitiva compartilhada controla o contrato visual enquanto as features controlam seus dados e o comportamento das colunas.",
                     "overflow": "Envolva a tabela com a scroll area compartilhada para que datasets largos continuem usaveis sem deslocar o layout mais amplo da pagina.",
-                    "sorting": "Sorting ja vem embutido para colunas ordenaveis, mas deve permanecer discreto e operacional, sem transformar a tabela em uma planilha."
+                    "sorting": "Sorting já vem embutido para colunas ordenaveis, mas deve permanecer discreto e operacional, sem transformar a tabela em uma planilha."
                 },
                 "snippet": "<Table\n  data={rows}\n  columns={columns}\n  caption=\"Projetos operacionais\"\n  emptyState={<EmptyState title=\"Sem linhas\" description=\"Ajuste seus filtros.\" />}\n/>"
             },
@@ -1670,11 +1588,11 @@
                     "title": "Estados de loading e vazio"
                 },
                 "structure": {
-                    "description": "Uma tabela operacional basica deve parecer legivel antes de qualquer filtro, acao ou paginacao especifica de feature ao seu redor.",
+                    "description": "Uma tabela operacional básica deve parecer legível antes de qualquer filtro, ação ou paginação específica de feature ao seu redor.",
                     "title": "Estrutura de lista operacional"
                 }
             },
-            "statesNote": "Mantenha comportamentos avancados como acoes de linha, filtros, paginacao ou virtualizacao fora da primitiva ate que uma feature real os exija.",
+            "statesNote": "Mantenha comportamentos avancados como ações de linha, filtros, paginação ou virtualização fora da primitiva até que uma feature real os exija.",
             "status": {
                 "active": "Ativo",
                 "hold": "Em espera",
@@ -1685,7 +1603,7 @@
         "textArea": {
             "cards": {
                 "disabled": {
-                    "description": "Campos de texto longo tambem precisam de um estado desabilitado claro quando o conteudo e somente informativo.",
+                    "description": "Campos de texto longo também precisam de um estado desabilitado claro quando o conteúdo e somente informativo.",
                     "label": "Nota de auditoria",
                     "title": "Text area desabilitada",
                     "value": "Esta nota e gerada automaticamente."
@@ -1693,7 +1611,7 @@
                 "feedback": {
                     "description": "Use uma text area mais alta quando a resposta esperada for mais descritiva e reflexiva.",
                     "label": "Feedback",
-                    "placeholder": "Descreva a experiÃªncia atual e o que deve melhorar",
+                    "placeholder": "Descreva a experiência atual e o que deve melhorar",
                     "title": "Feedback mais longo"
                 },
                 "notes": {
@@ -1703,19 +1621,19 @@
                     "title": "Notas internas"
                 }
             },
-            "description": "Text area Ã© a primitiva para conteÃºdo livre mais longo. Use quando o valor precisar de mais de uma linha, como notas, feedback, descriÃ§Ãµes ou conteÃºdo explicativo.",
+            "description": "Text area é a primitiva para conteúdo livre mais longo. Use quando o valor precisar de mais de uma linha, como notas, feedback, descrições ou conteúdo explicativo.",
             "patternNotes": {
                 "items": {
-                    "longform": "Use text area quando a pessoa for escrever frases, notas ou qualquer conteudo que naturalmente ocupe varias linhas.",
-                    "resize": "O campo deve preservar uma altura minima confortavel para que conteudos maiores nao parecam apertados desde a primeira interacao.",
-                    "rhythm": "Label, espacamento e o ritmo do formulario ao redor importam ainda mais em text areas porque elas ocupam bem mais altura que um input comum.",
-                    "scope": "Nao use text area para valores curtos e estruturados so porque existe mais largura disponivel. Campos de uma linha continuam sendo input."
+                    "longform": "Use text area quando a pessoa for escrever frases, notas ou qualquer conteúdo que naturalmente ocupe várias linhas.",
+                    "resize": "O campo deve preservar uma altura mínima confortavel para que conteúdos maiores não parecam apertados desde a primeira interação.",
+                    "rhythm": "Label, espaçamento e o ritmo do formulario ao redor importam ainda mais em text areas porque elas ocupam bem mais altura que um input comum.",
+                    "scope": "Não use text area para valores curtos e estruturados só porque existe mais largura disponível. Campos de uma linha continuam sendo input."
                 },
                 "snippet": "<TextArea placeholder=\"Adicione notas internas\" />"
             },
             "sections": {
                 "usage": {
-                    "description": "Text areas funcionam melhor para conteÃºdo que deve continuar legÃ­vel Ã  medida que cresce verticalmente.",
+                    "description": "Text areas funcionam melhor para conteúdo que deve continuar legível Á  medida que cresce verticalmente.",
                     "title": "Entrada de texto longo"
                 }
             },
@@ -1725,67 +1643,67 @@
             "async": {
                 "apiError": {
                     "button": "Erro de API",
-                    "description": "Voce nao tem permissao para excluir esta matricula.",
+                    "description": "Você não tem permissão para excluir esta matrícula.",
                     "title": "403 Proibido"
                 },
                 "promise": {
                     "button": "Promise toast",
                     "description": "{{value}} agora estao ativas para todos os admins.",
-                    "error": "Nao foi possivel salvar as configuracoes",
-                    "loading": "Salvando configuracoes...",
+                    "error": "Não foi possível salvar as configurações",
+                    "loading": "Salvando configurações...",
                     "success": "{{value}} salvas"
                 },
                 "undo": {
                     "button": "Undo preview",
-                    "description": "Use este estado apenas quando a acao realmente puder ser desfeita de forma segura.",
-                    "title": "Usuario excluido"
+                    "description": "Use este estado apenas quando a ação realmente puder ser desfeita de forma segura.",
+                    "title": "Usuário excluido"
                 }
             },
-            "description": "Toast e o feedback transiente para confirmacoes de baixa friccao, trabalho assincrono e erros curtos que nao merecem roubar o fluxo inteiro.",
+            "description": "Toast e o feedback transiente para confirmacoes de baixa fricção, trabalho assincrono e erros curtos que não merecem roubar o fluxo inteiro.",
             "patternNotes": {
                 "items": {
-                    "description": "O titulo deve carregar a mensagem principal. A descricao entra so para uma linha extra de contexto util.",
-                    "neutral": "Use o toast neutro por padrao para confirmacoes rotineiras. Tons semanticos entram quando o estado precisa de mais enfase visual.",
+                    "description": "O título deve carregar a mensagem principal. A descrição entra só para uma linha extra de contexto util.",
+                    "neutral": "Use o toast neutro por padrão para confirmacoes rotineiras. Tons semanticos entram quando o estado precisa de mais ênfase visual.",
                     "promise": "Para trabalho assincrono, use `toast.promise` para refletir o ciclo real da operacao, em vez de empilhar loading, sucesso e erro manualmente.",
-                    "scope": "Toast nao substitui validacao inline, dialog ou alert dialog. Use-o para feedback breve que nao exige um novo fluxo."
+                    "scope": "Toast não substitui válidação inline, dialog ou alert dialog. Use-o para feedback breve que não exige um novo fluxo."
                 },
-                "snippet": "toast(\"Configuracoes salvas\", {\n  description: \"As alteracoes do perfil ja estao ativas.\",\n});\n\ntoast.success(\"Matricula atualizada\", {\n  description: \"A nova turma ja esta atribuida.\",\n});\n\ntoast.promise(saveSettings(), {\n  loading: \"Salvando configuracoes...\",\n  success: \"Configuracoes salvas\",\n  error: \"Nao foi possivel salvar as configuracoes\",\n  description: \"As preferencias de notificacao foram atualizadas.\",\n});\n\ntoast.danger(\"403 Proibido\", {\n  description: \"Voce nao tem permissao para excluir esta matricula.\",\n});"
+                "snippet": "toast(\"Configurações salvas\", {\n  description: \"As alterações do perfil já estao ativas.\",\n});\n\ntoast.success(\"Matrícula atualizada\", {\n  description: \"A nova turma já esta atribuida.\",\n});\n\ntoast.promise(saveSettings(), {\n  loading: \"Salvando configurações...\",\n  success: \"Configurações salvas\",\n  error: \"Não foi possível salvar as configurações\",\n  description: \"As preferencias de notificação foram atualizadas.\",\n});\n\ntoast.danger(\"403 Proibido\", {\n  description: \"Você não tem permissão para excluir esta matrícula.\",\n});"
             },
             "sections": {
                 "async": {
-                    "description": "Promise toasts devem espelhar a vida real da requisicao. Para o resto, mantenha o feedback curto e explicito.",
+                    "description": "Promise toasts devem espelhar a vida real da requisição. Para o resto, mantenha o feedback curto e explícito.",
                     "title": "Trabalho assincrono e erros"
                 },
                 "variants": {
                     "description": "Tratamentos neutros e semanticos para os estados de feedback mais comuns.",
-                    "title": "Variantes de intencao"
+                    "title": "Variantes de intenção"
                 }
             },
             "title": "Toast",
             "variants": {
                 "danger": {
                     "button": "Danger",
-                    "description": "A requisicao foi rejeitada pelo servidor.",
-                    "title": "Atualizacao falhou"
+                    "description": "A requisição foi rejeitada pelo servidor.",
+                    "title": "Atualização falhou"
                 },
                 "info": {
                     "button": "Info",
                     "description": "Novos registros estao sendo buscados na API.",
-                    "title": "Sincronizacao iniciada"
+                    "title": "Sincronização iniciada"
                 },
                 "neutral": {
                     "button": "Neutro",
-                    "description": "Suas alteracoes estao disponiveis neste dispositivo.",
+                    "description": "Suas alterações estao disponiveis neste dispositivo.",
                     "title": "Rascunho salvo"
                 },
                 "success": {
                     "button": "Sucesso",
                     "description": "Os dados do perfil foram salvos com sucesso.",
-                    "title": "Usuario atualizado"
+                    "title": "Usuário atualizado"
                 },
                 "warning": {
                     "button": "Aviso",
-                    "description": "Menos de 10% da cota ainda esta disponivel.",
+                    "description": "Menos de 10% da cota ainda esta disponível.",
                     "title": "Armazenamento quase cheio"
                 }
             }
@@ -1795,8 +1713,8 @@
                 "chrome": {
                     "description": "Use a variante chrome em fundos coloridos. Os itens podem ficar compactos e usar tooltip embutido.",
                     "locale": {
-                        "english": "Ingles",
-                        "portuguese": "Portugues"
+                        "english": "Inglês",
+                        "portuguese": "Português"
                     },
                     "theme": {
                         "dark": "Escuro",
@@ -1806,16 +1724,16 @@
                     "title": "Variante chrome"
                 },
                 "multi": {
-                    "description": "Use toggle groups de mÃºltipla seleÃ§Ã£o para formataÃ§Ã£o ou controles em forma de chip em que vÃ¡rios estados possam continuar ativos.",
+                    "description": "Use toggle groups de múltipla seleção para formatação ou controles em forma de chip em que vários estados possam continuar ativos.",
                     "items": {
                         "bold": "Negrito",
-                        "italic": "ItÃ¡lico",
+                        "italic": "Itálico",
                         "underline": "Sublinhado"
                     },
-                    "title": "VÃ¡rios estados pressionados"
+                    "title": "Vários estados pressionados"
                 },
                 "pill": {
-                    "description": "Use a variante pill quando estados relacionados devem parecer colados em um unico controle segmentado.",
+                    "description": "Use a variante pill quando estados relacionados devem parecer colados em um único controle segmentado.",
                     "items": {
                         "dark": "Escuro",
                         "light": "Claro",
@@ -1824,36 +1742,35 @@
                     "title": "Variante pill"
                 },
                 "single": {
-                    "ariaLabel": "Alternar formataÃ§Ã£o em negrito",
-                    "description": "Use o toggle unico como padrao de acao pressionada na superficie normal do app.",
+                    "ariaLabel": "Alternar formatação em negrito",
+                    "description": "Use o toggle único como padrão de ação pressionada na superficie normal do app.",
                     "disabledLabel": "Bloqueado",
                     "label": "Negrito",
-                    "title": "Toggle Ãºnico"
+                    "title": "Toggle único"
                 },
                 "view": {
-                    "description": "Um toggle group de valor Ãºnico Ã© um bom encaixe para trocas compactas de visualizaÃ§Ã£o, como grade versus lista.",
+                    "description": "Um toggle group de valor único é um bom encaixe para trocas compactas de visualização, como grade versus lista.",
                     "items": {
                         "grid": "Grade",
                         "list": "Lista"
                     },
-                    "title": "Modo de visualizaÃ§Ã£o exclusivo"
+                    "title": "Modo de visualização exclusivo"
                 }
             },
-            "description": "Toggle e toggle group expressam estado pressionado em vez de selecao de formulario. O toggle unico usa o tratamento padrao de superficie, enquanto toggle groups agora tem um contrato mais restrito: `spaced` ou `pill`, com `chrome` opcional para fundos coloridos.",
+            "description": "Toggle e toggle group expressam estado pressionado em vez de seleção de formulario. O toggle único usa o tratamento padrão de superficie, enquanto toggle groups agora tem um contrato mais restrito: `spaced` ou `pill`, com `chrome` opcional para fundos coloridos.",
             "patternNotes": {
                 "groupSnippet": "<ToggleGroup variant=\"pill\" colorVariant=\"chrome\" value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"light\" tooltipContent=\"Claro\">\n    <Sun />\n  </ToggleGroupItem>\n  <ToggleGroupItem value=\"dark\" tooltipContent=\"Escuro\">\n    <Moon />\n  </ToggleGroupItem>\n</ToggleGroup>",
                 "items": {
-                    "chrome": "Use `colorVariant=\"chrome\"` apenas sobre fundos coloridos, como topbars e superficies de marca. Fora disso, mantenha o grupo no colorVariant padrao.",
-                    "defaultSurface": "Use o `Toggle` unico como padrao de acao pressionada em superficies neutras. Ele nao deve virar substituto de checkbox, radio group ou switch.",
-                    "group": "Use `ToggleGroup` quando varios estados relacionados precisarem funcionar como um conjunto coerente, seja exclusivo ou multi-pressionado.",
-                    "pill": "Use a variante `pill` quando os itens devem parecer um controle segmentado unico, sem espacamento entre as partes.",
-                    "press": "Esses controles comunicam estado pressionado, nÃ£o semÃ¢ntica de formulÃ¡rio. Prefira checkbox, radio group ou switch quando o significado for seleÃ§Ã£o ou configuraÃ§Ã£o.",
-                    "scope": "Toggle controls funcionam melhor em toolbars, trocas de visualizaÃ§Ã£o, aÃ§Ãµes de formataÃ§Ã£o e chips compactos de filtro.",
-                    "spaced": "Use a variante `spaced` em toolbars, trocas de visualizacao e grupos de formatacao em que cada item deve permanecer claramente separado.",
-                    "toggle": "Use toggle para um Ãºnico controle pressionado/nÃ£o pressionado que se comporta como um botÃ£o de aÃ§Ã£o com estado."
+                    "chrome": "Use `colorVariant=\"chrome\"` apenas sobre fundos coloridos, como topbars e superficies de marca. Fora disso, mantenha o grupo no colorVariant padrão.",
+                    "defaultSurface": "Use o `Toggle` único como padrão de ação pressionada em superficies neutras. Ele não deve virar substituto de checkbox, radio group ou switch.",
+                    "group": "Use `ToggleGroup` quando vários estados relacionados precisarem funcionar como um conjunto coerente, seja exclusivo ou multi-pressionado.",
+                    "pill": "Use a variante `pill` quando os itens devem parecer um controle segmentado único, sem espaçamento entre as partes.",
+                    "press": "Esses controles comunicam estado pressionado, não semântica de formulário. Prefira checkbox, radio group ou switch quando o significado for seleção ou configuração.",
+                    "scope": "Toggle controls funcionam melhor em toolbars, trocas de visualização, ações de formatação e chips compactos de filtro.",
+                    "spaced": "Use a variante `spaced` em toolbars, trocas de visualização e grupos de formatação em que cada item deve permanecer claramente separado.",
+                    "toggle": "Use toggle para um único controle pressionado/não pressionado que se comporta como um botão de ação com estado."
                 },
-                "singleSnippet": "<Toggle aria-label=\"Negrito\">\n  <Icon icon={Bold} />\n  <span>Negrito</span>\n</Toggle>",
-                "snippet": "<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grid</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">Lista</ToggleGroupItem>\n</ToggleGroup>\n\n<ToggleGroup variant=\"pill\" value={theme} onValueChange={setTheme}>\n  <ToggleGroupItem value=\"light\">Claro</ToggleGroupItem>\n  <ToggleGroupItem value=\"dark\">Escuro</ToggleGroupItem>\n  <ToggleGroupItem value=\"system\">Sistema</ToggleGroupItem>\n</ToggleGroup>"
+                "singleSnippet": "<Toggle aria-label=\"Negrito\">\n  <Icon icon={Bold} />\n  <span>Negrito</span>\n</Toggle>"
             },
             "primitives": {
                 "toggleGroupTitle": "Toggle Group"
@@ -1864,62 +1781,53 @@
                     "title": "Chrome em superficies coloridas"
                 },
                 "default": {
-                    "description": "Este e o controle base de acao pressionada para superficies neutras.",
-                    "title": "Toggle unico padrao"
-                },
-                "multi": {
-                    "description": "Um toggle group mÃºltiplo funciona quando vÃ¡rios estados de formataÃ§Ã£o ou filtro podem permanecer ativos ao mesmo tempo.",
-                    "title": "Grupos com vÃ¡rios estados pressionados"
+                    "description": "Este e o controle base de ação pressionada para superficies neutras.",
+                    "title": "Toggle único padrão"
                 },
                 "pill": {
                     "description": "A variante pill transforma o grupo em um controle conectado para escolhas exclusivas compactas.",
                     "title": "Variante pill"
                 },
                 "spaced": {
-                    "description": "O layout padrao do toggle group mantem os itens separados. Use em toolbars, grupos de formatacao e trocas de visualizacao.",
+                    "description": "O layout padrão do toggle group mantem os itens separados. Use em toolbars, grupos de formatação e trocas de visualização.",
                     "title": "Variante spaced"
-                },
-                "usage": {
-                    "description": "Use um toggle isolado para uma aÃ§Ã£o pressionada, ou um toggle group de valor Ãºnico quando um modo ou visualizaÃ§Ã£o deve permanecer ativo.",
-                    "title": "Uso Ãºnico e exclusivo"
                 }
-            },
-            "title": "Toggle Controls"
+            }
         },
         "tooltip": {
             "automatic": {
                 "createItem": "Criar item",
                 "deleteDraft": "Excluir rascunho",
-                "moreInformation": "Mais informaÃ§Ãµes"
+                "moreInformation": "Mais informações"
             },
-            "description": "Tooltips fornecem dicas contextuais curtas para controles e elementos inline da interface. Use o wrapper diretamente em gatilhos personalizados ou conte com o comportamento automÃ¡tico em botÃµes somente com Ã­cone.",
+            "description": "Tooltips fornecem dicas contextuais curtas para controles e elementos inline da interface. Use o wrapper diretamente em gatilhos personalizados ou conte com o comportamento automático em botões somente com ícone.",
             "patternNotes": {
                 "items": {
-                    "clarify": "Use tooltips para esclarecer controles compactos, especialmente aÃ§Ãµes somente com Ã­cone que precisam de contexto visÃ­vel no hover ou no foco.",
-                    "compact": "Mantenha o texto curto e neutro. Se o conteÃºdo precisar de instruÃ§Ãµes ou mÃºltiplas aÃ§Ãµes, prefira outro padrÃ£o, como texto auxiliar, popover ou dialog.",
-                    "iconButtons": "Para botoes com icone, o proprio componente de botao ja resolve o conteudo do tooltip a partir de `tooltipContent`, `title` ou do rotulo acessivel.",
-                    "reinforce": "O tooltip deve reforÃ§ar um controle existente, nÃ£o carregar sozinho a informaÃ§Ã£o principal."
+                    "clarify": "Use tooltips para esclarecer controles compactos, especialmente ações somente com ícone que precisam de contexto visível no hover ou no foco.",
+                    "compact": "Mantenha o texto curto e neutro. Se o conteúdo precisar de instruções ou múltiplas ações, prefira outro padrão, como texto auxiliar, popover ou dialog.",
+                    "iconButtons": "Para botões com icone, o próprio componente de botão já resolve o conteúdo do tooltip a partir de `tooltipContent`, `title` ou do rótulo acessível.",
+                    "reinforce": "O tooltip deve reforçar um controle existente, não carregar sozinho a informação principal."
                 },
                 "snippet": "<Tooltip content=\"Abrir detalhes\" side=\"top\" align=\"center\">\n  <button type=\"button\">Gatilho</button>\n</Tooltip>\n\n<Button\n  size=\"icon\"\n  variant=\"secondary\"\n  title=\"Adicionar item\"\n  leadingIcon={<Plus />}\n/>"
             },
             "placementCards": {
                 "bottom": {
-                    "description": "Mais seguro quando nÃ£o hÃ¡ espaÃ§o acima do gatilho.",
+                    "description": "Mais seguro quando não há espaço acima do gatilho.",
                     "name": "Base",
                     "tooltip": "Tooltip embaixo"
                 },
                 "left": {
-                    "description": "Funciona bem prÃ³ximo a controles na borda direita e aÃ§Ãµes flutuantes.",
+                    "description": "Funciona bem próximo a controles na borda direita e ações flutuantes.",
                     "name": "Esquerda",
-                    "tooltip": "Tooltip Ã  esquerda"
+                    "tooltip": "Tooltip Á  esquerda"
                 },
                 "right": {
-                    "description": "Ãštil ao lado de navegaÃ§Ã£o densa alinhada Ã  esquerda e listas empilhadas.",
+                    "description": "Útil ao lado de navegação densa alinhada Á  esquerda e listas empilhadas.",
                     "name": "Direita",
-                    "tooltip": "Tooltip Ã  direita"
+                    "tooltip": "Tooltip Á  direita"
                 },
                 "top": {
-                    "description": "Posicionamento padrÃ£o para controles compactos e aÃ§Ãµes com Ã­cone.",
+                    "description": "Posicionamento padrão para controles compactos e ações com ícone.",
                     "name": "Topo",
                     "tooltip": "Tooltip no topo"
                 },
@@ -1928,15 +1836,15 @@
             "richContent": {
                 "compactMetadata": {
                     "button": "Abrir docs",
-                    "description": "Uma pequena quantidade de conteÃºdo estruturado funciona quando a dica precisa de um tÃ­tulo e uma linha de contexto.",
+                    "description": "Uma pequena quantidade de conteúdo estruturado funciona quando a dica precisa de um título e uma linha de contexto.",
                     "title": "Metadado compacto",
-                    "tooltipBody": "A documentaÃ§Ã£o de referÃªncia fica separada do fluxo atual.",
+                    "tooltipBody": "A documentação de referência fica separada do fluxo atual.",
                     "tooltipTitle": "Abre em nova aba"
                 },
                 "inlineHint": {
                     "description": "Envolva gatilhos inline personalizados quando precisar de contexto sem alterar o layout ao redor.",
                     "link": "painel de atividades",
-                    "prefix": "AtualizaÃ§Ãµes de status estÃ£o disponÃ­veis no",
+                    "prefix": "Atualizações de status estão disponíveis no",
                     "suffix": ".",
                     "title": "Dica inline",
                     "tooltip": "Abre o fluxo de atividades deste workspace."
@@ -1944,35 +1852,35 @@
             },
             "sections": {
                 "automatic": {
-                    "description": "BotÃµes com Ã­cone resolvem o conteÃºdo do tooltip automaticamente a partir das props jÃ¡ usadas para acessibilidade.",
-                    "title": "Tooltip automÃ¡tico para Ã­cone"
+                    "description": "Botões com ícone resolvem o conteúdo do tooltip automaticamente a partir das props já usadas para acessibilidade.",
+                    "title": "Tooltip automático para ícone"
                 },
                 "placement": {
-                    "description": "Escolha o posicionamento que mantÃ©m a dica legÃ­vel dentro das restriÃ§Ãµes do layout ao redor.",
+                    "description": "Escolha o posicionamento que mantém a dica legível dentro das restrições do layout ao redor.",
                     "title": "Posicionamento"
                 },
                 "richContent": {
-                    "description": "O conteÃºdo pode ter uma pequena estrutura, mas ainda deve permanecer compacto e fÃ¡cil de escanear.",
-                    "title": "ConteÃºdo rico"
+                    "description": "O conteúdo pode ter uma pequena estrutura, mas ainda deve permanecer compacto e fácil de escanear.",
+                    "title": "Conteúdo rico"
                 },
                 "triggerGuidance": {
-                    "description": "Use tooltips como apoio de descoberta, nÃ£o como fonte principal de significado.",
-                    "title": "OrientaÃ§Ã£o de gatilho"
+                    "description": "Use tooltips como apoio de descoberta, não como fonte principal de significado.",
+                    "title": "Orientação de gatilho"
                 }
             },
             "title": "Tooltip",
             "triggerGuidance": {
                 "avoidLongInstructions": {
-                    "description": "Se a mensagem comeÃ§ar a soar como texto de onboarding, use texto auxiliar, um popover ou um dialog.",
-                    "title": "Evite instruÃ§Ãµes longas"
+                    "description": "Se a mensagem começar a soar como texto de onboarding, use texto auxiliar, um popover ou um dialog.",
+                    "title": "Evite instruções longas"
                 },
                 "goodFit": {
                     "title": "Bom caso de uso",
-                    "tooltip": "Precisa de ajuda com a anatomia do botÃ£o?"
+                    "tooltip": "Precisa de ajuda com a anatomia do botão?"
                 },
                 "needsLabel": {
                     "button": "Saiba mais",
-                    "title": "Ainda precisa de rÃ³tulo"
+                    "title": "Ainda precisa de rótulo"
                 }
             }
         }
@@ -1980,18 +1888,18 @@
     "home": {
         "currentAccount": {
             "badge": "TanStack Query",
-            "description": "Esta secao e o primeiro exemplo compartilhado de estado de servidor. Ela le a conta autenticada pela API com TanStack Query, em vez de controlar fetch localmente na pagina.",
+            "description": "Esta seção e o primeiro exemplo compartilhado de estado de servidor. Ela le a conta autenticada pela API com TanStack Query, em vez de controlar fetch localmente na pagina.",
             "error": {
-                "description": "Tente a requisicao novamente.",
+                "description": "Tente a requisição novamente.",
                 "retry": "Tentar novamente",
-                "title": "Nao foi possivel carregar a conta atual."
+                "title": "Não foi possível carregar a conta atual."
             },
             "fields": {
                 "email": "Email da conta",
                 "status": "Status",
                 "type": "Tipo de conta"
             },
-            "lastUpdated": "Ultima atualizacao {{value}}.",
+            "lastUpdated": "Última atualização {{value}}.",
             "loading": "Carregando conta atual",
             "title": "Conta atual",
             "values": {
@@ -2002,43 +1910,39 @@
     },
     "Navbar": {
         "account": {
-            "fallback": "Indisponivel",
+            "fallback": "Indisponível",
             "label": "Conta",
             "logout": "Sair",
-            "logoutError": "Nao foi possivel sair agora.",
+            "logoutError": "Não foi possível sair agora.",
             "logoutPending": "Saindo...",
             "logoutSuccess": "Sessao encerrada com sucesso."
         },
         "collapse": "Recolher barra lateral",
         "controls": {
             "language": {
-                "label": "Idioma",
                 "options": {
-                    "en-US": "Ingles",
-                    "pt-BR": "Portugues"
+                    "en-US": "Inglês",
+                    "pt-BR": "Português"
                 },
-                "placeholder": "Selecionar idioma",
                 "short": {
                     "en-US": "EN",
                     "pt-BR": "PT"
                 }
             },
             "theme": {
-                "label": "Modo de tema",
                 "options": {
                     "dark": "Escuro",
                     "light": "Claro",
                     "system": "Sistema"
-                },
-                "placeholder": "Selecionar tema"
+                }
             }
         },
         "expand": "Expandir barra lateral",
-        "navigation": "Navegacao principal",
+        "navigation": "Navegação principal",
         "paths": {
             "academic": {
                 "course": "Cursos",
-                "root": "Academico",
+                "root": "Acadêmico",
                 "school": "Escolas",
                 "student": "Estudantes"
             },
@@ -2051,19 +1955,19 @@
                     "splitDetail": "Split Detail"
                 },
                 "primitives": {
-                    "actions": "Acoes",
+                    "actions": "Ações",
                     "display": "Exibicao",
                     "forms": "Formularios",
-                    "navigation": "Navegacao",
+                    "navigation": "Navegação",
                     "overlays": "Overlays",
                     "root": "Primitivas",
                     "structure": "Estrutura"
                 },
-                "root": "Documentacao",
+                "root": "Documentação",
                 "routing": {
                     "errorPreview": "Preview de erro",
                     "globalErrorPreview": "Preview de erro global",
-                    "notFoundPreview": "Preview de nao encontrado",
+                    "notFoundPreview": "Preview de não encontrado",
                     "previews": "Previews",
                     "root": "Roteamento"
                 }
@@ -2072,28 +1976,27 @@
                 "city": "Cidades",
                 "root": "Geografia"
             },
-            "home": "Inicio",
+            "home": "Início",
             "identity": {
                 "account": "Contas",
                 "admin": "Administradores",
                 "root": "Identidade",
-                "user": "Usuarios"
+                "user": "Usuários"
             },
-            "login": "Login",
             "partner": {
                 "entity": "Entidades",
                 "root": "Parceiros",
                 "staff": "Equipe"
             },
             "project": {
-                "attendance": "Frequencia",
-                "enrollment": "Matriculas",
+                "attendance": "Frequência",
+                "enrollment": "Matrículas",
                 "project": "Projetos",
                 "root": "Projetos"
             },
             "unknown": "Desconhecido"
         },
-        "subtitle": "Workspace de operacoes",
+        "subtitle": "Workspace de operações",
         "title": "PUG Admin"
     }
 }

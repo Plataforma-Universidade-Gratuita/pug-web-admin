@@ -17,7 +17,6 @@
                 "success": "Signed in successfully."
             },
             "form": {
-                "badge": "Administrator sign in",
                 "description": "Enter your administrator credentials to continue into the PUG operations workspace.",
                 "fields": {
                     "email": {
@@ -35,7 +34,6 @@
             },
             "hero": {
                 "badge": "Protected access",
-                "description": "Use your administrator account to access the application shell, review operational areas, and manage the platform with the shared system surface.",
                 "highlights": {
                     "adminOnly": {
                         "description": "The login entry point is reserved for the admin workspace and protected routes.",
@@ -50,10 +48,6 @@
                         "title": "Session continuity"
                     }
                 },
-                "note": {
-                    "description": "The app redirects authenticated users straight to the shell and keeps login as the only public route.",
-                    "title": "Current access model"
-                },
                 "title": "Sign in to keep academic operations controlled and consistent."
             },
             "validation": {
@@ -63,13 +57,9 @@
         }
     },
     "components": {
-        "common": {
-            "cancel": "Cancel"
-        },
         "datePicker": {
             "calendarLabel": "Date picker calendar",
             "clear": "Clear selection",
-            "dateSection": "Date",
             "monthNavigation": "Month navigation",
             "nextMonth": "Go to next month",
             "openPicker": "Open date picker",
@@ -125,7 +115,6 @@
             },
             "patternNotes": {
                 "items": {
-                    "content": "Accordion content can hold text, metadata, controls, or nested layout blocks, but each item should still represent one coherent topic.",
                     "disclosure": "Use accordion when each section can be understood from its trigger label before the body is opened.",
                     "multi": "Use `type=\"single\"` when sections should compete for attention. Use `type=\"multiple\"` when users may need to compare or keep several sections open together.",
                     "secondary": "Treat accordion as secondary disclosure inside sections, cards, and settings groups. Do not use it as primary navigation or primary page switching.",
@@ -145,10 +134,6 @@
                 "single": {
                     "description": "Single-open accordion is the default when one section should lead and neighboring sections should recede.",
                     "title": "Single disclosure"
-                },
-                "structure": {
-                    "description": "Accordion items should read clearly in both collapsed and expanded states.",
-                    "title": "Structure"
                 }
             },
             "singleCard": {
@@ -234,9 +219,7 @@
             "patternNotes": {
                 "items": {
                     "actions": "The footer always contains exactly two buttons: a neutral `secondary` cancel button and a confirm button in the semantic tone of the variant.",
-                    "confirmation": "Keep the title and description explicit about what will happen, what is affected, and whether the action can be undone.",
                     "fixed": "Alert dialog is a fixed confirmation surface. Do not use a free-form body, custom footer layouts, or arbitrary button combinations.",
-                    "loading": "Loading support is useful when the confirmation copy or decision context depends on fetched data, but it should remain a scoped exception rather than the default state.",
                     "overhead": "Variants control the overhead label: none for default, Positive Action for success, Cautionary Action for warning, and Destructive Action for danger.",
                     "severity": "Use the variant to match the action tone: default, success, warning, or danger."
                 },
@@ -300,46 +283,6 @@
                 "solid": "Solid"
             }
         },
-        "breadcrumb": {
-            "cards": {
-                "dense": {
-                    "description": "Use a slightly denser trail when the user may need to step back through a few related parent views.",
-                    "items": {
-                        "admin": "Admin",
-                        "entity": "Entity profile",
-                        "partners": "Partners",
-                        "settings": "Settings"
-                    },
-                    "title": "Deeper admin path"
-                },
-                "standard": {
-                    "description": "A simple path for pages that sit one or two levels below a broader parent area.",
-                    "items": {
-                        "detail": "Project Atlas",
-                        "home": "Home",
-                        "projects": "Projects"
-                    },
-                    "title": "Standard page trail"
-                }
-            },
-            "description": "Breadcrumbs communicate the current location inside nested navigation. Use them when users need quick orientation and a lightweight path back to broader parent areas.",
-            "patternNotes": {
-                "items": {
-                    "current": "The current page should be visually distinct and should not behave like a navigable link.",
-                    "depth": "Keep the trail short and meaningful. If the path becomes noisy or repetitive, the information architecture probably needs adjustment.",
-                    "location": "Use breadcrumbs to orient users inside deeper navigation hierarchies, especially when several parent levels matter to the current page.",
-                    "mobile": "Breadcrumbs are helpful context, but they should stay lightweight. On constrained layouts, avoid turning them into dense secondary navigation."
-                },
-                "snippet": "<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"#\">Projects</BreadcrumbLink>\n      <BreadcrumbSeparator />\n    </BreadcrumbItem>\n    <BreadcrumbItem>\n      <BreadcrumbCurrent>Project Atlas</BreadcrumbCurrent>\n    </BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
-            },
-            "sections": {
-                "examples": {
-                    "description": "Breadcrumbs work best when they reinforce page location instead of duplicating a primary nav menu.",
-                    "title": "Navigation context"
-                }
-            },
-            "title": "Breadcrumb"
-        },
         "button": {
             "actionOrderCard": {
                 "description": "In multi-action rows, place the main action at the far right and keep supporting decisions to its left.",
@@ -360,7 +303,6 @@
                 "items": {
                     "actionOrder": "In grouped actions, the primary action always belongs on the far right. Supporting and fallback actions stack to the left in decreasing emphasis.",
                     "default": "The default button already defines the main contract: `variant=\"primary\"`, `usage=\"primary\"`, and `size=\"md\"`. Use that baseline unless there is a clear reason to change emphasis.",
-                    "flat": "Use `variant=\"flat\"` for the default call-to-action treatment.",
                     "icon": "For icon-only buttons, always provide a readable `title`, `aria-label`, or `tooltipContent` so the component exposes an accessible name.",
                     "primaryVariant": "Use `variant=\"primary\"` for the main action in the set. Change `usage` only when the semantic color meaning changes, not to redefine the hierarchy of the button.",
                     "secondaryVariant": "Use `variant=\"secondary\"` for supporting or dismissive actions. Without an explicit `usage`, it should remain neutral and grey."
@@ -391,14 +333,6 @@
                 "states": {
                     "description": "Use the built-in states to keep feedback and interaction rules consistent.",
                     "title": "States"
-                },
-                "usage": {
-                    "description": "Choose the semantic usage that matches the outcome of the action. The visual shape can stay consistent while the intent changes.",
-                    "title": "Usage"
-                },
-                "variant": {
-                    "description": "Keep `flat` as the normal treatment and use `ghost` only when the action should recede.",
-                    "title": "Variant"
                 }
             },
             "sizes": {
@@ -698,7 +632,6 @@
             },
             "patternNotes": {
                 "items": {
-                    "content": "Dialog content is required. Use it for notes, supporting explanations, structured read-only information, or short focused content blocks tied to the current page.",
                     "header": "Do not use a subtitle below the title in this pattern. If extra context is needed, put it in the body or use the overhead as a small framing label above the title.",
                     "overflow": "When content grows, only the body should scroll. The body uses the shared ScrollArea so the header remains visible.",
                     "structure": "The structure is fixed: optional overhead, required title, top close button, separator, and required body. There is no footer.",
@@ -863,7 +796,6 @@
                     "brandFirst": "The first option is the primary row action and should use the brand accent. All regular supporting options stay neutral.",
                     "compact": "Dropdown menu now follows one compact row-action pattern. Do not use this component as a generic navigation list or a menu for broad settings surfaces.",
                     "confirmation": "Meaningful actions in the final group should open an `AlertDialog` before execution to confirm the user?s intent.",
-                    "escalation": "The current item may remain highlighted, but it should still react on hover so the state does not feel inert.",
                     "grouping": "When a semantic final group exists, use only `DropdownMenuSuccessItem`, `DropdownMenuWarningItem`, and `DropdownMenuDangerItem`, in that order.",
                     "scope": "Use dropdown menu for actions related to the current item, especially in lists, tables, and operational rows."
                 },
@@ -1037,7 +969,6 @@
         "multiSelect": {
             "cards": {
                 "disabled": {
-                    "description": "A disabled multi-select should preserve its selected context while preventing edits.",
                     "label": "Tags",
                     "title": "Disabled multi-select"
                 },
@@ -1303,7 +1234,6 @@
         "select": {
             "cards": {
                 "disabled": {
-                    "description": "A disabled select should preserve the chosen value and field readability while stopping interaction.",
                     "label": "Project status",
                     "options": {
                         "active": "Active",
@@ -1425,7 +1355,6 @@
                     "title": "Switch"
                 }
             },
-            "description": "Checkbox, radio group, and switch all represent user choice, but they communicate different interaction models. Use them according to whether the user is selecting many items, exactly one option, or toggling a setting on and off.",
             "patternNotes": {
                 "items": {
                     "checkbox": "Use checkbox when the user can independently select zero, one, or many options from a set.",
@@ -1434,19 +1363,15 @@
                     "radio": "Use radio group when exactly one option must be chosen from several mutually exclusive choices.",
                     "scope": "Do not swap these controls casually. The chosen control should match the meaning of the decision, not just the amount of available space.",
                     "switch": "Use switch for immediate on/off settings and binary preferences that read naturally as enabled or disabled."
-                },
-                "snippet": "<Checkbox label=\"Share progress updates\" />\n\n<RadioGroup value={value} onValueChange={setValue}>\n  <RadioGroupItem value=\"email\" label=\"Email\" />\n  <RadioGroupItem value=\"sms\" label=\"SMS\" />\n</RadioGroup>\n\n<Switch label=\"Enable notifications\" />"
+                }
             },
             "sections": {
                 "comparison": {
-                    "description": "These three controls belong together conceptually, but each one signals a different kind of user decision.",
                     "title": "Interaction comparison"
                 }
-            },
-            "title": "Selection Controls"
+            }
         },
         "shared": {
-            "closePatternNotes": "Close pattern notes",
             "collapse": "Collapse",
             "expand": "Expand",
             "eyebrow": "UI Particles",
@@ -1463,11 +1388,7 @@
             },
             "description": "Skeleton is the loading primitive for content that already has a stable layout. In most cases, use it through `Card isLoading` so card slots swap to placeholders automatically.",
             "dialogExample": {
-                "content": "Once loaded, the body content replaces the placeholder without changing the overall dialog anatomy.",
-                "description": "The dialog keeps its structure while waiting for the content of the current step.",
                 "note": "Open the preview to inspect the dialog loading state in place.",
-                "primary": "Continue",
-                "secondary": "Cancel",
                 "title": "Sync workspace",
                 "trigger": "Open loading dialog"
             },
@@ -1526,7 +1447,6 @@
             "title": "Skeleton"
         },
         "structurePrimitives": {
-            "description": "Tabs, label, separator, and scroll area shape layout and interaction rhythm rather than carrying heavy business meaning on their own. Use them to organize content, connect fields to text, and manage dense surfaces with clearer structure.",
             "iconTabs": {
                 "description": "This variant keeps the same tab behavior while shrinking each trigger to an icon button-sized control.",
                 "title": "Icon variant with tooltip labels"
@@ -1595,7 +1515,6 @@
                     "title": "Icon-only tabs"
                 },
                 "structure": {
-                    "description": "These primitives become most useful when they reinforce form structure, metadata rhythm, and constrained overflow in the same composition.",
                     "title": "Label, separator, and scroll area"
                 },
                 "tabs": {
@@ -1621,8 +1540,7 @@
                         "title": "Workspace overview"
                     }
                 }
-            },
-            "title": "Structure Primitives"
+            }
         },
         "table": {
             "caption": "A shared table primitive built on TanStack Table and styled for the system surfaces.",
@@ -1852,8 +1770,7 @@
                     "spaced": "Use the `spaced` variant for toolbars, view switches, and formatting groups where each item should remain clearly separate.",
                     "toggle": "Use toggle for one pressed/unpressed control that behaves like a stateful action button."
                 },
-                "singleSnippet": "<Toggle aria-label=\"Bold\">\n  <Icon icon={Bold} />\n  <span>Bold</span>\n</Toggle>",
-                "snippet": "<ToggleGroup value={value} onValueChange={setValue}>\n  <ToggleGroupItem value=\"grid\">Grid</ToggleGroupItem>\n  <ToggleGroupItem value=\"list\">List</ToggleGroupItem>\n</ToggleGroup>\n\n<ToggleGroup variant=\"pill\" value={theme} onValueChange={setTheme}>\n  <ToggleGroupItem value=\"light\">Light</ToggleGroupItem>\n  <ToggleGroupItem value=\"dark\">Dark</ToggleGroupItem>\n  <ToggleGroupItem value=\"system\">System</ToggleGroupItem>\n</ToggleGroup>"
+                "singleSnippet": "<Toggle aria-label=\"Bold\">\n  <Icon icon={Bold} />\n  <span>Bold</span>\n</Toggle>"
             },
             "primitives": {
                 "toggleGroupTitle": "Toggle Group"
@@ -1867,10 +1784,6 @@
                     "description": "This is the baseline pressed-action control for neutral surfaces.",
                     "title": "Default single toggle"
                 },
-                "multi": {
-                    "description": "A multiple toggle group works when several formatting or filter states may remain active together.",
-                    "title": "Multi-pressed groups"
-                },
                 "pill": {
                     "description": "The pill variant turns the group into one connected control for compact mutually exclusive choices.",
                     "title": "Pill group variant"
@@ -1878,13 +1791,8 @@
                 "spaced": {
                     "description": "The default toggle group layout keeps items separated. Use it for toolbars, formatting sets, and view switches.",
                     "title": "Spaced group variant"
-                },
-                "usage": {
-                    "description": "Use a lone toggle for one pressed action, or a single-value toggle group when one view or mode should stay active.",
-                    "title": "Single and exclusive usage"
                 }
-            },
-            "title": "Toggle Controls"
+            }
         },
         "tooltip": {
             "automatic": {
@@ -2012,25 +1920,21 @@
         "collapse": "Collapse sidebar",
         "controls": {
             "language": {
-                "label": "Language",
                 "options": {
                     "en-US": "English",
                     "pt-BR": "Portuguese"
                 },
-                "placeholder": "Select language",
                 "short": {
                     "en-US": "EN",
                     "pt-BR": "PT"
                 }
             },
             "theme": {
-                "label": "Theme mode",
                 "options": {
                     "dark": "Dark",
                     "light": "Light",
                     "system": "System"
-                },
-                "placeholder": "Select theme"
+                }
             }
         },
         "expand": "Expand sidebar",
@@ -2079,7 +1983,6 @@
                 "root": "Identity",
                 "user": "Users"
             },
-            "login": "Login",
             "partner": {
                 "entity": "Entities",
                 "root": "Partner",

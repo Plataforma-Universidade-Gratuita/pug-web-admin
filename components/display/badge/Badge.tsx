@@ -19,7 +19,7 @@ export function Badge({
 	return (
 		<span
 			className={clsx(
-				"badge-base inline-flex min-h-6 items-center justify-center border px-2.5 py-1 text-center whitespace-nowrap",
+				"badge-base inline-flex min-h-6 items-center justify-center gap-1 border px-2.5 py-1 text-center whitespace-nowrap",
 				BADGE_STYLES[variant][tone],
 				className,
 			)}
