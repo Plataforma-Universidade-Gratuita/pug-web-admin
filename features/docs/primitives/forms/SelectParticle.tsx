@@ -36,6 +36,7 @@ export default function SelectParticle() {
 				{ description: t("docs.select.patternNotes.items.placeholder") },
 				{ description: t("docs.select.patternNotes.items.grouping") },
 				{ description: t("docs.select.patternNotes.items.forms") },
+				{ description: t("docs.select.patternNotes.items.clear") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
 			patternNotesSnippet={t("docs.select.patternNotes.snippet")}
@@ -161,22 +162,30 @@ export default function SelectParticle() {
 
 					<Card className="p-4">
 						<CardHeader>
-							<CardTitle>Disabled select</CardTitle>
+							<CardTitle>{t("docs.select.cards.disabled.title")}</CardTitle>
 							<CardDescription>
 								Disabled selects should preserve the chosen value but stop
 								interaction.
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="max-w-sm space-y-2">
-							<p className="ty-helper">Project status</p>
+							<p className="ty-helper">
+								{t("docs.select.cards.disabled.label")}
+							</p>
 							<Select
 								disabled
 								defaultValue="active"
 							>
-								<SelectTrigger placeholder="Choose status" />
+								<SelectTrigger
+									placeholder={t("docs.select.cards.disabled.placeholder")}
+								/>
 								<SelectContent>
-									<SelectItem value="active">Active</SelectItem>
-									<SelectItem value="paused">Paused</SelectItem>
+									<SelectItem value="active">
+										{t("docs.select.cards.disabled.options.active")}
+									</SelectItem>
+									<SelectItem value="paused">
+										{t("docs.select.cards.disabled.options.paused")}
+									</SelectItem>
 								</SelectContent>
 							</Select>
 						</CardContent>

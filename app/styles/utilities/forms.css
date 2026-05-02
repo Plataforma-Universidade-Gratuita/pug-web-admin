@@ -446,6 +446,7 @@
 	}
 
 	.select-item[data-highlighted="true"],
+	.select-item:hover,
 	.combobox-option:hover {
 		background-color: var(--twc-surface-1);
 	}
@@ -533,6 +534,19 @@
 	.multi-select-content {
 		width: min(28rem, calc(100vw - 2rem));
 		padding: 0.5rem;
+	}
+
+	.combobox-content-disabled .combobox-search-shell {
+		opacity: 0.6;
+	}
+
+	.combobox-content-disabled .combobox-search-input {
+		cursor: not-allowed;
+	}
+
+	.combobox-content-disabled .combobox-option {
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 
 	.combobox-search-shell {
@@ -688,37 +702,23 @@
 	}
 
 	.date-picker-panel {
-		width: min(19rem, calc(100vw - 0.75rem));
-		max-height: min(28rem, calc(100vh - 0.75rem));
+		width: min(20.5rem, calc(100vw - 0.75rem));
 		padding: 0.5rem;
 	}
 
-	.date-picker-accordion {
-		border: none;
-		border-radius: 0;
-		background: transparent;
+	.date-picker-header-controls {
+		display: grid;
+		grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+		gap: 0.5rem;
+		padding: 0.125rem 0.125rem 0.375rem;
 	}
 
-	.date-picker-accordion-item {
-		border: none;
-		border-top: 1px solid var(--twc-border-2);
+	.date-picker-select-trigger,
+	.date-picker-year-trigger {
+		width: 100%;
 	}
 
-	.date-picker-accordion-item:first-child {
-		border-top: none;
-	}
-
-	.date-picker-accordion-trigger {
-		padding-inline: 0;
-		padding-block: 0.5rem;
-		background: transparent;
-	}
-
-	.date-picker-accordion-content {
-		overflow: visible;
-	}
-
-	.date-picker-accordion-content .accordion-body {
+	.date-picker-calendar-shell {
 		padding: 0.625rem;
 	}
 
@@ -731,6 +731,10 @@
 	.date-picker-month {
 		display: grid;
 		gap: 0.375rem;
+	}
+
+	.date-picker-month {
+		grid-template-rows: auto auto auto;
 	}
 
 	.date-picker-month-caption {
@@ -775,16 +779,23 @@
 		height: 1.75rem;
 		width: 1.75rem;
 		border-radius: var(--twc-radius-circle);
+		color: var(--twc-muted);
+	}
+
+	.date-picker-nav-button .icon-root,
+	.date-picker-nav-button svg {
+		color: inherit;
+		stroke: currentColor;
 	}
 
 	.date-picker-nav-button:hover,
 	.date-picker-day-button:hover {
 		background-color: var(--twc-surface-1);
+		color: var(--twc-text);
 	}
 
 	.date-picker-nav-button:focus-visible,
-	.date-picker-day-button:focus-visible,
-	.date-picker-time-select:focus-visible {
+	.date-picker-day-button:focus-visible {
 		box-shadow:
 			0 0 0 1px var(--twc-focus-ring),
 			0 0 0 4px var(--twc-focus-halo);
@@ -799,6 +810,7 @@
 		width: 100%;
 		border-collapse: separate;
 		border-spacing: 0.125rem;
+		table-layout: fixed;
 	}
 
 	.date-picker-weekdays {
@@ -859,44 +871,10 @@
 		opacity: 0.35;
 	}
 
-	.date-picker-time-section {
-		display: grid;
-		gap: 0.5rem;
-		padding-top: 0.125rem;
-	}
-
-	.date-picker-time-field {
-		display: grid;
-		gap: 0.25rem;
-	}
-
-	.date-picker-time-label {
-		font-family: var(--twc-font-sans);
-		font-size: var(--twc-text-xs);
-		font-weight: var(--twc-weight-semibold);
-		letter-spacing: var(--twc-tracking-normal);
-		line-height: var(--twc-leading-normal);
-		color: var(--twc-text);
-	}
-
-	.date-picker-time-trigger {
-		padding-right: 2.75rem;
-		min-height: 2.25rem;
-	}
-
-	.date-picker-time-field .select-clear-button {
-		display: none;
-	}
-
-	.date-picker-time-content {
-		z-index: 70;
-		max-height: 14rem;
-		width: min(18rem, calc(100vw - 2rem));
-	}
-
 	.date-picker-footer {
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
+		gap: 0.5rem;
 		padding-top: 0.375rem;
 	}
 }

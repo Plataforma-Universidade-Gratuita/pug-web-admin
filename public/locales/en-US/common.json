@@ -67,17 +67,15 @@
             "cancel": "Cancel"
         },
         "datePicker": {
-            "calendarLabel": "Date and time picker calendar",
+            "calendarLabel": "Date picker calendar",
             "clear": "Clear selection",
             "dateSection": "Date",
-            "hours": "Hours",
-            "minutes": "Minutes",
             "monthNavigation": "Month navigation",
             "nextMonth": "Go to next month",
-            "openPicker": "Open date and time picker",
-            "placeholder": "Select date and time",
+            "openPicker": "Open date picker",
+            "placeholder": "Select date",
             "previousMonth": "Go to previous month",
-            "timeSection": "Time"
+            "today": "Today"
         },
         "dialog": {
             "close": "Close dialog"
@@ -635,35 +633,35 @@
         "datePicker": {
             "cards": {
                 "basic": {
-                    "description": "Use it when the user needs one scheduled moment with direct calendar and time selection.",
-                    "label": "Review meeting",
-                    "title": "Basic date-time field"
+                    "description": "Use it when the user needs one calendar date and the field should stay aligned with the shared form system.",
+                    "label": "Review date",
+                    "title": "Basic date field"
                 },
                 "constrained": {
-                    "description": "Min and max boundaries help communicate valid booking windows directly in the picker.",
-                    "label": "Publishing window",
+                    "description": "Min and max boundaries limit which single day can be selected and show the allowed window directly in the picker.",
+                    "label": "Publishing date",
                     "title": "Constrained window"
                 },
                 "disabled": {
-                    "description": "Use a disabled date picker when the scheduled value is fixed by the surrounding workflow.",
+                    "description": "Use a disabled date picker when the selected day is fixed by the surrounding workflow.",
                     "label": "Enrollment start",
-                    "title": "Disabled schedule"
+                    "title": "Disabled date"
                 }
             },
-            "description": "Date picker captures one calendar date and time in a compact field. This implementation uses a styled calendar popover so the control fits the design system while still staying lightweight and focused on single-value scheduling.",
+            "description": "Date picker captures one calendar date in a compact field. The UI is date-only, but the emitted value is still normalized to midnight so it remains compatible with backend datetime contracts.",
             "patternNotes": {
                 "items": {
-                    "constraints": "Use `min` and `max` when the valid scheduling window is known so both the calendar and time selectors communicate the allowed bounds.",
-                    "escalation": "If the product later needs ranges, presets, recurring rules, or complex timeline logic, that should become a higher-level composite component instead of stretching this baseline primitive.",
-                    "native": "Use this primitive when the product needs one scheduled point in time and the field should still look and behave like the rest of the form system.",
-                    "scope": "This primitive is best for one-off date and time fields such as meetings, due timestamps, releases, and reporting cutoffs."
+                    "constraints": "Use `min` and `max` when one selected day must stay inside a known allowed window so the calendar communicates those bounds directly.",
+                    "escalation": "If the product later needs ranges, presets, recurring rules, or more complex timeline logic, that should become a higher-level composite component instead of stretching this baseline primitive.",
+                    "native": "Use this primitive when the product needs one calendar day and the field should still look and behave like the rest of the form system.",
+                    "scope": "The UI is date-only, but emitted values stay in backend-friendly datetime shape at midnight for the chosen day."
                 },
-                "snippet": "<DatePicker defaultValue=\"2026-04-24T14:30\" />\n\n<DatePicker min=\"2026-04-20T09:00\" max=\"2026-04-30T18:00\" />"
+                "snippet": "<DatePicker defaultValue=\"2026-04-24T00:00\" />\n\n<DatePicker min=\"2026-04-20T00:00\" max=\"2026-04-30T00:00\" />"
             },
             "sections": {
                 "fields": {
-                    "description": "Use the picker when the user needs one timestamp and the control should stay aligned with the shared styling system.",
-                    "title": "Date and time fields"
+                    "description": "Use the picker when the user needs one day and the control should stay aligned with the shared styling system.",
+                    "title": "Date fields"
                 }
             },
             "title": "Date Picker"
@@ -1038,8 +1036,13 @@
         },
         "multiSelect": {
             "cards": {
+                "disabled": {
+                    "description": "A disabled multi-select should preserve its selected context while preventing edits.",
+                    "label": "Tags",
+                    "title": "Disabled multi-select"
+                },
                 "owners": {
-                    "description": "Descriptions can help when the selected values represent people or roles rather than simple tags.",
+                    "description": "Descriptions help when selected values represent people or roles, and the badge tone can reinforce the meaning of that selection set.",
                     "label": "Owners",
                     "options": {
                         "ana": {
@@ -1073,12 +1076,13 @@
             "description": "Multi select lets users choose several values from one compact field. Use it when multiple filters or assignments belong to the same category and should stay grouped under one trigger.",
             "patternNotes": {
                 "items": {
-                    "escalation": "If the option set becomes very large, searchable, or deeply grouped, this should evolve into a richer composite pattern instead of stretching the simple multi-select too far.",
-                    "options": "Descriptions can help when option labels alone are not enough, but the list should still remain easy to scan and toggle quickly.",
-                    "scope": "Use multi select when the user may choose several values from the same set without needing separate checkboxes in the main layout.",
-                    "summary": "The trigger should summarize the current selection compactly instead of trying to render a long unchecked list in the closed state."
+                    "escalation": "If the option set becomes very large, searchable, or deeply grouped, evolve to a richer pattern instead of stretching the simple multi-select too far.",
+                    "options": "Descriptions help when values represent people, roles, or less obvious states, but the list should still remain easy to scan and toggle.",
+                    "scope": "Use multi-select when the user may choose several values from the same set without scattering checkboxes through the main layout.",
+                    "summary": "The trigger should summarize the current selection compactly through badges instead of trying to render a long open list in the closed state.",
+                    "tone": "Selection badges use the brand tone by default. Only switch to another tone when the set carries real semantics, such as danger, warning, info, or success."
                 },
-                "snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose statuses\"\n  options={[\n    { value: \"active\", label: \"Active\" },\n    { value: \"paused\", label: \"Paused\" },\n  ]}\n/>"
+                "snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose statuses\"\n  selectionTone=\"brand\"\n  options={[\n    { value: \"active\", label: \"Active\" },\n    { value: \"paused\", label: \"Paused\" },\n  ]}\n/>"
             },
             "sections": {
                 "filters": {
@@ -1298,6 +1302,16 @@
         },
         "select": {
             "cards": {
+                "disabled": {
+                    "description": "A disabled select should preserve the chosen value and field readability while stopping interaction.",
+                    "label": "Project status",
+                    "options": {
+                        "active": "Active",
+                        "paused": "Paused"
+                    },
+                    "placeholder": "Choose status",
+                    "title": "Disabled select"
+                },
                 "grouped": {
                     "description": "A grouped list can stay compact while still exposing lightweight hierarchy inside the option set.",
                     "groups": {
@@ -1340,10 +1354,11 @@
             "description": "Select lets users choose one option from a compact list. Use it for filters, form fields, and scoped configuration choices where the current value should remain visible in a single trigger field.",
             "patternNotes": {
                 "items": {
-                    "forms": "Select works well for forms and filters, but if the content needs searching, multi-selection, or richer metadata, consider a different pattern.",
-                    "grouping": "Group options with labels and separators when the list mixes categories or lifecycle stages that benefit from lightweight structure.",
-                    "placeholder": "Use a placeholder only when no default selection should be implied. Once a choice exists, the trigger should show the selected value directly.",
-                    "scope": "Use select when the user must choose one value from a defined set and the currently selected option should stay visible in the field."
+                    "clear": "When a value is already selected, the trigger may expose direct clearing without reopening the panel, but the control still remains a single-value select.",
+                    "forms": "Select works well for compact forms and filters. If the content needs search, richer metadata, or multi-selection, move to another primitive.",
+                    "grouping": "Group options with labels and separators when the set mixes categories, areas, or lifecycle stages that benefit from lightweight hierarchy.",
+                    "placeholder": "Use a placeholder only when no initial selection should be implied. Once a value exists, the trigger should show it clearly.",
+                    "scope": "Use select when the user must choose one value from a defined set and the current value should stay visible in the field itself."
                 },
                 "snippet": "<Select value={value} onValueChange={setValue}>\n  <SelectTrigger placeholder=\"Choose status\" />\n  <SelectContent>\n    <SelectItem value=\"active\">Active</SelectItem>\n    <SelectItem value=\"paused\">Paused</SelectItem>\n  </SelectContent>\n</Select>"
             },

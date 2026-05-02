@@ -67,17 +67,15 @@
             "cancel": "Cancelar"
         },
         "datePicker": {
-            "calendarLabel": "Calendario do seletor de data e hora",
+            "calendarLabel": "Calendario do seletor de data",
             "clear": "Limpar selecao",
             "dateSection": "Data",
-            "hours": "Horas",
-            "minutes": "Minutos",
             "monthNavigation": "Navegacao de meses",
             "nextMonth": "Ir para o proximo mes",
-            "openPicker": "Abrir seletor de data e hora",
-            "placeholder": "Selecione data e hora",
+            "openPicker": "Abrir seletor de data",
+            "placeholder": "Selecione a data",
             "previousMonth": "Ir para o mes anterior",
-            "timeSection": "Horario"
+            "today": "Hoje"
         },
         "dialog": {
             "close": "Fechar dialog"
@@ -635,35 +633,35 @@
         "datePicker": {
             "cards": {
                 "basic": {
-                    "description": "Use quando a pessoa precisar de um unico momento agendado com selecao direta de calendario e horario.",
-                    "label": "Reuniao de revisao",
-                    "title": "Campo basico de data e hora"
+                    "description": "Use quando a pessoa precisar de uma unica data de calendario e o campo ainda deva permanecer alinhado ao sistema compartilhado de formularios.",
+                    "label": "Data de revisao",
+                    "title": "Campo basico de data"
                 },
                 "constrained": {
-                    "description": "Limites de minimo e maximo ajudam a comunicar diretamente as janelas validas de agendamento dentro do picker.",
-                    "label": "Janela de publicacao",
+                    "description": "Limites de minimo e maximo restringem qual unico dia pode ser selecionado e mostram diretamente a janela permitida no picker.",
+                    "label": "Data de publicacao",
                     "title": "Janela restrita"
                 },
                 "disabled": {
-                    "description": "Use um date picker desabilitado quando o valor agendado for fixado pelo fluxo ao redor.",
+                    "description": "Use um date picker desabilitado quando o dia selecionado for fixado pelo fluxo ao redor.",
                     "label": "Inicio da matricula",
-                    "title": "Agendamento desabilitado"
+                    "title": "Data desabilitada"
                 }
             },
-            "description": "Date picker captura uma unica data e hora em um campo compacto. Esta implementacao usa um calendario em popover estilizado para manter o controle alinhado ao design system sem perder leveza nem foco em um unico agendamento.",
+            "description": "Date picker captura uma unica data de calendario em um campo compacto. A interface e apenas de data, mas o valor emitido continua normalizado para meia-noite para permanecer compativel com contratos de datetime do backend.",
             "patternNotes": {
                 "items": {
-                    "constraints": "Use `min` e `max` quando a janela valida de agendamento for conhecida para que calendario e seletores de horario comuniquem os limites permitidos.",
+                    "constraints": "Use `min` e `max` quando um unico dia selecionado precisar permanecer dentro de uma janela permitida conhecida para que o calendario comunique diretamente esses limites.",
                     "escalation": "Se o produto depois precisar de intervalos, atalhos, recorrencia ou logica temporal mais complexa, isso deve virar um componente composto de nivel superior em vez de esticar esta primitiva base.",
-                    "native": "Use esta primitiva quando o produto precisar de um unico ponto no tempo e o campo ainda deva parecer parte do restante do sistema de formularios.",
-                    "scope": "Esta primitiva funciona melhor para campos isolados de data e hora, como reunioes, vencimentos com horario, publicacoes e cortes de relatorio."
+                    "native": "Use esta primitiva quando o produto precisar de um unico dia de calendario e o campo ainda deva parecer parte do restante do sistema de formularios.",
+                    "scope": "A interface e apenas de data, mas os valores emitidos permanecem no formato de datetime do backend em meia-noite para o dia escolhido."
                 },
-                "snippet": "<DatePicker defaultValue=\"2026-04-24T14:30\" />\n\n<DatePicker min=\"2026-04-20T09:00\" max=\"2026-04-30T18:00\" />"
+                "snippet": "<DatePicker defaultValue=\"2026-04-24T00:00\" />\n\n<DatePicker min=\"2026-04-20T00:00\" max=\"2026-04-30T00:00\" />"
             },
             "sections": {
                 "fields": {
-                    "description": "Use o picker quando a pessoa precisar de um unico timestamp e o controle deva permanecer alinhado ao styling system compartilhado.",
-                    "title": "Campos de data e hora"
+                    "description": "Use o picker quando a pessoa precisar de um unico dia e o controle deva permanecer alinhado ao sistema compartilhado de estilos.",
+                    "title": "Campos de data"
                 }
             },
             "title": "Date Picker"
@@ -1038,8 +1036,13 @@
         },
         "multiSelect": {
             "cards": {
+                "disabled": {
+                    "description": "Multi-select desabilitado deve preservar o contexto selecionado, mas impedir edicoes.",
+                    "label": "Tags",
+                    "title": "Multi-select desabilitado"
+                },
                 "owners": {
-                    "description": "DescriÃ§Ãµes ajudam quando os valores selecionados representam pessoas ou papÃ©is em vez de tags simples.",
+                    "description": "Descricoes ajudam quando os valores escolhidos representam pessoas ou papeis, e o tom dos badges pode reforcar a semantica do conjunto.",
                     "label": "ResponsÃ¡veis",
                     "options": {
                         "ana": {
@@ -1073,12 +1076,13 @@
             "description": "Multi select permite que a pessoa escolha vÃ¡rios valores dentro de um Ãºnico campo compacto. Use quando mÃºltiplos filtros ou atribuiÃ§Ãµes pertencerem Ã  mesma categoria e devam permanecer agrupados em um sÃ³ gatilho.",
             "patternNotes": {
                 "items": {
-                    "escalation": "Se o conjunto de opÃ§Ãµes ficar grande demais, pesquisÃ¡vel ou muito agrupado, isso deve evoluir para um padrÃ£o composto mais rico em vez de esticar demais o multi-select simples.",
-                    "options": "DescriÃ§Ãµes ajudam quando apenas o rÃ³tulo da opÃ§Ã£o nÃ£o basta, mas a lista ainda deve continuar fÃ¡cil de escanear e alternar rapidamente.",
-                    "scope": "Use multi select quando a pessoa puder escolher vÃ¡rios valores do mesmo conjunto sem precisar de checkboxes soltos no layout principal.",
-                    "summary": "O gatilho deve resumir a seleÃ§Ã£o atual de forma compacta em vez de tentar renderizar uma lista longa no estado fechado."
+                    "escalation": "Se o conjunto ficar muito grande, pesquisavel ou profundamente agrupado, evolua para um padrao mais rico em vez de forcar demais o multi-select simples.",
+                    "options": "Descricoes ajudam quando os valores representam pessoas, papeis ou estados menos obvios, mas a lista ainda deve permanecer facil de escanear e alternar.",
+                    "scope": "Use multi-select quando a pessoa puder escolher varios valores do mesmo conjunto sem precisar espalhar checkboxes pela interface principal.",
+                    "summary": "O trigger deve resumir a selecao de forma compacta por meio de badges, em vez de tentar mostrar uma lista longa no estado fechado.",
+                    "tone": "Os badges de selecao usam o tom brand por padrao. So troque para outro tom quando o conjunto representar uma semantica real, como perigo, aviso ou informacao."
                 },
-                "snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Escolha os status\"\n  options={[\n    { value: \"active\", label: \"Ativo\" },\n    { value: \"paused\", label: \"Pausado\" },\n  ]}\n/>"
+                "snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Escolha status\"\n  selectionTone=\"brand\"\n  options={[\n    { value: \"active\", label: \"Ativo\" },\n    { value: \"paused\", label: \"Pausado\" },\n  ]}\n/>"
             },
             "sections": {
                 "filters": {
@@ -1298,6 +1302,16 @@
         },
         "select": {
             "cards": {
+                "disabled": {
+                    "description": "Select desabilitado deve preservar o valor escolhido e a leitura do campo, mas bloquear a interacao.",
+                    "label": "Status do projeto",
+                    "options": {
+                        "active": "Ativo",
+                        "paused": "Pausado"
+                    },
+                    "placeholder": "Escolha o status",
+                    "title": "Select desabilitado"
+                },
                 "grouped": {
                     "description": "Uma lista agrupada pode continuar compacta e ainda expor hierarquia leve dentro do conjunto de opÃ§Ãµes.",
                     "groups": {
@@ -1340,10 +1354,11 @@
             "description": "Select permite que a pessoa escolha uma opÃ§Ã£o dentro de uma lista compacta. Use para filtros, campos de formulÃ¡rio e escolhas de configuraÃ§Ã£o escopadas em que o valor atual deve permanecer visÃ­vel em um Ãºnico campo gatilho.",
             "patternNotes": {
                 "items": {
-                    "forms": "Select funciona bem em formulÃ¡rios e filtros, mas se o conteÃºdo precisar de busca, mÃºltipla seleÃ§Ã£o ou metadados mais ricos, considere outro padrÃ£o.",
-                    "grouping": "Agrupe opÃ§Ãµes com labels e separadores quando a lista misturar categorias ou estÃ¡gios de ciclo de vida que se beneficiem de estrutura leve.",
-                    "placeholder": "Use placeholder apenas quando nenhum valor padrÃ£o deve ser insinuado. Depois que existir uma escolha, o gatilho deve mostrar diretamente o valor selecionado.",
-                    "scope": "Use select quando a pessoa precisar escolher um valor entre opÃ§Ãµes definidas e a opÃ§Ã£o atual deva continuar visÃ­vel no campo."
+                    "clear": "Quando houver valor selecionado, o trigger pode oferecer limpeza direta sem abrir o painel, mas isso nao muda o papel do select como escolha de um unico valor.",
+                    "forms": "Select funciona bem em formularios e filtros compactos. Se o conteudo precisar de busca, metadado rico ou multi-selecao, suba para outra primitiva.",
+                    "grouping": "Agrupe opcoes com labels e separators quando o conjunto misturar categorias, areas ou etapas de ciclo de vida que ganham clareza com hierarquia leve.",
+                    "placeholder": "Use placeholder so quando nenhuma selecao inicial deve ser implicita. Assim que houver valor, o trigger deve exibi-lo claramente.",
+                    "scope": "Use select quando a pessoa precisa escolher um valor dentro de um conjunto definido e o valor atual deve permanecer visivel no proprio campo."
                 },
                 "snippet": "<Select value={value} onValueChange={setValue}>\n  <SelectTrigger placeholder=\"Escolha o status\" />\n  <SelectContent>\n    <SelectItem value=\"active\">Ativo</SelectItem>\n    <SelectItem value=\"paused\">Pausado</SelectItem>\n  </SelectContent>\n</Select>"
             },

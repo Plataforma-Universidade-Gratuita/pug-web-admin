@@ -43,6 +43,7 @@ export interface PopoverProps {
 
 export interface PopoverTriggerProps {
 	children: ReactNode;
+	className?: string;
 }
 
 export interface PopoverContentProps {

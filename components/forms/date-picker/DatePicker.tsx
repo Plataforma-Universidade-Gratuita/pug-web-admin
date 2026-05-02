@@ -13,18 +13,18 @@ import {
 import clsx from "clsx";
 import { format, isAfter, isBefore } from "date-fns";
 import { enUS, ptBR } from "date-fns/locale";
-import { CalendarDays, ChevronDown, Clock3 } from "lucide-react";
+import { CalendarDays, ChevronDown } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/actions/button/Button";
 import { Icon } from "@/components/display/icon/Icon";
 import {
-	buildDateWithTime,
 	clampDateToBounds,
 	formatDateTimeValue,
 	getDayPickerDisabled,
 	getScrollableAncestor,
+	normalizeDatePickerValue,
 	parseDateTimeValue,
 	setRefValue,
 } from "@/components/forms/date-picker/utils";
@@ -34,12 +34,6 @@ import {
 	SelectItem,
 	SelectTrigger,
 } from "@/components/forms/select/Select";
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "@/components/navigation/accordion/Accordion";
 import {
 	Popover,
 	PopoverContent,
@@ -73,7 +67,6 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 		const triggerButtonRef = useRef<HTMLButtonElement | null>(null);
 		const [internalValue, setInternalValue] = useState(defaultValue ?? "");
 		const [open, setOpen] = useState(false);
-		const [activePanel, setActivePanel] = useState("date");
 		const [month, setMonth] = useState<Date>(new Date());
 
 		const fieldId = id ?? generatedId;
@@ -94,16 +87,36 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 		}, [maxDate, minDate, rawValue]);
 		const safeValue = selectedDate ? formatDateTimeValue(selectedDate) : "";
 		const displayValue = selectedDate
-			? format(selectedDate, "PPp", { locale })
+			? format(selectedDate, "PP", { locale })
 			: "";
 		const displayPlaceholder =
 			placeholder ?? t("components.datePicker.placeholder");
-		const selectedHours = selectedDate?.getHours();
-		const selectedMinutes = selectedDate?.getMinutes();
 		const disabledDays = useMemo(
 			() => getDayPickerDisabled(minDate, maxDate),
 			[maxDate, minDate],
 		);
+		const monthOptions = useMemo(
+			() =>
+				Array.from({ length: 12 }, (_, monthIndex) => ({
+					value: String(monthIndex),
+					label: format(new Date(2026, monthIndex, 1), "LLLL", { locale }),
+				})),
+			[locale],
+		);
+		const yearOptions = useMemo(() => {
+			const baseMonth = selectedDate ?? minDate ?? new Date();
+			const today = new Date();
+			const fallbackStart =
+				Math.min(baseMonth.getFullYear(), today.getFullYear()) - 12;
+			const fallbackEnd =
+				Math.max(baseMonth.getFullYear(), today.getFullYear()) + 12;
+			const startYear = minDate?.getFullYear() ?? fallbackStart;
+			const endYear = maxDate?.getFullYear() ?? fallbackEnd;
+			return Array.from(
+				{ length: Math.max(endYear - startYear + 1, 1) },
+				(_, index) => String(startYear + index),
+			);
+		}, [maxDate, minDate, selectedDate]);
 
 		useEffect(() => {
 			setRefValue(ref, hiddenInputRef.current);
@@ -171,7 +184,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 				cancelAnimationFrame(frameOne);
 				cancelAnimationFrame(frameTwo);
 			};
-		}, [activePanel, open]);
+		}, [open]);
 
 		function emitValue(nextValue: string) {
 			if (!isControlled) {
@@ -198,92 +211,44 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 
 		function handleDaySelect(nextDay?: Date) {
 			if (!nextDay) return;
-			const nextDate = buildDateWithTime(
-				nextDay,
-				selectedDate,
-				minDate,
-				maxDate,
-			);
+			const nextDate = normalizeDatePickerValue(nextDay, minDate, maxDate);
 			commitDate(nextDate);
 			setMonth(nextDay);
-			setActivePanel("time");
+			setOpen(false);
 		}
 
-		function updateTime(part: "hours" | "minutes", nextValue: string) {
-			if (!selectedDate) return;
-			const numericValue = Number(nextValue);
-			if (Number.isNaN(numericValue)) return;
+		function updateMonth(nextMonthIndex: string) {
+			const parsedMonth = Number(nextMonthIndex);
+			if (Number.isNaN(parsedMonth)) return;
+			const nextMonth = new Date(month.getFullYear(), parsedMonth, 1);
+			setMonth(nextMonth);
+		}
 
-			const nextDate = new Date(selectedDate);
-			if (part === "hours") {
-				nextDate.setHours(numericValue);
-			} else {
-				nextDate.setMinutes(numericValue);
+		function updateYear(nextYearValue: string) {
+			const parsedYear = Number(nextYearValue);
+			if (Number.isNaN(parsedYear)) return;
+			const nextMonth = new Date(parsedYear, month.getMonth(), 1);
+			setMonth(nextMonth);
+		}
+
+		function jumpToToday() {
+			const today = normalizeDatePickerValue(new Date(), minDate, maxDate);
+			if (
+				(minDate && isBefore(today, minDate)) ||
+				(maxDate && isAfter(today, maxDate))
+			) {
+				return;
 			}
-			nextDate.setSeconds(0, 0);
-			commitDate(clampDateToBounds(nextDate, minDate, maxDate));
+			setMonth(today);
 		}
-
-		const hourOptions = Array.from({ length: 24 }, (_, index) => {
-			const optionDate = selectedDate
-				? new Date(
-						selectedDate.getFullYear(),
-						selectedDate.getMonth(),
-						selectedDate.getDate(),
-						index,
-						selectedMinutes ?? 0,
-						0,
-						0,
-					)
-				: undefined;
-			const optionDisabled =
-				!optionDate ||
-				(minDate && isBefore(optionDate, minDate)) ||
-				(maxDate && isAfter(optionDate, maxDate));
-
-			return {
-				value: index.toString(),
-				label: index.toString().padStart(2, "0"),
-				disabled: optionDisabled,
-			};
-		});
-
-		const minuteOptions = Array.from({ length: 60 }, (_, index) => {
-			const optionDate = selectedDate
-				? new Date(
-						selectedDate.getFullYear(),
-						selectedDate.getMonth(),
-						selectedDate.getDate(),
-						selectedHours ?? 0,
-						index,
-						0,
-						0,
-					)
-				: undefined;
-			const optionDisabled =
-				!optionDate ||
-				(minDate && isBefore(optionDate, minDate)) ||
-				(maxDate && isAfter(optionDate, maxDate));
-
-			return {
-				value: index.toString(),
-				label: index.toString().padStart(2, "0"),
-				disabled: optionDisabled,
-			};
-		});
 
 		return (
 			<div className={clsx("date-picker-shell", className)}>
 				<Popover
 					open={open}
-					onOpenChange={nextOpen => {
-						setOpen(nextOpen);
-						if (nextOpen) {
-							setActivePanel("date");
-						}
-					}}
+					onOpenChange={setOpen}
 				>
-					<PopoverTrigger>
+					<PopoverTrigger className="w-full">
 						<button
 							ref={triggerButtonRef}
 							id={fieldId}
@@ -311,10 +276,6 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 							</span>
 							<span className="date-picker-adornment">
 								<Icon
-									icon={Clock3}
-									className="h-4 w-4"
-								/>
-								<Icon
 									icon={ChevronDown}
 									className="h-4 w-4"
 								/>
@@ -324,159 +285,113 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 
 					<PopoverContent
 						align="start"
-						side="bottom"
-						avoidCollisions={false}
 						className="date-picker-panel"
 					>
-						<Accordion
-							type="single"
-							value={activePanel}
-							onValueChange={nextValue => {
-								if (nextValue) {
-									setActivePanel(nextValue);
-								}
-							}}
-							className="date-picker-accordion"
-						>
-							<AccordionItem
-								value="date"
-								className="date-picker-accordion-item"
+						<div className="date-picker-header-controls">
+							<Select
+								value={String(month.getMonth())}
+								onValueChange={updateMonth}
+								{...(disabled !== undefined ? { disabled } : {})}
 							>
-								<AccordionTrigger className="date-picker-accordion-trigger">
-									{t("components.datePicker.dateSection")}
-								</AccordionTrigger>
-								<AccordionContent className="date-picker-accordion-content">
-									<DayPicker
-										mode="single"
-										month={month}
-										onMonthChange={setMonth}
-										selected={selectedDate}
-										onSelect={handleDaySelect}
-										disabled={disabledDays}
-										locale={locale}
-										labels={{
-											labelNav: () =>
-												t("components.datePicker.monthNavigation"),
-											labelNext: () => t("components.datePicker.nextMonth"),
-											labelPrevious: () =>
-												t("components.datePicker.previousMonth"),
-										}}
-										aria-label={t("components.datePicker.calendarLabel")}
-										classNames={{
-											root: "date-picker-calendar",
-											months: "date-picker-months",
-											month: "date-picker-month",
-											month_caption: "date-picker-month-caption",
-											caption_label: "date-picker-caption-label",
-											nav: "date-picker-nav",
-											button_previous: "date-picker-nav-button",
-											button_next: "date-picker-nav-button",
-											month_grid: "date-picker-grid",
-											weekdays: "date-picker-weekdays",
-											weekday: "date-picker-weekday",
-											week: "date-picker-week",
-											day: "date-picker-day-cell",
-											day_button: "date-picker-day-button",
-											chevron: "date-picker-chevron",
-										}}
-										modifiersClassNames={{
-											selected: "date-picker-day-selected",
-											today: "date-picker-day-today",
-											outside: "date-picker-day-outside",
-											disabled: "date-picker-day-disabled",
-										}}
-									/>
-								</AccordionContent>
-							</AccordionItem>
+								<SelectTrigger
+									className="date-picker-select-trigger"
+									placeholder={monthOptions[month.getMonth()]?.label}
+								/>
+								<SelectContent>
+									{monthOptions.map(option => (
+										<SelectItem
+											key={option.value}
+											value={option.value}
+										>
+											{option.label}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
 
-							<AccordionItem
-								value="time"
-								className="date-picker-accordion-item"
+							<Select
+								value={String(month.getFullYear())}
+								onValueChange={updateYear}
+								{...(disabled !== undefined ? { disabled } : {})}
 							>
-								<AccordionTrigger className="date-picker-accordion-trigger">
-									{t("components.datePicker.timeSection")}
-								</AccordionTrigger>
-								<AccordionContent className="date-picker-accordion-content">
-									<div className="date-picker-time-section">
-										<div className="date-picker-time-field">
-											<label
-												htmlFor={`${fieldId}-hours`}
-												className="date-picker-time-label"
-											>
-												{t("components.datePicker.hours")}
-											</label>
-											<Select
-												disabled={disabled || !selectedDate}
-												value={selectedHours?.toString() ?? ""}
-												onValueChange={nextValue =>
-													updateTime("hours", nextValue)
-												}
-											>
-												<SelectTrigger
-													id={`${fieldId}-hours`}
-													className="date-picker-time-trigger"
-													placeholder={t("components.datePicker.hours")}
-												/>
-												<SelectContent className="date-picker-time-content">
-													{hourOptions.map(option => (
-														<SelectItem
-															key={option.value}
-															value={option.value}
-															disabled={option.disabled ?? false}
-														>
-															{option.label}
-														</SelectItem>
-													))}
-												</SelectContent>
-											</Select>
-										</div>
+								<SelectTrigger
+									className="date-picker-year-trigger"
+									placeholder={String(month.getFullYear())}
+								/>
+								<SelectContent>
+									{yearOptions.map(option => (
+										<SelectItem
+											key={option}
+											value={option}
+										>
+											{option}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+						</div>
 
-										<div className="date-picker-time-field">
-											<label
-												htmlFor={`${fieldId}-minutes`}
-												className="date-picker-time-label"
-											>
-												{t("components.datePicker.minutes")}
-											</label>
-											<Select
-												disabled={disabled || !selectedDate}
-												value={selectedMinutes?.toString() ?? ""}
-												onValueChange={nextValue =>
-													updateTime("minutes", nextValue)
-												}
-											>
-												<SelectTrigger
-													id={`${fieldId}-minutes`}
-													className="date-picker-time-trigger"
-													placeholder={t("components.datePicker.minutes")}
-												/>
-												<SelectContent className="date-picker-time-content">
-													{minuteOptions.map(option => (
-														<SelectItem
-															key={option.value}
-															value={option.value}
-															disabled={option.disabled ?? false}
-														>
-															{option.label}
-														</SelectItem>
-													))}
-												</SelectContent>
-											</Select>
-										</div>
-									</div>
-								</AccordionContent>
-							</AccordionItem>
-						</Accordion>
+						<div className="date-picker-calendar-shell">
+							<DayPicker
+								mode="single"
+								month={month}
+								onMonthChange={setMonth}
+								selected={selectedDate}
+								onSelect={handleDaySelect}
+								disabled={disabledDays}
+								locale={locale}
+								fixedWeeks
+								showOutsideDays
+								labels={{
+									labelNav: () => t("components.datePicker.monthNavigation"),
+									labelNext: () => t("components.datePicker.nextMonth"),
+									labelPrevious: () => t("components.datePicker.previousMonth"),
+								}}
+								aria-label={t("components.datePicker.calendarLabel")}
+								classNames={{
+									root: "date-picker-calendar",
+									months: "date-picker-months",
+									month: "date-picker-month",
+									month_caption: "date-picker-month-caption",
+									caption_label: "date-picker-caption-label",
+									nav: "date-picker-nav",
+									button_previous: "date-picker-nav-button",
+									button_next: "date-picker-nav-button",
+									month_grid: "date-picker-grid",
+									weekdays: "date-picker-weekdays",
+									weekday: "date-picker-weekday",
+									week: "date-picker-week",
+									day: "date-picker-day-cell",
+									day_button: "date-picker-day-button",
+									chevron: "date-picker-chevron",
+								}}
+								modifiersClassNames={{
+									selected: "date-picker-day-selected",
+									today: "date-picker-day-today",
+									outside: "date-picker-day-outside",
+									disabled: "date-picker-day-disabled",
+								}}
+							/>
+						</div>
 
 						<div className="date-picker-footer">
 							<Button
 								usage="secondary"
-								variant="ghost"
+								variant="secondary"
 								size="sm"
 								disabled={disabled || !selectedDate || required}
 								onClick={() => commitDate(undefined)}
 							>
 								{t("components.datePicker.clear")}
+							</Button>
+							<Button
+								usage="primary"
+								variant="secondary"
+								size="sm"
+								disabled={disabled}
+								onClick={jumpToToday}
+							>
+								{t("components.datePicker.today")}
 							</Button>
 						</div>
 					</PopoverContent>

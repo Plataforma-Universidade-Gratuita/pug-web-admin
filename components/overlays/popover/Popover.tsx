@@ -38,14 +38,14 @@ export function Popover({
 	);
 }
 
-export function PopoverTrigger({ children }: PopoverTriggerProps) {
+export function PopoverTrigger({ children, className }: PopoverTriggerProps) {
 	const context = useContext(PopoverContext);
 
 	return (
 		<RadixPopover.Trigger asChild>
 			<span
 				ref={context?.triggerRef}
-				className="inline-flex shrink-0"
+				className={clsx("block", className)}
 			>
 				{children}
 			</span>

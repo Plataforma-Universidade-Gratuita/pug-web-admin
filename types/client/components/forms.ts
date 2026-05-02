@@ -5,6 +5,8 @@ import type {
 	TextareaHTMLAttributes,
 } from "react";
 
+import { BADGE_TONES } from "@/constants/components";
+
 export interface InputProps extends Omit<
 	InputHTMLAttributes<HTMLInputElement>,
 	"size"
@@ -55,6 +57,8 @@ export interface ComboboxProps {
 	className?: string;
 }
 
+export type MultiSelectSelectionTone = keyof typeof BADGE_TONES;
+
 export interface MultiSelectProps {
 	options: MultiSelectOption[];
 	id?: string;
@@ -65,4 +69,5 @@ export interface MultiSelectProps {
 	disabled?: boolean;
 	className?: string;
 	maxVisibleValues?: number;
+	selectionTone?: MultiSelectSelectionTone;
 }

@@ -50,7 +50,7 @@ export default function DatePickerParticle() {
 							</Label>
 							<DatePicker
 								id="docs-date-basic"
-								defaultValue="2026-04-24T14:30"
+								defaultValue="2026-04-24T00:00"
 							/>
 						</CardContent>
 					</Card>
@@ -70,9 +70,9 @@ export default function DatePickerParticle() {
 							</Label>
 							<DatePicker
 								id="docs-date-constrained"
-								min="2026-04-20T09:00"
-								max="2026-04-30T18:00"
-								defaultValue="2026-04-24T11:00"
+								min="2026-04-20T00:00"
+								max="2026-04-30T00:00"
+								defaultValue="2026-04-24T00:00"
 							/>
 						</CardContent>
 					</Card>
@@ -91,7 +91,7 @@ export default function DatePickerParticle() {
 							<DatePicker
 								id="docs-date-disabled"
 								disabled
-								defaultValue="2026-04-24T09:00"
+								defaultValue="2026-04-24T00:00"
 							/>
 						</CardContent>
 					</Card>

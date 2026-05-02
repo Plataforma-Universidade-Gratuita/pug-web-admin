@@ -1,6 +1,6 @@
 import type { Ref } from "react";
 
-import { format, isAfter, isBefore, isSameDay, startOfDay } from "date-fns";
+import { format, isAfter, isBefore, startOfDay } from "date-fns";
 
 const DATE_ONLY_VALUE = /^\d{4}-\d{2}-\d{2}$/;
 const DATE_TIME_VALUE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
@@ -67,31 +67,15 @@ export function clampDateToBounds(
 	return date;
 }
 
-export function buildDateWithTime(
+export function normalizeDatePickerValue(
 	day: Date,
-	source?: Date,
 	minDate?: Date,
 	maxDate?: Date,
 ): Date {
-	const baseHours =
-		source?.getHours() ??
-		(minDate && isSameDay(day, minDate) ? minDate.getHours() : 0);
-	const baseMinutes =
-		source?.getMinutes() ??
-		(minDate && isSameDay(day, minDate) ? minDate.getMinutes() : 0);
-
 	return clampDateToBounds(
-		new Date(
-			day.getFullYear(),
-			day.getMonth(),
-			day.getDate(),
-			baseHours,
-			baseMinutes,
-			0,
-			0,
-		),
-		minDate,
-		maxDate,
+		new Date(day.getFullYear(), day.getMonth(), day.getDate(), 0, 0, 0, 0),
+		minDate ? startOfDay(minDate) : undefined,
+		maxDate ? startOfDay(maxDate) : undefined,
 	);
 }
 

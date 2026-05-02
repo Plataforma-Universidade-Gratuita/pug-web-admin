@@ -26,6 +26,7 @@ export function MultiSelect({
 	disabled = false,
 	className,
 	maxVisibleValues = 2,
+	selectionTone = "brand",
 }: MultiSelectProps) {
 	const [open, setOpen] = useState(false);
 	const [internalValue, setInternalValue] = useState(defaultValue ?? []);
@@ -70,7 +71,7 @@ export function MultiSelect({
 			onOpenChange={setOpen}
 		>
 			<div className="multi-select-shell">
-				<PopoverTrigger>
+				<PopoverTrigger className="w-full">
 					<button
 						id={id}
 						type="button"
@@ -89,7 +90,7 @@ export function MultiSelect({
 									{visibleOptions.map(option => (
 										<Badge
 											key={option.value}
-											tone="brand"
+											tone={selectionTone}
 											variant="soft"
 											onRemove={
 												disabled ? undefined : () => toggleValue(option.value)

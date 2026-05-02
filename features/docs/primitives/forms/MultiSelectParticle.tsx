@@ -33,6 +33,7 @@ export default function MultiSelectParticle() {
 				{ description: t("docs.multiSelect.patternNotes.items.scope") },
 				{ description: t("docs.multiSelect.patternNotes.items.summary") },
 				{ description: t("docs.multiSelect.patternNotes.items.options") },
+				{ description: t("docs.multiSelect.patternNotes.items.tone") },
 				{ description: t("docs.multiSelect.patternNotes.items.escalation") },
 			]}
 			patternNotesApiLabel={t("docs.shared.patternNotesApiLabel")}
@@ -83,6 +84,7 @@ export default function MultiSelectParticle() {
 							<MultiSelect
 								id="docs-multi-select-owners"
 								defaultValue={["maria", "joao"]}
+								selectionTone="info"
 								placeholder={t("docs.multiSelect.cards.owners.placeholder")}
 								options={(["maria", "joao", "ana"] as const).map(key => ({
 									value: key,
@@ -99,14 +101,18 @@ export default function MultiSelectParticle() {
 
 					<Card className="p-4">
 						<CardHeader>
-							<CardTitle>Disabled multi-select</CardTitle>
+							<CardTitle>
+								{t("docs.multiSelect.cards.disabled.title")}
+							</CardTitle>
 							<CardDescription>
 								Disabled multi-selects should keep their selected context but
 								prevent edits.
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-2">
-							<Label htmlFor="docs-multi-select-disabled">Tags</Label>
+							<Label htmlFor="docs-multi-select-disabled">
+								{t("docs.multiSelect.cards.disabled.label")}
+							</Label>
 							<MultiSelect
 								id="docs-multi-select-disabled"
 								disabled

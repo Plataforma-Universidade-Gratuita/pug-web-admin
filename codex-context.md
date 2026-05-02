@@ -377,6 +377,22 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
   - keep a visible `Label` with fields that need a persistent name
   - do not rely on placeholder text as the only field label
   - field-level descriptions are appropriate for checkbox, radio, switch, and combobox items when one extra line clarifies the decision
+- Select contract:
+  - use select for one value from a defined set when the current value should stay visible in the trigger field
+  - placeholder is only for genuinely unselected states; once a value exists, the trigger should show it directly
+  - grouped options can use labels and separators for lightweight hierarchy
+  - select remains the compact single-value pattern; escalate to combobox for search or to multi-select for many selections
+  - if the primitive exposes direct clear behavior, treat it as a convenience on top of the same single-value contract
+- Multi-select contract:
+  - use multi-select when several values from the same set should stay grouped under one compact trigger
+  - the closed trigger summarizes selections with badges instead of listing every option inline
+  - selection badges use the brand tone by default and may switch to `neutral`, `success`, `warning`, `danger`, or `info` when the set carries real semantics
+  - keep it for compact grouped multi-value choices; escalate when the set becomes heavily searchable or structurally rich
+- Date picker contract:
+  - the shared date picker is date-only in the UI
+  - emitted values still use backend-friendly datetime shape at midnight for the chosen day
+  - use `min` and `max` when the valid day window is known
+  - keep it for one-off date fields; ranges, presets, recurrence, and richer scheduling logic should become higher-level composite components
 - Input contract:
   - keep `Input` for short structured values
   - the password reveal behavior is built into the primitive through `showPasswordToggle`

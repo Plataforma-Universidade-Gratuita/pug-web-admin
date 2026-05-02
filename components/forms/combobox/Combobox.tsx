@@ -55,12 +55,17 @@ export function Combobox({
 		<Popover
 			open={open}
 			onOpenChange={nextOpen => {
+				if (disabled) {
+					setOpen(false);
+					return;
+				}
+
 				setOpen(nextOpen);
 				if (!nextOpen) setQuery("");
 			}}
 		>
 			<div className="combobox-trigger-shell">
-				<PopoverTrigger>
+				<PopoverTrigger className="w-full">
 					<button
 						id={id}
 						type="button"
@@ -114,7 +119,10 @@ export function Combobox({
 
 			<PopoverContent
 				align="start"
-				className="combobox-content"
+				className={clsx(
+					"combobox-content",
+					disabled && "combobox-content-disabled",
+				)}
 			>
 				<div className="space-y-2">
 					<label
@@ -136,6 +144,7 @@ export function Combobox({
 							value={query}
 							onChange={event => setQuery(event.target.value)}
 							placeholder={searchPlaceholder}
+							disabled={disabled}
 							className="combobox-search-input"
 						/>
 					</div>
@@ -157,7 +166,9 @@ export function Combobox({
 											className={clsx(
 												"focus-ring combobox-option",
 												isSelected ? "combobox-option-selected" : null,
-												option.disabled ? "combobox-option-disabled" : null,
+												disabled || option.disabled
+													? "combobox-option-disabled"
+													: null,
 											)}
 										>
 											<span className="combobox-option-indicator">
