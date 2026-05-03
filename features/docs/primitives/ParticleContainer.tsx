@@ -50,8 +50,7 @@ export function ParticleContainer({
 						tooltipContent={
 							isExpanded ? t("docs.shared.collapse") : t("docs.shared.expand")
 						}
-						usage="primary"
-						variant="flat"
+						variant="secondary"
 						onClick={() => setIsExpanded(current => !current)}
 					>
 						{isExpanded ? (
@@ -69,8 +68,8 @@ export function ParticleContainer({
 					<Button
 						size={"icon"}
 						tooltipContent={t("docs.shared.viewPatternNotes")}
-						usage="secondary"
-						variant="ghost"
+						usage="primary"
+						variant="secondary"
 						onClick={() => setIsPreviewOpen(true)}
 					>
 						<Icon

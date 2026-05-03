@@ -1,24 +1,5 @@
 import type { ReactNode } from "react";
 
-export type PagePatternSlug =
-	| "section-stack"
-	| "operations-workspace"
-	| "split-detail";
-
-export interface PagePatternFrameProps {
-	slug: PagePatternSlug;
-}
-
-export interface PageIntroSectionProps {
-	eyebrow: string;
-	tone: "brand" | "info" | "success";
-	title: string;
-	description: string;
-	actions?: ReactNode;
-	meta?: ReactNode;
-	children?: ReactNode;
-}
-
 export interface RouteBoundaryPageProps {
 	error: Error & { digest?: string };
 	reset: () => void;

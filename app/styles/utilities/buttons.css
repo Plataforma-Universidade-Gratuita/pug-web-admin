@@ -130,8 +130,13 @@
 	--btn-flat-bg: var(--btn-accent);
 	--btn-flat-color: var(--btn-contrast);
 	--btn-flat-hover: color-mix(in oklab, var(--btn-accent) 92%, black);
+	--btn-flat-highlight: rgb(255 255 255 / 0.16);
+	--btn-flat-lowlight: rgb(0 0 0 / 0.12);
 	border: 1px solid var(--btn-flat-border);
 	background-color: var(--btn-flat-bg);
+	box-shadow:
+		inset 0 1px 0 var(--btn-flat-highlight),
+		inset 0 -1px 0 var(--btn-flat-lowlight);
 	color: var(--btn-flat-color);
 
 	html.dark &,
@@ -141,6 +146,8 @@
 		--btn-flat-bg: var(--btn-soft);
 		--btn-flat-color: var(--btn-accent);
 		--btn-flat-hover: color-mix(in oklab, var(--btn-accent) 24%, transparent);
+		--btn-flat-highlight: var(--twc-surface-highlight);
+		--btn-flat-lowlight: var(--twc-surface-lowlight);
 	}
 
 	@media (prefers-color-scheme: dark) {
@@ -156,6 +163,8 @@
 			--btn-flat-bg: var(--btn-soft);
 			--btn-flat-color: var(--btn-accent);
 			--btn-flat-hover: color-mix(in oklab, var(--btn-accent) 24%, transparent);
+			--btn-flat-highlight: var(--twc-surface-highlight);
+			--btn-flat-lowlight: var(--twc-surface-lowlight);
 		}
 	}
 
@@ -175,6 +184,9 @@
 
 	&:hover {
 		background-color: var(--btn-tint);
+		box-shadow:
+			inset 0 1px 0 var(--twc-surface-highlight),
+			inset 0 -1px 0 var(--twc-surface-lowlight);
 	}
 
 	&:active {

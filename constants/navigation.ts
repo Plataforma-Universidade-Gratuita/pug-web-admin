@@ -147,33 +147,6 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 				exact: true,
 			},
 			{
-				label: "Navbar.paths.docs.pages.root",
-				Icon: LayoutPanelTop,
-				childrenItems: [
-					{
-						href: "/docs/pages",
-						label: "Navbar.paths.docs.overview",
-						Icon: Home,
-						exact: true,
-					},
-					{
-						href: "/docs/pages/section-stack",
-						label: "Navbar.paths.docs.pages.sectionStack",
-						Icon: FileStack,
-					},
-					{
-						href: "/docs/pages/operations-workspace",
-						label: "Navbar.paths.docs.pages.operationsWorkspace",
-						Icon: BriefcaseBusiness,
-					},
-					{
-						href: "/docs/pages/split-detail",
-						label: "Navbar.paths.docs.pages.splitDetail",
-						Icon: PanelRight,
-					},
-				],
-			},
-			{
 				label: "Navbar.paths.docs.primitives.root",
 				Icon: Shapes,
 				childrenItems: [
@@ -226,17 +199,17 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 						exact: true,
 					},
 					{
-						href: "/docs/routing/previews/error",
+						href: "/docs/routing/error",
 						label: "Navbar.paths.docs.routing.errorPreview",
 						Icon: AlertTriangle,
 					},
 					{
-						href: "/docs/routing/previews/global-error",
+						href: "/docs/routing/global-error",
 						label: "Navbar.paths.docs.routing.globalErrorPreview",
 						Icon: ShieldAlert,
 					},
 					{
-						href: "/docs/routing/previews/not-found",
+						href: "/docs/routing/not-found",
 						label: "Navbar.paths.docs.routing.notFoundPreview",
 						Icon: SearchX,
 					},
@@ -257,17 +230,9 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/docs/primitives/overlays": "Navbar.paths.docs.primitives.overlays",
 	"/docs/primitives/structure": "Navbar.paths.docs.primitives.structure",
 	"/docs/routing": "Navbar.paths.docs.routing.root",
-	"/docs/routing/previews": "Navbar.paths.docs.routing.previews",
-	"/docs/routing/previews/error": "Navbar.paths.docs.routing.errorPreview",
-	"/docs/routing/previews/global-error":
-		"Navbar.paths.docs.routing.globalErrorPreview",
-	"/docs/routing/previews/not-found":
-		"Navbar.paths.docs.routing.notFoundPreview",
-	"/docs/pages": "Navbar.paths.docs.pages.root",
-	"/docs/pages/section-stack": "Navbar.paths.docs.pages.sectionStack",
-	"/docs/pages/operations-workspace":
-		"Navbar.paths.docs.pages.operationsWorkspace",
-	"/docs/pages/split-detail": "Navbar.paths.docs.pages.splitDetail",
+	"/docs/routing/error": "Navbar.paths.docs.routing.errorPreview",
+	"/docs/routing/global-error": "Navbar.paths.docs.routing.globalErrorPreview",
+	"/docs/routing/not-found": "Navbar.paths.docs.routing.notFoundPreview",
 	"/academic": "Navbar.paths.academic.root",
 	"/academic/course": "Navbar.paths.academic.course",
 	"/academic/school": "Navbar.paths.academic.school",

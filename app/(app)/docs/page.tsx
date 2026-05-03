@@ -13,134 +13,190 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { DOCS_AREAS, DOCS_SECTION_PANEL_CLASS_NAME } from "@/constants/docs";
+
+const DOCS_HOME_AREAS = [
+	{
+		href: "/docs/primitives",
+		path: "/docs/primitives",
+		title: "Primitive contracts",
+		description:
+			"Open this when the work is about variants, states, escalation boundaries, or shared interaction patterns.",
+		badge: "System",
+		tone: "info" as const,
+	},
+	{
+		href: "/docs/routing",
+		path: "/docs/routing",
+		title: "Route boundaries",
+		description:
+			"Open this when the work is about fallback scope, route-file ownership, and what the app should preserve when a page, segment, or shell fails.",
+		badge: "Runtime",
+		tone: "success" as const,
+	},
+] as const;
+
+const DOCS_HOME_PREVIEWS = [
+	{
+		href: "/docs/routing/not-found",
+		path: "/docs/routing/not-found",
+		title: "Missing-route and missing-record fallback surface.",
+	},
+	{
+		href: "/docs/routing/error",
+		path: "/docs/routing/error",
+		title: "Segment-level runtime error surface with retry-focused recovery.",
+	},
+	{
+		href: "/docs/routing/global-error",
+		path: "/docs/routing/global-error",
+		title: "Root fallback mirror for shell-level catastrophic failures.",
+	},
+] as const;
 
 export default function DocsPage() {
 	return (
-		<main className="mx-auto max-w-6xl space-y-8 p-6 lg:p-8">
-			<Section className={DOCS_SECTION_PANEL_CLASS_NAME}>
-				<SectionHeader>
-					<div className="max-w-3xl space-y-3">
-						<Badge tone="brand">Internal reference</Badge>
-						<SectionTitle>Overview</SectionTitle>
-						<SectionDescription>
-							This route should behave like the default app page pattern: a calm
-							intro at the top, then stacked sections that each own one clear
-							topic. From here, the rest of the docs branch splits into
-							primitive references, routing fallbacks, and page-level guidance.
-						</SectionDescription>
-					</div>
-				</SectionHeader>
-				<SectionContent className="grid gap-4 md:grid-cols-3">
-					<Card className="p-4">
-						<CardHeader>
-							<CardTitle>Default Pattern</CardTitle>
-							<CardDescription>
-								`/docs` is a module overview, so `Section Stack` is the right
-								fit.
-							</CardDescription>
-						</CardHeader>
-					</Card>
-					<Card className="p-4">
-						<CardHeader>
-							<CardTitle>Scope</CardTitle>
-							<CardDescription>
-								Keep top-level docs pages calm and explanatory. Push density
-								down into the deeper operational or preview pages when needed.
-							</CardDescription>
-						</CardHeader>
-					</Card>
-					<Card className="p-4">
-						<CardHeader>
-							<CardTitle>Navigation</CardTitle>
-							<CardDescription>
-								Use this page as the stable entry point for the docs area
-								instead of redirecting immediately into one subsection.
-							</CardDescription>
-						</CardHeader>
-					</Card>
-				</SectionContent>
-			</Section>
+		<main className="mx-auto max-w-7xl px-6 pt-3 pb-6 lg:px-8 lg:pt-4 lg:pb-6">
+			<div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
+				<div className="space-y-8">
+					<Section className="surface-2 shadow-normal rounded-[var(--twc-radius-xl)] border border-[color:var(--twc-border-2)] p-7">
+						<SectionHeader className="gap-3">
+							<div className="space-y-3">
+								<Badge tone="brand">System docs</Badge>
+								<SectionTitle className="text-3xl md:text-4xl">
+									Use the docs to make product decisions, not style guesses.
+								</SectionTitle>
+								<SectionDescription className="max-w-4xl">
+									The docs home owns two real jobs: component contracts and
+									route fallback behavior. Everything here should point toward
+									those live decisions and avoid turning into a loose index of
+									stale examples.
+								</SectionDescription>
+							</div>
+						</SectionHeader>
+						<SectionContent className="grid gap-4 xl:grid-cols-2">
+							<Card className="surface-3 border border-[color:var(--twc-border-3)] p-5">
+								<CardHeader>
+									<CardTitle>Primitive contract</CardTitle>
+									<CardDescription>
+										Use the primitive library when the question is about
+										variants, states, escalation boundaries, or shared
+										interaction patterns.
+									</CardDescription>
+								</CardHeader>
+							</Card>
+							<Card className="surface-3 border border-[color:var(--twc-border-3)] p-5">
+								<CardHeader>
+									<CardTitle>Route fallback contract</CardTitle>
+									<CardDescription>
+										Use routing docs when the question is about failure scope,
+										file ownership, and what the user should still be able to do
+										after a route breaks.
+									</CardDescription>
+								</CardHeader>
+							</Card>
+						</SectionContent>
+					</Section>
 
-			<Section className={DOCS_SECTION_PANEL_CLASS_NAME}>
-				<SectionHeader>
-					<div className="space-y-3">
-						<Badge tone="info">Explore</Badge>
-						<SectionTitle>Docs Areas</SectionTitle>
-						<SectionDescription>
-							Each subsection has a different job, but they all stay inside the
-							same component system and overall page language.
-						</SectionDescription>
-					</div>
-				</SectionHeader>
-				<SectionContent className="grid gap-4 xl:grid-cols-3">
-					{DOCS_AREAS.map(area => (
-						<Card
-							key={area.href}
-							className="flex h-full flex-col justify-between p-4"
-						>
-							<CardHeader className="space-y-3">
-								<div className="flex flex-wrap items-center justify-between gap-3">
-									<CardTitle>{area.title}</CardTitle>
-									<Badge tone="neutral">{area.label}</Badge>
-								</div>
-								<CardDescription>{area.description}</CardDescription>
-							</CardHeader>
-							<CardContent className="pt-0">
-								<Link
-									href={area.href}
-									className="ty-sm-semibold text-[color:var(--color-brand)] underline underline-offset-4"
+					<Section className="surface-2 shadow-normal rounded-[var(--twc-radius-xl)] border border-[color:var(--twc-border-2)] p-7">
+						<SectionHeader className="gap-3">
+							<div className="space-y-3">
+								<Badge
+									tone="info"
+									variant="secondary"
 								>
-									Open {area.title.toLowerCase()}
-								</Link>
-							</CardContent>
-						</Card>
-					))}
-				</SectionContent>
-			</Section>
+									Direct paths
+								</Badge>
+								<SectionTitle className="text-3xl">
+									The docs should expose the real entry points.
+								</SectionTitle>
+								<SectionDescription className="max-w-4xl">
+									If a page cannot be defended as a current source of truth, it
+									should not stay in the docs tree. This home should send people
+									only to the areas that still reflect the product.
+								</SectionDescription>
+							</div>
+						</SectionHeader>
+						<SectionContent className="grid gap-4">
+							{DOCS_HOME_AREAS.map(area => (
+								<Card
+									key={area.href}
+									className="surface-3 border border-[color:var(--twc-border-3)] p-5"
+								>
+									<CardContent className="grid gap-4 p-0 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+										<div className="space-y-2">
+											<p className="text-sm font-semibold text-[color:var(--twc-text)]">
+												<code>{area.path}</code>
+											</p>
+											<div className="space-y-2">
+												<CardTitle className="text-base">
+													{area.title}
+												</CardTitle>
+												<CardDescription>{area.description}</CardDescription>
+											</div>
+										</div>
+										<div className="grid gap-3 lg:justify-items-end">
+											<Badge tone={area.tone}>{area.badge}</Badge>
+											<Link
+												href={area.href}
+												className="ty-sm-semibold text-[color:var(--color-brand)] underline underline-offset-4"
+											>
+												Open area
+											</Link>
+										</div>
+									</CardContent>
+								</Card>
+							))}
+						</SectionContent>
+					</Section>
+				</div>
 
-			<Section className={DOCS_SECTION_PANEL_CLASS_NAME}>
-				<SectionHeader>
-					<div className="space-y-3">
-						<Badge tone="success">Current guidance</Badge>
-						<SectionTitle>How Pages Should Layer</SectionTitle>
-						<SectionDescription>
-							The docs branch now mirrors the page-pattern and surface rules
-							already accepted for the rest of the app.
-						</SectionDescription>
-					</div>
-				</SectionHeader>
-				<SectionContent className="grid gap-4 lg:grid-cols-3">
-					<Card className="p-4">
-						<CardHeader>
-							<CardTitle>Section Stack First</CardTitle>
-							<CardDescription>
-								Use stacked sections for module overviews, landing pages, and
-								calm reference pages like this one.
-							</CardDescription>
-						</CardHeader>
-					</Card>
-					<Card className="p-4">
-						<CardHeader>
-							<CardTitle>Promote Only When Needed</CardTitle>
-							<CardDescription>
-								Move into denser workspaces or split-detail layouts only when
-								the job of the page becomes operational or record-centric.
-							</CardDescription>
-						</CardHeader>
-					</Card>
-					<Card className="p-4">
-						<CardHeader>
-							<CardTitle>Use Surface Contrast by Default</CardTitle>
-							<CardDescription>
-								Keep darker surfaces farther back and lighter surfaces closer to
-								the user. Sections do not always need a different surface, but
-								cards should at least separate from their immediate background.
-							</CardDescription>
-						</CardHeader>
-					</Card>
-				</SectionContent>
-			</Section>
+				<Section className="surface-2 shadow-normal h-fit rounded-[var(--twc-radius-xl)] border border-[color:var(--twc-border-2)] p-7 lg:sticky lg:top-3 lg:h-[calc(100dvh-6.5rem)] lg:self-start">
+					<SectionHeader className="gap-3">
+						<div className="space-y-3">
+							<Badge
+								tone="warning"
+								variant="secondary"
+							>
+								Safe previews
+							</Badge>
+							<SectionTitle className="text-2xl">
+								Inspect boundary UI without breaking the app.
+							</SectionTitle>
+						</div>
+					</SectionHeader>
+					<SectionContent className="min-h-0 flex-1 lg:pb-0">
+						<div className="grid gap-3 lg:max-h-full lg:overflow-auto lg:pr-2">
+							{DOCS_HOME_PREVIEWS.map(preview => (
+								<Card
+									key={preview.href}
+									className="surface-3 border border-[color:var(--twc-border-3)] p-4"
+								>
+									<CardHeader className="space-y-3">
+										<Badge
+											tone="warning"
+											variant="secondary"
+										>
+											Preview route
+										</Badge>
+										<CardTitle className="text-base">
+											<code>{preview.path}</code>
+										</CardTitle>
+										<CardDescription>{preview.title}</CardDescription>
+									</CardHeader>
+									<CardContent className="pt-0">
+										<Link
+											href={preview.href}
+											className="ty-sm-semibold text-[color:var(--color-brand)] underline underline-offset-4"
+										>
+											Open preview
+										</Link>
+									</CardContent>
+								</Card>
+							))}
+						</div>
+					</SectionContent>
+				</Section>
+			</div>
 		</main>
 	);
 }

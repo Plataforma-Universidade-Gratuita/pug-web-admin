@@ -108,10 +108,6 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - `/geo`
 - `/geo/city`
 - `/docs`
-- `/docs/pages`
-- `/docs/pages/section-stack`
-- `/docs/pages/operations-workspace`
-- `/docs/pages/split-detail`
 - `/docs/primitives`
 - `/docs/primitives/actions`
 - `/docs/primitives/display`
@@ -120,9 +116,9 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - `/docs/primitives/overlays`
 - `/docs/primitives/structure`
 - `/docs/routing`
-- `/docs/routing/previews/not-found`
-- `/docs/routing/previews/error`
-- `/docs/routing/previews/global-error`
+- `/docs/routing/not-found`
+- `/docs/routing/error`
+- `/docs/routing/global-error`
 
 ### Auth route
 
@@ -701,13 +697,19 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - `docs` is an internal reference area for:
   - shared primitives
   - route boundary previews
-  - page pattern guidance
 - Docs static config is now centralized in:
   - `constants/docs.ts`
 - Docs types live in:
   - `types/client/docs.ts`
 - Docs feature surfaces live in:
   - `features/docs`
+- The docs home page at `/docs` is a real entry page and should stay focused on the two live docs jobs:
+  - primitive contracts
+  - routing boundary contracts
+- The docs home composition currently uses:
+  - left main content with explanatory sections
+  - right sticky rail with safe routing previews
+- Do not turn the docs home back into a loose index of stale areas or exploratory examples.
 
 ### Primitive docs rules
 
@@ -723,53 +725,24 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
   - `not-found.tsx`
   - `error.tsx`
   - `global-error.tsx`
-- There are safe preview routes for those boundaries under `/docs/routing/previews/*`.
+- There are safe preview routes for those boundaries under `/docs/routing/*`.
 - Boundary screen helper functions are centralized in:
   - `features/docs/routing/utils.ts`
 
 ## Page architecture rules
 
-- The default page grammar is `Section Stack`.
-- The current docs area documents three page patterns:
-  - `Section Stack`
-  - `Operations Workspace`
-  - `Split Detail`
-
-### Section Stack
-
-- Use it by default for overview and calmer reference pages.
-- Structure:
-  - centered app shell
-  - optional breadcrumb
-  - one clear page header
-  - stacked `Section` surfaces below
-
-### Operations Workspace
-
-- Use it for collection pages with frequent search, filters, triage, queue-like flows, or rapid state changes.
-- Preferred targets:
-  - students
-  - projects
-  - enrollments
-  - attendances
-  - staff
-  - possibly partner entities if the page becomes operationally dense
-
-### Split Detail
-
-- Use it for important single-record pages that need persistent context while reading or editing related information.
-- Preferred targets:
-  - `student/:id`
-  - `project/:id`
-  - `partner-entity/:id`
-  - `school/:id` only if it grows beyond simple reference detail
+- The default page grammar is section-based page composition.
+- Use `Section` for page-level grouping and `Card` for bounded inner units.
+- Keep docs overview pages calm and explanatory. Push dense examples down into the primitive and routing pages that actually own them.
+- Do not use page-level `Card` wrappers where `Section` should own the page structure.
 
 ### Overlay rules
 
 - Overlays support pages. They do not replace page architecture.
 - Use:
   - `Popover` for quick filters, tiny decisions, and compact supporting panels
-  - `Dialog`/modal for confirmations and short one-shot actions
+  - `AlertDialog` for confirmations and meaningful destructive or cautionary actions
+  - `Dialog` for focused supporting information and short read/review surfaces
   - `Drawer` for subordinate create/edit/review flows tied to the current page
 
 ## Import and organization rules
@@ -795,6 +768,10 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 - Request gating should use `proxy.ts`, not `middleware.ts`.
 - Mock runtime scripts should use `scripts/with-env.mjs`, not `node --env-file=...`.
 - The shell and docs areas already use shared `ScrollArea` and overlay primitives; keep that consistency.
+- The docs area now has only two live branches:
+  - `primitives`
+  - `routing`
+- Do not reintroduce generic page-pattern docs unless they are rebuilt from real current product archetypes.
 
 ## What to check before finishing work
 
@@ -821,8 +798,8 @@ This file is the working contract for `pug-web-admin`. If you follow it closely,
 ## Exceptions and judgment
 
 - Next.js framework exports that must stay in route/layout files, such as `metadata` or route `config`, should remain in those files.
-- React contexts are runtime objects and stay in `contexts/`; they are not â€œraw constantsâ€.
+- React contexts are runtime objects and stay in `contexts/`; they are not "raw constants".
 - Component declarations exported as `const` through `forwardRef` are still components, not misplaced constants.
 - Do not move logic out of a `.tsx` file just to satisfy formality when it is tightly coupled to local state and would become harder to read.
 
-If there is any conflict between an existing file and this document, prefer the repoâ€™s currently working shared patterns, then update this context file when the architectural rule has clearly changed.
+If there is any conflict between an existing file and this document, prefer the repo's currently working shared patterns, then update this context file when the architectural rule has clearly changed.

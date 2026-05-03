@@ -11,15 +11,24 @@
 
 @layer components {
 	.shadow-weak {
-		box-shadow: var(--twc-shadow-sm);
+		box-shadow:
+			inset 0 1px 0 var(--twc-surface-highlight),
+			inset 0 -1px 0 var(--twc-surface-lowlight),
+			var(--twc-shadow-sm);
 	}
 
 	.shadow-normal {
-		box-shadow: var(--twc-shadow-md);
+		box-shadow:
+			inset 0 1px 0 var(--twc-surface-highlight),
+			inset 0 -1px 0 var(--twc-surface-lowlight),
+			var(--twc-shadow-md);
 	}
 
 	.shadow-strong {
-		box-shadow: var(--twc-shadow-lg);
+		box-shadow:
+			inset 0 1px 0 var(--twc-surface-highlight),
+			inset 0 -1px 0 var(--twc-surface-lowlight),
+			var(--twc-shadow-lg);
 	}
 
 	.skeleton-shimmer {

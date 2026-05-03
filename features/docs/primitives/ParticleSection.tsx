@@ -35,8 +35,7 @@ export function ParticleSection({
 				</div>
 				<SectionActions className="shrink-0">
 					<Button
-						usage="secondary"
-						variant="ghost"
+						variant="secondary"
 						leadingIcon={
 							isExpanded ? (
 								<Icon

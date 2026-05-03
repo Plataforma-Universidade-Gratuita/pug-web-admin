@@ -982,7 +982,7 @@
                         },
                         "joao": {
                             "description": "Project operations",
-                            "label": "JoÃƒÆ’Ã‚Â£o"
+                            "label": "JoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o"
                         },
                         "maria": {
                             "description": "Academic coordination",
@@ -1093,70 +1093,87 @@
         "primitivesOverview": {
             "areas": {
                 "actions": {
-                    "cta": "Open actions",
-                    "description": "Buttons, toggles, and other actionable primitives.",
+                    "cta": "Open area",
+                    "description": "Buttons, toggles, and action hierarchy.",
                     "href": "/docs/primitives/actions",
                     "label": "Actions",
-                    "title": "Actions"
+                    "title": "Actions",
+                    "tone": "Core"
                 },
                 "display": {
-                    "cta": "Open display",
-                    "description": "Cards, badges, icons, and visual display elements.",
+                    "cta": "Open area",
+                    "description": "Sections, cards, tables, and visual states.",
                     "href": "/docs/primitives/display",
                     "label": "Display",
-                    "title": "Display"
+                    "title": "Display",
+                    "tone": "Core"
                 },
                 "forms": {
-                    "cta": "Open forms",
-                    "description": "Inputs, selects, checkboxes, and form controls.",
+                    "cta": "Open area",
+                    "description": "Fields, selection patterns, and date input.",
                     "href": "/docs/primitives/forms",
                     "label": "Forms",
-                    "title": "Forms"
+                    "title": "Forms",
+                    "tone": "Input"
                 },
                 "navigation": {
-                    "cta": "Open navigation",
-                    "description": "Tabs, accordions, breadcrumbs, and navigation aids.",
+                    "cta": "Open area",
+                    "description": "Tabs, accordion, and dropdown menus.",
                     "href": "/docs/primitives/navigation",
                     "label": "Navigation",
-                    "title": "Navigation"
+                    "title": "Navigation",
+                    "tone": "Flow"
                 },
                 "overlays": {
-                    "cta": "Open overlays",
-                    "description": "Dialogs, popovers, tooltips, and overlay components.",
+                    "cta": "Open area",
+                    "description": "Drawer, dialog, popover, and toast.",
                     "href": "/docs/primitives/overlays",
                     "label": "Overlays",
-                    "title": "Overlays"
+                    "title": "Overlays",
+                    "tone": "Flow"
                 },
                 "structure": {
-                    "cta": "Open structure",
-                    "description": "Layout, scroll areas, and structural primitives.",
+                    "cta": "Open area",
+                    "description": "Scroll areas and layout support.",
                     "href": "/docs/primitives/structure",
                     "label": "Structure",
-                    "title": "Structure"
+                    "title": "Structure",
+                    "tone": "Support"
                 }
             },
             "categories": {
-                "badge": "Categories",
-                "description": "Each category contains related primitives. Click a card to view all primitives in that group.",
-                "title": "Primitive Categories"
+                "badge": "Guidance",
+                "description": "Each primitive area should make the approved defaults, semantic variants, states, and escalation rules explicit for that part of the system.",
+                "guidanceLabel": "Guidance",
+                "title": "What these docs should teach"
+            },
+            "guidance": {
+                "exploration": "Primitive pages should show the approved states, loading behavior, disabled treatment, and escalation boundaries so product work does not invent local exceptions.",
+                "organization": "Start by deciding whether the page needs an action, form control, display surface, navigation primitive, overlay, or structural support primitive.",
+                "patterns": "These primitives are intentionally opinionated. Each page should make the default contract obvious and leave ad hoc composition as the exception."
             },
             "hero": {
-                "badge": "Primitives",
-                "description": "This section provides a reference for all shared UI primitives. Browse the categories below to explore actionable, display, form, navigation, overlay, and structure components.",
-                "title": "Primitives Overview"
+                "badge": "Shared primitives",
+                "description": "This library defines the approved UI building blocks for PUG Web Admin. Use it to choose the right primitive, follow the default pattern, and stay inside the intended usage boundaries.",
+                "title": "Shared building blocks, documented like a real product system."
+            },
+            "rail": {
+                "badge": "Primitive index",
+                "description": "Choose the primitive area that matches the UI job you need to solve.",
+                "title": "Pick a primitive area first."
             },
             "summary": {
                 "exploration": {
-                    "description": "Use the cards below to jump into each primitive category and see detailed docs.",
-                    "title": "Explore by category"
+                    "description": "Inspect states, loading, disabled behavior, and escalation rules before you improvise a new pattern in feature code.",
+                    "title": "States and boundaries"
                 },
                 "organization": {
-                    "description": "Primitives are grouped by their primary UI role for clarity and discoverability.",
-                    "title": "Organized by role"
+                    "description": "Start by choosing the primitive area that matches the job the UI needs to do.",
+                    "title": "Areas first"
                 },
                 "patterns": {
-                    "description": "All primitives follow the same design system and interaction patterns.",
-                    "title": "Consistent patterns"
+                    "description": "Every primitive page should make the approved default path clearer than the optional variations.",
+                    "title": "Default path"
                 }
             }
         },
@@ -1975,12 +1992,6 @@
             },
             "docs": {
                 "overview": "Overview",
-                "pages": {
-                    "operationsWorkspace": "Operations Workspace",
-                    "root": "Page Patterns",
-                    "sectionStack": "Section Stack",
-                    "splitDetail": "Split Detail"
-                },
                 "primitives": {
                     "actions": "Actions",
                     "display": "Display",
@@ -1995,7 +2006,6 @@
                     "errorPreview": "Error Preview",
                     "globalErrorPreview": "Global Error Preview",
                     "notFoundPreview": "Not Found Preview",
-                    "previews": "Previews",
                     "root": "Routing"
                 }
             },

@@ -85,7 +85,7 @@ export function RouteBoundaryScreen({
 							{variant !== "not-found" ? (
 								<Button
 									usage="primary"
-									variant="flat"
+									variant="primary"
 									leadingIcon={
 										<Icon
 											icon={RefreshCcw}
@@ -109,7 +109,7 @@ export function RouteBoundaryScreen({
 
 							<Button
 								usage={variant === "not-found" ? "primary" : "secondary"}
-								variant={variant === "not-found" ? "flat" : "ghost"}
+								variant={variant === "not-found" ? "primary" : "secondary"}
 								leadingIcon={
 									<Icon
 										icon={Home}
