@@ -8,7 +8,6 @@
 		"dev:turbo": "next dev --turbopack",
 		"dev:mock:turbo": "node ./scripts/with-env.mjs mock-api.env next dev --turbopack",
 		"build": "next build --turbopack",
-		"mock:api": "node ./scripts/with-env.mjs mock-api.env node ./scripts/mock-api.mjs",
 		"trans": "node ./scripts/reorderTranslations.js dev && node ./scripts/checkMissingTranslations.js && node ./scripts/checkUnusedTranslations.js",
 		"start": "next start",
 		"lint": "eslint .",
