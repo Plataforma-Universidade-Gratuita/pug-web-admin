@@ -1,11 +1,16 @@
 "use client";
 
 import {
+	Children,
+	Fragment,
+	isValidElement,
 	useCallback,
 	useEffect,
 	useRef,
 	useState,
 	type CSSProperties,
+	type ReactElement,
+	type ReactNode,
 } from "react";
 
 import {
@@ -24,8 +29,10 @@ import { Skeleton } from "@/components/display/skeleton/Skeleton";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
+	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/navigation/dropdown-menu/DropdownMenu";
+import type { ButtonUsage, DropdownMenuItemProps } from "@/types/client";
 import type { TableProps } from "@/types/client";
 
 import {
@@ -589,6 +596,43 @@ function RowActionsCell<TData extends object>({
 	row: TData;
 	getRowActions: NonNullable<TableProps<TData>["getRowActions"]>;
 }) {
+	const actions = flattenActionNodes(getRowActions(row));
+	const [singleAction] = actions;
+	const directAction =
+		actions.length === 1 && singleAction
+			? getDirectActionProps(singleAction)
+			: null;
+
+	if (directAction) {
+		const label =
+			typeof directAction.label === "string" ? directAction.label : undefined;
+
+		return (
+			<Button
+				aria-label={label}
+				size="icon"
+				title={label}
+				tooltipContent={directAction.label}
+				usage={getButtonUsageFromActionTone(directAction.tone)}
+				variant="secondary"
+				disabled={directAction.disabled}
+				onClick={event => {
+					directAction.onClick?.(event as never);
+
+					if (directAction.onSelect) {
+						directAction.onSelect(event as never);
+					}
+				}}
+			>
+				<Icon
+					icon={directAction.icon}
+					className="h-4 w-4"
+					decorative
+				/>
+			</Button>
+		);
+	}
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
@@ -607,6 +651,55 @@ function RowActionsCell<TData extends object>({
 			<DropdownMenuContent>{getRowActions(row)}</DropdownMenuContent>
 		</DropdownMenu>
 	);
+}
+
+function flattenActionNodes(children: ReactNode): ReactElement[] {
+	return Children.toArray(children).flatMap(child => {
+		if (!isValidElement(child)) {
+			return [];
+		}
+
+		if (child.type === Fragment) {
+			return flattenActionNodes(
+				(child as ReactElement<{ children?: ReactNode }>).props.children,
+			);
+		}
+
+		return [child];
+	});
+}
+
+function getDirectActionProps(element: ReactElement) {
+	if (element.type === DropdownMenuSeparator) {
+		return null;
+	}
+
+	const props = element.props as DropdownMenuItemProps;
+
+	if (!props.icon || !props.label) {
+		return null;
+	}
+
+	return props;
+}
+
+function getButtonUsageFromActionTone(
+	tone: DropdownMenuItemProps["tone"],
+): ButtonUsage {
+	switch (tone) {
+		case "brand":
+			return "primary";
+		case "info":
+			return "info";
+		case "success":
+			return "success";
+		case "warning":
+			return "warning";
+		case "danger":
+			return "danger";
+		default:
+			return "secondary";
+	}
 }
 
 function SortIcon({ direction }: { direction: false | "asc" | "desc" }) {

@@ -105,7 +105,7 @@ export interface DropdownMenuItemProps extends Omit<
 > {
 	inset?: boolean;
 	current?: boolean;
-	tone?: "default" | "brand" | "success" | "warning" | "danger";
+	tone?: "default" | "brand" | "info" | "success" | "warning" | "danger";
 	label: ReactNode;
 	icon: ForwardRefExoticComponent<
 		Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>

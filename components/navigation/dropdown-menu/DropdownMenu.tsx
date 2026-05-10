@@ -109,6 +109,15 @@ export function DropdownMenuSuccessItem(props: DropdownMenuItemProps) {
 	);
 }
 
+export function DropdownMenuInfoItem(props: DropdownMenuItemProps) {
+	return (
+		<DropdownMenuBaseItem
+			tone="info"
+			{...props}
+		/>
+	);
+}
+
 export function DropdownMenuWarningItem(props: DropdownMenuItemProps) {
 	return (
 		<DropdownMenuBaseItem

@@ -183,6 +183,19 @@
 		);
 	}
 
+	.dropdown-item-tone-info {
+		color: var(--color-info-800);
+	}
+
+	.dropdown-item-tone-info:hover,
+	.dropdown-item-tone-info[data-highlighted="true"] {
+		background-color: color-mix(
+			in oklab,
+			var(--color-info-800) 10%,
+			var(--twc-surface-2)
+		);
+	}
+
 	.dropdown-item-tone-success {
 		color: var(--color-success-800);
 	}
