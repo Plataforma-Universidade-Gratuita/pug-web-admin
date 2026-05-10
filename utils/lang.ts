@@ -17,3 +17,21 @@ export function coerceLang(x: unknown): AppLang {
 	}
 	return DEFAULT_LANG;
 }
+
+export function normalizeTextForSearch(value: string) {
+	return value
+		.normalize("NFD")
+		.replace(/\p{Diacritic}+/gu, "")
+		.toLocaleLowerCase();
+}
+
+export function compareNormalizedText(a: string, b: string) {
+	return normalizeTextForSearch(a).localeCompare(
+		normalizeTextForSearch(b),
+		undefined,
+		{
+			numeric: true,
+			sensitivity: "base",
+		},
+	);
+}

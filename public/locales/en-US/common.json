@@ -72,6 +72,19 @@
         },
         "drawer": {
             "close": "Close drawer"
+        },
+        "emptyState": {
+            "presets": {
+                "noContent": {
+                    "description": "There is no content to show in this area yet."
+                },
+                "notFound": {
+                    "description": "The requested record could not be found."
+                },
+                "someError": {
+                    "refresh": "Refresh"
+                }
+            }
         }
     },
     "docs": {
@@ -1925,6 +1938,71 @@
                     "title": "Still needs a label"
                 }
             }
+        }
+    },
+    "geo": {
+        "cityPage": {
+            "description": "Read-only geographic directory used across academic, identity, partner, and project flows.",
+            "dialog": {
+                "error": {
+                    "description": "The city record could not be loaded right now.",
+                    "title": "Unable to load city"
+                },
+                "fields": {
+                    "ibgeCode": "IBGE code",
+                    "id": "Identifier",
+                    "name": "City name"
+                },
+                "notFound": {
+                    "description": "The requested city record could not be found.",
+                    "title": "City not found"
+                },
+                "overhead": "City record",
+                "titleFallback": "City details"
+            },
+            "empty": {
+                "defaultDescription": "The city catalog is currently empty.",
+                "filteredDescription": "No city matches \"{{value}}\".",
+                "title": "No cities found"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "The city record could not be loaded right now.",
+                    "title": "Unable to load city details"
+                },
+                "listError": {
+                    "description": "The city catalog could not be loaded right now.",
+                    "title": "Unable to load cities"
+                }
+            },
+            "filters": {
+                "searchPlaceholder": "Search by city name or IBGE code"
+            },
+            "loading": {
+                "detail": "Loading city details",
+                "list": "Loading city catalog"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Service provenance, freshness, and request metadata will live here.",
+                    "title": "Metadata coming soon"
+                },
+                "trigger": "Metadata"
+            },
+            "table": {
+                "actions": {
+                    "viewDetails": "View city details"
+                },
+                "columns": {
+                    "ibgeCode": "IBGE code",
+                    "name": "City"
+                },
+                "error": {
+                    "description": "The city catalog could not be loaded right now.",
+                    "title": "Unable to load cities"
+                }
+            },
+            "title": "Cities"
         }
     },
     "home": {

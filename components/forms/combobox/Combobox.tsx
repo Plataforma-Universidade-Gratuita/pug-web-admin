@@ -16,6 +16,7 @@ import {
 	PopoverTrigger,
 } from "@/components/overlays/popover/Popover";
 import type { ComboboxProps } from "@/types/client";
+import { normalizeTextForSearch } from "@/utils/lang";
 
 export function Combobox({
 	options,
@@ -36,7 +37,7 @@ export function Combobox({
 
 	const selectedOption = options.find(option => option.value === selectedValue);
 	const filteredOptions = useMemo(() => {
-		const normalizedQuery = query.trim().toLowerCase();
+		const normalizedQuery = normalizeTextForSearch(query.trim());
 		if (!normalizedQuery) return options;
 
 		return options.filter(option =>

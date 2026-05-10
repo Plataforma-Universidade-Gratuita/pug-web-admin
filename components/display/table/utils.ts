@@ -1,3 +1,5 @@
+import { compareNormalizedText } from "@/utils/lang";
+
 const MIN_TABLE_SCROLLBAR_THUMB_SIZE = 32;
 
 export interface TableScrollbarMetrics {
@@ -65,4 +67,24 @@ export function getScrollOffsetFromThumbOffset({
 	return (
 		clamp(thumbOffsetPx, 0, maxThumbOffset) * (maxScrollOffset / maxThumbOffset)
 	);
+}
+
+export function compareTableValues(a: unknown, b: unknown) {
+	if (typeof a === "number" && typeof b === "number") {
+		return a - b;
+	}
+
+	if (typeof a === "bigint" && typeof b === "bigint") {
+		return a > b ? 1 : a < b ? -1 : 0;
+	}
+
+	if (a instanceof Date && b instanceof Date) {
+		return a.getTime() - b.getTime();
+	}
+
+	if (typeof a === "boolean" && typeof b === "boolean") {
+		return Number(a) - Number(b);
+	}
+
+	return compareNormalizedText(String(a ?? ""), String(b ?? ""));
 }

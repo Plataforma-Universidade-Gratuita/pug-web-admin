@@ -72,6 +72,19 @@
         },
         "drawer": {
             "close": "Fechar drawer"
+        },
+        "emptyState": {
+            "presets": {
+                "noContent": {
+                    "description": "N?o h? conte?do para mostrar nesta ?rea ainda."
+                },
+                "notFound": {
+                    "description": "O registro solicitado n?o foi encontrado."
+                },
+                "someError": {
+                    "refresh": "Atualizar"
+                }
+            }
         }
     },
     "docs": {
@@ -1925,6 +1938,71 @@
                     "title": "Ainda precisa de rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³tulo"
                 }
             }
+        }
+    },
+    "geo": {
+        "cityPage": {
+            "description": "Diret?rio geogr?fico somente leitura usado pelos fluxos acad?micos, de identidade, parceiros e projetos.",
+            "dialog": {
+                "error": {
+                    "description": "O registro da cidade n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar a cidade"
+                },
+                "fields": {
+                    "ibgeCode": "C?digo IBGE",
+                    "id": "Identificador",
+                    "name": "Nome da cidade"
+                },
+                "notFound": {
+                    "description": "O registro da cidade solicitada n?o foi encontrado.",
+                    "title": "Cidade n?o encontrada"
+                },
+                "overhead": "Registro da cidade",
+                "titleFallback": "Detalhes da cidade"
+            },
+            "empty": {
+                "defaultDescription": "O cat?logo de cidades est? vazio no momento.",
+                "filteredDescription": "Nenhuma cidade corresponde a \"{{value}}\".",
+                "title": "Nenhuma cidade encontrada"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "O registro da cidade n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar os detalhes da cidade"
+                },
+                "listError": {
+                    "description": "O cat?logo de cidades n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar as cidades"
+                }
+            },
+            "filters": {
+                "searchPlaceholder": "Buscar por nome da cidade ou c?digo IBGE"
+            },
+            "loading": {
+                "detail": "Carregando detalhes da cidade",
+                "list": "Carregando cat?logo de cidades"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Origem do servi?o, atualiza??o e metadados da requisi??o ficar?o aqui.",
+                    "title": "Metadados em breve"
+                },
+                "trigger": "Metadados"
+            },
+            "table": {
+                "actions": {
+                    "viewDetails": "Ver detalhes da cidade"
+                },
+                "columns": {
+                    "ibgeCode": "C?digo IBGE",
+                    "name": "Cidade"
+                },
+                "error": {
+                    "description": "O cat?logo de cidades n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar as cidades"
+                }
+            },
+            "title": "Cidades"
         }
     },
     "home": {

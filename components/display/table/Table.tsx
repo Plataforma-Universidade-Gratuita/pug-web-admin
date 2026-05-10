@@ -18,11 +18,11 @@ import {
 	getCoreRowModel,
 	getSortedRowModel,
 	useReactTable,
+	type SortingFn,
 } from "@tanstack/react-table";
 import clsx from "clsx";
 import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal } from "lucide-react";
 
-import { Button } from "@/components/actions/button/Button";
 import { EmptyState } from "@/components/display/empty-state/EmptyState";
 import { Icon } from "@/components/display/icon/Icon";
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
@@ -32,10 +32,11 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/navigation/dropdown-menu/DropdownMenu";
-import type { ButtonUsage, DropdownMenuItemProps } from "@/types/client";
+import type { DropdownMenuItemProps } from "@/types/client";
 import type { TableProps } from "@/types/client";
 
 import {
+	compareTableValues,
 	getScrollOffsetFromThumbOffset,
 	getTableScrollbarMetrics,
 } from "./utils";
@@ -83,11 +84,19 @@ export function Table<TData extends object>({
 		startScrollOffset: number;
 		startPointerOffset: number;
 	} | null>(null);
+	const accentInsensitiveSorting = useCallback<SortingFn<TData>>(
+		(rowA, rowB, columnId) =>
+			compareTableValues(rowA.getValue(columnId), rowB.getValue(columnId)),
+		[],
+	);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
 		data,
 		columns,
+		defaultColumn: {
+			sortingFn: accentInsensitiveSorting,
+		},
 		state: {
 			sorting,
 		},
@@ -475,38 +484,49 @@ export function Table<TData extends object>({
 											))}
 											{hasRowActions ? (
 												<td className="table-body-cell table-body-cell-actions">
-													<Skeleton className="h-9 w-9 rounded-full" />
+													<Skeleton className="h-7 w-7 rounded-full" />
 												</td>
 											) : null}
 										</tr>
 									))
 								) : rows.length > 0 ? (
-									rows.map(row => (
+									<>
+										{rows.map(row => (
+											<tr
+												key={row.id}
+												className="table-body-row"
+											>
+												{row.getVisibleCells().map(cell => (
+													<td
+														key={cell.id}
+														className="table-body-cell"
+													>
+														{flexRender(
+															cell.column.columnDef.cell,
+															cell.getContext(),
+														)}
+													</td>
+												))}
+												{hasRowActions ? (
+													<td className="table-body-cell table-body-cell-actions">
+														<RowActionsCell
+															row={row.original}
+															getRowActions={getRowActions!}
+														/>
+													</td>
+												) : null}
+											</tr>
+										))}
 										<tr
-											key={row.id}
-											className="table-body-row"
+											aria-hidden="true"
+											className="table-spacer-row"
 										>
-											{row.getVisibleCells().map(cell => (
-												<td
-													key={cell.id}
-													className="table-body-cell"
-												>
-													{flexRender(
-														cell.column.columnDef.cell,
-														cell.getContext(),
-													)}
-												</td>
-											))}
-											{hasRowActions ? (
-												<td className="table-body-cell table-body-cell-actions">
-													<RowActionsCell
-														row={row.original}
-														getRowActions={getRowActions!}
-													/>
-												</td>
-											) : null}
+											<td
+												colSpan={totalColumnCount || 1}
+												className="table-spacer-cell"
+											/>
 										</tr>
-									))
+									</>
 								) : (
 									<tr className="table-empty-row">
 										<td
@@ -608,14 +628,12 @@ function RowActionsCell<TData extends object>({
 			typeof directAction.label === "string" ? directAction.label : undefined;
 
 		return (
-			<Button
+			<button
 				aria-label={label}
-				size="icon"
+				className="table-row-action-button"
 				title={label}
-				tooltipContent={directAction.label}
-				usage={getButtonUsageFromActionTone(directAction.tone)}
-				variant="secondary"
 				disabled={directAction.disabled}
+				type="button"
 				onClick={event => {
 					directAction.onClick?.(event as never);
 
@@ -629,30 +647,29 @@ function RowActionsCell<TData extends object>({
 					className="h-4 w-4"
 					decorative
 				/>
-			</Button>
+			</button>
 		);
 	}
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
-				<Button
+				<button
 					aria-label="Open row actions"
-					size="icon"
-					variant="secondary"
+					className="table-row-action-button"
+					type="button"
 				>
 					<Icon
 						icon={MoreHorizontal}
 						className="h-4 w-4"
 						decorative
 					/>
-				</Button>
+				</button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>{getRowActions(row)}</DropdownMenuContent>
 		</DropdownMenu>
 	);
 }
-
 function flattenActionNodes(children: ReactNode): ReactElement[] {
 	return Children.toArray(children).flatMap(child => {
 		if (!isValidElement(child)) {
@@ -683,31 +700,12 @@ function getDirectActionProps(element: ReactElement) {
 	return props;
 }
 
-function getButtonUsageFromActionTone(
-	tone: DropdownMenuItemProps["tone"],
-): ButtonUsage {
-	switch (tone) {
-		case "brand":
-			return "primary";
-		case "info":
-			return "info";
-		case "success":
-			return "success";
-		case "warning":
-			return "warning";
-		case "danger":
-			return "danger";
-		default:
-			return "secondary";
-	}
-}
-
 function SortIcon({ direction }: { direction: false | "asc" | "desc" }) {
 	if (direction === "asc") {
 		return (
 			<Icon
 				icon={ArrowUp}
-				className="h-4 w-4"
+				className="h-3 w-3"
 				decorative
 			/>
 		);
@@ -717,7 +715,7 @@ function SortIcon({ direction }: { direction: false | "asc" | "desc" }) {
 		return (
 			<Icon
 				icon={ArrowDown}
-				className="h-4 w-4"
+				className="h-3 w-3"
 				decorative
 			/>
 		);
@@ -726,7 +724,7 @@ function SortIcon({ direction }: { direction: false | "asc" | "desc" }) {
 	return (
 		<Icon
 			icon={ArrowUpDown}
-			className="h-4 w-4"
+			className="h-3 w-3"
 			decorative
 		/>
 	);
