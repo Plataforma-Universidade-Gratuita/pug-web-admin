@@ -26,6 +26,16 @@
 		max-width: 88rem;
 	}
 
+	@media (min-width: 96rem) {
+		.page-shell {
+			max-width: 88rem;
+		}
+
+		.page-shell-wide {
+			max-width: 100rem;
+		}
+	}
+
 	.scroll-area-root {
 		position: relative;
 		overflow: hidden;
