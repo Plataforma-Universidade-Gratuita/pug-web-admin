@@ -204,35 +204,115 @@
 
 	.table-root {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		grid-template-rows: minmax(0, 1fr) auto;
 		min-width: 0;
-		min-height: 0;
 		overflow: hidden;
 		border: 1px solid var(--twc-border-2);
 		border-radius: var(--twc-radius-xl);
 		background-color: var(--twc-surface-2);
 	}
 
-	.table-scroll-area {
-		height: 100%;
+	.table-native-scroll-shell {
+		grid-column: 1;
+		grid-row: 1;
 		min-height: 0;
+		min-width: 0;
+		overflow: hidden;
 	}
 
-	.table-scroll-viewport {
-		height: 100%;
+	.table-native-scroll {
+		box-sizing: content-box;
+		height: calc(100% + 1rem);
+		width: calc(100% + 1rem);
+		overflow-x: auto;
+		overflow-y: auto;
+		padding-bottom: 1rem;
+		padding-right: 1rem;
+		margin-bottom: -1rem;
+		margin-right: -1rem;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
 	}
 
-	.table-scroll-viewport > div {
-		display: inline-block;
-		width: max-content;
-		min-width: 100%;
-		min-height: 100%;
-		vertical-align: top;
+	.table-native-scroll::-webkit-scrollbar {
+		width: 0 !important;
+		height: 0 !important;
+		display: none;
+	}
+
+	.table-native-scroll::-webkit-scrollbar-track,
+	.table-native-scroll::-webkit-scrollbar-thumb,
+	.table-native-scroll::-webkit-scrollbar-corner {
+		background: transparent;
+		border: 0;
 	}
 
 	.table-inner {
-		display: inline-block;
-		width: max-content;
+		width: 100%;
 		min-width: 100%;
+	}
+
+	.table-scrollbar {
+		display: flex;
+		padding: 0.125rem;
+	}
+
+	.table-scrollbar-horizontal {
+		grid-column: 1;
+		grid-row: 2;
+		height: 0.625rem;
+	}
+
+	.table-scrollbar-vertical {
+		grid-column: 2;
+		grid-row: 1;
+		width: 0.625rem;
+	}
+
+	.table-scrollbar-track {
+		position: relative;
+		flex: 1;
+	}
+
+	.table-scrollbar-track-vertical {
+		min-height: 0;
+	}
+
+	.table-scrollbar-thumb {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		border: none;
+		border-radius: var(--twc-radius-circle);
+		background-color: var(--twc-border-2);
+		cursor: grab;
+		transition: background-color var(--twc-duration-normal)
+			var(--twc-ease-standard);
+	}
+
+	.table-scrollbar-thumb:hover {
+		background-color: var(--twc-border-3);
+	}
+
+	.table-scrollbar-thumb:active {
+		cursor: grabbing;
+	}
+
+	.table-scrollbar-thumb:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 1px var(--twc-focus-ring);
+	}
+
+	.table-scrollbar-thumb-vertical {
+		width: 100%;
+	}
+
+	.table-scrollbar-corner {
+		grid-column: 2;
+		grid-row: 2;
+		background-color: transparent;
 	}
 
 	.table-inner-empty {
@@ -241,8 +321,7 @@
 	}
 
 	.table-element {
-		width: max-content;
-		min-width: 100%;
+		width: 100%;
 		border-collapse: separate;
 		border-spacing: 0;
 	}
@@ -250,16 +329,6 @@
 	.table-element-empty {
 		width: 100%;
 		min-width: 100%;
-	}
-
-	.table-caption {
-		padding: 1rem 1.25rem 0;
-		text-align: left;
-		font-family: var(--twc-font-sans), sans-serif;
-		font-size: var(--twc-text-sm);
-		font-weight: var(--twc-weight-regular);
-		line-height: var(--twc-leading-relaxed);
-		color: var(--twc-muted);
 	}
 
 	.table-head {
@@ -271,9 +340,17 @@
 	}
 
 	.table-header-cell {
+		position: sticky;
+		top: 0;
+		z-index: 2;
 		min-width: 10rem;
 		padding: 0.875rem 1rem;
 		border-bottom: 1px solid var(--twc-border-2);
+		background-color: color-mix(
+			in oklab,
+			var(--twc-surface-1) 68%,
+			transparent
+		);
 		text-align: left;
 		vertical-align: middle;
 		font-family: var(--twc-font-sans), sans-serif;
@@ -290,7 +367,9 @@
 		min-width: 4rem;
 		padding-inline: 0.75rem;
 		position: sticky;
+		top: 0;
 		right: 0;
+		z-index: 3;
 		background-color: var(--twc-surface-2);
 		box-shadow: -4px 0 6px -2px rgb(0 0 0 / 0.06);
 	}
@@ -385,17 +464,5 @@
 	.table-empty-state {
 		width: 100%;
 		align-items: center;
-	}
-
-	.table-scroll-area .scroll-area-scrollbar-horizontal,
-	.table-scroll-area .scroll-area-scrollbar-vertical,
-	.table-scroll-area .scroll-area-thumb {
-		cursor: grab;
-	}
-
-	.table-scroll-area .scroll-area-scrollbar-horizontal:active,
-	.table-scroll-area .scroll-area-scrollbar-vertical:active,
-	.table-scroll-area .scroll-area-thumb:active {
-		cursor: grabbing;
 	}
 }
