@@ -1586,7 +1586,6 @@
                 "save": "Salvar",
                 "view": "Ver detalhes"
             },
-            "caption": "Uma primitiva de tabela compartilhada baseada em TanStack Table e estilizada para as superficies do sistema.",
             "columns": {
                 "campus": "Campus",
                 "name": "Projeto",

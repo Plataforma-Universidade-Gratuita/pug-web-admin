@@ -170,7 +170,6 @@ export interface TableProps<
 > extends HTMLAttributes<HTMLDivElement> {
 	data: TData[];
 	columns: ColumnDef<TData, unknown>[];
-	caption?: ReactNode;
 	emptyState?: ReactNode;
 	isLoading?: boolean;
 	loadingLabel?: string;

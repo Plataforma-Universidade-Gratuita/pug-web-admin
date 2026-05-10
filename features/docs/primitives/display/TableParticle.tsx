@@ -122,7 +122,6 @@ export default function TableParticle() {
 				<Table
 					data={rows}
 					columns={columns}
-					caption={t("docs.table.caption")}
 					getRowActions={() => (
 						<>
 							<DropdownMenuPrimaryItem

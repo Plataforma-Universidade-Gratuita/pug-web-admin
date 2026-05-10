@@ -3,7 +3,7 @@ const MIN_TABLE_SCROLLBAR_THUMB_SIZE = 32;
 export interface TableScrollbarMetrics {
 	isScrollable: boolean;
 	thumbOffsetPx: number;
-	thumbWidthPx: number;
+	thumbSizePx: number;
 }
 
 function clamp(value: number, min: number, max: number) {
@@ -11,56 +11,58 @@ function clamp(value: number, min: number, max: number) {
 }
 
 export function getTableScrollbarMetrics({
-	clientWidth,
-	scrollLeft,
-	scrollWidth,
-	trackWidth,
+	clientSize,
+	scrollOffset,
+	scrollSize,
+	trackSize,
 }: {
-	clientWidth: number;
-	scrollLeft: number;
-	scrollWidth: number;
-	trackWidth: number;
+	clientSize: number;
+	scrollOffset: number;
+	scrollSize: number;
+	trackSize: number;
 }): TableScrollbarMetrics {
-	const maxScrollLeft = Math.max(scrollWidth - clientWidth, 0);
+	const maxScrollOffset = Math.max(scrollSize - clientSize, 0);
 
-	if (maxScrollLeft <= 0 || trackWidth <= 0) {
+	if (maxScrollOffset <= 0 || trackSize <= 0) {
 		return {
 			isScrollable: false,
 			thumbOffsetPx: 0,
-			thumbWidthPx: trackWidth,
+			thumbSizePx: trackSize,
 		};
 	}
 
-	const thumbWidthPx = clamp(
-		(clientWidth / scrollWidth) * trackWidth,
+	const thumbSizePx = clamp(
+		(clientSize / scrollSize) * trackSize,
 		MIN_TABLE_SCROLLBAR_THUMB_SIZE,
-		trackWidth,
+		trackSize,
 	);
-	const maxThumbOffset = Math.max(trackWidth - thumbWidthPx, 0);
+	const maxThumbOffset = Math.max(trackSize - thumbSizePx, 0);
 	const thumbOffsetPx =
-		maxScrollLeft === 0 ? 0 : (scrollLeft / maxScrollLeft) * maxThumbOffset;
+		maxScrollOffset === 0
+			? 0
+			: (scrollOffset / maxScrollOffset) * maxThumbOffset;
 
 	return {
 		isScrollable: true,
 		thumbOffsetPx,
-		thumbWidthPx,
+		thumbSizePx,
 	};
 }
 
-export function getScrollLeftFromThumbOffset({
-	maxScrollLeft,
+export function getScrollOffsetFromThumbOffset({
+	maxScrollOffset,
 	maxThumbOffset,
 	thumbOffsetPx,
 }: {
-	maxScrollLeft: number;
+	maxScrollOffset: number;
 	maxThumbOffset: number;
 	thumbOffsetPx: number;
 }) {
-	if (maxScrollLeft <= 0 || maxThumbOffset <= 0) {
+	if (maxScrollOffset <= 0 || maxThumbOffset <= 0) {
 		return 0;
 	}
 
 	return (
-		clamp(thumbOffsetPx, 0, maxThumbOffset) * (maxScrollLeft / maxThumbOffset)
+		clamp(thumbOffsetPx, 0, maxThumbOffset) * (maxScrollOffset / maxThumbOffset)
 	);
 }

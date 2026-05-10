@@ -1586,7 +1586,6 @@
                 "save": "Save",
                 "view": "View details"
             },
-            "caption": "A shared table primitive built on TanStack Table and styled for the system surfaces.",
             "columns": {
                 "campus": "Campus",
                 "name": "Project",

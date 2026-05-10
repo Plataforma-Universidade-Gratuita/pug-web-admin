@@ -141,7 +141,6 @@ export default function RoutingDocsPage() {
 						</SectionHeader>
 						<SectionContent>
 							<Table
-								caption="Routing file recommendations"
 								columns={columns}
 								data={[...ROUTE_FILE_RECOMMENDATIONS]}
 								enableSorting={false}
