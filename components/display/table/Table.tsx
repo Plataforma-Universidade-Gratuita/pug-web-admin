@@ -1,16 +1,11 @@
 "use client";
 
 import {
-	Children,
-	Fragment,
-	isValidElement,
 	useCallback,
 	useEffect,
 	useRef,
 	useState,
 	type CSSProperties,
-	type ReactElement,
-	type ReactNode,
 } from "react";
 
 import {
@@ -22,21 +17,22 @@ import {
 } from "@tanstack/react-table";
 import clsx from "clsx";
 import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-import { EmptyState } from "@/components/display/empty-state/EmptyState";
+import { NoContentState } from "@/components/display/empty-state/EmptyState";
 import { Icon } from "@/components/display/icon/Icon";
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/navigation/dropdown-menu/DropdownMenu";
-import type { DropdownMenuItemProps } from "@/types/client";
 import type { TableProps } from "@/types/client";
 
 import {
 	compareTableValues,
+	flattenActionNodes,
+	getDirectActionProps,
 	getScrollOffsetFromThumbOffset,
 	getTableScrollbarMetrics,
 } from "./utils";
@@ -56,6 +52,7 @@ export function Table<TData extends object>({
 	style,
 	...props
 }: TableProps<TData>) {
+	const { t } = useTranslation();
 	const [sorting, setSorting] = useState(initialSorting);
 	const [horizontalScrollbarMetrics, setHorizontalScrollbarMetrics] = useState(
 		() => ({
@@ -458,7 +455,7 @@ export function Table<TData extends object>({
 										))}
 										{hasRowActions ? (
 											<th
-												aria-label="Actions"
+												aria-label={t("components.table.actions")}
 												className="table-header-cell table-header-cell-actions"
 												scope="col"
 											/>
@@ -535,10 +532,9 @@ export function Table<TData extends object>({
 										>
 											<div className="table-empty-content">
 												{emptyState ?? (
-													<EmptyState
+													<NoContentState
 														className="table-empty-state"
-														title={<span className="ty-sm-semibold">-</span>}
-														description={<span className="ty-helper"> </span>}
+														title={t("components.table.empty.title")}
 													/>
 												)}
 											</div>
@@ -559,7 +555,7 @@ export function Table<TData extends object>({
 						onPointerDown={handleVerticalTrackPointerDown}
 					>
 						<button
-							aria-label="Scroll table vertically"
+							aria-label={t("components.table.scroll.vertical")}
 							className="table-scrollbar-thumb table-scrollbar-thumb-vertical"
 							style={{
 								transform: `translateY(${verticalScrollbarMetrics.thumbOffsetPx}px)`,
@@ -584,7 +580,7 @@ export function Table<TData extends object>({
 						onPointerDown={handleHorizontalTrackPointerDown}
 					>
 						<button
-							aria-label="Scroll table horizontally"
+							aria-label={t("components.table.scroll.horizontal")}
 							className="table-scrollbar-thumb table-scrollbar-thumb-horizontal"
 							style={{
 								transform: `translateX(${horizontalScrollbarMetrics.thumbOffsetPx}px)`,
@@ -616,6 +612,7 @@ function RowActionsCell<TData extends object>({
 	row: TData;
 	getRowActions: NonNullable<TableProps<TData>["getRowActions"]>;
 }) {
+	const { t } = useTranslation();
 	const actions = flattenActionNodes(getRowActions(row));
 	const [singleAction] = actions;
 	const directAction =
@@ -655,7 +652,7 @@ function RowActionsCell<TData extends object>({
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<button
-					aria-label="Open row actions"
+					aria-label={t("components.table.openRowActions")}
 					className="table-row-action-button"
 					type="button"
 				>
@@ -669,35 +666,6 @@ function RowActionsCell<TData extends object>({
 			<DropdownMenuContent>{getRowActions(row)}</DropdownMenuContent>
 		</DropdownMenu>
 	);
-}
-function flattenActionNodes(children: ReactNode): ReactElement[] {
-	return Children.toArray(children).flatMap(child => {
-		if (!isValidElement(child)) {
-			return [];
-		}
-
-		if (child.type === Fragment) {
-			return flattenActionNodes(
-				(child as ReactElement<{ children?: ReactNode }>).props.children,
-			);
-		}
-
-		return [child];
-	});
-}
-
-function getDirectActionProps(element: ReactElement) {
-	if (element.type === DropdownMenuSeparator) {
-		return null;
-	}
-
-	const props = element.props as DropdownMenuItemProps;
-
-	if (!props.icon || !props.label) {
-		return null;
-	}
-
-	return props;
 }
 
 function SortIcon({ direction }: { direction: false | "asc" | "desc" }) {

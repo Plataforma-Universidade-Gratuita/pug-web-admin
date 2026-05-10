@@ -85,6 +85,17 @@
                     "refresh": "Atualizar"
                 }
             }
+        },
+        "table": {
+            "actions": "Ações",
+            "empty": {
+                "title": "Nenhum registro encontrado"
+            },
+            "openRowActions": "Abrir ações da linha",
+            "scroll": {
+                "horizontal": "Rolar tabela horizontalmente",
+                "vertical": "Rolar tabela verticalmente"
+            }
         }
     },
     "docs": {

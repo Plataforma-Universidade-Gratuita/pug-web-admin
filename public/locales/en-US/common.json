@@ -85,6 +85,17 @@
                     "refresh": "Refresh"
                 }
             }
+        },
+        "table": {
+            "actions": "Actions",
+            "empty": {
+                "title": "No records found"
+            },
+            "openRowActions": "Open row actions",
+            "scroll": {
+                "horizontal": "Scroll table horizontally",
+                "vertical": "Scroll table vertically"
+            }
         }
     },
     "docs": {

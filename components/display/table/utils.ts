@@ -1,3 +1,12 @@
+import {
+	Children,
+	Fragment,
+	isValidElement,
+	type ReactElement,
+	type ReactNode,
+} from "react";
+
+import type { DropdownMenuItemProps } from "@/types/client";
 import { compareNormalizedText } from "@/utils/lang";
 
 const MIN_TABLE_SCROLLBAR_THUMB_SIZE = 32;
@@ -87,4 +96,30 @@ export function compareTableValues(a: unknown, b: unknown) {
 	}
 
 	return compareNormalizedText(String(a ?? ""), String(b ?? ""));
+}
+
+export function flattenActionNodes(children: ReactNode): ReactElement[] {
+	return Children.toArray(children).flatMap(child => {
+		if (!isValidElement(child)) {
+			return [];
+		}
+
+		if (child.type === Fragment) {
+			return flattenActionNodes(
+				(child as ReactElement<{ children?: ReactNode }>).props.children,
+			);
+		}
+
+		return [child];
+	});
+}
+
+export function getDirectActionProps(element: ReactElement) {
+	const props = element.props as Partial<DropdownMenuItemProps>;
+
+	if (!props.icon || !props.label) {
+		return null;
+	}
+
+	return props as DropdownMenuItemProps;
 }

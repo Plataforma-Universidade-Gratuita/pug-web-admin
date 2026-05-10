@@ -13,7 +13,6 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DropdownMenuInfoItem,
-	EmptyState,
 	Input,
 	NoContentState,
 	NotFoundState,
@@ -154,7 +153,7 @@ export function CityPage() {
 								</Button>
 							</PopoverTrigger>
 							<PopoverContent className="w-80">
-								<EmptyState
+								<NoContentState
 									title={t("geo.cityPage.metadata.empty.title")}
 									description={t("geo.cityPage.metadata.empty.description")}
 								/>

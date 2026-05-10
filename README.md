@@ -245,6 +245,9 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - raw HTTP calls remain in `api/web/**`
   - feature-local query keys and query hooks live in feature-local `queries.ts`
   - components consume query hooks instead of calling `webFetch` directly
+- Bounded read-only reference catalogs may fetch once and filter client-side inside feature-local helpers when the dataset is intentionally small.
+  - current example: `features/geo/city`
+  - do not generalize this to large operational lists; those should stay backend-filtered
 - Current established examples:
   - `features/identity/account/queries.ts`
   - `features/identity/admin/queries.ts`
@@ -420,6 +423,9 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - match the message to the reason: first use, no results, no access, or temporarily empty data
   - add actions only when there is a meaningful next step; do not fill the surface with decorative buttons
   - keep the title and description short, clear, and scoped to the missing content
+  - use `NoContentState` for successful empty results
+  - use `SomeErrorState` for recoverable server/query failures that should expose one fixed refresh action
+  - use `NotFoundState` for single-record lookups that resolve to missing data without implying a broader transport failure
 - Skeleton contract:
   - the base `Skeleton` primitive stays intentionally simple; the consistency work belongs in the premade loading compositions
   - card, section, dialog, drawer, and alert dialog loading states should present as single full-surface loading blocks
@@ -445,12 +451,15 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - table is the shared primitive for dense operational lists that still need predictable empty, loading, and overflow behavior
   - keep feature-owned data columns in the passed `columns` array
   - when a row-level action menu is needed, use `getRowActions`
-  - `getRowActions` appends a built-in last action column with the three-dots trigger and dropdown shell already handled by the primitive
+  - `getRowActions` appends a built-in last action column owned by the primitive
+  - when `getRowActions` resolves to one actionable item, the primitive renders that action directly as the row-action cell
+  - when `getRowActions` resolves to two or more actionable items, the primitive renders the three-dots trigger and dropdown shell
   - features should pass only the dropdown menu items for that row; do not rebuild the trigger or action-column plumbing per feature
   - the action column stays narrow, fixed-width, and last; it is not a sortable data column
   - the action column is sticky on the right so it remains visible while the rest of the table scrolls horizontally
   - sticky behavior is implemented with `position: sticky; right: 0` on both the header cell and each body cell of the action column
   - the sticky cells carry a matching background so content scrolling beneath them stays hidden
+  - shared table sorting is accent-insensitive by default; if a feature adds client-side table filtering, it should use the same normalized comparison behavior
   - keep heavier behaviors such as row selection, pagination, and virtualization out of the primitive until a real feature requires them
 - Label contract:
   - use `Label` to bind visible field text to the control directly
