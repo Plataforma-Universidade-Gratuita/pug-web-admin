@@ -38,6 +38,7 @@ export const SIDEBAR_HOME_ITEM: MenuLeafItem = {
 	href: "/",
 	label: "Navbar.paths.home",
 	Icon: Home,
+	exact: true,
 };
 
 export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
@@ -45,7 +46,12 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 		label: "Navbar.paths.academic.root",
 		Icon: GraduationCap,
 		childrenItems: [
-			{ href: "/academic", label: "Navbar.paths.academic.root", Icon: Home },
+			{
+				href: "/academic",
+				label: "Navbar.paths.academic.root",
+				Icon: Home,
+				exact: true,
+			},
 			{
 				href: "/academic/course",
 				label: "Navbar.paths.academic.course",
@@ -67,7 +73,12 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 		label: "Navbar.paths.partner.root",
 		Icon: BriefcaseBusiness,
 		childrenItems: [
-			{ href: "/partner", label: "Navbar.paths.partner.root", Icon: Home },
+			{
+				href: "/partner",
+				label: "Navbar.paths.partner.root",
+				Icon: Home,
+				exact: true,
+			},
 			{
 				href: "/partner/entity",
 				label: "Navbar.paths.partner.entity",
@@ -84,7 +95,12 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 		label: "Navbar.paths.project.root",
 		Icon: FolderKanban,
 		childrenItems: [
-			{ href: "/project", label: "Navbar.paths.project.root", Icon: Home },
+			{
+				href: "/project",
+				label: "Navbar.paths.project.root",
+				Icon: Home,
+				exact: true,
+			},
 			{
 				href: "/project/attendance",
 				label: "Navbar.paths.project.attendance",
@@ -106,7 +122,12 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 		label: "Navbar.paths.identity.root",
 		Icon: ShieldUser,
 		childrenItems: [
-			{ href: "/identity", label: "Navbar.paths.identity.root", Icon: Home },
+			{
+				href: "/identity",
+				label: "Navbar.paths.identity.root",
+				Icon: Home,
+				exact: true,
+			},
 			{
 				href: "/identity/account",
 				label: "Navbar.paths.identity.account",
@@ -128,7 +149,12 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 		label: "Navbar.paths.geo.root",
 		Icon: Globe,
 		childrenItems: [
-			{ href: "/geo", label: "Navbar.paths.geo.root", Icon: Home },
+			{
+				href: "/geo",
+				label: "Navbar.paths.geo.root",
+				Icon: Home,
+				exact: true,
+			},
 			{
 				href: "/geo/city",
 				label: "Navbar.paths.geo.city",
