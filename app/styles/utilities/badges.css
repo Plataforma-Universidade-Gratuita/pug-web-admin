@@ -1,6 +1,6 @@
 @utility badge-base {
 	border-radius: var(--twc-radius-circle);
-	font-family: var(--twc-font-sans), serif;
+	font-family: var(--twc-font-sans), sans-serif;
 	font-size: var(--twc-text-sm);
 	font-weight: var(--twc-weight-semibold);
 	letter-spacing: var(--twc-tracking-normal);

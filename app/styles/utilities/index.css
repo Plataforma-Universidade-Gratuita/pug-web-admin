@@ -75,23 +75,53 @@
 	}
 }
 
+@property --accordion-content-height {
+	syntax: "<length>";
+	inherits: false;
+	initial-value: 0px;
+}
+
 @keyframes accordion-down {
 	from {
 		height: 0;
 	}
 
 	to {
-		height: var(--radix-accordion-content-height);
+		height: var(--accordion-content-height);
 	}
 }
 
 @keyframes accordion-up {
 	from {
-		height: var(--radix-accordion-content-height);
+		height: var(--accordion-content-height);
 	}
 
 	to {
 		height: 0;
+	}
+}
+
+@keyframes dropdown-enter {
+	from {
+		opacity: 0;
+		transform: translateY(0.25rem) scale(0.98);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes dropdown-exit {
+	from {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(0.25rem) scale(0.98);
 	}
 }
 
@@ -345,7 +375,7 @@
 	border-radius: var(--twc-radius-lg);
 	background-color: transparent;
 	color: var(--twc-text);
-	font-family: var(--twc-font-sans);
+	font-family: var(--twc-font-sans), sans-serif;
 	font-size: var(--twc-text-sm);
 	font-weight: var(--twc-weight-regular);
 	line-height: var(--twc-leading-normal);
@@ -392,7 +422,7 @@
 }
 
 @utility ty-body {
-	font-family: var(--twc-font-sans);
+	font-family: var(--twc-font-sans), sans-serif;
 	font-size: var(--twc-text-md);
 	line-height: var(--twc-leading-normal);
 	font-weight: var(--twc-weight-regular);
@@ -401,7 +431,7 @@
 }
 
 @utility ty-body-semibold {
-	font-family: var(--twc-font-sans);
+	font-family: var(--twc-font-sans), sans-serif;
 	font-size: var(--twc-text-md);
 	line-height: var(--twc-leading-normal);
 	font-weight: var(--twc-weight-semibold);
@@ -410,7 +440,7 @@
 }
 
 @utility ty-body-bold {
-	font-family: var(--twc-font-sans);
+	font-family: var(--twc-font-sans), sans-serif;
 	font-size: var(--twc-text-md);
 	line-height: var(--twc-leading-normal);
 	font-weight: var(--twc-weight-bold);
@@ -419,7 +449,7 @@
 }
 
 @utility ty-sm {
-	font-family: var(--twc-font-sans);
+	font-family: var(--twc-font-sans), sans-serif;
 	font-size: var(--twc-text-sm);
 	line-height: var(--twc-leading-normal);
 	font-weight: var(--twc-weight-regular);
@@ -428,7 +458,7 @@
 }
 
 @utility ty-sm-semibold {
-	font-family: var(--twc-font-sans);
+	font-family: var(--twc-font-sans), sans-serif;
 	font-size: var(--twc-text-sm);
 	line-height: var(--twc-leading-normal);
 	font-weight: var(--twc-weight-semibold);
@@ -437,7 +467,7 @@
 }
 
 @utility ty-sm-bold {
-	font-family: var(--twc-font-sans);
+	font-family: var(--twc-font-sans), sans-serif;
 	font-size: var(--twc-text-sm);
 	line-height: var(--twc-leading-snug);
 	font-weight: var(--twc-weight-bold);
@@ -446,7 +476,7 @@
 }
 
 @utility ty-title {
-	font-family: var(--twc-font-display);
+	font-family: var(--twc-font-display), sans-serif;
 	font-size: var(--twc-text-xl);
 	line-height: var(--twc-leading-snug);
 	font-weight: var(--twc-weight-semibold);
@@ -455,7 +485,7 @@
 }
 
 @utility ty-title-alt {
-	font-family: var(--twc-font-display);
+	font-family: var(--twc-font-display), sans-serif;
 	font-size: var(--twc-text-lg);
 	line-height: var(--twc-leading-normal);
 	font-weight: var(--twc-weight-regular);
@@ -464,7 +494,7 @@
 }
 
 @utility ty-header {
-	font-family: var(--twc-font-display);
+	font-family: var(--twc-font-display), sans-serif;
 	font-size: var(--twc-text-lg);
 	line-height: var(--twc-leading-snug);
 	font-weight: var(--twc-weight-semibold);
@@ -473,7 +503,7 @@
 }
 
 @utility ty-helper {
-	font-family: var(--twc-font-sans);
+	font-family: var(--twc-font-sans), sans-serif;
 	font-size: var(--twc-text-sm);
 	line-height: var(--twc-leading-relaxed);
 	font-weight: var(--twc-weight-regular);

@@ -1699,7 +1699,6 @@
                 },
                 "undo": {
                     "button": "Undo preview",
-                    "description": "Use este estado apenas quando a aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o realmente puder ser desfeita de forma segura.",
                     "title": "UsuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio excluido"
                 }
             },

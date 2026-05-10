@@ -14,8 +14,8 @@ import { useTranslation } from "react-i18next";
 import {
 	Button,
 	Card,
-	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 	Icon,
@@ -63,7 +63,7 @@ export default function ButtonParticle() {
 							{t("docs.button.defaultCard.description")}
 						</CardDescription>
 					</CardHeader>
-					<CardContent className="flex flex-wrap items-center gap-3">
+					<CardFooter className="flex flex-wrap items-center gap-3">
 						<Button>{t("docs.button.defaultCard.primary")}</Button>
 						<Button
 							variant="primary"
@@ -81,7 +81,7 @@ export default function ButtonParticle() {
 						<Button variant="secondary">
 							{t("docs.button.defaultCard.secondary")}
 						</Button>
-					</CardContent>
+					</CardFooter>
 				</Card>
 			</ParticleSection>
 
@@ -96,7 +96,7 @@ export default function ButtonParticle() {
 							{t("docs.button.variantCards.primary.description")}
 						</CardDescription>
 					</CardHeader>
-					<CardContent className="flex flex-wrap items-center gap-3">
+					<CardFooter className="flex flex-wrap items-center gap-3">
 						{USAGE_ITEMS.map(item => (
 							<Button
 								key={item.key}
@@ -112,7 +112,7 @@ export default function ButtonParticle() {
 								{t(`docs.button.usageCards.${item.key}.label`)}
 							</Button>
 						))}
-					</CardContent>
+					</CardFooter>
 				</Card>
 			</ParticleSection>
 
@@ -129,7 +129,7 @@ export default function ButtonParticle() {
 							{t("docs.button.variantCards.secondary.description")}
 						</CardDescription>
 					</CardHeader>
-					<CardContent className="flex flex-wrap items-center gap-3">
+					<CardFooter className="flex flex-wrap items-center gap-3">
 						{USAGE_ITEMS.map(item => (
 							<Button
 								key={item.key}
@@ -145,7 +145,7 @@ export default function ButtonParticle() {
 								{t(`docs.button.usageCards.${item.key}.label`)}
 							</Button>
 						))}
-					</CardContent>
+					</CardFooter>
 				</Card>
 			</ParticleSection>
 
@@ -154,7 +154,7 @@ export default function ButtonParticle() {
 				description={t("docs.button.sections.scale.description")}
 			>
 				<Card className="p-4">
-					<CardContent className="flex flex-wrap items-center gap-3">
+					<CardFooter className="flex flex-wrap items-center gap-3">
 						{[
 							{ key: "small", size: "sm" as const },
 							{ key: "medium", size: "md" as const },
@@ -184,7 +184,7 @@ export default function ButtonParticle() {
 								/>
 							}
 						/>
-					</CardContent>
+					</CardFooter>
 				</Card>
 			</ParticleSection>
 
@@ -195,31 +195,31 @@ export default function ButtonParticle() {
 				<div className="grid gap-4 md:grid-cols-3">
 					<Card className="space-y-3 p-4">
 						<CardTitle>{t("docs.button.statesCards.loading.title")}</CardTitle>
-						<CardContent>
+						<CardFooter>
 							<Button
 								isLoading
 								loadingText={t("docs.button.statesCards.loading.loadingText")}
 							>
 								{t("docs.button.statesCards.loading.button")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 					<Card className="space-y-3 p-4">
 						<CardTitle>{t("docs.button.statesCards.disabled.title")}</CardTitle>
-						<CardContent>
+						<CardFooter>
 							<Button
 								variant="secondary"
 								disabled
 							>
 								{t("docs.button.statesCards.disabled.button")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 					<Card className="space-y-3 p-4">
 						<CardTitle>
 							{t("docs.button.statesCards.fullWidth.title")}
 						</CardTitle>
-						<CardContent>
+						<CardFooter>
 							<Button
 								className="w-full"
 								usage="info"
@@ -232,7 +232,7 @@ export default function ButtonParticle() {
 							>
 								{t("docs.button.statesCards.fullWidth.button")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 				</div>
 			</ParticleSection>
@@ -248,7 +248,7 @@ export default function ButtonParticle() {
 							{t("docs.button.actionOrderCard.description")}
 						</CardDescription>
 					</CardHeader>
-					<CardContent>
+					<CardFooter>
 						<div className="flex flex-wrap items-center justify-end gap-3">
 							<Button
 								variant="secondary"
@@ -270,7 +270,7 @@ export default function ButtonParticle() {
 								{t("docs.button.actionOrderCard.right")}
 							</Button>
 						</div>
-					</CardContent>
+					</CardFooter>
 				</Card>
 			</ParticleSection>
 		</ParticleContainer>

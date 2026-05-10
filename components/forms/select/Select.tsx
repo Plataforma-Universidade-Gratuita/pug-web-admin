@@ -110,6 +110,7 @@ export function SelectContent({
 	children,
 	className,
 	position = "popper",
+	style,
 	...props
 }: SelectContentProps) {
 	return (
@@ -117,6 +118,7 @@ export function SelectContent({
 			<RadixSelect.Content
 				position={position}
 				className={clsx("select-content", className)}
+				style={{ minWidth: "var(--radix-select-trigger-width)", ...style }}
 				{...props}
 			>
 				<RadixSelect.ScrollUpButton className="select-scroll-button">

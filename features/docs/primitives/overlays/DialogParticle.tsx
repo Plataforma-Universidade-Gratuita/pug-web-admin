@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import {
 	Button,
 	Card,
-	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 	Dialog,
@@ -58,7 +58,7 @@ export default function DialogParticle() {
 								{t("docs.dialog.structureCards.basic.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardFooter>
 							<Button
 								leadingIcon={
 									<Icon
@@ -70,7 +70,7 @@ export default function DialogParticle() {
 							>
 								{t("docs.dialog.structureCards.basic.trigger")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 
 					<Card className="flex min-h-44 flex-col justify-between p-4">
@@ -82,7 +82,7 @@ export default function DialogParticle() {
 								{t("docs.dialog.structureCards.overhead.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardFooter>
 							<Button
 								variant="secondary"
 								leadingIcon={
@@ -95,7 +95,7 @@ export default function DialogParticle() {
 							>
 								{t("docs.dialog.structureCards.overhead.trigger")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 				</div>
 			</ParticleSection>
@@ -111,7 +111,7 @@ export default function DialogParticle() {
 							{t("docs.dialog.overflowCard.description")}
 						</CardDescription>
 					</CardHeader>
-					<CardContent>
+					<CardFooter>
 						<Button
 							variant="secondary"
 							leadingIcon={
@@ -124,7 +124,7 @@ export default function DialogParticle() {
 						>
 							{t("docs.dialog.overflowCard.trigger")}
 						</Button>
-					</CardContent>
+					</CardFooter>
 				</Card>
 			</ParticleSection>
 

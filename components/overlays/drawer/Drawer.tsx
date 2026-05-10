@@ -87,10 +87,7 @@ export function DrawerContent({
 
 	return (
 		<RadixDialog.Portal>
-			<div
-				className="drawer-root"
-				style={{ "--app-topbar-height": APP_TOPBAR_HEIGHT } as CSSProperties}
-			>
+			<div className="drawer-root">
 				<RadixDialog.Overlay
 					className="drawer-overlay-motion modal-overlay"
 					style={{ top: APP_TOPBAR_HEIGHT }}
@@ -105,7 +102,12 @@ export function DrawerContent({
 						className,
 					)}
 					role={isLoading ? "status" : undefined}
-					style={{ "--drawer-body-max-height": bodyMaxHeight } as CSSProperties}
+					style={
+						{
+							"--app-topbar-height": APP_TOPBAR_HEIGHT,
+							"--drawer-body-max-height": bodyMaxHeight,
+						} as CSSProperties
+					}
 				>
 					{isLoading ? <span className="sr-only">{loadingLabel}</span> : null}
 					{isLoading ? (

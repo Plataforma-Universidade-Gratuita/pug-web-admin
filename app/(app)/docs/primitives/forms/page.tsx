@@ -1,3 +1,4 @@
+import { PageShell } from "@/components";
 import {
 	CheckboxParticle,
 	ComboboxParticle,
@@ -13,7 +14,7 @@ import {
 
 export default function ComponentsDocsPage() {
 	return (
-		<main className="mx-auto max-w-6xl space-y-8 p-6 lg:p-8">
+		<PageShell className="space-y-8 p-6 lg:p-8">
 			<CheckboxParticle />
 			<ComboboxParticle />
 			<DatePickerParticle />
@@ -24,6 +25,6 @@ export default function ComponentsDocsPage() {
 			<SelectParticle />
 			<SwitchParticle />
 			<TextAreaParticle />
-		</main>
+		</PageShell>
 	);
 }

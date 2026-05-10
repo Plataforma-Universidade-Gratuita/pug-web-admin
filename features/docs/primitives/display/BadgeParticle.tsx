@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import {
 	Badge,
 	Card,
-	CardContent,
 	CardDescription,
 	CardFooter,
 	CardHeader,
@@ -105,7 +104,7 @@ export default function BadgeParticle() {
 							<CardHeader className="space-y-3">
 								<CardTitle>{t(`docs.badge.cards.${item.key}.title`)}</CardTitle>
 							</CardHeader>
-							<CardContent className="flex flex-wrap items-center gap-3">
+							<CardFooter className="flex flex-wrap items-center gap-3">
 								{(["primary", "secondary"] as const).map(variant => (
 									<Badge
 										key={variant}
@@ -115,7 +114,7 @@ export default function BadgeParticle() {
 										{t(`docs.badge.variants.${variant}`)}
 									</Badge>
 								))}
-							</CardContent>
+							</CardFooter>
 						</Card>
 					))}
 				</div>

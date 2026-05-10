@@ -14,8 +14,8 @@ import {
 	AlertDialogTitle,
 	Button,
 	Card,
-	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 	Icon,
@@ -71,7 +71,7 @@ export default function AlertDialogParticle() {
 										{t(`docs.alertDialog.cards.${key}.description`)}
 									</CardDescription>
 								</CardHeader>
-								<CardContent>
+								<CardFooter>
 									<Button
 										usage={
 											key === "success"
@@ -92,7 +92,7 @@ export default function AlertDialogParticle() {
 									>
 										{t(`docs.alertDialog.cards.${key}.trigger`)}
 									</Button>
-								</CardContent>
+								</CardFooter>
 							</Card>
 						))}
 					</div>

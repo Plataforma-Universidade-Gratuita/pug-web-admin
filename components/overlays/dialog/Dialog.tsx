@@ -65,6 +65,7 @@ export function DialogContent({ children, className }: DialogContentProps) {
 				<RadixDialog.Overlay className="dialog-overlay-motion modal-overlay" />
 				<RadixDialog.Content
 					aria-busy={isLoading || undefined}
+					aria-describedby={undefined}
 					aria-live={isLoading ? "polite" : undefined}
 					className={clsx(
 						"dialog-content-base dialog-content dialog-content-motion",

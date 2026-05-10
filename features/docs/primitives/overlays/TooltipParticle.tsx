@@ -15,6 +15,7 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 	Icon,
@@ -46,7 +47,7 @@ export default function TooltipParticle() {
 				description={t("docs.tooltip.sections.automatic.description")}
 			>
 				<Card className="p-4">
-					<CardContent className="flex flex-wrap items-center gap-3">
+					<CardFooter className="flex flex-wrap items-center gap-3">
 						<Button
 							size="icon"
 							usage="primary"
@@ -84,7 +85,7 @@ export default function TooltipParticle() {
 								/>
 							}
 						/>
-					</CardContent>
+					</CardFooter>
 				</Card>
 			</ParticleSection>
 
@@ -106,7 +107,7 @@ export default function TooltipParticle() {
 									{t(`docs.tooltip.placementCards.${side}.description`)}
 								</CardDescription>
 							</CardHeader>
-							<CardContent>
+							<CardFooter>
 								<Tooltip
 									content={t(`docs.tooltip.placementCards.${side}.tooltip`)}
 									side={side}
@@ -118,7 +119,7 @@ export default function TooltipParticle() {
 										{t("docs.tooltip.placementCards.trigger")}
 									</button>
 								</Tooltip>
-							</CardContent>
+							</CardFooter>
 						</Card>
 					))}
 				</div>
@@ -161,7 +162,7 @@ export default function TooltipParticle() {
 								{t("docs.tooltip.richContent.compactMetadata.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardFooter>
 							<Tooltip
 								content={
 									<div className="space-y-1">
@@ -194,7 +195,7 @@ export default function TooltipParticle() {
 									/>
 								</button>
 							</Tooltip>
-						</CardContent>
+						</CardFooter>
 					</Card>
 				</div>
 			</ParticleSection>
@@ -208,7 +209,7 @@ export default function TooltipParticle() {
 						<CardTitle>
 							{t("docs.tooltip.triggerGuidance.goodFit.title")}
 						</CardTitle>
-						<CardContent>
+						<CardFooter>
 							<Tooltip
 								content={t("docs.tooltip.triggerGuidance.goodFit.tooltip")}
 							>
@@ -222,13 +223,13 @@ export default function TooltipParticle() {
 									/>
 								</button>
 							</Tooltip>
-						</CardContent>
+						</CardFooter>
 					</Card>
 					<Card className="space-y-3 p-4">
 						<CardTitle>
 							{t("docs.tooltip.triggerGuidance.needsLabel.title")}
 						</CardTitle>
-						<CardContent>
+						<CardFooter>
 							<Button
 								usage="secondary"
 								variant="secondary"
@@ -241,7 +242,7 @@ export default function TooltipParticle() {
 							>
 								{t("docs.tooltip.triggerGuidance.needsLabel.button")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 					<Card className="space-y-3 p-4">
 						<CardTitle>

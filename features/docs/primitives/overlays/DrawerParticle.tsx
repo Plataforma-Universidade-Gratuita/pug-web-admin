@@ -17,8 +17,8 @@ import {
 	AccordionTrigger,
 	Button,
 	Card,
-	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 	Drawer,
@@ -74,7 +74,7 @@ export default function DrawerParticle() {
 								{t("docs.drawer.cards.create.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardFooter>
 							<Button
 								leadingIcon={
 									<Icon
@@ -86,7 +86,7 @@ export default function DrawerParticle() {
 							>
 								{t("docs.drawer.cards.create.trigger")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 
 					<Card className="flex min-h-44 flex-col justify-between p-4">
@@ -96,7 +96,7 @@ export default function DrawerParticle() {
 								{t("docs.drawer.cards.filters.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardFooter>
 							<Button
 								variant="secondary"
 								leadingIcon={
@@ -109,7 +109,7 @@ export default function DrawerParticle() {
 							>
 								{t("docs.drawer.cards.filters.trigger")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 				</div>
 			</ParticleSection>

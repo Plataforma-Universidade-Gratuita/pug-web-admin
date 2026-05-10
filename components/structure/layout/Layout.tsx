@@ -1,7 +1,33 @@
+import type { ComponentPropsWithoutRef } from "react";
+
 import clsx from "clsx";
 
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
 import type { ContentProps, FooterProps, HeaderProps } from "@/types/client";
+
+type PageShellProps = ComponentPropsWithoutRef<"main"> & {
+	width?: "default" | "wide";
+};
+
+export function PageShell({
+	children,
+	className,
+	width = "default",
+	...props
+}: PageShellProps) {
+	return (
+		<main
+			className={clsx(
+				"page-shell",
+				width === "wide" ? "page-shell-wide" : null,
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</main>
+	);
+}
 
 export function Header({
 	children,

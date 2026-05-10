@@ -128,13 +128,14 @@ export const toast = Object.assign(
 		undo(message: ReactNode, options: AppToastUndoOptions) {
 			const { onUndo, undoLabel = "Undo", duration, ...rest } = options;
 			const actionButtonClassName = [
+				"toast-action-button",
 				rest.classNames?.actionButton,
 				"toast-action-button-brand",
 			]
 				.filter(Boolean)
 				.join(" ");
 
-			return sonnerToast.message(message, {
+			return sonnerToast(message, {
 				...withToastDefaults(rest, TOAST_DEFAULT_DURATION),
 				duration: duration ?? TOAST_UNDO_DURATION,
 				icon: <RotateCcw className="h-4 w-4" />,

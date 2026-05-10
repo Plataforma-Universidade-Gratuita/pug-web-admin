@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import {
 	Button,
 	Card,
-	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 	Icon,
@@ -45,7 +45,7 @@ export default function PopoverParticle() {
 				description={t("docs.popover.sections.quickFilters.description")}
 			>
 				<Card className="p-4">
-					<CardContent className="flex flex-wrap items-center gap-3">
+					<CardFooter className="flex flex-wrap items-center gap-3">
 						<Popover
 							open={isQuickFiltersOpen}
 							onOpenChange={setIsQuickFiltersOpen}
@@ -103,7 +103,7 @@ export default function PopoverParticle() {
 						>
 							{t("docs.popover.examples.quickFilters.neighbor")}
 						</Button>
-					</CardContent>
+					</CardFooter>
 				</Card>
 			</ParticleSection>
 
@@ -119,7 +119,7 @@ export default function PopoverParticle() {
 								{t("docs.popover.examples.support.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardFooter>
 							<Popover
 								open={isSupportOpen}
 								onOpenChange={setIsSupportOpen}
@@ -170,7 +170,7 @@ export default function PopoverParticle() {
 									</div>
 								</PopoverContent>
 							</Popover>
-						</CardContent>
+						</CardFooter>
 					</Card>
 
 					<Card className="flex min-h-44 flex-col justify-between p-4">
@@ -180,7 +180,7 @@ export default function PopoverParticle() {
 								{t("docs.popover.examples.inline.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardFooter>
 							<Popover>
 								<PopoverTrigger>
 									<Button
@@ -217,7 +217,7 @@ export default function PopoverParticle() {
 									</div>
 								</PopoverContent>
 							</Popover>
-						</CardContent>
+						</CardFooter>
 					</Card>
 				</div>
 			</ParticleSection>

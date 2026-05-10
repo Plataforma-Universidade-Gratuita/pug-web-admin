@@ -112,10 +112,12 @@ export function AlertDialogHeader({
 
 	return (
 		<Header className={clsx("alert-dialog-header dialog-header", className)}>
-			{resolvedOverhead ? (
-				<p className="alert-dialog-overhead">{resolvedOverhead}</p>
-			) : null}
-			{children}
+			<div className="alert-dialog-header-main">
+				{resolvedOverhead ? (
+					<p className="alert-dialog-overhead">{resolvedOverhead}</p>
+				) : null}
+				{children}
+			</div>
 		</Header>
 	);
 }

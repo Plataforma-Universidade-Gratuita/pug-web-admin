@@ -7,6 +7,7 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
+	PageShell,
 	Section,
 	SectionContent,
 	SectionDescription,
@@ -55,7 +56,10 @@ const DOCS_HOME_PREVIEWS = [
 
 export default function DocsPage() {
 	return (
-		<main className="mx-auto max-w-7xl px-6 pt-3 pb-6 lg:px-8 lg:pt-4 lg:pb-6">
+		<PageShell
+			className="px-6 pt-3 pb-6 lg:px-8 lg:pt-4 lg:pb-6"
+			width="wide"
+		>
 			<div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
 				<div className="space-y-8">
 					<Section className="surface-2 shadow-normal rounded-[var(--twc-radius-xl)] border border-[color:var(--twc-border-2)] p-7">
@@ -197,6 +201,6 @@ export default function DocsPage() {
 					</SectionContent>
 				</Section>
 			</div>
-		</main>
+		</PageShell>
 	);
 }

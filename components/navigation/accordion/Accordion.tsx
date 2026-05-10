@@ -1,5 +1,7 @@
 "use client";
 
+import type { CSSProperties } from "react";
+
 import * as RadixAccordion from "@radix-ui/react-accordion";
 import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
@@ -105,11 +107,18 @@ export function AccordionTrigger({
 export function AccordionContent({
 	children,
 	className,
+	style,
 	...props
 }: AccordionContentProps) {
 	return (
 		<RadixAccordion.Content
 			className={clsx("accordion-content", className)}
+			style={
+				{
+					"--accordion-content-height": "var(--radix-accordion-content-height)",
+					...style,
+				} as CSSProperties
+			}
 			{...props}
 		>
 			<div className="accordion-body">{children}</div>

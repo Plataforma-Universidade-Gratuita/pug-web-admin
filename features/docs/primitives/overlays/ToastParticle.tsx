@@ -167,8 +167,8 @@ export default function ToastParticle() {
 							/>
 						}
 						onClick={() =>
-							toast(t("docs.toast.async.undo.title"), {
-								description: t("docs.toast.async.undo.description"),
+							toast.undo(t("docs.toast.async.undo.title"), {
+								onUndo: () => alert("Undo action"),
 							})
 						}
 					>

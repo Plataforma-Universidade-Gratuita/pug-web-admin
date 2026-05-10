@@ -1,3 +1,4 @@
+import { PageShell } from "@/components";
 import {
 	ButtonParticle,
 	ToggleGroupParticle,
@@ -6,10 +7,10 @@ import {
 
 export default function ComponentsDocsPage() {
 	return (
-		<main className="mx-auto max-w-6xl space-y-8 p-6 lg:p-8">
+		<PageShell className="space-y-8 p-6 lg:p-8">
 			<ButtonParticle />
 			<ToggleParticle />
 			<ToggleGroupParticle />
-		</main>
+		</PageShell>
 	);
 }

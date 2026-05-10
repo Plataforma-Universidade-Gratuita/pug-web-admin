@@ -1,6 +1,6 @@
 @layer components {
 	.label-root {
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-semibold);
 		letter-spacing: var(--twc-tracking-normal);
@@ -39,7 +39,7 @@
 
 	.control-label {
 		display: block;
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-semibold);
 		letter-spacing: var(--twc-tracking-normal);
@@ -49,7 +49,7 @@
 
 	.control-description {
 		display: block;
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-regular);
 		letter-spacing: var(--twc-tracking-normal);
@@ -411,7 +411,6 @@
 
 	.select-content {
 		max-height: 18rem;
-		min-width: var(--radix-select-trigger-width);
 	}
 
 	.select-scroll-button {
@@ -499,7 +498,7 @@
 	.select-item-label,
 	.combobox-option-label {
 		display: block;
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-semibold);
 		letter-spacing: var(--twc-tracking-normal);
@@ -515,7 +514,7 @@
 	.select-label,
 	.dropdown-label {
 		padding: 0.5rem 0.75rem;
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-semibold);
 		letter-spacing: var(--twc-tracking-normal);
@@ -745,7 +744,7 @@
 	}
 
 	.date-picker-caption-label {
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-xs);
 		font-weight: var(--twc-weight-semibold);
 		letter-spacing: var(--twc-tracking-normal);
@@ -819,7 +818,7 @@
 
 	.date-picker-weekday {
 		padding-bottom: 0.125rem;
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: 0.6875rem;
 		font-weight: var(--twc-weight-semibold);
 		letter-spacing: var(--twc-tracking-wide);
@@ -835,7 +834,7 @@
 		height: 1.75rem;
 		width: 1.75rem;
 		border-radius: var(--twc-radius-circle);
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: 0.8125rem;
 		font-weight: var(--twc-weight-medium);
 		line-height: 1;

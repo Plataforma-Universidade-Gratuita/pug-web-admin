@@ -1699,7 +1699,6 @@
                 },
                 "undo": {
                     "button": "Undo preview",
-                    "description": "Use this state only when the action can actually be undone safely.",
                     "title": "User deleted"
                 }
             },

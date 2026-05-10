@@ -12,6 +12,7 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 	Dialog,
@@ -75,11 +76,11 @@ export default function SkeletonParticle() {
 								{t("docs.skeleton.cardExample.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardFooter>
 							<Button usage="primary">
 								{t("docs.skeleton.cardExample.cta")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 
 					<Card className="flex min-h-48 flex-col justify-between p-4">
@@ -89,11 +90,11 @@ export default function SkeletonParticle() {
 								{t("docs.skeleton.cardExample.description")}
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardFooter>
 							<Button usage="primary">
 								{t("docs.skeleton.cardExample.cta")}
 							</Button>
-						</CardContent>
+						</CardFooter>
 					</Card>
 				</div>
 			</ParticleSection>
@@ -122,11 +123,11 @@ export default function SkeletonParticle() {
 									{t(`docs.button.usageCards.${item.key}.description`)}
 								</CardDescription>
 							</CardHeader>
-							<CardContent>
+							<CardFooter>
 								<Button usage={item.usage}>
 									{t(`docs.button.usageCards.${item.key}.label`)}
 								</Button>
-							</CardContent>
+							</CardFooter>
 						</Card>
 					))}
 				</div>
@@ -220,7 +221,7 @@ export default function SkeletonParticle() {
 				description={t("docs.skeleton.sections.overlays.description")}
 			>
 				<Card className="p-4">
-					<CardContent className="flex flex-wrap items-center gap-3">
+					<CardFooter className="flex flex-wrap items-center gap-3">
 						<Button onClick={() => setIsDialogPreviewOpen(true)}>
 							{t("docs.skeleton.dialogExample.trigger")}
 						</Button>
@@ -249,7 +250,7 @@ export default function SkeletonParticle() {
 								<Skeleton className="h-40 rounded-[var(--twc-radius-lg)]" />
 							</PopoverContent>
 						</Popover>
-					</CardContent>
+					</CardFooter>
 					<p className="ty-helper">{t("docs.skeleton.overlaysExample.note")}</p>
 				</Card>
 				<Dialog

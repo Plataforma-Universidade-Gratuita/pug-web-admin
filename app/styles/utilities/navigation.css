@@ -96,7 +96,7 @@
 	}
 
 	.breadcrumb-current {
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-semibold);
 		letter-spacing: var(--twc-tracking-normal);
@@ -122,11 +122,11 @@
 	}
 
 	.dropdown-content[data-state="closed"] {
-		animation: accordion-up var(--twc-duration-fast) var(--twc-ease-standard);
+		animation: dropdown-exit var(--twc-duration-fast) var(--twc-ease-standard);
 	}
 
 	.dropdown-content[data-state="open"] {
-		animation: accordion-down var(--twc-duration-fast) var(--twc-ease-standard);
+		animation: dropdown-enter var(--twc-duration-fast) var(--twc-ease-standard);
 	}
 
 	.dropdown-item {

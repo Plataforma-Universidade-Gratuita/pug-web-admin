@@ -18,7 +18,7 @@
 	}
 
 	.toast-title {
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-semibold);
 		letter-spacing: var(--twc-tracking-normal);
@@ -27,7 +27,7 @@
 	}
 
 	.toast-description {
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-regular);
 		letter-spacing: var(--twc-tracking-normal);
@@ -43,7 +43,7 @@
 	.toast-cancel-button {
 		min-height: 2rem;
 		border-radius: var(--twc-radius-md);
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: 0.75rem;
 		font-weight: var(--twc-weight-semibold);
 		letter-spacing: var(--twc-tracking-normal);
@@ -181,7 +181,6 @@
 		--toast-accent: var(--toast-accent-dark);
 		border-color: var(--toast-soft-border);
 		border-left-width: 1px;
-		border-left-color: var(--toast-soft-border);
 		background-color: var(--toast-soft-bg);
 		color: var(--toast-accent);
 	}
@@ -222,7 +221,6 @@
 			--toast-accent: var(--toast-accent-dark);
 			border-color: var(--toast-soft-border);
 			border-left-width: 1px;
-			border-left-color: var(--toast-soft-border);
 			background-color: var(--toast-soft-bg);
 			color: var(--toast-accent);
 		}

@@ -235,8 +235,7 @@
 	}
 
 	.navbar-content-inner {
-		margin-inline: auto;
-		max-width: 72rem;
+		width: 100%;
 		padding: 1.5rem 1rem;
 	}
 
@@ -298,6 +297,12 @@
 	@media (min-width: 40rem) {
 		.navbar-content-inner {
 			padding-inline: 1.5rem;
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.navbar-content-inner {
+			padding-inline: 1.75rem;
 		}
 	}
 
@@ -404,7 +409,7 @@
 	}
 
 	.app-sidebar-item-label {
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-regular);
 		line-height: var(--twc-leading-normal);
@@ -460,7 +465,7 @@
 	.app-sidebar-popover-title {
 		margin-bottom: 0.25rem;
 		padding-inline: 0.5rem;
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-semibold);
 		line-height: var(--twc-leading-normal);
@@ -522,7 +527,7 @@
 	}
 
 	.app-sidebar-account-name {
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-semibold);
 		line-height: var(--twc-leading-normal);
@@ -530,7 +535,7 @@
 	}
 
 	.app-sidebar-account-meta {
-		font-family: var(--twc-font-sans);
+		font-family: var(--twc-font-sans), sans-serif;
 		font-size: var(--twc-text-sm);
 		font-weight: var(--twc-weight-regular);
 		line-height: var(--twc-leading-normal);
