@@ -757,6 +757,26 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - `Dialog` for focused supporting information and short read/review surfaces
   - `Drawer` for subordinate create/edit/review flows tied to the current page
 
+### Read-only catalog page pattern
+
+- Small read-only service pages should reuse the shared read-only page grammar under:
+  - `features/shared/read-only`
+- The current pattern is:
+  - `PageShell` with a two-row layout
+  - `ReadOnlyPageHeader` for:
+    - title
+    - description
+    - metadata popover
+    - optional page-level filter actions
+    - filter content area
+  - `ReadOnlyTableSection` for the main table surface
+- Current reusable read-only filters are:
+  - `TextFieldFilter`
+  - `NumberFieldFilter`
+  - `AuditInfoFilter`
+- `AuditInfoFilter` is the shared pattern when an entity exposes `auditInfo` date fields and the page needs a compact date-range refinement flow.
+- Keep page-specific filtering logic, empty-state copy, query hooks, and table columns inside the owning feature. The shared components only own layout and control composition.
+
 ## Import and organization rules
 
 - Internal imports should use `@/`.

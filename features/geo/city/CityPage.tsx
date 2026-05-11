@@ -6,30 +6,23 @@ import { Info } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
-	Button,
 	Dialog,
 	DialogBody,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 	DropdownMenuInfoItem,
-	Input,
 	NoContentState,
 	NotFoundState,
 	PageShell,
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-	Section,
-	SectionActions,
-	SectionContent,
-	SectionDescription,
-	SectionHeader,
-	SectionTitle,
 	SomeErrorState,
-	Table,
 	toast,
 } from "@/components";
+import {
+	ReadOnlyPageHeader,
+	ReadOnlyTableSection,
+	TextFieldFilter,
+} from "@/features/shared/read-only";
 import type { CityResponse } from "@/types/api";
 import { WebApiError } from "@/utils/web-api";
 
@@ -130,69 +123,40 @@ export function CityPage() {
 			width="wide"
 			className="grid h-[calc(100dvh-4.5rem)] min-h-[48rem] grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden p-4 lg:p-6"
 		>
-			<Section className="shadow-normal rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-2)] px-5 py-4">
-				<SectionHeader>
-					<div className="grid gap-2">
-						<SectionTitle className="text-3xl">
-							{t("geo.cityPage.title")}
-						</SectionTitle>
-						<SectionDescription className="max-w-none">
-							{t("geo.cityPage.description")}
-						</SectionDescription>
-					</div>
-					<SectionActions>
-						<Popover>
-							<PopoverTrigger>
-								<Button
-									aria-label={t("geo.cityPage.metadata.trigger")}
-									size="icon"
-									tooltipContent={t("geo.cityPage.metadata.trigger")}
-									variant="secondary"
-								>
-									<Info className="h-4 w-4" />
-								</Button>
-							</PopoverTrigger>
-							<PopoverContent className="w-80">
-								<NoContentState
-									title={t("geo.cityPage.metadata.empty.title")}
-									description={t("geo.cityPage.metadata.empty.description")}
-								/>
-							</PopoverContent>
-						</Popover>
-					</SectionActions>
-				</SectionHeader>
-				<SectionContent className="grid gap-2">
-					<Input
-						type="search"
-						value={search}
-						onChange={event => setSearch(event.target.value)}
-						placeholder={t("geo.cityPage.filters.searchPlaceholder")}
-						className="w-full"
-					/>
-				</SectionContent>
-			</Section>
+			<ReadOnlyPageHeader
+				title={t("geo.cityPage.title")}
+				description={t("geo.cityPage.description")}
+				metadata={{
+					triggerLabel: t("geo.cityPage.metadata.trigger"),
+					emptyTitle: t("geo.cityPage.metadata.empty.title"),
+					emptyDescription: t("geo.cityPage.metadata.empty.description"),
+				}}
+				filtersClassName="grid gap-2"
+			>
+				<TextFieldFilter
+					value={search}
+					onChange={setSearch}
+					placeholder={t("geo.cityPage.filters.searchPlaceholder")}
+				/>
+			</ReadOnlyPageHeader>
 
-			<div className="grid h-full min-h-0">
-				<Section className="shadow-normal grid h-full min-h-0 rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)]">
-					<SectionContent className="h-full min-h-0 overflow-hidden">
-						<Table<CityResponse>
-							className="h-full"
-							columns={columns}
-							data={filteredCities}
-							emptyState={tableEmptyState}
-							getRowActions={row => (
-								<DropdownMenuInfoItem
-									icon={Info}
-									label={t("geo.cityPage.table.actions.viewDetails")}
-									onClick={() => setSelectedCityId(row.id)}
-								/>
-							)}
-							isLoading={citiesQuery.isLoading}
-							loadingLabel={t("geo.cityPage.loading.list")}
+			<ReadOnlyTableSection<CityResponse>
+				tableProps={{
+					className: "h-full",
+					columns,
+					data: filteredCities,
+					emptyState: tableEmptyState,
+					getRowActions: row => (
+						<DropdownMenuInfoItem
+							icon={Info}
+							label={t("geo.cityPage.table.actions.viewDetails")}
+							onClick={() => setSelectedCityId(row.id)}
 						/>
-					</SectionContent>
-				</Section>
-			</div>
+					),
+					isLoading: citiesQuery.isLoading,
+					loadingLabel: t("geo.cityPage.loading.list"),
+				}}
+			/>
 
 			<Dialog
 				open={selectedCityId !== null}

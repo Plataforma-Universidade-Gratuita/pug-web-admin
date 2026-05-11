@@ -53,6 +53,10 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 			name,
 			onChange,
 			onValueChange,
+			panelAlign = "start",
+			panelAvoidCollisions,
+			panelCollisionPadding,
+			panelSide = "bottom",
 			placeholder,
 			required,
 			value,
@@ -239,7 +243,9 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 			) {
 				return;
 			}
+			commitDate(today);
 			setMonth(today);
+			setOpen(false);
 		}
 
 		return (
@@ -284,7 +290,12 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 					</PopoverTrigger>
 
 					<PopoverContent
-						align="start"
+						align={panelAlign}
+						side={panelSide}
+						avoidCollisions={panelAvoidCollisions ?? panelSide !== "bottom"}
+						{...(panelCollisionPadding !== undefined
+							? { collisionPadding: panelCollisionPadding }
+							: {})}
 						className="date-picker-panel"
 					>
 						<div className="date-picker-header-controls">

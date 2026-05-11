@@ -2039,6 +2039,104 @@
             }
         }
     },
+    "identity": {
+        "userPage": {
+            "description": "Diretório somente leitura de registros de usuários compartilhados pela plataforma.",
+            "dialog": {
+                "error": {
+                    "description": "O registro do usuário não pôde ser carregado agora.",
+                    "title": "Não foi possível carregar o usuário"
+                },
+                "fields": {
+                    "cpf": "CPF",
+                    "createdAt": "Criado em",
+                    "id": "Identificador",
+                    "name": "Nome do usuário",
+                    "updatedAt": "Atualizado em"
+                },
+                "notFound": {
+                    "description": "O registro do usuário solicitado não foi encontrado.",
+                    "title": "Usuário não encontrado"
+                },
+                "overhead": "Registro do usuário",
+                "titleFallback": "Detalhes do usuário"
+            },
+            "empty": {
+                "defaultDescription": "O catálogo de usuários está vazio no momento.",
+                "filteredDescription": "Nenhum usuário corresponde a \"{{value}}\".",
+                "title": "Nenhum usuário encontrado"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "O registro do usuário não pôde ser carregado agora.",
+                    "title": "Não foi possível carregar os detalhes do usuário"
+                },
+                "listError": {
+                    "description": "O catálogo de usuários não pôde ser carregado agora.",
+                    "title": "Não foi possível carregar os usuários"
+                }
+            },
+            "filters": {
+                "advanced": {
+                    "active": "Filtros de data ativos",
+                    "label": "Filtros avançados",
+                    "trigger": "Filtros de data"
+                },
+                "clear": "Limpar filtros",
+                "cpf": {
+                    "label": "CPF",
+                    "placeholder": "Filtrar por CPF"
+                },
+                "dateField": {
+                    "label": "Campo de data",
+                    "options": {
+                        "createdAt": "Criado em",
+                        "updatedAt": "Atualizado em"
+                    },
+                    "placeholder": "Selecione..."
+                },
+                "endDate": {
+                    "label": "Data final",
+                    "placeholder": "Data final"
+                },
+                "name": {
+                    "label": "Nome",
+                    "placeholder": "Filtrar por nome do usuário"
+                },
+                "startDate": {
+                    "label": "Data de início",
+                    "placeholder": "Data inicial"
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes do usuário",
+                "list": "Carregando catálogo de usuários"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Proveniência do serviço, atualização e metadados da requisição ficarão aqui.",
+                    "title": "Metadados em breve"
+                },
+                "trigger": "Metadados"
+            },
+            "table": {
+                "actions": {
+                    "viewDetails": "Ver detalhes do usuário"
+                },
+                "columns": {
+                    "cpf": "CPF",
+                    "createdAt": "Criado em",
+                    "name": "Usuário",
+                    "updatedAt": "Atualizado em"
+                },
+                "error": {
+                    "description": "O catálogo de usuários não pôde ser carregado agora.",
+                    "title": "Não foi possível carregar os usuários"
+                }
+            },
+            "title": "Usuários"
+        }
+    },
     "Navbar": {
         "account": {
             "fallback": "IndisponÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel",

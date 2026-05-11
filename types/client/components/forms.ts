@@ -6,6 +6,7 @@ import type {
 } from "react";
 
 import { BADGE_TONES } from "@/constants/components";
+import type { PopoverContentProps } from "@/types/client/components/display";
 
 export interface InputProps extends Omit<
 	InputHTMLAttributes<HTMLInputElement>,
@@ -24,6 +25,10 @@ export interface DatePickerProps extends Omit<
 	defaultValue?: string;
 	onChange?: ChangeEventHandler<HTMLInputElement>;
 	onValueChange?: (value: string) => void;
+	panelSide?: PopoverContentProps["side"];
+	panelAlign?: PopoverContentProps["align"];
+	panelAvoidCollisions?: PopoverContentProps["avoidCollisions"];
+	panelCollisionPadding?: PopoverContentProps["collisionPadding"];
 }
 
 export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;

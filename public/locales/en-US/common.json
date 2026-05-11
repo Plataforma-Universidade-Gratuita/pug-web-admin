@@ -2039,6 +2039,104 @@
             }
         }
     },
+    "identity": {
+        "userPage": {
+            "description": "Read-only identity directory for user records shared across the platform.",
+            "dialog": {
+                "error": {
+                    "description": "The user record could not be loaded right now.",
+                    "title": "Unable to load user"
+                },
+                "fields": {
+                    "cpf": "CPF",
+                    "createdAt": "Created at",
+                    "id": "Identifier",
+                    "name": "User name",
+                    "updatedAt": "Updated at"
+                },
+                "notFound": {
+                    "description": "The requested user record could not be found.",
+                    "title": "User not found"
+                },
+                "overhead": "User record",
+                "titleFallback": "User details"
+            },
+            "empty": {
+                "defaultDescription": "The user catalog is currently empty.",
+                "filteredDescription": "No user matches \"{{value}}\".",
+                "title": "No users found"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "The user record could not be loaded right now.",
+                    "title": "Unable to load user details"
+                },
+                "listError": {
+                    "description": "The user catalog could not be loaded right now.",
+                    "title": "Unable to load users"
+                }
+            },
+            "filters": {
+                "advanced": {
+                    "active": "Date filters active",
+                    "label": "Advanced filters",
+                    "trigger": "Date filters"
+                },
+                "clear": "Clear filters",
+                "cpf": {
+                    "label": "CPF",
+                    "placeholder": "Filter by CPF"
+                },
+                "dateField": {
+                    "label": "Date field",
+                    "options": {
+                        "createdAt": "Created at",
+                        "updatedAt": "Updated at"
+                    },
+                    "placeholder": "Select..."
+                },
+                "endDate": {
+                    "label": "End date",
+                    "placeholder": "Select end date"
+                },
+                "name": {
+                    "label": "Name",
+                    "placeholder": "Filter by user name"
+                },
+                "startDate": {
+                    "label": "Start date",
+                    "placeholder": "Select start date"
+                }
+            },
+            "loading": {
+                "detail": "Loading user details",
+                "list": "Loading user catalog"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Service provenance, freshness, and request metadata will live here.",
+                    "title": "Metadata coming soon"
+                },
+                "trigger": "Metadata"
+            },
+            "table": {
+                "actions": {
+                    "viewDetails": "View user details"
+                },
+                "columns": {
+                    "cpf": "CPF",
+                    "createdAt": "Created at",
+                    "name": "User",
+                    "updatedAt": "Updated at"
+                },
+                "error": {
+                    "description": "The user catalog could not be loaded right now.",
+                    "title": "Unable to load users"
+                }
+            },
+            "title": "Users"
+        }
+    },
     "Navbar": {
         "account": {
             "fallback": "Unavailable",
