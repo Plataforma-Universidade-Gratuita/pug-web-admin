@@ -1,16 +1,14 @@
 import { z } from "zod";
 
-import { AccountResponseSchema } from "@/schemas/api";
-
-// ─── Responses ───────────────────────────────────────────────────────────────
-
 export const StaffResponseSchema = z.object({
-	account: AccountResponseSchema,
+	accountId: z.string(),
+	accountEmail: z.string(),
+	userId: z.string(),
+	userName: z.string(),
 	entityId: z.string(),
+	entityName: z.string(),
 	cityId: z.string(),
 });
-
-// ─── Requests ────────────────────────────────────────────────────────────────
 
 export const StaffCreateRequestSchema = z.object({
 	cpf: z.string(),

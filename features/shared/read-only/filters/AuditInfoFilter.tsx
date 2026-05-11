@@ -1,16 +1,13 @@
 import {
 	Button,
-	DatePicker,
 	Label,
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
 } from "@/components";
 import type { AuditInfoFilterProps } from "@/types/client";
+
+import { AuditInfoFilterFields } from "./AuditInfoFilterFields";
 
 export function AuditInfoFilter({
 	label,
@@ -55,64 +52,21 @@ export function AuditInfoFilter({
 				className="grid w-[30rem] gap-4"
 				side={"left"}
 			>
-				<div className="grid gap-4">
-					<div className="grid gap-2">
-						<Label>{dateFieldLabel}</Label>
-						<Select
-							value={dateField}
-							onValueChange={value => {
-								onDateFieldChange(value);
-								if (!value) {
-									onStartDateChange("");
-									onEndDateChange("");
-								}
-							}}
-						>
-							<SelectTrigger
-								className="w-full"
-								placeholder={dateFieldPlaceholder}
-							/>
-							<SelectContent>
-								{dateFieldOptions.map(option => (
-									<SelectItem
-										key={option.value}
-										value={option.value}
-									>
-										{option.label}
-									</SelectItem>
-								))}
-							</SelectContent>
-						</Select>
-					</div>
-					<div className="grid gap-4 sm:grid-cols-2">
-						<div className="grid gap-2">
-							<Label>{startDateLabel}</Label>
-							<DatePicker
-								disabled={!dateField}
-								value={startDate}
-								onValueChange={onStartDateChange}
-								panelSide="left"
-								panelAlign="start"
-								panelAvoidCollisions
-								panelCollisionPadding={16}
-								placeholder={startDatePlaceholder}
-							/>
-						</div>
-						<div className="grid gap-2">
-							<Label>{endDateLabel}</Label>
-							<DatePicker
-								disabled={!dateField}
-								value={endDate}
-								onValueChange={onEndDateChange}
-								panelSide="left"
-								panelAlign="start"
-								panelAvoidCollisions
-								panelCollisionPadding={16}
-								placeholder={endDatePlaceholder}
-							/>
-						</div>
-					</div>
-				</div>
+				<AuditInfoFilterFields
+					dateFieldLabel={dateFieldLabel}
+					dateFieldPlaceholder={dateFieldPlaceholder}
+					dateField={dateField}
+					onDateFieldChange={onDateFieldChange}
+					dateFieldOptions={dateFieldOptions}
+					startDateLabel={startDateLabel}
+					startDatePlaceholder={startDatePlaceholder}
+					startDate={startDate}
+					onStartDateChange={onStartDateChange}
+					endDateLabel={endDateLabel}
+					endDatePlaceholder={endDatePlaceholder}
+					endDate={endDate}
+					onEndDateChange={onEndDateChange}
+				/>
 			</PopoverContent>
 		</Popover>
 	);

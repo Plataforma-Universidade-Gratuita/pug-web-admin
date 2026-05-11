@@ -98,6 +98,18 @@ export function compareTableValues(a: unknown, b: unknown) {
 	return compareNormalizedText(String(a ?? ""), String(b ?? ""));
 }
 
+export function getTableColumnStyle(size: number | undefined) {
+	if (typeof size !== "number") {
+		return undefined;
+	}
+
+	return {
+		width: `${size}px`,
+		minWidth: `${size}px`,
+		maxWidth: `${size}px`,
+	};
+}
+
 export function flattenActionNodes(children: ReactNode): ReactElement[] {
 	return Children.toArray(children).flatMap(child => {
 		if (!isValidElement(child)) {

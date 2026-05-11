@@ -10,6 +10,9 @@ import {
 
 export const StudentResponseSchema = z.object({
 	accountId: z.string(),
+	accountEmail: z.string(),
+	userId: z.string(),
+	userName: z.string(),
 	academicRegistration: z.string(),
 	campus: CampusResponseSchema,
 	courseId: z.string(),

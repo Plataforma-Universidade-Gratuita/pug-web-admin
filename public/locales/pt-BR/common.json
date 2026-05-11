@@ -2040,6 +2040,156 @@
         }
     },
     "identity": {
+        "accountPage": {
+            "description": "Diret?rio somente leitura de registros de contas e de suas identidades de usu?rio vinculadas.",
+            "dialog": {
+                "active": {
+                    "no": "Inativa",
+                    "yes": "Ativa"
+                },
+                "error": {
+                    "description": "O registro da conta n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar a conta"
+                },
+                "fields": {
+                    "accountType": "Tipo de conta",
+                    "active": "Status",
+                    "createdAt": "Criado em",
+                    "email": "E-mail",
+                    "id": "Identificador",
+                    "updatedAt": "Atualizado em"
+                },
+                "linkedUser": {
+                    "error": {
+                        "description": "O registro do usu?rio vinculado n?o p?de ser carregado agora.",
+                        "title": "N?o foi poss?vel carregar o usu?rio vinculado"
+                    },
+                    "fields": {
+                        "cpf": "CPF",
+                        "id": "Identificador",
+                        "name": "Nome do usu?rio"
+                    },
+                    "loading": "Carregando usu?rio vinculado",
+                    "notFound": {
+                        "description": "O registro do usu?rio vinculado n?o foi encontrado.",
+                        "title": "Usu?rio vinculado n?o encontrado"
+                    },
+                    "overhead": "Usu?rio vinculado"
+                },
+                "notFound": {
+                    "description": "O registro da conta solicitado n?o foi encontrado.",
+                    "title": "Conta n?o encontrada"
+                },
+                "overhead": "Registro da conta",
+                "titleFallback": "Detalhes da conta"
+            },
+            "empty": {
+                "defaultDescription": "O cat?logo de contas est? vazio no momento.",
+                "filteredDescription": "Nenhuma conta corresponde a \"{{value}}\".",
+                "title": "Nenhuma conta encontrada"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "O registro da conta n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar os detalhes da conta"
+                },
+                "linkedUserError": {
+                    "description": "O registro do usu?rio vinculado n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar o usu?rio vinculado"
+                },
+                "listError": {
+                    "description": "O cat?logo de contas n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar as contas"
+                }
+            },
+            "filters": {
+                "accountType": {
+                    "label": "Tipo de conta",
+                    "options": {
+                        "ADMIN": "Administrador",
+                        "all": "Todos os tipos",
+                        "PARTNER": "Parceiro",
+                        "STUDENT": "Estudante"
+                    },
+                    "placeholder": "Selecione..."
+                },
+                "active": {
+                    "label": "Status",
+                    "options": {
+                        "active": "Ativa",
+                        "all": "Todos os status",
+                        "inactive": "Inativa"
+                    },
+                    "placeholder": "Selecione..."
+                },
+                "clear": "Limpar filtros",
+                "dateField": {
+                    "label": "Campo de data",
+                    "options": {
+                        "createdAt": "Criado em",
+                        "updatedAt": "Atualizado em"
+                    },
+                    "placeholder": "Selecione..."
+                },
+                "drawer": {
+                    "active": "Filtros avan?ados ativos",
+                    "apply": "Aplicar filtros",
+                    "clearConfirm": {
+                        "description": "Isso remover? os filtros ativos de conta da visualiza??o atual da tabela.",
+                        "title": "Limpar filtros de conta?"
+                    },
+                    "label": "Filtros avan?ados",
+                    "overhead": "Filtros de conta",
+                    "title": "Refinar cat?logo de contas",
+                    "trigger": "Filtros avan?ados"
+                },
+                "email": {
+                    "label": "Nome ou e-mail",
+                    "placeholder": "Filtrar por nome do usu?rio ou e-mail da conta"
+                },
+                "endDate": {
+                    "label": "Data final",
+                    "placeholder": "Data final"
+                },
+                "startDate": {
+                    "label": "Data de in?cio",
+                    "placeholder": "Data inicial"
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes da conta",
+                "list": "Carregando cat?logo de contas"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Proveni?ncia do servi?o, atualiza??o e metadados da requisi??o ficar?o aqui.",
+                    "title": "Metadados em breve"
+                },
+                "trigger": "Metadados"
+            },
+            "table": {
+                "actions": {
+                    "viewDetails": "Ver detalhes da conta"
+                },
+                "active": {
+                    "no": "Inativa",
+                    "yes": "Ativa"
+                },
+                "columns": {
+                    "accountType": "Tipo de conta",
+                    "active": "Status",
+                    "createdAt": "Criado em",
+                    "email": "E-mail",
+                    "name": "Nome",
+                    "updatedAt": "Atualizado em"
+                },
+                "error": {
+                    "description": "O cat?logo de contas n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar as contas"
+                }
+            },
+            "title": "Contas"
+        },
         "userPage": {
             "description": "Diretório somente leitura de registros de usuários compartilhados pela plataforma.",
             "dialog": {

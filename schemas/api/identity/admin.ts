@@ -1,15 +1,14 @@
 import { z } from "zod";
 
-import {
-	CampiEnum,
-	CampusResponseSchema,
-	AccountResponseSchema,
-} from "@/schemas/api";
+import { CampiEnum, CampusResponseSchema } from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 
 export const AdminResponseSchema = z.object({
-	accountResponse: AccountResponseSchema,
+	accountId: z.string(),
+	accountEmail: z.string(),
+	userId: z.string(),
+	userName: z.string(),
 	campus: CampusResponseSchema,
 	grantedAt: z.string(),
 	grantedAtFormatted: z.string(),

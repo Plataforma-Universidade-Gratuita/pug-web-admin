@@ -773,8 +773,11 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - Current reusable read-only filters are:
   - `TextFieldFilter`
   - `NumberFieldFilter`
+  - `AuditInfoFilterFields`
   - `AuditInfoFilter`
 - `AuditInfoFilter` is the shared pattern when an entity exposes `auditInfo` date fields and the page needs a compact date-range refinement flow.
+- `AuditInfoFilterFields` is the shared field group when the same audit-date refinement needs to live directly inside a heavier surface such as a drawer.
+- When a read-only page accumulates several secondary filters, keep the primary lookup field visible in the header and move the heavier secondary filters into a filter drawer instead of flattening every control into one row.
 - Keep page-specific filtering logic, empty-state copy, query hooks, and table columns inside the owning feature. The shared components only own layout and control composition.
 
 ## Import and organization rules

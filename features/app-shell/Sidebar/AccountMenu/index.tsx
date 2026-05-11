@@ -131,7 +131,7 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 									{user?.name ?? t("Navbar.account.fallback")}
 								</p>
 								<p className="app-sidebar-account-meta">
-									{admin?.accountResponse.email ?? t("Navbar.account.fallback")}
+									{admin?.accountEmail ?? t("Navbar.account.fallback")}
 								</p>
 								<p className="app-sidebar-account-meta">
 									{admin?.campus.campusFormatted ??

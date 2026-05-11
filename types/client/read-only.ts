@@ -44,23 +44,26 @@ export interface AuditInfoFilterOption {
 	label: ReactNode;
 }
 
-export interface AuditInfoFilterProps {
-	label: ReactNode;
-	triggerLabel: ReactNode;
-	activeLabel: ReactNode;
-	open: boolean;
-	onOpenChange: (open: boolean) => void;
+export interface AuditInfoFilterFieldsProps {
 	dateFieldLabel: ReactNode;
 	dateFieldPlaceholder: string;
 	dateField: string;
 	onDateFieldChange: (value: string) => void;
 	dateFieldOptions: AuditInfoFilterOption[];
 	startDateLabel: ReactNode;
-	startDatePlaceholder?: string;
+	startDatePlaceholder?: string | undefined;
 	startDate: string;
 	onStartDateChange: (value: string) => void;
 	endDateLabel: ReactNode;
-	endDatePlaceholder?: string;
+	endDatePlaceholder?: string | undefined;
 	endDate: string;
 	onEndDateChange: (value: string) => void;
+}
+
+export interface AuditInfoFilterProps extends AuditInfoFilterFieldsProps {
+	label: ReactNode;
+	triggerLabel: ReactNode;
+	activeLabel: ReactNode;
+	open: boolean;
+	onOpenChange: (open: boolean) => void;
 }

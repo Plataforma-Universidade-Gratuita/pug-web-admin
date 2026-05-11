@@ -2040,6 +2040,156 @@
         }
     },
     "identity": {
+        "accountPage": {
+            "description": "Read-only identity directory for account records and their linked user identities.",
+            "dialog": {
+                "active": {
+                    "no": "Inactive",
+                    "yes": "Active"
+                },
+                "error": {
+                    "description": "The account record could not be loaded right now.",
+                    "title": "Unable to load account"
+                },
+                "fields": {
+                    "accountType": "Account type",
+                    "active": "Status",
+                    "createdAt": "Created at",
+                    "email": "Email",
+                    "id": "Identifier",
+                    "updatedAt": "Updated at"
+                },
+                "linkedUser": {
+                    "error": {
+                        "description": "The linked user record could not be loaded right now.",
+                        "title": "Unable to load linked user"
+                    },
+                    "fields": {
+                        "cpf": "CPF",
+                        "id": "Identifier",
+                        "name": "User name"
+                    },
+                    "loading": "Loading linked user",
+                    "notFound": {
+                        "description": "The linked user record could not be found.",
+                        "title": "Linked user not found"
+                    },
+                    "overhead": "Linked user"
+                },
+                "notFound": {
+                    "description": "The requested account record could not be found.",
+                    "title": "Account not found"
+                },
+                "overhead": "Account record",
+                "titleFallback": "Account details"
+            },
+            "empty": {
+                "defaultDescription": "The account catalog is currently empty.",
+                "filteredDescription": "No account matches \"{{value}}\".",
+                "title": "No accounts found"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "The account record could not be loaded right now.",
+                    "title": "Unable to load account details"
+                },
+                "linkedUserError": {
+                    "description": "The linked user record could not be loaded right now.",
+                    "title": "Unable to load linked user"
+                },
+                "listError": {
+                    "description": "The account catalog could not be loaded right now.",
+                    "title": "Unable to load accounts"
+                }
+            },
+            "filters": {
+                "accountType": {
+                    "label": "Account type",
+                    "options": {
+                        "ADMIN": "Admin",
+                        "all": "All account types",
+                        "PARTNER": "Partner",
+                        "STUDENT": "Student"
+                    },
+                    "placeholder": "Select..."
+                },
+                "active": {
+                    "label": "Status",
+                    "options": {
+                        "active": "Active",
+                        "all": "All statuses",
+                        "inactive": "Inactive"
+                    },
+                    "placeholder": "Select..."
+                },
+                "clear": "Clear filters",
+                "dateField": {
+                    "label": "Date field",
+                    "options": {
+                        "createdAt": "Created at",
+                        "updatedAt": "Updated at"
+                    },
+                    "placeholder": "Select..."
+                },
+                "drawer": {
+                    "active": "Advanced filters active",
+                    "apply": "Apply filters",
+                    "clearConfirm": {
+                        "description": "This will remove the active account filters from the current table view.",
+                        "title": "Clear account filters?"
+                    },
+                    "label": "Advanced filters",
+                    "overhead": "Account filters",
+                    "title": "Refine account catalog",
+                    "trigger": "Advanced filters"
+                },
+                "email": {
+                    "label": "Name or email",
+                    "placeholder": "Filter by account name or email"
+                },
+                "endDate": {
+                    "label": "End date",
+                    "placeholder": "Select end date"
+                },
+                "startDate": {
+                    "label": "Start date",
+                    "placeholder": "Select start date"
+                }
+            },
+            "loading": {
+                "detail": "Loading account details",
+                "list": "Loading account catalog"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Service provenance, freshness, and request metadata will live here.",
+                    "title": "Metadata coming soon"
+                },
+                "trigger": "Metadata"
+            },
+            "table": {
+                "actions": {
+                    "viewDetails": "View account details"
+                },
+                "active": {
+                    "no": "Inactive",
+                    "yes": "Active"
+                },
+                "columns": {
+                    "accountType": "Account type",
+                    "active": "Status",
+                    "createdAt": "Created at",
+                    "email": "Email",
+                    "name": "Name",
+                    "updatedAt": "Updated at"
+                },
+                "error": {
+                    "description": "The account catalog could not be loaded right now.",
+                    "title": "Unable to load accounts"
+                }
+            },
+            "title": "Accounts"
+        },
         "userPage": {
             "description": "Read-only identity directory for user records shared across the platform.",
             "dialog": {

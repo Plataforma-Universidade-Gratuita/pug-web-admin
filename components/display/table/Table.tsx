@@ -33,6 +33,7 @@ import {
 	compareTableValues,
 	flattenActionNodes,
 	getDirectActionProps,
+	getTableColumnStyle,
 	getScrollOffsetFromThumbOffset,
 	getTableScrollbarMetrics,
 } from "./utils";
@@ -430,6 +431,9 @@ export function Table<TData extends object>({
 												key={header.id}
 												className="table-header-cell"
 												scope="col"
+												style={getTableColumnStyle(
+													header.column.columnDef.size,
+												)}
 											>
 												{header.isPlaceholder ? null : header.column.getCanSort() ? (
 													<button
@@ -497,6 +501,9 @@ export function Table<TData extends object>({
 													<td
 														key={cell.id}
 														className="table-body-cell"
+														style={getTableColumnStyle(
+															cell.column.columnDef.size,
+														)}
 													>
 														{flexRender(
 															cell.column.columnDef.cell,
