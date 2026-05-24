@@ -204,3 +204,25 @@ export interface TableProps<
 	getRowId?: (originalRow: TData, index: number, parent?: Row<TData>) => string;
 	getRowActions?: ((row: TData) => ReactNode) | undefined;
 }
+
+export interface RowActionsCellProps<TData extends object> {
+	row: TData;
+	getRowActions: NonNullable<TableProps<TData>["getRowActions"]>;
+}
+
+export interface SortIconProps {
+	direction: false | "asc" | "desc";
+}
+
+export interface TableScrollbarMetricsArgs {
+	clientSize: number;
+	scrollOffset: number;
+	scrollSize: number;
+	trackSize: number;
+}
+
+export interface ScrollOffsetFromThumbOffsetArgs {
+	maxScrollOffset: number;
+	maxThumbOffset: number;
+	thumbOffsetPx: number;
+}

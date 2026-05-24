@@ -6,6 +6,7 @@ import { Providers } from "@/app/providers";
 import { ThemeScript } from "@/app/theme-script";
 import { LANG_COOKIE_NAME } from "@/constants/locale";
 import { THEME_COOKIE_NAME } from "@/constants/theme";
+import type { RootLayoutProps } from "@/types/client";
 import { coerceLang } from "@/utils/lang";
 import { coerceTheme } from "@/utils/theme-value";
 
@@ -17,11 +18,7 @@ export const metadata: Metadata = {
 	description: "Admin interface for the PUG platform.",
 };
 
-export default async function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: RootLayoutProps) {
 	const jar = await cookies();
 	const initialLangCookieValue = jar.get(LANG_COOKIE_NAME)?.value;
 	const initialThemeCookieValue = jar.get(THEME_COOKIE_NAME)?.value;

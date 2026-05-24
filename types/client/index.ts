@@ -2,6 +2,7 @@ export * from "./app";
 export * from "./components";
 export * from "./auth";
 export * from "./forms";
+export * from "./geo";
 export * from "./identity";
 export * from "./locale";
 export * from "./navigation";

@@ -12,7 +12,7 @@ import type {
 	UserResponse,
 } from "@/types/api";
 import type {
-	AdminCampusFilter,
+	AdminFilterArgs,
 	AdminEditorFormValues,
 	AdminEditorMode,
 } from "@/types/client/identity";
@@ -116,13 +116,7 @@ export function createAdminColumns(t: TFunction): ColumnDef<AdminResponse>[] {
 
 export function filterAdmins(
 	admins: AdminResponse[],
-	{
-		campusFilter,
-		query,
-	}: {
-		campusFilter: AdminCampusFilter;
-		query: string;
-	},
+	{ campusFilter, query }: AdminFilterArgs,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const hasQuery = normalizedQuery.length > 0;
@@ -339,13 +333,7 @@ export function toAdminCreateRequest(
 
 export function getAdminFilterSummary(
 	t: TFunction,
-	{
-		campusFilter,
-		query,
-	}: {
-		campusFilter: AdminCampusFilter;
-		query: string;
-	},
+	{ campusFilter, query }: AdminFilterArgs,
 ) {
 	const parts: string[] = [];
 

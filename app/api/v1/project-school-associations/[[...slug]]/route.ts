@@ -6,6 +6,7 @@ import {
 	ProjectSchoolRequestSchema,
 	SchoolResponseSchema,
 } from "@/schemas/api";
+import type { AppRouteSlugContext } from "@/types/client";
 import {
 	parseRouteBody,
 	routeError,
@@ -13,10 +14,7 @@ import {
 	routeWithAuthRetry,
 } from "@/utils/route";
 
-export async function GET(
-	_request: Request,
-	{ params }: { params: Promise<{ slug?: string[] }> },
-) {
+export async function GET(_request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 3 && slug[0] === "projects" && slug[2] === "schools") {
 		return routeWithAuthRetry(
@@ -43,7 +41,7 @@ export async function POST(request: Request) {
 
 export async function DELETE(
 	_request: Request,
-	{ params }: { params: Promise<{ slug?: string[] }> },
+	{ params }: AppRouteSlugContext,
 ) {
 	const { slug = [] } = await params;
 	if (slug.length === 4 && slug[0] === "projects" && slug[2] === "schools") {

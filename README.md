@@ -26,9 +26,19 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - Do not introduce new relative imports for internal modules when an `@/` path is appropriate.
 - Keep raw static config under `constants/`.
 - Keep types and interfaces under `types/`.
+- Do not use inline object type definitions in function or component parameters.
+- For components, define props under `types/` and name them `<ComponentName>Props`.
+- For non-component argument objects, define a named type or interface under `types/` instead of annotating the object inline.
 - Keep Zod schemas under `schemas/`.
 - Keep provider contexts under `contexts/`.
 - Keep reusable or pure helper functions out of `.tsx` files when they are not tightly coupled to local component state. Put them in adjacent `utils.ts` when local to a feature/component folder.
+- Keep page and component files under `400` lines unless there is a real documented reason they must exceed it.
+- If a file starts pushing past that limit, split it into adjacent feature-local pieces such as:
+  - detail dialog
+  - filter drawer
+  - row actions
+  - editor form surface
+  - feature-local action hook
 - Keep all user-facing copy in locales. Do not add new hardcoded UI copy in pages, components, or features.
 - When changing copy, update both:
   - `public/locales/en-US/common.json`
@@ -245,6 +255,7 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - raw HTTP calls remain in `api/web/**`
   - feature-local query keys and query hooks live in feature-local `queries.ts`
   - feature-local mutation hooks live in feature-local `mutations.ts`
+  - when page or drawer mutation orchestration starts bloating the parent file, move that orchestration into an adjacent feature-local hook
   - components consume query hooks instead of calling `webFetch` directly
 - Bounded read-only reference catalogs may fetch once and filter client-side inside feature-local helpers when the dataset is intentionally small.
   - current example: `features/geo/city`
@@ -254,6 +265,10 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - `features/identity/admin/queries.ts`
   - `features/identity/admin/mutations.ts`
   - `features/identity/user/queries.ts`
+- Shared helpers that should be preferred before open-coded page logic:
+  - `hooks/useQueryErrorToast.ts`
+  - `hooks/useDeferredUndoAction.ts`
+  - `hooks/useHydratedFormOnOpen.ts`
 - Current query key style:
   - domain-local object with `all` plus narrower key builders such as `me()`
 - When adding mutations:
@@ -775,6 +790,7 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - `features/shared/service-pages`
 - The current pattern is:
   - `PageShell` with a two-row layout
+  - `ServicePageShell` as the page-level wrapper for that layout
   - `ServicePageHeader` for:
     - title
     - description
@@ -782,7 +798,14 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
     - optional page-level filter actions
     - optional page-level primary create action
     - filter content area
+  - `ServicePageHeaderActions` for the common:
+    - clear filters
+    - primary create action
+      header action pair
   - `ServicePageTableSection` for the main table surface
+  - `ServicePageFiltersDrawer` for secondary filter groups that do not belong in the always-visible header row
+  - `ServicePageConfirmDialog` for reusable destructive/state-change confirmation shells
+  - `ServicePageLinkedAccountBlock` and `ServicePageLinkedUserBlock` for detail dialogs that need linked identity data
 - Current reusable service-page filters are:
   - `TextFieldFilter`
   - `NumberFieldFilter`
@@ -792,6 +815,9 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - `AuditInfoFilterFields` is the shared field group when the same audit-date refinement needs to live directly inside a heavier surface such as a drawer.
 - When a service page accumulates several secondary filters, keep the primary lookup field visible in the header and move the heavier secondary filters into a filter drawer instead of flattening every control into one row.
 - Keep page-specific filtering logic, empty-state copy, query hooks, and table columns inside the owning feature. The shared components only own layout and control composition.
+- Keep service-page entry files as orchestration layers.
+  - page file owns query selection, filter state, and high-level wiring
+  - detail dialogs, filter drawers, row action menus, editor forms, and action hooks should live beside the page in the same feature folder
 - A service page may start read-only and later evolve into a lightweight directory workflow:
   - keep the shared header and table grammar
   - add the primary create action to the header

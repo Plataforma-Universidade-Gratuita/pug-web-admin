@@ -7,6 +7,10 @@ import {
 } from "react";
 
 import type { DropdownMenuItemProps } from "@/types/client";
+import type {
+	ScrollOffsetFromThumbOffsetArgs,
+	TableScrollbarMetricsArgs,
+} from "@/types/client";
 import { compareNormalizedText } from "@/utils/lang";
 
 const MIN_TABLE_SCROLLBAR_THUMB_SIZE = 32;
@@ -26,12 +30,7 @@ export function getTableScrollbarMetrics({
 	scrollOffset,
 	scrollSize,
 	trackSize,
-}: {
-	clientSize: number;
-	scrollOffset: number;
-	scrollSize: number;
-	trackSize: number;
-}): TableScrollbarMetrics {
+}: TableScrollbarMetricsArgs): TableScrollbarMetrics {
 	const maxScrollOffset = Math.max(scrollSize - clientSize, 0);
 
 	if (maxScrollOffset <= 0 || trackSize <= 0) {
@@ -64,11 +63,7 @@ export function getScrollOffsetFromThumbOffset({
 	maxScrollOffset,
 	maxThumbOffset,
 	thumbOffsetPx,
-}: {
-	maxScrollOffset: number;
-	maxThumbOffset: number;
-	thumbOffsetPx: number;
-}) {
+}: ScrollOffsetFromThumbOffsetArgs) {
 	if (maxScrollOffset <= 0 || maxThumbOffset <= 0) {
 		return 0;
 	}

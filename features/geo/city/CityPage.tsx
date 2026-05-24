@@ -1,23 +1,13 @@
 "use client";
 
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 
-import { Eye } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-	Dialog,
-	DialogBody,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DropdownMenuInfoItem,
-	NoContentState,
-	NotFoundState,
-	PageShell,
-	SomeErrorState,
-	toast,
-} from "@/components";
+import { NoContentState, SomeErrorState } from "@/components";
+import { CityDetailDialog } from "@/features/geo/city/CityDetailDialog";
+import { CityFilters } from "@/features/geo/city/CityFilters";
+import { CityRowActions } from "@/features/geo/city/CityRowActions";
 import {
 	useCitiesQuery,
 	useCityDetailQuery,
@@ -31,11 +21,11 @@ import {
 } from "@/features/geo/city/utils";
 import {
 	ServicePageHeader,
+	ServicePageShell,
 	ServicePageTableSection,
-	TextFieldFilter,
 } from "@/features/shared/service-pages";
+import { useQueryErrorToast } from "@/hooks";
 import type { CityResponse } from "@/types/api";
-import { WebApiError } from "@/utils/web-api";
 
 export function CityPage() {
 	const { t } = useTranslation();
@@ -44,15 +34,12 @@ export function CityPage() {
 	const deferredSearch = useDeferredValue(search.trim());
 	const citiesQuery = useCitiesQuery();
 	const cityDetailQuery = useCityDetailQuery(selectedCityId);
-	const listErrorToastAtRef = useRef(0);
-	const detailErrorToastAtRef = useRef(0);
 
 	const allCities = useMemo(() => citiesQuery.data ?? [], [citiesQuery.data]);
 	const filteredCities = useMemo(
 		() => filterCities(allCities, deferredSearch),
 		[allCities, deferredSearch],
 	);
-	const selectedCity = cityDetailQuery.data;
 	const columns = useMemo(() => createCityColumns(t), [t]);
 	const emptyStateCopy = useMemo(
 		() => getCitiesEmptyStateCopy(t, deferredSearch),
@@ -79,52 +66,21 @@ export function CityPage() {
 		);
 	}, [citiesQuery, emptyStateCopy, t]);
 
-	useEffect(() => {
-		if (!citiesQuery.isError || citiesQuery.errorUpdatedAt === 0) {
-			return;
-		}
-
-		if (listErrorToastAtRef.current === citiesQuery.errorUpdatedAt) {
-			return;
-		}
-
-		listErrorToastAtRef.current = citiesQuery.errorUpdatedAt;
-		const { title, description } = getCitiesListErrorToastContent(
-			t,
-			citiesQuery.error,
-		);
-
-		toast.danger(title, { description });
-	}, [citiesQuery.error, citiesQuery.errorUpdatedAt, citiesQuery.isError, t]);
-
-	useEffect(() => {
-		if (!cityDetailQuery.isError || cityDetailQuery.errorUpdatedAt === 0) {
-			return;
-		}
-
-		if (detailErrorToastAtRef.current === cityDetailQuery.errorUpdatedAt) {
-			return;
-		}
-
-		detailErrorToastAtRef.current = cityDetailQuery.errorUpdatedAt;
-		const { title, description } = getCityDetailErrorToastContent(
-			t,
-			cityDetailQuery.error,
-		);
-
-		toast.danger(title, { description });
-	}, [
-		cityDetailQuery.error,
-		cityDetailQuery.errorUpdatedAt,
-		cityDetailQuery.isError,
-		t,
-	]);
+	useQueryErrorToast({
+		error: citiesQuery.error,
+		errorUpdatedAt: citiesQuery.errorUpdatedAt,
+		getContent: error => getCitiesListErrorToastContent(t, error),
+		isError: citiesQuery.isError,
+	});
+	useQueryErrorToast({
+		error: cityDetailQuery.error,
+		errorUpdatedAt: cityDetailQuery.errorUpdatedAt,
+		getContent: error => getCityDetailErrorToastContent(t, error),
+		isError: cityDetailQuery.isError,
+	});
 
 	return (
-		<PageShell
-			width="wide"
-			className="grid h-[calc(100dvh-4.5rem)] min-h-[48rem] grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden p-4 lg:p-6"
-		>
+		<ServicePageShell>
 			<ServicePageHeader
 				title={t("geo.cityPage.title")}
 				description={t("geo.cityPage.description")}
@@ -135,10 +91,9 @@ export function CityPage() {
 				}}
 				filtersClassName="grid gap-2"
 			>
-				<TextFieldFilter
-					value={search}
-					onChange={setSearch}
-					placeholder={t("geo.cityPage.filters.searchPlaceholder")}
+				<CityFilters
+					search={search}
+					onSearchChange={setSearch}
 				/>
 			</ServicePageHeader>
 
@@ -149,10 +104,9 @@ export function CityPage() {
 					data: filteredCities,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<DropdownMenuInfoItem
-							icon={Eye}
-							label={t("geo.cityPage.table.actions.viewDetails")}
-							onClick={() => setSelectedCityId(row.id)}
+						<CityRowActions
+							city={row}
+							onView={setSelectedCityId}
 						/>
 					),
 					isLoading: citiesQuery.isLoading,
@@ -160,66 +114,21 @@ export function CityPage() {
 				}}
 			/>
 
-			<Dialog
-				open={selectedCityId !== null}
+			<CityDetailDialog
+				city={cityDetailQuery.data}
+				error={cityDetailQuery.error}
+				isError={cityDetailQuery.isError}
+				isLoading={cityDetailQuery.isLoading}
 				onOpenChange={open => {
 					if (!open) {
 						setSelectedCityId(null);
 					}
 				}}
-				isLoading={cityDetailQuery.isLoading}
-				loadingLabel={t("geo.cityPage.loading.detail")}
-			>
-				<DialogContent>
-					<DialogHeader overhead={t("geo.cityPage.dialog.overhead")}>
-						<DialogTitle>
-							{selectedCity?.name ?? t("geo.cityPage.dialog.titleFallback")}
-						</DialogTitle>
-					</DialogHeader>
-					<DialogBody className="grid justify-items-start gap-4">
-						{cityDetailQuery.isError ? (
-							cityDetailQuery.error instanceof WebApiError &&
-							cityDetailQuery.error.status === 404 ? (
-								<NotFoundState
-									title={t("geo.cityPage.dialog.notFound.title")}
-									description={t("geo.cityPage.dialog.notFound.description")}
-								/>
-							) : (
-								<SomeErrorState
-									title={t("geo.cityPage.dialog.error.title")}
-									description={t("geo.cityPage.dialog.error.description")}
-									onRefresh={() => {
-										void cityDetailQuery.refetch();
-									}}
-								/>
-							)
-						) : selectedCity ? (
-							<div className="grid gap-4">
-								<div className="grid gap-1">
-									<p className="ty-helper">
-										{t("geo.cityPage.dialog.fields.id")}
-									</p>
-									<p className="ty-sm-semibold">{selectedCity.id}</p>
-								</div>
-								<div className="grid gap-1">
-									<p className="ty-helper">
-										{t("geo.cityPage.dialog.fields.name")}
-									</p>
-									<p className="ty-sm-semibold">{selectedCity.name}</p>
-								</div>
-								<div className="grid gap-1">
-									<p className="ty-helper">
-										{t("geo.cityPage.dialog.fields.ibgeCode")}
-									</p>
-									<p className="ty-sm-semibold">{selectedCity.ibgeCode}</p>
-								</div>
-							</div>
-						) : (
-							<NotFoundState title={t("geo.cityPage.dialog.notFound.title")} />
-						)}
-					</DialogBody>
-				</DialogContent>
-			</Dialog>
-		</PageShell>
+				onRefresh={() => {
+					void cityDetailQuery.refetch();
+				}}
+				open={selectedCityId !== null}
+			/>
+		</ServicePageShell>
 	);
 }

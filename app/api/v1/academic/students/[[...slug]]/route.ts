@@ -6,6 +6,7 @@ import {
 	StudentResponseSchema,
 	StudentUpdateRequestSchema,
 } from "@/schemas/api";
+import type { AppRouteSlugContext } from "@/types/client";
 import {
 	parseRouteBody,
 	routeError,
@@ -13,10 +14,7 @@ import {
 	routeWithAuthRetry,
 } from "@/utils/route";
 
-export async function GET(
-	request: Request,
-	{ params }: { params: Promise<{ slug?: string[] }> },
-) {
+export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
 		const searchParams = new URL(request.url).searchParams;
@@ -60,10 +58,7 @@ export async function GET(
 	return routeError(new Error("Not found"));
 }
 
-export async function POST(
-	request: Request,
-	{ params }: { params: Promise<{ slug?: string[] }> },
-) {
+export async function POST(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
 		const body = await parseRouteBody(request, StudentCreateRequestSchema);
@@ -85,10 +80,7 @@ export async function POST(
 	return routeError(new Error("Not found"));
 }
 
-export async function PUT(
-	request: Request,
-	{ params }: { params: Promise<{ slug?: string[] }> },
-) {
+export async function PUT(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length !== 1) return routeError(new Error("Not found"));
 	const body = await parseRouteBody(request, StudentUpdateRequestSchema);
@@ -100,7 +92,7 @@ export async function PUT(
 
 export async function DELETE(
 	_request: Request,
-	{ params }: { params: Promise<{ slug?: string[] }> },
+	{ params }: AppRouteSlugContext,
 ) {
 	const { slug = [] } = await params;
 	if (slug.length !== 1) return routeError(new Error("Not found"));

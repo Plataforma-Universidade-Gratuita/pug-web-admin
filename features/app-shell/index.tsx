@@ -7,8 +7,9 @@ import { RouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs";
 import { Sidebar } from "@/features/app-shell/Sidebar";
 import { TopBar } from "@/features/app-shell/Topbar";
 import { useAppShellStore } from "@/store";
+import type { NavbarProps } from "@/types/client";
 
-export function Navbar({ children }: { children: React.ReactNode }) {
+export function Navbar({ children }: NavbarProps) {
 	const collapsed = useAppShellStore(state => state.collapsed);
 	const setCollapsed = useAppShellStore(state => state.setCollapsed);
 	const toggleCollapsed = useAppShellStore(state => state.toggleCollapsed);

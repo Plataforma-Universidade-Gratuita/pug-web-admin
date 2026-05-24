@@ -12,7 +12,8 @@ import type {
 	StaffUpdateRequest,
 } from "@/types/api";
 import type {
-	StaffActiveFilter,
+	StaffFilterArgs,
+	StaffFilterSummaryArgs,
 	StaffEditorFormValues,
 	StaffEditorMode,
 } from "@/types/client/partner";
@@ -127,17 +128,7 @@ export function createStaffColumns(t: TFunction): ColumnDef<StaffResponse>[] {
 
 export function filterStaff(
 	staff: StaffResponse[],
-	{
-		activeFilter,
-		cityIdFilter,
-		entityIdFilter,
-		query,
-	}: {
-		activeFilter: StaffActiveFilter;
-		cityIdFilter: string;
-		entityIdFilter: string;
-		query: string;
-	},
+	{ activeFilter, cityIdFilter, entityIdFilter, query }: StaffFilterArgs,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const hasQuery = normalizedQuery.length > 0;
@@ -200,14 +191,7 @@ export function getStaffFilterSummary(
 		entityById,
 		entityIdFilter,
 		query,
-	}: {
-		activeFilter: StaffActiveFilter;
-		cityById: Map<string, CityResponse>;
-		cityIdFilter: string;
-		entityById: Map<string, EntityResponse>;
-		entityIdFilter: string;
-		query: string;
-	},
+	}: StaffFilterSummaryArgs,
 ) {
 	const parts: string[] = [];
 

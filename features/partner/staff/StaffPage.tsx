@@ -1,65 +1,15 @@
 "use client";
 
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 
-import {
-	CopyPlus,
-	Eye,
-	Filter,
-	PenSquare,
-	Plus,
-	ShieldCheck,
-	ShieldX,
-	Trash2,
-} from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-    AlertDialog,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    Badge,
-    Button,
-    Combobox,
-    Dialog,
-    DialogBody,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    Drawer,
-    DrawerBody,
-    DrawerContent,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DropdownMenuDangerItem,
-    DropdownMenuInfoItem, DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuSuccessItem,
-    DropdownMenuWarningItem,
-    Label,
-    NoContentState,
-    NotFoundState,
-    PageShell,
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SomeErrorState,
-    toast,
-} from "@/components";
-import {
-	getAccountTypeLabel,
-	getAccountTypeTone,
-} from "@/features/identity/account/utils";
+import { NoContentState, SomeErrorState } from "@/components";
+import { StaffActionDialogs } from "@/features/partner/staff/StaffActionDialogs";
+import { StaffDetailDialog } from "@/features/partner/staff/StaffDetailDialog";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
-import {
-	useRemoveStaffMutation,
-	useSetStaffActiveMutation,
-} from "@/features/partner/staff/mutations";
+import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
+import { StaffRowActions } from "@/features/partner/staff/StaffRowActions";
 import {
 	useLinkedStaffAccountQuery,
 	useLinkedStaffUserQuery,
@@ -68,6 +18,7 @@ import {
 	useStaffEntitiesQuery,
 	useStaffQuery,
 } from "@/features/partner/staff/queries";
+import { useStaffPageActions } from "@/features/partner/staff/useStaffPageActions";
 import {
 	buildStaffCityOptions,
 	buildStaffEntityOptions,
@@ -75,28 +26,26 @@ import {
 	filterStaff,
 	getLinkedStaffAccountErrorToastContent,
 	getLinkedStaffUserErrorToastContent,
-	getStaffActiveOptionClassName,
 	getStaffCitiesErrorToastContent,
-	getStaffDeleteErrorToastContent,
 	getStaffDetailErrorToastContent,
 	getStaffEmptyStateCopy,
 	getStaffEntitiesErrorToastContent,
 	getStaffFilterSummary,
 	getStaffListErrorToastContent,
-	getStaffSetActiveErrorToastContent,
-	resolveStaffCityLabel,
 } from "@/features/partner/staff/utils";
 import {
 	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
-import type { AccountResponse, StaffResponse } from "@/types/api";
+import { useQueryErrorToast } from "@/hooks";
+import type { StaffResponse } from "@/types/api";
 import type {
 	StaffActiveFilter,
 	StaffEditorMode,
 } from "@/types/client/partner";
-import { WebApiError } from "@/utils/web-api";
 
 export function StaffPage() {
 	const { t } = useTranslation();
@@ -114,12 +63,6 @@ export function StaffPage() {
 		id: string | null;
 		mode: StaffEditorMode;
 	} | null>(null);
-	const [pendingStatusStaff, setPendingStatusStaff] = useState<{
-		active: boolean;
-		staff: StaffResponse;
-	} | null>(null);
-	const [pendingDeleteStaff, setPendingDeleteStaff] =
-		useState<StaffResponse | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const staffQuery = useStaffQuery();
 	const staffCitiesQuery = useStaffCitiesQuery();
@@ -131,54 +74,56 @@ export function StaffPage() {
 	const linkedUserQuery = useLinkedStaffUserQuery(
 		staffDetailQuery.data?.userId ?? null,
 	);
-	const listErrorToastAtRef = useRef(0);
-	const detailErrorToastAtRef = useRef(0);
-	const linkedAccountErrorToastAtRef = useRef(0);
-	const linkedUserErrorToastAtRef = useRef(0);
-	const citiesErrorToastAtRef = useRef(0);
-	const entitiesErrorToastAtRef = useRef(0);
-	const deleteTimersRef = useRef(
-		new Map<string, ReturnType<typeof setTimeout>>(),
-	);
-	const setStaffActiveMutation = useSetStaffActiveMutation();
-	const removeStaffMutation = useRemoveStaffMutation();
-	const allStaff = useMemo(() => staffQuery.data ?? [], [staffQuery.data]);
-	const allCities = useMemo(
-		() => staffCitiesQuery.data ?? [],
+	const {
+		confirmDelete,
+		confirmStatusChange,
+		pendingDeleteStaff,
+		pendingStatusStaff,
+		setPendingDeleteStaff,
+		setPendingStatusStaff,
+	} = useStaffPageActions({
+		currentEditorId: editorState?.id ?? null,
+		currentSelectedId: selectedStaffId,
+		onClearEditor: () => setEditorState(null),
+		onClearSelection: () => setSelectedStaffId(null),
+	});
+
+	const cityById = useMemo(
+		() => new Map((staffCitiesQuery.data ?? []).map(city => [city.id, city])),
 		[staffCitiesQuery.data],
 	);
-	const allEntities = useMemo(
-		() => staffEntitiesQuery.data ?? [],
+	const entityById = useMemo(
+		() =>
+			new Map(
+				(staffEntitiesQuery.data ?? []).map(entity => [entity.id, entity]),
+			),
 		[staffEntitiesQuery.data],
 	);
-	const cityById = useMemo(
-		() => new Map(allCities.map(city => [city.id, city])),
-		[allCities],
-	);
-	const entityById = useMemo(
-		() => new Map(allEntities.map(entity => [entity.id, entity])),
-		[allEntities],
-	);
 	const cityOptions = useMemo(
-		() => buildStaffCityOptions(allCities),
-		[allCities],
+		() => buildStaffCityOptions(staffCitiesQuery.data ?? []),
+		[staffCitiesQuery.data],
 	);
 	const entityOptions = useMemo(
-		() => buildStaffEntityOptions(allEntities),
-		[allEntities],
+		() => buildStaffEntityOptions(staffEntitiesQuery.data ?? []),
+		[staffEntitiesQuery.data],
 	);
 	const filteredStaff = useMemo(
 		() =>
-			filterStaff(allStaff, {
+			filterStaff(staffQuery.data ?? [], {
 				query: deferredQuerySearch,
 				entityIdFilter,
 				cityIdFilter,
 				activeFilter,
 			}),
-		[activeFilter, allStaff, cityIdFilter, deferredQuerySearch, entityIdFilter],
+		[
+			activeFilter,
+			cityIdFilter,
+			deferredQuerySearch,
+			entityIdFilter,
+			staffQuery.data,
+		],
 	);
 	const columns = useMemo(() => createStaffColumns(t), [t]);
-	const selectedStaff = staffDetailQuery.data;
 	const hasSecondaryFilters = Boolean(
 		entityIdFilter || cityIdFilter || activeFilter,
 	);
@@ -228,152 +173,42 @@ export function StaffPage() {
 		);
 	}, [emptyStateCopy.description, emptyStateCopy.title, staffQuery, t]);
 
-	useEffect(() => {
-		if (!staffQuery.isError || staffQuery.errorUpdatedAt === 0) {
-			return;
-		}
-
-		if (listErrorToastAtRef.current === staffQuery.errorUpdatedAt) {
-			return;
-		}
-
-		listErrorToastAtRef.current = staffQuery.errorUpdatedAt;
-		const { title, description } = getStaffListErrorToastContent(
-			t,
-			staffQuery.error,
-		);
-		toast.danger(title, { description });
-	}, [staffQuery.error, staffQuery.errorUpdatedAt, staffQuery.isError, t]);
-
-	useEffect(() => {
-		if (!staffDetailQuery.isError || staffDetailQuery.errorUpdatedAt === 0) {
-			return;
-		}
-
-		if (detailErrorToastAtRef.current === staffDetailQuery.errorUpdatedAt) {
-			return;
-		}
-
-		detailErrorToastAtRef.current = staffDetailQuery.errorUpdatedAt;
-		const { title, description } = getStaffDetailErrorToastContent(
-			t,
-			staffDetailQuery.error,
-		);
-		toast.danger(title, { description });
-	}, [
-		staffDetailQuery.error,
-		staffDetailQuery.errorUpdatedAt,
-		staffDetailQuery.isError,
-		t,
-	]);
-
-	useEffect(() => {
-		if (
-			!linkedAccountQuery.isError ||
-			linkedAccountQuery.errorUpdatedAt === 0
-		) {
-			return;
-		}
-
-		if (
-			linkedAccountErrorToastAtRef.current === linkedAccountQuery.errorUpdatedAt
-		) {
-			return;
-		}
-
-		linkedAccountErrorToastAtRef.current = linkedAccountQuery.errorUpdatedAt;
-		const { title, description } = getLinkedStaffAccountErrorToastContent(
-			t,
-			linkedAccountQuery.error,
-		);
-		toast.danger(title, { description });
-	}, [
-		linkedAccountQuery.error,
-		linkedAccountQuery.errorUpdatedAt,
-		linkedAccountQuery.isError,
-		t,
-	]);
-
-	useEffect(() => {
-		if (!linkedUserQuery.isError || linkedUserQuery.errorUpdatedAt === 0) {
-			return;
-		}
-
-		if (linkedUserErrorToastAtRef.current === linkedUserQuery.errorUpdatedAt) {
-			return;
-		}
-
-		linkedUserErrorToastAtRef.current = linkedUserQuery.errorUpdatedAt;
-		const { title, description } = getLinkedStaffUserErrorToastContent(
-			t,
-			linkedUserQuery.error,
-		);
-		toast.danger(title, { description });
-	}, [
-		linkedUserQuery.error,
-		linkedUserQuery.errorUpdatedAt,
-		linkedUserQuery.isError,
-		t,
-	]);
-
-	useEffect(() => {
-		if (!staffCitiesQuery.isError || staffCitiesQuery.errorUpdatedAt === 0) {
-			return;
-		}
-
-		if (citiesErrorToastAtRef.current === staffCitiesQuery.errorUpdatedAt) {
-			return;
-		}
-
-		citiesErrorToastAtRef.current = staffCitiesQuery.errorUpdatedAt;
-		const { title, description } = getStaffCitiesErrorToastContent(
-			t,
-			staffCitiesQuery.error,
-		);
-		toast.danger(title, { description });
-	}, [
-		staffCitiesQuery.error,
-		staffCitiesQuery.errorUpdatedAt,
-		staffCitiesQuery.isError,
-		t,
-	]);
-
-	useEffect(() => {
-		if (
-			!staffEntitiesQuery.isError ||
-			staffEntitiesQuery.errorUpdatedAt === 0
-		) {
-			return;
-		}
-
-		if (entitiesErrorToastAtRef.current === staffEntitiesQuery.errorUpdatedAt) {
-			return;
-		}
-
-		entitiesErrorToastAtRef.current = staffEntitiesQuery.errorUpdatedAt;
-		const { title, description } = getStaffEntitiesErrorToastContent(
-			t,
-			staffEntitiesQuery.error,
-		);
-		toast.danger(title, { description });
-	}, [
-		staffEntitiesQuery.error,
-		staffEntitiesQuery.errorUpdatedAt,
-		staffEntitiesQuery.isError,
-		t,
-	]);
-
-	useEffect(() => {
-		const deleteTimers = deleteTimersRef.current;
-
-		return () => {
-			for (const timeoutId of deleteTimers.values()) {
-				clearTimeout(timeoutId);
-			}
-
-			deleteTimers.clear();
-		};
-	}, []);
+	useQueryErrorToast({
+		error: staffQuery.error,
+		errorUpdatedAt: staffQuery.errorUpdatedAt,
+		getContent: error => getStaffListErrorToastContent(t, error),
+		isError: staffQuery.isError,
+	});
+	useQueryErrorToast({
+		error: staffDetailQuery.error,
+		errorUpdatedAt: staffDetailQuery.errorUpdatedAt,
+		getContent: error => getStaffDetailErrorToastContent(t, error),
+		isError: staffDetailQuery.isError,
+	});
+	useQueryErrorToast({
+		error: linkedAccountQuery.error,
+		errorUpdatedAt: linkedAccountQuery.errorUpdatedAt,
+		getContent: error => getLinkedStaffAccountErrorToastContent(t, error),
+		isError: linkedAccountQuery.isError,
+	});
+	useQueryErrorToast({
+		error: linkedUserQuery.error,
+		errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
+		getContent: error => getLinkedStaffUserErrorToastContent(t, error),
+		isError: linkedUserQuery.isError,
+	});
+	useQueryErrorToast({
+		error: staffCitiesQuery.error,
+		errorUpdatedAt: staffCitiesQuery.errorUpdatedAt,
+		getContent: error => getStaffCitiesErrorToastContent(t, error),
+		isError: staffCitiesQuery.isError,
+	});
+	useQueryErrorToast({
+		error: staffEntitiesQuery.error,
+		errorUpdatedAt: staffEntitiesQuery.errorUpdatedAt,
+		getContent: error => getStaffEntitiesErrorToastContent(t, error),
+		isError: staffEntitiesQuery.isError,
+	});
 
 	function applySecondaryFilters() {
 		setEntityIdFilter(draftEntityIdFilter);
@@ -393,135 +228,14 @@ export function StaffPage() {
 		setFiltersOpen(false);
 	}
 
-	function handleStatusChangeConfirm() {
-		if (!pendingStatusStaff) {
-			return;
-		}
-
-		const { active, staff } = pendingStatusStaff;
-
-		setStaffActiveMutation.mutate(
-			{
-				id: staff.accountId,
-				active,
-			},
-			{
-				onSuccess: () => {
-					toast.success(
-						t(
-							active
-								? "partner.staffPage.reactivate.feedback.success.title"
-								: "partner.staffPage.deactivate.feedback.success.title",
-						),
-						{
-							description: t(
-								active
-									? "partner.staffPage.reactivate.feedback.success.description"
-									: "partner.staffPage.deactivate.feedback.success.description",
-								{
-									name: staff.userName,
-								},
-							),
-						},
-					);
-					setPendingStatusStaff(null);
-				},
-				onError: error => {
-					const { title, description } = getStaffSetActiveErrorToastContent(
-						t,
-						error,
-						active,
-					);
-					toast.danger(title, { description });
-					setPendingStatusStaff(null);
-				},
-			},
-		);
-	}
-
-	function handleDeleteConfirm() {
-		if (!pendingDeleteStaff) {
-			return;
-		}
-
-		const staff = pendingDeleteStaff;
-		const existingTimer = deleteTimersRef.current.get(staff.accountId);
-
-		if (existingTimer) {
-			clearTimeout(existingTimer);
-		}
-
-		const timeoutId = setTimeout(() => {
-			deleteTimersRef.current.delete(staff.accountId);
-			removeStaffMutation.mutate(
-				{
-					accountId: staff.accountId,
-					userId: staff.userId,
-				},
-				{
-					onSuccess: () => {
-						toast.success(
-							t("partner.staffPage.delete.feedback.success.title"),
-							{
-								description: t(
-									"partner.staffPage.delete.feedback.success.description",
-									{
-										name: staff.userName,
-									},
-								),
-							},
-						);
-
-						if (selectedStaffId === staff.accountId) {
-							setSelectedStaffId(null);
-						}
-
-						if (editorState?.id === staff.accountId) {
-							setEditorState(null);
-						}
-					},
-					onError: error => {
-						const { title, description } = getStaffDeleteErrorToastContent(
-							t,
-							error,
-						);
-						toast.danger(title, { description });
-					},
-				},
-			);
-		}, 5000);
-
-		deleteTimersRef.current.set(staff.accountId, timeoutId);
-		setPendingDeleteStaff(null);
-
-		toast.undo(t("partner.staffPage.delete.undo.title"), {
-			description: t("partner.staffPage.delete.undo.description", {
-				name: staff.userName,
-			}),
-			undoLabel: t("partner.staffPage.delete.undo.action"),
-			duration: 5000,
-			onUndo: () => {
-				const scheduledTimeout = deleteTimersRef.current.get(staff.accountId);
-
-				if (scheduledTimeout) {
-					clearTimeout(scheduledTimeout);
-					deleteTimersRef.current.delete(staff.accountId);
-				}
-			},
-		});
-	}
-
-	function openEditorFromRow(id: string, mode: StaffEditorMode) {
+	function openEditor(id: string, mode: StaffEditorMode) {
 		window.setTimeout(() => {
 			setEditorState({ id, mode });
 		}, 0);
 	}
 
 	return (
-		<PageShell
-			width="wide"
-			className="grid h-[calc(100dvh-4.5rem)] min-h-[48rem] grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden p-4 lg:p-6"
-		>
+		<ServicePageShell>
 			<ServicePageHeader
 				title={t("partner.staffPage.title")}
 				description={t("partner.staffPage.description")}
@@ -531,22 +245,13 @@ export function StaffPage() {
 					emptyDescription: t("partner.staffPage.metadata.empty.description"),
 				}}
 				actions={
-					<>
-						{hasAnyFilters ? (
-							<Button
-								variant="secondary"
-								onClick={clearAllFilters}
-							>
-								{t("partner.staffPage.filters.clear")}
-							</Button>
-						) : null}
-						<Button
-							leadingIcon={<Plus className="h-4 w-4" />}
-							onClick={() => setEditorState({ id: null, mode: "create" })}
-						>
-							{t("partner.staffPage.create.open")}
-						</Button>
-					</>
+					<ServicePageHeaderActions
+						clearLabel={t("partner.staffPage.filters.clear")}
+						createLabel={t("partner.staffPage.create.open")}
+						hasFilters={hasAnyFilters}
+						onClear={clearAllFilters}
+						onCreate={() => setEditorState({ id: null, mode: "create" })}
+					/>
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
 			>
@@ -557,145 +262,31 @@ export function StaffPage() {
 					placeholder={t("partner.staffPage.filters.search.placeholder")}
 				/>
 
-				<Drawer
-					open={filtersOpen}
+				<StaffFiltersDrawer
+					activeFilter={draftActiveFilter}
+					citiesError={staffCitiesQuery.isError}
+					cityIdFilter={draftCityIdFilter}
+					cityOptions={cityOptions}
+					entitiesError={staffEntitiesQuery.isError}
+					entityIdFilter={draftEntityIdFilter}
+					entityOptions={entityOptions}
+					hasActiveFilters={hasSecondaryFilters}
+					isCitiesLoading={staffCitiesQuery.isLoading}
+					isEntitiesLoading={staffEntitiesQuery.isLoading}
+					onActiveFilterChange={setDraftActiveFilter}
+					onApply={applySecondaryFilters}
+					onCityIdChange={setDraftCityIdFilter}
+					onClear={clearAllFilters}
+					onEntityIdChange={setDraftEntityIdFilter}
 					onOpenChange={setFiltersOpen}
-				>
-					<div className="grid gap-2 self-end">
-						<Label>{t("partner.staffPage.filters.drawer.label")}</Label>
-						<Button
-							variant="secondary"
-							usage={hasSecondaryFilters ? "info" : "secondary"}
-							className="w-full justify-start lg:min-w-56"
-							onClick={() => setFiltersOpen(true)}
-						>
-							{hasSecondaryFilters
-								? t("partner.staffPage.filters.drawer.active")
-								: t("partner.staffPage.filters.drawer.trigger")}
-						</Button>
-					</div>
-					<DrawerContent>
-						<DrawerHeader
-							overhead={t("partner.staffPage.filters.drawer.overhead")}
-						>
-							<DrawerTitle>
-								{t("partner.staffPage.filters.drawer.title")}
-							</DrawerTitle>
-						</DrawerHeader>
-						<DrawerBody className="grid gap-6">
-							{staffEntitiesQuery.isError ? (
-								<SomeErrorState
-									title={t("partner.staffPage.filters.entity.error.title")}
-									description={t(
-										"partner.staffPage.filters.entity.error.description",
-									)}
-									onRefresh={() => {
-										void staffEntitiesQuery.refetch();
-									}}
-								/>
-							) : (
-								<div className="grid gap-2">
-									<Label>{t("partner.staffPage.filters.entity.label")}</Label>
-									<Combobox
-										options={entityOptions}
-										value={draftEntityIdFilter}
-										onValueChange={setDraftEntityIdFilter}
-										placeholder={t(
-											"partner.staffPage.filters.entity.placeholder",
-										)}
-										searchPlaceholder={t(
-											"partner.staffPage.filters.entity.searchPlaceholder",
-										)}
-										emptyMessage={t(
-											"partner.staffPage.filters.entity.emptyMessage",
-										)}
-										disabled={staffEntitiesQuery.isLoading}
-									/>
-								</div>
-							)}
-
-							{staffCitiesQuery.isError ? (
-								<SomeErrorState
-									title={t("partner.staffPage.filters.city.error.title")}
-									description={t(
-										"partner.staffPage.filters.city.error.description",
-									)}
-									onRefresh={() => {
-										void staffCitiesQuery.refetch();
-									}}
-								/>
-							) : (
-								<div className="grid gap-2">
-									<Label>{t("partner.staffPage.filters.city.label")}</Label>
-									<Combobox
-										options={cityOptions}
-										value={draftCityIdFilter}
-										onValueChange={setDraftCityIdFilter}
-										placeholder={t(
-											"partner.staffPage.filters.city.placeholder",
-										)}
-										searchPlaceholder={t(
-											"partner.staffPage.filters.city.searchPlaceholder",
-										)}
-										emptyMessage={t(
-											"partner.staffPage.filters.city.emptyMessage",
-										)}
-										disabled={staffCitiesQuery.isLoading}
-									/>
-								</div>
-							)}
-
-							<div className="grid gap-2">
-								<Label>{t("partner.staffPage.filters.active.label")}</Label>
-								<Select
-									value={draftActiveFilter || "ALL"}
-									onValueChange={value =>
-										setDraftActiveFilter(
-											value === "ALL" ? "" : (value as StaffActiveFilter),
-										)
-									}
-								>
-									<SelectTrigger
-										className="w-full"
-										placeholder={t(
-											"partner.staffPage.filters.active.placeholder",
-										)}
-									/>
-									<SelectContent>
-										<SelectItem value="ALL">
-											{t("partner.staffPage.filters.active.options.all")}
-										</SelectItem>
-										<SelectItem
-											value="true"
-											className={getStaffActiveOptionClassName("true")}
-										>
-											{t("partner.staffPage.filters.active.options.active")}
-										</SelectItem>
-										<SelectItem
-											value="false"
-											className={getStaffActiveOptionClassName("false")}
-										>
-											{t("partner.staffPage.filters.active.options.inactive")}
-										</SelectItem>
-									</SelectContent>
-								</Select>
-							</div>
-						</DrawerBody>
-						<DrawerFooter
-							clearConfirmTitle={t(
-								"partner.staffPage.filters.drawer.clearConfirm.title",
-							)}
-							clearConfirmDescription={t(
-								"partner.staffPage.filters.drawer.clearConfirm.description",
-							)}
-							clearLabel={t("partner.staffPage.filters.clear")}
-							actionLabel={t("partner.staffPage.filters.drawer.apply")}
-							actionIcon={Filter}
-							onClear={clearAllFilters}
-							onAction={applySecondaryFilters}
-						/>
-					</DrawerContent>
-				</Drawer>
+					onRefreshCities={() => {
+						void staffCitiesQuery.refetch();
+					}}
+					onRefreshEntities={() => {
+						void staffEntitiesQuery.refetch();
+					}}
+					open={filtersOpen}
+				/>
 			</ServicePageHeader>
 
 			<ServicePageTableSection<StaffResponse>
@@ -704,52 +295,17 @@ export function StaffPage() {
 					columns,
 					data: filteredStaff,
 					emptyState: tableEmptyState,
-					getRowActions: row => {
-						const isActive = row.accountActive;
-
-						return (
-							<>
-								<DropdownMenuInfoItem
-									icon={Eye}
-									label={t("partner.staffPage.table.actions.viewDetails")}
-									onClick={() => setSelectedStaffId(row.accountId)}
-								/>
-								<DropdownMenuItem
-									icon={PenSquare}
-									label={t("partner.staffPage.table.actions.update")}
-									onClick={() => openEditorFromRow(row.accountId, "update")}
-								/>
-								<DropdownMenuItem
-									icon={CopyPlus}
-									label={t("partner.staffPage.table.actions.duplicate")}
-									onClick={() => openEditorFromRow(row.accountId, "duplicate")}
-								/>
-								<DropdownMenuSeparator />
-								{isActive ? (
-									<DropdownMenuWarningItem
-										icon={ShieldX}
-										label={t("partner.staffPage.table.actions.deactivate")}
-										onClick={() =>
-											setPendingStatusStaff({ active: false, staff: row })
-										}
-									/>
-								) : (
-									<DropdownMenuSuccessItem
-										icon={ShieldCheck}
-										label={t("partner.staffPage.table.actions.reactivate")}
-										onClick={() =>
-											setPendingStatusStaff({ active: true, staff: row })
-										}
-									/>
-								)}
-								<DropdownMenuDangerItem
-									icon={Trash2}
-									label={t("partner.staffPage.table.actions.delete")}
-									onClick={() => setPendingDeleteStaff(row)}
-								/>
-							</>
-						);
-					},
+					getRowActions: row => (
+						<StaffRowActions
+							onDelete={setPendingDeleteStaff}
+							onOpenEditor={openEditor}
+							onSetActive={(staff, active) =>
+								setPendingStatusStaff({ active, staff })
+							}
+							onView={setSelectedStaffId}
+							staff={row}
+						/>
+					),
 					isLoading: staffQuery.isLoading,
 					loadingLabel: t("partner.staffPage.loading.list"),
 				}}
@@ -766,356 +322,52 @@ export function StaffPage() {
 				}}
 			/>
 
-			<Dialog
-				open={selectedStaffId !== null}
+			<StaffDetailDialog
+				error={staffDetailQuery.error}
+				isError={staffDetailQuery.isError}
+				isLoading={staffDetailQuery.isLoading}
+				linkedAccount={linkedAccountQuery.data}
+				linkedAccountError={linkedAccountQuery.error}
+				linkedAccountIsError={linkedAccountQuery.isError}
+				linkedAccountIsLoading={linkedAccountQuery.isLoading}
+				linkedUser={linkedUserQuery.data}
+				linkedUserError={linkedUserQuery.error}
+				linkedUserIsError={linkedUserQuery.isError}
+				linkedUserIsLoading={linkedUserQuery.isLoading}
+				onLinkedAccountRefresh={() => {
+					void linkedAccountQuery.refetch();
+				}}
+				onLinkedUserRefresh={() => {
+					void linkedUserQuery.refetch();
+				}}
 				onOpenChange={open => {
 					if (!open) {
 						setSelectedStaffId(null);
 					}
 				}}
-				isLoading={staffDetailQuery.isLoading}
-				loadingLabel={t("partner.staffPage.loading.detail")}
-			>
-				<DialogContent>
-					<DialogHeader overhead={t("partner.staffPage.dialog.overhead")}>
-						<DialogTitle>
-							{selectedStaff?.userName ??
-								t("partner.staffPage.dialog.titleFallback")}
-						</DialogTitle>
-					</DialogHeader>
-					<DialogBody className="grid justify-items-start gap-6">
-						{staffDetailQuery.isError ? (
-							staffDetailQuery.error instanceof WebApiError &&
-							staffDetailQuery.error.status === 404 ? (
-								<NotFoundState
-									title={t("partner.staffPage.dialog.notFound.title")}
-									description={t(
-										"partner.staffPage.dialog.notFound.description",
-									)}
-								/>
-							) : (
-								<SomeErrorState
-									title={t("partner.staffPage.dialog.error.title")}
-									description={t("partner.staffPage.dialog.error.description")}
-									onRefresh={() => {
-										void staffDetailQuery.refetch();
-									}}
-								/>
-							)
-						) : selectedStaff ? (
-							<div className="grid w-full gap-6 lg:grid-cols-2 lg:gap-8">
-								<div className="grid gap-4">
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.staffPage.dialog.fields.userId")}
-										</p>
-										<p className="ty-sm-semibold">{selectedStaff.userId}</p>
-									</div>
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.staffPage.dialog.fields.name")}
-										</p>
-										<p className="ty-sm-semibold">{selectedStaff.userName}</p>
-									</div>
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.staffPage.dialog.fields.email")}
-										</p>
-										<p className="ty-sm-semibold">
-											{selectedStaff.accountEmail}
-										</p>
-									</div>
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.staffPage.dialog.fields.entity")}
-										</p>
-										<p className="ty-sm-semibold">{selectedStaff.entityName}</p>
-									</div>
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.staffPage.dialog.fields.city")}
-										</p>
-										<p className="ty-sm-semibold">
-											{resolveStaffCityLabel(cityById, selectedStaff.cityId)}
-										</p>
-									</div>
-								</div>
-
-								<div className="grid w-full content-start gap-6">
-									<div className="grid gap-3">
-										<p className="ty-overhead">
-											{t("partner.staffPage.dialog.linkedAccount.overhead")}
-										</p>
-										{renderLinkedAccountBlock(
-											t,
-											linkedAccountQuery.data,
-											linkedAccountQuery.isLoading,
-											linkedAccountQuery.isError,
-											linkedAccountQuery.error,
-											() => {
-												void linkedAccountQuery.refetch();
-											},
-										)}
-									</div>
-
-									<div className="grid gap-3">
-										<p className="ty-overhead">
-											{t("partner.staffPage.dialog.linkedUser.overhead")}
-										</p>
-										{renderLinkedUserBlock(
-											t,
-											linkedUserQuery.data,
-											linkedUserQuery.isLoading,
-											linkedUserQuery.isError,
-											linkedUserQuery.error,
-											() => {
-												void linkedUserQuery.refetch();
-											},
-										)}
-									</div>
-								</div>
-							</div>
-						) : (
-							<NotFoundState
-								title={t("partner.staffPage.dialog.notFound.title")}
-							/>
-						)}
-					</DialogBody>
-				</DialogContent>
-			</Dialog>
-
-			<AlertDialog
-				open={pendingStatusStaff !== null}
-				onOpenChange={open => {
-					if (!open) {
-						setPendingStatusStaff(null);
-					}
+				onRefresh={() => {
+					void staffDetailQuery.refetch();
 				}}
-			>
-				<AlertDialogContent
-					variant={pendingStatusStaff?.active ? "success" : "warning"}
-				>
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t(
-								pendingStatusStaff?.active
-									? "partner.staffPage.reactivate.confirm.title"
-									: "partner.staffPage.deactivate.confirm.title",
-							)}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t(
-								pendingStatusStaff?.active
-									? "partner.staffPage.reactivate.confirm.description"
-									: "partner.staffPage.deactivate.confirm.description",
-								{
-									name: pendingStatusStaff?.staff.userName ?? "",
-								},
-							)}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t(
-							pendingStatusStaff?.active
-								? "partner.staffPage.table.actions.reactivate"
-								: "partner.staffPage.table.actions.deactivate",
-						)}
-						onAction={handleStatusChangeConfirm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
+				open={selectedStaffId !== null}
+				staff={staffDetailQuery.data}
+			/>
 
-			<AlertDialog
-				open={pendingDeleteStaff !== null}
-				onOpenChange={open => {
+			<StaffActionDialogs
+				onConfirmDelete={confirmDelete}
+				onConfirmStatusChange={confirmStatusChange}
+				onDeleteOpenChange={open => {
 					if (!open) {
 						setPendingDeleteStaff(null);
 					}
 				}}
-			>
-				<AlertDialogContent variant="danger">
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t("partner.staffPage.delete.confirm.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t("partner.staffPage.delete.confirm.description", {
-								name: pendingDeleteStaff?.userName ?? "",
-							})}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t("partner.staffPage.table.actions.delete")}
-						onAction={handleDeleteConfirm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
-		</PageShell>
-	);
-}
-
-function renderLinkedAccountBlock(
-	t: ReturnType<typeof useTranslation>["t"],
-	account: AccountResponse | undefined,
-	isLoading: boolean,
-	isError: boolean,
-	error: unknown,
-	onRefresh: () => void,
-) {
-	if (isLoading) {
-		return (
-			<p className="ty-sm text-[color:var(--twc-muted)]">
-				{t("partner.staffPage.dialog.linkedAccount.loading")}
-			</p>
-		);
-	}
-
-	if (isError) {
-		if (error instanceof WebApiError && error.status === 404) {
-			return (
-				<NotFoundState
-					title={t("partner.staffPage.dialog.linkedAccount.notFound.title")}
-					description={t(
-						"partner.staffPage.dialog.linkedAccount.notFound.description",
-					)}
-				/>
-			);
-		}
-
-		return (
-			<SomeErrorState
-				title={t("partner.staffPage.dialog.linkedAccount.error.title")}
-				description={t(
-					"partner.staffPage.dialog.linkedAccount.error.description",
-				)}
-				onRefresh={onRefresh}
+				onStatusOpenChange={open => {
+					if (!open) {
+						setPendingStatusStaff(null);
+					}
+				}}
+				pendingDeleteStaff={pendingDeleteStaff}
+				pendingStatusStaff={pendingStatusStaff}
 			/>
-		);
-	}
-
-	if (!account) {
-		return (
-			<NotFoundState
-				title={t("partner.staffPage.dialog.linkedAccount.notFound.title")}
-			/>
-		);
-	}
-
-	return (
-		<div className="grid gap-4">
-			<div className="grid gap-1">
-				<p className="ty-helper">
-					{t("partner.staffPage.dialog.linkedAccount.fields.id")}
-				</p>
-				<p className="ty-sm-semibold">{account.id}</p>
-			</div>
-			<div className="grid gap-1">
-				<p className="ty-helper">
-					{t("partner.staffPage.dialog.linkedAccount.fields.type")}
-				</p>
-				<div>
-					<Badge
-						className="min-h-5 px-2 py-0.5"
-						tone={getAccountTypeTone(account.accountType)}
-						variant="primary"
-					>
-						{getAccountTypeLabel(t, account.accountType)}
-					</Badge>
-				</div>
-			</div>
-			<div className="grid gap-1">
-				<p className="ty-helper">
-					{t("partner.staffPage.dialog.linkedAccount.fields.active")}
-				</p>
-				<div>
-					<Badge
-						className="min-h-5 px-2 py-0.5"
-						tone={account.active ? "success" : "danger"}
-						variant="primary"
-					>
-						{account.active
-							? t("partner.staffPage.dialog.linkedAccount.active.yes")
-							: t("partner.staffPage.dialog.linkedAccount.active.no")}
-					</Badge>
-				</div>
-			</div>
-		</div>
-	);
-}
-
-function renderLinkedUserBlock(
-	t: ReturnType<typeof useTranslation>["t"],
-	user:
-		| {
-				id: string;
-				name: string;
-				cpfFormatted: string;
-		  }
-		| undefined,
-	isLoading: boolean,
-	isError: boolean,
-	error: unknown,
-	onRefresh: () => void,
-) {
-	if (isLoading) {
-		return (
-			<p className="ty-sm text-[color:var(--twc-muted)]">
-				{t("partner.staffPage.dialog.linkedUser.loading")}
-			</p>
-		);
-	}
-
-	if (isError) {
-		if (error instanceof WebApiError && error.status === 404) {
-			return (
-				<NotFoundState
-					title={t("partner.staffPage.dialog.linkedUser.notFound.title")}
-					description={t(
-						"partner.staffPage.dialog.linkedUser.notFound.description",
-					)}
-				/>
-			);
-		}
-
-		return (
-			<SomeErrorState
-				title={t("partner.staffPage.dialog.linkedUser.error.title")}
-				description={t("partner.staffPage.dialog.linkedUser.error.description")}
-				onRefresh={onRefresh}
-			/>
-		);
-	}
-
-	if (!user) {
-		return (
-			<NotFoundState
-				title={t("partner.staffPage.dialog.linkedUser.notFound.title")}
-			/>
-		);
-	}
-
-	return (
-		<div className="grid gap-4">
-			<div className="grid gap-1">
-				<p className="ty-helper">
-					{t("partner.staffPage.dialog.linkedUser.fields.id")}
-				</p>
-				<p className="ty-sm-semibold">{user.id}</p>
-			</div>
-			<div className="grid gap-1">
-				<p className="ty-helper">
-					{t("partner.staffPage.dialog.linkedUser.fields.name")}
-				</p>
-				<p className="ty-sm-semibold">{user.name}</p>
-			</div>
-			<div className="grid gap-1">
-				<p className="ty-helper">
-					{t("partner.staffPage.dialog.linkedUser.fields.cpf")}
-				</p>
-				<p className="ty-sm-semibold">{user.cpfFormatted}</p>
-			</div>
-		</div>
+		</ServicePageShell>
 	);
 }

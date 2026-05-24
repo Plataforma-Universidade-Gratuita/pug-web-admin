@@ -40,6 +40,20 @@ export interface MenuGroupProps {
 	depth?: number;
 }
 
+export interface PopoverGroupListProps {
+	items: readonly MenuNode[];
+	pathname: string;
+	closePopover: () => void;
+	depth?: number;
+}
+
+export interface PopoverGroupProps {
+	item: MenuGroupChild;
+	pathname: string;
+	closePopover: () => void;
+	depth: number;
+}
+
 export interface MenuItemProps {
 	collapsed: boolean;
 	href: string;

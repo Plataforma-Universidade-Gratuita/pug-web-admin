@@ -2,7 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import type { UserResponse } from "@/types/api";
-import type { UserAuditDateField } from "@/types/client/identity";
+import type { UserFilterArgs } from "@/types/client/identity";
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { normalizeTextForSearch } from "@/utils/lang";
 
@@ -44,19 +44,7 @@ function getStartOfDayTimestamp(value: string) {
 
 export function filterUsers(
 	users: UserResponse[],
-	{
-		cpfQuery,
-		dateField,
-		endDate,
-		nameQuery,
-		startDate,
-	}: {
-		cpfQuery: string;
-		dateField: UserAuditDateField;
-		endDate: string;
-		nameQuery: string;
-		startDate: string;
-	},
+	{ cpfQuery, dateField, endDate, nameQuery, startDate }: UserFilterArgs,
 ) {
 	const normalizedNameQuery = normalizeTextForSearch(nameQuery.trim());
 	const normalizedCpfQuery = normalizeCpfSearch(cpfQuery.trim());

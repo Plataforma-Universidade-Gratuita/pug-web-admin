@@ -13,6 +13,8 @@ import { userQueryKeys } from "@/features/identity/user/queries";
 import type { AccountResponse, AdminResponse, UserResponse } from "@/types/api";
 import type {
 	AdminCreateMutationVariables,
+	PatchAdminCachesArgs,
+	RemoveAdminMutationVariables,
 	AdminSetActiveMutationVariables,
 	AdminUpdateMutationVariables,
 } from "@/types/client/identity";
@@ -179,13 +181,7 @@ function writeAdminCaches(queryClient: QueryClient, admin: AdminResponse) {
 
 function patchAdminCaches(
 	queryClient: QueryClient,
-	{
-		accountId,
-		accountActive,
-	}: {
-		accountId: string;
-		accountActive: boolean;
-	},
+	{ accountId, accountActive }: PatchAdminCachesArgs,
 ) {
 	queryClient.setQueryData<AdminResponse | undefined>(
 		adminQueryKeys.detail(accountId),
@@ -388,7 +384,7 @@ export function useRemoveAdminMutation() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: ({ accountId }: { accountId: string; userId: string }) =>
+		mutationFn: ({ accountId }: RemoveAdminMutationVariables) =>
 			remove(accountId),
 		onSuccess: (_data, variables) => {
 			removeAdminRelatedCaches(queryClient, variables);

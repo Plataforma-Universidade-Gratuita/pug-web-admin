@@ -12,6 +12,9 @@ import { userQueryKeys } from "@/features/identity/user/queries";
 import { staffQueryKeys } from "@/features/partner/staff/queries";
 import type { AccountResponse, StaffResponse, UserResponse } from "@/types/api";
 import type {
+	PatchStaffAccountCachesArgs,
+	PatchStaffCachesArgs,
+	PatchStaffUserCachesArgs,
 	StaffCreateMutationVariables,
 	StaffRemoveMutationVariables,
 	StaffSetActiveMutationVariables,
@@ -56,13 +59,7 @@ function writeStaffCaches(queryClient: QueryClient, staff: StaffResponse) {
 
 function patchStaffCaches(
 	queryClient: QueryClient,
-	{
-		accountId,
-		accountActive,
-	}: {
-		accountId: string;
-		accountActive: boolean;
-	},
+	{ accountId, accountActive }: PatchStaffCachesArgs,
 ) {
 	queryClient.setQueryData<StaffResponse | undefined>(
 		staffQueryKeys.detail(accountId),
@@ -90,17 +87,7 @@ function patchStaffCaches(
 
 function patchAccountCaches(
 	queryClient: QueryClient,
-	{
-		accountId,
-		active,
-		email,
-		userName,
-	}: {
-		accountId: string;
-		active?: boolean;
-		email?: string;
-		userName?: string;
-	},
+	{ accountId, active, email, userName }: PatchStaffAccountCachesArgs,
 ) {
 	queryClient.setQueryData<AccountResponse[]>(
 		accountQueryKeys.list(),
@@ -146,13 +133,7 @@ function patchAccountCaches(
 
 function patchUserCaches(
 	queryClient: QueryClient,
-	{
-		name,
-		userId,
-	}: {
-		name?: string;
-		userId: string;
-	},
+	{ name, userId }: PatchStaffUserCachesArgs,
 ) {
 	if (!name) {
 		return;

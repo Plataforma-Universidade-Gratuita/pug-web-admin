@@ -2,12 +2,10 @@ import { z } from "zod";
 
 import { accounts } from "@/api";
 import { AccountResponseSchema } from "@/schemas/api";
+import type { AppRouteSlugContext } from "@/types/client";
 import { routeError, routeWithAuthRetry } from "@/utils/route";
 
-export async function GET(
-	request: Request,
-	{ params }: { params: Promise<{ slug?: string[] }> },
-) {
+export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
 		const q = new URL(request.url).searchParams.get("q") ?? undefined;

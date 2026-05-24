@@ -16,3 +16,7 @@ export interface LoginFormValues {
 	email: string;
 	password: string;
 }
+
+export interface LoginFormProps {
+	panelRef?: import("react").Ref<HTMLDivElement>;
+}

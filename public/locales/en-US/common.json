@@ -1009,7 +1009,7 @@
                         },
                         "joao": {
                             "description": "Project operations",
-                            "label": "JoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o"
+                            "label": "JoÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o"
                         },
                         "maria": {
                             "description": "Academic coordination",
@@ -2146,10 +2146,6 @@
                     "title": "Refine account catalog",
                     "trigger": "$t(docs.drawer.examples.filters.groups.advanced.title)"
                 },
-                "email": {
-                    "label": "Name or email",
-                    "placeholder": "Filter by account name or email"
-                },
                 "endDate": {
                     "label": "End date",
                     "placeholder": "Select end date"
@@ -2360,7 +2356,7 @@
                     "label": "Campus",
                     "options": {
                         "all": "All campuses",
-                        "JARAGUA_DO_SUL": "Jaraguá do Sul",
+                        "JARAGUA_DO_SUL": "JaraguÃ¡ do Sul",
                         "JOINVILLE": "Joinville"
                     },
                     "placeholder": "Select..."
@@ -2990,7 +2986,6 @@
                     "title": "Unable to load staff member"
                 },
                 "fields": {
-                    "city": "City",
                     "email": "Email",
                     "entity": "Entity",
                     "name": "Name",

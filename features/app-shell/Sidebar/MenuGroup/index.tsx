@@ -17,19 +17,18 @@ import {
 import { MenuItem } from "@/features/app-shell/Sidebar/MenuItem";
 import { SidebarRow } from "@/features/app-shell/Sidebar/SidebarRow";
 import { isLeafItem, isNodeActive } from "@/features/app-shell/Sidebar/utils";
-import type { MenuGroupChild, MenuGroupProps, MenuNode } from "@/types/client";
+import type {
+	MenuGroupProps,
+	PopoverGroupListProps,
+	PopoverGroupProps,
+} from "@/types/client";
 
 function PopoverGroupList({
 	items,
 	pathname,
 	closePopover,
 	depth = 0,
-}: {
-	items: readonly MenuNode[];
-	pathname: string;
-	closePopover: () => void;
-	depth?: number;
-}) {
+}: PopoverGroupListProps) {
 	return (
 		<ul className={clsx("app-sidebar-group-list", depth > 0 && "mt-2")}>
 			{items.map(item =>
@@ -65,12 +64,7 @@ function PopoverGroup({
 	pathname,
 	closePopover,
 	depth,
-}: {
-	item: MenuGroupChild;
-	pathname: string;
-	closePopover: () => void;
-	depth: number;
-}) {
+}: PopoverGroupProps) {
 	const active = item.childrenItems.some(child =>
 		isNodeActive(pathname, child),
 	);

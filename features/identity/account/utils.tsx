@@ -3,11 +3,7 @@ import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
 import type { AccountResponse } from "@/types/api";
-import type {
-	AccountActiveFilter,
-	AccountAuditDateField,
-	AccountTypeFilter,
-} from "@/types/client/identity";
+import type { AccountFilterArgs } from "@/types/client/identity";
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { normalizeTextForSearch } from "@/utils/lang";
 
@@ -145,14 +141,7 @@ export function filterAccounts(
 		query,
 		endDate,
 		startDate,
-	}: {
-		activeFilter: AccountActiveFilter;
-		accountTypeFilter: AccountTypeFilter;
-		dateField: AccountAuditDateField;
-		query: string;
-		endDate: string;
-		startDate: string;
-	},
+	}: AccountFilterArgs,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const hasQuery = normalizedQuery.length > 0;
@@ -260,14 +249,7 @@ export function getAccountFilterSummary(
 		query,
 		endDate,
 		startDate,
-	}: {
-		activeFilter: AccountActiveFilter;
-		accountTypeFilter: AccountTypeFilter;
-		dateField: AccountAuditDateField;
-		query: string;
-		endDate: string;
-		startDate: string;
-	},
+	}: AccountFilterArgs,
 ) {
 	const parts: string[] = [];
 

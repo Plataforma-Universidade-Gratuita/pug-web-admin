@@ -28,6 +28,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/navigation/dropdown-menu/DropdownMenu";
 import type { TableProps } from "@/types/client";
+import type { RowActionsCellProps, SortIconProps } from "@/types/client";
 
 import {
 	compareTableValues,
@@ -615,10 +616,7 @@ export function Table<TData extends object>({
 function RowActionsCell<TData extends object>({
 	row,
 	getRowActions,
-}: {
-	row: TData;
-	getRowActions: NonNullable<TableProps<TData>["getRowActions"]>;
-}) {
+}: RowActionsCellProps<TData>) {
 	const { t } = useTranslation();
 	const actions = flattenActionNodes(getRowActions(row));
 	const [singleAction] = actions;
@@ -675,7 +673,7 @@ function RowActionsCell<TData extends object>({
 	);
 }
 
-function SortIcon({ direction }: { direction: false | "asc" | "desc" }) {
+function SortIcon({ direction }: SortIconProps) {
 	if (direction === "asc") {
 		return (
 			<Icon

@@ -5,6 +5,7 @@ import {
 	RefreshRequestSchema,
 	TokenResponseSchema,
 } from "@/schemas/api";
+import type { AppRouteSlugContext } from "@/types/client";
 import { validateAdminToken } from "@/utils/auth";
 import { applySessionCookies, clearSessionCookies } from "@/utils/cookies";
 import {
@@ -15,10 +16,7 @@ import {
 	routeVoidWithAuthRetry,
 } from "@/utils/route";
 
-export async function POST(
-	request: Request,
-	{ params }: { params: Promise<{ slug?: string[] }> },
-) {
+export async function POST(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 1 && slug[0] === "login") {
 		const body = await parseRouteBody(request, LoginRequestSchema);

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import type { Ref } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -24,10 +23,10 @@ import {
 import { HOME_ROUTE } from "@/constants/auth";
 import { useLocalizedZodForm } from "@/hooks";
 import { createLoginFormSchema } from "@/schemas/client";
-import type { LoginFormValues } from "@/types/client";
+import type { LoginFormProps, LoginFormValues } from "@/types/client";
 import { WebApiError } from "@/utils/web-api";
 
-export function LoginForm({ panelRef }: { panelRef?: Ref<HTMLDivElement> }) {
+export function LoginForm({ panelRef }: LoginFormProps) {
 	const { t } = useTranslation();
 	const router = useRouter();
 	const [isPending, startTransition] = useTransition();

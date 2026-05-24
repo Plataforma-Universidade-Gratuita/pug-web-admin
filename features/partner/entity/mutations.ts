@@ -11,6 +11,7 @@ import { entityQueryKeys } from "@/features/partner/entity/queries";
 import type { EntityResponse } from "@/types/api";
 import type {
 	EntityCreateMutationVariables,
+	RemoveEntityMutationVariables,
 	EntityUpdateMutationVariables,
 } from "@/types/client/partner";
 
@@ -84,7 +85,7 @@ export function useRemoveEntityMutation() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: ({ id }: { id: string }) => remove(id),
+		mutationFn: ({ id }: RemoveEntityMutationVariables) => remove(id),
 		onSuccess: (_data, variables) => {
 			removeEntityCaches(queryClient, variables.id);
 		},

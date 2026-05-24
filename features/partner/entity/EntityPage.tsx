@@ -1,41 +1,14 @@
 "use client";
 
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 
-import { CopyPlus, Eye, Filter, PenSquare, Plus, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-    AlertDialog,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    Button,
-    Combobox,
-    Dialog,
-    DialogBody,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    Drawer,
-    DrawerBody,
-    DrawerContent,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DropdownMenuDangerItem,
-    DropdownMenuInfoItem, DropdownMenuItem,
-    DropdownMenuSeparator,
-    Label,
-    NoContentState,
-    NotFoundState,
-    PageShell,
-    SomeErrorState,
-    toast,
-} from "@/components";
+import { NoContentState, SomeErrorState, toast } from "@/components";
+import { EntityDetailDialog } from "@/features/partner/entity/EntityDetailDialog";
 import { EntityEditorDrawer } from "@/features/partner/entity/EntityEditorDrawer";
+import { EntityFiltersDrawer } from "@/features/partner/entity/EntityFiltersDrawer";
+import { EntityRowActions } from "@/features/partner/entity/EntityRowActions";
 import { useRemoveEntityMutation } from "@/features/partner/entity/mutations";
 import {
 	useEntitiesQuery,
@@ -52,20 +25,21 @@ import {
 	getEntityDetailErrorToastContent,
 	getEntityEmptyStateCopy,
 	getEntityFilterSummary,
-	resolveEntityCityLabel,
 } from "@/features/partner/entity/utils";
 import {
-	AuditInfoFilterFields,
+	ServicePageConfirmDialog,
 	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
+import { useDeferredUndoAction, useQueryErrorToast } from "@/hooks";
 import type { EntityResponse } from "@/types/api";
 import type {
 	EntityAuditDateField,
 	EntityEditorMode,
 } from "@/types/client/partner";
-import { WebApiError } from "@/utils/web-api";
 
 export function EntityPage() {
 	const { t } = useTranslation();
@@ -91,29 +65,20 @@ export function EntityPage() {
 	const entitiesQuery = useEntitiesQuery();
 	const citiesQuery = useEntityCitiesQuery();
 	const entityDetailQuery = useEntityDetailQuery(selectedEntityId);
-	const listErrorToastAtRef = useRef(0);
-	const citiesErrorToastAtRef = useRef(0);
-	const detailErrorToastAtRef = useRef(0);
-	const deleteTimersRef = useRef(
-		new Map<string, ReturnType<typeof setTimeout>>(),
-	);
 	const removeEntityMutation = useRemoveEntityMutation();
-	const allEntities = useMemo(
-		() => entitiesQuery.data ?? [],
-		[entitiesQuery.data],
-	);
-	const allCities = useMemo(() => citiesQuery.data ?? [], [citiesQuery.data]);
+	const { schedule } = useDeferredUndoAction();
+
 	const cityById = useMemo(
-		() => new Map(allCities.map(city => [city.id, city])),
-		[allCities],
+		() => new Map((citiesQuery.data ?? []).map(city => [city.id, city])),
+		[citiesQuery.data],
 	);
 	const cityOptions = useMemo(
-		() => buildEntityCityOptions(allCities),
-		[allCities],
+		() => buildEntityCityOptions(citiesQuery.data ?? []),
+		[citiesQuery.data],
 	);
 	const filteredEntities = useMemo(
 		() =>
-			filterEntities(allEntities, {
+			filterEntities(entitiesQuery.data ?? [], {
 				query: deferredQuerySearch,
 				cityIdFilter,
 				dateField,
@@ -122,12 +87,12 @@ export function EntityPage() {
 				cityById,
 			}),
 		[
-			allEntities,
 			cityById,
 			cityIdFilter,
 			dateField,
 			deferredQuerySearch,
 			endDate,
+			entitiesQuery.data,
 			startDate,
 		],
 	);
@@ -135,7 +100,6 @@ export function EntityPage() {
 		() => createEntityColumns(t, cityById),
 		[cityById, t],
 	);
-	const selectedEntity = entityDetailQuery.data;
 	const hasSecondaryFilters = Boolean(
 		cityIdFilter || dateField || startDate || endDate,
 	);
@@ -185,78 +149,24 @@ export function EntityPage() {
 		);
 	}, [emptyStateCopy.description, emptyStateCopy.title, entitiesQuery, t]);
 
-	useEffect(() => {
-		if (!entitiesQuery.isError || entitiesQuery.errorUpdatedAt === 0) {
-			return;
-		}
-
-		if (listErrorToastAtRef.current === entitiesQuery.errorUpdatedAt) {
-			return;
-		}
-
-		listErrorToastAtRef.current = entitiesQuery.errorUpdatedAt;
-		const { title, description } = getEntitiesListErrorToastContent(
-			t,
-			entitiesQuery.error,
-		);
-		toast.danger(title, { description });
-	}, [
-		entitiesQuery.error,
-		entitiesQuery.errorUpdatedAt,
-		entitiesQuery.isError,
-		t,
-	]);
-
-	useEffect(() => {
-		if (!citiesQuery.isError || citiesQuery.errorUpdatedAt === 0) {
-			return;
-		}
-
-		if (citiesErrorToastAtRef.current === citiesQuery.errorUpdatedAt) {
-			return;
-		}
-
-		citiesErrorToastAtRef.current = citiesQuery.errorUpdatedAt;
-		const { title, description } = getEntityCitiesErrorToastContent(
-			t,
-			citiesQuery.error,
-		);
-		toast.danger(title, { description });
-	}, [citiesQuery.error, citiesQuery.errorUpdatedAt, citiesQuery.isError, t]);
-
-	useEffect(() => {
-		if (!entityDetailQuery.isError || entityDetailQuery.errorUpdatedAt === 0) {
-			return;
-		}
-
-		if (detailErrorToastAtRef.current === entityDetailQuery.errorUpdatedAt) {
-			return;
-		}
-
-		detailErrorToastAtRef.current = entityDetailQuery.errorUpdatedAt;
-		const { title, description } = getEntityDetailErrorToastContent(
-			t,
-			entityDetailQuery.error,
-		);
-		toast.danger(title, { description });
-	}, [
-		entityDetailQuery.error,
-		entityDetailQuery.errorUpdatedAt,
-		entityDetailQuery.isError,
-		t,
-	]);
-
-	useEffect(() => {
-		const deleteTimers = deleteTimersRef.current;
-
-		return () => {
-			for (const timeoutId of deleteTimers.values()) {
-				clearTimeout(timeoutId);
-			}
-
-			deleteTimers.clear();
-		};
-	}, []);
+	useQueryErrorToast({
+		error: entitiesQuery.error,
+		errorUpdatedAt: entitiesQuery.errorUpdatedAt,
+		getContent: error => getEntitiesListErrorToastContent(t, error),
+		isError: entitiesQuery.isError,
+	});
+	useQueryErrorToast({
+		error: citiesQuery.error,
+		errorUpdatedAt: citiesQuery.errorUpdatedAt,
+		getContent: error => getEntityCitiesErrorToastContent(t, error),
+		isError: citiesQuery.isError,
+	});
+	useQueryErrorToast({
+		error: entityDetailQuery.error,
+		errorUpdatedAt: entityDetailQuery.errorUpdatedAt,
+		getContent: error => getEntityDetailErrorToastContent(t, error),
+		isError: entityDetailQuery.isError,
+	});
 
 	function applySecondaryFilters() {
 		setCityIdFilter(draftCityIdFilter);
@@ -285,76 +195,63 @@ export function EntityPage() {
 		}
 
 		const entity = pendingDeleteEntity;
-		const existingTimer = deleteTimersRef.current.get(entity.id);
-
-		if (existingTimer) {
-			clearTimeout(existingTimer);
-		}
-
-		const timeoutId = setTimeout(() => {
-			deleteTimersRef.current.delete(entity.id);
-			removeEntityMutation.mutate(
-				{
-					id: entity.id,
-				},
-				{
-					onSuccess: () => {
-						toast.success(
-							t("partner.entityPage.delete.feedback.success.title"),
-							{
-								description: t(
-									"partner.entityPage.delete.feedback.success.description",
-									{
-										name: entity.name,
-									},
-								),
-							},
-						);
-
-						if (selectedEntityId === entity.id) {
-							setSelectedEntityId(null);
-						}
-
-						if (editorState?.id === entity.id) {
-							setEditorState(null);
-						}
-					},
-					onError: error => {
-						const { title, description } = getEntityDeleteErrorToastContent(
-							t,
-							error,
-						);
-						toast.danger(title, { description });
-					},
-				},
-			);
-		}, 5000);
-
-		deleteTimersRef.current.set(entity.id, timeoutId);
 		setPendingDeleteEntity(null);
 
-		toast.undo(t("partner.entityPage.delete.undo.title"), {
+		schedule({
+			key: entity.id,
+			title: t("partner.entityPage.delete.undo.title"),
 			description: t("partner.entityPage.delete.undo.description", {
 				name: entity.name,
 			}),
 			undoLabel: t("partner.entityPage.delete.undo.action"),
-			duration: 5000,
-			onUndo: () => {
-				const scheduledTimeout = deleteTimersRef.current.get(entity.id);
+			onCommit: () => {
+				removeEntityMutation.mutate(
+					{
+						id: entity.id,
+					},
+					{
+						onSuccess: () => {
+							toast.success(
+								t("partner.entityPage.delete.feedback.success.title"),
+								{
+									description: t(
+										"partner.entityPage.delete.feedback.success.description",
+										{
+											name: entity.name,
+										},
+									),
+								},
+							);
 
-				if (scheduledTimeout) {
-					clearTimeout(scheduledTimeout);
-					deleteTimersRef.current.delete(entity.id);
-				}
+							if (selectedEntityId === entity.id) {
+								setSelectedEntityId(null);
+							}
+
+							if (editorState?.id === entity.id) {
+								setEditorState(null);
+							}
+						},
+						onError: error => {
+							const { title, description } = getEntityDeleteErrorToastContent(
+								t,
+								error,
+							);
+							toast.danger(title, { description });
+						},
+					},
+				);
 			},
 		});
 	}
 
+	function openEditor(id: string, mode: EntityEditorMode) {
+		window.setTimeout(() => {
+			setEditorState({ id, mode });
+		}, 0);
+	}
+
 	return (
-		<PageShell
-			width="wide"
-			className="grid h-[calc(100dvh-4.5rem)] min-h-[48rem] grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden p-4 lg:p-6"
-		>
+		<ServicePageShell>
 			<ServicePageHeader
 				title={t("partner.entityPage.title")}
 				description={t("partner.entityPage.description")}
@@ -364,22 +261,13 @@ export function EntityPage() {
 					emptyDescription: t("partner.entityPage.metadata.empty.description"),
 				}}
 				actions={
-					<>
-						{hasAnyFilters ? (
-							<Button
-								variant="secondary"
-								onClick={clearAllFilters}
-							>
-								{t("partner.entityPage.filters.clear")}
-							</Button>
-						) : null}
-						<Button
-							leadingIcon={<Plus className="h-4 w-4" />}
-							onClick={() => setEditorState({ id: null, mode: "create" })}
-						>
-							{t("partner.entityPage.create.open")}
-						</Button>
-					</>
+					<ServicePageHeaderActions
+						clearLabel={t("partner.entityPage.filters.clear")}
+						createLabel={t("partner.entityPage.create.open")}
+						hasFilters={hasAnyFilters}
+						onClear={clearAllFilters}
+						onCreate={() => setEditorState({ id: null, mode: "create" })}
+					/>
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
 			>
@@ -390,115 +278,27 @@ export function EntityPage() {
 					placeholder={t("partner.entityPage.filters.search.placeholder")}
 				/>
 
-				<Drawer
-					open={filtersOpen}
+				<EntityFiltersDrawer
+					citiesError={citiesQuery.isError}
+					cityIdFilter={draftCityIdFilter}
+					cityOptions={cityOptions}
+					dateField={draftDateField}
+					endDate={draftEndDate}
+					hasActiveFilters={hasSecondaryFilters}
+					isCitiesLoading={citiesQuery.isLoading}
+					onApply={applySecondaryFilters}
+					onCityIdChange={setDraftCityIdFilter}
+					onClear={clearAllFilters}
+					onDateFieldChange={setDraftDateField}
+					onEndDateChange={setDraftEndDate}
 					onOpenChange={setFiltersOpen}
-				>
-					<div className="grid gap-2 self-end">
-						<Label>{t("partner.entityPage.filters.drawer.label")}</Label>
-						<Button
-							variant="secondary"
-							usage={hasSecondaryFilters ? "info" : "secondary"}
-							className="w-full justify-start lg:min-w-56"
-							onClick={() => setFiltersOpen(true)}
-						>
-							{hasSecondaryFilters
-								? t("partner.entityPage.filters.drawer.active")
-								: t("partner.entityPage.filters.drawer.trigger")}
-						</Button>
-					</div>
-					<DrawerContent>
-						<DrawerHeader
-							overhead={t("partner.entityPage.filters.drawer.overhead")}
-						>
-							<DrawerTitle>
-								{t("partner.entityPage.filters.drawer.title")}
-							</DrawerTitle>
-						</DrawerHeader>
-						<DrawerBody className="grid gap-6">
-							{citiesQuery.isError ? (
-								<SomeErrorState
-									title={t("partner.entityPage.filters.city.error.title")}
-									description={t(
-										"partner.entityPage.filters.city.error.description",
-									)}
-									onRefresh={() => {
-										void citiesQuery.refetch();
-									}}
-								/>
-							) : (
-								<div className="grid gap-2">
-									<Label>{t("partner.entityPage.filters.city.label")}</Label>
-									<Combobox
-										options={cityOptions}
-										value={draftCityIdFilter}
-										onValueChange={setDraftCityIdFilter}
-										placeholder={t(
-											"partner.entityPage.filters.city.placeholder",
-										)}
-										searchPlaceholder={t(
-											"partner.entityPage.filters.city.searchPlaceholder",
-										)}
-										emptyMessage={t(
-											"partner.entityPage.filters.city.emptyMessage",
-										)}
-										disabled={citiesQuery.isLoading}
-									/>
-								</div>
-							)}
-
-							<AuditInfoFilterFields
-								dateFieldLabel={t("partner.entityPage.filters.dateField.label")}
-								dateFieldPlaceholder={t(
-									"partner.entityPage.filters.dateField.placeholder",
-								)}
-								dateField={draftDateField}
-								onDateFieldChange={value =>
-									setDraftDateField(value as EntityAuditDateField)
-								}
-								dateFieldOptions={[
-									{
-										value: "createdAt",
-										label: t(
-											"partner.entityPage.filters.dateField.options.createdAt",
-										),
-									},
-									{
-										value: "updatedAt",
-										label: t(
-											"partner.entityPage.filters.dateField.options.updatedAt",
-										),
-									},
-								]}
-								startDateLabel={t("partner.entityPage.filters.startDate.label")}
-								startDatePlaceholder={t(
-									"partner.entityPage.filters.startDate.placeholder",
-								)}
-								startDate={draftStartDate}
-								onStartDateChange={setDraftStartDate}
-								endDateLabel={t("partner.entityPage.filters.endDate.label")}
-								endDatePlaceholder={t(
-									"partner.entityPage.filters.endDate.placeholder",
-								)}
-								endDate={draftEndDate}
-								onEndDateChange={setDraftEndDate}
-							/>
-						</DrawerBody>
-						<DrawerFooter
-							clearConfirmTitle={t(
-								"partner.entityPage.filters.drawer.clearConfirm.title",
-							)}
-							clearConfirmDescription={t(
-								"partner.entityPage.filters.drawer.clearConfirm.description",
-							)}
-							clearLabel={t("partner.entityPage.filters.clear")}
-							actionLabel={t("partner.entityPage.filters.drawer.apply")}
-							actionIcon={Filter}
-							onClear={clearAllFilters}
-							onAction={applySecondaryFilters}
-						/>
-					</DrawerContent>
-				</Drawer>
+					onRefreshCities={() => {
+						void citiesQuery.refetch();
+					}}
+					onStartDateChange={setDraftStartDate}
+					open={filtersOpen}
+					startDate={draftStartDate}
+				/>
 			</ServicePageHeader>
 
 			<ServicePageTableSection<EntityResponse>
@@ -508,31 +308,12 @@ export function EntityPage() {
 					data: filteredEntities,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<>
-							<DropdownMenuInfoItem
-								icon={Eye}
-								label={t("partner.entityPage.table.actions.viewDetails")}
-								onClick={() => setSelectedEntityId(row.id)}
-							/>
-							<DropdownMenuItem
-								icon={PenSquare}
-								label={t("partner.entityPage.table.actions.update")}
-								onClick={() => setEditorState({ id: row.id, mode: "update" })}
-							/>
-							<DropdownMenuItem
-								icon={CopyPlus}
-								label={t("partner.entityPage.table.actions.duplicate")}
-								onClick={() =>
-									setEditorState({ id: row.id, mode: "duplicate" })
-								}
-							/>
-							<DropdownMenuSeparator />
-							<DropdownMenuDangerItem
-								icon={Trash2}
-								label={t("partner.entityPage.table.actions.delete")}
-								onClick={() => setPendingDeleteEntity(row)}
-							/>
-						</>
+						<EntityRowActions
+							entity={row}
+							onDelete={setPendingDeleteEntity}
+							onOpenEditor={openEditor}
+							onView={setSelectedEntityId}
+						/>
 					),
 					isLoading: entitiesQuery.isLoading,
 					loadingLabel: t("partner.entityPage.loading.list"),
@@ -550,138 +331,39 @@ export function EntityPage() {
 				}}
 			/>
 
-			<Dialog
-				open={selectedEntityId !== null}
+			<EntityDetailDialog
+				cityById={cityById}
+				entity={entityDetailQuery.data}
+				error={entityDetailQuery.error}
+				isError={entityDetailQuery.isError}
+				isLoading={entityDetailQuery.isLoading}
 				onOpenChange={open => {
 					if (!open) {
 						setSelectedEntityId(null);
 					}
 				}}
-				isLoading={entityDetailQuery.isLoading}
-				loadingLabel={t("partner.entityPage.loading.detail")}
-			>
-				<DialogContent>
-					<DialogHeader overhead={t("partner.entityPage.dialog.overhead")}>
-						<DialogTitle>
-							{selectedEntity?.name ??
-								t("partner.entityPage.dialog.titleFallback")}
-						</DialogTitle>
-					</DialogHeader>
-					<DialogBody className="grid justify-items-start gap-6">
-						{entityDetailQuery.isError ? (
-							entityDetailQuery.error instanceof WebApiError &&
-							entityDetailQuery.error.status === 404 ? (
-								<NotFoundState
-									title={t("partner.entityPage.dialog.notFound.title")}
-									description={t(
-										"partner.entityPage.dialog.notFound.description",
-									)}
-								/>
-							) : (
-								<SomeErrorState
-									title={t("partner.entityPage.dialog.error.title")}
-									description={t("partner.entityPage.dialog.error.description")}
-									onRefresh={() => {
-										void entityDetailQuery.refetch();
-									}}
-								/>
-							)
-						) : selectedEntity ? (
-							<div className="grid w-full gap-6 lg:grid-cols-2 lg:gap-8">
-								<div className="grid gap-4">
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.entityPage.dialog.fields.name")}
-										</p>
-										<p className="ty-sm-semibold">{selectedEntity.name}</p>
-									</div>
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.entityPage.dialog.fields.cnpj")}
-										</p>
-										<p className="ty-sm-semibold">
-											{selectedEntity.cnpjFormatted}
-										</p>
-									</div>
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.entityPage.dialog.fields.city")}
-										</p>
-										<p className="ty-sm-semibold">
-											{resolveEntityCityLabel(cityById, selectedEntity.cityId)}
-										</p>
-									</div>
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.entityPage.dialog.fields.address")}
-										</p>
-										<p className="ty-sm-semibold">
-											{selectedEntity.address ||
-												t("partner.entityPage.dialog.values.noAddress")}
-										</p>
-									</div>
-								</div>
+				onRefresh={() => {
+					void entityDetailQuery.refetch();
+				}}
+				open={selectedEntityId !== null}
+			/>
 
-								<div className="grid gap-4">
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.entityPage.dialog.fields.id")}
-										</p>
-										<p className="ty-sm-semibold">{selectedEntity.id}</p>
-									</div>
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.entityPage.dialog.fields.createdAt")}
-										</p>
-										<p className="ty-sm-semibold">
-											{selectedEntity.auditInfo.createdAtFormatted}
-										</p>
-									</div>
-									<div className="grid gap-1">
-										<p className="ty-helper">
-											{t("partner.entityPage.dialog.fields.updatedAt")}
-										</p>
-										<p className="ty-sm-semibold">
-											{selectedEntity.auditInfo.updatedAtFormatted}
-										</p>
-									</div>
-								</div>
-							</div>
-						) : (
-							<NotFoundState
-								title={t("partner.entityPage.dialog.notFound.title")}
-							/>
-						)}
-					</DialogBody>
-				</DialogContent>
-			</Dialog>
-
-			<AlertDialog
+			<ServicePageConfirmDialog
 				open={pendingDeleteEntity !== null}
 				onOpenChange={open => {
 					if (!open) {
 						setPendingDeleteEntity(null);
 					}
 				}}
-			>
-				<AlertDialogContent variant="danger">
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t("partner.entityPage.delete.confirm.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t("partner.entityPage.delete.confirm.description", {
-								name: pendingDeleteEntity?.name ?? "",
-							})}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t("partner.entityPage.table.actions.delete")}
-						onAction={handleDeleteConfirm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
-		</PageShell>
+				variant="danger"
+				title={t("partner.entityPage.delete.confirm.title")}
+				description={t("partner.entityPage.delete.confirm.description", {
+					name: pendingDeleteEntity?.name ?? "",
+				})}
+				cancelLabel={t("common.cancel")}
+				actionLabel={t("partner.entityPage.table.actions.delete")}
+				onAction={handleDeleteConfirm}
+			/>
+		</ServicePageShell>
 	);
 }

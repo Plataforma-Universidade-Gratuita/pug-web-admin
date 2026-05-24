@@ -10,8 +10,8 @@ import type {
 } from "@/types/api";
 import type { ComboboxOption } from "@/types/client";
 import type {
-	EntityAuditDateField,
 	EntityEditorFormValues,
+	EntityFilterArgs,
 	EntityEditorMode,
 } from "@/types/client/partner";
 import { getApiErrorToastContent } from "@/utils/api-errors";
@@ -95,14 +95,7 @@ export function filterEntities(
 		startDate,
 		endDate,
 		cityById,
-	}: {
-		query: string;
-		cityIdFilter: string;
-		dateField: EntityAuditDateField;
-		startDate: string;
-		endDate: string;
-		cityById: Map<string, CityResponse>;
-	},
+	}: EntityFilterArgs,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const normalizedDigitsQuery = normalizeDigits(query);
@@ -332,14 +325,7 @@ export function getEntityFilterSummary(
 		startDate,
 		endDate,
 		cityById,
-	}: {
-		query: string;
-		cityIdFilter: string;
-		dateField: EntityAuditDateField;
-		startDate: string;
-		endDate: string;
-		cityById: Map<string, CityResponse>;
-	},
+	}: EntityFilterArgs,
 ) {
 	const parts: string[] = [];
 
