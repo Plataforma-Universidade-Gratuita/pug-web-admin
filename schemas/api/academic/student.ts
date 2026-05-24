@@ -11,6 +11,7 @@ import {
 export const StudentResponseSchema = z.object({
 	accountId: z.string(),
 	accountEmail: z.string(),
+	accountActive: z.boolean(),
 	userId: z.string(),
 	userName: z.string(),
 	academicRegistration: z.string(),

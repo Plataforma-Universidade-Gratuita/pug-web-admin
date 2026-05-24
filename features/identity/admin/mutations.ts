@@ -177,6 +177,50 @@ function writeAdminCaches(queryClient: QueryClient, admin: AdminResponse) {
 	);
 }
 
+function patchAdminCaches(
+	queryClient: QueryClient,
+	{
+		accountId,
+		accountActive,
+	}: {
+		accountId: string;
+		accountActive: boolean;
+	},
+) {
+	queryClient.setQueryData<AdminResponse | undefined>(
+		adminQueryKeys.detail(accountId),
+		current =>
+			current
+				? {
+						...current,
+						accountActive,
+					}
+				: current,
+	);
+	queryClient.setQueryData<AdminResponse[]>(
+		adminQueryKeys.list(),
+		current =>
+			current?.map(admin =>
+				admin.accountId === accountId
+					? {
+							...admin,
+							accountActive,
+						}
+					: admin,
+			) ?? current,
+	);
+	queryClient.setQueryData<AdminResponse | undefined>(
+		adminQueryKeys.me(),
+		current =>
+			current?.accountId === accountId
+				? {
+						...current,
+						accountActive,
+					}
+				: current,
+	);
+}
+
 function writeAccountCaches(
 	queryClient: QueryClient,
 	account: AccountResponse,
@@ -265,12 +309,19 @@ export function useCreateAdminMutation() {
 			return { active, admin, body };
 		},
 		onSuccess: ({ active, admin, body }) => {
-			writeAdminCaches(queryClient, admin);
+			const nextAdmin =
+				admin.accountActive === active
+					? admin
+					: {
+							...admin,
+							accountActive: active,
+						};
+			writeAdminCaches(queryClient, nextAdmin);
 
-			const nextAccount = buildNextAccountRecord(admin, { active });
+			const nextAccount = buildNextAccountRecord(nextAdmin, { active });
 			writeAccountCaches(queryClient, nextAccount);
 
-			const nextUser = buildNextUserRecord(admin, { cpf: body.cpf });
+			const nextUser = buildNextUserRecord(nextAdmin, { cpf: body.cpf });
 			if (nextUser) {
 				writeUserCaches(queryClient, nextUser);
 			}
@@ -312,6 +363,10 @@ export function useSetAdminActiveMutation() {
 		mutationFn: ({ active, id }: AdminSetActiveMutationVariables) =>
 			setActive(id, active),
 		onSuccess: (_data, variables) => {
+			patchAdminCaches(queryClient, {
+				accountId: variables.id,
+				accountActive: variables.active,
+			});
 			const existingAccount = getCachedAccount(queryClient, variables.id);
 
 			if (!existingAccount) {

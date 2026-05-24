@@ -42,6 +42,7 @@ export function DropdownMenuContent({
 	className,
 	align = "end",
 	sideOffset = 8,
+	onCloseAutoFocus,
 	...props
 }: DropdownMenuContentProps) {
 	return (
@@ -50,6 +51,10 @@ export function DropdownMenuContent({
 				align={align}
 				sideOffset={sideOffset}
 				className={clsx("dropdown-content", className)}
+				onCloseAutoFocus={event => {
+					onCloseAutoFocus?.(event);
+					event.preventDefault();
+				}}
 				{...props}
 			>
 				{children}
@@ -65,6 +70,8 @@ function DropdownMenuBaseItem({
 	inset = false,
 	label,
 	tone = "default",
+	onClick,
+	onSelect,
 	...props
 }: DropdownMenuItemProps) {
 	return (
@@ -76,6 +83,16 @@ function DropdownMenuBaseItem({
 				tone !== "default" && `dropdown-item-tone-${tone}`,
 				className,
 			)}
+			onSelect={event => {
+				window.setTimeout(() => {
+					if (onSelect) {
+						onSelect(event);
+						return;
+					}
+
+					onClick?.(event as never);
+				}, 0);
+			}}
 			{...props}
 		>
 			<Icon

@@ -2,9 +2,9 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
+import { Badge } from "@/components";
 import { ADMIN_CAMPI_VALUES } from "@/constants/identity";
 import type {
-	AccountResponse,
 	AdminCreateRequest,
 	AdminResponse,
 	AdminUpdateRequest,
@@ -69,6 +69,29 @@ export function createAdminEditorFormSchema(
 
 export function createAdminColumns(t: TFunction): ColumnDef<AdminResponse>[] {
 	return [
+		{
+			accessorFn: row => row.accountActive,
+			id: "active",
+			size: 96,
+			header: () => (
+				<div className="flex w-full justify-center">
+					{t("identity.adminPage.table.columns.active")}
+				</div>
+			),
+			cell: ({ row }) => (
+				<div className="flex w-full justify-center">
+					<Badge
+						className="min-h-5 px-2 py-0.5"
+						tone={row.original.accountActive ? "success" : "danger"}
+						variant="primary"
+					>
+						{row.original.accountActive
+							? t("identity.adminPage.table.active.yes")
+							: t("identity.adminPage.table.active.no")}
+					</Badge>
+				</div>
+			),
+		},
 		{
 			accessorKey: "userName",
 			header: t("identity.adminPage.table.columns.name"),
@@ -263,7 +286,6 @@ export function getEmptyAdminEditorFormValues(): AdminEditorFormValues {
 
 export function buildAdminUpdateFormValues(
 	admin: AdminResponse,
-	account: AccountResponse,
 ): AdminEditorFormValues {
 	return {
 		cpf: "",
@@ -271,13 +293,12 @@ export function buildAdminUpdateFormValues(
 		email: admin.accountEmail,
 		password: "",
 		campus: admin.campus.campus,
-		active: account.active,
+		active: admin.accountActive,
 	};
 }
 
 export function buildAdminDuplicateFormValues(
 	admin: AdminResponse,
-	account: AccountResponse,
 	user: UserResponse | null,
 ): AdminEditorFormValues {
 	return {
@@ -286,7 +307,7 @@ export function buildAdminDuplicateFormValues(
 		email: admin.accountEmail,
 		password: "",
 		campus: admin.campus.campus,
-		active: account.active,
+		active: admin.accountActive,
 	};
 }
 

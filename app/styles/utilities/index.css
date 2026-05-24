@@ -81,6 +81,12 @@
 	initial-value: 0px;
 }
 
+@property --popover-content-available-height {
+	syntax: "*";
+	inherits: false;
+	initial-value: 100dvh;
+}
+
 @keyframes accordion-down {
 	from {
 		height: 0;

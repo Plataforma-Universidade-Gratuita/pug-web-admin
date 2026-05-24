@@ -2,7 +2,7 @@
 
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 
-import { Info } from "lucide-react";
+import { Eye } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -150,7 +150,7 @@ export function CityPage() {
 					emptyState: tableEmptyState,
 					getRowActions: row => (
 						<DropdownMenuInfoItem
-							icon={Info}
+							icon={Eye}
 							label={t("geo.cityPage.table.actions.viewDetails")}
 							onClick={() => setSelectedCityId(row.id)}
 						/>

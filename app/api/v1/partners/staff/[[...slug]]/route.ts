@@ -77,14 +77,24 @@ export async function PUT(
 }
 
 export async function PATCH(
-	_request: Request,
+	request: Request,
 	{ params }: { params: Promise<{ slug?: string[] }> },
 ) {
 	const { slug = [] } = await params;
-	if (slug.length === 2 && slug[1] === "deactivate") {
-		return routeVoidWithAuthRetry(token => staff.deactivate(slug[0]!, token));
+	if (slug.length !== 1) {
+		return routeError(new Error("Not found"));
 	}
-	return routeError(new Error("Not found"));
+
+	const body = await parseRouteBody(
+		request,
+		z.object({
+			active: z.boolean(),
+		}),
+	);
+
+	return routeVoidWithAuthRetry(token =>
+		staff.setActive(slug[0]!, body.active, token),
+	);
 }
 
 export async function DELETE(

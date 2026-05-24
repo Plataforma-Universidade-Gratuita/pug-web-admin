@@ -2,7 +2,7 @@
 
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 
-import { Info } from "lucide-react";
+import { Eye } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -242,7 +242,7 @@ export function UserPage() {
 					emptyState: tableEmptyState,
 					getRowActions: row => (
 						<DropdownMenuInfoItem
-							icon={Info}
+							icon={Eye}
 							label={t("identity.userPage.table.actions.viewDetails")}
 							onClick={() => setSelectedUserId(row.id)}
 						/>

@@ -544,6 +544,17 @@
 		padding: 0.5rem;
 	}
 
+	.combobox-content {
+		max-height: min(24rem, var(--popover-content-available-height, 24rem));
+	}
+
+	.combobox-panel-inner {
+		display: grid;
+		min-height: 0;
+		grid-template-rows: auto minmax(0, 1fr);
+		gap: 0.5rem;
+	}
+
 	.combobox-content-disabled .combobox-search-shell {
 		opacity: 0.6;
 	}
@@ -606,8 +617,13 @@
 	}
 
 	.combobox-scroll {
-		max-height: 18rem;
+		min-height: 0;
+		max-height: min(
+			18rem,
+			calc(var(--popover-content-available-height, 24rem) - 4rem)
+		);
 		overflow-y: auto;
+		overscroll-behavior: contain;
 	}
 
 	.multi-select-values {

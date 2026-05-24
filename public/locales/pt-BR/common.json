@@ -2407,7 +2407,12 @@
                     "update": "Atualizar administrador",
                     "viewDetails": "$t(docs.table.actions.view)"
                 },
+                "active": {
+                    "no": "Inativo",
+                    "yes": "Ativo"
+                },
                 "columns": {
+                    "active": "Status",
                     "campus": "Campus",
                     "email": "$t(identity.accountPage.table.columns.email)",
                     "grantedAt": "Concedido em",
@@ -2677,5 +2682,589 @@
         },
         "subtitle": "Workspace de operaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes",
         "title": "PUG Admin"
+    },
+    "partner": {
+        "entityPage": {
+            "create": {
+                "actions": {
+                    "save": "Criar entidade",
+                    "savePending": "Criando entidade..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível criar a entidade agora.",
+                        "title": "Não foi possível criar a entidade"
+                    },
+                    "success": {
+                        "description": "{{name}} foi criada com sucesso.",
+                        "title": "Entidade criada"
+                    }
+                },
+                "open": "Adicionar entidade",
+                "overhead": "Criar entidade",
+                "titleFallback": "Nova entidade"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} será agendada para remoção permanente.",
+                    "title": "Excluir esta entidade?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível excluir a entidade agora.",
+                        "title": "Não foi possível excluir a entidade"
+                    },
+                    "success": {
+                        "description": "{{name}} foi excluída com sucesso.",
+                        "title": "Entidade excluída"
+                    }
+                },
+                "undo": {
+                    "action": "Desfazer",
+                    "description": "{{name}} será excluída se você não desfizer esta ação.",
+                    "title": "Exclusão de entidade agendada"
+                }
+            },
+            "description": "Diretório de serviço para organizações parceiras e as cidades em que operam.",
+            "dialog": {
+                "error": {
+                    "description": "Não foi possível carregar o registro da entidade agora.",
+                    "title": "Não foi possível carregar a entidade"
+                },
+                "fields": {
+                    "address": "Endereço",
+                    "city": "$t(geo.cityPage.dialog.fields.name)",
+                    "cnpj": "CNPJ",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
+                    "name": "Nome da entidade",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                },
+                "notFound": {
+                    "description": "Não foi possível encontrar o registro da entidade solicitada.",
+                    "title": "Entidade não encontrada"
+                },
+                "overhead": "Registro da entidade",
+                "titleFallback": "Detalhes da entidade",
+                "values": {
+                    "noAddress": "Nenhum endereço informado"
+                }
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Criar duplicata",
+                    "savePending": "Criando duplicata..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível criar a duplicata da entidade agora.",
+                        "title": "Não foi possível duplicar a entidade"
+                    },
+                    "success": {
+                        "description": "{{name}} foi duplicada com sucesso.",
+                        "title": "Entidade duplicada"
+                    }
+                },
+                "overhead": "Duplicar entidade",
+                "titleFallback": "Duplicar entidade"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Redefinir alterações"
+                },
+                "cityLoadError": {
+                    "description": "Não foi possível carregar o catálogo de cidades para este formulário agora.",
+                    "title": "Não foi possível carregar as cidades"
+                },
+                "fields": {
+                    "address": "Endereço",
+                    "addressPlaceholder": "Endereço opcional",
+                    "city": "Cidade",
+                    "cityEmptyMessage": "Nenhuma cidade encontrada.",
+                    "cityPlaceholder": "Selecione uma cidade",
+                    "citySearchPlaceholder": "Buscar cidades",
+                    "cnpj": "CNPJ",
+                    "cnpjPlaceholder": "00.000.000/0000-00",
+                    "name": "Nome da entidade"
+                },
+                "loading": "Carregando editor da entidade",
+                "resetConfirm": {
+                    "description": "Isto descartará as alterações não salvas da entidade no drawer atual.",
+                    "title": "Redefinir alterações da entidade?"
+                },
+                "validation": {
+                    "city": "Selecione uma cidade.",
+                    "cnpj": {
+                        "invalid": "Informe um CNPJ válido.",
+                        "required": "Informe um CNPJ."
+                    },
+                    "name": "Informe um nome."
+                }
+            },
+            "empty": {
+                "defaultDescription": "O diretório de entidades está vazio no momento.",
+                "filteredDescription": "Nenhuma entidade corresponde a \"{{value}}\".",
+                "title": "Nenhuma entidade encontrada"
+            },
+            "feedback": {
+                "citiesError": {
+                    "description": "Não foi possível carregar o catálogo de cidades agora.",
+                    "title": "Não foi possível carregar as cidades"
+                },
+                "detailError": {
+                    "description": "$t(partner.entityPage.dialog.error.description)",
+                    "title": "Não foi possível carregar os detalhes da entidade"
+                },
+                "listError": {
+                    "description": "Não foi possível carregar o diretório de entidades agora.",
+                    "title": "Não foi possível carregar as entidades"
+                }
+            },
+            "filters": {
+                "city": {
+                    "emptyMessage": "$t(partner.entityPage.editor.fields.cityEmptyMessage)",
+                    "error": {
+                        "description": "$t(partner.entityPage.feedback.citiesError.description)",
+                        "title": "$t(partner.entityPage.feedback.citiesError.title)"
+                    },
+                    "label": "Cidade",
+                    "placeholder": "Selecione uma cidade",
+                    "searchPlaceholder": "Buscar cidades"
+                },
+                "clear": "$t(identity.accountPage.filters.clear)",
+                "dateField": {
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
+                    "options": {
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.dateField.placeholder)"
+                },
+                "drawer": {
+                    "active": "Filtros ativos",
+                    "apply": "Aplicar filtros",
+                    "clearConfirm": {
+                        "description": "Isto limpará os filtros atuais das entidades.",
+                        "title": "Limpar filtros de entidades?"
+                    },
+                    "label": "Mais filtros",
+                    "overhead": "Filtros de entidades",
+                    "title": "Filtrar entidades",
+                    "trigger": "Mais filtros"
+                },
+                "endDate": {
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                },
+                "search": {
+                    "label": "Nome, CNPJ ou endereço",
+                    "placeholder": "Filtre por nome, CNPJ, cidade ou endereço"
+                },
+                "startDate": {
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes da entidade",
+                "list": "Carregando entidades"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "table": {
+                "actions": {
+                    "delete": "Excluir entidade",
+                    "duplicate": "Duplicar entidade",
+                    "update": "Atualizar entidade",
+                    "viewDetails": "Ver detalhes da entidade"
+                },
+                "columns": {
+                    "city": "Cidade",
+                    "cnpj": "CNPJ",
+                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
+                    "name": "Entidade",
+                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
+                },
+                "error": {
+                    "description": "$t(partner.entityPage.feedback.listError.description)",
+                    "title": "$t(partner.entityPage.feedback.listError.title)"
+                }
+            },
+            "title": "Entidades",
+            "update": {
+                "actions": {
+                    "save": "Salvar alterações",
+                    "savePending": "Salvando alterações..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível atualizar a entidade agora.",
+                        "title": "Não foi possível salvar as alterações da entidade"
+                    },
+                    "success": {
+                        "description": "{{name}} foi atualizada com sucesso.",
+                        "title": "Entidade atualizada"
+                    }
+                },
+                "loadError": {
+                    "description": "Não foi possível carregar o registro da entidade agora.",
+                    "title": "Não foi possível carregar o editor da entidade"
+                },
+                "notFound": {
+                    "description": "Não foi possível encontrar o registro da entidade solicitada.",
+                    "title": "Entidade não encontrada"
+                },
+                "overhead": "Editar entidade",
+                "titleFallback": "Editar entidade"
+            }
+        },
+        "staffPage": {
+            "create": {
+                "actions": {
+                    "save": "Criar membro da equipe",
+                    "savePending": "Criando membro da equipe..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível criar o membro da equipe agora.",
+                        "title": "Não foi possível criar o membro da equipe"
+                    },
+                    "success": {
+                        "description": "{{name}} foi criado com sucesso.",
+                        "title": "Membro da equipe criado"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Crie uma senha temporária"
+                },
+                "open": "Adicionar membro da equipe",
+                "overhead": "Criar membro da equipe",
+                "titleFallback": "Novo membro da equipe"
+            },
+            "deactivate": {
+                "confirm": {
+                    "description": "{{name}} perderá o acesso ao workspace da equipe parceira até ser reativado.",
+                    "title": "Desativar este membro da equipe?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível desativar o membro da equipe agora.",
+                        "title": "Não foi possível desativar o membro da equipe"
+                    },
+                    "success": {
+                        "description": "{{name}} foi desativado com sucesso.",
+                        "title": "Membro da equipe desativado"
+                    }
+                }
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} será agendado para remoção permanente.",
+                    "title": "Excluir este membro da equipe?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível excluir o membro da equipe agora.",
+                        "title": "Não foi possível excluir o membro da equipe"
+                    },
+                    "success": {
+                        "description": "{{name}} foi excluído com sucesso.",
+                        "title": "Membro da equipe excluído"
+                    }
+                },
+                "undo": {
+                    "action": "Desfazer",
+                    "description": "{{name}} será excluído se você não desfizer esta ação.",
+                    "title": "Exclusão de membro da equipe agendada"
+                }
+            },
+            "description": "Diretório de serviço para equipes parceiras vinculadas a cada entidade e cidade.",
+            "dialog": {
+                "error": {
+                    "description": "Não foi possível carregar o registro do membro da equipe agora.",
+                    "title": "Não foi possível carregar o membro da equipe"
+                },
+                "fields": {
+                    "city": "Cidade",
+                    "email": "Email",
+                    "entity": "Entidade",
+                    "name": "Nome",
+                    "userId": "ID do usuário"
+                },
+                "linkedAccount": {
+                    "active": {
+                        "no": "Inativo",
+                        "yes": "Ativo"
+                    },
+                    "error": {
+                        "description": "Não foi possível carregar a conta vinculada agora.",
+                        "title": "Não foi possível carregar a conta vinculada"
+                    },
+                    "fields": {
+                        "active": "Status",
+                        "id": "ID da conta",
+                        "type": "Tipo de conta"
+                    },
+                    "loading": "Carregando conta vinculada",
+                    "notFound": {
+                        "description": "Não foi possível encontrar a conta vinculada.",
+                        "title": "Conta vinculada não encontrada"
+                    },
+                    "overhead": "Conta vinculada"
+                },
+                "linkedUser": {
+                    "error": {
+                        "description": "Não foi possível carregar o usuário vinculado agora.",
+                        "title": "Não foi possível carregar o usuário vinculado"
+                    },
+                    "fields": {
+                        "cpf": "CPF",
+                        "id": "ID do usuário",
+                        "name": "Nome"
+                    },
+                    "loading": "Carregando usuário vinculado",
+                    "notFound": {
+                        "description": "Não foi possível encontrar o usuário vinculado.",
+                        "title": "Usuário vinculado não encontrado"
+                    },
+                    "overhead": "Usuário vinculado"
+                },
+                "notFound": {
+                    "description": "Não foi possível encontrar o registro do membro da equipe solicitado.",
+                    "title": "Membro da equipe não encontrado"
+                },
+                "overhead": "Registro do membro da equipe",
+                "titleFallback": "Detalhes do membro da equipe"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Criar duplicata",
+                    "savePending": "Criando duplicata..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível criar a duplicata do membro da equipe agora.",
+                        "title": "Não foi possível duplicar o membro da equipe"
+                    },
+                    "success": {
+                        "description": "{{name}} foi duplicado com sucesso.",
+                        "title": "Membro da equipe duplicado"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Defina uma senha para a duplicata"
+                },
+                "overhead": "Duplicar membro da equipe",
+                "titleFallback": "Duplicar membro da equipe"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Redefinir alterações"
+                },
+                "entityLoadError": {
+                    "description": "Não foi possível carregar o catálogo de entidades para este formulário agora.",
+                    "title": "Não foi possível carregar as entidades"
+                },
+                "fields": {
+                    "cpf": "CPF",
+                    "cpfPlaceholder": "Informe o CPF",
+                    "email": "Email",
+                    "entity": "Entidade",
+                    "entityEmptyMessage": "Nenhuma entidade encontrada.",
+                    "entityPlaceholder": "Selecione uma entidade",
+                    "entitySearchPlaceholder": "Buscar entidades",
+                    "name": "Nome",
+                    "password": "Senha"
+                },
+                "loading": "Carregando editor do membro da equipe",
+                "resetConfirm": {
+                    "description": "Isto descartará as alterações não salvas do membro da equipe no drawer atual.",
+                    "title": "Redefinir alterações do membro da equipe?"
+                },
+                "validation": {
+                    "cpf": {
+                        "required": "Informe um CPF."
+                    },
+                    "email": {
+                        "invalid": "Informe um email válido.",
+                        "required": "Informe um email."
+                    },
+                    "entity": {
+                        "required": "Selecione uma entidade."
+                    },
+                    "name": {
+                        "required": "Informe um nome."
+                    },
+                    "password": {
+                        "required": "Informe uma senha."
+                    }
+                }
+            },
+            "empty": {
+                "defaultDescription": "O diretório de equipe está vazio no momento.",
+                "filteredDescription": "Nenhum membro da equipe corresponde a \"{{value}}\".",
+                "title": "Nenhum membro da equipe encontrado"
+            },
+            "feedback": {
+                "citiesError": {
+                    "description": "Não foi possível carregar o catálogo de cidades agora.",
+                    "title": "Não foi possível carregar as cidades"
+                },
+                "detailError": {
+                    "description": "$t(partner.staffPage.dialog.error.description)",
+                    "title": "Não foi possível carregar os detalhes do membro da equipe"
+                },
+                "entitiesError": {
+                    "description": "Não foi possível carregar o catálogo de entidades agora.",
+                    "title": "Não foi possível carregar as entidades"
+                },
+                "linkedAccountError": {
+                    "description": "$t(partner.staffPage.dialog.linkedAccount.error.description)",
+                    "title": "$t(partner.staffPage.dialog.linkedAccount.error.title)"
+                },
+                "linkedUserError": {
+                    "description": "$t(partner.staffPage.dialog.linkedUser.error.description)",
+                    "title": "$t(partner.staffPage.dialog.linkedUser.error.title)"
+                },
+                "listError": {
+                    "description": "Não foi possível carregar o diretório de equipe agora.",
+                    "title": "Não foi possível carregar a equipe"
+                }
+            },
+            "filters": {
+                "active": {
+                    "label": "Status",
+                    "options": {
+                        "active": "Ativo",
+                        "all": "Todos os status",
+                        "inactive": "Inativo"
+                    },
+                    "placeholder": "Selecione um status"
+                },
+                "city": {
+                    "emptyMessage": "Nenhuma cidade encontrada.",
+                    "error": {
+                        "description": "$t(partner.staffPage.feedback.citiesError.description)",
+                        "title": "$t(partner.staffPage.feedback.citiesError.title)"
+                    },
+                    "label": "Cidade",
+                    "placeholder": "Selecione uma cidade",
+                    "searchPlaceholder": "Buscar cidades"
+                },
+                "clear": "$t(identity.accountPage.filters.clear)",
+                "drawer": {
+                    "active": "Filtros ativos",
+                    "apply": "Aplicar filtros",
+                    "clearConfirm": {
+                        "description": "Isto limpará os filtros atuais da equipe.",
+                        "title": "Limpar filtros da equipe?"
+                    },
+                    "label": "Mais filtros",
+                    "overhead": "Filtros da equipe",
+                    "title": "Filtrar equipe",
+                    "trigger": "Mais filtros"
+                },
+                "entity": {
+                    "emptyMessage": "$t(partner.staffPage.editor.fields.entityEmptyMessage)",
+                    "error": {
+                        "description": "$t(partner.staffPage.feedback.entitiesError.description)",
+                        "title": "$t(partner.staffPage.feedback.entitiesError.title)"
+                    },
+                    "label": "Entidade",
+                    "placeholder": "Selecione uma entidade",
+                    "searchPlaceholder": "Buscar entidades"
+                },
+                "search": {
+                    "label": "Nome, email ou entidade",
+                    "placeholder": "Filtre por nome, email ou entidade"
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes do membro da equipe",
+                "list": "Carregando equipe"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "reactivate": {
+                "confirm": {
+                    "description": "{{name}} voltará a ter acesso ao workspace da equipe parceira.",
+                    "title": "Reativar este membro da equipe?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível reativar o membro da equipe agora.",
+                        "title": "Não foi possível reativar o membro da equipe"
+                    },
+                    "success": {
+                        "description": "{{name}} foi reativado com sucesso.",
+                        "title": "Membro da equipe reativado"
+                    }
+                }
+            },
+            "table": {
+                "actions": {
+                    "deactivate": "Desativar membro da equipe",
+                    "delete": "Excluir membro da equipe",
+                    "duplicate": "Duplicar membro da equipe",
+                    "reactivate": "Reativar membro da equipe",
+                    "update": "Atualizar membro da equipe",
+                    "viewDetails": "Ver detalhes do membro da equipe"
+                },
+                "active": {
+                    "no": "Inativo",
+                    "yes": "Ativo"
+                },
+                "columns": {
+                    "active": "Status",
+                    "email": "Email",
+                    "entity": "Entidade",
+                    "name": "Membro da equipe"
+                },
+                "error": {
+                    "description": "$t(partner.staffPage.feedback.listError.description)",
+                    "title": "$t(partner.staffPage.feedback.listError.title)"
+                }
+            },
+            "title": "Equipe",
+            "update": {
+                "actions": {
+                    "save": "Salvar alterações",
+                    "savePending": "Salvando alterações..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Não foi possível atualizar o membro da equipe agora.",
+                        "title": "Não foi possível salvar as alterações do membro da equipe"
+                    },
+                    "success": {
+                        "description": "{{name}} foi atualizado com sucesso.",
+                        "title": "Membro da equipe atualizado"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Deixe em branco para manter a senha atual"
+                },
+                "loadError": {
+                    "description": "Não foi possível carregar o registro do membro da equipe agora.",
+                    "title": "Não foi possível carregar o editor do membro da equipe"
+                },
+                "notFound": {
+                    "description": "Não foi possível encontrar o registro do membro da equipe solicitado.",
+                    "title": "Membro da equipe não encontrado"
+                },
+                "overhead": "Editar membro da equipe",
+                "titleFallback": "Editar membro da equipe"
+            }
+        }
     }
 }

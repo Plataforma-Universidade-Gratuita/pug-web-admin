@@ -113,13 +113,9 @@ export function AdminUpdateDrawer({
 		return isDuplicateMode
 			? buildAdminDuplicateFormValues(
 					adminDetailQuery.data,
-					linkedAccountQuery.data,
 					linkedUserQuery.data ?? null,
 				)
-			: buildAdminUpdateFormValues(
-					adminDetailQuery.data,
-					linkedAccountQuery.data,
-				);
+			: buildAdminUpdateFormValues(adminDetailQuery.data);
 	}, [
 		adminDetailQuery.data,
 		emptyValues,

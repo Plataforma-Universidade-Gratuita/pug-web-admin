@@ -7,6 +7,7 @@ import { CampiEnum, CampusResponseSchema } from "@/schemas/api";
 export const AdminResponseSchema = z.object({
 	accountId: z.string(),
 	accountEmail: z.string(),
+	accountActive: z.boolean(),
 	userId: z.string(),
 	userName: z.string(),
 	campus: CampusResponseSchema,

@@ -2407,7 +2407,12 @@
                     "update": "Update administrator",
                     "viewDetails": "$t(docs.table.actions.view)"
                 },
+                "active": {
+                    "no": "Inactive",
+                    "yes": "Active"
+                },
                 "columns": {
+                    "active": "Status",
                     "campus": "Campus",
                     "email": "$t(identity.accountPage.table.columns.email)",
                     "grantedAt": "Granted at",
@@ -2677,5 +2682,589 @@
         },
         "subtitle": "Operations workspace",
         "title": "PUG Admin"
+    },
+    "partner": {
+        "entityPage": {
+            "create": {
+                "actions": {
+                    "save": "Create entity",
+                    "savePending": "Creating entity..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The entity could not be created right now.",
+                        "title": "Unable to create entity"
+                    },
+                    "success": {
+                        "description": "{{name}} was created successfully.",
+                        "title": "Entity created"
+                    }
+                },
+                "open": "Add entity",
+                "overhead": "Create entity",
+                "titleFallback": "New entity"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} will be scheduled for permanent removal.",
+                    "title": "Delete this entity?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The entity could not be deleted right now.",
+                        "title": "Unable to delete entity"
+                    },
+                    "success": {
+                        "description": "{{name}} was deleted successfully.",
+                        "title": "Entity deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Entity deletion scheduled"
+                }
+            },
+            "description": "Service directory for partner organizations and the cities they operate in.",
+            "dialog": {
+                "error": {
+                    "description": "The entity record could not be loaded right now.",
+                    "title": "Unable to load entity"
+                },
+                "fields": {
+                    "address": "Address",
+                    "city": "$t(geo.cityPage.dialog.fields.name)",
+                    "cnpj": "CNPJ",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
+                    "name": "Entity name",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                },
+                "notFound": {
+                    "description": "The requested entity record could not be found.",
+                    "title": "Entity not found"
+                },
+                "overhead": "Entity record",
+                "titleFallback": "Entity details",
+                "values": {
+                    "noAddress": "No address provided"
+                }
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Create duplicate",
+                    "savePending": "Creating duplicate..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The entity duplicate could not be created right now.",
+                        "title": "Unable to duplicate entity"
+                    },
+                    "success": {
+                        "description": "{{name}} was duplicated successfully.",
+                        "title": "Entity duplicated"
+                    }
+                },
+                "overhead": "Duplicate entity",
+                "titleFallback": "Duplicate entity"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Reset changes"
+                },
+                "cityLoadError": {
+                    "description": "The city catalog for this form could not be loaded right now.",
+                    "title": "Unable to load cities"
+                },
+                "fields": {
+                    "address": "Address",
+                    "addressPlaceholder": "Optional address",
+                    "city": "City",
+                    "cityEmptyMessage": "No cities found.",
+                    "cityPlaceholder": "Select a city",
+                    "citySearchPlaceholder": "Search cities",
+                    "cnpj": "CNPJ",
+                    "cnpjPlaceholder": "00.000.000/0000-00",
+                    "name": "Entity name"
+                },
+                "loading": "Loading entity editor",
+                "resetConfirm": {
+                    "description": "This will discard the unsaved entity changes in the current drawer.",
+                    "title": "Reset entity changes?"
+                },
+                "validation": {
+                    "city": "Select a city.",
+                    "cnpj": {
+                        "invalid": "Enter a valid CNPJ.",
+                        "required": "Enter a CNPJ."
+                    },
+                    "name": "Enter a name."
+                }
+            },
+            "empty": {
+                "defaultDescription": "The entity directory is currently empty.",
+                "filteredDescription": "No entity matches \"{{value}}\".",
+                "title": "No entities found"
+            },
+            "feedback": {
+                "citiesError": {
+                    "description": "The city catalog could not be loaded right now.",
+                    "title": "Unable to load cities"
+                },
+                "detailError": {
+                    "description": "$t(partner.entityPage.dialog.error.description)",
+                    "title": "Unable to load entity details"
+                },
+                "listError": {
+                    "description": "The entity directory could not be loaded right now.",
+                    "title": "Unable to load entities"
+                }
+            },
+            "filters": {
+                "city": {
+                    "emptyMessage": "$t(partner.entityPage.editor.fields.cityEmptyMessage)",
+                    "error": {
+                        "description": "$t(partner.entityPage.feedback.citiesError.description)",
+                        "title": "$t(partner.entityPage.feedback.citiesError.title)"
+                    },
+                    "label": "City",
+                    "placeholder": "Select a city",
+                    "searchPlaceholder": "Search cities"
+                },
+                "clear": "$t(identity.accountPage.filters.clear)",
+                "dateField": {
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
+                    "options": {
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.dateField.placeholder)"
+                },
+                "drawer": {
+                    "active": "Filters active",
+                    "apply": "Apply filters",
+                    "clearConfirm": {
+                        "description": "This will clear the current entity filters.",
+                        "title": "Clear entity filters?"
+                    },
+                    "label": "More filters",
+                    "overhead": "Entity filters",
+                    "title": "Filter entities",
+                    "trigger": "More filters"
+                },
+                "endDate": {
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                },
+                "search": {
+                    "label": "Name, CNPJ or address",
+                    "placeholder": "Filter by name, CNPJ, city or address"
+                },
+                "startDate": {
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
+                }
+            },
+            "loading": {
+                "detail": "Loading entity details",
+                "list": "Loading entities"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "table": {
+                "actions": {
+                    "delete": "Delete entity",
+                    "duplicate": "Duplicate entity",
+                    "update": "Update entity",
+                    "viewDetails": "View entity details"
+                },
+                "columns": {
+                    "city": "City",
+                    "cnpj": "CNPJ",
+                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
+                    "name": "Entity",
+                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
+                },
+                "error": {
+                    "description": "$t(partner.entityPage.feedback.listError.description)",
+                    "title": "$t(partner.entityPage.feedback.listError.title)"
+                }
+            },
+            "title": "Entities",
+            "update": {
+                "actions": {
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The entity could not be updated right now.",
+                        "title": "Unable to save entity changes"
+                    },
+                    "success": {
+                        "description": "{{name}} was updated successfully.",
+                        "title": "Entity updated"
+                    }
+                },
+                "loadError": {
+                    "description": "The entity record could not be loaded right now.",
+                    "title": "Unable to load entity editor"
+                },
+                "notFound": {
+                    "description": "The requested entity record could not be found.",
+                    "title": "Entity not found"
+                },
+                "overhead": "Edit entity",
+                "titleFallback": "Edit entity"
+            }
+        },
+        "staffPage": {
+            "create": {
+                "actions": {
+                    "save": "Create staff member",
+                    "savePending": "Creating staff member..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The staff member could not be created right now.",
+                        "title": "Unable to create staff member"
+                    },
+                    "success": {
+                        "description": "{{name}} was created successfully.",
+                        "title": "Staff member created"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Create a temporary password"
+                },
+                "open": "Add staff member",
+                "overhead": "Create staff member",
+                "titleFallback": "New staff member"
+            },
+            "deactivate": {
+                "confirm": {
+                    "description": "{{name}} will lose access to the partner staff workspace until reactivated.",
+                    "title": "Deactivate this staff member?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The staff member could not be deactivated right now.",
+                        "title": "Unable to deactivate staff member"
+                    },
+                    "success": {
+                        "description": "{{name}} was deactivated successfully.",
+                        "title": "Staff member deactivated"
+                    }
+                }
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} will be scheduled for permanent removal.",
+                    "title": "Delete this staff member?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The staff member could not be deleted right now.",
+                        "title": "Unable to delete staff member"
+                    },
+                    "success": {
+                        "description": "{{name}} was deleted successfully.",
+                        "title": "Staff member deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Staff deletion scheduled"
+                }
+            },
+            "description": "Service directory for partner staff linked to each partner entity and city.",
+            "dialog": {
+                "error": {
+                    "description": "The staff record could not be loaded right now.",
+                    "title": "Unable to load staff member"
+                },
+                "fields": {
+                    "city": "City",
+                    "email": "Email",
+                    "entity": "Entity",
+                    "name": "Name",
+                    "userId": "User ID"
+                },
+                "linkedAccount": {
+                    "active": {
+                        "no": "Inactive",
+                        "yes": "Active"
+                    },
+                    "error": {
+                        "description": "The linked account could not be loaded right now.",
+                        "title": "Unable to load linked account"
+                    },
+                    "fields": {
+                        "active": "Status",
+                        "id": "Account ID",
+                        "type": "Account type"
+                    },
+                    "loading": "Loading linked account",
+                    "notFound": {
+                        "description": "The linked account could not be found.",
+                        "title": "Linked account not found"
+                    },
+                    "overhead": "Linked account"
+                },
+                "linkedUser": {
+                    "error": {
+                        "description": "The linked user could not be loaded right now.",
+                        "title": "Unable to load linked user"
+                    },
+                    "fields": {
+                        "cpf": "CPF",
+                        "id": "User ID",
+                        "name": "Name"
+                    },
+                    "loading": "Loading linked user",
+                    "notFound": {
+                        "description": "The linked user could not be found.",
+                        "title": "Linked user not found"
+                    },
+                    "overhead": "Linked user"
+                },
+                "notFound": {
+                    "description": "The requested staff record could not be found.",
+                    "title": "Staff member not found"
+                },
+                "overhead": "Staff record",
+                "titleFallback": "Staff details"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Create duplicate",
+                    "savePending": "Creating duplicate..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The staff duplicate could not be created right now.",
+                        "title": "Unable to duplicate staff member"
+                    },
+                    "success": {
+                        "description": "{{name}} was duplicated successfully.",
+                        "title": "Staff member duplicated"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Set a password for the duplicate"
+                },
+                "overhead": "Duplicate staff member",
+                "titleFallback": "Duplicate staff member"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Reset changes"
+                },
+                "entityLoadError": {
+                    "description": "The entity catalog for this form could not be loaded right now.",
+                    "title": "Unable to load entities"
+                },
+                "fields": {
+                    "cpf": "CPF",
+                    "cpfPlaceholder": "Enter the CPF",
+                    "email": "Email",
+                    "entity": "Entity",
+                    "entityEmptyMessage": "No entities found.",
+                    "entityPlaceholder": "Select an entity",
+                    "entitySearchPlaceholder": "Search entities",
+                    "name": "Name",
+                    "password": "Password"
+                },
+                "loading": "Loading staff editor",
+                "resetConfirm": {
+                    "description": "This will discard the unsaved staff changes in the current drawer.",
+                    "title": "Reset staff changes?"
+                },
+                "validation": {
+                    "cpf": {
+                        "required": "Enter a CPF."
+                    },
+                    "email": {
+                        "invalid": "Enter a valid email address.",
+                        "required": "Enter an email address."
+                    },
+                    "entity": {
+                        "required": "Select an entity."
+                    },
+                    "name": {
+                        "required": "Enter a name."
+                    },
+                    "password": {
+                        "required": "Enter a password."
+                    }
+                }
+            },
+            "empty": {
+                "defaultDescription": "The staff directory is currently empty.",
+                "filteredDescription": "No staff member matches \"{{value}}\".",
+                "title": "No staff found"
+            },
+            "feedback": {
+                "citiesError": {
+                    "description": "The city catalog could not be loaded right now.",
+                    "title": "Unable to load cities"
+                },
+                "detailError": {
+                    "description": "$t(partner.staffPage.dialog.error.description)",
+                    "title": "Unable to load staff details"
+                },
+                "entitiesError": {
+                    "description": "The entity catalog could not be loaded right now.",
+                    "title": "Unable to load entities"
+                },
+                "linkedAccountError": {
+                    "description": "$t(partner.staffPage.dialog.linkedAccount.error.description)",
+                    "title": "$t(partner.staffPage.dialog.linkedAccount.error.title)"
+                },
+                "linkedUserError": {
+                    "description": "$t(partner.staffPage.dialog.linkedUser.error.description)",
+                    "title": "$t(partner.staffPage.dialog.linkedUser.error.title)"
+                },
+                "listError": {
+                    "description": "The staff directory could not be loaded right now.",
+                    "title": "Unable to load staff"
+                }
+            },
+            "filters": {
+                "active": {
+                    "label": "Status",
+                    "options": {
+                        "active": "Active",
+                        "all": "All statuses",
+                        "inactive": "Inactive"
+                    },
+                    "placeholder": "Select a status"
+                },
+                "city": {
+                    "emptyMessage": "No cities found.",
+                    "error": {
+                        "description": "$t(partner.staffPage.feedback.citiesError.description)",
+                        "title": "$t(partner.staffPage.feedback.citiesError.title)"
+                    },
+                    "label": "City",
+                    "placeholder": "Select a city",
+                    "searchPlaceholder": "Search cities"
+                },
+                "clear": "$t(identity.accountPage.filters.clear)",
+                "drawer": {
+                    "active": "Filters active",
+                    "apply": "Apply filters",
+                    "clearConfirm": {
+                        "description": "This will clear the current staff filters.",
+                        "title": "Clear staff filters?"
+                    },
+                    "label": "More filters",
+                    "overhead": "Staff filters",
+                    "title": "Filter staff",
+                    "trigger": "More filters"
+                },
+                "entity": {
+                    "emptyMessage": "$t(partner.staffPage.editor.fields.entityEmptyMessage)",
+                    "error": {
+                        "description": "$t(partner.staffPage.feedback.entitiesError.description)",
+                        "title": "$t(partner.staffPage.feedback.entitiesError.title)"
+                    },
+                    "label": "Entity",
+                    "placeholder": "Select an entity",
+                    "searchPlaceholder": "Search entities"
+                },
+                "search": {
+                    "label": "Name, email or entity",
+                    "placeholder": "Filter by name, email or entity"
+                }
+            },
+            "loading": {
+                "detail": "Loading staff details",
+                "list": "Loading staff"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "reactivate": {
+                "confirm": {
+                    "description": "{{name}} will regain access to the partner staff workspace.",
+                    "title": "Reactivate this staff member?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The staff member could not be reactivated right now.",
+                        "title": "Unable to reactivate staff member"
+                    },
+                    "success": {
+                        "description": "{{name}} was reactivated successfully.",
+                        "title": "Staff member reactivated"
+                    }
+                }
+            },
+            "table": {
+                "actions": {
+                    "deactivate": "Deactivate staff member",
+                    "delete": "Delete staff member",
+                    "duplicate": "Duplicate staff member",
+                    "reactivate": "Reactivate staff member",
+                    "update": "Update staff member",
+                    "viewDetails": "View staff details"
+                },
+                "active": {
+                    "no": "Inactive",
+                    "yes": "Active"
+                },
+                "columns": {
+                    "active": "Status",
+                    "email": "Email",
+                    "entity": "Entity",
+                    "name": "Staff member"
+                },
+                "error": {
+                    "description": "$t(partner.staffPage.feedback.listError.description)",
+                    "title": "$t(partner.staffPage.feedback.listError.title)"
+                }
+            },
+            "title": "Staff",
+            "update": {
+                "actions": {
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The staff member could not be updated right now.",
+                        "title": "Unable to save staff changes"
+                    },
+                    "success": {
+                        "description": "{{name}} was updated successfully.",
+                        "title": "Staff member updated"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Leave blank to keep the current password"
+                },
+                "loadError": {
+                    "description": "The staff record could not be loaded right now.",
+                    "title": "Unable to load staff editor"
+                },
+                "notFound": {
+                    "description": "The requested staff record could not be found.",
+                    "title": "Staff member not found"
+                },
+                "overhead": "Edit staff member",
+                "titleFallback": "Edit staff member"
+            }
+        }
     }
 }

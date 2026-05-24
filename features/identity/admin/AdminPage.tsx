@@ -14,36 +14,35 @@ import {
 import { useTranslation } from "react-i18next";
 
 import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	Badge,
-	Button,
-	Dialog,
-	DialogBody,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DropdownMenuDangerItem,
-	DropdownMenuInfoItem,
-	DropdownMenuSeparator,
-	DropdownMenuSuccessItem,
-	DropdownMenuWarningItem,
-	Label,
-	NoContentState,
-	NotFoundState,
-	PageShell,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SomeErrorState,
-	toast,
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    Badge,
+    Button,
+    Dialog,
+    DialogBody,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DropdownMenuDangerItem,
+    DropdownMenuInfoItem, DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuSuccessItem,
+    DropdownMenuWarningItem,
+    Label,
+    NoContentState,
+    NotFoundState,
+    PageShell,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SomeErrorState,
+    toast,
 } from "@/components";
-import { useAccountsQuery } from "@/features/identity/account/queries";
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
@@ -101,7 +100,6 @@ export function AdminPage() {
 		useState<AdminResponse | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const adminsQuery = useAdminsQuery();
-	const accountsQuery = useAccountsQuery();
 	const adminDetailQuery = useAdminDetailQuery(selectedAdminId);
 	const linkedAccountQuery = useLinkedAdminAccountQuery(
 		adminDetailQuery.data?.accountId ?? null,
@@ -120,11 +118,6 @@ export function AdminPage() {
 	const removeAdminMutation = useRemoveAdminMutation();
 
 	const allAdmins = useMemo(() => adminsQuery.data ?? [], [adminsQuery.data]);
-	const accountById = useMemo(
-		() =>
-			new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
-		[accountsQuery.data],
-	);
 	const filteredAdmins = useMemo(
 		() =>
 			filterAdmins(allAdmins, {
@@ -471,7 +464,7 @@ export function AdminPage() {
 					data: filteredAdmins,
 					emptyState: tableEmptyState,
 					getRowActions: row => {
-						const isActive = accountById.get(row.accountId)?.active ?? true;
+						const isActive = row.accountActive;
 
 						return (
 							<>
@@ -480,14 +473,14 @@ export function AdminPage() {
 									label={t("identity.adminPage.table.actions.viewDetails")}
 									onClick={() => setSelectedAdminId(row.accountId)}
 								/>
-								<DropdownMenuInfoItem
+								<DropdownMenuItem
 									icon={PenSquare}
 									label={t("identity.adminPage.table.actions.update")}
 									onClick={() =>
 										setEditorState({ id: row.accountId, mode: "update" })
 									}
 								/>
-								<DropdownMenuInfoItem
+								<DropdownMenuItem
 									icon={CopyPlus}
 									label={t("identity.adminPage.table.actions.duplicate")}
 									onClick={() =>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import clsx from "clsx";
 import { ChevronDown, Search, X } from "lucide-react";
@@ -33,6 +33,7 @@ export function Combobox({
 	const [open, setOpen] = useState(false);
 	const [query, setQuery] = useState("");
 	const [internalValue, setInternalValue] = useState(defaultValue);
+	const scrollRef = useRef<HTMLDivElement | null>(null);
 	const selectedValue = value ?? internalValue;
 
 	const selectedOption = options.find(option => option.value === selectedValue);
@@ -50,6 +51,31 @@ export function Combobox({
 		onValueChange?.(nextValue);
 		setOpen(false);
 		setQuery("");
+	}
+
+	function handleOptionsWheel(event: React.WheelEvent<HTMLDivElement>) {
+		const scrollElement = scrollRef.current;
+
+		if (
+			!scrollElement ||
+			scrollElement.scrollHeight <= scrollElement.clientHeight
+		) {
+			return;
+		}
+
+		const canScrollUp = event.deltaY < 0 && scrollElement.scrollTop > 0;
+		const canScrollDown =
+			event.deltaY > 0 &&
+			scrollElement.scrollTop <
+				scrollElement.scrollHeight - scrollElement.clientHeight;
+
+		if (!canScrollUp && !canScrollDown) {
+			return;
+		}
+
+		event.preventDefault();
+		event.stopPropagation();
+		scrollElement.scrollTop += event.deltaY;
 	}
 
 	return (
@@ -125,7 +151,7 @@ export function Combobox({
 					disabled && "combobox-content-disabled",
 				)}
 			>
-				<div className="space-y-2">
+				<div className="combobox-panel-inner">
 					<label
 						className="sr-only"
 						htmlFor={id ? `${id}-search` : undefined}
@@ -150,7 +176,11 @@ export function Combobox({
 						/>
 					</div>
 
-					<div className="combobox-scroll">
+					<div
+						ref={scrollRef}
+						className="combobox-scroll"
+						onWheel={handleOptionsWheel}
+					>
 						{filteredOptions.length === 0 ? (
 							<div className="combobox-empty">{emptyMessage}</div>
 						) : (

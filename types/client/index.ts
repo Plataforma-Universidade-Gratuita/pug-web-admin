@@ -5,6 +5,7 @@ export * from "./forms";
 export * from "./identity";
 export * from "./locale";
 export * from "./navigation";
+export * from "./partner";
 export * from "./docs";
 export * from "./docs/particles";
 export * from "./query";

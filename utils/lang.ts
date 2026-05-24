@@ -25,6 +25,10 @@ export function normalizeTextForSearch(value: string) {
 		.toLocaleLowerCase();
 }
 
+export function normalizeDigits(value: string) {
+	return value.replace(/\D+/g, "");
+}
+
 export function compareNormalizedText(a: string, b: string) {
 	return normalizeTextForSearch(a).localeCompare(
 		normalizeTextForSearch(b),

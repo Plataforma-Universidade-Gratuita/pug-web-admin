@@ -3,6 +3,7 @@ import { z } from "zod";
 export const StaffResponseSchema = z.object({
 	accountId: z.string(),
 	accountEmail: z.string(),
+	accountActive: z.boolean(),
 	userId: z.string(),
 	userName: z.string(),
 	entityId: z.string(),
