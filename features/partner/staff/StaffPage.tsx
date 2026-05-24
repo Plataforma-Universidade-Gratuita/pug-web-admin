@@ -40,34 +40,50 @@ import {
 	ServicePageTableSection,
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
-import { useQueryErrorToast } from "@/hooks";
+import {
+	useDraftFilters,
+	useQueryErrorToasts,
+	useServicePageDetailState,
+	useServicePageEditorState,
+} from "@/hooks";
 import type { StaffResponse } from "@/types/api";
 import type {
-	StaffActiveFilter,
 	StaffEditorMode,
+	StaffSecondaryFilters,
 } from "@/types/client/partner";
 
 export function StaffPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
-	const [draftEntityIdFilter, setDraftEntityIdFilter] = useState("");
-	const [draftCityIdFilter, setDraftCityIdFilter] = useState("");
-	const [draftActiveFilter, setDraftActiveFilter] =
-		useState<StaffActiveFilter>("");
-	const [entityIdFilter, setEntityIdFilter] = useState("");
-	const [cityIdFilter, setCityIdFilter] = useState("");
-	const [activeFilter, setActiveFilter] = useState<StaffActiveFilter>("");
-	const [selectedStaffId, setSelectedStaffId] = useState<string | null>(null);
-	const [editorState, setEditorState] = useState<{
-		id: string | null;
-		mode: StaffEditorMode;
-	} | null>(null);
+	const initialSecondaryFilters = useMemo<StaffSecondaryFilters>(
+		() => ({
+			entityIdFilter: "",
+			cityIdFilter: "",
+			activeFilter: "",
+		}),
+		[],
+	);
+	const {
+		appliedFilters,
+		applyDraftFilters,
+		clearFilters: clearDraftFilters,
+		draftFilters,
+		hasAppliedFilters,
+		setDraftFilter,
+	} = useDraftFilters<StaffSecondaryFilters>({
+		initialFilters: initialSecondaryFilters,
+	});
+	const detailState = useServicePageDetailState();
+	const editorState = useServicePageEditorState<StaffEditorMode>({
+		createMode: "create",
+		defaultMode: "update",
+	});
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const staffQuery = useStaffQuery();
 	const staffCitiesQuery = useStaffCitiesQuery();
 	const staffEntitiesQuery = useStaffEntitiesQuery();
-	const staffDetailQuery = useStaffDetailQuery(selectedStaffId);
+	const staffDetailQuery = useStaffDetailQuery(detailState.selectedId);
 	const linkedAccountQuery = useLinkedStaffAccountQuery(
 		staffDetailQuery.data?.accountId ?? null,
 	);
@@ -82,10 +98,10 @@ export function StaffPage() {
 		setPendingDeleteStaff,
 		setPendingStatusStaff,
 	} = useStaffPageActions({
-		currentEditorId: editorState?.id ?? null,
-		currentSelectedId: selectedStaffId,
-		onClearEditor: () => setEditorState(null),
-		onClearSelection: () => setSelectedStaffId(null),
+		currentEditorId: editorState.editorId,
+		currentSelectedId: detailState.selectedId,
+		onClearEditor: editorState.closeEditor,
+		onClearSelection: detailState.closeDetail,
 	});
 
 	const cityById = useMemo(
@@ -111,42 +127,25 @@ export function StaffPage() {
 		() =>
 			filterStaff(staffQuery.data ?? [], {
 				query: deferredQuerySearch,
-				entityIdFilter,
-				cityIdFilter,
-				activeFilter,
+				entityIdFilter: appliedFilters.entityIdFilter,
+				cityIdFilter: appliedFilters.cityIdFilter,
+				activeFilter: appliedFilters.activeFilter,
 			}),
-		[
-			activeFilter,
-			cityIdFilter,
-			deferredQuerySearch,
-			entityIdFilter,
-			staffQuery.data,
-		],
+		[appliedFilters, deferredQuerySearch, staffQuery.data],
 	);
 	const columns = useMemo(() => createStaffColumns(t), [t]);
-	const hasSecondaryFilters = Boolean(
-		entityIdFilter || cityIdFilter || activeFilter,
-	);
-	const hasAnyFilters = Boolean(querySearch.trim() || hasSecondaryFilters);
+	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
 		() =>
 			getStaffFilterSummary(t, {
 				query: deferredQuerySearch,
-				entityIdFilter,
-				cityIdFilter,
-				activeFilter,
+				entityIdFilter: appliedFilters.entityIdFilter,
+				cityIdFilter: appliedFilters.cityIdFilter,
+				activeFilter: appliedFilters.activeFilter,
 				entityById,
 				cityById,
 			}),
-		[
-			activeFilter,
-			cityById,
-			cityIdFilter,
-			deferredQuerySearch,
-			entityById,
-			entityIdFilter,
-			t,
-		],
+		[appliedFilters, cityById, deferredQuerySearch, entityById, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getStaffEmptyStateCopy(t, filterSummary),
@@ -173,65 +172,55 @@ export function StaffPage() {
 		);
 	}, [emptyStateCopy.description, emptyStateCopy.title, staffQuery, t]);
 
-	useQueryErrorToast({
-		error: staffQuery.error,
-		errorUpdatedAt: staffQuery.errorUpdatedAt,
-		getContent: error => getStaffListErrorToastContent(t, error),
-		isError: staffQuery.isError,
-	});
-	useQueryErrorToast({
-		error: staffDetailQuery.error,
-		errorUpdatedAt: staffDetailQuery.errorUpdatedAt,
-		getContent: error => getStaffDetailErrorToastContent(t, error),
-		isError: staffDetailQuery.isError,
-	});
-	useQueryErrorToast({
-		error: linkedAccountQuery.error,
-		errorUpdatedAt: linkedAccountQuery.errorUpdatedAt,
-		getContent: error => getLinkedStaffAccountErrorToastContent(t, error),
-		isError: linkedAccountQuery.isError,
-	});
-	useQueryErrorToast({
-		error: linkedUserQuery.error,
-		errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
-		getContent: error => getLinkedStaffUserErrorToastContent(t, error),
-		isError: linkedUserQuery.isError,
-	});
-	useQueryErrorToast({
-		error: staffCitiesQuery.error,
-		errorUpdatedAt: staffCitiesQuery.errorUpdatedAt,
-		getContent: error => getStaffCitiesErrorToastContent(t, error),
-		isError: staffCitiesQuery.isError,
-	});
-	useQueryErrorToast({
-		error: staffEntitiesQuery.error,
-		errorUpdatedAt: staffEntitiesQuery.errorUpdatedAt,
-		getContent: error => getStaffEntitiesErrorToastContent(t, error),
-		isError: staffEntitiesQuery.isError,
-	});
-
-	function applySecondaryFilters() {
-		setEntityIdFilter(draftEntityIdFilter);
-		setCityIdFilter(draftCityIdFilter);
-		setActiveFilter(draftActiveFilter);
-		setFiltersOpen(false);
-	}
+	useQueryErrorToasts([
+		{
+			key: "staff-list",
+			error: staffQuery.error,
+			errorUpdatedAt: staffQuery.errorUpdatedAt,
+			getContent: error => getStaffListErrorToastContent(t, error),
+			isError: staffQuery.isError,
+		},
+		{
+			key: "staff-detail",
+			error: staffDetailQuery.error,
+			errorUpdatedAt: staffDetailQuery.errorUpdatedAt,
+			getContent: error => getStaffDetailErrorToastContent(t, error),
+			isError: staffDetailQuery.isError,
+		},
+		{
+			key: "staff-linked-account",
+			error: linkedAccountQuery.error,
+			errorUpdatedAt: linkedAccountQuery.errorUpdatedAt,
+			getContent: error => getLinkedStaffAccountErrorToastContent(t, error),
+			isError: linkedAccountQuery.isError,
+		},
+		{
+			key: "staff-linked-user",
+			error: linkedUserQuery.error,
+			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
+			getContent: error => getLinkedStaffUserErrorToastContent(t, error),
+			isError: linkedUserQuery.isError,
+		},
+		{
+			key: "staff-cities",
+			error: staffCitiesQuery.error,
+			errorUpdatedAt: staffCitiesQuery.errorUpdatedAt,
+			getContent: error => getStaffCitiesErrorToastContent(t, error),
+			isError: staffCitiesQuery.isError,
+		},
+		{
+			key: "staff-entities",
+			error: staffEntitiesQuery.error,
+			errorUpdatedAt: staffEntitiesQuery.errorUpdatedAt,
+			getContent: error => getStaffEntitiesErrorToastContent(t, error),
+			isError: staffEntitiesQuery.isError,
+		},
+	]);
 
 	function clearAllFilters() {
 		setQuerySearch("");
-		setDraftEntityIdFilter("");
-		setDraftCityIdFilter("");
-		setDraftActiveFilter("");
-		setEntityIdFilter("");
-		setCityIdFilter("");
-		setActiveFilter("");
+		clearDraftFilters();
 		setFiltersOpen(false);
-	}
-
-	function openEditor(id: string, mode: StaffEditorMode) {
-		window.setTimeout(() => {
-			setEditorState({ id, mode });
-		}, 0);
 	}
 
 	return (
@@ -250,7 +239,7 @@ export function StaffPage() {
 						createLabel={t("partner.staffPage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}
-						onCreate={() => setEditorState({ id: null, mode: "create" })}
+						onCreate={editorState.openCreate}
 					/>
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
@@ -263,21 +252,24 @@ export function StaffPage() {
 				/>
 
 				<StaffFiltersDrawer
-					activeFilter={draftActiveFilter}
+					activeFilter={draftFilters.activeFilter}
 					citiesError={staffCitiesQuery.isError}
-					cityIdFilter={draftCityIdFilter}
+					cityIdFilter={draftFilters.cityIdFilter}
 					cityOptions={cityOptions}
 					entitiesError={staffEntitiesQuery.isError}
-					entityIdFilter={draftEntityIdFilter}
+					entityIdFilter={draftFilters.entityIdFilter}
 					entityOptions={entityOptions}
-					hasActiveFilters={hasSecondaryFilters}
+					hasActiveFilters={hasAppliedFilters}
 					isCitiesLoading={staffCitiesQuery.isLoading}
 					isEntitiesLoading={staffEntitiesQuery.isLoading}
-					onActiveFilterChange={setDraftActiveFilter}
-					onApply={applySecondaryFilters}
-					onCityIdChange={setDraftCityIdFilter}
+					onActiveFilterChange={value => setDraftFilter("activeFilter", value)}
+					onApply={() => {
+						applyDraftFilters();
+						setFiltersOpen(false);
+					}}
+					onCityIdChange={value => setDraftFilter("cityIdFilter", value)}
 					onClear={clearAllFilters}
-					onEntityIdChange={setDraftEntityIdFilter}
+					onEntityIdChange={value => setDraftFilter("entityIdFilter", value)}
 					onOpenChange={setFiltersOpen}
 					onRefreshCities={() => {
 						void staffCitiesQuery.refetch();
@@ -298,11 +290,11 @@ export function StaffPage() {
 					getRowActions: row => (
 						<StaffRowActions
 							onDelete={setPendingDeleteStaff}
-							onOpenEditor={openEditor}
+							onOpenEditor={editorState.openEditor}
 							onSetActive={(staff, active) =>
 								setPendingStatusStaff({ active, staff })
 							}
-							onView={setSelectedStaffId}
+							onView={detailState.openDetail}
 							staff={row}
 						/>
 					),
@@ -312,14 +304,10 @@ export function StaffPage() {
 			/>
 
 			<StaffEditorDrawer
-				staffId={editorState?.id ?? null}
-				mode={editorState?.mode ?? "update"}
-				open={editorState !== null}
-				onOpenChange={open => {
-					if (!open) {
-						setEditorState(null);
-					}
-				}}
+				staffId={editorState.editorId}
+				mode={editorState.editorMode}
+				open={editorState.isOpen}
+				onOpenChange={editorState.handleOpenChange}
 			/>
 
 			<StaffDetailDialog
@@ -340,15 +328,11 @@ export function StaffPage() {
 				onLinkedUserRefresh={() => {
 					void linkedUserQuery.refetch();
 				}}
-				onOpenChange={open => {
-					if (!open) {
-						setSelectedStaffId(null);
-					}
-				}}
+				onOpenChange={detailState.handleOpenChange}
 				onRefresh={() => {
 					void staffDetailQuery.refetch();
 				}}
-				open={selectedStaffId !== null}
+				open={detailState.isOpen}
 				staff={staffDetailQuery.data}
 			/>
 

@@ -24,16 +24,16 @@ import {
 	ServicePageShell,
 	ServicePageTableSection,
 } from "@/features/shared/service-pages";
-import { useQueryErrorToast } from "@/hooks";
+import { useQueryErrorToasts, useServicePageDetailState } from "@/hooks";
 import type { CityResponse } from "@/types/api";
 
 export function CityPage() {
 	const { t } = useTranslation();
 	const [search, setSearch] = useState("");
-	const [selectedCityId, setSelectedCityId] = useState<string | null>(null);
+	const detailState = useServicePageDetailState();
 	const deferredSearch = useDeferredValue(search.trim());
 	const citiesQuery = useCitiesQuery();
-	const cityDetailQuery = useCityDetailQuery(selectedCityId);
+	const cityDetailQuery = useCityDetailQuery(detailState.selectedId);
 
 	const allCities = useMemo(() => citiesQuery.data ?? [], [citiesQuery.data]);
 	const filteredCities = useMemo(
@@ -66,18 +66,22 @@ export function CityPage() {
 		);
 	}, [citiesQuery, emptyStateCopy, t]);
 
-	useQueryErrorToast({
-		error: citiesQuery.error,
-		errorUpdatedAt: citiesQuery.errorUpdatedAt,
-		getContent: error => getCitiesListErrorToastContent(t, error),
-		isError: citiesQuery.isError,
-	});
-	useQueryErrorToast({
-		error: cityDetailQuery.error,
-		errorUpdatedAt: cityDetailQuery.errorUpdatedAt,
-		getContent: error => getCityDetailErrorToastContent(t, error),
-		isError: cityDetailQuery.isError,
-	});
+	useQueryErrorToasts([
+		{
+			key: "cities-list",
+			error: citiesQuery.error,
+			errorUpdatedAt: citiesQuery.errorUpdatedAt,
+			getContent: error => getCitiesListErrorToastContent(t, error),
+			isError: citiesQuery.isError,
+		},
+		{
+			key: "city-detail",
+			error: cityDetailQuery.error,
+			errorUpdatedAt: cityDetailQuery.errorUpdatedAt,
+			getContent: error => getCityDetailErrorToastContent(t, error),
+			isError: cityDetailQuery.isError,
+		},
+	]);
 
 	return (
 		<ServicePageShell>
@@ -106,7 +110,7 @@ export function CityPage() {
 					getRowActions: row => (
 						<CityRowActions
 							city={row}
-							onView={setSelectedCityId}
+							onView={detailState.openDetail}
 						/>
 					),
 					isLoading: citiesQuery.isLoading,
@@ -119,15 +123,11 @@ export function CityPage() {
 				error={cityDetailQuery.error}
 				isError={cityDetailQuery.isError}
 				isLoading={cityDetailQuery.isLoading}
-				onOpenChange={open => {
-					if (!open) {
-						setSelectedCityId(null);
-					}
-				}}
+				onOpenChange={detailState.handleOpenChange}
 				onRefresh={() => {
 					void cityDetailQuery.refetch();
 				}}
-				open={selectedCityId !== null}
+				open={detailState.isOpen}
 			/>
 		</ServicePageShell>
 	);

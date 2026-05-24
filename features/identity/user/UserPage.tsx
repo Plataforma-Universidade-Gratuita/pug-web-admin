@@ -24,7 +24,7 @@ import {
 	ServicePageShell,
 	ServicePageTableSection,
 } from "@/features/shared/service-pages";
-import { useQueryErrorToast } from "@/hooks";
+import { useQueryErrorToasts, useServicePageDetailState } from "@/hooks";
 import type { UserResponse } from "@/types/api";
 import type { UserAuditDateField } from "@/types/client/identity";
 
@@ -36,11 +36,11 @@ export function UserPage() {
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
 	const [dateFiltersOpen, setDateFiltersOpen] = useState(false);
-	const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+	const detailState = useServicePageDetailState();
 	const deferredNameSearch = useDeferredValue(nameSearch.trim());
 	const deferredCpfSearch = useDeferredValue(cpfSearch.trim());
 	const usersQuery = useUsersQuery();
-	const userDetailQuery = useUserDetailQuery(selectedUserId);
+	const userDetailQuery = useUserDetailQuery(detailState.selectedId);
 
 	const allUsers = useMemo(() => usersQuery.data ?? [], [usersQuery.data]);
 	const filteredUsers = useMemo(
@@ -95,18 +95,22 @@ export function UserPage() {
 		);
 	}, [emptyStateCopy, t, usersQuery]);
 
-	useQueryErrorToast({
-		error: usersQuery.error,
-		errorUpdatedAt: usersQuery.errorUpdatedAt,
-		getContent: error => getUsersListErrorToastContent(t, error),
-		isError: usersQuery.isError,
-	});
-	useQueryErrorToast({
-		error: userDetailQuery.error,
-		errorUpdatedAt: userDetailQuery.errorUpdatedAt,
-		getContent: error => getUserDetailErrorToastContent(t, error),
-		isError: userDetailQuery.isError,
-	});
+	useQueryErrorToasts([
+		{
+			key: "users-list",
+			error: usersQuery.error,
+			errorUpdatedAt: usersQuery.errorUpdatedAt,
+			getContent: error => getUsersListErrorToastContent(t, error),
+			isError: usersQuery.isError,
+		},
+		{
+			key: "user-detail",
+			error: userDetailQuery.error,
+			errorUpdatedAt: userDetailQuery.errorUpdatedAt,
+			getContent: error => getUserDetailErrorToastContent(t, error),
+			isError: userDetailQuery.isError,
+		},
+	]);
 
 	function clearFilters() {
 		setNameSearch("");
@@ -163,7 +167,7 @@ export function UserPage() {
 					getRowActions: row => (
 						<UserRowActions
 							user={row}
-							onView={setSelectedUserId}
+							onView={detailState.openDetail}
 						/>
 					),
 					isLoading: usersQuery.isLoading,
@@ -175,15 +179,11 @@ export function UserPage() {
 				error={userDetailQuery.error}
 				isError={userDetailQuery.isError}
 				isLoading={userDetailQuery.isLoading}
-				onOpenChange={open => {
-					if (!open) {
-						setSelectedUserId(null);
-					}
-				}}
+				onOpenChange={detailState.handleOpenChange}
 				onRefresh={() => {
 					void userDetailQuery.refetch();
 				}}
-				open={selectedUserId !== null}
+				open={detailState.isOpen}
 				user={userDetailQuery.data}
 			/>
 		</ServicePageShell>

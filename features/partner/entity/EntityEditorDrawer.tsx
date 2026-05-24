@@ -47,7 +47,7 @@ import {
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
-	useQueryErrorToast,
+	useQueryErrorToasts,
 } from "@/hooks";
 import type {
 	EntityEditorDrawerProps,
@@ -143,18 +143,22 @@ export function EntityEditorDrawer({
 				: "partner.entityPage.update.actions.savePending",
 	);
 
-	useQueryErrorToast({
-		error: entityDetailQuery.error,
-		errorUpdatedAt: entityDetailQuery.errorUpdatedAt,
-		getContent: error => getEntityDetailErrorToastContent(t, error),
-		isError: entityDetailQuery.isError,
-	});
-	useQueryErrorToast({
-		error: citiesQuery.error,
-		errorUpdatedAt: citiesQuery.errorUpdatedAt,
-		getContent: error => getEntityCitiesErrorToastContent(t, error),
-		isError: citiesQuery.isError,
-	});
+	useQueryErrorToasts([
+		{
+			key: "entity-editor-detail",
+			error: entityDetailQuery.error,
+			errorUpdatedAt: entityDetailQuery.errorUpdatedAt,
+			getContent: error => getEntityDetailErrorToastContent(t, error),
+			isError: entityDetailQuery.isError,
+		},
+		{
+			key: "entity-editor-cities",
+			error: citiesQuery.error,
+			errorUpdatedAt: citiesQuery.errorUpdatedAt,
+			getContent: error => getEntityCitiesErrorToastContent(t, error),
+			isError: citiesQuery.isError,
+		},
+	]);
 	useHydratedFormOnOpen({
 		emptyValues,
 		form,

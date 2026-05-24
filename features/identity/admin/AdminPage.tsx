@@ -38,7 +38,12 @@ import {
 	ServicePageShell,
 	ServicePageTableSection,
 } from "@/features/shared/service-pages";
-import { useDeferredUndoAction, useQueryErrorToast } from "@/hooks";
+import {
+	useDeferredUndoAction,
+	useQueryErrorToasts,
+	useServicePageDetailState,
+	useServicePageEditorState,
+} from "@/hooks";
 import type { AdminResponse } from "@/types/api";
 import type {
 	AdminCampusFilter,
@@ -49,11 +54,11 @@ export function AdminPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [campusFilter, setCampusFilter] = useState<AdminCampusFilter>("");
-	const [selectedAdminId, setSelectedAdminId] = useState<string | null>(null);
-	const [editorState, setEditorState] = useState<{
-		id: string | null;
-		mode: AdminEditorMode;
-	} | null>(null);
+	const detailState = useServicePageDetailState();
+	const editorState = useServicePageEditorState<AdminEditorMode>({
+		createMode: "create",
+		defaultMode: "update",
+	});
 	const [pendingStatusAdmin, setPendingStatusAdmin] = useState<{
 		active: boolean;
 		admin: AdminResponse;
@@ -62,7 +67,7 @@ export function AdminPage() {
 		useState<AdminResponse | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const adminsQuery = useAdminsQuery();
-	const adminDetailQuery = useAdminDetailQuery(selectedAdminId);
+	const adminDetailQuery = useAdminDetailQuery(detailState.selectedId);
 	const linkedAccountQuery = useLinkedAdminAccountQuery(
 		adminDetailQuery.data?.accountId ?? null,
 	);
@@ -116,30 +121,36 @@ export function AdminPage() {
 		);
 	}, [adminsQuery, emptyStateCopy.description, emptyStateCopy.title, t]);
 
-	useQueryErrorToast({
-		error: adminsQuery.error,
-		errorUpdatedAt: adminsQuery.errorUpdatedAt,
-		getContent: error => getAdminsListErrorToastContent(t, error),
-		isError: adminsQuery.isError,
-	});
-	useQueryErrorToast({
-		error: adminDetailQuery.error,
-		errorUpdatedAt: adminDetailQuery.errorUpdatedAt,
-		getContent: error => getAdminDetailErrorToastContent(t, error),
-		isError: adminDetailQuery.isError,
-	});
-	useQueryErrorToast({
-		error: linkedAccountQuery.error,
-		errorUpdatedAt: linkedAccountQuery.errorUpdatedAt,
-		getContent: error => getLinkedAdminAccountErrorToastContent(t, error),
-		isError: linkedAccountQuery.isError,
-	});
-	useQueryErrorToast({
-		error: linkedUserQuery.error,
-		errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
-		getContent: error => getLinkedAdminUserErrorToastContent(t, error),
-		isError: linkedUserQuery.isError,
-	});
+	useQueryErrorToasts([
+		{
+			key: "admins-list",
+			error: adminsQuery.error,
+			errorUpdatedAt: adminsQuery.errorUpdatedAt,
+			getContent: error => getAdminsListErrorToastContent(t, error),
+			isError: adminsQuery.isError,
+		},
+		{
+			key: "admin-detail",
+			error: adminDetailQuery.error,
+			errorUpdatedAt: adminDetailQuery.errorUpdatedAt,
+			getContent: error => getAdminDetailErrorToastContent(t, error),
+			isError: adminDetailQuery.isError,
+		},
+		{
+			key: "admin-linked-account",
+			error: linkedAccountQuery.error,
+			errorUpdatedAt: linkedAccountQuery.errorUpdatedAt,
+			getContent: error => getLinkedAdminAccountErrorToastContent(t, error),
+			isError: linkedAccountQuery.isError,
+		},
+		{
+			key: "admin-linked-user",
+			error: linkedUserQuery.error,
+			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
+			getContent: error => getLinkedAdminUserErrorToastContent(t, error),
+			isError: linkedUserQuery.isError,
+		},
+	]);
 
 	function clearFilters() {
 		setQuerySearch("");
@@ -227,13 +238,8 @@ export function AdminPage() {
 								},
 							);
 
-							if (selectedAdminId === admin.accountId) {
-								setSelectedAdminId(null);
-							}
-
-							if (editorState?.id === admin.accountId) {
-								setEditorState(null);
-							}
+							detailState.clearIfMatches(admin.accountId);
+							editorState.clearIfMatches(admin.accountId);
 						},
 						onError: error => {
 							const { title, description } = getAdminDeleteErrorToastContent(
@@ -246,12 +252,6 @@ export function AdminPage() {
 				);
 			},
 		});
-	}
-
-	function openEditor(id: string, mode: AdminEditorMode) {
-		window.setTimeout(() => {
-			setEditorState({ id, mode });
-		}, 0);
 	}
 
 	return (
@@ -270,7 +270,7 @@ export function AdminPage() {
 						createLabel={t("identity.adminPage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearFilters}
-						onCreate={() => setEditorState({ id: null, mode: "create" })}
+						onCreate={editorState.openCreate}
 					/>
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_minmax(16rem,0.9fr)]"
@@ -296,8 +296,8 @@ export function AdminPage() {
 							onSetActive={(admin, active) =>
 								setPendingStatusAdmin({ active, admin })
 							}
-							onView={setSelectedAdminId}
-							onOpenEditor={openEditor}
+							onView={detailState.openDetail}
+							onOpenEditor={editorState.openEditor}
 						/>
 					),
 					isLoading: adminsQuery.isLoading,
@@ -306,14 +306,10 @@ export function AdminPage() {
 			/>
 
 			<AdminUpdateDrawer
-				adminId={editorState?.id ?? null}
-				mode={editorState?.mode ?? "update"}
-				open={editorState !== null}
-				onOpenChange={open => {
-					if (!open) {
-						setEditorState(null);
-					}
-				}}
+				adminId={editorState.editorId}
+				mode={editorState.editorMode}
+				open={editorState.isOpen}
+				onOpenChange={editorState.handleOpenChange}
 			/>
 
 			<AdminDetailDialog
@@ -335,15 +331,11 @@ export function AdminPage() {
 				onLinkedUserRefresh={() => {
 					void linkedUserQuery.refetch();
 				}}
-				onOpenChange={open => {
-					if (!open) {
-						setSelectedAdminId(null);
-					}
-				}}
+				onOpenChange={detailState.handleOpenChange}
 				onRefresh={() => {
 					void adminDetailQuery.refetch();
 				}}
-				open={selectedAdminId !== null}
+				open={detailState.isOpen}
 			/>
 
 			<AdminActionDialogs

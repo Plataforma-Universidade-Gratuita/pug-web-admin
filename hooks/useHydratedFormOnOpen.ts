@@ -2,7 +2,9 @@
 
 import { useEffect, useRef } from "react";
 
-import type { FieldValues, UseFormReturn } from "react-hook-form";
+import type { FieldValues } from "react-hook-form";
+
+import type { HydratedFormOnOpenProps } from "@/types/client";
 
 export function useHydratedFormOnOpen<TValues extends FieldValues>({
 	emptyValues,
@@ -10,13 +12,7 @@ export function useHydratedFormOnOpen<TValues extends FieldValues>({
 	hydrationKey,
 	loadedValues,
 	open,
-}: {
-	emptyValues: TValues;
-	form: UseFormReturn<TValues>;
-	hydrationKey: string | null;
-	loadedValues: TValues | null;
-	open: boolean;
-}) {
+}: HydratedFormOnOpenProps<TValues>) {
 	const lastHydratedKeyRef = useRef<string | null>(null);
 
 	useEffect(() => {

@@ -8,6 +8,13 @@ import type {
 export type AccountAuditDateField = "" | "createdAt" | "updatedAt";
 export type AccountActiveFilter = "" | "true" | "false";
 export type AccountTypeFilter = "" | "ADMIN" | "PARTNER" | "STUDENT";
+export type AccountSecondaryFilters = {
+	activeFilter: AccountActiveFilter;
+	accountTypeFilter: AccountTypeFilter;
+	dateField: AccountAuditDateField;
+	startDate: string;
+	endDate: string;
+};
 
 export type AccountFiltersDrawerProps = {
 	activeFilter: AccountActiveFilter;
@@ -175,6 +182,11 @@ export interface RemoveAdminMutationVariables {
 }
 
 export type UserAuditDateField = "" | "createdAt" | "updatedAt";
+export type UserDateFilters = {
+	dateField: UserAuditDateField;
+	startDate: string;
+	endDate: string;
+};
 
 export type UserFiltersProps = {
 	cpfSearch: string;

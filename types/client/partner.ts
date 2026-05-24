@@ -9,6 +9,12 @@ import type { ComboboxOption } from "@/types/client/components/forms";
 
 export type EntityAuditDateField = "" | "createdAt" | "updatedAt";
 export type EntityEditorMode = "create" | "duplicate" | "update";
+export type EntitySecondaryFilters = {
+	cityIdFilter: string;
+	dateField: EntityAuditDateField;
+	startDate: string;
+	endDate: string;
+};
 
 export type EntityEditorFormValues = {
 	cnpj: string;
@@ -98,6 +104,11 @@ export interface RemoveEntityMutationVariables {
 
 export type StaffActiveFilter = "" | "true" | "false";
 export type StaffEditorMode = "create" | "duplicate" | "update";
+export type StaffSecondaryFilters = {
+	entityIdFilter: string;
+	cityIdFilter: string;
+	activeFilter: StaffActiveFilter;
+};
 
 export type StaffEditorFormValues = {
 	cpf: string;

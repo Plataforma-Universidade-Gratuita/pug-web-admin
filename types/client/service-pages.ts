@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 
 import type { RowData } from "@tanstack/react-table";
 
@@ -156,4 +156,56 @@ export interface AuditInfoFilterProps extends AuditInfoFilterFieldsProps {
 	activeLabel: ReactNode;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
+}
+
+export type ServicePageDraftFilters = Record<string, boolean | string>;
+
+export interface UseDraftFiltersOptions<
+	TFilters extends ServicePageDraftFilters,
+> {
+	initialFilters: TFilters;
+}
+
+export interface UseDraftFiltersResult<
+	TFilters extends ServicePageDraftFilters,
+> {
+	appliedFilters: TFilters;
+	draftFilters: TFilters;
+	hasAppliedFilters: boolean;
+	applyDraftFilters: () => void;
+	clearFilters: () => void;
+	setAppliedFilters: Dispatch<SetStateAction<TFilters>>;
+	setDraftFilter: <TKey extends keyof TFilters>(
+		key: TKey,
+		value: TFilters[TKey],
+	) => void;
+	setDraftFilters: Dispatch<SetStateAction<TFilters>>;
+}
+
+export interface ServicePageDetailState<TId extends string = string> {
+	selectedId: TId | null;
+	isOpen: boolean;
+	openDetail: (id: TId) => void;
+	closeDetail: () => void;
+	handleOpenChange: (open: boolean) => void;
+	clearIfMatches: (id: TId) => void;
+}
+
+export interface UseServicePageEditorStateOptions<TMode extends string> {
+	createMode: TMode;
+	defaultMode: TMode;
+}
+
+export interface ServicePageEditorState<
+	TMode extends string,
+	TId extends string = string,
+> {
+	editorId: TId | null;
+	editorMode: TMode;
+	isOpen: boolean;
+	openCreate: () => void;
+	openEditor: (id: TId, mode: TMode) => void;
+	closeEditor: () => void;
+	handleOpenChange: (open: boolean) => void;
+	clearIfMatches: (id: TId) => void;
 }

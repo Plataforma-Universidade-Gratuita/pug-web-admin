@@ -9,6 +9,31 @@ export interface ApiErrorToastContent {
 	description?: ReactNode;
 }
 
+export interface QueryErrorToastContent {
+	title: ReactNode;
+	description?: ReactNode;
+}
+
+export interface QueryErrorToastProps {
+	error: unknown;
+	errorUpdatedAt: number;
+	getContent: (error: unknown) => QueryErrorToastContent;
+	isError: boolean;
+}
+
+export interface QueryErrorToastDescriptor extends QueryErrorToastProps {
+	key: string;
+}
+
+export interface DeferredUndoActionOptions {
+	description: string;
+	duration?: number;
+	key: string;
+	onCommit: () => void;
+	title: string;
+	undoLabel: string;
+}
+
 export interface ApiErrorToastOptions {
 	fallbackTitle: ReactNode;
 	fallbackDescription?: ReactNode;

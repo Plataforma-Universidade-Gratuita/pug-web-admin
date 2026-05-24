@@ -267,8 +267,12 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - `features/identity/user/queries.ts`
 - Shared helpers that should be preferred before open-coded page logic:
   - `hooks/useQueryErrorToast.ts`
+  - `hooks/useQueryErrorToasts.ts`
   - `hooks/useDeferredUndoAction.ts`
   - `hooks/useHydratedFormOnOpen.ts`
+  - `hooks/useDraftFilters.ts`
+  - `hooks/useServicePageDetailState.ts`
+  - `hooks/useServicePageEditorState.ts`
 - Current query key style:
   - domain-local object with `all` plus narrower key builders such as `me()`
 - When adding mutations:
@@ -818,6 +822,11 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - Keep service-page entry files as orchestration layers.
   - page file owns query selection, filter state, and high-level wiring
   - detail dialogs, filter drawers, row action menus, editor forms, and action hooks should live beside the page in the same feature folder
+- Prefer the shared service-page hooks before open-coding repeated page state:
+  - `useServicePageDetailState` for selected detail ids and dialog open/close wiring
+  - `useServicePageEditorState` for create/update/duplicate drawer state and deferred row-action opening
+  - `useDraftFilters` for draft vs applied secondary filter state
+  - `useQueryErrorToasts` when a page or drawer needs multiple query-error toasts
 - A service page may start read-only and later evolve into a lightweight directory workflow:
   - keep the shared header and table grammar
   - add the primary create action to the header

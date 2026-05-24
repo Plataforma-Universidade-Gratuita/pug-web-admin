@@ -33,38 +33,42 @@ import {
 	ServicePageTableSection,
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
-import { useQueryErrorToast } from "@/hooks";
+import {
+	useDraftFilters,
+	useQueryErrorToasts,
+	useServicePageDetailState,
+} from "@/hooks";
 import type { AccountResponse } from "@/types/api";
-import type {
-	AccountActiveFilter,
-	AccountAuditDateField,
-	AccountTypeFilter,
-} from "@/types/client/identity";
+import type { AccountSecondaryFilters } from "@/types/client/identity";
 
 export function AccountPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
-	const [draftActiveFilter, setDraftActiveFilter] =
-		useState<AccountActiveFilter>("");
-	const [draftAccountTypeFilter, setDraftAccountTypeFilter] =
-		useState<AccountTypeFilter>("");
-	const [draftDateField, setDraftDateField] =
-		useState<AccountAuditDateField>("");
-	const [draftStartDate, setDraftStartDate] = useState("");
-	const [draftEndDate, setDraftEndDate] = useState("");
-	const [activeFilter, setActiveFilter] = useState<AccountActiveFilter>("");
-	const [accountTypeFilter, setAccountTypeFilter] =
-		useState<AccountTypeFilter>("");
-	const [dateField, setDateField] = useState<AccountAuditDateField>("");
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
-	const [selectedAccountId, setSelectedAccountId] = useState<string | null>(
-		null,
+	const initialSecondaryFilters = useMemo<AccountSecondaryFilters>(
+		() => ({
+			activeFilter: "",
+			accountTypeFilter: "",
+			dateField: "",
+			startDate: "",
+			endDate: "",
+		}),
+		[],
 	);
+	const {
+		appliedFilters,
+		applyDraftFilters,
+		clearFilters: clearDraftFilters,
+		draftFilters,
+		hasAppliedFilters,
+		setDraftFilter,
+	} = useDraftFilters<AccountSecondaryFilters>({
+		initialFilters: initialSecondaryFilters,
+	});
+	const detailState = useServicePageDetailState();
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const accountsQuery = useAccountsQuery();
-	const accountDetailQuery = useAccountDetailQuery(selectedAccountId);
+	const accountDetailQuery = useAccountDetailQuery(detailState.selectedId);
 	const linkedUserQuery = useLinkedUserQuery(
 		accountDetailQuery.data?.userId ?? null,
 	);
@@ -72,47 +76,28 @@ export function AccountPage() {
 	const filteredAccounts = useMemo(
 		() =>
 			filterAccounts(accountsQuery.data ?? [], {
-				activeFilter,
-				accountTypeFilter,
-				dateField,
+				activeFilter: appliedFilters.activeFilter,
+				accountTypeFilter: appliedFilters.accountTypeFilter,
+				dateField: appliedFilters.dateField,
 				query: deferredQuerySearch,
-				endDate,
-				startDate,
+				endDate: appliedFilters.endDate,
+				startDate: appliedFilters.startDate,
 			}),
-		[
-			accountTypeFilter,
-			activeFilter,
-			accountsQuery.data,
-			dateField,
-			deferredQuerySearch,
-			endDate,
-			startDate,
-		],
+		[accountsQuery.data, appliedFilters, deferredQuerySearch],
 	);
 	const columns = useMemo(() => createAccountColumns(t), [t]);
-	const hasSecondaryFilters = Boolean(
-		activeFilter || accountTypeFilter || dateField || startDate || endDate,
-	);
-	const hasAnyFilters = Boolean(querySearch.trim() || hasSecondaryFilters);
+	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
 		() =>
 			getAccountFilterSummary(t, {
-				activeFilter,
-				accountTypeFilter,
-				dateField,
+				activeFilter: appliedFilters.activeFilter,
+				accountTypeFilter: appliedFilters.accountTypeFilter,
+				dateField: appliedFilters.dateField,
 				query: deferredQuerySearch,
-				endDate,
-				startDate,
+				endDate: appliedFilters.endDate,
+				startDate: appliedFilters.startDate,
 			}),
-		[
-			accountTypeFilter,
-			activeFilter,
-			dateField,
-			deferredQuerySearch,
-			endDate,
-			startDate,
-			t,
-		],
+		[appliedFilters, deferredQuerySearch, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getAccountEmptyStateCopy(t, filterSummary),
@@ -139,46 +124,33 @@ export function AccountPage() {
 		);
 	}, [accountsQuery, emptyStateCopy.description, emptyStateCopy.title, t]);
 
-	useQueryErrorToast({
-		error: accountsQuery.error,
-		errorUpdatedAt: accountsQuery.errorUpdatedAt,
-		getContent: error => getAccountsListErrorToastContent(t, error),
-		isError: accountsQuery.isError,
-	});
-	useQueryErrorToast({
-		error: accountDetailQuery.error,
-		errorUpdatedAt: accountDetailQuery.errorUpdatedAt,
-		getContent: error => getAccountDetailErrorToastContent(t, error),
-		isError: accountDetailQuery.isError,
-	});
-	useQueryErrorToast({
-		error: linkedUserQuery.error,
-		errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
-		getContent: error => getLinkedUserErrorToastContent(t, error),
-		isError: linkedUserQuery.isError,
-	});
-
-	function applySecondaryFilters() {
-		setActiveFilter(draftActiveFilter);
-		setAccountTypeFilter(draftAccountTypeFilter);
-		setDateField(draftDateField);
-		setStartDate(draftStartDate);
-		setEndDate(draftEndDate);
-		setFiltersOpen(false);
-	}
+	useQueryErrorToasts([
+		{
+			key: "accounts-list",
+			error: accountsQuery.error,
+			errorUpdatedAt: accountsQuery.errorUpdatedAt,
+			getContent: error => getAccountsListErrorToastContent(t, error),
+			isError: accountsQuery.isError,
+		},
+		{
+			key: "account-detail",
+			error: accountDetailQuery.error,
+			errorUpdatedAt: accountDetailQuery.errorUpdatedAt,
+			getContent: error => getAccountDetailErrorToastContent(t, error),
+			isError: accountDetailQuery.isError,
+		},
+		{
+			key: "account-linked-user",
+			error: linkedUserQuery.error,
+			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
+			getContent: error => getLinkedUserErrorToastContent(t, error),
+			isError: linkedUserQuery.isError,
+		},
+	]);
 
 	function clearAllFilters() {
 		setQuerySearch("");
-		setDraftActiveFilter("");
-		setDraftAccountTypeFilter("");
-		setDraftDateField("");
-		setDraftStartDate("");
-		setDraftEndDate("");
-		setActiveFilter("");
-		setAccountTypeFilter("");
-		setDateField("");
-		setStartDate("");
-		setEndDate("");
+		clearDraftFilters();
 		setFiltersOpen(false);
 	}
 
@@ -214,21 +186,26 @@ export function AccountPage() {
 				/>
 
 				<AccountFiltersDrawer
-					activeFilter={draftActiveFilter}
-					accountTypeFilter={draftAccountTypeFilter}
-					dateField={draftDateField}
-					endDate={draftEndDate}
-					hasActiveFilters={hasSecondaryFilters}
-					onActiveFilterChange={setDraftActiveFilter}
-					onAccountTypeChange={setDraftAccountTypeFilter}
-					onApply={applySecondaryFilters}
+					activeFilter={draftFilters.activeFilter}
+					accountTypeFilter={draftFilters.accountTypeFilter}
+					dateField={draftFilters.dateField}
+					endDate={draftFilters.endDate}
+					hasActiveFilters={hasAppliedFilters}
+					onActiveFilterChange={value => setDraftFilter("activeFilter", value)}
+					onAccountTypeChange={value =>
+						setDraftFilter("accountTypeFilter", value)
+					}
+					onApply={() => {
+						applyDraftFilters();
+						setFiltersOpen(false);
+					}}
 					onClear={clearAllFilters}
-					onDateFieldChange={setDraftDateField}
-					onEndDateChange={setDraftEndDate}
+					onDateFieldChange={value => setDraftFilter("dateField", value)}
+					onEndDateChange={value => setDraftFilter("endDate", value)}
 					onOpenChange={setFiltersOpen}
-					onStartDateChange={setDraftStartDate}
+					onStartDateChange={value => setDraftFilter("startDate", value)}
 					open={filtersOpen}
-					startDate={draftStartDate}
+					startDate={draftFilters.startDate}
 				/>
 			</ServicePageHeader>
 
@@ -242,7 +219,7 @@ export function AccountPage() {
 						<DropdownMenuInfoItem
 							icon={Eye}
 							label={t("identity.accountPage.table.actions.viewDetails")}
-							onClick={() => setSelectedAccountId(row.id)}
+							onClick={() => detailState.openDetail(row.id)}
 						/>
 					),
 					isLoading: accountsQuery.isLoading,
@@ -262,15 +239,11 @@ export function AccountPage() {
 				onLinkedUserRefresh={() => {
 					void linkedUserQuery.refetch();
 				}}
-				onOpenChange={open => {
-					if (!open) {
-						setSelectedAccountId(null);
-					}
-				}}
+				onOpenChange={detailState.handleOpenChange}
 				onRefresh={() => {
 					void accountDetailQuery.refetch();
 				}}
-				open={selectedAccountId !== null}
+				open={detailState.isOpen}
 			/>
 		</ServicePageShell>
 	);

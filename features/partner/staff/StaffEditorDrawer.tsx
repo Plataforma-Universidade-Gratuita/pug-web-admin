@@ -47,7 +47,7 @@ import {
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
-	useQueryErrorToast,
+	useQueryErrorToasts,
 } from "@/hooks";
 import type {
 	StaffEditorDrawerProps,
@@ -148,18 +148,22 @@ export function StaffEditorDrawer({
 				: "partner.staffPage.update.actions.savePending",
 	);
 
-	useQueryErrorToast({
-		error: staffDetailQuery.error,
-		errorUpdatedAt: staffDetailQuery.errorUpdatedAt,
-		getContent: error => getStaffDetailErrorToastContent(t, error),
-		isError: staffDetailQuery.isError,
-	});
-	useQueryErrorToast({
-		error: entitiesQuery.error,
-		errorUpdatedAt: entitiesQuery.errorUpdatedAt,
-		getContent: error => getStaffEntitiesErrorToastContent(t, error),
-		isError: entitiesQuery.isError,
-	});
+	useQueryErrorToasts([
+		{
+			key: "staff-editor-detail",
+			error: staffDetailQuery.error,
+			errorUpdatedAt: staffDetailQuery.errorUpdatedAt,
+			getContent: error => getStaffDetailErrorToastContent(t, error),
+			isError: staffDetailQuery.isError,
+		},
+		{
+			key: "staff-editor-entities",
+			error: entitiesQuery.error,
+			errorUpdatedAt: entitiesQuery.errorUpdatedAt,
+			getContent: error => getStaffEntitiesErrorToastContent(t, error),
+			isError: entitiesQuery.isError,
+		},
+	]);
 	useHydratedFormOnOpen({
 		emptyValues,
 		form,

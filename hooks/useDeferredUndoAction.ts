@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 
 import { toast } from "@/components";
+import type { DeferredUndoActionOptions } from "@/types/client";
 
 const DEFAULT_UNDO_DURATION = 4000;
 
@@ -28,14 +29,7 @@ export function useDeferredUndoAction() {
 		onCommit,
 		title,
 		undoLabel,
-	}: {
-		description: string;
-		duration?: number;
-		key: string;
-		onCommit: () => void;
-		title: string;
-		undoLabel: string;
-	}) {
+	}: DeferredUndoActionOptions) {
 		const existingTimer = timersRef.current.get(key);
 
 		if (existingTimer) {

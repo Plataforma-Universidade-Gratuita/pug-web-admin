@@ -1,24 +1,16 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 
 import { toast } from "@/components";
+import type { QueryErrorToastProps } from "@/types/client";
 
 export function useQueryErrorToast({
 	error,
 	errorUpdatedAt,
 	getContent,
 	isError,
-}: {
-	error: unknown;
-	errorUpdatedAt: number;
-	getContent: (error: unknown) => {
-		description?: ReactNode;
-		title: ReactNode;
-	};
-	isError: boolean;
-}) {
+}: QueryErrorToastProps) {
 	const shownAtRef = useRef(0);
 
 	useEffect(() => {

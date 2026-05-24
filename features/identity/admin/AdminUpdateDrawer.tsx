@@ -49,7 +49,7 @@ import {
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
-	useQueryErrorToast,
+	useQueryErrorToasts,
 } from "@/hooks";
 import type {
 	AdminEditorFormValues,
@@ -175,24 +175,29 @@ export function AdminUpdateDrawer({
 				: "identity.adminPage.update.actions.savePending",
 	);
 
-	useQueryErrorToast({
-		error: adminDetailQuery.error,
-		errorUpdatedAt: adminDetailQuery.errorUpdatedAt,
-		getContent: error => getAdminDetailErrorToastContent(t, error),
-		isError: adminDetailQuery.isError,
-	});
-	useQueryErrorToast({
-		error: linkedAccountQuery.error,
-		errorUpdatedAt: linkedAccountQuery.errorUpdatedAt,
-		getContent: error => getLinkedAdminAccountErrorToastContent(t, error),
-		isError: linkedAccountQuery.isError,
-	});
-	useQueryErrorToast({
-		error: linkedUserQuery.error,
-		errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
-		getContent: error => getLinkedAdminUserErrorToastContent(t, error),
-		isError: linkedUserQuery.isError,
-	});
+	useQueryErrorToasts([
+		{
+			key: "admin-editor-detail",
+			error: adminDetailQuery.error,
+			errorUpdatedAt: adminDetailQuery.errorUpdatedAt,
+			getContent: error => getAdminDetailErrorToastContent(t, error),
+			isError: adminDetailQuery.isError,
+		},
+		{
+			key: "admin-editor-linked-account",
+			error: linkedAccountQuery.error,
+			errorUpdatedAt: linkedAccountQuery.errorUpdatedAt,
+			getContent: error => getLinkedAdminAccountErrorToastContent(t, error),
+			isError: linkedAccountQuery.isError,
+		},
+		{
+			key: "admin-editor-linked-user",
+			error: linkedUserQuery.error,
+			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
+			getContent: error => getLinkedAdminUserErrorToastContent(t, error),
+			isError: linkedUserQuery.isError,
+		},
+	]);
 	useHydratedFormOnOpen({
 		emptyValues,
 		form,
