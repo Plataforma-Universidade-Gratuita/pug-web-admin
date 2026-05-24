@@ -4043,5 +4043,932 @@
                 "titleFallback": "Editar membro da equipe"
             }
         }
+    },
+    "project": {
+        "projectPage": {
+            "cancel": {
+                "confirm": {
+                    "description": "Cancelar {{name}} e encerrar o registro do projeto.",
+                    "title": "Cancelar projeto"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel cancelar o projeto agora.",
+                        "title": "Nao foi possivel cancelar o projeto"
+                    },
+                    "success": {
+                        "description": "{{name}} foi cancelado com sucesso.",
+                        "title": "Projeto cancelado"
+                    }
+                }
+            },
+            "complete": {
+                "confirm": {
+                    "description": "Marcar {{name}} como concluido e fechar o projeto.",
+                    "title": "Concluir projeto"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel concluir o projeto agora.",
+                        "title": "Nao foi possivel concluir o projeto"
+                    },
+                    "success": {
+                        "description": "{{name}} foi marcado como concluido.",
+                        "title": "Projeto concluido"
+                    }
+                }
+            },
+            "create": {
+                "actions": {
+                    "save": "Criar projeto",
+                    "savePending": "Criando projeto..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel criar o projeto agora.",
+                        "title": "Nao foi possivel criar o projeto"
+                    },
+                    "success": {
+                        "description": "{{name}} foi criado com sucesso.",
+                        "title": "Projeto criado"
+                    }
+                },
+                "open": "Criar projeto",
+                "overhead": "Novo projeto",
+                "titleFallback": "Novo projeto"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "Excluir {{name}} permanentemente do catalogo de projetos.",
+                    "title": "Excluir projeto"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel excluir o projeto agora.",
+                        "title": "Nao foi possivel excluir o projeto"
+                    },
+                    "success": {
+                        "description": "{{name}} foi excluido com sucesso.",
+                        "title": "Projeto excluido"
+                    }
+                },
+                "undo": {
+                    "action": "Desfazer",
+                    "description": "{{name}} sera excluido se voce nao desfizer esta acao.",
+                    "title": "Projeto agendado para exclusao"
+                }
+            },
+            "description": "Gerencie registros de projetos, carga horaria, responsavel e status atual de entrega.",
+            "dialog": {
+                "error": {
+                    "description": "Nao foi possivel carregar os detalhes do projeto agora.",
+                    "title": "Nao foi possivel carregar os detalhes do projeto"
+                },
+                "fields": {
+                    "closedAt": "Fechado em",
+                    "completedHours": "Horas concluidas",
+                    "createdAt": "Criado em",
+                    "createdBy": "Criado por",
+                    "description": "Descricao",
+                    "entity": "Entidade",
+                    "id": "Id do projeto",
+                    "maxParticipants": "Maximo de participantes",
+                    "name": "Nome",
+                    "offeredHours": "Horas ofertadas",
+                    "schools": "Escolas",
+                    "status": "Status",
+                    "updatedAt": "Atualizado em"
+                },
+                "notFound": {
+                    "description": "O registro de projeto solicitado nao foi encontrado.",
+                    "title": "Projeto nao encontrado"
+                },
+                "overhead": "Detalhes do projeto",
+                "schoolsError": {
+                    "description": "Nao foi possivel carregar as escolas vinculadas agora.",
+                    "title": "Nao foi possivel carregar as escolas"
+                },
+                "titleFallback": "Detalhes do projeto",
+                "values": {
+                    "noDescription": "Nenhuma descricao registrada.",
+                    "noSchools": "Nenhuma escola vinculada.",
+                    "open": "Aberto",
+                    "unlimited": "Ilimitado"
+                }
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Criar copia",
+                    "savePending": "Criando copia..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel criar a copia do projeto agora.",
+                        "title": "Nao foi possivel duplicar o projeto"
+                    },
+                    "success": {
+                        "description": "{{name}} foi duplicado com sucesso.",
+                        "title": "Projeto duplicado"
+                    }
+                },
+                "overhead": "Duplicar projeto",
+                "titleFallback": "Duplicar projeto"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Resetar formulario"
+                },
+                "entityLoadError": {
+                    "description": "Nao foi possivel carregar o catalogo de entidades agora.",
+                    "title": "Nao foi possivel carregar as entidades"
+                },
+                "fields": {
+                    "description": "Descricao",
+                    "descriptionPlaceholder": "Descreva o escopo do projeto e a entrega esperada.",
+                    "entity": "Entidade",
+                    "entityEmptyMessage": "Nenhuma entidade encontrada.",
+                    "entityPlaceholder": "Selecione uma entidade",
+                    "entitySearchPlaceholder": "Buscar entidades...",
+                    "maxParticipants": "Maximo de participantes",
+                    "maxParticipantsPlaceholder": "Deixe em branco para capacidade ilimitada",
+                    "name": "Nome",
+                    "namePlaceholder": "Informe o nome do projeto",
+                    "offeredHours": "Horas ofertadas",
+                    "offeredHoursPlaceholder": "Informe a carga horaria ofertada"
+                },
+                "loading": "Carregando editor de projeto",
+                "resetConfirm": {
+                    "description": "Descartar as alteracoes atuais e recarregar os ultimos valores salvos.",
+                    "title": "Resetar formulario do projeto"
+                },
+                "validation": {
+                    "entity": {
+                        "required": "Selecione uma entidade."
+                    },
+                    "maxParticipants": {
+                        "invalid": "Informe um numero positivo valido ou deixe o campo em branco."
+                    },
+                    "name": {
+                        "required": "Informe o nome do projeto."
+                    },
+                    "offeredHours": {
+                        "invalid": "Informe um numero positivo valido.",
+                        "required": "Informe a carga horaria ofertada."
+                    }
+                }
+            },
+            "empty": {
+                "defaultDescription": "Nenhum registro de projeto esta disponivel ainda.",
+                "filteredDescription": "Nenhum projeto corresponde aos filtros atuais: {{value}}.",
+                "title": "Nenhum projeto encontrado"
+            },
+            "feedback": {
+                "adminsError": {
+                    "description": "Nao foi possivel carregar o catalogo de administradores agora.",
+                    "title": "Nao foi possivel carregar os administradores"
+                },
+                "detailError": {
+                    "description": "Nao foi possivel carregar o projeto selecionado agora.",
+                    "title": "Nao foi possivel carregar o projeto"
+                },
+                "entitiesError": {
+                    "description": "Nao foi possivel carregar o catalogo de entidades agora.",
+                    "title": "Nao foi possivel carregar as entidades"
+                },
+                "listError": {
+                    "description": "Nao foi possivel carregar o catalogo de projetos agora.",
+                    "title": "Nao foi possivel carregar os projetos"
+                },
+                "schoolsError": {
+                    "description": "Nao foi possivel carregar as escolas vinculadas agora.",
+                    "title": "Nao foi possivel carregar as escolas do projeto"
+                }
+            },
+            "filters": {
+                "clear": "Limpar filtros",
+                "createdBy": {
+                    "emptyMessage": "Nenhum administrador encontrado.",
+                    "error": {
+                        "description": "Nao foi possivel carregar o catalogo de administradores agora.",
+                        "title": "Nao foi possivel carregar os administradores"
+                    },
+                    "label": "Criado por",
+                    "placeholder": "Selecione um administrador",
+                    "searchPlaceholder": "Buscar administradores..."
+                },
+                "dateField": {
+                    "label": "Campo de auditoria",
+                    "options": {
+                        "createdAt": "Data de criacao",
+                        "updatedAt": "Data de atualizacao"
+                    },
+                    "placeholder": "Escolha um campo de data"
+                },
+                "drawer": {
+                    "active": "Filtros ativos",
+                    "apply": "Aplicar filtros",
+                    "clearConfirm": {
+                        "description": "Remover todos os filtros aplicados na lista de projetos.",
+                        "title": "Limpar filtros de projetos"
+                    },
+                    "label": "Filtros de projeto",
+                    "overhead": "Refinar resultados de projetos",
+                    "title": "Mais filtros",
+                    "trigger": "Mais filtros"
+                },
+                "endDate": {
+                    "label": "Data final",
+                    "placeholder": "Selecione uma data final"
+                },
+                "entity": {
+                    "emptyMessage": "Nenhuma entidade encontrada.",
+                    "error": {
+                        "description": "Nao foi possivel carregar o catalogo de entidades agora.",
+                        "title": "Nao foi possivel carregar as entidades"
+                    },
+                    "label": "Entidade",
+                    "placeholder": "Selecione uma entidade",
+                    "searchPlaceholder": "Buscar entidades..."
+                },
+                "search": {
+                    "label": "Busca",
+                    "placeholder": "Busque por nome, descricao, entidade, responsavel ou status"
+                },
+                "startDate": {
+                    "label": "Data inicial",
+                    "placeholder": "Selecione uma data inicial"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Selecione um status"
+                }
+            },
+            "hold": {
+                "confirm": {
+                    "description": "Colocar {{name}} em espera ate que o trabalho possa continuar.",
+                    "title": "Colocar projeto em espera"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel colocar o projeto em espera agora.",
+                        "title": "Nao foi possivel pausar o projeto"
+                    },
+                    "success": {
+                        "description": "{{name}} esta agora em espera.",
+                        "title": "Projeto em espera"
+                    }
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes do projeto",
+                "list": "Carregando projetos",
+                "schools": "Carregando escolas vinculadas"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Projetos conectam entidades parceiras, escolas, matriculas e frequencias.",
+                    "title": "Escopo operacional"
+                },
+                "trigger": "Sobre esta pagina"
+            },
+            "retake": {
+                "confirm": {
+                    "description": "Reabrir {{name}} e voltar o projeto para o planejamento.",
+                    "title": "Retomar projeto"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel reabrir o projeto agora.",
+                        "title": "Nao foi possivel retomar o projeto"
+                    },
+                    "success": {
+                        "description": "{{name}} voltou para o planejamento.",
+                        "title": "Projeto reaberto"
+                    }
+                }
+            },
+            "start": {
+                "confirm": {
+                    "description": "Iniciar a execucao de {{name}}.",
+                    "title": "Iniciar projeto"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel iniciar o projeto agora.",
+                        "title": "Nao foi possivel iniciar o projeto"
+                    },
+                    "success": {
+                        "description": "{{name}} esta agora em andamento.",
+                        "title": "Projeto iniciado"
+                    }
+                }
+            },
+            "status": {
+                "options": {
+                    "CANCELED": "Cancelado",
+                    "COMPLETED": "Concluido",
+                    "IN_PROGRESS": "Em andamento",
+                    "ON_HOLD": "Em espera",
+                    "PLANNED": "Planejado"
+                }
+            },
+            "table": {
+                "actions": {
+                    "cancel": "Cancelar",
+                    "complete": "Concluir",
+                    "delete": "Excluir",
+                    "duplicate": "Duplicar",
+                    "hold": "Pausar",
+                    "retake": "Retomar",
+                    "start": "Iniciar",
+                    "update": "Atualizar",
+                    "viewDetails": "Ver detalhes"
+                },
+                "columns": {
+                    "completedHours": "Concluidas",
+                    "createdBy": "Criado por",
+                    "entity": "Entidade",
+                    "name": "Nome",
+                    "offeredHours": "Ofertadas",
+                    "status": "Status"
+                },
+                "error": {
+                    "description": "Nao foi possivel carregar o catalogo de projetos agora.",
+                    "title": "Nao foi possivel carregar os projetos"
+                }
+            },
+            "title": "Projetos",
+            "update": {
+                "actions": {
+                    "save": "Salvar alteracoes",
+                    "savePending": "Salvando alteracoes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel atualizar o projeto agora.",
+                        "title": "Nao foi possivel salvar as alteracoes do projeto"
+                    },
+                    "success": {
+                        "description": "{{name}} foi atualizado com sucesso.",
+                        "title": "Projeto atualizado"
+                    }
+                },
+                "loadError": {
+                    "description": "Nao foi possivel carregar o registro do projeto agora.",
+                    "title": "Nao foi possivel carregar o editor do projeto"
+                },
+                "notFound": {
+                    "description": "O registro de projeto solicitado nao foi encontrado.",
+                    "title": "Projeto nao encontrado"
+                },
+                "overhead": "Editar projeto",
+                "titleFallback": "Editar projeto"
+            }
+        },
+        "enrollmentPage": {
+            "accept": {
+                "confirm": {
+                    "description": "Aprovar {{student}} para {{project}}.",
+                    "title": "Aprovar matricula"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel aprovar a matricula agora.",
+                        "title": "Nao foi possivel aprovar a matricula"
+                    },
+                    "success": {
+                        "description": "{{student}} agora esta aprovado em {{project}}.",
+                        "title": "Matricula aprovada"
+                    }
+                }
+            },
+            "cancel": {
+                "confirm": {
+                    "description": "Cancelar a matricula de {{student}} em {{project}}.",
+                    "title": "Cancelar matricula"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel cancelar a matricula agora.",
+                        "title": "Nao foi possivel cancelar a matricula"
+                    },
+                    "success": {
+                        "description": "{{student}} teve a matricula cancelada em {{project}}.",
+                        "title": "Matricula cancelada"
+                    }
+                }
+            },
+            "complete": {
+                "confirm": {
+                    "description": "Marcar {{student}} como concluido em {{project}}.",
+                    "title": "Concluir matricula"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel concluir a matricula agora.",
+                        "title": "Nao foi possivel concluir a matricula"
+                    },
+                    "success": {
+                        "description": "{{student}} concluiu {{project}}.",
+                        "title": "Matricula concluida"
+                    }
+                }
+            },
+            "delete": {
+                "confirm": {
+                    "description": "Excluir o registro de matricula de {{student}} em {{project}}.",
+                    "title": "Excluir matricula"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel excluir o registro de matricula agora.",
+                        "title": "Nao foi possivel excluir a matricula"
+                    },
+                    "success": {
+                        "description": "O registro de matricula de {{student}} em {{project}} foi excluido.",
+                        "title": "Matricula excluida"
+                    }
+                },
+                "undo": {
+                    "action": "Desfazer",
+                    "description": "O registro de matricula de {{student}} em {{project}} sera excluido se voce nao desfizer esta acao.",
+                    "title": "Matricula agendada para exclusao"
+                }
+            },
+            "description": "Acompanhe matriculas de projetos, estudantes vinculados, datas do fluxo e transicoes finais de status.",
+            "dialog": {
+                "error": {
+                    "description": "Nao foi possivel carregar os detalhes da matricula agora.",
+                    "title": "Nao foi possivel carregar os detalhes da matricula"
+                },
+                "fields": {
+                    "acceptedAt": "Aprovado em",
+                    "closingStatusAt": "Encerrado em",
+                    "createdAt": "Criado em",
+                    "email": "Email",
+                    "project": "Projeto",
+                    "projectId": "Id do projeto",
+                    "registration": "Matricula",
+                    "status": "Status",
+                    "student": "Estudante",
+                    "studentId": "Id do estudante",
+                    "updatedAt": "Atualizado em"
+                },
+                "notFound": {
+                    "description": "O registro de matricula solicitado nao foi encontrado.",
+                    "title": "Matricula nao encontrada"
+                },
+                "overhead": "Detalhes da matricula",
+                "titleFallback": "Detalhes da matricula",
+                "values": {
+                    "notAccepted": "Ainda nao aprovado",
+                    "open": "Aberto",
+                    "unknownStudent": "Dados do estudante indisponiveis"
+                }
+            },
+            "empty": {
+                "defaultDescription": "Nenhum registro de matricula esta disponivel ainda.",
+                "filteredDescription": "Nenhuma matricula corresponde aos filtros atuais: {{value}}.",
+                "title": "Nenhuma matricula encontrada"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "Nao foi possivel carregar a matricula selecionada agora.",
+                    "title": "Nao foi possivel carregar a matricula"
+                },
+                "listError": {
+                    "description": "Nao foi possivel carregar o catalogo de matriculas agora.",
+                    "title": "Nao foi possivel carregar as matriculas"
+                },
+                "projectsError": {
+                    "description": "Nao foi possivel carregar o catalogo de projetos agora.",
+                    "title": "Nao foi possivel carregar os projetos"
+                },
+                "studentsError": {
+                    "description": "Nao foi possivel carregar o catalogo de estudantes agora.",
+                    "title": "Nao foi possivel carregar os estudantes"
+                }
+            },
+            "filters": {
+                "clear": "Limpar filtros",
+                "dateField": {
+                    "label": "Campo de auditoria",
+                    "options": {
+                        "createdAt": "Data de criacao",
+                        "updatedAt": "Data de atualizacao"
+                    },
+                    "placeholder": "Escolha um campo de data"
+                },
+                "drawer": {
+                    "active": "Filtros ativos",
+                    "apply": "Aplicar filtros",
+                    "clearConfirm": {
+                        "description": "Remover todos os filtros aplicados na lista de matriculas.",
+                        "title": "Limpar filtros de matriculas"
+                    },
+                    "label": "Filtros de matricula",
+                    "overhead": "Refinar resultados de matriculas",
+                    "title": "Mais filtros",
+                    "trigger": "Mais filtros"
+                },
+                "endDate": {
+                    "label": "Data final",
+                    "placeholder": "Selecione uma data final"
+                },
+                "project": {
+                    "emptyMessage": "Nenhum projeto encontrado.",
+                    "error": {
+                        "description": "Nao foi possivel carregar o catalogo de projetos agora.",
+                        "title": "Nao foi possivel carregar os projetos"
+                    },
+                    "label": "Projeto",
+                    "placeholder": "Selecione um projeto",
+                    "searchPlaceholder": "Buscar projetos..."
+                },
+                "search": {
+                    "label": "Busca",
+                    "placeholder": "Busque por estudante, email, matricula, projeto ou status"
+                },
+                "startDate": {
+                    "label": "Data inicial",
+                    "placeholder": "Selecione uma data inicial"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Selecione um status"
+                },
+                "student": {
+                    "emptyMessage": "Nenhum estudante encontrado.",
+                    "error": {
+                        "description": "Nao foi possivel carregar o catalogo de estudantes agora.",
+                        "title": "Nao foi possivel carregar os estudantes"
+                    },
+                    "label": "Estudante",
+                    "placeholder": "Selecione um estudante",
+                    "searchPlaceholder": "Buscar estudantes..."
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes da matricula",
+                "list": "Carregando matriculas"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Registros de matricula acompanham quem entrou em cada projeto e como essa participacao foi encerrada.",
+                    "title": "Escopo operacional"
+                },
+                "trigger": "Sobre esta pagina"
+            },
+            "reject": {
+                "confirm": {
+                    "description": "Rejeitar {{student}} em {{project}}.",
+                    "title": "Rejeitar matricula"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel rejeitar a matricula agora.",
+                        "title": "Nao foi possivel rejeitar a matricula"
+                    },
+                    "success": {
+                        "description": "{{student}} foi rejeitado em {{project}}.",
+                        "title": "Matricula rejeitada"
+                    }
+                }
+            },
+            "remove": {
+                "confirm": {
+                    "description": "Marcar {{student}} como removido de {{project}}.",
+                    "title": "Remover matricula"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel marcar a matricula como removida agora.",
+                        "title": "Nao foi possivel remover a matricula"
+                    },
+                    "success": {
+                        "description": "{{student}} foi marcado como removido de {{project}}.",
+                        "title": "Matricula removida"
+                    }
+                }
+            },
+            "status": {
+                "options": {
+                    "APPROVED": "Aprovado",
+                    "CANCELED": "Cancelado",
+                    "COMPLETED": "Concluido",
+                    "EXITED": "Desistente",
+                    "PENDING": "Pendente",
+                    "REJECTED": "Rejeitado",
+                    "REMOVED": "Removido"
+                }
+            },
+            "table": {
+                "actions": {
+                    "accept": "Aprovar",
+                    "cancel": "Cancelar",
+                    "complete": "Concluir",
+                    "delete": "Excluir",
+                    "reject": "Rejeitar",
+                    "remove": "Marcar removida",
+                    "viewDetails": "Ver detalhes"
+                },
+                "columns": {
+                    "acceptedAt": "Aprovado",
+                    "closingStatusAt": "Encerrado",
+                    "project": "Projeto",
+                    "status": "Status",
+                    "student": "Estudante"
+                },
+                "error": {
+                    "description": "Nao foi possivel carregar o catalogo de matriculas agora.",
+                    "title": "Nao foi possivel carregar as matriculas"
+                },
+                "values": {
+                    "notAccepted": "Nao aprovado",
+                    "open": "Aberto"
+                }
+            },
+            "title": "Matriculas"
+        },
+        "attendancePage": {
+            "create": {
+                "actions": {
+                    "save": "Criar frequencia",
+                    "savePending": "Criando frequencia..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel criar o registro de frequencia agora.",
+                        "title": "Nao foi possivel criar a frequencia"
+                    },
+                    "success": {
+                        "description": "A frequencia {{id}} foi criada com sucesso.",
+                        "title": "Frequencia criada"
+                    }
+                },
+                "open": "Criar frequencia",
+                "overhead": "Nova frequencia",
+                "titleFallback": "Nova frequencia"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "Excluir a frequencia {{id}} de {{student}} em {{project}}.",
+                    "title": "Excluir frequencia"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel excluir o registro de frequencia agora.",
+                        "title": "Nao foi possivel excluir a frequencia"
+                    },
+                    "success": {
+                        "description": "A frequencia {{id}} de {{student}} em {{project}} foi excluida.",
+                        "title": "Frequencia excluida"
+                    }
+                },
+                "undo": {
+                    "action": "Desfazer",
+                    "description": "A frequencia {{id}} de {{student}} em {{project}} sera excluida se voce nao desfizer esta acao.",
+                    "title": "Frequencia agendada para exclusao"
+                }
+            },
+            "description": "Acompanhe registros de frequencia, estado de validacao, carga horaria e quem validou cada lancamento.",
+            "dialog": {
+                "error": {
+                    "description": "Nao foi possivel carregar os detalhes da frequencia agora.",
+                    "title": "Nao foi possivel carregar os detalhes da frequencia"
+                },
+                "fields": {
+                    "createdAt": "Criado em",
+                    "duration": "Duracao",
+                    "email": "Email",
+                    "id": "Id da frequencia",
+                    "project": "Projeto",
+                    "projectId": "Id do projeto",
+                    "qrValidationHash": "Hash de validacao QR",
+                    "registration": "Matricula",
+                    "status": "Status",
+                    "student": "Estudante",
+                    "studentId": "Id do estudante",
+                    "updatedAt": "Atualizado em",
+                    "validatedAt": "Validado em",
+                    "validatedBy": "Validado por"
+                },
+                "notFound": {
+                    "description": "O registro de frequencia solicitado nao foi encontrado.",
+                    "title": "Frequencia nao encontrada"
+                },
+                "overhead": "Detalhes da frequencia",
+                "titleFallback": "Detalhes da frequencia",
+                "values": {
+                    "notValidated": "Ainda nao validada",
+                    "unknownStudent": "Dados do estudante indisponiveis"
+                }
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Resetar formulario"
+                },
+                "fields": {
+                    "duration": "Duracao",
+                    "durationPlaceholder": "Informe a duracao registrada",
+                    "project": "Projeto",
+                    "projectEmptyMessage": "Nenhum projeto encontrado.",
+                    "projectPlaceholder": "Selecione um projeto",
+                    "projectSearchPlaceholder": "Buscar projetos...",
+                    "student": "Estudante",
+                    "studentEmptyMessage": "Nenhum estudante encontrado.",
+                    "studentPlaceholder": "Selecione um estudante",
+                    "studentSearchPlaceholder": "Buscar estudantes..."
+                },
+                "loading": "Carregando editor de frequencia",
+                "notReady": {
+                    "title": "Formulario de frequencia indisponivel"
+                },
+                "projectLoadError": {
+                    "description": "Nao foi possivel carregar o catalogo de projetos agora.",
+                    "title": "Nao foi possivel carregar os projetos"
+                },
+                "resetConfirm": {
+                    "description": "Descartar as alteracoes atuais e restaurar o formulario vazio de frequencia.",
+                    "title": "Resetar formulario de frequencia"
+                },
+                "studentLoadError": {
+                    "description": "Nao foi possivel carregar o catalogo de estudantes agora.",
+                    "title": "Nao foi possivel carregar os estudantes"
+                },
+                "validation": {
+                    "duration": {
+                        "invalid": "Informe uma duracao positiva valida.",
+                        "required": "Informe a duracao registrada."
+                    },
+                    "project": {
+                        "required": "Selecione um projeto."
+                    },
+                    "student": {
+                        "required": "Selecione um estudante."
+                    }
+                }
+            },
+            "empty": {
+                "defaultDescription": "Nenhum registro de frequencia esta disponivel ainda.",
+                "filteredDescription": "Nenhum registro de frequencia corresponde aos filtros atuais: {{value}}.",
+                "title": "Nenhuma frequencia encontrada"
+            },
+            "feedback": {
+                "adminsError": {
+                    "description": "Nao foi possivel carregar o catalogo de administradores agora.",
+                    "title": "Nao foi possivel carregar os administradores"
+                },
+                "detailError": {
+                    "description": "Nao foi possivel carregar o registro de frequencia selecionado agora.",
+                    "title": "Nao foi possivel carregar a frequencia"
+                },
+                "listError": {
+                    "description": "Nao foi possivel carregar o catalogo de frequencias agora.",
+                    "title": "Nao foi possivel carregar as frequencias"
+                },
+                "projectsError": {
+                    "description": "Nao foi possivel carregar o catalogo de projetos agora.",
+                    "title": "Nao foi possivel carregar os projetos"
+                },
+                "studentsError": {
+                    "description": "Nao foi possivel carregar o catalogo de estudantes agora.",
+                    "title": "Nao foi possivel carregar os estudantes"
+                }
+            },
+            "filters": {
+                "clear": "Limpar filtros",
+                "dateField": {
+                    "label": "Campo de auditoria",
+                    "options": {
+                        "createdAt": "Data de criacao",
+                        "updatedAt": "Data de atualizacao"
+                    },
+                    "placeholder": "Escolha um campo de data"
+                },
+                "drawer": {
+                    "active": "Filtros ativos",
+                    "apply": "Aplicar filtros",
+                    "clearConfirm": {
+                        "description": "Remover todos os filtros aplicados na lista de frequencias.",
+                        "title": "Limpar filtros de frequencia"
+                    },
+                    "label": "Filtros de frequencia",
+                    "overhead": "Refinar resultados de frequencia",
+                    "title": "Mais filtros",
+                    "trigger": "Mais filtros"
+                },
+                "endDate": {
+                    "label": "Data final",
+                    "placeholder": "Selecione uma data final"
+                },
+                "project": {
+                    "emptyMessage": "Nenhum projeto encontrado.",
+                    "error": {
+                        "description": "Nao foi possivel carregar o catalogo de projetos agora.",
+                        "title": "Nao foi possivel carregar os projetos"
+                    },
+                    "label": "Projeto",
+                    "placeholder": "Selecione um projeto",
+                    "searchPlaceholder": "Buscar projetos..."
+                },
+                "search": {
+                    "label": "Busca",
+                    "placeholder": "Busque por estudante, email, matricula, projeto, status, validador ou hash QR"
+                },
+                "startDate": {
+                    "label": "Data inicial",
+                    "placeholder": "Selecione uma data inicial"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Selecione um status"
+                },
+                "student": {
+                    "emptyMessage": "Nenhum estudante encontrado.",
+                    "error": {
+                        "description": "Nao foi possivel carregar o catalogo de estudantes agora.",
+                        "title": "Nao foi possivel carregar os estudantes"
+                    },
+                    "label": "Estudante",
+                    "placeholder": "Selecione um estudante",
+                    "searchPlaceholder": "Buscar estudantes..."
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes da frequencia",
+                "list": "Carregando frequencias"
+            },
+            "markAbsent": {
+                "confirm": {
+                    "description": "Marcar {{student}} como ausente em {{project}}.",
+                    "title": "Marcar frequencia como ausente"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel marcar a frequencia como ausente agora.",
+                        "title": "Nao foi possivel marcar a frequencia como ausente"
+                    },
+                    "success": {
+                        "description": "{{student}} foi marcado como ausente em {{project}}.",
+                        "title": "Frequencia marcada como ausente"
+                    }
+                }
+            },
+            "markPresent": {
+                "confirm": {
+                    "description": "Marcar {{student}} como presente em {{project}}.",
+                    "title": "Marcar frequencia como presente"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "Nao foi possivel marcar a frequencia como presente agora.",
+                        "title": "Nao foi possivel marcar a frequencia como presente"
+                    },
+                    "success": {
+                        "description": "{{student}} foi marcado como presente em {{project}}.",
+                        "title": "Frequencia marcada como presente"
+                    }
+                }
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Registros de frequencia capturam a duracao da participacao e o resultado final de validacao de cada sessao do estudante.",
+                    "title": "Escopo operacional"
+                },
+                "trigger": "Sobre esta pagina"
+            },
+            "status": {
+                "options": {
+                    "ABSENT": "Ausente",
+                    "PRESENT": "Presente",
+                    "WAITING": "Aguardando"
+                }
+            },
+            "table": {
+                "actions": {
+                    "delete": "Excluir",
+                    "markAbsent": "Marcar ausente",
+                    "markPresent": "Marcar presente",
+                    "viewDetails": "Ver detalhes"
+                },
+                "columns": {
+                    "duration": "Duracao",
+                    "project": "Projeto",
+                    "status": "Status",
+                    "student": "Estudante",
+                    "validatedAt": "Validado",
+                    "validatedBy": "Validado por"
+                },
+                "error": {
+                    "description": "Nao foi possivel carregar o catalogo de frequencias agora.",
+                    "title": "Nao foi possivel carregar as frequencias"
+                },
+                "values": {
+                    "notValidated": "Nao validada"
+                }
+            },
+            "title": "Frequencias"
+        }
     }
 }

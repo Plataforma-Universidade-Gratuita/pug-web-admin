@@ -4043,5 +4043,932 @@
                 "titleFallback": "Edit staff member"
             }
         }
+    },
+    "project": {
+        "projectPage": {
+            "cancel": {
+                "confirm": {
+                    "description": "Cancel {{name}} and close the project record.",
+                    "title": "Cancel project"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The project could not be canceled right now.",
+                        "title": "Unable to cancel project"
+                    },
+                    "success": {
+                        "description": "{{name}} was canceled successfully.",
+                        "title": "Project canceled"
+                    }
+                }
+            },
+            "complete": {
+                "confirm": {
+                    "description": "Mark {{name}} as completed and close the project.",
+                    "title": "Complete project"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The project could not be completed right now.",
+                        "title": "Unable to complete project"
+                    },
+                    "success": {
+                        "description": "{{name}} was marked as completed.",
+                        "title": "Project completed"
+                    }
+                }
+            },
+            "create": {
+                "actions": {
+                    "save": "Create project",
+                    "savePending": "Creating project..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The project could not be created right now.",
+                        "title": "Unable to create project"
+                    },
+                    "success": {
+                        "description": "{{name}} was created successfully.",
+                        "title": "Project created"
+                    }
+                },
+                "open": "Create project",
+                "overhead": "New project",
+                "titleFallback": "New project"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "Delete {{name}} permanently from the project directory.",
+                    "title": "Delete project"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The project could not be deleted right now.",
+                        "title": "Unable to delete project"
+                    },
+                    "success": {
+                        "description": "{{name}} was deleted successfully.",
+                        "title": "Project deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Project scheduled for deletion"
+                }
+            },
+            "description": "Manage project records, workload, ownership, and current delivery status.",
+            "dialog": {
+                "error": {
+                    "description": "The project details could not be loaded right now.",
+                    "title": "Unable to load project details"
+                },
+                "fields": {
+                    "closedAt": "Closed at",
+                    "completedHours": "Completed hours",
+                    "createdAt": "Created",
+                    "createdBy": "Created by",
+                    "description": "Description",
+                    "entity": "Entity",
+                    "id": "Project id",
+                    "maxParticipants": "Max participants",
+                    "name": "Name",
+                    "offeredHours": "Offered hours",
+                    "schools": "Schools",
+                    "status": "Status",
+                    "updatedAt": "Updated"
+                },
+                "notFound": {
+                    "description": "The requested project record could not be found.",
+                    "title": "Project not found"
+                },
+                "overhead": "Project details",
+                "schoolsError": {
+                    "description": "The linked schools could not be loaded right now.",
+                    "title": "Unable to load schools"
+                },
+                "titleFallback": "Project details",
+                "values": {
+                    "noDescription": "No description recorded.",
+                    "noSchools": "No schools linked.",
+                    "open": "Open",
+                    "unlimited": "Unlimited"
+                }
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Create copy",
+                    "savePending": "Creating copy..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The project copy could not be created right now.",
+                        "title": "Unable to duplicate project"
+                    },
+                    "success": {
+                        "description": "{{name}} was duplicated successfully.",
+                        "title": "Project duplicated"
+                    }
+                },
+                "overhead": "Duplicate project",
+                "titleFallback": "Duplicate project"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Reset form"
+                },
+                "entityLoadError": {
+                    "description": "The entity directory could not be loaded right now.",
+                    "title": "Unable to load entities"
+                },
+                "fields": {
+                    "description": "Description",
+                    "descriptionPlaceholder": "Outline the project's scope and expected delivery.",
+                    "entity": "Entity",
+                    "entityEmptyMessage": "No entities found.",
+                    "entityPlaceholder": "Select an entity",
+                    "entitySearchPlaceholder": "Search entities...",
+                    "maxParticipants": "Max participants",
+                    "maxParticipantsPlaceholder": "Leave blank for unlimited capacity",
+                    "name": "Name",
+                    "namePlaceholder": "Enter the project name",
+                    "offeredHours": "Offered hours",
+                    "offeredHoursPlaceholder": "Enter the offered workload"
+                },
+                "loading": "Loading project editor",
+                "resetConfirm": {
+                    "description": "Discard the current changes and reload the last saved values.",
+                    "title": "Reset project form"
+                },
+                "validation": {
+                    "entity": {
+                        "required": "Select an entity."
+                    },
+                    "maxParticipants": {
+                        "invalid": "Enter a valid positive number or leave the field blank."
+                    },
+                    "name": {
+                        "required": "Enter the project name."
+                    },
+                    "offeredHours": {
+                        "invalid": "Enter a valid positive number.",
+                        "required": "Enter the offered workload."
+                    }
+                }
+            },
+            "empty": {
+                "defaultDescription": "No project records are available yet.",
+                "filteredDescription": "No projects match the current filters: {{value}}.",
+                "title": "No projects found"
+            },
+            "feedback": {
+                "adminsError": {
+                    "description": "The admin directory could not be loaded right now.",
+                    "title": "Unable to load admins"
+                },
+                "detailError": {
+                    "description": "The selected project could not be loaded right now.",
+                    "title": "Unable to load project"
+                },
+                "entitiesError": {
+                    "description": "The entity directory could not be loaded right now.",
+                    "title": "Unable to load entities"
+                },
+                "listError": {
+                    "description": "The project directory could not be loaded right now.",
+                    "title": "Unable to load projects"
+                },
+                "schoolsError": {
+                    "description": "The linked schools could not be loaded right now.",
+                    "title": "Unable to load project schools"
+                }
+            },
+            "filters": {
+                "clear": "Clear filters",
+                "createdBy": {
+                    "emptyMessage": "No admins found.",
+                    "error": {
+                        "description": "The admin directory could not be loaded right now.",
+                        "title": "Unable to load admins"
+                    },
+                    "label": "Created by",
+                    "placeholder": "Select an admin",
+                    "searchPlaceholder": "Search admins..."
+                },
+                "dateField": {
+                    "label": "Audit field",
+                    "options": {
+                        "createdAt": "Created date",
+                        "updatedAt": "Updated date"
+                    },
+                    "placeholder": "Choose a date field"
+                },
+                "drawer": {
+                    "active": "Filters active",
+                    "apply": "Apply filters",
+                    "clearConfirm": {
+                        "description": "Remove every applied project filter.",
+                        "title": "Clear project filters"
+                    },
+                    "label": "Project filters",
+                    "overhead": "Refine project results",
+                    "title": "More filters",
+                    "trigger": "More filters"
+                },
+                "endDate": {
+                    "label": "End date",
+                    "placeholder": "Select an end date"
+                },
+                "entity": {
+                    "emptyMessage": "No entities found.",
+                    "error": {
+                        "description": "The entity directory could not be loaded right now.",
+                        "title": "Unable to load entities"
+                    },
+                    "label": "Entity",
+                    "placeholder": "Select an entity",
+                    "searchPlaceholder": "Search entities..."
+                },
+                "search": {
+                    "label": "Search",
+                    "placeholder": "Search by name, description, entity, creator, or status"
+                },
+                "startDate": {
+                    "label": "Start date",
+                    "placeholder": "Select a start date"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status"
+                }
+            },
+            "hold": {
+                "confirm": {
+                    "description": "Place {{name}} on hold until work can resume.",
+                    "title": "Put project on hold"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The project could not be placed on hold right now.",
+                        "title": "Unable to hold project"
+                    },
+                    "success": {
+                        "description": "{{name}} is now on hold.",
+                        "title": "Project on hold"
+                    }
+                }
+            },
+            "loading": {
+                "detail": "Loading project details",
+                "list": "Loading projects",
+                "schools": "Loading linked schools"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Projects connect partner entities, schools, enrollments, and attendance records.",
+                    "title": "Operational scope"
+                },
+                "trigger": "About this page"
+            },
+            "retake": {
+                "confirm": {
+                    "description": "Reopen {{name}} and move it back to the planned stage.",
+                    "title": "Retake project"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The project could not be reopened right now.",
+                        "title": "Unable to retake project"
+                    },
+                    "success": {
+                        "description": "{{name}} was moved back to planning.",
+                        "title": "Project reopened"
+                    }
+                }
+            },
+            "start": {
+                "confirm": {
+                    "description": "Start execution for {{name}}.",
+                    "title": "Start project"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The project could not be started right now.",
+                        "title": "Unable to start project"
+                    },
+                    "success": {
+                        "description": "{{name}} is now in progress.",
+                        "title": "Project started"
+                    }
+                }
+            },
+            "status": {
+                "options": {
+                    "CANCELED": "Canceled",
+                    "COMPLETED": "Completed",
+                    "IN_PROGRESS": "In progress",
+                    "ON_HOLD": "On hold",
+                    "PLANNED": "Planned"
+                }
+            },
+            "table": {
+                "actions": {
+                    "cancel": "Cancel",
+                    "complete": "Complete",
+                    "delete": "Delete",
+                    "duplicate": "Duplicate",
+                    "hold": "Hold",
+                    "retake": "Retake",
+                    "start": "Start",
+                    "update": "Update",
+                    "viewDetails": "View details"
+                },
+                "columns": {
+                    "completedHours": "Completed",
+                    "createdBy": "Created by",
+                    "entity": "Entity",
+                    "name": "Name",
+                    "offeredHours": "Offered",
+                    "status": "Status"
+                },
+                "error": {
+                    "description": "The project directory could not be loaded right now.",
+                    "title": "Unable to load projects"
+                }
+            },
+            "title": "Projects",
+            "update": {
+                "actions": {
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The project could not be updated right now.",
+                        "title": "Unable to save project changes"
+                    },
+                    "success": {
+                        "description": "{{name}} was updated successfully.",
+                        "title": "Project updated"
+                    }
+                },
+                "loadError": {
+                    "description": "The project record could not be loaded right now.",
+                    "title": "Unable to load project editor"
+                },
+                "notFound": {
+                    "description": "The requested project record could not be found.",
+                    "title": "Project not found"
+                },
+                "overhead": "Edit project",
+                "titleFallback": "Edit project"
+            }
+        },
+        "enrollmentPage": {
+            "accept": {
+                "confirm": {
+                    "description": "Approve {{student}} for {{project}}.",
+                    "title": "Approve enrollment"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The enrollment could not be approved right now.",
+                        "title": "Unable to approve enrollment"
+                    },
+                    "success": {
+                        "description": "{{student}} is now approved for {{project}}.",
+                        "title": "Enrollment approved"
+                    }
+                }
+            },
+            "cancel": {
+                "confirm": {
+                    "description": "Cancel the enrollment for {{student}} in {{project}}.",
+                    "title": "Cancel enrollment"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The enrollment could not be canceled right now.",
+                        "title": "Unable to cancel enrollment"
+                    },
+                    "success": {
+                        "description": "{{student}} was canceled from {{project}}.",
+                        "title": "Enrollment canceled"
+                    }
+                }
+            },
+            "complete": {
+                "confirm": {
+                    "description": "Mark {{student}} as completed in {{project}}.",
+                    "title": "Complete enrollment"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The enrollment could not be completed right now.",
+                        "title": "Unable to complete enrollment"
+                    },
+                    "success": {
+                        "description": "{{student}} completed {{project}}.",
+                        "title": "Enrollment completed"
+                    }
+                }
+            },
+            "delete": {
+                "confirm": {
+                    "description": "Delete the enrollment record for {{student}} in {{project}}.",
+                    "title": "Delete enrollment"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The enrollment record could not be deleted right now.",
+                        "title": "Unable to delete enrollment"
+                    },
+                    "success": {
+                        "description": "The enrollment record for {{student}} in {{project}} was deleted.",
+                        "title": "Enrollment deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "The enrollment record for {{student}} in {{project}} will be deleted unless you undo this action.",
+                    "title": "Enrollment scheduled for deletion"
+                }
+            },
+            "description": "Review project enrollments, linked students, lifecycle dates, and final status transitions.",
+            "dialog": {
+                "error": {
+                    "description": "The enrollment details could not be loaded right now.",
+                    "title": "Unable to load enrollment details"
+                },
+                "fields": {
+                    "acceptedAt": "Accepted at",
+                    "closingStatusAt": "Closed at",
+                    "createdAt": "Created",
+                    "email": "Email",
+                    "project": "Project",
+                    "projectId": "Project id",
+                    "registration": "Registration",
+                    "status": "Status",
+                    "student": "Student",
+                    "studentId": "Student id",
+                    "updatedAt": "Updated"
+                },
+                "notFound": {
+                    "description": "The requested enrollment record could not be found.",
+                    "title": "Enrollment not found"
+                },
+                "overhead": "Enrollment details",
+                "titleFallback": "Enrollment details",
+                "values": {
+                    "notAccepted": "Not accepted yet",
+                    "open": "Open",
+                    "unknownStudent": "Student data unavailable"
+                }
+            },
+            "empty": {
+                "defaultDescription": "No enrollment records are available yet.",
+                "filteredDescription": "No enrollments match the current filters: {{value}}.",
+                "title": "No enrollments found"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "The selected enrollment could not be loaded right now.",
+                    "title": "Unable to load enrollment"
+                },
+                "listError": {
+                    "description": "The enrollment directory could not be loaded right now.",
+                    "title": "Unable to load enrollments"
+                },
+                "projectsError": {
+                    "description": "The project directory could not be loaded right now.",
+                    "title": "Unable to load projects"
+                },
+                "studentsError": {
+                    "description": "The student directory could not be loaded right now.",
+                    "title": "Unable to load students"
+                }
+            },
+            "filters": {
+                "clear": "Clear filters",
+                "dateField": {
+                    "label": "Audit field",
+                    "options": {
+                        "createdAt": "Created date",
+                        "updatedAt": "Updated date"
+                    },
+                    "placeholder": "Choose a date field"
+                },
+                "drawer": {
+                    "active": "Filters active",
+                    "apply": "Apply filters",
+                    "clearConfirm": {
+                        "description": "Remove every applied enrollment filter.",
+                        "title": "Clear enrollment filters"
+                    },
+                    "label": "Enrollment filters",
+                    "overhead": "Refine enrollment results",
+                    "title": "More filters",
+                    "trigger": "More filters"
+                },
+                "endDate": {
+                    "label": "End date",
+                    "placeholder": "Select an end date"
+                },
+                "project": {
+                    "emptyMessage": "No projects found.",
+                    "error": {
+                        "description": "The project directory could not be loaded right now.",
+                        "title": "Unable to load projects"
+                    },
+                    "label": "Project",
+                    "placeholder": "Select a project",
+                    "searchPlaceholder": "Search projects..."
+                },
+                "search": {
+                    "label": "Search",
+                    "placeholder": "Search by student, email, registration, project, or status"
+                },
+                "startDate": {
+                    "label": "Start date",
+                    "placeholder": "Select a start date"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status"
+                },
+                "student": {
+                    "emptyMessage": "No students found.",
+                    "error": {
+                        "description": "The student directory could not be loaded right now.",
+                        "title": "Unable to load students"
+                    },
+                    "label": "Student",
+                    "placeholder": "Select a student",
+                    "searchPlaceholder": "Search students..."
+                }
+            },
+            "loading": {
+                "detail": "Loading enrollment details",
+                "list": "Loading enrollments"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Enrollment records track who joined each project and how that participation was closed.",
+                    "title": "Operational scope"
+                },
+                "trigger": "About this page"
+            },
+            "reject": {
+                "confirm": {
+                    "description": "Reject {{student}} from {{project}}.",
+                    "title": "Reject enrollment"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The enrollment could not be rejected right now.",
+                        "title": "Unable to reject enrollment"
+                    },
+                    "success": {
+                        "description": "{{student}} was rejected from {{project}}.",
+                        "title": "Enrollment rejected"
+                    }
+                }
+            },
+            "remove": {
+                "confirm": {
+                    "description": "Mark {{student}} as removed from {{project}}.",
+                    "title": "Remove enrollment"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The enrollment could not be marked as removed right now.",
+                        "title": "Unable to remove enrollment"
+                    },
+                    "success": {
+                        "description": "{{student}} was marked as removed from {{project}}.",
+                        "title": "Enrollment removed"
+                    }
+                }
+            },
+            "status": {
+                "options": {
+                    "APPROVED": "Approved",
+                    "CANCELED": "Canceled",
+                    "COMPLETED": "Completed",
+                    "EXITED": "Exited",
+                    "PENDING": "Pending",
+                    "REJECTED": "Rejected",
+                    "REMOVED": "Removed"
+                }
+            },
+            "table": {
+                "actions": {
+                    "accept": "Accept",
+                    "cancel": "Cancel",
+                    "complete": "Complete",
+                    "delete": "Delete",
+                    "reject": "Reject",
+                    "remove": "Mark removed",
+                    "viewDetails": "View details"
+                },
+                "columns": {
+                    "acceptedAt": "Accepted",
+                    "closingStatusAt": "Closed",
+                    "project": "Project",
+                    "status": "Status",
+                    "student": "Student"
+                },
+                "error": {
+                    "description": "The enrollment directory could not be loaded right now.",
+                    "title": "Unable to load enrollments"
+                },
+                "values": {
+                    "notAccepted": "Not accepted",
+                    "open": "Open"
+                }
+            },
+            "title": "Enrollments"
+        },
+        "attendancePage": {
+            "create": {
+                "actions": {
+                    "save": "Create attendance",
+                    "savePending": "Creating attendance..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The attendance record could not be created right now.",
+                        "title": "Unable to create attendance"
+                    },
+                    "success": {
+                        "description": "Attendance {{id}} was created successfully.",
+                        "title": "Attendance created"
+                    }
+                },
+                "open": "Create attendance",
+                "overhead": "New attendance",
+                "titleFallback": "New attendance"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "Delete attendance {{id}} for {{student}} in {{project}}.",
+                    "title": "Delete attendance"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The attendance record could not be deleted right now.",
+                        "title": "Unable to delete attendance"
+                    },
+                    "success": {
+                        "description": "Attendance {{id}} for {{student}} in {{project}} was deleted.",
+                        "title": "Attendance deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "Attendance {{id}} for {{student}} in {{project}} will be deleted unless you undo this action.",
+                    "title": "Attendance scheduled for deletion"
+                }
+            },
+            "description": "Track attendance records, validation state, workload, and who validated each entry.",
+            "dialog": {
+                "error": {
+                    "description": "The attendance details could not be loaded right now.",
+                    "title": "Unable to load attendance details"
+                },
+                "fields": {
+                    "createdAt": "Created",
+                    "duration": "Duration",
+                    "email": "Email",
+                    "id": "Attendance id",
+                    "project": "Project",
+                    "projectId": "Project id",
+                    "qrValidationHash": "QR validation hash",
+                    "registration": "Registration",
+                    "status": "Status",
+                    "student": "Student",
+                    "studentId": "Student id",
+                    "updatedAt": "Updated",
+                    "validatedAt": "Validated at",
+                    "validatedBy": "Validated by"
+                },
+                "notFound": {
+                    "description": "The requested attendance record could not be found.",
+                    "title": "Attendance not found"
+                },
+                "overhead": "Attendance details",
+                "titleFallback": "Attendance details",
+                "values": {
+                    "notValidated": "Not validated yet",
+                    "unknownStudent": "Student data unavailable"
+                }
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Reset form"
+                },
+                "fields": {
+                    "duration": "Duration",
+                    "durationPlaceholder": "Enter the recorded duration",
+                    "project": "Project",
+                    "projectEmptyMessage": "No projects found.",
+                    "projectPlaceholder": "Select a project",
+                    "projectSearchPlaceholder": "Search projects...",
+                    "student": "Student",
+                    "studentEmptyMessage": "No students found.",
+                    "studentPlaceholder": "Select a student",
+                    "studentSearchPlaceholder": "Search students..."
+                },
+                "loading": "Loading attendance editor",
+                "notReady": {
+                    "title": "Attendance form unavailable"
+                },
+                "projectLoadError": {
+                    "description": "The project directory could not be loaded right now.",
+                    "title": "Unable to load projects"
+                },
+                "resetConfirm": {
+                    "description": "Discard the current changes and restore the empty attendance form.",
+                    "title": "Reset attendance form"
+                },
+                "studentLoadError": {
+                    "description": "The student directory could not be loaded right now.",
+                    "title": "Unable to load students"
+                },
+                "validation": {
+                    "duration": {
+                        "invalid": "Enter a valid positive duration.",
+                        "required": "Enter the recorded duration."
+                    },
+                    "project": {
+                        "required": "Select a project."
+                    },
+                    "student": {
+                        "required": "Select a student."
+                    }
+                }
+            },
+            "empty": {
+                "defaultDescription": "No attendance records are available yet.",
+                "filteredDescription": "No attendance records match the current filters: {{value}}.",
+                "title": "No attendance records found"
+            },
+            "feedback": {
+                "adminsError": {
+                    "description": "The admin directory could not be loaded right now.",
+                    "title": "Unable to load admins"
+                },
+                "detailError": {
+                    "description": "The selected attendance record could not be loaded right now.",
+                    "title": "Unable to load attendance"
+                },
+                "listError": {
+                    "description": "The attendance directory could not be loaded right now.",
+                    "title": "Unable to load attendances"
+                },
+                "projectsError": {
+                    "description": "The project directory could not be loaded right now.",
+                    "title": "Unable to load projects"
+                },
+                "studentsError": {
+                    "description": "The student directory could not be loaded right now.",
+                    "title": "Unable to load students"
+                }
+            },
+            "filters": {
+                "clear": "Clear filters",
+                "dateField": {
+                    "label": "Audit field",
+                    "options": {
+                        "createdAt": "Created date",
+                        "updatedAt": "Updated date"
+                    },
+                    "placeholder": "Choose a date field"
+                },
+                "drawer": {
+                    "active": "Filters active",
+                    "apply": "Apply filters",
+                    "clearConfirm": {
+                        "description": "Remove every applied attendance filter.",
+                        "title": "Clear attendance filters"
+                    },
+                    "label": "Attendance filters",
+                    "overhead": "Refine attendance results",
+                    "title": "More filters",
+                    "trigger": "More filters"
+                },
+                "endDate": {
+                    "label": "End date",
+                    "placeholder": "Select an end date"
+                },
+                "project": {
+                    "emptyMessage": "No projects found.",
+                    "error": {
+                        "description": "The project directory could not be loaded right now.",
+                        "title": "Unable to load projects"
+                    },
+                    "label": "Project",
+                    "placeholder": "Select a project",
+                    "searchPlaceholder": "Search projects..."
+                },
+                "search": {
+                    "label": "Search",
+                    "placeholder": "Search by student, email, registration, project, status, validator, or QR hash"
+                },
+                "startDate": {
+                    "label": "Start date",
+                    "placeholder": "Select a start date"
+                },
+                "status": {
+                    "label": "Status",
+                    "placeholder": "Select a status"
+                },
+                "student": {
+                    "emptyMessage": "No students found.",
+                    "error": {
+                        "description": "The student directory could not be loaded right now.",
+                        "title": "Unable to load students"
+                    },
+                    "label": "Student",
+                    "placeholder": "Select a student",
+                    "searchPlaceholder": "Search students..."
+                }
+            },
+            "loading": {
+                "detail": "Loading attendance details",
+                "list": "Loading attendances"
+            },
+            "markAbsent": {
+                "confirm": {
+                    "description": "Mark {{student}} as absent in {{project}}.",
+                    "title": "Mark attendance as absent"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The attendance record could not be marked as absent right now.",
+                        "title": "Unable to mark attendance as absent"
+                    },
+                    "success": {
+                        "description": "{{student}} was marked absent in {{project}}.",
+                        "title": "Attendance marked absent"
+                    }
+                }
+            },
+            "markPresent": {
+                "confirm": {
+                    "description": "Mark {{student}} as present in {{project}}.",
+                    "title": "Mark attendance as present"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The attendance record could not be marked as present right now.",
+                        "title": "Unable to mark attendance as present"
+                    },
+                    "success": {
+                        "description": "{{student}} was marked present in {{project}}.",
+                        "title": "Attendance marked present"
+                    }
+                }
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Attendance records capture participation duration and final validation outcome for each student session.",
+                    "title": "Operational scope"
+                },
+                "trigger": "About this page"
+            },
+            "status": {
+                "options": {
+                    "ABSENT": "Absent",
+                    "PRESENT": "Present",
+                    "WAITING": "Waiting"
+                }
+            },
+            "table": {
+                "actions": {
+                    "delete": "Delete",
+                    "markAbsent": "Mark absent",
+                    "markPresent": "Mark present",
+                    "viewDetails": "View details"
+                },
+                "columns": {
+                    "duration": "Duration",
+                    "project": "Project",
+                    "status": "Status",
+                    "student": "Student",
+                    "validatedAt": "Validated",
+                    "validatedBy": "Validated by"
+                },
+                "error": {
+                    "description": "The attendance directory could not be loaded right now.",
+                    "title": "Unable to load attendances"
+                },
+                "values": {
+                    "notValidated": "Not validated"
+                }
+            },
+            "title": "Attendances"
+        }
     }
 }
