@@ -80,6 +80,21 @@ export async function update(
 	});
 }
 
+export async function setActive(id: string, active: boolean): Promise<void> {
+	return webVoid(`${BASE}/${id}`, {
+		method: "PATCH",
+		body: JSON.stringify({ active }),
+	});
+}
+
+export async function deactivate(id: string): Promise<void> {
+	return setActive(id, false);
+}
+
+export async function reactivate(id: string): Promise<void> {
+	return setActive(id, true);
+}
+
 export async function remove(id: string): Promise<void> {
 	return webVoid(`${BASE}/${id}`, { method: "DELETE" });
 }

@@ -1,4 +1,786 @@
 {
+    "academic": {
+        "coursePage": {
+            "create": {
+                "actions": {
+                    "save": "Criar curso",
+                    "savePending": "Criando curso..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N?o foi poss?vel criar o curso agora.",
+                        "title": "N?o foi poss?vel criar o curso"
+                    },
+                    "success": {
+                        "description": "{{name}} foi criado com sucesso.",
+                        "title": "Curso criado"
+                    }
+                },
+                "open": "Adicionar curso",
+                "overhead": "Novo curso",
+                "titleFallback": "Adicionar curso"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} ser? removido ap?s o per?odo de desfazer.",
+                    "title": "Excluir este curso?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N?o foi poss?vel excluir o curso agora.",
+                        "title": "N?o foi poss?vel excluir o curso"
+                    },
+                    "success": {
+                        "description": "{{name}} foi removido do diret?rio.",
+                        "title": "Curso exclu?do"
+                    }
+                },
+                "undo": {
+                    "action": "Desfazer",
+                    "description": "{{name}} ser? exclu?do se voc? n?o desfizer esta a??o.",
+                    "title": "Exclus?o do curso agendada"
+                }
+            },
+            "description": "Diret?rio de servi?o para cursos acad?micos gerenciados pela plataforma.",
+            "dialog": {
+                "error": {
+                    "description": "N?o foi poss?vel carregar o curso agora.",
+                    "title": "N?o foi poss?vel carregar o curso"
+                },
+                "fields": {
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
+                    "name": "$t(academic.coursePage.table.columns.name)",
+                    "school": "$t(academic.coursePage.table.columns.school)",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                },
+                "notFound": {
+                    "description": "O curso solicitado n?o foi encontrado.",
+                    "title": "Curso n?o encontrado"
+                },
+                "overhead": "Registro do curso",
+                "titleFallback": "Detalhes do curso"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Criar duplicata",
+                    "savePending": "Criando duplicata..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N?o foi poss?vel duplicar o curso agora.",
+                        "title": "N?o foi poss?vel duplicar o curso"
+                    },
+                    "success": {
+                        "description": "{{name}} foi duplicado com sucesso.",
+                        "title": "Curso duplicado"
+                    }
+                },
+                "overhead": "Duplicar curso",
+                "titleFallback": "Duplicar curso"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Resetar altera??es"
+                },
+                "fields": {
+                    "name": "$t(academic.coursePage.table.columns.name)",
+                    "namePlaceholder": "Informe o nome do curso",
+                    "school": "$t(academic.coursePage.table.columns.school)",
+                    "schoolEmptyMessage": "Nenhuma ?rea encontrada.",
+                    "schoolPlaceholder": "Selecione...",
+                    "schoolSearchPlaceholder": "Buscar ?rea"
+                },
+                "loading": "Carregando editor do curso",
+                "resetConfirm": {
+                    "description": "Isto descartar? as altera??es n?o salvas no drawer atual.",
+                    "title": "Resetar altera??es do curso?"
+                },
+                "schoolLoadError": {
+                    "description": "N?o foi poss?vel carregar o diret?rio de ?reas agora.",
+                    "title": "N?o foi poss?vel carregar as ?reas"
+                },
+                "validation": {
+                    "name": "Informe um nome.",
+                    "school": "Selecione uma ?rea."
+                }
+            },
+            "empty": {
+                "defaultDescription": "O diret?rio de cursos est? vazio no momento.",
+                "filteredDescription": "Nenhum curso corresponde a \"{{value}}\".",
+                "title": "Nenhum curso encontrado"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "$t(academic.coursePage.dialog.error.description)",
+                    "title": "N?o foi poss?vel carregar os detalhes do curso"
+                },
+                "listError": {
+                    "description": "N?o foi poss?vel carregar o diret?rio de cursos agora.",
+                    "title": "N?o foi poss?vel carregar os cursos"
+                },
+                "schoolsError": {
+                    "description": "N?o foi poss?vel carregar o diret?rio de ?reas agora.",
+                    "title": "N?o foi poss?vel carregar as ?reas"
+                }
+            },
+            "filters": {
+                "clear": "$t(docs.drawer.examples.filters.clear.action)",
+                "dateField": {
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
+                    "options": {
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
+                },
+                "drawer": {
+                    "active": "Filtros ativos",
+                    "apply": "Aplicar filtros",
+                    "clearConfirm": {
+                        "description": "Isto limpar? os filtros atuais dos cursos.",
+                        "title": "Limpar estes filtros?"
+                    },
+                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
+                    "overhead": "Filtros de cursos",
+                    "title": "Refinar diret?rio",
+                    "trigger": "Mais filtros"
+                },
+                "endDate": {
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                },
+                "school": {
+                    "emptyMessage": "Nenhuma ?rea encontrada.",
+                    "error": {
+                        "description": "N?o foi poss?vel carregar o diret?rio de ?reas agora.",
+                        "title": "N?o foi poss?vel carregar as ?reas"
+                    },
+                    "label": "?rea de atua??o",
+                    "placeholder": "Selecione...",
+                    "searchPlaceholder": "Buscar ?rea"
+                },
+                "search": {
+                    "label": "Nome do curso",
+                    "placeholder": "Filtrar por curso ou ?rea"
+                },
+                "startDate": {
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes do curso",
+                "list": "Carregando cursos"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "table": {
+                "actions": {
+                    "delete": "Excluir curso",
+                    "duplicate": "Duplicar curso",
+                    "update": "Atualizar curso",
+                    "viewDetails": "$t(docs.table.actions.view)"
+                },
+                "columns": {
+                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
+                    "name": "Curso",
+                    "school": "?rea de atua??o",
+                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
+                },
+                "error": {
+                    "description": "$t(academic.coursePage.feedback.listError.description)",
+                    "title": "$t(academic.coursePage.feedback.listError.title)"
+                }
+            },
+            "title": "Cursos",
+            "update": {
+                "actions": {
+                    "save": "Salvar altera??es",
+                    "savePending": "Salvando altera??es..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N?o foi poss?vel atualizar o curso agora.",
+                        "title": "N?o foi poss?vel salvar as altera??es do curso"
+                    },
+                    "success": {
+                        "description": "{{name}} foi atualizado com sucesso.",
+                        "title": "Curso atualizado"
+                    }
+                },
+                "loadError": {
+                    "description": "N?o foi poss?vel carregar o curso agora.",
+                    "title": "N?o foi poss?vel carregar o editor do curso"
+                },
+                "notFound": {
+                    "description": "O curso solicitado n?o foi encontrado.",
+                    "title": "Curso n?o encontrado"
+                },
+                "overhead": "Editar curso",
+                "titleFallback": "Editar curso"
+            }
+        },
+        "schoolPage": {
+            "create": {
+                "actions": {
+                    "save": "Criar ?rea",
+                    "savePending": "Criando ?rea..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N?o foi poss?vel criar a ?rea de atua??o agora.",
+                        "title": "N?o foi poss?vel criar a ?rea"
+                    },
+                    "success": {
+                        "description": "{{name}} foi criada com sucesso.",
+                        "title": "?rea criada"
+                    }
+                },
+                "open": "Adicionar ?rea",
+                "overhead": "Nova ?rea",
+                "titleFallback": "Adicionar ?rea"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} ser? removida ap?s o per?odo de desfazer.",
+                    "title": "Excluir esta ?rea?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N?o foi poss?vel excluir a ?rea de atua??o agora.",
+                        "title": "N?o foi poss?vel excluir a ?rea"
+                    },
+                    "success": {
+                        "description": "{{name}} foi removida do diret?rio.",
+                        "title": "?rea exclu?da"
+                    }
+                },
+                "undo": {
+                    "action": "Desfazer",
+                    "description": "{{name}} ser? exclu?da se voc? n?o desfizer esta a??o.",
+                    "title": "Exclus?o da ?rea agendada"
+                }
+            },
+            "description": "Diret?rio de servi?o para ?reas de atua??o acad?micas gerenciadas pela plataforma.",
+            "dialog": {
+                "error": {
+                    "description": "N?o foi poss?vel carregar a ?rea de atua??o agora.",
+                    "title": "N?o foi poss?vel carregar a ?rea"
+                },
+                "fields": {
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
+                    "name": "$t(academic.schoolPage.table.columns.name)",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                },
+                "notFound": {
+                    "description": "A ?rea de atua??o solicitada n?o foi encontrada.",
+                    "title": "?rea n?o encontrada"
+                },
+                "overhead": "?rea acad?mica",
+                "titleFallback": "Detalhes da ?rea"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Criar duplicata",
+                    "savePending": "Criando duplicata..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N?o foi poss?vel duplicar a ?rea agora.",
+                        "title": "N?o foi poss?vel duplicar a ?rea"
+                    },
+                    "success": {
+                        "description": "{{name}} foi duplicada com sucesso.",
+                        "title": "?rea duplicada"
+                    }
+                },
+                "overhead": "Duplicar ?rea",
+                "titleFallback": "Duplicar ?rea"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Resetar altera??es"
+                },
+                "fields": {
+                    "name": "$t(academic.schoolPage.table.columns.name)",
+                    "namePlaceholder": "Informe o nome da ?rea"
+                },
+                "loading": "Carregando editor da ?rea",
+                "resetConfirm": {
+                    "description": "Isto descartar? as altera??es n?o salvas no drawer atual.",
+                    "title": "Resetar altera??es da ?rea?"
+                },
+                "validation": {
+                    "name": "Informe um nome."
+                }
+            },
+            "empty": {
+                "defaultDescription": "O diret?rio de ?reas de atua??o est? vazio no momento.",
+                "filteredDescription": "Nenhuma ?rea corresponde a \"{{value}}\".",
+                "title": "Nenhuma ?rea encontrada"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "$t(academic.schoolPage.dialog.error.description)",
+                    "title": "N?o foi poss?vel carregar os detalhes da ?rea"
+                },
+                "listError": {
+                    "description": "N?o foi poss?vel carregar o diret?rio de ?reas de atua??o agora.",
+                    "title": "N?o foi poss?vel carregar as ?reas"
+                }
+            },
+            "filters": {
+                "clear": "$t(docs.drawer.examples.filters.clear.action)",
+                "dateField": {
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
+                    "options": {
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
+                },
+                "drawer": {
+                    "active": "Filtros ativos",
+                    "apply": "Aplicar filtros",
+                    "clearConfirm": {
+                        "description": "Isto limpar? os filtros atuais das ?reas.",
+                        "title": "Limpar estes filtros?"
+                    },
+                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
+                    "overhead": "Filtros de ?reas",
+                    "title": "Refinar diret?rio",
+                    "trigger": "Mais filtros"
+                },
+                "endDate": {
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                },
+                "search": {
+                    "label": "Nome da ?rea",
+                    "placeholder": "Filtrar por nome da ?rea"
+                },
+                "startDate": {
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes da ?rea",
+                "list": "Carregando ?reas"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "table": {
+                "actions": {
+                    "delete": "Excluir ?rea",
+                    "duplicate": "Duplicar ?rea",
+                    "update": "Atualizar ?rea",
+                    "viewDetails": "$t(docs.table.actions.view)"
+                },
+                "columns": {
+                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
+                    "name": "?rea",
+                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
+                },
+                "error": {
+                    "description": "$t(academic.schoolPage.feedback.listError.description)",
+                    "title": "$t(academic.schoolPage.feedback.listError.title)"
+                }
+            },
+            "title": "?reas de atua??o",
+            "update": {
+                "actions": {
+                    "save": "Salvar altera??es",
+                    "savePending": "Salvando altera??es..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N?o foi poss?vel atualizar a ?rea de atua??o agora.",
+                        "title": "N?o foi poss?vel salvar as altera??es da ?rea"
+                    },
+                    "success": {
+                        "description": "{{name}} foi atualizada com sucesso.",
+                        "title": "?rea atualizada"
+                    }
+                },
+                "loadError": {
+                    "description": "N?o foi poss?vel carregar a ?rea de atua??o agora.",
+                    "title": "N?o foi poss?vel carregar o editor da ?rea"
+                },
+                "notFound": {
+                    "description": "A ?rea de atua??o solicitada n?o foi encontrada.",
+                    "title": "?rea n?o encontrada"
+                },
+                "overhead": "Editar ?rea",
+                "titleFallback": "Editar ?rea"
+            }
+        },
+        "studentPage": {
+            "create": {
+                "actions": {
+                    "save": "Criar estudante",
+                    "savePending": "Criando estudante..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "O estudante n?o p?de ser criado agora.",
+                        "title": "N?o foi poss?vel criar o estudante"
+                    },
+                    "success": {
+                        "description": "{{name}} foi criado com sucesso.",
+                        "title": "Estudante criado"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Crie uma senha tempor?ria"
+                },
+                "open": "Adicionar estudante",
+                "overhead": "Criar estudante",
+                "titleFallback": "Novo estudante"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} ser? removido ap?s o t?rmino da janela de desfazer.",
+                    "title": "Excluir este estudante?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "O estudante n?o p?de ser exclu?do agora.",
+                        "title": "N?o foi poss?vel excluir o estudante"
+                    },
+                    "success": {
+                        "description": "{{name}} foi removido do diret?rio.",
+                        "title": "Estudante exclu?do"
+                    }
+                },
+                "undo": {
+                    "action": "Desfazer",
+                    "description": "{{name}} ser? exclu?do se voc? n?o desfizer esta a??o.",
+                    "title": "Exclus?o do estudante agendada"
+                }
+            },
+            "deactivate": {
+                "confirm": {
+                    "description": "{{name}} perder\u00e1 o acesso at\u00e9 que a conta seja reativada.",
+                    "title": "Desativar este estudante?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N\u00e3o foi poss\u00edvel desativar o estudante agora.",
+                        "title": "N\u00e3o foi poss\u00edvel desativar o estudante"
+                    },
+                    "success": {
+                        "description": "{{name}} foi desativado com sucesso.",
+                        "title": "Estudante desativado"
+                    }
+                }
+            },
+            "description": "Diret?rio de servi?o para estudantes vinculados aos cursos e campi acad?micos gerenciados pela plataforma.",
+            "dialog": {
+                "active": {
+                    "no": "$t(identity.accountPage.dialog.active.no)",
+                    "yes": "$t(identity.accountPage.dialog.active.yes)"
+                },
+                "error": {
+                    "description": "O registro do estudante n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar o estudante"
+                },
+                "fields": {
+                    "academicRegistration": "Matr?cula",
+                    "accountId": "ID da conta",
+                    "active": "Status",
+                    "campus": "Campus",
+                    "completedHours": "Horas conclu?das",
+                    "course": "Curso",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "dueDate": "Data limite",
+                    "email": "E-mail",
+                    "missingHours": "Horas pendentes",
+                    "name": "Nome",
+                    "remainingDays": "Dias restantes",
+                    "requiredHours": "Horas obrigat?rias",
+                    "startDate": "Data de in?cio",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)",
+                    "userId": "ID do usu?rio"
+                },
+                "notFound": {
+                    "description": "O registro de estudante solicitado n?o foi encontrado.",
+                    "title": "Estudante n?o encontrado"
+                },
+                "overhead": "Registro do estudante",
+                "titleFallback": "Detalhes do estudante"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Criar c?pia",
+                    "savePending": "Criando c?pia..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "A c?pia do estudante n?o p?de ser criada agora.",
+                        "title": "N?o foi poss?vel duplicar o estudante"
+                    },
+                    "success": {
+                        "description": "{{name}} foi duplicado com sucesso.",
+                        "title": "Estudante duplicado"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Defina uma senha para a c?pia"
+                },
+                "overhead": "Duplicar estudante",
+                "titleFallback": "Duplicar estudante"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Redefinir altera??es"
+                },
+                "courseLoadError": {
+                    "description": "$t(academic.studentPage.feedback.coursesError.description)",
+                    "title": "$t(academic.studentPage.feedback.coursesError.title)"
+                },
+                "fields": {
+                    "academicRegistration": "Matr?cula",
+                    "academicRegistrationPlaceholder": "Informe a matr?cula",
+                    "campus": "Campus",
+                    "campusPlaceholder": "Selecione um campus",
+                    "course": "Curso",
+                    "courseEmptyMessage": "Nenhum curso encontrado.",
+                    "coursePlaceholder": "Selecione um curso",
+                    "courseSearchPlaceholder": "Buscar cursos",
+                    "cpf": "CPF",
+                    "cpfPlaceholder": "Informe o CPF",
+                    "dueDate": "Data limite",
+                    "dueDatePlaceholder": "Data final",
+                    "email": "E-mail",
+                    "emailPlaceholder": "Informe o e-mail",
+                    "name": "Nome",
+                    "namePlaceholder": "Informe o nome",
+                    "password": "Senha",
+                    "requiredHours": "Horas obrigat?rias",
+                    "requiredHoursPlaceholder": "Informe as horas obrigat?rias",
+                    "startDate": "Data de in?cio",
+                    "startDatePlaceholder": "Data inicial"
+                },
+                "loading": "Carregando editor do estudante",
+                "resetConfirm": {
+                    "description": "Isso vai descartar as altera??es n?o salvas do estudante nesta drawer.",
+                    "title": "Redefinir altera??es do estudante?"
+                },
+                "validation": {
+                    "academicRegistration": {
+                        "required": "Informe uma matr?cula."
+                    },
+                    "campus": {
+                        "required": "Selecione um campus."
+                    },
+                    "course": {
+                        "required": "Selecione um curso."
+                    },
+                    "cpf": {
+                        "required": "Informe um CPF."
+                    },
+                    "dueDate": {
+                        "required": "Selecione uma data limite."
+                    },
+                    "email": {
+                        "invalid": "Informe um endere?o de e-mail v?lido.",
+                        "required": "Informe um e-mail."
+                    },
+                    "name": {
+                        "required": "Informe um nome."
+                    },
+                    "password": {
+                        "required": "Informe uma senha."
+                    },
+                    "requiredHours": {
+                        "invalid": "Informe uma quantidade v?lida de horas obrigat?rias.",
+                        "required": "Informe as horas obrigat?rias."
+                    },
+                    "startDate": {
+                        "required": "Selecione uma data de in?cio."
+                    }
+                }
+            },
+            "empty": {
+                "defaultDescription": "O diret?rio de estudantes est? vazio no momento.",
+                "filteredDescription": "Nenhum estudante corresponde a \"{{value}}\".",
+                "title": "Nenhum estudante encontrado"
+            },
+            "feedback": {
+                "coursesError": {
+                    "description": "O diret?rio de cursos n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar os cursos"
+                },
+                "detailError": {
+                    "description": "$t(academic.studentPage.dialog.error.description)",
+                    "title": "N?o foi poss?vel carregar os detalhes do estudante"
+                },
+                "listError": {
+                    "description": "O diret?rio de estudantes n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar os estudantes"
+                }
+            },
+            "reactivate": {
+                "confirm": {
+                    "description": "{{name}} voltar\u00e1 a ter acesso imediatamente.",
+                    "title": "Reativar este estudante?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "N\u00e3o foi poss\u00edvel reativar o estudante agora.",
+                        "title": "N\u00e3o foi poss\u00edvel reativar o estudante"
+                    },
+                    "success": {
+                        "description": "{{name}} foi reativado com sucesso.",
+                        "title": "Estudante reativado"
+                    }
+                }
+            },
+            "filters": {
+                "active": {
+                    "label": "Status",
+                    "options": {
+                        "active": "$t(identity.accountPage.filters.active.options.active)",
+                        "all": "$t(identity.accountPage.filters.active.options.all)",
+                        "inactive": "$t(identity.accountPage.filters.active.options.inactive)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.active.placeholder)"
+                },
+                "campus": {
+                    "label": "Campus",
+                    "options": {
+                        "all": "Todos os campi",
+                        "JARAGUA_DO_SUL": "$t(identity.adminPage.filters.campus.options.JARAGUA_DO_SUL)",
+                        "JOINVILLE": "$t(identity.adminPage.filters.campus.options.JOINVILLE)"
+                    },
+                    "placeholder": "Selecione um campus"
+                },
+                "clear": "$t(identity.accountPage.filters.clear)",
+                "course": {
+                    "emptyMessage": "Nenhum curso encontrado.",
+                    "error": {
+                        "description": "$t(academic.studentPage.feedback.coursesError.description)",
+                        "title": "$t(academic.studentPage.feedback.coursesError.title)"
+                    },
+                    "label": "Curso",
+                    "placeholder": "Selecione um curso",
+                    "searchPlaceholder": "Buscar cursos"
+                },
+                "dateField": {
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
+                    "options": {
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.dateField.placeholder)"
+                },
+                "drawer": {
+                    "active": "Filtros ativos",
+                    "apply": "Aplicar filtros",
+                    "clearConfirm": {
+                        "description": "Isso vai limpar os filtros atuais de estudantes.",
+                        "title": "Limpar filtros de estudantes?"
+                    },
+                    "label": "Mais filtros",
+                    "overhead": "Filtros de estudantes",
+                    "title": "Filtrar estudantes",
+                    "trigger": "Mais filtros"
+                },
+                "endDate": {
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                },
+                "search": {
+                    "label": "Nome, e-mail ou matr?cula",
+                    "placeholder": "Filtrar por nome, e-mail, matr?cula ou curso"
+                },
+                "startDate": {
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes do estudante",
+                "list": "Carregando estudantes"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "table": {
+                "actions": {
+                    "deactivate": "Desativar estudante",
+                    "delete": "Excluir estudante",
+                    "duplicate": "Duplicar estudante",
+                    "reactivate": "Reativar estudante",
+                    "update": "Atualizar estudante",
+                    "viewDetails": "$t(docs.table.actions.view)"
+                },
+                "active": {
+                    "no": "$t(identity.accountPage.table.active.no)",
+                    "yes": "$t(identity.accountPage.table.active.yes)"
+                },
+                "columns": {
+                    "academicRegistration": "Matr?cula",
+                    "active": "$t(identity.accountPage.table.columns.active)",
+                    "campus": "$t(identity.adminPage.table.columns.campus)",
+                    "course": "Curso",
+                    "email": "$t(identity.accountPage.table.columns.email)",
+                    "name": "Estudante"
+                },
+                "error": {
+                    "description": "$t(academic.studentPage.feedback.listError.description)",
+                    "title": "$t(academic.studentPage.feedback.listError.title)"
+                }
+            },
+            "title": "Estudantes",
+            "update": {
+                "actions": {
+                    "save": "Salvar altera??es",
+                    "savePending": "Salvando altera??es..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "O estudante n?o p?de ser atualizado agora.",
+                        "title": "N?o foi poss?vel salvar as altera??es do estudante"
+                    },
+                    "success": {
+                        "description": "{{name}} foi atualizado com sucesso.",
+                        "title": "Estudante atualizado"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Deixe em branco para manter a senha atual"
+                },
+                "loadError": {
+                    "description": "O registro do estudante n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar o editor do estudante"
+                },
+                "notFound": {
+                    "description": "O registro de estudante solicitado n?o foi encontrado.",
+                    "title": "Estudante n?o encontrado"
+                },
+                "overhead": "Editar estudante",
+                "titleFallback": "Editar estudante"
+            }
+        }
+    },
     "AlertDialog": {
         "overhead": {
             "danger": "AÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o destrutiva",
@@ -2630,7 +3412,7 @@
             "academic": {
                 "course": "Cursos",
                 "root": "AcadÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âªmico",
-                "school": "Escolas",
+                "school": "?reas de atua??o",
                 "student": "Estudantes"
             },
             "docs": {

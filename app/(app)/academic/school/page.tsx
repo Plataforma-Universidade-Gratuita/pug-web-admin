@@ -1,5 +1,5 @@
-import { PageShell } from "@/components";
+import { SchoolPage } from "@/features/academic/school/SchoolPage";
 
 export default function Page() {
-	return <PageShell className="space-y-8 p-6 lg:p-8"></PageShell>;
+	return <SchoolPage />;
 }

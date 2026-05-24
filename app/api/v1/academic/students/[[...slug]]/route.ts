@@ -14,6 +14,10 @@ import {
 	routeWithAuthRetry,
 } from "@/utils/route";
 
+const StudentPatchRequestSchema = z.object({
+	active: z.boolean(),
+});
+
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
@@ -87,6 +91,15 @@ export async function PUT(request: Request, { params }: AppRouteSlugContext) {
 	return routeWithAuthRetry(
 		token => students.update(slug[0]!, body, token),
 		StudentResponseSchema,
+	);
+}
+
+export async function PATCH(request: Request, { params }: AppRouteSlugContext) {
+	const { slug = [] } = await params;
+	if (slug.length !== 1) return routeError(new Error("Not found"));
+	const body = await parseRouteBody(request, StudentPatchRequestSchema);
+	return routeVoidWithAuthRetry(token =>
+		students.setActive(slug[0]!, body.active, token),
 	);
 }
 

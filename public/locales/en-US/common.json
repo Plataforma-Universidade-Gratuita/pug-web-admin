@@ -1,4 +1,786 @@
 {
+    "academic": {
+        "coursePage": {
+            "create": {
+                "actions": {
+                    "save": "Create course",
+                    "savePending": "Creating course..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The course could not be created right now.",
+                        "title": "Unable to create course"
+                    },
+                    "success": {
+                        "description": "{{name}} was created successfully.",
+                        "title": "Course created"
+                    }
+                },
+                "open": "Add course",
+                "overhead": "New course",
+                "titleFallback": "Add course"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} will be removed after the undo window expires.",
+                    "title": "Delete this course?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The course could not be deleted right now.",
+                        "title": "Unable to delete course"
+                    },
+                    "success": {
+                        "description": "{{name}} was removed from the directory.",
+                        "title": "Course deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Course deletion scheduled"
+                }
+            },
+            "description": "Service directory for academic courses managed by the platform.",
+            "dialog": {
+                "error": {
+                    "description": "The course could not be loaded right now.",
+                    "title": "Unable to load course"
+                },
+                "fields": {
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
+                    "name": "$t(academic.coursePage.table.columns.name)",
+                    "school": "$t(academic.coursePage.table.columns.school)",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                },
+                "notFound": {
+                    "description": "The requested course could not be found.",
+                    "title": "Course not found"
+                },
+                "overhead": "Course record",
+                "titleFallback": "Course details"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Create duplicate",
+                    "savePending": "Creating duplicate..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The course duplicate could not be created right now.",
+                        "title": "Unable to duplicate course"
+                    },
+                    "success": {
+                        "description": "{{name}} was duplicated successfully.",
+                        "title": "Course duplicated"
+                    }
+                },
+                "overhead": "Duplicate course",
+                "titleFallback": "Duplicate course"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Reset changes"
+                },
+                "fields": {
+                    "name": "$t(academic.coursePage.table.columns.name)",
+                    "namePlaceholder": "Enter the course name",
+                    "school": "$t(academic.coursePage.table.columns.school)",
+                    "schoolEmptyMessage": "No area found.",
+                    "schoolPlaceholder": "Select...",
+                    "schoolSearchPlaceholder": "Search area"
+                },
+                "loading": "Loading course editor",
+                "resetConfirm": {
+                    "description": "This will discard the unsaved changes in the current drawer.",
+                    "title": "Reset course changes?"
+                },
+                "schoolLoadError": {
+                    "description": "The areas directory could not be loaded right now.",
+                    "title": "Unable to load areas"
+                },
+                "validation": {
+                    "name": "Enter a name.",
+                    "school": "Select an area."
+                }
+            },
+            "empty": {
+                "defaultDescription": "The course directory is currently empty.",
+                "filteredDescription": "No course matches \"{{value}}\".",
+                "title": "No courses found"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "$t(academic.coursePage.dialog.error.description)",
+                    "title": "Unable to load course details"
+                },
+                "listError": {
+                    "description": "The course directory could not be loaded right now.",
+                    "title": "Unable to load courses"
+                },
+                "schoolsError": {
+                    "description": "The areas directory could not be loaded right now.",
+                    "title": "Unable to load areas"
+                }
+            },
+            "filters": {
+                "clear": "$t(docs.drawer.examples.filters.clear.action)",
+                "dateField": {
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
+                    "options": {
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
+                },
+                "drawer": {
+                    "active": "Filters active",
+                    "apply": "Apply filters",
+                    "clearConfirm": {
+                        "description": "This will clear the current course filters.",
+                        "title": "Clear these filters?"
+                    },
+                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
+                    "overhead": "Course filters",
+                    "title": "Refine directory",
+                    "trigger": "More filters"
+                },
+                "endDate": {
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                },
+                "school": {
+                    "emptyMessage": "No area found.",
+                    "error": {
+                        "description": "The areas directory could not be loaded right now.",
+                        "title": "Unable to load areas"
+                    },
+                    "label": "Area of expertise",
+                    "placeholder": "Select...",
+                    "searchPlaceholder": "Search area"
+                },
+                "search": {
+                    "label": "Course name",
+                    "placeholder": "Filter by course or area"
+                },
+                "startDate": {
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
+                }
+            },
+            "loading": {
+                "detail": "Loading course details",
+                "list": "Loading courses"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "table": {
+                "actions": {
+                    "delete": "Delete course",
+                    "duplicate": "Duplicate course",
+                    "update": "Update course",
+                    "viewDetails": "$t(docs.table.actions.view)"
+                },
+                "columns": {
+                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
+                    "name": "Course",
+                    "school": "Area of expertise",
+                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
+                },
+                "error": {
+                    "description": "$t(academic.coursePage.feedback.listError.description)",
+                    "title": "$t(academic.coursePage.feedback.listError.title)"
+                }
+            },
+            "title": "Courses",
+            "update": {
+                "actions": {
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The course could not be updated right now.",
+                        "title": "Unable to save course changes"
+                    },
+                    "success": {
+                        "description": "{{name}} was updated successfully.",
+                        "title": "Course updated"
+                    }
+                },
+                "loadError": {
+                    "description": "The course could not be loaded right now.",
+                    "title": "Unable to load course editor"
+                },
+                "notFound": {
+                    "description": "The requested course could not be found.",
+                    "title": "Course not found"
+                },
+                "overhead": "Edit course",
+                "titleFallback": "Edit course"
+            }
+        },
+        "schoolPage": {
+            "create": {
+                "actions": {
+                    "save": "Create area",
+                    "savePending": "Creating area..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The area of expertise could not be created right now.",
+                        "title": "Unable to create area"
+                    },
+                    "success": {
+                        "description": "{{name}} was created successfully.",
+                        "title": "Area created"
+                    }
+                },
+                "open": "Add area",
+                "overhead": "New area",
+                "titleFallback": "Add area"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} will be removed after the undo window expires.",
+                    "title": "Delete this area?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The area of expertise could not be deleted right now.",
+                        "title": "Unable to delete area"
+                    },
+                    "success": {
+                        "description": "{{name}} was removed from the directory.",
+                        "title": "Area deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Area deletion scheduled"
+                }
+            },
+            "description": "Service directory for academic areas of expertise managed by the platform.",
+            "dialog": {
+                "error": {
+                    "description": "The area of expertise could not be loaded right now.",
+                    "title": "Unable to load area"
+                },
+                "fields": {
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
+                    "name": "$t(academic.schoolPage.table.columns.name)",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                },
+                "notFound": {
+                    "description": "The requested area of expertise could not be found.",
+                    "title": "Area not found"
+                },
+                "overhead": "Academic area",
+                "titleFallback": "Area details"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Create duplicate",
+                    "savePending": "Creating duplicate..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The area duplicate could not be created right now.",
+                        "title": "Unable to duplicate area"
+                    },
+                    "success": {
+                        "description": "{{name}} was duplicated successfully.",
+                        "title": "Area duplicated"
+                    }
+                },
+                "overhead": "Duplicate area",
+                "titleFallback": "Duplicate area"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Reset changes"
+                },
+                "fields": {
+                    "name": "$t(academic.schoolPage.table.columns.name)",
+                    "namePlaceholder": "Enter the area name"
+                },
+                "loading": "Loading area editor",
+                "resetConfirm": {
+                    "description": "This will discard the unsaved changes in the current drawer.",
+                    "title": "Reset area changes?"
+                },
+                "validation": {
+                    "name": "Enter a name."
+                }
+            },
+            "empty": {
+                "defaultDescription": "The areas of expertise directory is currently empty.",
+                "filteredDescription": "No area matches \"{{value}}\".",
+                "title": "No areas found"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "$t(academic.schoolPage.dialog.error.description)",
+                    "title": "Unable to load area details"
+                },
+                "listError": {
+                    "description": "The areas of expertise directory could not be loaded right now.",
+                    "title": "Unable to load areas"
+                }
+            },
+            "filters": {
+                "clear": "$t(docs.drawer.examples.filters.clear.action)",
+                "dateField": {
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
+                    "options": {
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
+                },
+                "drawer": {
+                    "active": "Filters active",
+                    "apply": "Apply filters",
+                    "clearConfirm": {
+                        "description": "This will clear the current area filters.",
+                        "title": "Clear these filters?"
+                    },
+                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
+                    "overhead": "Area filters",
+                    "title": "Refine directory",
+                    "trigger": "More filters"
+                },
+                "endDate": {
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                },
+                "search": {
+                    "label": "Area name",
+                    "placeholder": "Filter by area name"
+                },
+                "startDate": {
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
+                }
+            },
+            "loading": {
+                "detail": "Loading area details",
+                "list": "Loading areas"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "table": {
+                "actions": {
+                    "delete": "Delete area",
+                    "duplicate": "Duplicate area",
+                    "update": "Update area",
+                    "viewDetails": "$t(docs.table.actions.view)"
+                },
+                "columns": {
+                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
+                    "name": "Area",
+                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
+                },
+                "error": {
+                    "description": "$t(academic.schoolPage.feedback.listError.description)",
+                    "title": "$t(academic.schoolPage.feedback.listError.title)"
+                }
+            },
+            "title": "Areas of expertise",
+            "update": {
+                "actions": {
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The area of expertise could not be updated right now.",
+                        "title": "Unable to save area changes"
+                    },
+                    "success": {
+                        "description": "{{name}} was updated successfully.",
+                        "title": "Area updated"
+                    }
+                },
+                "loadError": {
+                    "description": "The area of expertise could not be loaded right now.",
+                    "title": "Unable to load area editor"
+                },
+                "notFound": {
+                    "description": "The requested area of expertise could not be found.",
+                    "title": "Area not found"
+                },
+                "overhead": "Edit area",
+                "titleFallback": "Edit area"
+            }
+        },
+        "studentPage": {
+            "create": {
+                "actions": {
+                    "save": "Create student",
+                    "savePending": "Creating student..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The student could not be created right now.",
+                        "title": "Unable to create student"
+                    },
+                    "success": {
+                        "description": "{{name}} was created successfully.",
+                        "title": "Student created"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Create a temporary password"
+                },
+                "open": "Add student",
+                "overhead": "Create student",
+                "titleFallback": "New student"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} will be removed after the undo window expires.",
+                    "title": "Delete this student?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The student could not be deleted right now.",
+                        "title": "Unable to delete student"
+                    },
+                    "success": {
+                        "description": "{{name}} was removed from the directory.",
+                        "title": "Student deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Student deletion scheduled"
+                }
+            },
+            "deactivate": {
+                "confirm": {
+                    "description": "{{name}} will lose access until the account is reactivated.",
+                    "title": "Deactivate this student?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The student could not be deactivated right now.",
+                        "title": "Unable to deactivate student"
+                    },
+                    "success": {
+                        "description": "{{name}} was deactivated successfully.",
+                        "title": "Student deactivated"
+                    }
+                }
+            },
+            "description": "Service directory for students linked to academic courses and campus assignments.",
+            "dialog": {
+                "active": {
+                    "no": "$t(identity.accountPage.dialog.active.no)",
+                    "yes": "$t(identity.accountPage.dialog.active.yes)"
+                },
+                "error": {
+                    "description": "The student record could not be loaded right now.",
+                    "title": "Unable to load student"
+                },
+                "fields": {
+                    "academicRegistration": "Academic registration",
+                    "accountId": "Account ID",
+                    "active": "Status",
+                    "campus": "Campus",
+                    "completedHours": "Completed hours",
+                    "course": "Course",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "dueDate": "Due date",
+                    "email": "Email",
+                    "missingHours": "Missing hours",
+                    "name": "Name",
+                    "remainingDays": "Remaining days",
+                    "requiredHours": "Required hours",
+                    "startDate": "Start date",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)",
+                    "userId": "User ID"
+                },
+                "notFound": {
+                    "description": "The requested student record could not be found.",
+                    "title": "Student not found"
+                },
+                "overhead": "Student record",
+                "titleFallback": "Student details"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Create duplicate",
+                    "savePending": "Creating duplicate..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The student duplicate could not be created right now.",
+                        "title": "Unable to duplicate student"
+                    },
+                    "success": {
+                        "description": "{{name}} was duplicated successfully.",
+                        "title": "Student duplicated"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Set a password for the duplicate"
+                },
+                "overhead": "Duplicate student",
+                "titleFallback": "Duplicate student"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Reset changes"
+                },
+                "courseLoadError": {
+                    "description": "$t(academic.studentPage.feedback.coursesError.description)",
+                    "title": "$t(academic.studentPage.feedback.coursesError.title)"
+                },
+                "fields": {
+                    "academicRegistration": "Academic registration",
+                    "academicRegistrationPlaceholder": "Enter the registration number",
+                    "campus": "Campus",
+                    "campusPlaceholder": "Select a campus",
+                    "course": "Course",
+                    "courseEmptyMessage": "No course found.",
+                    "coursePlaceholder": "Select a course",
+                    "courseSearchPlaceholder": "Search courses",
+                    "cpf": "CPF",
+                    "cpfPlaceholder": "Enter the CPF",
+                    "dueDate": "Due date",
+                    "dueDatePlaceholder": "Due date",
+                    "email": "Email",
+                    "emailPlaceholder": "Enter the email address",
+                    "name": "Name",
+                    "namePlaceholder": "Enter the name",
+                    "password": "Password",
+                    "requiredHours": "Required hours",
+                    "requiredHoursPlaceholder": "Enter the required hours",
+                    "startDate": "Start date",
+                    "startDatePlaceholder": "Start date"
+                },
+                "loading": "Loading student editor",
+                "resetConfirm": {
+                    "description": "This will discard the unsaved student changes in the current drawer.",
+                    "title": "Reset student changes?"
+                },
+                "validation": {
+                    "academicRegistration": {
+                        "required": "Enter an academic registration."
+                    },
+                    "campus": {
+                        "required": "Select a campus."
+                    },
+                    "course": {
+                        "required": "Select a course."
+                    },
+                    "cpf": {
+                        "required": "Enter a CPF."
+                    },
+                    "dueDate": {
+                        "required": "Select a due date."
+                    },
+                    "email": {
+                        "invalid": "Enter a valid email address.",
+                        "required": "Enter an email address."
+                    },
+                    "name": {
+                        "required": "Enter a name."
+                    },
+                    "password": {
+                        "required": "Enter a password."
+                    },
+                    "requiredHours": {
+                        "invalid": "Enter a valid number of required hours.",
+                        "required": "Enter the required hours."
+                    },
+                    "startDate": {
+                        "required": "Select a start date."
+                    }
+                }
+            },
+            "empty": {
+                "defaultDescription": "The student directory is currently empty.",
+                "filteredDescription": "No student matches \"{{value}}\".",
+                "title": "No students found"
+            },
+            "feedback": {
+                "coursesError": {
+                    "description": "The courses directory could not be loaded right now.",
+                    "title": "Unable to load courses"
+                },
+                "detailError": {
+                    "description": "$t(academic.studentPage.dialog.error.description)",
+                    "title": "Unable to load student details"
+                },
+                "listError": {
+                    "description": "The student directory could not be loaded right now.",
+                    "title": "Unable to load students"
+                }
+            },
+            "reactivate": {
+                "confirm": {
+                    "description": "{{name}} will regain access immediately.",
+                    "title": "Reactivate this student?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The student could not be reactivated right now.",
+                        "title": "Unable to reactivate student"
+                    },
+                    "success": {
+                        "description": "{{name}} was reactivated successfully.",
+                        "title": "Student reactivated"
+                    }
+                }
+            },
+            "filters": {
+                "active": {
+                    "label": "Status",
+                    "options": {
+                        "active": "$t(identity.accountPage.filters.active.options.active)",
+                        "all": "$t(identity.accountPage.filters.active.options.all)",
+                        "inactive": "$t(identity.accountPage.filters.active.options.inactive)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.active.placeholder)"
+                },
+                "campus": {
+                    "label": "Campus",
+                    "options": {
+                        "all": "All campuses",
+                        "JARAGUA_DO_SUL": "$t(identity.adminPage.filters.campus.options.JARAGUA_DO_SUL)",
+                        "JOINVILLE": "$t(identity.adminPage.filters.campus.options.JOINVILLE)"
+                    },
+                    "placeholder": "Select a campus"
+                },
+                "clear": "$t(identity.accountPage.filters.clear)",
+                "course": {
+                    "emptyMessage": "No course found.",
+                    "error": {
+                        "description": "$t(academic.studentPage.feedback.coursesError.description)",
+                        "title": "$t(academic.studentPage.feedback.coursesError.title)"
+                    },
+                    "label": "Course",
+                    "placeholder": "Select a course",
+                    "searchPlaceholder": "Search courses"
+                },
+                "dateField": {
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
+                    "options": {
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    },
+                    "placeholder": "$t(identity.accountPage.filters.dateField.placeholder)"
+                },
+                "drawer": {
+                    "active": "Filters active",
+                    "apply": "Apply filters",
+                    "clearConfirm": {
+                        "description": "This will clear the current student filters.",
+                        "title": "Clear student filters?"
+                    },
+                    "label": "More filters",
+                    "overhead": "Student filters",
+                    "title": "Filter students",
+                    "trigger": "More filters"
+                },
+                "endDate": {
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                },
+                "search": {
+                    "label": "Name, email or registration",
+                    "placeholder": "Filter by name, email, registration or course"
+                },
+                "startDate": {
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
+                }
+            },
+            "loading": {
+                "detail": "Loading student details",
+                "list": "Loading students"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
+                },
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
+            },
+            "table": {
+                "actions": {
+                    "deactivate": "Deactivate student",
+                    "delete": "Delete student",
+                    "duplicate": "Duplicate student",
+                    "reactivate": "Reactivate student",
+                    "update": "Update student",
+                    "viewDetails": "$t(docs.table.actions.view)"
+                },
+                "active": {
+                    "no": "$t(identity.accountPage.table.active.no)",
+                    "yes": "$t(identity.accountPage.table.active.yes)"
+                },
+                "columns": {
+                    "academicRegistration": "Academic registration",
+                    "active": "$t(identity.accountPage.table.columns.active)",
+                    "campus": "$t(identity.adminPage.table.columns.campus)",
+                    "course": "Course",
+                    "email": "$t(identity.accountPage.table.columns.email)",
+                    "name": "Student"
+                },
+                "error": {
+                    "description": "$t(academic.studentPage.feedback.listError.description)",
+                    "title": "$t(academic.studentPage.feedback.listError.title)"
+                }
+            },
+            "title": "Students",
+            "update": {
+                "actions": {
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The student could not be updated right now.",
+                        "title": "Unable to save student changes"
+                    },
+                    "success": {
+                        "description": "{{name}} was updated successfully.",
+                        "title": "Student updated"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Leave blank to keep the current password"
+                },
+                "loadError": {
+                    "description": "The student record could not be loaded right now.",
+                    "title": "Unable to load student editor"
+                },
+                "notFound": {
+                    "description": "The requested student record could not be found.",
+                    "title": "Student not found"
+                },
+                "overhead": "Edit student",
+                "titleFallback": "Edit student"
+            }
+        }
+    },
     "AlertDialog": {
         "overhead": {
             "danger": "Destructive Action",
@@ -2630,7 +3412,7 @@
             "academic": {
                 "course": "Courses",
                 "root": "Academic",
-                "school": "Schools",
+                "school": "Areas of expertise",
                 "student": "Students"
             },
             "docs": {

@@ -1,5 +1,6 @@
 export * from "./app";
 export * from "./components";
+export * from "./academic";
 export * from "./auth";
 export * from "./forms";
 export * from "./geo";
