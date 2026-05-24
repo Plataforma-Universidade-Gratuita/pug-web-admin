@@ -8,18 +8,17 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import type { ReadOnlyPageHeaderProps } from "@/types/client";
+import { ServicePageMetadataPopover } from "@/features/shared/service-pages/ServicePageMetadataPopover";
+import type { ServicePageHeaderProps } from "@/types/client/service-pages";
 
-import { ReadOnlyMetadataPopover } from "./ReadOnlyMetadataPopover";
-
-export function ReadOnlyPageHeader({
+export function ServicePageHeader({
 	title,
 	description,
 	metadata,
 	actions,
 	children,
 	filtersClassName,
-}: ReadOnlyPageHeaderProps) {
+}: ServicePageHeaderProps) {
 	return (
 		<Section className="shadow-normal rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-2)] px-5 py-4">
 			<SectionHeader>
@@ -31,7 +30,7 @@ export function ReadOnlyPageHeader({
 				</div>
 				<SectionActions>
 					{actions}
-					<ReadOnlyMetadataPopover {...metadata} />
+					<ServicePageMetadataPopover {...metadata} />
 				</SectionActions>
 			</SectionHeader>
 			<SectionContent className={clsx("grid gap-4", filtersClassName)}>

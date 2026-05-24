@@ -56,6 +56,9 @@
             }
         }
     },
+    "common": {
+        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)"
+    },
     "components": {
         "datePicker": {
             "calendarLabel": "Calendario do seletor de data",
@@ -153,7 +156,7 @@
                 },
                 "multiple": {
                     "description": "O modo multi aberto e para casos de revisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o e comparaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o em que vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rios grupos de apoio precisam ficar visÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­veis ao mesmo tempo.",
-                    "title": "VÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rias seÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes abertas"
+                    "title": "$t(docs.accordion.multiCard.title)"
                 },
                 "single": {
                     "description": "Accordion de item ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºnico aberto e o padrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o quando uma seÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o deve liderar e as vizinhas devem recuar.",
@@ -218,7 +221,7 @@
                 "default": {
                     "description": "Confirme para aplicar a atualizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o atual neste registro.",
                     "footer": {
-                        "cancel": "Cancelar",
+                        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                         "confirm": "Confirmar alteraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes"
                     },
                     "title": "Enviar estas alteraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes?"
@@ -226,7 +229,7 @@
                 "success": {
                     "description": "Confirme para finalizar este fluxo e manter o estado resultante visÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel para a equipe.",
                     "footer": {
-                        "cancel": "Cancelar",
+                        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                         "confirm": "Marcar como concluido"
                     },
                     "title": "Marcar este fluxo como concluido?"
@@ -234,7 +237,7 @@
                 "warning": {
                     "description": "Arquivar remove este registro do fluxo ativo, preservando seu histÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rico.",
                     "footer": {
-                        "cancel": "Cancelar",
+                        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                         "confirm": "Arquivar registro"
                     },
                     "title": "Arquivar este registro?"
@@ -318,7 +321,7 @@
                 "description": "Estes exemplos mostram o contrato mais estrito: botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o padrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o, primary explÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cito e a aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o secondary cinza por padrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.",
                 "explicit": "Primary explÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cito",
                 "primary": "Salvar alteraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes",
-                "secondary": "Cancelar",
+                "secondary": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                 "title": "Defaults guiados por variante"
             },
             "description": "BotÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes disparam aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes do usuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio. O contrato agora e mais estrito: `variant=\"primary\"` e a aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o principal flat, `variant=\"secondary\"` e a aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de apoio no padrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ghost, e `usage` muda a cor quando o significado muda.",
@@ -374,7 +377,7 @@
                     "title": "Largura total"
                 },
                 "loading": {
-                    "button": "Publicar",
+                    "button": "$t(docs.button.actionOrderCard.right)",
                     "loadingText": "Publicando...",
                     "title": "Carregando"
                 }
@@ -393,13 +396,13 @@
                 },
                 "primary": {
                     "description": "AÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o padrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de alta ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªnfase para fluxos de confirmaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o e envio.",
-                    "label": "Salvar alteraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes",
-                    "name": "PrimÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio"
+                    "label": "$t(docs.button.defaultCard.primary)",
+                    "name": "$t(docs.badge.variants.primary)"
                 },
                 "secondary": {
                     "description": "AÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o neutra para caminhos complementares e controles de apoio.",
                     "label": "Exportar relatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio",
-                    "name": "SecundÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio"
+                    "name": "$t(docs.badge.variants.secondary)"
                 },
                 "success": {
                     "description": "AÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o positiva para aprovaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes, conclusÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ou confirmaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.",
@@ -415,11 +418,11 @@
             "variantCards": {
                 "primary": {
                     "description": "PadrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o preenchido para a aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o principal.",
-                    "name": "Primary"
+                    "name": "$t(docs.badge.variants.primary)"
                 },
                 "secondary": {
                     "description": "PadrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ghost para aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes de apoio.",
-                    "name": "Secondary"
+                    "name": "$t(docs.badge.variants.secondary)"
                 }
             }
         },
@@ -490,7 +493,7 @@
             "sections": {
                 "composition": {
                     "description": "Use a mesma primitiva para blocos compactos de informaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o, resumos delimitados e cards com aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes ou metadados de apoio.",
-                    "title": "ComposiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o"
+                    "title": "$t(docs.card.layoutCards.list.items.composition.title)"
                 },
                 "layouts": {
                     "description": "Cards podem receber layouts mais densos, desde que o conteÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºdo continue sendo lido como um bloco coerente.",
@@ -527,7 +530,7 @@
                             "label": "Campinas"
                         },
                         "osasco": {
-                            "description": "Sao Paulo",
+                            "description": "$t(docs.combobox.cards.city.options.campinas.description)",
                             "label": "Osasco"
                         },
                         "santos": {
@@ -670,7 +673,7 @@
                 },
                 "structure": {
                     "description": "A estrutura do dialog e fixa: overhead opcional, tÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­tulo obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio, botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de fechar, separator e corpo obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio.",
-                    "title": "Estrutura"
+                    "title": "$t(docs.card.sections.structure.title)"
                 }
             },
             "structureCards": {
@@ -727,7 +730,7 @@
                             "title": "Revisar antes de criar"
                         }
                     },
-                    "title": "Criar entidade"
+                    "title": "$t(docs.drawer.examples.create.footer.action)"
                 },
                 "filters": {
                     "clear": {
@@ -786,27 +789,27 @@
                         "archive": "Arquivar projeto",
                         "delete": "Excluir projeto",
                         "edit": "Editar registro",
-                        "save": "Salvar alteraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes",
-                        "view": "Ver detalhes"
+                        "save": "$t(docs.button.defaultCard.primary)",
+                        "view": "$t(docs.button.usageCards.info.label)"
                     },
                     "menuLabel": "AÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes do projeto",
                     "rowDescription": "Atualizado hÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ 2 horas",
                     "rowTitle": "Projeto Atlas",
                     "title": "Menu de aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes da linha",
-                    "trigger": "Abrir aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes da linha"
+                    "trigger": "$t(components.table.openRowActions)"
                 }
             },
             "confirm": {
                 "archive": {
                     "action": "Confirmar arquivamento",
                     "description": "Arquivar vai remover este registro do fluxo ativo, preservando seu histÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rico.",
-                    "title": "Arquivar este registro?"
+                    "title": "$t(docs.alertDialog.examples.warning.title)"
                 },
-                "cancel": "Cancelar",
+                "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                 "delete": {
                     "action": "Confirmar exclusÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o",
                     "description": "Excluir e destrutivo e sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ deve acontecer quando o registro nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o deve mais existir.",
-                    "title": "Excluir este registro?"
+                    "title": "$t(docs.alertDialog.examples.danger.title)"
                 },
                 "save": {
                     "action": "Confirmar salvamento",
@@ -835,7 +838,7 @@
         },
         "emptyState": {
             "compact": {
-                "action": "Atualizar",
+                "action": "$t(components.emptyState.presets.someError.refresh)",
                 "description": "Esta fila estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ vazia no momento.",
                 "title": "Nada para revisar"
             },
@@ -863,7 +866,7 @@
                     "title": "Nenhum workspace acessÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel"
                 },
                 "noResults": {
-                    "action": "Limpar filtros",
+                    "action": "$t(docs.drawer.examples.filters.clear.action)",
                     "description": "Nenhum registro corresponde aos filtros atuais. Ajuste os critÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rios ou limpe os filtros para ampliar os resultados.",
                     "title": "Nenhum resultado correspondente"
                 }
@@ -913,7 +916,7 @@
             "description": "ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âcones comunicam significado de apoio, reforÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§am aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes e condensam estado visual. Use a primitiva de ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cone para manter ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cones decorativos silenciosos, ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cones com significado acessÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­veis e ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cones isolados com tooltip quando necessÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio.",
             "integrationCard": {
                 "description": "A primitiva de ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cone tambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m funciona dentro de controles mais complexos. Nesses casos, o nome acessÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel e o tooltip continuam pertencendo ao controle pai.",
-                "iconButton": "NotificaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes",
+                "iconButton": "$t(docs.icon.decorativeCards.status.badge)",
                 "primary": "Buscar registros",
                 "title": "ComposiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o com botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes"
             },
@@ -952,14 +955,14 @@
                 },
                 "email": {
                     "description": "Um campo simples de uma linha com contexto visual leve ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚ÂÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  esquerda.",
-                    "label": "Email",
-                    "placeholder": "admin@pug.edu.br",
+                    "label": "$t(auth.login.form.fields.email.label)",
+                    "placeholder": "$t(auth.login.form.fields.email.placeholder)",
                     "title": "Campo de email"
                 },
                 "password": {
                     "description": "Use o comportamento embutido de revelaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o quando o campo precisar permitir inspeÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o temporÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria do valor oculto.",
-                    "label": "Senha",
-                    "placeholder": "Digite sua senha",
+                    "label": "$t(auth.login.form.fields.password.label)",
+                    "placeholder": "$t(auth.login.form.fields.password.placeholder)",
                     "title": "Campo de senha"
                 }
             },
@@ -974,9 +977,9 @@
                 "snippet": "<Input type=\"email\" placeholder=\"admin@pug.edu.br\" />\n\n<Input type=\"password\" showPasswordToggle />"
             },
             "search": {
-                "label": "Busca",
+                "label": "$t(docs.icon.accessibilityCards.tooltip.label)",
                 "placeholder": "Buscar workspaces",
-                "value": "Projeto Atlas"
+                "value": "$t(docs.dropdownMenu.cards.rowActions.rowTitle)"
             },
             "sections": {
                 "fields": {
@@ -1075,8 +1078,8 @@
                     "description": "Um popover pode carregar contexto util sem virar menu de aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes nem dialog.",
                     "items": {
                         "owner": {
-                            "label": "ResponsÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel",
-                            "value": "Maria Souza"
+                            "label": "$t(docs.combobox.cards.people.label)",
+                            "value": "$t(docs.combobox.cards.people.options.maria.label)"
                         },
                         "review": {
                             "label": "Revisao",
@@ -1105,7 +1108,7 @@
             "sections": {
                 "quickFilters": {
                     "description": "Use popover quando o filtro e pequeno, local e pode ser aplicado sem abrir um drawer inteiro.",
-                    "title": "Filtros rapidos"
+                    "title": "$t(docs.popover.examples.quickFilters.trigger)"
                 },
                 "support": {
                     "description": "Popover tambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m funciona bem para paineis curtos de contexto, metadado ou preferencias locais.",
@@ -1120,55 +1123,55 @@
                     "cta": "Abrir área",
                     "description": "Botões, toggles e hierarquia de ações.",
                     "href": "/docs/primitives/actions",
-                    "label": "Ações",
-                    "title": "Ações",
+                    "label": "$t(components.table.actions)",
+                    "title": "$t(components.table.actions)",
                     "tone": "Núcleo"
                 },
                 "display": {
-                    "cta": "Abrir área",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Sections, cards, tabelas e estados visuais.",
                     "href": "/docs/primitives/display",
                     "label": "Exibição",
-                    "title": "Exibição",
-                    "tone": "Núcleo"
+                    "title": "$t(docs.primitivesOverview.areas.display.label)",
+                    "tone": "$t(docs.primitivesOverview.areas.actions.tone)"
                 },
                 "forms": {
-                    "cta": "Abrir área",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Campos, padrões de seleção e entrada de datas.",
                     "href": "/docs/primitives/forms",
                     "label": "Formulários",
-                    "title": "Formulários",
-                    "tone": "Entrada"
+                    "title": "$t(docs.primitivesOverview.areas.forms.label)",
+                    "tone": "$t(docs.input.title)"
                 },
                 "navigation": {
-                    "cta": "Abrir área",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Tabs, accordion e dropdown menus.",
                     "href": "/docs/primitives/navigation",
                     "label": "Navegação",
-                    "title": "Navegação",
+                    "title": "$t(docs.primitivesOverview.areas.navigation.label)",
                     "tone": "Fluxo"
                 },
                 "overlays": {
-                    "cta": "Abrir área",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Drawer, dialog, popover e toast.",
                     "href": "/docs/primitives/overlays",
                     "label": "Overlays",
-                    "title": "Overlays",
-                    "tone": "Fluxo"
+                    "title": "$t(docs.primitivesOverview.areas.overlays.label)",
+                    "tone": "$t(docs.primitivesOverview.areas.navigation.tone)"
                 },
                 "structure": {
-                    "cta": "Abrir área",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Scroll areas e suporte estrutural de layout.",
                     "href": "/docs/primitives/structure",
-                    "label": "Estrutura",
-                    "title": "Estrutura",
+                    "label": "$t(docs.card.sections.structure.title)",
+                    "title": "$t(docs.card.sections.structure.title)",
                     "tone": "Suporte"
                 }
             },
             "categories": {
                 "badge": "Guia",
                 "description": "Cada área de primitivas deve deixar explícitos os padrões aprovados, as variações semânticas, os estados e as regras de escalonamento daquela parte do sistema.",
-                "guidanceLabel": "Diretriz",
+                "guidanceLabel": "$t(docs.primitivesOverview.categories.badge)",
                 "title": "O que esta documentação deve ensinar"
             },
             "guidance": {
@@ -1237,7 +1240,7 @@
                 },
                 "structure": {
                     "description": "Uma section estabelece hierarquia e agrupamento sem forÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ar uma superfÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cie encaixotada.",
-                    "title": "Estrutura"
+                    "title": "$t(docs.card.sections.structure.title)"
                 },
                 "surface": {
                     "description": "Sections normalmente devem permanecer simples e deixar o enquadramento mais forte para os componentes internos quando isso for necessÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio.",
@@ -1248,7 +1251,7 @@
                 "basic": {
                     "body": "Essa ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© a primitiva de agrupamento em nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel de pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gina. Use-a para introduzir conteÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºdo antes de blocos mais densos, como cards, tabelas ou formulÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rios.",
                     "description": "Uma section normalmente combina tÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­tulo, descriÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o curta e uma regiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de conteÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºdo relacionado.",
-                    "title": "Estrutura padrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o"
+                    "title": "$t(docs.dialog.structureCards.basic.title)"
                 },
                 "minimal": {
                     "body": "Nem toda section precisa de separaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o pesada. Em muitos casos, espaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§amento e hierarquia jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ bastam para manter a pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gina compreensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel.",
@@ -1266,7 +1269,7 @@
                         },
                         "two": {
                             "description": "Outra superfÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cie filha sob o mesmo heading e o mesmo conjunto de aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes.",
-                            "title": "Tarefas abertas"
+                            "title": "$t(docs.card.compositionCards.summary.stats.items.openTasks.label)"
                         }
                     },
                     "title": "Cards dentro da section"
@@ -1285,8 +1288,8 @@
                 "disabled": {
                     "label": "Status do projeto",
                     "options": {
-                        "active": "Ativo",
-                        "paused": "Pausado"
+                        "active": "$t(docs.multiSelect.cards.status.options.active)",
+                        "paused": "$t(docs.multiSelect.cards.status.options.paused)"
                     },
                     "placeholder": "Escolha o status",
                     "title": "Select desabilitado"
@@ -1311,8 +1314,8 @@
                     "description": "Use placeholder quando a pessoa ainda precisa fazer uma primeira escolha explÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cita.",
                     "label": "Intervalo de datas",
                     "options": {
-                        "month": "ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â¡ltimos 30 dias",
-                        "today": "Hoje",
+                        "month": "$t(docs.popover.examples.quickFilters.options.period)",
+                        "today": "$t(components.datePicker.today)",
                         "week": "ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â¡ltimos 7 dias"
                     },
                     "placeholder": "Escolha o intervalo",
@@ -1320,13 +1323,13 @@
                 },
                 "status": {
                     "description": "Um filtro tÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­pico de admin em que o valor selecionado ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© controlado pelo estado ao redor.",
-                    "label": "Status",
+                    "label": "$t(docs.drawer.examples.filters.groups.status.title)",
                     "options": {
-                        "active": "Ativo",
-                        "archived": "Arquivado",
-                        "paused": "Pausado"
+                        "active": "$t(docs.multiSelect.cards.status.options.active)",
+                        "archived": "$t(docs.multiSelect.cards.status.options.archived)",
+                        "paused": "$t(docs.multiSelect.cards.status.options.paused)"
                     },
-                    "placeholder": "Escolha o status",
+                    "placeholder": "$t(docs.select.cards.disabled.placeholder)",
                     "title": "Filtro de status controlado"
                 }
             },
@@ -1378,7 +1381,7 @@
                     "items": {
                         "email": {
                             "description": "Enviar atualizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes detalhadas para a caixa de entrada principal.",
-                            "label": "Email"
+                            "label": "$t(auth.login.form.fields.email.label)"
                         },
                         "silent": {
                             "description": "Registrar a atualizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o sem enviar uma notificaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ativa.",
@@ -1515,7 +1518,7 @@
             "labelCard": {
                 "description": "Labels e separators sustentam pequenas, mas importantes, decisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes de hierarquia dentro de formulÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rios e linhas de metadados.",
                 "leftMeta": "Atualizado hoje",
-                "nameLabel": "Nome do workspace",
+                "nameLabel": "$t(docs.input.cards.disabled.label)",
                 "namePlaceholder": "Digite o nome do workspace",
                 "rightMeta": "6 membros ativos",
                 "title": "Estrutura de campo"
@@ -1597,7 +1600,7 @@
                     },
                     "overview": {
                         "description": "Use uma tab quando esse painel for um par entre vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rias ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡reas de conteÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºdo relacionadas.",
-                        "label": "VisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o geral",
+                        "label": "$t(docs.card.layoutCards.list.items.overview.title)",
                         "title": "VisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o geral do workspace"
                     }
                 }
@@ -1608,12 +1611,12 @@
                 "delete": "Excluir",
                 "edit": "Editar",
                 "save": "Salvar",
-                "view": "Ver detalhes"
+                "view": "$t(docs.button.usageCards.info.label)"
             },
             "columns": {
-                "campus": "Campus",
+                "campus": "$t(docs.drawer.examples.filters.groups.campus.title)",
                 "name": "Projeto",
-                "status": "Status",
+                "status": "$t(docs.drawer.examples.filters.groups.status.title)",
                 "updatedAt": "Atualizado"
             },
             "description": "Table e a primitiva compartilhada para listas operacionais densas que ainda precisam de hierarquia clara, tratamento de overflow horizontal e estados previsÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­veis de vazio e loading.",
@@ -1635,7 +1638,7 @@
             "rows": {
                 "atlas": {
                     "campus": "Campus Norte",
-                    "name": "Projeto Atlas",
+                    "name": "$t(docs.dropdownMenu.cards.rowActions.rowTitle)",
                     "updatedAt": "ha 2 horas"
                 },
                 "connections": {
@@ -1661,7 +1664,7 @@
             },
             "statesNote": "AÃ§Ãµes por linha agora sÃ£o um padrÃ£o embutido da Ãºltima coluna via `getRowActions`. Mantenha comportamentos mais pesados como seleÃ§Ã£o, paginaÃ§Ã£o ou virtualizaÃ§Ã£o fora da primitiva atÃ© que uma feature real os exija.",
             "status": {
-                "active": "Ativo",
+                "active": "$t(docs.multiSelect.cards.status.options.active)",
                 "hold": "Em espera",
                 "planning": "Planejamento"
             },
@@ -1748,12 +1751,12 @@
             "title": "Toast",
             "variants": {
                 "danger": {
-                    "button": "Danger",
+                    "button": "$t(docs.button.usageCards.danger.name)",
                     "description": "A requisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o foi rejeitada pelo servidor.",
                     "title": "AtualizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o falhou"
                 },
                 "info": {
-                    "button": "Info",
+                    "button": "$t(docs.button.usageCards.info.name)",
                     "description": "Novos registros estao sendo buscados na API.",
                     "title": "SincronizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o iniciada"
                 },
@@ -1763,12 +1766,12 @@
                     "title": "Rascunho salvo"
                 },
                 "success": {
-                    "button": "Sucesso",
+                    "button": "$t(docs.button.usageCards.success.name)",
                     "description": "Os dados do perfil foram salvos com sucesso.",
                     "title": "UsuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio atualizado"
                 },
                 "warning": {
-                    "button": "Aviso",
+                    "button": "$t(docs.button.usageCards.warning.name)",
                     "description": "Menos de 10% da cota ainda esta disponÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel.",
                     "title": "Armazenamento quase cheio"
                 }
@@ -1801,9 +1804,9 @@
                 "pill": {
                     "description": "Use a variante pill quando estados relacionados devem parecer colados em um ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºnico controle segmentado.",
                     "items": {
-                        "dark": "Escuro",
-                        "light": "Claro",
-                        "system": "Sistema"
+                        "dark": "$t(docs.toggleControls.cards.chrome.theme.dark)",
+                        "light": "$t(docs.toggleControls.cards.chrome.theme.light)",
+                        "system": "$t(docs.toggleControls.cards.chrome.theme.system)"
                     },
                     "title": "Variante pill"
                 },
@@ -1811,7 +1814,7 @@
                     "ariaLabel": "Alternar formataÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o em negrito",
                     "description": "Use o toggle ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºnico como padrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o pressionada na superficie normal do app.",
                     "disabledLabel": "Bloqueado",
-                    "label": "Negrito",
+                    "label": "$t(docs.toggleControls.cards.multi.items.bold)",
                     "title": "Toggle ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºnico"
                 },
                 "view": {
@@ -1863,7 +1866,7 @@
         "tooltip": {
             "automatic": {
                 "createItem": "Criar item",
-                "deleteDraft": "Excluir rascunho",
+                "deleteDraft": "$t(docs.button.actionOrderCard.left)",
                 "moreInformation": "Mais informaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes"
             },
             "description": "Tooltips fornecem dicas contextuais curtas para controles e elementos inline da interface. Use o wrapper diretamente em gatilhos personalizados ou conte com o comportamento automÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡tico em botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes somente com ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cone.",
@@ -1978,7 +1981,7 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "O registro da cidade n?o p?de ser carregado agora.",
+                    "description": "$t(geo.cityPage.dialog.error.description)",
                     "title": "N?o foi poss?vel carregar os detalhes da cidade"
                 },
                 "listError": {
@@ -2005,12 +2008,12 @@
                     "viewDetails": "Ver detalhes da cidade"
                 },
                 "columns": {
-                    "ibgeCode": "C?digo IBGE",
-                    "name": "Cidade"
+                    "ibgeCode": "$t(geo.cityPage.dialog.fields.ibgeCode)",
+                    "name": "$t(docs.combobox.cards.city.label)"
                 },
                 "error": {
-                    "description": "O cat?logo de cidades n?o p?de ser carregado agora.",
-                    "title": "N?o foi poss?vel carregar as cidades"
+                    "description": "$t(geo.cityPage.feedback.listError.description)",
+                    "title": "$t(geo.cityPage.feedback.listError.title)"
                 }
             },
             "title": "Cidades"
@@ -2027,14 +2030,14 @@
             },
             "fields": {
                 "email": "Email da conta",
-                "status": "Status",
+                "status": "$t(docs.drawer.examples.filters.groups.status.title)",
                 "type": "Tipo de conta"
             },
             "lastUpdated": "ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â¡ltima atualizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o {{value}}.",
             "loading": "Carregando conta atual",
             "title": "Conta atual",
             "values": {
-                "active": "Ativa",
+                "active": "$t(docs.multiSelect.cards.status.options.active)",
                 "inactive": "Inativa"
             }
         }
@@ -2044,19 +2047,19 @@
             "description": "Diret?rio somente leitura de registros de contas e de suas identidades de usu?rio vinculadas.",
             "dialog": {
                 "active": {
-                    "no": "Inativa",
-                    "yes": "Ativa"
+                    "no": "$t(home.currentAccount.values.inactive)",
+                    "yes": "$t(docs.multiSelect.cards.status.options.active)"
                 },
                 "error": {
                     "description": "O registro da conta n?o p?de ser carregado agora.",
                     "title": "N?o foi poss?vel carregar a conta"
                 },
                 "fields": {
-                    "accountType": "Tipo de conta",
-                    "active": "Status",
+                    "accountType": "$t(home.currentAccount.fields.type)",
+                    "active": "$t(docs.drawer.examples.filters.groups.status.title)",
                     "createdAt": "Criado em",
-                    "email": "E-mail",
-                    "id": "Identificador",
+                    "email": "$t(auth.login.form.fields.email.label)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
                     "updatedAt": "Atualizado em"
                 },
                 "linkedUser": {
@@ -2066,7 +2069,7 @@
                     },
                     "fields": {
                         "cpf": "CPF",
-                        "id": "Identificador",
+                        "id": "$t(geo.cityPage.dialog.fields.id)",
                         "name": "Nome do usu?rio"
                     },
                     "loading": "Carregando usu?rio vinculado",
@@ -2090,12 +2093,12 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "O registro da conta n?o p?de ser carregado agora.",
+                    "description": "$t(identity.accountPage.dialog.error.description)",
                     "title": "N?o foi poss?vel carregar os detalhes da conta"
                 },
                 "linkedUserError": {
-                    "description": "O registro do usu?rio vinculado n?o p?de ser carregado agora.",
-                    "title": "N?o foi poss?vel carregar o usu?rio vinculado"
+                    "description": "$t(identity.accountPage.dialog.linkedUser.error.description)",
+                    "title": "$t(identity.accountPage.dialog.linkedUser.error.title)"
                 },
                 "listError": {
                     "description": "O cat?logo de contas n?o p?de ser carregado agora.",
@@ -2104,7 +2107,7 @@
             },
             "filters": {
                 "accountType": {
-                    "label": "Tipo de conta",
+                    "label": "$t(home.currentAccount.fields.type)",
                     "options": {
                         "ADMIN": "Administrador",
                         "all": "Todos os tipos",
@@ -2114,34 +2117,34 @@
                     "placeholder": "Selecione..."
                 },
                 "active": {
-                    "label": "Status",
+                    "label": "$t(docs.drawer.examples.filters.groups.status.title)",
                     "options": {
-                        "active": "Ativa",
+                        "active": "$t(docs.multiSelect.cards.status.options.active)",
                         "all": "Todos os status",
-                        "inactive": "Inativa"
+                        "inactive": "$t(home.currentAccount.values.inactive)"
                     },
-                    "placeholder": "Selecione..."
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
                 },
-                "clear": "Limpar filtros",
+                "clear": "$t(docs.drawer.examples.filters.clear.action)",
                 "dateField": {
                     "label": "Campo de data",
                     "options": {
-                        "createdAt": "Criado em",
-                        "updatedAt": "Atualizado em"
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                     },
-                    "placeholder": "Selecione..."
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
                 },
                 "drawer": {
                     "active": "Filtros avan?ados ativos",
-                    "apply": "Aplicar filtros",
+                    "apply": "$t(docs.drawer.examples.filters.footer.action)",
                     "clearConfirm": {
                         "description": "Isso remover? os filtros ativos de conta da visualiza??o atual da tabela.",
                         "title": "Limpar filtros de conta?"
                     },
-                    "label": "Filtros avan?ados",
+                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
                     "overhead": "Filtros de conta",
                     "title": "Refinar cat?logo de contas",
-                    "trigger": "Filtros avan?ados"
+                    "trigger": "$t(docs.drawer.examples.filters.groups.advanced.title)"
                 },
                 "email": {
                     "label": "Nome ou e-mail",
@@ -2162,33 +2165,337 @@
             },
             "metadata": {
                 "empty": {
-                    "description": "Proveni?ncia do servi?o, atualiza??o e metadados da requisi??o ficar?o aqui.",
-                    "title": "Metadados em breve"
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
                 },
-                "trigger": "Metadados"
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
                 "actions": {
                     "viewDetails": "Ver detalhes da conta"
                 },
                 "active": {
-                    "no": "Inativa",
-                    "yes": "Ativa"
+                    "no": "$t(home.currentAccount.values.inactive)",
+                    "yes": "$t(docs.multiSelect.cards.status.options.active)"
                 },
                 "columns": {
-                    "accountType": "Tipo de conta",
-                    "active": "Status",
-                    "createdAt": "Criado em",
-                    "email": "E-mail",
+                    "accountType": "$t(home.currentAccount.fields.type)",
+                    "active": "$t(docs.drawer.examples.filters.groups.status.title)",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "email": "$t(auth.login.form.fields.email.label)",
                     "name": "Nome",
-                    "updatedAt": "Atualizado em"
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                 },
                 "error": {
-                    "description": "O cat?logo de contas n?o p?de ser carregado agora.",
-                    "title": "N?o foi poss?vel carregar as contas"
+                    "description": "$t(identity.accountPage.feedback.listError.description)",
+                    "title": "$t(identity.accountPage.feedback.listError.title)"
                 }
             },
             "title": "Contas"
+        },
+        "adminPage": {
+            "create": {
+                "actions": {
+                    "save": "Criar administrador",
+                    "savePending": "Criando administrador..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "O administrador n?o p?de ser criado agora.",
+                        "title": "N?o foi poss?vel criar o administrador"
+                    },
+                    "success": {
+                        "description": "{{name}} foi criado com sucesso.",
+                        "title": "Administrador criado"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Defina uma senha para o novo administrador"
+                },
+                "open": "Adicionar administrador",
+                "overhead": "Novo administrador",
+                "titleFallback": "Adicionar administrador"
+            },
+            "deactivate": {
+                "confirm": {
+                    "description": "{{name}} perder? o acesso administrativo ativo at? ser reativado.",
+                    "title": "Desativar este administrador?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "O administrador n?o p?de ser desativado agora.",
+                        "title": "N?o foi poss?vel desativar o administrador"
+                    },
+                    "success": {
+                        "description": "{{name}} agora est? inativo.",
+                        "title": "Administrador desativado"
+                    }
+                }
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} ser? removido do diret?rio de administradores ap?s o prazo de desfazer expirar.",
+                    "title": "Excluir este v?nculo administrativo?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "O administrador n?o p?de ser exclu?do agora.",
+                        "title": "N?o foi poss?vel excluir o administrador"
+                    },
+                    "success": {
+                        "description": "{{name}} foi removido do diret?rio de administradores.",
+                        "title": "Administrador exclu?do"
+                    }
+                },
+                "undo": {
+                    "action": "Desfazer",
+                    "description": "{{name}} ser? exclu?do se voc? n?o desfizer esta a??o.",
+                    "title": "Exclus?o de administrador agendada"
+                }
+            },
+            "description": "Diretório somente leitura de vínculos administrativos, contas vinculadas e registros de usuário vinculados.",
+            "dialog": {
+                "error": {
+                    "description": "O registro do administrador não pôde ser carregado agora.",
+                    "title": "Não foi possível carregar os detalhes do administrador"
+                },
+                "fields": {
+                    "campus": "Campus",
+                    "email": "$t(identity.accountPage.dialog.fields.email)",
+                    "grantedAt": "Concedido em",
+                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
+                    "userId": "Identificador do usuário"
+                },
+                "linkedAccount": {
+                    "active": {
+                        "no": "$t(identity.accountPage.dialog.active.no)",
+                        "yes": "$t(identity.accountPage.dialog.active.yes)"
+                    },
+                    "error": {
+                        "description": "O registro da conta vinculada não pôde ser carregado agora.",
+                        "title": "Não foi possível carregar a conta vinculada"
+                    },
+                    "fields": {
+                        "active": "$t(identity.accountPage.dialog.fields.active)",
+                        "id": "$t(identity.accountPage.dialog.fields.id)",
+                        "type": "$t(identity.accountPage.dialog.fields.accountType)"
+                    },
+                    "loading": "Carregando conta vinculada",
+                    "notFound": {
+                        "description": "O registro da conta vinculada não foi encontrado.",
+                        "title": "Conta vinculada não encontrada"
+                    },
+                    "overhead": "Conta vinculada"
+                },
+                "linkedUser": {
+                    "error": {
+                        "description": "$t(identity.accountPage.dialog.linkedUser.error.description)",
+                        "title": "$t(identity.accountPage.dialog.linkedUser.error.title)"
+                    },
+                    "fields": {
+                        "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+                        "id": "$t(identity.accountPage.dialog.linkedUser.fields.id)",
+                        "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)"
+                    },
+                    "loading": "$t(identity.accountPage.dialog.linkedUser.loading)",
+                    "notFound": {
+                        "description": "$t(identity.accountPage.dialog.linkedUser.notFound.description)",
+                        "title": "$t(identity.accountPage.dialog.linkedUser.notFound.title)"
+                    },
+                    "overhead": "$t(identity.accountPage.dialog.linkedUser.overhead)"
+                },
+                "notFound": {
+                    "description": "O vínculo administrativo solicitado não foi encontrado.",
+                    "title": "Administrador não encontrado"
+                },
+                "overhead": "Vínculo administrativo",
+                "titleFallback": "Detalhes do administrador"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Criar duplicata",
+                    "savePending": "Criando duplicata..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "A duplica??o do administrador n?o p?de ser conclu?da agora.",
+                        "title": "N?o foi poss?vel duplicar o administrador"
+                    },
+                    "success": {
+                        "description": "{{name}} foi duplicado com sucesso.",
+                        "title": "Administrador duplicado"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Defina uma senha para o administrador duplicado"
+                },
+                "overhead": "Duplicar administrador",
+                "titleFallback": "Duplicar administrador"
+            },
+            "empty": {
+                "defaultDescription": "O diretório de administradores está vazio no momento.",
+                "filteredDescription": "Nenhum administrador corresponde a \"{{value}}\".",
+                "title": "Nenhum administrador encontrado"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "O registro do administrador não pôde ser carregado agora.",
+                    "title": "Não foi possível carregar os detalhes do administrador"
+                },
+                "linkedAccountError": {
+                    "description": "O registro da conta vinculada não pôde ser carregado agora.",
+                    "title": "Não foi possível carregar a conta vinculada"
+                },
+                "linkedUserError": {
+                    "description": "$t(identity.accountPage.feedback.linkedUserError.description)",
+                    "title": "$t(identity.accountPage.feedback.linkedUserError.title)"
+                },
+                "listError": {
+                    "description": "O diretório de administradores não pôde ser carregado agora.",
+                    "title": "Não foi possível carregar os administradores"
+                }
+            },
+            "filters": {
+                "campus": {
+                    "label": "Campus",
+                    "options": {
+                        "all": "Todos os campus",
+                        "JARAGUA_DO_SUL": "Jaraguá do Sul",
+                        "JOINVILLE": "Joinville"
+                    },
+                    "placeholder": "Selecione..."
+                },
+                "clear": "$t(identity.accountPage.filters.clear)",
+                "search": {
+                    "label": "Nome ou e-mail",
+                    "placeholder": "Filtrar por nome ou e-mail do administrador"
+                }
+            },
+            "loading": {
+                "detail": "Carregando detalhes do administrador",
+                "list": "Carregando administradores"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(identity.accountPage.metadata.empty.description)",
+                    "title": "$t(identity.accountPage.metadata.empty.title)"
+                },
+                "trigger": "$t(identity.accountPage.metadata.trigger)"
+            },
+            "reactivate": {
+                "confirm": {
+                    "description": "{{name}} voltar? a ter acesso administrativo ativo imediatamente.",
+                    "title": "Reativar este administrador?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "O administrador n?o p?de ser reativado agora.",
+                        "title": "N?o foi poss?vel reativar o administrador"
+                    },
+                    "success": {
+                        "description": "{{name}} est? ativo novamente.",
+                        "title": "Administrador reativado"
+                    }
+                }
+            },
+            "table": {
+                "actions": {
+                    "deactivate": "Desativar administrador",
+                    "delete": "Excluir administrador",
+                    "duplicate": "Duplicar administrador",
+                    "reactivate": "Reativar administrador",
+                    "update": "Atualizar administrador",
+                    "viewDetails": "$t(docs.table.actions.view)"
+                },
+                "columns": {
+                    "campus": "Campus",
+                    "email": "$t(identity.accountPage.table.columns.email)",
+                    "grantedAt": "Concedido em",
+                    "name": "$t(identity.userPage.table.columns.name)"
+                },
+                "error": {
+                    "description": "O diretório de administradores não pôde ser carregado agora.",
+                    "title": "Não foi possível carregar os administradores"
+                }
+            },
+            "title": "Administradores",
+            "update": {
+                "accountLoadError": {
+                    "description": "O registro da conta vinculada n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar a conta vinculada"
+                },
+                "accountNotFound": {
+                    "description": "O registro da conta vinculada n?o foi encontrado.",
+                    "title": "Conta vinculada n?o encontrada"
+                },
+                "actions": {
+                    "reset": "Redefinir altera??es",
+                    "save": "Salvar altera??es",
+                    "savePending": "Salvando altera??es..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "O administrador n?o p?de ser atualizado agora.",
+                        "title": "N?o foi poss?vel salvar as altera??es do administrador"
+                    },
+                    "success": {
+                        "description": "{{name}} foi atualizado com sucesso.",
+                        "title": "Administrador atualizado"
+                    }
+                },
+                "fields": {
+                    "accountId": "$t(identity.accountPage.dialog.fields.id)",
+                    "accountType": "$t(identity.accountPage.dialog.fields.accountType)",
+                    "active": "$t(identity.accountPage.dialog.fields.active)",
+                    "activeValues": {
+                        "active": "$t(identity.accountPage.dialog.active.yes)",
+                        "inactive": "$t(identity.accountPage.dialog.active.no)"
+                    },
+                    "campus": "Campus",
+                    "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+                    "email": "$t(identity.accountPage.dialog.fields.email)",
+                    "grantedAt": "Concedido em",
+                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
+                    "password": "Senha",
+                    "passwordPlaceholder": "Deixe em branco para manter a senha atual",
+                    "userId": "Identificador do usu?rio",
+                    "userName": "$t(identity.accountPage.dialog.linkedUser.fields.name)"
+                },
+                "loadError": {
+                    "description": "O registro do administrador n?o p?de ser carregado agora.",
+                    "title": "N?o foi poss?vel carregar o editor do administrador"
+                },
+                "loading": "Carregando editor do administrador",
+                "notFound": {
+                    "description": "O v?nculo administrativo solicitado n?o foi encontrado.",
+                    "title": "Administrador n?o encontrado"
+                },
+                "overhead": "Editar administrador",
+                "resetConfirm": {
+                    "description": "Isso descartar? as altera??es n?o salvas do administrador neste drawer.",
+                    "title": "Redefinir altera??es do administrador?"
+                },
+                "tabs": {
+                    "access": "Acesso",
+                    "profile": "Perfil",
+                    "user": "Usu?rio vinculado"
+                },
+                "titleFallback": "Editar administrador",
+                "validation": {
+                    "campus": "Selecione um campus.",
+                    "cpf": {
+                        "required": "Informe um CPF."
+                    },
+                    "email": {
+                        "invalid": "Informe um endere?o de e-mail v?lido.",
+                        "required": "Informe um endere?o de e-mail."
+                    },
+                    "name": "Informe um nome.",
+                    "password": {
+                        "required": "Informe uma senha."
+                    }
+                }
+            }
         },
         "userPage": {
             "description": "Diretório somente leitura de registros de usuários compartilhados pela plataforma.",
@@ -2198,11 +2505,11 @@
                     "title": "Não foi possível carregar o usuário"
                 },
                 "fields": {
-                    "cpf": "CPF",
-                    "createdAt": "Criado em",
-                    "id": "Identificador",
-                    "name": "Nome do usuário",
-                    "updatedAt": "Atualizado em"
+                    "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
+                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                 },
                 "notFound": {
                     "description": "O registro do usuário solicitado não foi encontrado.",
@@ -2218,7 +2525,7 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "O registro do usuário não pôde ser carregado agora.",
+                    "description": "$t(identity.userPage.dialog.error.description)",
                     "title": "Não foi possível carregar os detalhes do usuário"
                 },
                 "listError": {
@@ -2229,33 +2536,33 @@
             "filters": {
                 "advanced": {
                     "active": "Filtros de data ativos",
-                    "label": "Filtros avançados",
+                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
                     "trigger": "Filtros de data"
                 },
-                "clear": "Limpar filtros",
+                "clear": "$t(docs.drawer.examples.filters.clear.action)",
                 "cpf": {
-                    "label": "CPF",
+                    "label": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
                     "placeholder": "Filtrar por CPF"
                 },
                 "dateField": {
-                    "label": "Campo de data",
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
                     "options": {
-                        "createdAt": "Criado em",
-                        "updatedAt": "Atualizado em"
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                     },
-                    "placeholder": "Selecione..."
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
                 },
                 "endDate": {
-                    "label": "Data final",
-                    "placeholder": "Data final"
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
                 },
                 "name": {
-                    "label": "Nome",
+                    "label": "$t(identity.accountPage.table.columns.name)",
                     "placeholder": "Filtrar por nome do usuário"
                 },
                 "startDate": {
-                    "label": "Data de início",
-                    "placeholder": "Data inicial"
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
                 }
             },
             "loading": {
@@ -2264,24 +2571,24 @@
             },
             "metadata": {
                 "empty": {
-                    "description": "Proveniência do serviço, atualização e metadados da requisição ficarão aqui.",
-                    "title": "Metadados em breve"
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
                 },
-                "trigger": "Metadados"
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
                 "actions": {
                     "viewDetails": "Ver detalhes do usuário"
                 },
                 "columns": {
-                    "cpf": "CPF",
-                    "createdAt": "Criado em",
+                    "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
                     "name": "Usuário",
-                    "updatedAt": "Atualizado em"
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                 },
                 "error": {
-                    "description": "O catálogo de usuários não pôde ser carregado agora.",
-                    "title": "Não foi possível carregar os usuários"
+                    "description": "$t(identity.userPage.feedback.listError.description)",
+                    "title": "$t(identity.userPage.feedback.listError.title)"
                 }
             },
             "title": "Usuários"
@@ -2300,8 +2607,8 @@
         "controls": {
             "language": {
                 "options": {
-                    "en-US": "InglÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªs",
-                    "pt-BR": "PortuguÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªs"
+                    "en-US": "$t(docs.toggleControls.cards.chrome.locale.english)",
+                    "pt-BR": "$t(docs.toggleControls.cards.chrome.locale.portuguese)"
                 },
                 "short": {
                     "en-US": "EN",
@@ -2310,9 +2617,9 @@
             },
             "theme": {
                 "options": {
-                    "dark": "Escuro",
-                    "light": "Claro",
-                    "system": "Sistema"
+                    "dark": "$t(docs.toggleControls.cards.chrome.theme.dark)",
+                    "light": "$t(docs.toggleControls.cards.chrome.theme.light)",
+                    "system": "$t(docs.toggleControls.cards.chrome.theme.system)"
                 }
             }
         },
@@ -2326,15 +2633,15 @@
                 "student": "Estudantes"
             },
             "docs": {
-                "overview": "Visao geral",
+                "overview": "$t(docs.card.layoutCards.list.items.overview.title)",
                 "primitives": {
-                    "actions": "AÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes",
-                    "display": "Exibicao",
-                    "forms": "Formularios",
-                    "navigation": "NavegaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o",
-                    "overlays": "Overlays",
+                    "actions": "$t(components.table.actions)",
+                    "display": "$t(docs.primitivesOverview.areas.display.label)",
+                    "forms": "$t(docs.primitivesOverview.areas.forms.label)",
+                    "navigation": "$t(docs.primitivesOverview.areas.navigation.label)",
+                    "overlays": "$t(docs.primitivesOverview.areas.overlays.label)",
                     "root": "Primitivas",
-                    "structure": "Estrutura"
+                    "structure": "$t(docs.card.sections.structure.title)"
                 },
                 "root": "DocumentaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o",
                 "routing": {
@@ -2345,26 +2652,26 @@
                 }
             },
             "geo": {
-                "city": "Cidades",
+                "city": "$t(geo.cityPage.title)",
                 "root": "Geografia"
             },
             "home": "InÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cio",
             "identity": {
-                "account": "Contas",
+                "account": "$t(identity.accountPage.title)",
                 "admin": "Administradores",
                 "root": "Identidade",
-                "user": "UsuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rios"
+                "user": "$t(identity.userPage.title)"
             },
             "partner": {
                 "entity": "Entidades",
-                "root": "Parceiros",
+                "root": "$t(identity.accountPage.filters.accountType.options.PARTNER)",
                 "staff": "Equipe"
             },
             "project": {
                 "attendance": "FrequÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia",
                 "enrollment": "MatrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­culas",
-                "project": "Projetos",
-                "root": "Projetos"
+                "project": "$t(docs.card.compositionCards.summary.stats.items.projects.label)",
+                "root": "$t(docs.table.columns.name)"
             },
             "unknown": "Desconhecido"
         },

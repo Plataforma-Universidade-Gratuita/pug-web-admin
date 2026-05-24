@@ -1,9 +1,9 @@
 import { Section, SectionContent, Table } from "@/components";
-import type { ReadOnlyTableSectionProps } from "@/types/client";
+import type { ServicePageTableSectionProps } from "@/types/client/service-pages";
 
-export function ReadOnlyTableSection<TData extends object>({
+export function ServicePageTableSection<TData extends object>({
 	tableProps,
-}: ReadOnlyTableSectionProps<TData>) {
+}: ServicePageTableSectionProps<TData>) {
 	return (
 		<div className="grid h-full min-h-0">
 			<Section className="shadow-normal grid h-full min-h-0 rounded-[calc(var(--twc-radius-xl)+0.25rem)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)]">

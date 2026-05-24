@@ -7,13 +7,13 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components";
-import type { ReadOnlyMetadataPopoverProps } from "@/types/client";
+import type { ServicePageMetadataPopoverProps } from "@/types/client/service-pages";
 
-export function ReadOnlyMetadataPopover({
+export function ServicePageMetadataPopover({
 	triggerLabel,
 	emptyTitle,
 	emptyDescription,
-}: ReadOnlyMetadataPopoverProps) {
+}: ServicePageMetadataPopoverProps) {
 	return (
 		<Popover>
 			<PopoverTrigger>

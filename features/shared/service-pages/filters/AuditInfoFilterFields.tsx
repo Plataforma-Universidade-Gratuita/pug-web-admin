@@ -6,7 +6,7 @@ import {
 	SelectItem,
 	SelectTrigger,
 } from "@/components";
-import type { AuditInfoFilterFieldsProps } from "@/types/client";
+import type { AuditInfoFilterFieldsProps } from "@/types/client/service-pages";
 
 export function AuditInfoFilterFields({
 	dateFieldLabel,

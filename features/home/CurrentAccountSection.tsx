@@ -19,6 +19,7 @@ import {
 	SectionTitle,
 } from "@/components";
 import { useCurrentAccountQuery } from "@/features/identity/account/queries";
+import { getAccountTypeLabel } from "@/features/identity/account/utils";
 
 export function CurrentAccountSection() {
 	const { t } = useTranslation();
@@ -95,7 +96,7 @@ export function CurrentAccountSection() {
 											{t("home.currentAccount.fields.type")}
 										</CardTitle>
 										<CardDescription>
-											{data.accountTypeFormatted}
+											{getAccountTypeLabel(t, data.accountType)}
 										</CardDescription>
 									</div>
 								</div>

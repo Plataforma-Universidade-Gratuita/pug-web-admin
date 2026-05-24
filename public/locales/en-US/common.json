@@ -56,6 +56,9 @@
             }
         }
     },
+    "common": {
+        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)"
+    },
     "components": {
         "datePicker": {
             "calendarLabel": "Date picker calendar",
@@ -153,7 +156,7 @@
                 },
                 "multiple": {
                     "description": "Multi-open mode is for review and comparison cases where several supporting groups may need to stay visible at once.",
-                    "title": "Multiple open sections"
+                    "title": "$t(docs.accordion.multiCard.title)"
                 },
                 "single": {
                     "description": "Single-open accordion is the default when one section should lead and neighboring sections should recede.",
@@ -218,7 +221,7 @@
                 "default": {
                     "description": "Confirm to apply the current update to this record.",
                     "footer": {
-                        "cancel": "Cancel",
+                        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                         "confirm": "Confirm changes"
                     },
                     "title": "Submit these changes?"
@@ -226,7 +229,7 @@
                 "success": {
                     "description": "Confirm to finalize this workflow and keep the resulting state visible to the team.",
                     "footer": {
-                        "cancel": "Cancel",
+                        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                         "confirm": "Mark complete"
                     },
                     "title": "Mark this workflow complete?"
@@ -234,7 +237,7 @@
                 "warning": {
                     "description": "Archiving removes this record from the active workflow while preserving its history.",
                     "footer": {
-                        "cancel": "Cancel",
+                        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                         "confirm": "Archive record"
                     },
                     "title": "Archive this record?"
@@ -318,7 +321,7 @@
                 "description": "These examples show the stricter contract: default button, explicit primary, and the default grey secondary action.",
                 "explicit": "Explicit primary",
                 "primary": "Save changes",
-                "secondary": "Cancel",
+                "secondary": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                 "title": "Variant-driven defaults"
             },
             "description": "Buttons trigger user actions. The contract is now stricter: `variant=\"primary\"` is the main flat action, `variant=\"secondary\"` is the lower-emphasis ghost action, and `usage` changes the color when the meaning changes.",
@@ -374,7 +377,7 @@
                     "title": "Full width"
                 },
                 "loading": {
-                    "button": "Publish",
+                    "button": "$t(docs.button.actionOrderCard.right)",
                     "loadingText": "Publishing...",
                     "title": "Loading"
                 }
@@ -393,13 +396,13 @@
                 },
                 "primary": {
                     "description": "Default high-emphasis action for confirm and submit flows.",
-                    "label": "Save changes",
-                    "name": "Primary"
+                    "label": "$t(docs.button.defaultCard.primary)",
+                    "name": "$t(docs.badge.variants.primary)"
                 },
                 "secondary": {
                     "description": "Neutral action for companion paths and supporting controls.",
                     "label": "Export report",
-                    "name": "Secondary"
+                    "name": "$t(docs.badge.variants.secondary)"
                 },
                 "success": {
                     "description": "Positive action for approvals, completion, or confirmation.",
@@ -415,11 +418,11 @@
             "variantCards": {
                 "primary": {
                     "description": "Filled pattern for the main action.",
-                    "name": "Primary"
+                    "name": "$t(docs.badge.variants.primary)"
                 },
                 "secondary": {
                     "description": "Ghost pattern for supporting actions.",
-                    "name": "Secondary"
+                    "name": "$t(docs.badge.variants.secondary)"
                 }
             }
         },
@@ -490,7 +493,7 @@
             "sections": {
                 "composition": {
                     "description": "Use the same primitive for compact information blocks, bounded summaries, and cards that include supporting actions or metadata.",
-                    "title": "Composition"
+                    "title": "$t(docs.card.layoutCards.list.items.composition.title)"
                 },
                 "layouts": {
                     "description": "Cards can host denser layouts as long as the content still reads as one coherent block.",
@@ -527,7 +530,7 @@
                             "label": "Campinas"
                         },
                         "osasco": {
-                            "description": "Sao Paulo",
+                            "description": "$t(docs.combobox.cards.city.options.campinas.description)",
                             "label": "Osasco"
                         },
                         "santos": {
@@ -670,7 +673,7 @@
                 },
                 "structure": {
                     "description": "The dialog structure is fixed: optional overhead, required title, close button, separator, and required content body.",
-                    "title": "Structure"
+                    "title": "$t(docs.card.sections.structure.title)"
                 }
             },
             "structureCards": {
@@ -727,7 +730,7 @@
                             "title": "Review before creation"
                         }
                     },
-                    "title": "Create entity"
+                    "title": "$t(docs.drawer.examples.create.footer.action)"
                 },
                 "filters": {
                     "clear": {
@@ -786,27 +789,27 @@
                         "archive": "Archive project",
                         "delete": "Delete project",
                         "edit": "Edit record",
-                        "save": "Save changes",
-                        "view": "View details"
+                        "save": "$t(docs.button.defaultCard.primary)",
+                        "view": "$t(docs.button.usageCards.info.label)"
                     },
                     "menuLabel": "Project actions",
                     "rowDescription": "Updated 2 hours ago",
                     "rowTitle": "Project Atlas",
                     "title": "Row action menu",
-                    "trigger": "Open row actions"
+                    "trigger": "$t(components.table.openRowActions)"
                 }
             },
             "confirm": {
                 "archive": {
                     "action": "Confirm archive",
                     "description": "Archiving will remove this record from the active workflow while preserving its history.",
-                    "title": "Archive this record?"
+                    "title": "$t(docs.alertDialog.examples.warning.title)"
                 },
-                "cancel": "Cancel",
+                "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
                 "delete": {
                     "action": "Confirm deletion",
                     "description": "Deletion is destructive and should only happen when the record should no longer exist.",
-                    "title": "Delete this record?"
+                    "title": "$t(docs.alertDialog.examples.danger.title)"
                 },
                 "save": {
                     "action": "Confirm save",
@@ -835,7 +838,7 @@
         },
         "emptyState": {
             "compact": {
-                "action": "Refresh",
+                "action": "$t(components.emptyState.presets.someError.refresh)",
                 "description": "This queue is empty right now.",
                 "title": "Nothing to review"
             },
@@ -863,7 +866,7 @@
                     "title": "No accessible workspaces"
                 },
                 "noResults": {
-                    "action": "Clear filters",
+                    "action": "$t(docs.drawer.examples.filters.clear.action)",
                     "description": "No records matched the current filters. Adjust the criteria or clear filters to broaden the results.",
                     "title": "No matching results"
                 }
@@ -913,7 +916,7 @@
             "description": "Icons communicate supporting meaning, reinforce actions, and compact visual status. Use the icon primitive so decorative icons stay silent, labeled icons remain accessible, and standalone icons can expose tooltip help when needed.",
             "integrationCard": {
                 "description": "The icon primitive also works inside higher-level controls. In those cases, the parent control still owns the accessible name and tooltip behavior.",
-                "iconButton": "Notifications",
+                "iconButton": "$t(docs.icon.decorativeCards.status.badge)",
                 "primary": "Search records",
                 "title": "Composed with buttons"
             },
@@ -952,14 +955,14 @@
                 },
                 "email": {
                     "description": "A standard single-line field with lightweight leading context.",
-                    "label": "Email",
-                    "placeholder": "admin@pug.edu.br",
+                    "label": "$t(auth.login.form.fields.email.label)",
+                    "placeholder": "$t(auth.login.form.fields.email.placeholder)",
                     "title": "Email field"
                 },
                 "password": {
                     "description": "Use the built-in reveal behavior when the field should let users inspect the hidden value temporarily.",
-                    "label": "Password",
-                    "placeholder": "Enter your password",
+                    "label": "$t(auth.login.form.fields.password.label)",
+                    "placeholder": "$t(auth.login.form.fields.password.placeholder)",
                     "title": "Password field"
                 }
             },
@@ -974,9 +977,9 @@
                 "snippet": "<Input type=\"email\" placeholder=\"admin@pug.edu.br\" />\n\n<Input type=\"password\" showPasswordToggle />"
             },
             "search": {
-                "label": "Search",
+                "label": "$t(docs.icon.accessibilityCards.tooltip.label)",
                 "placeholder": "Search workspaces",
-                "value": "Project Atlas"
+                "value": "$t(docs.dropdownMenu.cards.rowActions.rowTitle)"
             },
             "sections": {
                 "fields": {
@@ -1075,8 +1078,8 @@
                     "description": "A popover can carry helpful context without turning into an action menu or a dialog.",
                     "items": {
                         "owner": {
-                            "label": "Owner",
-                            "value": "Maria Souza"
+                            "label": "$t(docs.combobox.cards.people.label)",
+                            "value": "$t(docs.combobox.cards.people.options.maria.label)"
                         },
                         "review": {
                             "label": "Review",
@@ -1105,7 +1108,7 @@
             "sections": {
                 "quickFilters": {
                     "description": "Use popover when the filter is small, local, and can be applied without opening a full drawer.",
-                    "title": "Quick filters"
+                    "title": "$t(docs.popover.examples.quickFilters.trigger)"
                 },
                 "support": {
                     "description": "Popover also works well for short panels of context, metadata, or local preferences.",
@@ -1120,55 +1123,55 @@
                     "cta": "Open area",
                     "description": "Buttons, toggles, and action hierarchy.",
                     "href": "/docs/primitives/actions",
-                    "label": "Actions",
-                    "title": "Actions",
+                    "label": "$t(components.table.actions)",
+                    "title": "$t(components.table.actions)",
                     "tone": "Core"
                 },
                 "display": {
-                    "cta": "Open area",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Sections, cards, tables, and visual states.",
                     "href": "/docs/primitives/display",
                     "label": "Display",
-                    "title": "Display",
-                    "tone": "Core"
+                    "title": "$t(docs.primitivesOverview.areas.display.label)",
+                    "tone": "$t(docs.primitivesOverview.areas.actions.tone)"
                 },
                 "forms": {
-                    "cta": "Open area",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Fields, selection patterns, and date input.",
                     "href": "/docs/primitives/forms",
                     "label": "Forms",
-                    "title": "Forms",
-                    "tone": "Input"
+                    "title": "$t(docs.primitivesOverview.areas.forms.label)",
+                    "tone": "$t(docs.input.title)"
                 },
                 "navigation": {
-                    "cta": "Open area",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Tabs, accordion, and dropdown menus.",
                     "href": "/docs/primitives/navigation",
                     "label": "Navigation",
-                    "title": "Navigation",
+                    "title": "$t(docs.primitivesOverview.areas.navigation.label)",
                     "tone": "Flow"
                 },
                 "overlays": {
-                    "cta": "Open area",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Drawer, dialog, popover, and toast.",
                     "href": "/docs/primitives/overlays",
                     "label": "Overlays",
-                    "title": "Overlays",
-                    "tone": "Flow"
+                    "title": "$t(docs.primitivesOverview.areas.overlays.label)",
+                    "tone": "$t(docs.primitivesOverview.areas.navigation.tone)"
                 },
                 "structure": {
-                    "cta": "Open area",
+                    "cta": "$t(docs.primitivesOverview.areas.actions.cta)",
                     "description": "Scroll areas and layout support.",
                     "href": "/docs/primitives/structure",
-                    "label": "Structure",
-                    "title": "Structure",
+                    "label": "$t(docs.card.sections.structure.title)",
+                    "title": "$t(docs.card.sections.structure.title)",
                     "tone": "Support"
                 }
             },
             "categories": {
                 "badge": "Guidance",
                 "description": "Each primitive area should make the approved defaults, semantic variants, states, and escalation rules explicit for that part of the system.",
-                "guidanceLabel": "Guidance",
+                "guidanceLabel": "$t(docs.primitivesOverview.categories.badge)",
                 "title": "What these docs should teach"
             },
             "guidance": {
@@ -1237,7 +1240,7 @@
                 },
                 "structure": {
                     "description": "A section establishes hierarchy and grouping without forcing a boxed surface.",
-                    "title": "Structure"
+                    "title": "$t(docs.card.sections.structure.title)"
                 },
                 "surface": {
                     "description": "Sections should usually stay plain and let inner components carry stronger framing when needed.",
@@ -1248,7 +1251,7 @@
                 "basic": {
                     "body": "This is the standard page-level grouping primitive. Use it to introduce content before placing denser blocks such as cards, tables, or forms.",
                     "description": "A section usually combines a heading, a short description, and a body region for related content.",
-                    "title": "Default structure"
+                    "title": "$t(docs.dialog.structureCards.basic.title)"
                 },
                 "minimal": {
                     "body": "Not every section needs heavy separation. Sometimes spacing and hierarchy are enough to keep the page understandable.",
@@ -1266,7 +1269,7 @@
                         },
                         "two": {
                             "description": "Another child surface under the same section heading and action set.",
-                            "title": "Open tasks"
+                            "title": "$t(docs.card.compositionCards.summary.stats.items.openTasks.label)"
                         }
                     },
                     "title": "Cards inside a section"
@@ -1285,8 +1288,8 @@
                 "disabled": {
                     "label": "Project status",
                     "options": {
-                        "active": "Active",
-                        "paused": "Paused"
+                        "active": "$t(docs.multiSelect.cards.status.options.active)",
+                        "paused": "$t(docs.multiSelect.cards.status.options.paused)"
                     },
                     "placeholder": "Choose status",
                     "title": "Disabled select"
@@ -1311,8 +1314,8 @@
                     "description": "Use a placeholder when the user still needs to make an explicit first selection.",
                     "label": "Date range",
                     "options": {
-                        "month": "Last 30 days",
-                        "today": "Today",
+                        "month": "$t(docs.popover.examples.quickFilters.options.period)",
+                        "today": "$t(components.datePicker.today)",
                         "week": "Last 7 days"
                     },
                     "placeholder": "Choose range",
@@ -1320,13 +1323,13 @@
                 },
                 "status": {
                     "description": "A typical admin filter where the selected value is controlled by surrounding state.",
-                    "label": "Status",
+                    "label": "$t(docs.drawer.examples.filters.groups.status.title)",
                     "options": {
-                        "active": "Active",
-                        "archived": "Archived",
-                        "paused": "Paused"
+                        "active": "$t(docs.multiSelect.cards.status.options.active)",
+                        "archived": "$t(docs.multiSelect.cards.status.options.archived)",
+                        "paused": "$t(docs.multiSelect.cards.status.options.paused)"
                     },
-                    "placeholder": "Choose status",
+                    "placeholder": "$t(docs.select.cards.disabled.placeholder)",
                     "title": "Controlled status filter"
                 }
             },
@@ -1378,7 +1381,7 @@
                     "items": {
                         "email": {
                             "description": "Send detailed updates to the primary inbox.",
-                            "label": "Email"
+                            "label": "$t(auth.login.form.fields.email.label)"
                         },
                         "silent": {
                             "description": "Store the update without sending an active notification.",
@@ -1515,7 +1518,7 @@
             "labelCard": {
                 "description": "Labels and separators support small but important hierarchy decisions inside forms and metadata rows.",
                 "leftMeta": "Updated today",
-                "nameLabel": "Workspace name",
+                "nameLabel": "$t(docs.input.cards.disabled.label)",
                 "namePlaceholder": "Enter workspace name",
                 "rightMeta": "6 active members",
                 "title": "Field structure"
@@ -1597,7 +1600,7 @@
                     },
                     "overview": {
                         "description": "Use a tab when this panel is one peer among several related content areas.",
-                        "label": "Overview",
+                        "label": "$t(docs.card.layoutCards.list.items.overview.title)",
                         "title": "Workspace overview"
                     }
                 }
@@ -1608,12 +1611,12 @@
                 "delete": "Delete",
                 "edit": "Edit",
                 "save": "Save",
-                "view": "View details"
+                "view": "$t(docs.button.usageCards.info.label)"
             },
             "columns": {
-                "campus": "Campus",
+                "campus": "$t(docs.drawer.examples.filters.groups.campus.title)",
                 "name": "Project",
-                "status": "Status",
+                "status": "$t(docs.drawer.examples.filters.groups.status.title)",
                 "updatedAt": "Updated"
             },
             "description": "Table is the shared primitive for dense operational lists that still need clear hierarchy, horizontal overflow handling, and predictable empty and loading states.",
@@ -1635,7 +1638,7 @@
             "rows": {
                 "atlas": {
                     "campus": "North Campus",
-                    "name": "Project Atlas",
+                    "name": "$t(docs.dropdownMenu.cards.rowActions.rowTitle)",
                     "updatedAt": "2 hours ago"
                 },
                 "connections": {
@@ -1661,7 +1664,7 @@
             },
             "statesNote": "Row actions are now a built-in last-column pattern through `getRowActions`. Keep heavier behaviors such as selection, pagination, or virtualization out of the primitive until a real feature demands them.",
             "status": {
-                "active": "Active",
+                "active": "$t(docs.multiSelect.cards.status.options.active)",
                 "hold": "On hold",
                 "planning": "Planning"
             },
@@ -1748,12 +1751,12 @@
             "title": "Toast",
             "variants": {
                 "danger": {
-                    "button": "Danger",
+                    "button": "$t(docs.button.usageCards.danger.name)",
                     "description": "The request was rejected by the server.",
                     "title": "Update failed"
                 },
                 "info": {
-                    "button": "Info",
+                    "button": "$t(docs.button.usageCards.info.name)",
                     "description": "New records are being pulled from the API.",
                     "title": "Sync started"
                 },
@@ -1763,12 +1766,12 @@
                     "title": "Draft saved"
                 },
                 "success": {
-                    "button": "Success",
+                    "button": "$t(docs.button.usageCards.success.name)",
                     "description": "The profile details were saved successfully.",
                     "title": "User updated"
                 },
                 "warning": {
-                    "button": "Warning",
+                    "button": "$t(docs.button.usageCards.warning.name)",
                     "description": "Less than 10% of the quota is available.",
                     "title": "Storage almost full"
                 }
@@ -1801,9 +1804,9 @@
                 "pill": {
                     "description": "Use the pill variant when related states should feel glued together as one segmented control.",
                     "items": {
-                        "dark": "Dark",
-                        "light": "Light",
-                        "system": "System"
+                        "dark": "$t(docs.toggleControls.cards.chrome.theme.dark)",
+                        "light": "$t(docs.toggleControls.cards.chrome.theme.light)",
+                        "system": "$t(docs.toggleControls.cards.chrome.theme.system)"
                     },
                     "title": "Pill variant"
                 },
@@ -1811,7 +1814,7 @@
                     "ariaLabel": "Toggle bold formatting",
                     "description": "Use the single toggle as the default pressed-action pattern on the standard surface.",
                     "disabledLabel": "Locked",
-                    "label": "Bold",
+                    "label": "$t(docs.toggleControls.cards.multi.items.bold)",
                     "title": "Single toggle"
                 },
                 "view": {
@@ -1863,7 +1866,7 @@
         "tooltip": {
             "automatic": {
                 "createItem": "Create item",
-                "deleteDraft": "Delete draft",
+                "deleteDraft": "$t(docs.button.actionOrderCard.left)",
                 "moreInformation": "More information"
             },
             "description": "Tooltips provide short contextual hints for controls and inline UI elements. Use the wrapper directly around custom triggers or rely on automatic tooltips for icon-only buttons.",
@@ -1978,7 +1981,7 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "The city record could not be loaded right now.",
+                    "description": "$t(geo.cityPage.dialog.error.description)",
                     "title": "Unable to load city details"
                 },
                 "listError": {
@@ -2005,12 +2008,12 @@
                     "viewDetails": "View city details"
                 },
                 "columns": {
-                    "ibgeCode": "IBGE code",
-                    "name": "City"
+                    "ibgeCode": "$t(geo.cityPage.dialog.fields.ibgeCode)",
+                    "name": "$t(docs.combobox.cards.city.label)"
                 },
                 "error": {
-                    "description": "The city catalog could not be loaded right now.",
-                    "title": "Unable to load cities"
+                    "description": "$t(geo.cityPage.feedback.listError.description)",
+                    "title": "$t(geo.cityPage.feedback.listError.title)"
                 }
             },
             "title": "Cities"
@@ -2027,14 +2030,14 @@
             },
             "fields": {
                 "email": "Account email",
-                "status": "Status",
+                "status": "$t(docs.drawer.examples.filters.groups.status.title)",
                 "type": "Account type"
             },
             "lastUpdated": "Last updated {{value}}.",
             "loading": "Loading current account",
             "title": "Current account",
             "values": {
-                "active": "Active",
+                "active": "$t(docs.multiSelect.cards.status.options.active)",
                 "inactive": "Inactive"
             }
         }
@@ -2044,19 +2047,19 @@
             "description": "Read-only identity directory for account records and their linked user identities.",
             "dialog": {
                 "active": {
-                    "no": "Inactive",
-                    "yes": "Active"
+                    "no": "$t(home.currentAccount.values.inactive)",
+                    "yes": "$t(docs.multiSelect.cards.status.options.active)"
                 },
                 "error": {
                     "description": "The account record could not be loaded right now.",
                     "title": "Unable to load account"
                 },
                 "fields": {
-                    "accountType": "Account type",
-                    "active": "Status",
+                    "accountType": "$t(home.currentAccount.fields.type)",
+                    "active": "$t(docs.drawer.examples.filters.groups.status.title)",
                     "createdAt": "Created at",
-                    "email": "Email",
-                    "id": "Identifier",
+                    "email": "$t(auth.login.form.fields.email.label)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
                     "updatedAt": "Updated at"
                 },
                 "linkedUser": {
@@ -2066,7 +2069,7 @@
                     },
                     "fields": {
                         "cpf": "CPF",
-                        "id": "Identifier",
+                        "id": "$t(geo.cityPage.dialog.fields.id)",
                         "name": "User name"
                     },
                     "loading": "Loading linked user",
@@ -2090,12 +2093,12 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "The account record could not be loaded right now.",
+                    "description": "$t(identity.accountPage.dialog.error.description)",
                     "title": "Unable to load account details"
                 },
                 "linkedUserError": {
-                    "description": "The linked user record could not be loaded right now.",
-                    "title": "Unable to load linked user"
+                    "description": "$t(identity.accountPage.dialog.linkedUser.error.description)",
+                    "title": "$t(identity.accountPage.dialog.linkedUser.error.title)"
                 },
                 "listError": {
                     "description": "The account catalog could not be loaded right now.",
@@ -2104,7 +2107,7 @@
             },
             "filters": {
                 "accountType": {
-                    "label": "Account type",
+                    "label": "$t(home.currentAccount.fields.type)",
                     "options": {
                         "ADMIN": "Admin",
                         "all": "All account types",
@@ -2114,34 +2117,34 @@
                     "placeholder": "Select..."
                 },
                 "active": {
-                    "label": "Status",
+                    "label": "$t(docs.drawer.examples.filters.groups.status.title)",
                     "options": {
-                        "active": "Active",
+                        "active": "$t(docs.multiSelect.cards.status.options.active)",
                         "all": "All statuses",
-                        "inactive": "Inactive"
+                        "inactive": "$t(home.currentAccount.values.inactive)"
                     },
-                    "placeholder": "Select..."
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
                 },
-                "clear": "Clear filters",
+                "clear": "$t(docs.drawer.examples.filters.clear.action)",
                 "dateField": {
                     "label": "Date field",
                     "options": {
-                        "createdAt": "Created at",
-                        "updatedAt": "Updated at"
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                     },
-                    "placeholder": "Select..."
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
                 },
                 "drawer": {
                     "active": "Advanced filters active",
-                    "apply": "Apply filters",
+                    "apply": "$t(docs.drawer.examples.filters.footer.action)",
                     "clearConfirm": {
                         "description": "This will remove the active account filters from the current table view.",
                         "title": "Clear account filters?"
                     },
-                    "label": "Advanced filters",
+                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
                     "overhead": "Account filters",
                     "title": "Refine account catalog",
-                    "trigger": "Advanced filters"
+                    "trigger": "$t(docs.drawer.examples.filters.groups.advanced.title)"
                 },
                 "email": {
                     "label": "Name or email",
@@ -2162,33 +2165,337 @@
             },
             "metadata": {
                 "empty": {
-                    "description": "Service provenance, freshness, and request metadata will live here.",
-                    "title": "Metadata coming soon"
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
                 },
-                "trigger": "Metadata"
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
                 "actions": {
                     "viewDetails": "View account details"
                 },
                 "active": {
-                    "no": "Inactive",
-                    "yes": "Active"
+                    "no": "$t(home.currentAccount.values.inactive)",
+                    "yes": "$t(docs.multiSelect.cards.status.options.active)"
                 },
                 "columns": {
-                    "accountType": "Account type",
-                    "active": "Status",
-                    "createdAt": "Created at",
-                    "email": "Email",
+                    "accountType": "$t(home.currentAccount.fields.type)",
+                    "active": "$t(docs.drawer.examples.filters.groups.status.title)",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "email": "$t(auth.login.form.fields.email.label)",
                     "name": "Name",
-                    "updatedAt": "Updated at"
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                 },
                 "error": {
-                    "description": "The account catalog could not be loaded right now.",
-                    "title": "Unable to load accounts"
+                    "description": "$t(identity.accountPage.feedback.listError.description)",
+                    "title": "$t(identity.accountPage.feedback.listError.title)"
                 }
             },
             "title": "Accounts"
+        },
+        "adminPage": {
+            "create": {
+                "actions": {
+                    "save": "Create administrator",
+                    "savePending": "Creating administrator..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The administrator could not be created right now.",
+                        "title": "Unable to create administrator"
+                    },
+                    "success": {
+                        "description": "{{name}} was created successfully.",
+                        "title": "Administrator created"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Set a password for the new administrator"
+                },
+                "open": "Add admin",
+                "overhead": "New administrator",
+                "titleFallback": "Add administrator"
+            },
+            "deactivate": {
+                "confirm": {
+                    "description": "{{name}} will lose active administrator access until reactivated.",
+                    "title": "Deactivate this administrator?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The administrator could not be deactivated right now.",
+                        "title": "Unable to deactivate administrator"
+                    },
+                    "success": {
+                        "description": "{{name}} is now inactive.",
+                        "title": "Administrator deactivated"
+                    }
+                }
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} will be removed from the administrator directory after the undo window expires.",
+                    "title": "Delete this administrator assignment?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The administrator could not be deleted right now.",
+                        "title": "Unable to delete administrator"
+                    },
+                    "success": {
+                        "description": "{{name}} was removed from the administrator directory.",
+                        "title": "Administrator deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Administrator deletion scheduled"
+                }
+            },
+            "description": "Read-only identity directory for administrator assignments, linked accounts, and linked user records.",
+            "dialog": {
+                "error": {
+                    "description": "The administrator record could not be loaded right now.",
+                    "title": "Unable to load administrator details"
+                },
+                "fields": {
+                    "campus": "Campus",
+                    "email": "$t(identity.accountPage.dialog.fields.email)",
+                    "grantedAt": "Granted at",
+                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
+                    "userId": "User identifier"
+                },
+                "linkedAccount": {
+                    "active": {
+                        "no": "$t(identity.accountPage.dialog.active.no)",
+                        "yes": "$t(identity.accountPage.dialog.active.yes)"
+                    },
+                    "error": {
+                        "description": "The linked account record could not be loaded right now.",
+                        "title": "Unable to load linked account"
+                    },
+                    "fields": {
+                        "active": "$t(identity.accountPage.dialog.fields.active)",
+                        "id": "$t(identity.accountPage.dialog.fields.id)",
+                        "type": "$t(identity.accountPage.dialog.fields.accountType)"
+                    },
+                    "loading": "Loading linked account",
+                    "notFound": {
+                        "description": "The linked account record could not be found.",
+                        "title": "Linked account not found"
+                    },
+                    "overhead": "Linked account"
+                },
+                "linkedUser": {
+                    "error": {
+                        "description": "$t(identity.accountPage.dialog.linkedUser.error.description)",
+                        "title": "$t(identity.accountPage.dialog.linkedUser.error.title)"
+                    },
+                    "fields": {
+                        "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+                        "id": "$t(identity.accountPage.dialog.linkedUser.fields.id)",
+                        "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)"
+                    },
+                    "loading": "$t(identity.accountPage.dialog.linkedUser.loading)",
+                    "notFound": {
+                        "description": "$t(identity.accountPage.dialog.linkedUser.notFound.description)",
+                        "title": "$t(identity.accountPage.dialog.linkedUser.notFound.title)"
+                    },
+                    "overhead": "$t(identity.accountPage.dialog.linkedUser.overhead)"
+                },
+                "notFound": {
+                    "description": "The requested administrator assignment could not be found.",
+                    "title": "Administrator not found"
+                },
+                "overhead": "Administrator assignment",
+                "titleFallback": "Administrator details"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Create duplicate",
+                    "savePending": "Creating duplicate..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The administrator duplicate could not be created right now.",
+                        "title": "Unable to duplicate administrator"
+                    },
+                    "success": {
+                        "description": "{{name}} was duplicated successfully.",
+                        "title": "Administrator duplicated"
+                    }
+                },
+                "fields": {
+                    "passwordPlaceholder": "Set a password for the duplicated administrator"
+                },
+                "overhead": "Duplicate administrator",
+                "titleFallback": "Duplicate administrator"
+            },
+            "empty": {
+                "defaultDescription": "The administrator directory is currently empty.",
+                "filteredDescription": "No administrator matches \"{{value}}\".",
+                "title": "No administrators found"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "The administrator record could not be loaded right now.",
+                    "title": "Unable to load administrator details"
+                },
+                "linkedAccountError": {
+                    "description": "The linked account record could not be loaded right now.",
+                    "title": "Unable to load linked account"
+                },
+                "linkedUserError": {
+                    "description": "$t(identity.accountPage.feedback.linkedUserError.description)",
+                    "title": "$t(identity.accountPage.feedback.linkedUserError.title)"
+                },
+                "listError": {
+                    "description": "The administrator directory could not be loaded right now.",
+                    "title": "Unable to load administrators"
+                }
+            },
+            "filters": {
+                "campus": {
+                    "label": "Campus",
+                    "options": {
+                        "all": "All campuses",
+                        "JARAGUA_DO_SUL": "Jaraguá do Sul",
+                        "JOINVILLE": "Joinville"
+                    },
+                    "placeholder": "Select..."
+                },
+                "clear": "$t(identity.accountPage.filters.clear)",
+                "search": {
+                    "label": "Name or email",
+                    "placeholder": "Filter by administrator name or email"
+                }
+            },
+            "loading": {
+                "detail": "Loading administrator details",
+                "list": "Loading administrators"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "$t(identity.accountPage.metadata.empty.description)",
+                    "title": "$t(identity.accountPage.metadata.empty.title)"
+                },
+                "trigger": "$t(identity.accountPage.metadata.trigger)"
+            },
+            "reactivate": {
+                "confirm": {
+                    "description": "{{name}} will regain active administrator access immediately.",
+                    "title": "Reactivate this administrator?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The administrator could not be reactivated right now.",
+                        "title": "Unable to reactivate administrator"
+                    },
+                    "success": {
+                        "description": "{{name}} is active again.",
+                        "title": "Administrator reactivated"
+                    }
+                }
+            },
+            "table": {
+                "actions": {
+                    "deactivate": "Deactivate administrator",
+                    "delete": "Delete administrator",
+                    "duplicate": "Duplicate administrator",
+                    "reactivate": "Reactivate administrator",
+                    "update": "Update administrator",
+                    "viewDetails": "$t(docs.table.actions.view)"
+                },
+                "columns": {
+                    "campus": "Campus",
+                    "email": "$t(identity.accountPage.table.columns.email)",
+                    "grantedAt": "Granted at",
+                    "name": "$t(identity.userPage.table.columns.name)"
+                },
+                "error": {
+                    "description": "The administrator directory could not be loaded right now.",
+                    "title": "Unable to load administrators"
+                }
+            },
+            "title": "Admins",
+            "update": {
+                "accountLoadError": {
+                    "description": "The linked account record could not be loaded right now.",
+                    "title": "Unable to load linked account"
+                },
+                "accountNotFound": {
+                    "description": "The linked account record could not be found.",
+                    "title": "Linked account not found"
+                },
+                "actions": {
+                    "reset": "Reset changes",
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The administrator could not be updated right now.",
+                        "title": "Unable to save administrator changes"
+                    },
+                    "success": {
+                        "description": "{{name}} was updated successfully.",
+                        "title": "Administrator updated"
+                    }
+                },
+                "fields": {
+                    "accountId": "$t(identity.accountPage.dialog.fields.id)",
+                    "accountType": "$t(identity.accountPage.dialog.fields.accountType)",
+                    "active": "$t(identity.accountPage.dialog.fields.active)",
+                    "activeValues": {
+                        "active": "$t(identity.accountPage.dialog.active.yes)",
+                        "inactive": "$t(identity.accountPage.dialog.active.no)"
+                    },
+                    "campus": "Campus",
+                    "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+                    "email": "$t(identity.accountPage.dialog.fields.email)",
+                    "grantedAt": "Granted at",
+                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
+                    "password": "Password",
+                    "passwordPlaceholder": "Leave blank to keep the current password",
+                    "userId": "User identifier",
+                    "userName": "$t(identity.accountPage.dialog.linkedUser.fields.name)"
+                },
+                "loadError": {
+                    "description": "The administrator record could not be loaded right now.",
+                    "title": "Unable to load administrator editor"
+                },
+                "loading": "Loading administrator editor",
+                "notFound": {
+                    "description": "The requested administrator assignment could not be found.",
+                    "title": "Administrator not found"
+                },
+                "overhead": "Edit administrator",
+                "resetConfirm": {
+                    "description": "This will discard the unsaved administrator changes in the current drawer.",
+                    "title": "Reset administrator changes?"
+                },
+                "tabs": {
+                    "access": "Access",
+                    "profile": "Profile",
+                    "user": "Linked user"
+                },
+                "titleFallback": "Edit administrator",
+                "validation": {
+                    "campus": "Select a campus.",
+                    "cpf": {
+                        "required": "Enter a CPF."
+                    },
+                    "email": {
+                        "invalid": "Enter a valid email address.",
+                        "required": "Enter an email address."
+                    },
+                    "name": "Enter a name.",
+                    "password": {
+                        "required": "Enter a password."
+                    }
+                }
+            }
         },
         "userPage": {
             "description": "Read-only identity directory for user records shared across the platform.",
@@ -2198,11 +2505,11 @@
                     "title": "Unable to load user"
                 },
                 "fields": {
-                    "cpf": "CPF",
-                    "createdAt": "Created at",
-                    "id": "Identifier",
-                    "name": "User name",
-                    "updatedAt": "Updated at"
+                    "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                    "id": "$t(geo.cityPage.dialog.fields.id)",
+                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                 },
                 "notFound": {
                     "description": "The requested user record could not be found.",
@@ -2218,7 +2525,7 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "The user record could not be loaded right now.",
+                    "description": "$t(identity.userPage.dialog.error.description)",
                     "title": "Unable to load user details"
                 },
                 "listError": {
@@ -2229,33 +2536,33 @@
             "filters": {
                 "advanced": {
                     "active": "Date filters active",
-                    "label": "Advanced filters",
+                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
                     "trigger": "Date filters"
                 },
-                "clear": "Clear filters",
+                "clear": "$t(docs.drawer.examples.filters.clear.action)",
                 "cpf": {
-                    "label": "CPF",
+                    "label": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
                     "placeholder": "Filter by CPF"
                 },
                 "dateField": {
-                    "label": "Date field",
+                    "label": "$t(identity.accountPage.filters.dateField.label)",
                     "options": {
-                        "createdAt": "Created at",
-                        "updatedAt": "Updated at"
+                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
+                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                     },
-                    "placeholder": "Select..."
+                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
                 },
                 "endDate": {
-                    "label": "End date",
-                    "placeholder": "Select end date"
+                    "label": "$t(identity.accountPage.filters.endDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
                 },
                 "name": {
-                    "label": "Name",
+                    "label": "$t(identity.accountPage.table.columns.name)",
                     "placeholder": "Filter by user name"
                 },
                 "startDate": {
-                    "label": "Start date",
-                    "placeholder": "Select start date"
+                    "label": "$t(identity.accountPage.filters.startDate.label)",
+                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
                 }
             },
             "loading": {
@@ -2264,24 +2571,24 @@
             },
             "metadata": {
                 "empty": {
-                    "description": "Service provenance, freshness, and request metadata will live here.",
-                    "title": "Metadata coming soon"
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
                 },
-                "trigger": "Metadata"
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
                 "actions": {
                     "viewDetails": "View user details"
                 },
                 "columns": {
-                    "cpf": "CPF",
-                    "createdAt": "Created at",
+                    "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
                     "name": "User",
-                    "updatedAt": "Updated at"
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                 },
                 "error": {
-                    "description": "The user catalog could not be loaded right now.",
-                    "title": "Unable to load users"
+                    "description": "$t(identity.userPage.feedback.listError.description)",
+                    "title": "$t(identity.userPage.feedback.listError.title)"
                 }
             },
             "title": "Users"
@@ -2300,8 +2607,8 @@
         "controls": {
             "language": {
                 "options": {
-                    "en-US": "English",
-                    "pt-BR": "Portuguese"
+                    "en-US": "$t(docs.toggleControls.cards.chrome.locale.english)",
+                    "pt-BR": "$t(docs.toggleControls.cards.chrome.locale.portuguese)"
                 },
                 "short": {
                     "en-US": "EN",
@@ -2310,9 +2617,9 @@
             },
             "theme": {
                 "options": {
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "System"
+                    "dark": "$t(docs.toggleControls.cards.chrome.theme.dark)",
+                    "light": "$t(docs.toggleControls.cards.chrome.theme.light)",
+                    "system": "$t(docs.toggleControls.cards.chrome.theme.system)"
                 }
             }
         },
@@ -2326,15 +2633,15 @@
                 "student": "Students"
             },
             "docs": {
-                "overview": "Overview",
+                "overview": "$t(docs.card.layoutCards.list.items.overview.title)",
                 "primitives": {
-                    "actions": "Actions",
-                    "display": "Display",
-                    "forms": "Forms",
-                    "navigation": "Navigation",
-                    "overlays": "Overlays",
+                    "actions": "$t(components.table.actions)",
+                    "display": "$t(docs.primitivesOverview.areas.display.label)",
+                    "forms": "$t(docs.primitivesOverview.areas.forms.label)",
+                    "navigation": "$t(docs.primitivesOverview.areas.navigation.label)",
+                    "overlays": "$t(docs.primitivesOverview.areas.overlays.label)",
                     "root": "Primitives",
-                    "structure": "Structure"
+                    "structure": "$t(docs.card.sections.structure.title)"
                 },
                 "root": "Docs",
                 "routing": {
@@ -2345,26 +2652,26 @@
                 }
             },
             "geo": {
-                "city": "Cities",
+                "city": "$t(geo.cityPage.title)",
                 "root": "Geo"
             },
             "home": "Home",
             "identity": {
-                "account": "Accounts",
+                "account": "$t(identity.accountPage.title)",
                 "admin": "Admins",
                 "root": "Identity",
-                "user": "Users"
+                "user": "$t(identity.userPage.title)"
             },
             "partner": {
                 "entity": "Entities",
-                "root": "Partner",
+                "root": "$t(identity.accountPage.filters.accountType.options.PARTNER)",
                 "staff": "Staff"
             },
             "project": {
                 "attendance": "Attendance",
                 "enrollment": "Enrollment",
-                "project": "Projects",
-                "root": "Project"
+                "project": "$t(docs.card.compositionCards.summary.stats.items.projects.label)",
+                "root": "$t(docs.table.columns.name)"
             },
             "unknown": "Unknown"
         },

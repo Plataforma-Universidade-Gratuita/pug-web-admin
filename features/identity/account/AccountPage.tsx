@@ -31,23 +31,16 @@ import {
 	SomeErrorState,
 	toast,
 } from "@/components";
-import {
-	AuditInfoFilterFields,
-	ReadOnlyPageHeader,
-	ReadOnlyTableSection,
-	TextFieldFilter,
-} from "@/features/shared/read-only";
-import type { AccountResponse } from "@/types/api";
-import { WebApiError } from "@/utils/web-api";
-
+import { ACCOUNT_TYPE_VALUES } from "@/constants/identity";
 import {
 	useAccountDetailQuery,
 	useAccountsQuery,
 	useLinkedUserQuery,
-} from "./queries";
+} from "@/features/identity/account/queries";
 import {
 	createAccountColumns,
 	filterAccounts,
+	getAccountTypeLabel,
 	getAccountDetailErrorToastContent,
 	getAccountEmptyStateCopy,
 	getAccountFilterSummary,
@@ -55,10 +48,20 @@ import {
 	getAccountsListErrorToastContent,
 	getAccountTypeTone,
 	getLinkedUserErrorToastContent,
-	type AccountActiveFilter,
-	type AccountAuditDateField,
-	type AccountTypeFilter,
-} from "./utils";
+} from "@/features/identity/account/utils";
+import {
+	AuditInfoFilterFields,
+	ServicePageHeader,
+	ServicePageTableSection,
+	TextFieldFilter,
+} from "@/features/shared/service-pages";
+import type { AccountResponse } from "@/types/api";
+import type {
+	AccountActiveFilter,
+	AccountAuditDateField,
+	AccountTypeFilter,
+} from "@/types/client/identity";
+import { WebApiError } from "@/utils/web-api";
 
 export function AccountPage() {
 	const { t } = useTranslation();
@@ -264,7 +267,7 @@ export function AccountPage() {
 			width="wide"
 			className="grid h-[calc(100dvh-4.5rem)] min-h-[48rem] grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden p-4 lg:p-6"
 		>
-			<ReadOnlyPageHeader
+			<ServicePageHeader
 				title={t("identity.accountPage.title")}
 				description={t("identity.accountPage.description")}
 				metadata={{
@@ -381,39 +384,20 @@ export function AccountPage() {
 												"identity.accountPage.filters.accountType.options.all",
 											)}
 										</SelectItem>
-										<SelectItem
-											value="ADMIN"
-											className={getAccountOptionClassName(
-												"accountType",
-												"ADMIN",
-											)}
-										>
-											{t(
-												"identity.accountPage.filters.accountType.options.ADMIN",
-											)}
-										</SelectItem>
-										<SelectItem
-											value="PARTNER"
-											className={getAccountOptionClassName(
-												"accountType",
-												"PARTNER",
-											)}
-										>
-											{t(
-												"identity.accountPage.filters.accountType.options.PARTNER",
-											)}
-										</SelectItem>
-										<SelectItem
-											value="STUDENT"
-											className={getAccountOptionClassName(
-												"accountType",
-												"STUDENT",
-											)}
-										>
-											{t(
-												"identity.accountPage.filters.accountType.options.STUDENT",
-											)}
-										</SelectItem>
+										{ACCOUNT_TYPE_VALUES.map(accountType => (
+											<SelectItem
+												key={accountType}
+												value={accountType}
+												className={getAccountOptionClassName(
+													"accountType",
+													accountType,
+												)}
+											>
+												{t(
+													`identity.accountPage.filters.accountType.options.${accountType}`,
+												)}
+											</SelectItem>
+										))}
 									</SelectContent>
 								</Select>
 							</div>
@@ -474,9 +458,9 @@ export function AccountPage() {
 						/>
 					</DrawerContent>
 				</Drawer>
-			</ReadOnlyPageHeader>
+			</ServicePageHeader>
 
-			<ReadOnlyTableSection<AccountResponse>
+			<ServicePageTableSection<AccountResponse>
 				tableProps={{
 					className: "h-full",
 					columns,
@@ -557,7 +541,7 @@ export function AccountPage() {
 												tone={getAccountTypeTone(selectedAccount.accountType)}
 												variant="primary"
 											>
-												{selectedAccount.accountTypeFormatted}
+												{getAccountTypeLabel(t, selectedAccount.accountType)}
 											</Badge>
 										</div>
 									</div>

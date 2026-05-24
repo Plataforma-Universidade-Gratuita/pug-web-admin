@@ -80,12 +80,24 @@ export async function update(
 	);
 }
 
-export async function deactivate(id: string, token?: string): Promise<void> {
+export async function setActive(
+	id: string,
+	active: boolean,
+	token?: string,
+): Promise<void> {
 	return zvoid(
 		`${BASE}/${id}`,
-		{ method: "PATCH", body: JSON.stringify({ active: false }) },
+		{ method: "PATCH", body: JSON.stringify({ active }) },
 		token,
 	);
+}
+
+export async function deactivate(id: string, token?: string): Promise<void> {
+	return setActive(id, false, token);
+}
+
+export async function reactivate(id: string, token?: string): Promise<void> {
+	return setActive(id, true, token);
 }
 
 export async function remove(id: string, token?: string): Promise<void> {

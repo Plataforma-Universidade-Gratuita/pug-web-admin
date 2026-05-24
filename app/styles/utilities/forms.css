@@ -57,6 +57,15 @@
 		color: var(--twc-muted);
 	}
 
+	.field-error {
+		font-family: var(--twc-font-sans), sans-serif;
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-medium);
+		letter-spacing: var(--twc-tracking-normal);
+		line-height: var(--twc-leading-normal);
+		color: var(--color-danger);
+	}
+
 	.field-shell {
 		display: flex;
 		align-items: center;

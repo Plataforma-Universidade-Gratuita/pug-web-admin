@@ -244,6 +244,7 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - Query ownership pattern:
   - raw HTTP calls remain in `api/web/**`
   - feature-local query keys and query hooks live in feature-local `queries.ts`
+  - feature-local mutation hooks live in feature-local `mutations.ts`
   - components consume query hooks instead of calling `webFetch` directly
 - Bounded read-only reference catalogs may fetch once and filter client-side inside feature-local helpers when the dataset is intentionally small.
   - current example: `features/geo/city`
@@ -251,14 +252,21 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - Current established examples:
   - `features/identity/account/queries.ts`
   - `features/identity/admin/queries.ts`
+  - `features/identity/admin/mutations.ts`
   - `features/identity/user/queries.ts`
 - Current query key style:
   - domain-local object with `all` plus narrower key builders such as `me()`
 - When adding mutations:
   - use `useMutation`
-  - invalidate relevant domain keys on success
-  - prefer conservative invalidation over premature optimistic updates
+  - keep mutation hooks in feature-local `mutations.ts`
+  - prefer direct cache writes for bounded entity graphs that already own stable list/detail/linked query keys
+  - update the smallest coherent cache surface needed so the UI reflects the change without an unnecessary refetch
+  - invalidate relevant domain keys when the mutation result cannot be applied confidently to the local cache
   - use `createToastMutationOptions` for opt-in mutation success/error toasts instead of hand-rolling Sonner calls in every mutation
+- Current mutation cache pattern:
+  - list and detail caches should stay in sync after explicit user mutations
+  - `me()` and linked-record caches should also be updated when the mutation changes those records
+  - current example: `features/identity/admin/mutations.ts`
 - Query error rule:
   - do not globally toast query failures by default
   - prefer inline empty/error states for query surfaces
@@ -568,6 +576,7 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
     - `success`: success confirm button, positive-action overhead by default
     - `warning`: warning confirm button, cautionary-action overhead by default
     - `danger`: danger confirm button, destructive-action overhead by default
+  - confirm intent in the alert dialog first, then decide whether the action executes immediately or enters a deferred destructive flow
 - Dialog contract:
   - dialog now follows one fixed content pattern and should be visually distinct from alert dialog
   - it supports:
@@ -600,6 +609,8 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - tabs and accordion are appropriate inside drawers when the workflow is genuinely dense:
     - use tabs for peer workflow sections
     - use accordion for secondary disclosure inside the panel
+  - create, duplicate, and update flows may reuse the same drawer when the workflow surface is the same and only the initial data changes
+  - duplicate mode should prefill from the source entity but remain an explicit create flow rather than an opaque backend clone when the contract still requires user-owned input
   - the footer is always present and task-oriented:
     - clear action on the left
     - primary action on the right
@@ -628,6 +639,7 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - semantic toasts (`info`, `success`, `warning`, `danger`) are for states that need stronger meaning or urgency
   - the title carries the main message; description adds one useful extra line of context only when needed
   - use `toast.promise` for async lifecycle feedback instead of stacking separate loading and success calls
+  - use `toast.undo` for deferred destructive actions when the product intentionally allows a short cancellation window before the mutation executes
   - do not use toast as a substitute for inline validation, dialog, or alert dialog
 
 ## Styling system
@@ -757,28 +769,39 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - `Dialog` for focused supporting information and short read/review surfaces
   - `Drawer` for subordinate create/edit/review flows tied to the current page
 
-### Read-only catalog page pattern
+### Service page pattern
 
-- Small read-only service pages should reuse the shared read-only page grammar under:
-  - `features/shared/read-only`
+- Small service pages should reuse the shared service-page grammar under:
+  - `features/shared/service-pages`
 - The current pattern is:
   - `PageShell` with a two-row layout
-  - `ReadOnlyPageHeader` for:
+  - `ServicePageHeader` for:
     - title
     - description
     - metadata popover
     - optional page-level filter actions
+    - optional page-level primary create action
     - filter content area
-  - `ReadOnlyTableSection` for the main table surface
-- Current reusable read-only filters are:
+  - `ServicePageTableSection` for the main table surface
+- Current reusable service-page filters are:
   - `TextFieldFilter`
   - `NumberFieldFilter`
   - `AuditInfoFilterFields`
   - `AuditInfoFilter`
 - `AuditInfoFilter` is the shared pattern when an entity exposes `auditInfo` date fields and the page needs a compact date-range refinement flow.
 - `AuditInfoFilterFields` is the shared field group when the same audit-date refinement needs to live directly inside a heavier surface such as a drawer.
-- When a read-only page accumulates several secondary filters, keep the primary lookup field visible in the header and move the heavier secondary filters into a filter drawer instead of flattening every control into one row.
+- When a service page accumulates several secondary filters, keep the primary lookup field visible in the header and move the heavier secondary filters into a filter drawer instead of flattening every control into one row.
 - Keep page-specific filtering logic, empty-state copy, query hooks, and table columns inside the owning feature. The shared components only own layout and control composition.
+- A service page may start read-only and later evolve into a lightweight directory workflow:
+  - keep the shared header and table grammar
+  - add the primary create action to the header
+  - keep row-level mutations in the table action column
+  - use drawer for create, duplicate, and update
+  - use alert dialog for confirmable state changes such as deactivate/reactivate and delete
+- Destructive service-page flows may be two-stage:
+  - confirm in `AlertDialog`
+  - show an undo toast
+  - only execute the delete mutation after the undo window expires
 
 ## Import and organization rules
 

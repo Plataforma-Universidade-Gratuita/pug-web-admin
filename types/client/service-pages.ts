@@ -4,22 +4,22 @@ import type { RowData } from "@tanstack/react-table";
 
 import type { TableProps } from "@/types/client/components/display";
 
-export interface ReadOnlyMetadataPopoverProps {
+export interface ServicePageMetadataPopoverProps {
 	triggerLabel: string;
 	emptyTitle: ReactNode;
 	emptyDescription: ReactNode;
 }
 
-export interface ReadOnlyPageHeaderProps {
+export interface ServicePageHeaderProps {
 	title: ReactNode;
 	description: ReactNode;
-	metadata: ReadOnlyMetadataPopoverProps;
+	metadata: ServicePageMetadataPopoverProps;
 	actions?: ReactNode;
 	children: ReactNode;
 	filtersClassName?: string;
 }
 
-export interface ReadOnlyTableSectionProps<TData extends RowData> {
+export interface ServicePageTableSectionProps<TData extends RowData> {
 	tableProps: TableProps<TData>;
 }
 

@@ -20,24 +20,26 @@ import {
 	toast,
 } from "@/components";
 import {
-	AuditInfoFilter,
-	NumberFieldFilter,
-	ReadOnlyPageHeader,
-	ReadOnlyTableSection,
-	TextFieldFilter,
-} from "@/features/shared/read-only";
-import type { UserResponse } from "@/types/api";
-import { WebApiError } from "@/utils/web-api";
-
-import { useUserDetailQuery, useUsersQuery } from "./queries";
+	useUserDetailQuery,
+	useUsersQuery,
+} from "@/features/identity/user/queries";
 import {
 	createUserColumns,
 	filterUsers,
 	getUserDetailErrorToastContent,
 	getUserEmptyStateCopy,
 	getUsersListErrorToastContent,
-	type UserAuditDateField,
-} from "./utils";
+} from "@/features/identity/user/utils";
+import {
+	AuditInfoFilter,
+	NumberFieldFilter,
+	ServicePageHeader,
+	ServicePageTableSection,
+	TextFieldFilter,
+} from "@/features/shared/service-pages";
+import type { UserResponse } from "@/types/api";
+import type { UserAuditDateField } from "@/types/client/identity";
+import { WebApiError } from "@/utils/web-api";
 
 export function UserPage() {
 	const { t } = useTranslation();
@@ -163,7 +165,7 @@ export function UserPage() {
 			width="wide"
 			className="grid h-[calc(100dvh-4.5rem)] min-h-[48rem] grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden p-4 lg:p-6"
 		>
-			<ReadOnlyPageHeader
+			<ServicePageHeader
 				title={t("identity.userPage.title")}
 				description={t("identity.userPage.description")}
 				metadata={{
@@ -230,9 +232,9 @@ export function UserPage() {
 					endDate={endDate}
 					onEndDateChange={setEndDate}
 				/>
-			</ReadOnlyPageHeader>
+			</ServicePageHeader>
 
-			<ReadOnlyTableSection<UserResponse>
+			<ServicePageTableSection<UserResponse>
 				tableProps={{
 					className: "h-full",
 					columns,

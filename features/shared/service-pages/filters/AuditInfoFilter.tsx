@@ -5,9 +5,8 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components";
-import type { AuditInfoFilterProps } from "@/types/client";
-
-import { AuditInfoFilterFields } from "./AuditInfoFilterFields";
+import { AuditInfoFilterFields } from "@/features/shared/service-pages/filters/AuditInfoFilterFields";
+import type { AuditInfoFilterProps } from "@/types/client/service-pages";
 
 export function AuditInfoFilter({
 	label,

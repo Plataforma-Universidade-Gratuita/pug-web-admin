@@ -19,21 +19,23 @@ import {
 	toast,
 } from "@/components";
 import {
-	ReadOnlyPageHeader,
-	ReadOnlyTableSection,
-	TextFieldFilter,
-} from "@/features/shared/read-only";
-import type { CityResponse } from "@/types/api";
-import { WebApiError } from "@/utils/web-api";
-
-import { useCitiesQuery, useCityDetailQuery } from "./queries";
+	useCitiesQuery,
+	useCityDetailQuery,
+} from "@/features/geo/city/queries";
 import {
 	createCityColumns,
 	filterCities,
 	getCitiesEmptyStateCopy,
 	getCitiesListErrorToastContent,
 	getCityDetailErrorToastContent,
-} from "./utils";
+} from "@/features/geo/city/utils";
+import {
+	ServicePageHeader,
+	ServicePageTableSection,
+	TextFieldFilter,
+} from "@/features/shared/service-pages";
+import type { CityResponse } from "@/types/api";
+import { WebApiError } from "@/utils/web-api";
 
 export function CityPage() {
 	const { t } = useTranslation();
@@ -123,7 +125,7 @@ export function CityPage() {
 			width="wide"
 			className="grid h-[calc(100dvh-4.5rem)] min-h-[48rem] grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden p-4 lg:p-6"
 		>
-			<ReadOnlyPageHeader
+			<ServicePageHeader
 				title={t("geo.cityPage.title")}
 				description={t("geo.cityPage.description")}
 				metadata={{
@@ -138,9 +140,9 @@ export function CityPage() {
 					onChange={setSearch}
 					placeholder={t("geo.cityPage.filters.searchPlaceholder")}
 				/>
-			</ReadOnlyPageHeader>
+			</ServicePageHeader>
 
-			<ReadOnlyTableSection<CityResponse>
+			<ServicePageTableSection<CityResponse>
 				tableProps={{
 					className: "h-full",
 					columns,

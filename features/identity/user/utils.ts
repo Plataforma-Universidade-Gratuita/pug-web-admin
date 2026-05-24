@@ -2,10 +2,9 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import type { UserResponse } from "@/types/api";
+import type { UserAuditDateField } from "@/types/client/identity";
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { normalizeTextForSearch } from "@/utils/lang";
-
-export type UserAuditDateField = "" | "createdAt" | "updatedAt";
 
 export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 	return [

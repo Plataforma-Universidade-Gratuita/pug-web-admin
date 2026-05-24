@@ -3,12 +3,13 @@ import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
 import type { AccountResponse } from "@/types/api";
+import type {
+	AccountActiveFilter,
+	AccountAuditDateField,
+	AccountTypeFilter,
+} from "@/types/client/identity";
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { normalizeTextForSearch } from "@/utils/lang";
-
-export type AccountAuditDateField = "" | "createdAt" | "updatedAt";
-export type AccountActiveFilter = "" | "true" | "false";
-export type AccountTypeFilter = "" | "ADMIN" | "PARTNER" | "STUDENT";
 
 export function getAccountTypeTone(
 	accountType: AccountResponse["accountType"],
@@ -19,10 +20,17 @@ export function getAccountTypeTone(
 		case "PARTNER":
 			return "info";
 		case "STUDENT":
-			return "danger";
+			return "brand";
 		default:
 			return "neutral";
 	}
+}
+
+export function getAccountTypeLabel(
+	t: TFunction,
+	accountType: AccountResponse["accountType"],
+) {
+	return t(`identity.accountPage.filters.accountType.options.${accountType}`);
 }
 
 export function getAccountOptionClassName(
@@ -102,7 +110,7 @@ export function createAccountColumns(
 						tone={getAccountTypeTone(row.original.accountType)}
 						variant="primary"
 					>
-						{row.original.accountTypeFormatted}
+						{getAccountTypeLabel(t, row.original.accountType)}
 					</Badge>
 				</div>
 			),
@@ -295,5 +303,5 @@ export function getAccountFilterSummary(
 		parts.push([startDate || "...", endDate || "..."].join(" - "));
 	}
 
-	return parts.join(" • ");
+	return parts.join(" | ");
 }
