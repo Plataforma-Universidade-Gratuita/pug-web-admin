@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { listSchoolsByProject } from "@/api/web/project/project-schools";
 import { get, list } from "@/api/web/project/projects";
-import { projectQueryKeys } from "@/constants/query-keys";
+import { projectQueryKeys } from "@/constants";
 
 export { projectQueryKeys };
 

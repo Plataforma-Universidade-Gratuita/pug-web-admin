@@ -16,7 +16,7 @@ import {
 	SectionTitle,
 } from "@/components";
 import { ParticlePatternNotes } from "@/features/docs/primitives/ParticlePatternNotes";
-import type { ParticleContainerProps } from "@/types/client";
+import type { ParticleContainerProps } from "@/types";
 
 export function ParticleContainer({
 	eyebrow,

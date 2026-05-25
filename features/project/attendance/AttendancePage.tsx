@@ -51,11 +51,11 @@ import {
 	useQueryErrorToasts,
 	useServicePageDetailState,
 } from "@/hooks";
-import type { AttendanceResponse } from "@/types/api";
+import type { AttendanceResponse } from "@/types";
 import type {
 	AttendanceSecondaryFilters,
 	AttendanceValidationAction,
-} from "@/types/client/project";
+} from "@/types";
 
 function getValidationVariant(action: AttendanceValidationAction) {
 	return action === "markPresent" ? "success" : "warning";

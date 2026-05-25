@@ -21,7 +21,7 @@ import type {
 	ProjectAuditDateField,
 	ProjectFiltersDrawerProps,
 	ProjectStatusFilter,
-} from "@/types/client/project";
+} from "@/types";
 
 export function ProjectFiltersDrawer({
 	adminsError,

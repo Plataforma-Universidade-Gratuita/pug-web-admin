@@ -10,18 +10,18 @@ import type {
 	ProjectStatus,
 	ProjectUpdateRequest,
 	SchoolResponse,
-} from "@/types/api";
-import type { BadgeTone, ComboboxOption } from "@/types/client";
+} from "@/types";
+import type { BadgeTone, ComboboxOption } from "@/types";
 import type {
 	ProjectEditorFormValues,
 	ProjectEditorMode,
 	ProjectFilterArgs,
 	ProjectStatusAction,
-} from "@/types/client/project";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
+} from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
 
-export { createProjectEditorFormSchema } from "@/schemas/client/features/project/project";
+export { createProjectEditorFormSchema } from "@/schemas";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);

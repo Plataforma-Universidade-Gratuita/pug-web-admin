@@ -10,8 +10,8 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
-import type { CourseEditorFormProps } from "@/types/client/academic";
-import { WebApiError } from "@/utils/web-api";
+import type { CourseEditorFormProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function CourseEditorForm({
 	canRenderForm,

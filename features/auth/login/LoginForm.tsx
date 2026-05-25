@@ -20,11 +20,11 @@ import {
 	Label,
 	toast,
 } from "@/components";
-import { HOME_ROUTE } from "@/constants/auth";
+import { HOME_ROUTE } from "@/constants";
 import { useLocalizedZodForm } from "@/hooks";
-import { createLoginFormSchema } from "@/schemas/client";
-import type { LoginFormProps, LoginFormValues } from "@/types/client";
-import { WebApiError } from "@/utils/web-api";
+import { createLoginFormSchema } from "@/schemas";
+import type { LoginFormProps, LoginFormValues } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function LoginForm({ panelRef }: LoginFormProps) {
 	const { t } = useTranslation();

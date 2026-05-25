@@ -25,7 +25,7 @@ import {
 	ServicePageTableSection,
 } from "@/features/shared/service-pages";
 import { useQueryErrorToasts, useServicePageDetailState } from "@/hooks";
-import type { CityResponse } from "@/types/api";
+import type { CityResponse } from "@/types";
 
 export function CityPage() {
 	const { t } = useTranslation();

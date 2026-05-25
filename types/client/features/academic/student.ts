@@ -6,8 +6,8 @@ import type {
 	StudentCreateRequest,
 	StudentResponse,
 	StudentUpdateRequest,
-} from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/forms";
+} from "@/types";
+import type { ComboboxOption } from "@/types";
 
 export type StudentAuditDateField = "" | "createdAt" | "updatedAt";
 export type StudentEditorMode = "create" | "duplicate" | "update";

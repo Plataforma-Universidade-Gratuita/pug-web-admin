@@ -6,14 +6,14 @@ import * as RadixTabs from "@radix-ui/react-tabs";
 import clsx from "clsx";
 
 import { Tooltip } from "@/components";
-import { ScrollArea } from "@/components/structure/scroll-area/ScrollArea";
+import { ScrollArea } from "@/components";
 import type {
 	TabsContentProps,
 	TabsListProps,
 	TabsProps,
 	TabsTriggerProps,
 	TabsListVariant,
-} from "@/types/client";
+} from "@/types";
 
 const TabsVariantContext = createContext<TabsListVariant>("default");
 

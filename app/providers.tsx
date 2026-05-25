@@ -7,13 +7,12 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { I18nextProvider } from "react-i18next";
 
 import { ToastProvider } from "@/components";
-import { APP_QUERY_CLIENT_OPTIONS } from "@/constants/react-query";
+import { APP_QUERY_CLIENT_OPTIONS } from "@/constants";
 import { LocaleProvider } from "@/contexts/locale";
 import { ThemeProvider } from "@/contexts/theme";
-import type { ProvidersProps } from "@/types/client";
-import { coerceLang } from "@/utils/lang";
-import { initI18n } from "@/utils/locale";
-import { coerceTheme } from "@/utils/theme-value";
+import type { ProvidersProps } from "@/types";
+import { coerceLang, initI18n } from "@/utils";
+import { coerceTheme } from "@/utils";
 
 export function Providers({
 	children,

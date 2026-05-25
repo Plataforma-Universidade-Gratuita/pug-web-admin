@@ -51,10 +51,7 @@ import {
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type {
-	AdminEditorFormValues,
-	AdminUpdateDrawerProps,
-} from "@/types/client/identity";
+import type { AdminEditorFormValues, AdminUpdateDrawerProps } from "@/types";
 
 export function AdminUpdateDrawer({
 	adminId,

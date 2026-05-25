@@ -2,7 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
-import { ADMIN_CAMPI_VALUES } from "@/constants/identity";
+import { ADMIN_CAMPI_VALUES } from "@/constants";
 import { getAccountOptionClassName } from "@/features/identity/account/utils";
 import type {
 	Campi,
@@ -10,17 +10,17 @@ import type {
 	StudentCreateRequest,
 	StudentResponse,
 	StudentUpdateRequest,
-} from "@/types/api";
-import type { ComboboxOption } from "@/types/client";
+} from "@/types";
+import type { ComboboxOption } from "@/types";
 import type {
 	StudentEditorFormValues,
 	StudentEditorMode,
 	StudentFilterArgs,
-} from "@/types/client/academic";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
+} from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
 
-export { createStudentEditorFormSchema } from "@/schemas/client/features/academic/student";
+export { createStudentEditorFormSchema } from "@/schemas";
 
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");

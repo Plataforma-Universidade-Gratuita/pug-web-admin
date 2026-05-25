@@ -4,11 +4,9 @@ import { cookies } from "next/headers";
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
 import { ThemeScript } from "@/app/theme-script";
-import { LANG_COOKIE_NAME } from "@/constants/locale";
-import { THEME_COOKIE_NAME } from "@/constants/theme";
-import type { RootLayoutProps } from "@/types/client";
-import { coerceLang } from "@/utils/lang";
-import { coerceTheme } from "@/utils/theme-value";
+import { LANG_COOKIE_NAME, THEME_COOKIE_NAME } from "@/constants";
+import type { RootLayoutProps } from "@/types";
+import { coerceLang, coerceTheme } from "@/utils";
 
 export const metadata: Metadata = {
 	title: {

@@ -43,7 +43,7 @@ import {
 import type {
 	AttendanceCreateDrawerProps,
 	AttendanceCreateFormValues,
-} from "@/types/client/project";
+} from "@/types";
 
 export function AttendanceCreateDrawer({
 	open,

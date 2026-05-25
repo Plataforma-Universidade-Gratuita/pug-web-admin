@@ -7,10 +7,7 @@ import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import type {
-	EntityAuditDateField,
-	EntityFiltersDrawerProps,
-} from "@/types/client/partner";
+import type { EntityAuditDateField, EntityFiltersDrawerProps } from "@/types";
 
 export function EntityFiltersDrawer({
 	citiesError,

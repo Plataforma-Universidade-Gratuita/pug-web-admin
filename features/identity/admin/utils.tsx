@@ -2,23 +2,23 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
-import { ADMIN_CAMPI_VALUES } from "@/constants/identity";
+import { ADMIN_CAMPI_VALUES } from "@/constants";
 import type {
 	AdminCreateRequest,
 	AdminResponse,
 	AdminUpdateRequest,
 	Campi,
 	UserResponse,
-} from "@/types/api";
+} from "@/types";
 import type {
 	AdminFilterArgs,
 	AdminEditorFormValues,
 	AdminEditorMode,
-} from "@/types/client/identity";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { normalizeTextForSearch } from "@/utils/lang";
+} from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { normalizeTextForSearch } from "@/utils";
 
-export { createAdminEditorFormSchema } from "@/schemas/client/features/identity/admin";
+export { createAdminEditorFormSchema } from "@/schemas";
 
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");

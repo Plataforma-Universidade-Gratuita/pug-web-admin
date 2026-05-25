@@ -2,13 +2,13 @@
 
 import clsx from "clsx";
 
-import { Skeleton } from "@/components/display/skeleton/Skeleton";
+import { Skeleton } from "@/components";
+import { Content } from "@/components";
 import {
 	SkeletonActionGroup,
 	SkeletonPanelBlock,
 	SkeletonTextBlock,
 } from "@/components/display/skeleton/presets";
-import { Content } from "@/components/structure/layout/Layout";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
 	SectionActionsProps,
@@ -17,7 +17,7 @@ import type {
 	SectionHeaderProps,
 	SectionProps,
 	SectionTitleProps,
-} from "@/types/client";
+} from "@/types";
 
 export function Section({
 	children,

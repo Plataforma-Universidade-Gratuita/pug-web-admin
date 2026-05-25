@@ -22,7 +22,7 @@ import {
 } from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
-import type { AlertDialogAlertDialogVariantKey } from "@/types/client/features/docs/primitives/overlays";
+import type { AlertDialogAlertDialogVariantKey } from "@/types";
 
 export default function AlertDialogParticle() {
 	const { t } = useTranslation();

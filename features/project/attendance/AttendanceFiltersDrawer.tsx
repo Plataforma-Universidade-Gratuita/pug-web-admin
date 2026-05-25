@@ -21,7 +21,7 @@ import type {
 	AttendanceAuditDateField,
 	AttendanceFiltersDrawerProps,
 	AttendanceStatusFilter,
-} from "@/types/client/project";
+} from "@/types";
 
 export function AttendanceFiltersDrawer({
 	dateField,

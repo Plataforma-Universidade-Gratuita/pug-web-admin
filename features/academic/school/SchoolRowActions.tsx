@@ -9,7 +9,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 } from "@/components";
-import type { SchoolRowActionsProps } from "@/types/client/academic";
+import type { SchoolRowActionsProps } from "@/types";
 
 export function SchoolRowActions({
 	onDelete,

@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { get, getMe, list } from "@/api/web/identity/users";
-import { userQueryKeys } from "@/constants/query-keys";
+import { userQueryKeys } from "@/constants";
 
 export { userQueryKeys };
 

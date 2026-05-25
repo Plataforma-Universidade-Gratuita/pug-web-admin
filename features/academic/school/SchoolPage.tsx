@@ -38,11 +38,8 @@ import {
 	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
-import type { SchoolResponse } from "@/types/api";
-import type {
-	SchoolEditorMode,
-	SchoolSecondaryFilters,
-} from "@/types/client/academic";
+import type { SchoolResponse } from "@/types";
+import type { SchoolEditorMode, SchoolSecondaryFilters } from "@/types";
 
 export function SchoolPage() {
 	const { t } = useTranslation();

@@ -21,7 +21,7 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import type { ProjectRowActionsProps } from "@/types/client/project";
+import type { ProjectRowActionsProps } from "@/types";
 
 export function ProjectRowActions({
 	onDelete,

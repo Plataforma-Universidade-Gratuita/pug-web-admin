@@ -17,8 +17,8 @@ import {
 	getAccountTypeTone,
 } from "@/features/identity/account/utils";
 import { ServicePageLinkedUserBlock } from "@/features/shared/service-pages";
-import type { AccountDetailDialogProps } from "@/types/client/identity";
-import { WebApiError } from "@/utils/web-api";
+import type { AccountDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function AccountDetailDialog({
 	account,

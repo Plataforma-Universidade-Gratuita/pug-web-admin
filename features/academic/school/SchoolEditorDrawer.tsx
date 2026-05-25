@@ -44,10 +44,7 @@ import {
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type {
-	SchoolEditorDrawerProps,
-	SchoolEditorFormValues,
-} from "@/types/client/academic";
+import type { SchoolEditorDrawerProps, SchoolEditorFormValues } from "@/types";
 
 export function SchoolEditorDrawer({
 	mode,

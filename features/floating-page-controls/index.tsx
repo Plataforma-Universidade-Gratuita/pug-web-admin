@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { LanguageSelector, ThemeSelector } from "@/components";
-import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants/app-shell";
+import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants";
 import { useLocale } from "@/contexts/locale";
 import { useTheme } from "@/contexts/theme";
 

@@ -5,8 +5,8 @@ import { forwardRef, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { Eye, EyeOff, X } from "lucide-react";
 
-import { Icon } from "@/components/display/icon/Icon";
-import type { InputProps } from "@/types/client";
+import { Icon } from "@/components";
+import type { InputProps } from "@/types";
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 	{

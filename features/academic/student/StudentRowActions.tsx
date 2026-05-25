@@ -18,7 +18,7 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import type { StudentRowActionsProps } from "@/types/client/academic";
+import type { StudentRowActionsProps } from "@/types";
 
 export function StudentRowActions({
 	onDelete,

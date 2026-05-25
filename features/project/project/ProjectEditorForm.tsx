@@ -12,8 +12,8 @@ import {
 	TextArea,
 } from "@/components";
 import { resolveProjectEntityLabel } from "@/features/project/project/utils";
-import type { ProjectEditorFormProps } from "@/types/client/project";
-import { WebApiError } from "@/utils/web-api";
+import type { ProjectEditorFormProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function ProjectEditorForm({
 	canRenderForm,

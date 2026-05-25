@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type {
 	ServicePageEditorState,
 	UseServicePageEditorStateOptions,
-} from "@/types/client";
+} from "@/types";
 
 export function useServicePageEditorState<
 	TMode extends string,

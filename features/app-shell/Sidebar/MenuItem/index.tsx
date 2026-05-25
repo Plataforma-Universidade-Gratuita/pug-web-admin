@@ -1,7 +1,7 @@
 "use client";
 
 import { SidebarRow } from "@/features/app-shell/Sidebar/SidebarRow";
-import type { MenuItemProps } from "@/types/client";
+import type { MenuItemProps } from "@/types";
 
 export function MenuItem({
 	collapsed,

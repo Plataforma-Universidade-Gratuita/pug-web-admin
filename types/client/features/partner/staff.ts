@@ -8,8 +8,8 @@ import type {
 	StaffResponse,
 	StaffUpdateRequest,
 	UserResponse,
-} from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/forms";
+} from "@/types";
+import type { ComboboxOption } from "@/types";
 
 export type StaffActiveFilter = "" | "true" | "false";
 export type StaffEditorMode = "create" | "duplicate" | "update";

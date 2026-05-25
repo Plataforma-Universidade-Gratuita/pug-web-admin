@@ -1,7 +1,7 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-import { createRequiredNumericStringSchema } from "@/schemas/client/shared";
+import { createRequiredNumericStringSchema } from "@/schemas";
 
 export function createAttendanceFormSchema(t: TFunction) {
 	return z.object({

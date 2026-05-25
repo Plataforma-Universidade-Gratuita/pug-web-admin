@@ -1,4 +1,4 @@
-import type { CityResponse } from "@/types/api";
+import type { CityResponse } from "@/types";
 
 export interface CityFiltersProps {
 	onSearchChange: (value: string) => void;

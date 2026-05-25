@@ -49,11 +49,11 @@ import {
 	useQueryErrorToasts,
 	useServicePageDetailState,
 } from "@/hooks";
-import type { EnrollmentResponse } from "@/types/api";
+import type { EnrollmentResponse } from "@/types";
 import type {
 	EnrollmentSecondaryFilters,
 	EnrollmentStatusAction,
-} from "@/types/client/project";
+} from "@/types";
 
 function getStatusDialogVariant(action: EnrollmentStatusAction) {
 	switch (action) {

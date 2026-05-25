@@ -91,6 +91,29 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - `api/`: fetch clients and API-layer helpers
 - `public/locales/`: i18n dictionaries
 
+### Folder placement rules
+
+- `schemas/api/**` is the backend contract source of truth.
+- `schemas/client/**` is for client-side schemas only.
+- React Hook Form schemas belong under `schemas/client/features/**` and should mirror the feature path where they are used.
+  - example: `schemas/client/features/geo/city.ts`
+- Shared client schemas that are not feature-specific belong under `schemas/client/**` at the narrowest shared level that fits.
+- `types/client/**` is for client/UI/app contracts.
+- `types/client/features/**` is for feature-specific client types.
+- Keep cross-cutting client types at the flatter `types/client/*.ts` level only when they are truly shared across multiple features or component families.
+- Do not leave type or interface declarations scattered through `features/`, `components/`, `hooks/`, `utils/`, or `api/`; move them under `types/`.
+- `constants/` is the default home for static config and reusable option sets. Do not leave raw reusable constants scattered through feature files unless there is a real local-only exception.
+
+### Recursive barrel rule
+
+- `components/`, `constants/`, `hooks/`, `schemas/`, `store/`, `types/`, and `utils/` use recursive `index.ts` barrels.
+- In those folders, each `index.ts` should export:
+  - same-level files
+  - the `index.ts` of its direct child folders
+- Child folders should follow the same rule recursively.
+- Keep those barrels current when adding, moving, or deleting files.
+- `api/` is currently an exception and should keep its current manual barrel structure rather than being force-fit into the recursive rule.
+
 ## Route structure
 
 ### App Router groups
@@ -841,7 +864,13 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 ## Import and organization rules
 
 - Internal imports should use `@/`.
+- Prefer the highest existing real barrel possible.
+  - if `@/types` exports the symbol, import from `@/types`, not `@/types/client/...`
+  - if `@/features/shared/service-pages` exports the symbol, import from that barrel, not the nested file
+- Only fall back to a deeper path when no higher barrel actually exports the symbol.
+- Do not add compatibility barrels or compatibility re-exports just to preserve an older import path.
 - Keep module barrels clean and intentional.
+- In recursive-barrel domains, update the nearest `index.ts` files when you add or move files.
 - Static config belongs in `constants/`.
 - Types belong in `types/`.
 - Pure reusable helpers belong in `utils.ts` near the owning component/feature, or in `utils/` when cross-cutting.
@@ -883,11 +912,14 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 2. Reuse existing patterns instead of inventing a new structure.
 3. If adding static config, put it in `constants/`.
 4. If adding or moving types, put them in `types/`.
-5. If adding shared custom hook logic, put it in `hooks/`.
-6. If adding non-trivial reusable helpers, move them to `utils.ts`.
-7. If adding copy, update both locale files.
-8. If adding a primitive, add the matching docs particle.
-9. Run lint and any necessary type checks.
+5. If adding or moving client form schemas, put them in `schemas/client/**` following the feature path.
+6. If adding shared custom hook logic, put it in `hooks/`.
+7. If adding non-trivial reusable helpers, move them to `utils.ts`.
+8. Update the relevant `index.ts` barrels.
+9. Use the highest real barrel import available instead of a deeper path.
+10. If adding copy, update both locale files.
+11. If adding a primitive, add the matching docs particle.
+12. Run lint and any necessary type checks.
 
 ## Exceptions and judgment
 

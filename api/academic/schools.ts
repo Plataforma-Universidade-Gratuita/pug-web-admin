@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES } from "@/constants/api";
-import { SchoolResponseSchema } from "@/schemas/api/academic/school";
+import { API_ROUTE_BASES } from "@/constants";
+import { SchoolResponseSchema } from "@/schemas";
 import type {
 	SchoolCreateRequest,
 	SchoolResponse,
 	SchoolUpdateRequest,
-} from "@/types/api";
-import { zfetch, zvoid, qs } from "@/utils/api";
+} from "@/types";
+import { zfetch, zvoid, qs } from "@/utils";
 
 export async function get(id: string, token?: string): Promise<SchoolResponse> {
 	return zfetch(

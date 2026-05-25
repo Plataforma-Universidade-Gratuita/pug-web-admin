@@ -11,8 +11,8 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
-import type { CityDetailDialogProps } from "@/types/client/geo";
-import { WebApiError } from "@/utils/web-api";
+import type { CityDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function CityDetailDialog({
 	city,

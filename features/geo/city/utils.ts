@@ -1,9 +1,9 @@
-﻿import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import type { CityResponse } from "@/types/api";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { normalizeTextForSearch } from "@/utils/lang";
+import type { CityResponse } from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { normalizeTextForSearch } from "@/utils";
 
 export function createCityColumns(t: TFunction): ColumnDef<CityResponse>[] {
 	return [

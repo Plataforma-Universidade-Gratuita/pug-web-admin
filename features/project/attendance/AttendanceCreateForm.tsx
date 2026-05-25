@@ -10,7 +10,7 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
-import type { AttendanceCreateFormProps } from "@/types/client/project";
+import type { AttendanceCreateFormProps } from "@/types";
 
 export function AttendanceCreateForm({
 	canRenderForm,

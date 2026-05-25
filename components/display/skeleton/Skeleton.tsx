@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 import { normalizeSize } from "@/components/display/skeleton/utils";
-import type { SkeletonProps } from "@/types/client";
+import type { SkeletonProps } from "@/types";
 
 export function Skeleton({
 	className,

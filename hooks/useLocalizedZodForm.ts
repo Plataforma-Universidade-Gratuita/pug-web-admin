@@ -11,7 +11,7 @@ import type {
 	LocalizedZodFormOptions,
 	LocalizedZodFormResult,
 	LocalizedZodFormResolver,
-} from "@/types/client";
+} from "@/types";
 
 export function useLocalizedZodForm<TValues extends FieldValues>({
 	schemaFactory,

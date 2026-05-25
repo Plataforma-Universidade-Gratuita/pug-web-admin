@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { CityResponseSchema } from "@/schemas/api";
+import { CityResponseSchema } from "@/schemas";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

@@ -18,8 +18,8 @@ import {
 	resolveEnrollmentProjectLabel,
 	resolveEnrollmentStudentLabel,
 } from "@/features/project/enrollment/utils";
-import type { EnrollmentDetailDialogProps } from "@/types/client/project";
-import { WebApiError } from "@/utils/web-api";
+import type { EnrollmentDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function EnrollmentDetailDialog({
 	enrollment,

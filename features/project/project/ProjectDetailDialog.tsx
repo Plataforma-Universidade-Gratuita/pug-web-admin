@@ -19,8 +19,8 @@ import {
 	resolveProjectCreatorLabel,
 	resolveProjectEntityLabel,
 } from "@/features/project/project/utils";
-import type { ProjectDetailDialogProps } from "@/types/client/project";
-import { WebApiError } from "@/utils/web-api";
+import type { ProjectDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function ProjectDetailDialog({
 	adminById,

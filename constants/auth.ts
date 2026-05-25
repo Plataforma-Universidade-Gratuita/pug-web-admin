@@ -1,6 +1,6 @@
 import { KeyRound, RefreshCcw, ShieldCheck } from "lucide-react";
 
-import type { IconComponent, TranslationKey } from "@/types/client";
+import type { IconComponent, TranslationKey } from "@/types";
 
 export const ACCESS_TOKEN_COOKIE = "accessToken";
 

@@ -4,8 +4,8 @@ import type {
 	CourseCreateRequest,
 	CourseResponse,
 	CourseUpdateRequest,
-} from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/forms";
+} from "@/types";
+import type { ComboboxOption } from "@/types";
 
 export type CourseAuditDateField = "" | "createdAt" | "updatedAt";
 export type CourseEditorMode = "create" | "duplicate" | "update";

@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { API_BASE_URL, JSON_HEADERS } from "@/constants/api";
-import { ACCESS_TOKEN_COOKIE } from "@/constants/auth";
-import { ApiEnvelopeErrorSchema } from "@/schemas/api";
-import type { ApiErrorBody, FieldError } from "@/types/api";
+import { API_BASE_URL, JSON_HEADERS } from "@/constants";
+import { ACCESS_TOKEN_COOKIE } from "@/constants";
+import { ApiEnvelopeErrorSchema } from "@/schemas";
+import type { ApiErrorBody, FieldError } from "@/types";
 
 export class ApiError extends Error {
 	public readonly status: number;

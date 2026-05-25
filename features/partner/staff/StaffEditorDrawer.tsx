@@ -49,10 +49,7 @@ import {
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type {
-	StaffEditorDrawerProps,
-	StaffEditorFormValues,
-} from "@/types/client/partner";
+import type { StaffEditorDrawerProps, StaffEditorFormValues } from "@/types";
 
 export function StaffEditorDrawer({
 	staffId,

@@ -9,7 +9,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 } from "@/components";
-import type { EntityRowActionsProps } from "@/types/client";
+import type { EntityRowActionsProps } from "@/types";
 
 export function EntityRowActions({
 	entity,

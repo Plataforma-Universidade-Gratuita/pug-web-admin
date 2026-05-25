@@ -1,11 +1,8 @@
 "use client";
 
-import {
-	ToggleGroup,
-	ToggleGroupItem,
-} from "@/components/actions/toggle-group/ToggleGroup";
-import { Icon } from "@/components/display/icon/Icon";
-import type { AppTheme, ThemeSelectorProps } from "@/types/client";
+import { ToggleGroup, ToggleGroupItem } from "@/components";
+import { Icon } from "@/components";
+import type { AppTheme, ThemeSelectorProps } from "@/types";
 
 export function ThemeSelector({
 	className,

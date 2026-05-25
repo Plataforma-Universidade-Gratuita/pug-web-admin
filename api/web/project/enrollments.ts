@@ -1,14 +1,13 @@
 import { z } from "zod";
 
-import { WEB_API_ROUTE_BASES } from "@/constants/api";
-import { EnrollmentResponseSchema } from "@/schemas/api";
+import { WEB_API_ROUTE_BASES } from "@/constants";
+import { EnrollmentResponseSchema } from "@/schemas";
 import type {
 	EnrollmentCreateRequest,
 	EnrollmentResponse,
 	EnrollmentStatus,
-} from "@/types/api";
-import { qs } from "@/utils/api";
-import { webFetch, webVoid } from "@/utils/web-api";
+} from "@/types";
+import { qs, webFetch, webVoid } from "@/utils";
 
 export async function get(
 	projectId: string,

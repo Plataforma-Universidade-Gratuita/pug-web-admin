@@ -50,7 +50,7 @@ import {
 import type {
 	StudentEditorDrawerProps,
 	StudentEditorFormValues,
-} from "@/types/client/academic";
+} from "@/types";
 
 export function StudentEditorDrawer({
 	mode,

@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 
 import clsx from "clsx";
 
-import type { TextAreaProps } from "@/types/client";
+import type { TextAreaProps } from "@/types";
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 	function TextArea({ className, ...props }, ref) {

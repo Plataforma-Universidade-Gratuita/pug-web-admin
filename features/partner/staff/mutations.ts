@@ -10,7 +10,7 @@ import { create, remove, setActive, update } from "@/api/web/partner/staff";
 import { accountQueryKeys } from "@/features/identity/account/queries";
 import { userQueryKeys } from "@/features/identity/user/queries";
 import { staffQueryKeys } from "@/features/partner/staff/queries";
-import type { AccountResponse, StaffResponse, UserResponse } from "@/types/api";
+import type { AccountResponse, StaffResponse, UserResponse } from "@/types";
 import type {
 	PatchStaffAccountCachesArgs,
 	PatchStaffCachesArgs,
@@ -19,7 +19,7 @@ import type {
 	StaffRemoveMutationVariables,
 	StaffSetActiveMutationVariables,
 	StaffUpdateMutationVariables,
-} from "@/types/client/partner";
+} from "@/types";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

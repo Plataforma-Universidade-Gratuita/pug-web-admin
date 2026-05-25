@@ -1,10 +1,7 @@
 "use client";
 
-import {
-	ToggleGroup,
-	ToggleGroupItem,
-} from "@/components/actions/toggle-group/ToggleGroup";
-import type { AppLang, LanguageSelectorProps } from "@/types/client";
+import { ToggleGroup, ToggleGroupItem } from "@/components";
+import type { AppLang, LanguageSelectorProps } from "@/types";
 
 export function LanguageSelector({
 	className,

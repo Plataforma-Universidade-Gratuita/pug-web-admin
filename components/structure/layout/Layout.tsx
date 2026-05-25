@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
-import { Skeleton } from "@/components/display/skeleton/Skeleton";
-import type { ContentProps, FooterProps, HeaderProps } from "@/types/client";
-import type { PageShellProps } from "@/types/client/components/structure/layout";
+import { Skeleton } from "@/components";
+import type { ContentProps, FooterProps, HeaderProps } from "@/types";
+import type { PageShellProps } from "@/types";
 
 export function PageShell({
 	children,

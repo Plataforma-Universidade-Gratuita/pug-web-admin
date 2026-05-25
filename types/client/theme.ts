@@ -1,4 +1,4 @@
-import { APP_THEMES } from "@/constants/theme";
+import { APP_THEMES } from "@/constants";
 
 export type AppTheme = (typeof APP_THEMES)[number];
 

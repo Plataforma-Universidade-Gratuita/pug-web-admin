@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 
-import type { ServicePageDetailState } from "@/types/client";
+import type { ServicePageDetailState } from "@/types";
 
 export function useServicePageDetailState<
 	TId extends string = string,

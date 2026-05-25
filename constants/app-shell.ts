@@ -1,9 +1,6 @@
 import { Laptop, Moon, Sun } from "lucide-react";
 
-import type {
-	AppShellLanguageOption,
-	AppShellThemeOption,
-} from "@/types/client";
+import type { AppShellLanguageOption, AppShellThemeOption } from "@/types";
 
 export const UNKNOWN_ROUTE_LABEL = "Navbar.paths.unknown";
 

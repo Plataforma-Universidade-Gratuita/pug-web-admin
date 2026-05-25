@@ -10,17 +10,13 @@ import { create, remove, setActive, update } from "@/api/web/academic/students";
 import { studentQueryKeys } from "@/features/academic/student/queries";
 import { accountQueryKeys } from "@/features/identity/account/queries";
 import { userQueryKeys } from "@/features/identity/user/queries";
-import type {
-	AccountResponse,
-	StudentResponse,
-	UserResponse,
-} from "@/types/api";
+import type { AccountResponse, StudentResponse, UserResponse } from "@/types";
 import type {
 	RemoveStudentMutationVariables,
 	StudentCreateMutationVariables,
 	StudentSetActiveMutationVariables,
 	StudentUpdateMutationVariables,
-} from "@/types/client/academic";
+} from "@/types";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

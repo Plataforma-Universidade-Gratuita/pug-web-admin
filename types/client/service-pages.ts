@@ -2,8 +2,8 @@ import type { Dispatch, ReactNode, SetStateAction } from "react";
 
 import type { RowData } from "@tanstack/react-table";
 
-import type { AccountResponse, UserResponse } from "@/types/api";
-import type { TableProps } from "@/types/client/components/display";
+import type { AccountResponse, UserResponse } from "@/types";
+import type { TableProps } from "@/types";
 
 export interface ServicePageMetadataPopoverProps {
 	triggerLabel: string;

@@ -1,8 +1,8 @@
-import { API_BASE_URL, JSON_HEADERS } from "@/constants/api";
-import { RefreshRequestSchema } from "@/schemas/api";
-import { RefreshSessionEnvelopeSchema } from "@/schemas/client";
-import type { TokenResponse } from "@/types/api";
-import { validateAdminToken } from "@/utils/auth";
+import { API_BASE_URL, JSON_HEADERS } from "@/constants";
+import { RefreshRequestSchema } from "@/schemas";
+import { RefreshSessionEnvelopeSchema } from "@/schemas";
+import type { TokenResponse } from "@/types";
+import { validateAdminToken } from "@/utils";
 
 export async function refreshAdminSession(
 	refreshToken: string,

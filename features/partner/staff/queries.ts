@@ -6,7 +6,7 @@ import { get as getAccount } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
 import { list as listEntities, listCities } from "@/api/web/partner/entities";
 import { get, list } from "@/api/web/partner/staff";
-import { staffQueryKeys } from "@/constants/query-keys";
+import { staffQueryKeys } from "@/constants";
 
 export { staffQueryKeys };
 

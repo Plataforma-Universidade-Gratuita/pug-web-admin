@@ -7,13 +7,13 @@ import {
 } from "react";
 
 import { MIN_TABLE_SCROLLBAR_THUMB_SIZE } from "@/constants";
-import type { DropdownMenuItemProps } from "@/types/client";
+import type { DropdownMenuItemProps } from "@/types";
 import type {
 	ScrollOffsetFromThumbOffsetArgs,
 	TableScrollbarMetricsArgs,
-} from "@/types/client";
-import type { TableScrollbarMetrics } from "@/types/client/components/display/table";
-import { compareNormalizedText } from "@/utils/lang";
+} from "@/types";
+import type { TableScrollbarMetrics } from "@/types";
+import { compareNormalizedText } from "@/utils";
 
 function clamp(value: number, min: number, max: number) {
 	return Math.min(Math.max(value, min), max);

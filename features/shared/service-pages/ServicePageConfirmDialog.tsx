@@ -6,7 +6,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components";
-import type { ServicePageConfirmDialogProps } from "@/types/client/service-pages";
+import type { ServicePageConfirmDialogProps } from "@/types";
 
 export function ServicePageConfirmDialog({
 	actionLabel,

@@ -21,7 +21,7 @@ import type {
 	MenuGroupProps,
 	PopoverGroupListProps,
 	PopoverGroupProps,
-} from "@/types/client";
+} from "@/types";
 
 function PopoverGroupList({
 	items,

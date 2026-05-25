@@ -5,15 +5,12 @@ import type {
 	SchoolCreateRequest,
 	SchoolResponse,
 	SchoolUpdateRequest,
-} from "@/types/api";
-import type {
-	SchoolEditorFormValues,
-	SchoolFilterArgs,
-} from "@/types/client/academic";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { normalizeTextForSearch } from "@/utils/lang";
+} from "@/types";
+import type { SchoolEditorFormValues, SchoolFilterArgs } from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { normalizeTextForSearch } from "@/utils";
 
-export { createSchoolEditorFormSchema } from "@/schemas/client/features/academic/school";
+export { createSchoolEditorFormSchema } from "@/schemas";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);

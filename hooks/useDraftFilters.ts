@@ -6,7 +6,7 @@ import type {
 	ServicePageDraftFilters,
 	UseDraftFiltersOptions,
 	UseDraftFiltersResult,
-} from "@/types/client";
+} from "@/types";
 
 function hasTruthyFilterValue(value: boolean | string) {
 	if (typeof value === "boolean") {

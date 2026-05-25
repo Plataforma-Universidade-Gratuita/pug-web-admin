@@ -15,11 +15,11 @@ import {
 	remove as markRemoved,
 } from "@/api/web/project/enrollments";
 import { enrollmentQueryKeys } from "@/features/project/enrollment/queries";
-import type { EnrollmentResponse } from "@/types/api";
+import type { EnrollmentResponse } from "@/types";
 import type {
 	EnrollmentDeleteMutationVariables,
 	EnrollmentStatusMutationVariables,
-} from "@/types/client/project";
+} from "@/types";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

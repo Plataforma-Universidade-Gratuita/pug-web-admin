@@ -1,7 +1,7 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-import { createRequiredTrimmedStringSchema } from "@/schemas/client/shared";
+import { createRequiredTrimmedStringSchema } from "@/schemas";
 
 export function createCourseEditorFormSchema(t: TFunction) {
 	return z.object({

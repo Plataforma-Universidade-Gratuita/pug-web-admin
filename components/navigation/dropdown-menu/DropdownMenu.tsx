@@ -11,7 +11,7 @@ import type {
 	DropdownMenuProps,
 	DropdownMenuSeparatorProps,
 	DropdownMenuTriggerProps,
-} from "@/types/client";
+} from "@/types";
 
 export function DropdownMenu({
 	children,

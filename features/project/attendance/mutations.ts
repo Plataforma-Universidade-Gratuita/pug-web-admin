@@ -8,12 +8,12 @@ import {
 
 import { create, remove, validate } from "@/api/web/project/attendances";
 import { attendanceQueryKeys } from "@/features/project/attendance/queries";
-import type { AttendanceResponse } from "@/types/api";
+import type { AttendanceResponse } from "@/types";
 import type {
 	AttendanceCreateMutationVariables,
 	AttendanceRemoveMutationVariables,
 	AttendanceValidateMutationVariables,
-} from "@/types/client/project";
+} from "@/types";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

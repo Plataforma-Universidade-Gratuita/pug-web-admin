@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { UserResponseSchema } from "@/schemas/api";
+import { UserResponseSchema } from "@/schemas";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

@@ -1,13 +1,13 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-import { CampiEnum } from "@/schemas/api";
+import { CampiEnum } from "@/schemas";
 import {
 	createCpfFieldSchema,
 	createEmailFieldSchema,
 	createRequiredTrimmedStringSchema,
-} from "@/schemas/client/shared";
-import type { AdminEditorMode } from "@/types/client/features/identity/admin";
+} from "@/schemas";
+import type { AdminEditorMode } from "@/types";
 
 export function createAdminEditorFormSchema(
 	t: TFunction,

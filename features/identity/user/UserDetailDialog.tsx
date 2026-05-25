@@ -11,8 +11,8 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
-import type { UserDetailDialogProps } from "@/types/client/identity";
-import { WebApiError } from "@/utils/web-api";
+import type { UserDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function UserDetailDialog({
 	error,

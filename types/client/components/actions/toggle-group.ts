@@ -1,7 +1,4 @@
-import type {
-	ToggleGroupColorVariant,
-	ToggleGroupVariant,
-} from "@/types/client/components/controls";
+import type { ToggleGroupColorVariant, ToggleGroupVariant } from "@/types";
 
 export interface ToggleGroupStyleContextValue {
 	colorVariant: ToggleGroupColorVariant;

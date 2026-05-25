@@ -50,7 +50,7 @@ import {
 import type {
 	ProjectEditorDrawerProps,
 	ProjectEditorFormValues,
-} from "@/types/client/project";
+} from "@/types";
 
 export function ProjectEditorDrawer({
 	mode,

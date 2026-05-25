@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 import { RouteBoundaryScreen } from "@/features/docs/routing/RouteBoundaryScreen";
-import type { RouteBoundaryPageProps } from "@/types/client";
+import type { RouteBoundaryPageProps } from "@/types";
 
 export function NotFoundPageContent() {
 	return (

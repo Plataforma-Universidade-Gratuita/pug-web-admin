@@ -13,10 +13,7 @@ import {
 } from "@/components";
 import { getAdminCampusOptions } from "@/features/identity/admin/utils";
 import { TextFieldFilter } from "@/features/shared/service-pages";
-import type {
-	AdminCampusFilter,
-	AdminFiltersProps,
-} from "@/types/client/identity";
+import type { AdminCampusFilter, AdminFiltersProps } from "@/types";
 
 export function AdminFilters({
 	campusFilter,

@@ -21,7 +21,7 @@ import type {
 	EnrollmentAuditDateField,
 	EnrollmentFiltersDrawerProps,
 	EnrollmentStatusFilter,
-} from "@/types/client/project";
+} from "@/types";
 
 export function EnrollmentFiltersDrawer({
 	dateField,

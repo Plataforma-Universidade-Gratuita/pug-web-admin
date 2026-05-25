@@ -4,7 +4,7 @@ import {
 	CourseCreateRequestSchema,
 	CourseResponseSchema,
 	CourseUpdateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

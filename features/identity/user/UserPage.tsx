@@ -25,8 +25,8 @@ import {
 	ServicePageTableSection,
 } from "@/features/shared/service-pages";
 import { useQueryErrorToasts, useServicePageDetailState } from "@/hooks";
-import type { UserResponse } from "@/types/api";
-import type { UserAuditDateField } from "@/types/client/identity";
+import type { UserResponse } from "@/types";
+import type { UserAuditDateField } from "@/types";
 
 export function UserPage() {
 	const { t } = useTranslation();

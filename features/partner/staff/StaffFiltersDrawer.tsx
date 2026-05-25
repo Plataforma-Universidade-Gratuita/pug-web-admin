@@ -13,10 +13,7 @@ import {
 } from "@/components";
 import { getStaffActiveOptionClassName } from "@/features/partner/staff/utils";
 import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
-import type {
-	StaffActiveFilter,
-	StaffFiltersDrawerProps,
-} from "@/types/client/partner";
+import type { StaffActiveFilter, StaffFiltersDrawerProps } from "@/types";
 
 export function StaffFiltersDrawer({
 	activeFilter,

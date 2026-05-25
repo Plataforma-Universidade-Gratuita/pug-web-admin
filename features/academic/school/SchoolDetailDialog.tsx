@@ -11,8 +11,8 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
-import type { SchoolDetailDialogProps } from "@/types/client/academic";
-import { WebApiError } from "@/utils/web-api";
+import type { SchoolDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function SchoolDetailDialog({
 	error,

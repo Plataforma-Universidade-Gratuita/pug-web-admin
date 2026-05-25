@@ -8,12 +8,12 @@ import {
 
 import { create, remove, update } from "@/api/web/partner/entities";
 import { entityQueryKeys } from "@/features/partner/entity/queries";
-import type { EntityResponse } from "@/types/api";
+import type { EntityResponse } from "@/types";
 import type {
 	EntityCreateMutationVariables,
 	RemoveEntityMutationVariables,
 	EntityUpdateMutationVariables,
-} from "@/types/client/partner";
+} from "@/types";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

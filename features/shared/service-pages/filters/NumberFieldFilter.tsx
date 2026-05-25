@@ -1,5 +1,5 @@
 import { Input, Label } from "@/components";
-import type { NumberFieldFilterProps } from "@/types/client/service-pages";
+import type { NumberFieldFilterProps } from "@/types";
 
 export function NumberFieldFilter({
 	label,

@@ -6,21 +6,21 @@ import type {
 	EntityCreateRequest,
 	EntityResponse,
 	EntityUpdateRequest,
-} from "@/types/api";
-import type { ComboboxOption } from "@/types/client";
+} from "@/types";
+import type { ComboboxOption } from "@/types";
 import type {
 	EntityEditorFormValues,
 	EntityFilterArgs,
 	EntityEditorMode,
-} from "@/types/client/partner";
-import { getApiErrorToastContent } from "@/utils/api-errors";
+} from "@/types";
+import { getApiErrorToastContent } from "@/utils";
 import {
 	compareNormalizedText,
 	normalizeDigits,
 	normalizeTextForSearch,
-} from "@/utils/lang";
+} from "@/utils";
 
-export { createEntityEditorFormSchema } from "@/schemas/client/features/partner/entity";
+export { createEntityEditorFormSchema } from "@/schemas";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);

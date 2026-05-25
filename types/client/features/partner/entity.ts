@@ -5,8 +5,8 @@ import type {
 	EntityCreateRequest,
 	EntityResponse,
 	EntityUpdateRequest,
-} from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/forms";
+} from "@/types";
+import type { ComboboxOption } from "@/types";
 
 export type EntityAuditDateField = "" | "createdAt" | "updatedAt";
 export type EntityEditorMode = "create" | "duplicate" | "update";

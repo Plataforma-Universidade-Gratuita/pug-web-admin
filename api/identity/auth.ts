@@ -1,12 +1,12 @@
-import { API_ROUTE_BASES } from "@/constants/api";
-import { TokenResponseSchema } from "@/schemas/api/identity/auth";
+import { API_ROUTE_BASES } from "@/constants";
+import { TokenResponseSchema } from "@/schemas";
 import type {
 	LoginRequest,
 	LogoutRequest,
 	RefreshRequest,
 	TokenResponse,
-} from "@/types/api";
-import { zfetch, zvoid } from "@/utils/api";
+} from "@/types";
+import { zfetch, zvoid } from "@/utils";
 
 export async function login(body: LoginRequest): Promise<TokenResponse> {
 	return zfetch(

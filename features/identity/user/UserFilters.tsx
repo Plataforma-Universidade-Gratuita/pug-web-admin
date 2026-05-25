@@ -7,7 +7,7 @@ import {
 	NumberFieldFilter,
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
-import type { UserFiltersProps } from "@/types/client/identity";
+import type { UserFiltersProps } from "@/types";
 
 export function UserFilters({
 	cpfSearch,

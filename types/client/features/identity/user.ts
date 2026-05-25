@@ -1,4 +1,4 @@
-import type { UserResponse } from "@/types/api";
+import type { UserResponse } from "@/types";
 
 export type UserAuditDateField = "" | "createdAt" | "updatedAt";
 

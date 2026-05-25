@@ -5,7 +5,7 @@ import {
 	AuditInfoResponseSchema,
 	CampiEnum,
 	CampusResponseSchema,
-} from "@/schemas/api";
+} from "@/schemas";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────
 

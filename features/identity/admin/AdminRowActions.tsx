@@ -18,7 +18,7 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import type { AdminRowActionsProps } from "@/types/client";
+import type { AdminRowActionsProps } from "@/types";
 
 export function AdminRowActions({
 	admin,

@@ -1,4 +1,4 @@
-import type { Campi } from "@/types/api";
+import type { Campi } from "@/types";
 
 export const ADMIN_CAMPI_VALUES = [
 	"JARAGUA_DO_SUL",

@@ -27,7 +27,7 @@ import {
 import { TABLE_PARTICLE_STATUS_TONES } from "@/constants";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
-import type { TableExampleRow } from "@/types/client/features/docs/primitives/display";
+import type { TableExampleRow } from "@/types";
 
 export default function TableParticle() {
 	const { t } = useTranslation();

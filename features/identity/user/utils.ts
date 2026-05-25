@@ -1,10 +1,10 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import type { UserResponse } from "@/types/api";
-import type { UserFilterArgs } from "@/types/client/identity";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { normalizeTextForSearch } from "@/utils/lang";
+import type { UserResponse } from "@/types";
+import type { UserFilterArgs } from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { normalizeTextForSearch } from "@/utils";
 
 export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 	return [

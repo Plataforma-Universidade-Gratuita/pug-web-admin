@@ -1,4 +1,4 @@
-import type { RouteBoundaryMode } from "@/types/client";
+import type { RouteBoundaryMode } from "@/types";
 
 export function getRouteBoundaryScreenShellClassName(mode: RouteBoundaryMode) {
 	if (mode === "full") {

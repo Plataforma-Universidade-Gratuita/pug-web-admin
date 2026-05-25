@@ -15,7 +15,7 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import type { ParticleSectionProps } from "@/types/client";
+import type { ParticleSectionProps } from "@/types";
 
 export function ParticleSection({
 	title,

@@ -24,8 +24,8 @@ import {
 	getAccountTypeTone,
 } from "@/features/identity/account/utils";
 import { AdminUserTab } from "@/features/identity/admin/AdminUserTab";
-import type { AdminEditorContentProps } from "@/types/client/identity";
-import { WebApiError } from "@/utils/web-api";
+import type { AdminEditorContentProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function AdminEditorContent({
 	admin,

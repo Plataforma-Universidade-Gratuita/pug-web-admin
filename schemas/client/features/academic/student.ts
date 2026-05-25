@@ -1,7 +1,7 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-import { CampiEnum } from "@/schemas/api";
+import { CampiEnum } from "@/schemas";
 import {
 	createCpfFieldSchema,
 	createEmailFieldSchema,
@@ -9,8 +9,8 @@ import {
 	createRequiredNumericStringSchema,
 	createRequiredTrimmedStringSchema,
 	isDateRangeInvalid,
-} from "@/schemas/client/shared";
-import type { StudentEditorMode } from "@/types/client/features/academic/student";
+} from "@/schemas";
+import type { StudentEditorMode } from "@/types";
 
 export function createStudentEditorFormSchema(
 	t: TFunction,

@@ -6,11 +6,11 @@ import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Button, Icon, LanguageSelector, ThemeSelector } from "@/components";
-import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants/app-shell";
-import { NAVBAR_TITLE_ROUTE } from "@/constants/navigation";
+import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants";
+import { NAVBAR_TITLE_ROUTE } from "@/constants";
 import { useLocale } from "@/contexts/locale";
 import { useTheme } from "@/contexts/theme";
-import type { TopBarProps } from "@/types/client";
+import type { TopBarProps } from "@/types";
 
 export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 	const { t } = useTranslation();

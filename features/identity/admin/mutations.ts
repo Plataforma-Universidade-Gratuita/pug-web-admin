@@ -10,14 +10,14 @@ import { create, remove, setActive, update } from "@/api/web/identity/admins";
 import { accountQueryKeys } from "@/features/identity/account/queries";
 import { adminQueryKeys } from "@/features/identity/admin/queries";
 import { userQueryKeys } from "@/features/identity/user/queries";
-import type { AccountResponse, AdminResponse, UserResponse } from "@/types/api";
+import type { AccountResponse, AdminResponse, UserResponse } from "@/types";
 import type {
 	AdminCreateMutationVariables,
 	PatchAdminCachesArgs,
 	RemoveAdminMutationVariables,
 	AdminSetActiveMutationVariables,
 	AdminUpdateMutationVariables,
-} from "@/types/client/identity";
+} from "@/types";
 
 function formatCpf(value: string) {
 	const digits = value.replace(/\D+/g, "").slice(0, 11);

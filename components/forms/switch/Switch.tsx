@@ -3,7 +3,7 @@
 import * as RadixSwitch from "@radix-ui/react-switch";
 import clsx from "clsx";
 
-import type { SwitchProps } from "@/types/client";
+import type { SwitchProps } from "@/types";
 
 export function Switch({
 	label,

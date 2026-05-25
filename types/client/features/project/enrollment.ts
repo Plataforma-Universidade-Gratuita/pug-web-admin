@@ -3,8 +3,8 @@ import type {
 	EnrollmentStatus,
 	ProjectResponse,
 	StudentResponse,
-} from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/forms";
+} from "@/types";
+import type { ComboboxOption } from "@/types";
 
 export type EnrollmentAuditDateField = "" | "createdAt" | "updatedAt";
 export type EnrollmentStatusFilter = "" | EnrollmentStatus;

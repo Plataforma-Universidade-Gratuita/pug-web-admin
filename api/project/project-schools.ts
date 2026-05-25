@@ -1,15 +1,15 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES } from "@/constants/api";
-import { SchoolResponseSchema } from "@/schemas/api/academic/school";
-import { ProjectResponseSchema } from "@/schemas/api/project/project";
+import { API_ROUTE_BASES } from "@/constants";
+import { SchoolResponseSchema } from "@/schemas";
+import { ProjectResponseSchema } from "@/schemas";
 import type {
 	ProjectSchoolAssociationUpdateRequest,
 	ProjectSchoolRequest,
 	SchoolResponse,
 	ProjectResponse,
-} from "@/types/api";
-import { zfetch, zvoid } from "@/utils/api";
+} from "@/types";
+import { zfetch, zvoid } from "@/utils";
 
 export async function listSchoolsByProject(
 	projectId: string,

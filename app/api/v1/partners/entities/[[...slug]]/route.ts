@@ -1,75 +1,56 @@
-import { z } from "zod";
+"use client";
 
-import { entities } from "@/api";
-import {
-	CityResponseSchema,
-	EntityCreateRequestSchema,
-	EntityResponseSchema,
-	EntityUpdateRequestSchema,
-} from "@/schemas/api";
-import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeVoidWithAuthRetry,
-	routeWithAuthRetry,
-} from "@/utils/route";
+import { useEffect, useRef, useState } from "react";
 
-export async function GET(request: Request, { params }: AppRouteSlugContext) {
-	const { slug = [] } = await params;
-	if (slug.length === 0) {
-		const searchParams = new URL(request.url).searchParams;
-		const q = searchParams.get("q") ?? undefined;
-		const cityId = searchParams.get("cityId") ?? undefined;
-		return routeWithAuthRetry(
-			token => entities.list(token, q, cityId),
-			z.array(EntityResponseSchema),
-		);
-	}
-	if (slug.length === 1 && slug[0] === "cities") {
-		return routeWithAuthRetry(
-			token => entities.listCities(token),
-			z.array(CityResponseSchema),
-		);
-	}
-	if (slug.length === 2 && slug[0] === "by-cnpj") {
-		return routeWithAuthRetry(
-			token => entities.getByCnpj(slug[1]!, token),
-			EntityResponseSchema,
-		);
-	}
-	if (slug.length === 1) {
-		return routeWithAuthRetry(
-			token => entities.get(slug[0]!, token),
-			EntityResponseSchema,
-		);
-	}
-	return routeError(new Error("Not found"));
-}
+import { LoginForm } from "@/features/auth/login/LoginForm";
+import { LoginHero } from "@/features/auth/login/LoginHero";
+import { FloatingPageControls } from "@/features/floating-page-controls";
 
-export async function POST(request: Request) {
-	const body = await parseRouteBody(request, EntityCreateRequestSchema);
-	return routeWithAuthRetry(
-		token => entities.create(body, token),
-		EntityResponseSchema,
+export default function Page() {
+	const formCardRef = useRef<HTMLDivElement | null>(null);
+	const [desktopHeroHeight, setDesktopHeroHeight] = useState<number | null>(
+		null,
 	);
-}
 
-export async function PUT(request: Request, { params }: AppRouteSlugContext) {
-	const { slug = [] } = await params;
-	if (slug.length !== 1) return routeError(new Error("Not found"));
-	const body = await parseRouteBody(request, EntityUpdateRequestSchema);
-	return routeWithAuthRetry(
-		token => entities.update(slug[0]!, body, token),
-		EntityResponseSchema,
+	useEffect(() => {
+		const card = formCardRef.current;
+		if (!card) {
+			return;
+		}
+
+		const syncHeight = () => {
+			setDesktopHeroHeight(card.getBoundingClientRect().height);
+		};
+
+		syncHeight();
+
+		const observer = new ResizeObserver(() => {
+			syncHeight();
+		});
+
+		observer.observe(card);
+
+		return () => {
+			observer.disconnect();
+		};
+	}, []);
+
+	return (
+		<main className="login-page">
+			<FloatingPageControls />
+			<section className="login-page-content">
+				<div
+					className="login-page-panel login-page-panel-hero"
+					style={
+						desktopHeroHeight ? { height: `${desktopHeroHeight}px` } : undefined
+					}
+				>
+					<LoginHero />
+				</div>
+				<div className="login-page-panel login-page-panel-form">
+					<LoginForm panelRef={formCardRef} />
+				</div>
+			</section>
+		</main>
 	);
-}
-
-export async function DELETE(
-	_request: Request,
-	{ params }: AppRouteSlugContext,
-) {
-	const { slug = [] } = await params;
-	if (slug.length !== 1) return routeError(new Error("Not found"));
-	return routeVoidWithAuthRetry(token => entities.remove(slug[0]!, token));
 }

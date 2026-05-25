@@ -11,7 +11,7 @@ import {
 	DialogTitle,
 	Icon,
 } from "@/components";
-import type { ParticlePatternNotesProps } from "@/types/client";
+import type { ParticlePatternNotesProps } from "@/types";
 
 export function ParticlePatternNotes({
 	open,

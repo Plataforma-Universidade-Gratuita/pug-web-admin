@@ -5,12 +5,12 @@ import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 import { ScrollArea } from "@/components";
-import { SIDEBAR_HOME_ITEM, SIDEBAR_NAV_GROUPS } from "@/constants/navigation";
+import { SIDEBAR_HOME_ITEM, SIDEBAR_NAV_GROUPS } from "@/constants";
 import { AccountMenu } from "@/features/app-shell/Sidebar/AccountMenu";
 import { MenuGroup } from "@/features/app-shell/Sidebar/MenuGroup";
 import { MenuItem } from "@/features/app-shell/Sidebar/MenuItem";
 import { isNodeActive } from "@/features/app-shell/Sidebar/utils";
-import type { SidebarProps } from "@/types/client";
+import type { SidebarProps } from "@/types";
 
 export function Sidebar({ collapsed }: SidebarProps) {
 	const pathname = usePathname();

@@ -11,8 +11,8 @@ import type {
 	ToggleGroupItemProps,
 	ToggleGroupProps,
 	ToggleGroupVariant,
-} from "@/types/client";
-import type { ToggleGroupStyleContextValue } from "@/types/client/components/actions/toggle-group";
+} from "@/types";
+import type { ToggleGroupStyleContextValue } from "@/types";
 
 const ToggleGroupStyleContext = createContext<ToggleGroupStyleContextValue>({
 	colorVariant: "default",

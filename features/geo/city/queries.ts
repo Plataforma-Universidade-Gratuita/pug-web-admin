@@ -1,9 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useQuery } from "@tanstack/react-query";
 
 import { get as getCity, list as listCities } from "@/api/web/geo/cities";
-import { cityQueryKeys } from "@/constants/query-keys";
+import { cityQueryKeys } from "@/constants";
 
 export { cityQueryKeys };
 

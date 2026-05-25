@@ -32,7 +32,7 @@ import {
 } from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
-import type { ConfirmAction } from "@/types/client/features/docs/primitives/navigation";
+import type { ConfirmAction } from "@/types";
 
 export default function DropdownMenuParticle() {
 	const { t } = useTranslation();

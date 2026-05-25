@@ -41,11 +41,8 @@ import {
 	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
-import type { CourseResponse, SchoolResponse } from "@/types/api";
-import type {
-	CourseEditorMode,
-	CourseSecondaryFilters,
-} from "@/types/client/academic";
+import type { CourseResponse, SchoolResponse } from "@/types";
+import type { CourseEditorMode, CourseSecondaryFilters } from "@/types";
 
 export function CoursePage() {
 	const { t } = useTranslation();

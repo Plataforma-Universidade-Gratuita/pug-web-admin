@@ -14,12 +14,12 @@ import type {
 	PopoverContentProps,
 	PopoverProps,
 	PopoverTriggerProps,
-} from "@/types/client";
-import type { PopoverContextValue } from "@/types/client/components/overlays/popover";
+} from "@/types";
+import type { PopoverContextValue } from "@/types";
 import {
 	getFloatingLayerBoundary,
 	usesAppTopbarCollisionPadding,
-} from "@/utils/overlay";
+} from "@/utils";
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
 

@@ -1,6 +1,6 @@
-import type { IconComponent } from "@/types/client/components";
-import type { AppLang } from "@/types/client/locale";
-import type { AppTheme } from "@/types/client/theme";
+import type { IconComponent } from "@/types";
+import type { AppLang } from "@/types";
+import type { AppTheme } from "@/types";
 
 export type TranslationKey = string;
 

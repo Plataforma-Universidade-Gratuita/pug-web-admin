@@ -2,14 +2,14 @@
 
 import clsx from "clsx";
 
-import { Icon } from "@/components/display/icon/Icon";
-import { Skeleton } from "@/components/display/skeleton/Skeleton";
+import { Icon } from "@/components";
+import { Skeleton } from "@/components";
+import { Content, Footer, Header } from "@/components";
 import {
 	SkeletonActionGroup,
 	SkeletonPanelBlock,
 	SkeletonTextBlock,
 } from "@/components/display/skeleton/presets";
-import { Content, Footer, Header } from "@/components/structure/layout/Layout";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
 	CardContentProps,
@@ -18,7 +18,7 @@ import type {
 	CardHeaderProps,
 	CardProps,
 	CardTitleProps,
-} from "@/types/client";
+} from "@/types";
 
 export function Card({
 	children,

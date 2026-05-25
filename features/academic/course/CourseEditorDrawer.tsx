@@ -47,10 +47,7 @@ import {
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type {
-	CourseEditorDrawerProps,
-	CourseEditorFormValues,
-} from "@/types/client/academic";
+import type { CourseEditorDrawerProps, CourseEditorFormValues } from "@/types";
 
 export function CourseEditorDrawer({
 	courseId,

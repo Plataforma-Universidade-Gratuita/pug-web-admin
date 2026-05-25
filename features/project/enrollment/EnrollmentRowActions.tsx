@@ -19,7 +19,7 @@ import {
 	DropdownMenuWarningItem,
 } from "@/components";
 import { createEnrollmentCompositeKey } from "@/features/project/enrollment/utils";
-import type { EnrollmentRowActionsProps } from "@/types/client/project";
+import type { EnrollmentRowActionsProps } from "@/types";
 
 export function EnrollmentRowActions({
 	enrollment,

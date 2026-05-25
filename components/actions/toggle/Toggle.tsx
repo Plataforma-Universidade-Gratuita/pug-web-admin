@@ -3,7 +3,7 @@
 import * as RadixToggle from "@radix-ui/react-toggle";
 import clsx from "clsx";
 
-import type { ToggleProps } from "@/types/client";
+import type { ToggleProps } from "@/types";
 
 export function Toggle({ children, className, ...props }: ToggleProps) {
 	return (

@@ -12,7 +12,7 @@ import {
 	BreadcrumbList,
 	BreadcrumbSeparator,
 } from "@/components";
-import { APP_ROUTE_LABELS } from "@/constants/navigation";
+import { APP_ROUTE_LABELS } from "@/constants";
 import { getRouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs/utils";
 
 export function RouteBreadcrumbs() {

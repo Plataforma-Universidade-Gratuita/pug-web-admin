@@ -1,9 +1,5 @@
-import {
-	DEFAULT_LANG,
-	LANG_ALIASES,
-	SUPPORTED_LANGS,
-} from "@/constants/locale";
-import type { AppLang } from "@/types/client";
+import { DEFAULT_LANG, LANG_ALIASES, SUPPORTED_LANGS } from "@/constants";
+import type { AppLang } from "@/types";
 
 export function isAppLang(x: unknown): x is AppLang {
 	return typeof x === "string" && SUPPORTED_LANGS.includes(x as AppLang);

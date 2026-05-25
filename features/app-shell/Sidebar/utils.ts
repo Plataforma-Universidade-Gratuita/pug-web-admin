@@ -3,8 +3,8 @@ import type { CSSProperties } from "react";
 import {
 	SIDEBAR_ROW_BASE_PADDING_REM,
 	SIDEBAR_ROW_NEST_STEP_REM,
-} from "@/constants/app-shell";
-import type { MenuLeafItem, MenuNode } from "@/types/client";
+} from "@/constants";
+import type { MenuLeafItem, MenuNode } from "@/types";
 
 export function isLeafItem(item: MenuNode): item is MenuLeafItem {
 	return "href" in item;

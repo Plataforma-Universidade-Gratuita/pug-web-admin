@@ -10,8 +10,8 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
-import type { EntityEditorFormProps } from "@/types/client/partner";
-import { WebApiError } from "@/utils/web-api";
+import type { EntityEditorFormProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function EntityEditorForm({
 	canRenderForm,

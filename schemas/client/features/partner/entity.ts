@@ -4,8 +4,8 @@ import { z } from "zod";
 import {
 	createCnpjFieldSchema,
 	createRequiredTrimmedStringSchema,
-} from "@/schemas/client/shared";
-import type { EntityEditorMode } from "@/types/client/features/partner/entity";
+} from "@/schemas";
+import type { EntityEditorMode } from "@/types";
 
 export function createEntityEditorFormSchema(
 	t: TFunction,

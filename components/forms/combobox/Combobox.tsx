@@ -5,18 +5,14 @@ import { useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 import { ChevronDown, Search, X } from "lucide-react";
 
-import { Icon } from "@/components/display/icon/Icon";
+import { Icon } from "@/components";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components";
 import {
 	getComboboxSelectedLabel,
 	getSearchableComboboxText,
 } from "@/components/forms/combobox/utils";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/overlays/popover/Popover";
-import type { ComboboxProps } from "@/types/client";
-import { normalizeTextForSearch } from "@/utils/lang";
+import type { ComboboxProps } from "@/types";
+import { normalizeTextForSearch } from "@/utils";
 
 export function Combobox({
 	options,

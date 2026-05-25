@@ -12,10 +12,7 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import {
-	PRIMITIVE_AREA_KEYS,
-	PRIMITIVE_SUMMARY_CARD_KEYS,
-} from "@/constants/docs";
+import { PRIMITIVE_AREA_KEYS, PRIMITIVE_SUMMARY_CARD_KEYS } from "@/constants";
 import { DocsTextLink } from "@/features/docs/primitives";
 
 export default function PrimitivesDocsPageContent() {

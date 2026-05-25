@@ -1,15 +1,15 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES } from "@/constants/api";
-import { CityResponseSchema } from "@/schemas/api/geo/city";
-import { EntityResponseSchema } from "@/schemas/api/partner/entity";
+import { API_ROUTE_BASES } from "@/constants";
+import { CityResponseSchema } from "@/schemas";
+import { EntityResponseSchema } from "@/schemas";
 import type {
 	CityResponse,
 	EntityCreateRequest,
 	EntityResponse,
 	EntityUpdateRequest,
-} from "@/types/api";
-import { zfetch, zvoid, qs } from "@/utils/api";
+} from "@/types";
+import { zfetch, zvoid, qs } from "@/utils";
 
 export async function get(id: string, token?: string): Promise<EntityResponse> {
 	return zfetch(

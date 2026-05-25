@@ -1,18 +1,17 @@
 import { z } from "zod";
 
-import { WEB_API_ROUTE_BASES } from "@/constants/api";
+import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	StaffCreateRequestSchema,
 	StaffResponseSchema,
 	StaffUpdateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas";
 import type {
 	StaffCreateRequest,
 	StaffResponse,
 	StaffUpdateRequest,
-} from "@/types/api";
-import { qs } from "@/utils/api";
-import { webFetch, webVoid } from "@/utils/web-api";
+} from "@/types";
+import { qs, webFetch, webVoid } from "@/utils";
 
 export async function get(id: string): Promise<StaffResponse> {
 	return webFetch(

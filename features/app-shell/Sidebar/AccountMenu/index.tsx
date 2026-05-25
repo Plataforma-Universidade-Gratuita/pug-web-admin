@@ -26,7 +26,7 @@ import {
 	Skeleton,
 	toast,
 } from "@/components";
-import { LOGIN_ROUTE } from "@/constants/auth";
+import { LOGIN_ROUTE } from "@/constants";
 import {
 	adminQueryKeys,
 	useCurrentAdminQuery,
@@ -35,8 +35,8 @@ import {
 	userQueryKeys,
 	useCurrentUserQuery,
 } from "@/features/identity/user/queries";
-import type { SidebarProps } from "@/types/client";
-import type { LogoutScope } from "@/types/client/features/app-shell/account-menu";
+import type { SidebarProps } from "@/types";
+import type { LogoutScope } from "@/types";
 
 export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 	const queryClient = useQueryClient();

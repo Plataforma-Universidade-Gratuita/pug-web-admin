@@ -1,5 +1,5 @@
 import { PageShell } from "@/components";
-import type { ServicePageShellProps } from "@/types/client/service-pages";
+import type { ServicePageShellProps } from "@/types";
 
 export function ServicePageShell({ children }: ServicePageShellProps) {
 	return (

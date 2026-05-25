@@ -17,8 +17,8 @@ import {
 	getStudentCampusOptions,
 } from "@/features/academic/student/utils";
 import { AuditInfoFilterFields } from "@/features/shared/service-pages";
-import { ServicePageFiltersDrawer } from "@/features/shared/service-pages/ServicePageFiltersDrawer";
-import type { StudentFiltersDrawerProps } from "@/types/client/academic";
+import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
+import type { StudentFiltersDrawerProps } from "@/types";
 
 export function StudentFiltersDrawer({
 	activeFilter,

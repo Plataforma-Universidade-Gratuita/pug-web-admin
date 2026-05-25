@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { AuditInfoResponseSchema, SchoolResponseSchema } from "@/schemas/api";
+import { AuditInfoResponseSchema, SchoolResponseSchema } from "@/schemas";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

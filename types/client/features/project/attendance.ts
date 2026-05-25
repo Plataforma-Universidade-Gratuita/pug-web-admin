@@ -7,9 +7,9 @@ import type {
 	AttendanceStatus,
 	ProjectResponse,
 	StudentResponse,
-} from "@/types/api";
-import type { AttendanceValidateRequest } from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/forms";
+} from "@/types";
+import type { AttendanceValidateRequest } from "@/types";
+import type { ComboboxOption } from "@/types";
 
 export type AttendanceAuditDateField = "" | "createdAt" | "updatedAt";
 export type AttendanceStatusFilter = "" | AttendanceStatus;

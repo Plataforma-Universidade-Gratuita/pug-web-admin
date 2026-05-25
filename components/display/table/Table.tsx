@@ -19,16 +19,16 @@ import clsx from "clsx";
 import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { NoContentState } from "@/components/display/empty-state/EmptyState";
-import { Icon } from "@/components/display/icon/Icon";
-import { Skeleton } from "@/components/display/skeleton/Skeleton";
+import { NoContentState } from "@/components";
+import { Icon } from "@/components";
+import { Skeleton } from "@/components";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuTrigger,
-} from "@/components/navigation/dropdown-menu/DropdownMenu";
-import type { TableProps } from "@/types/client";
-import type { RowActionsCellProps, SortIconProps } from "@/types/client";
+} from "@/components";
+import type { TableProps } from "@/types";
+import type { RowActionsCellProps, SortIconProps } from "@/types";
 
 import {
 	compareTableValues,

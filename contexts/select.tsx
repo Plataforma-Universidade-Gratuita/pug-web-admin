@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import { createContext, useContext } from "react";
 
-import type { SelectContextValue, SelectProviderProps } from "@/types/client";
+import type { SelectContextValue, SelectProviderProps } from "@/types";
 
 const SelectContext = createContext<SelectContextValue>({
 	clearSelection: () => undefined,

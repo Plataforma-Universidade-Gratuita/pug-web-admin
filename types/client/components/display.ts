@@ -1,4 +1,4 @@
-﻿import type {
+import type {
 	ComponentPropsWithoutRef,
 	ForwardRefExoticComponent,
 	HTMLAttributes,
@@ -18,10 +18,10 @@ import type {
 } from "@tanstack/react-table";
 import type { LucideProps } from "lucide-react";
 
-import { BADGE_TONES, BADGE_VARIANTS } from "@/constants/components";
-import type { ToggleGroupColorVariant } from "@/types/client/components/controls";
-import type { AppLang } from "@/types/client/locale";
-import type { AppTheme } from "@/types/client/theme";
+import { BADGE_TONES, BADGE_VARIANTS } from "@/constants";
+import type { ToggleGroupColorVariant } from "@/types";
+import type { AppLang } from "@/types";
+import type { AppTheme } from "@/types";
 
 export type BadgeTone = keyof typeof BADGE_TONES;
 export type BadgeVariant = keyof typeof BADGE_VARIANTS;

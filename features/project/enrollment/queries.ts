@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { get, list } from "@/api/web/project/enrollments";
-import { enrollmentQueryKeys } from "@/constants/query-keys";
+import { enrollmentQueryKeys } from "@/constants";
 
 export { enrollmentQueryKeys };
 

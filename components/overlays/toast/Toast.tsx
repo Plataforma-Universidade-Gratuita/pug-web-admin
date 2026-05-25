@@ -23,14 +23,14 @@ import {
 	TOAST_DEFAULT_DURATION,
 	TOAST_UNDO_DURATION,
 	TOAST_VISIBLE_COUNT,
-} from "@/constants/components";
+} from "@/constants";
 import { useTheme } from "@/contexts/theme";
 import type {
 	AppToastOptions,
 	AppToastPromiseOptions,
 	ToastProviderProps,
 	AppToastUndoOptions,
-} from "@/types/client";
+} from "@/types";
 
 export function ToastProvider(props: ToastProviderProps) {
 	const { mode } = useTheme();

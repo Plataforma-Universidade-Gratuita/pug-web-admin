@@ -25,11 +25,7 @@ import {
 	UserRoundCog,
 } from "lucide-react";
 
-import type {
-	MenuGroupChild,
-	MenuLeafItem,
-	RouteLabelMap,
-} from "@/types/client";
+import type { MenuGroupChild, MenuLeafItem, RouteLabelMap } from "@/types";
 
 export const NAVBAR_TITLE_ROUTE = "/";
 

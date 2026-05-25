@@ -4,7 +4,7 @@ import { Eye } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { DropdownMenuInfoItem } from "@/components";
-import type { CityRowActionsProps } from "@/types/client";
+import type { CityRowActionsProps } from "@/types";
 
 export function CityRowActions({ city, onView }: CityRowActionsProps) {
 	const { t } = useTranslation();

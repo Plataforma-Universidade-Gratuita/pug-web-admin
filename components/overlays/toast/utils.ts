@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 
 import type { ExternalToast } from "sonner";
 
-import { LOGIN_ROUTE } from "@/constants/auth";
-import { TOAST_OFFSET_TOP } from "@/constants/components";
-import type { AppToastOptions } from "@/types/client";
+import { LOGIN_ROUTE } from "@/constants";
+import { TOAST_OFFSET_TOP } from "@/constants";
+import type { AppToastOptions } from "@/types";
 
 export function withToastDefaults(
 	options: AppToastOptions | undefined,

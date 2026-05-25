@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES } from "@/constants/api";
-import { StudentResponseSchema } from "@/schemas/api/academic/student";
+import { API_ROUTE_BASES } from "@/constants";
+import { StudentResponseSchema } from "@/schemas";
 import type {
 	StudentCreateRequest,
 	StudentResponse,
 	StudentUpdateRequest,
-} from "@/types/api";
-import { zfetch, zvoid, qs } from "@/utils/api";
+} from "@/types";
+import { zfetch, zvoid, qs } from "@/utils";
 
 export async function get(
 	id: string,

@@ -1,4 +1,4 @@
-import type { AccountResponse, UserResponse } from "@/types/api";
+import type { AccountResponse, UserResponse } from "@/types";
 
 export type AccountAuditDateField = "" | "createdAt" | "updatedAt";
 export type AccountActiveFilter = "" | "true" | "false";

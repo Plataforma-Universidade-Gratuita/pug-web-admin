@@ -18,7 +18,7 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import type { StaffRowActionsProps } from "@/types/client";
+import type { StaffRowActionsProps } from "@/types";
 
 export function StaffRowActions({
 	onDelete,

@@ -2,7 +2,7 @@ import { ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Badge, Icon } from "@/components";
-import { LOGIN_SECURITY_HIGHLIGHTS } from "@/constants/auth";
+import { LOGIN_SECURITY_HIGHLIGHTS } from "@/constants";
 
 export function LoginHero() {
 	const { t } = useTranslation();

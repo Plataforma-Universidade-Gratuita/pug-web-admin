@@ -7,7 +7,7 @@ import { RouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs";
 import { Sidebar } from "@/features/app-shell/Sidebar";
 import { TopBar } from "@/features/app-shell/Topbar";
 import { useAppShellStore } from "@/store";
-import type { NavbarProps } from "@/types/client";
+import type { NavbarProps } from "@/types";
 
 export function Navbar({ children }: NavbarProps) {
 	const collapsed = useAppShellStore(state => state.collapsed);

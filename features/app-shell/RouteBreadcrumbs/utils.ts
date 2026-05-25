@@ -1,5 +1,5 @@
-import { UNKNOWN_ROUTE_LABEL } from "@/constants/app-shell";
-import type { RouteBreadcrumbEntry } from "@/types/client";
+import { UNKNOWN_ROUTE_LABEL } from "@/constants";
+import type { RouteBreadcrumbEntry } from "@/types";
 
 export function getRouteBreadcrumbs(
 	pathname: string,

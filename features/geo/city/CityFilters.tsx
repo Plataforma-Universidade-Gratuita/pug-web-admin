@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { TextFieldFilter } from "@/features/shared/service-pages";
-import type { CityFiltersProps } from "@/types/client/geo";
+import type { CityFiltersProps } from "@/types";
 
 export function CityFilters({ onSearchChange, search }: CityFiltersProps) {
 	const { t } = useTranslation();

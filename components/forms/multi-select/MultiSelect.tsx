@@ -5,16 +5,12 @@ import { useMemo, useState } from "react";
 import clsx from "clsx";
 import { ChevronDown, X } from "lucide-react";
 
-import { Badge } from "@/components/display/badge/Badge";
-import { Icon } from "@/components/display/icon/Icon";
-import { Checkbox } from "@/components/forms/checkbox/Checkbox";
+import { Badge } from "@/components";
+import { Icon } from "@/components";
+import { Checkbox } from "@/components";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components";
 import { buildVisibleSelections } from "@/components/forms/multi-select/utils";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/overlays/popover/Popover";
-import type { MultiSelectProps } from "@/types/client";
+import type { MultiSelectProps } from "@/types";
 
 export function MultiSelect({
 	options,

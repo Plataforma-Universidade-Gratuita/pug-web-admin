@@ -49,10 +49,7 @@ import {
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type {
-	EntityEditorDrawerProps,
-	EntityEditorFormValues,
-} from "@/types/client/partner";
+import type { EntityEditorDrawerProps, EntityEditorFormValues } from "@/types";
 
 export function EntityEditorDrawer({
 	entityId,

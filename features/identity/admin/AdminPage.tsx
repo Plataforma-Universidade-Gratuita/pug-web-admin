@@ -45,11 +45,8 @@ import {
 	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
-import type { AdminResponse } from "@/types/api";
-import type {
-	AdminCampusFilter,
-	AdminEditorMode,
-} from "@/types/client/identity";
+import type { AdminResponse } from "@/types";
+import type { AdminCampusFilter, AdminEditorMode } from "@/types";
 
 export function AdminPage() {
 	const { t } = useTranslation();

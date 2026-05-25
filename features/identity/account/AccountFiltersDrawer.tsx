@@ -9,13 +9,13 @@ import {
 	SelectItem,
 	SelectTrigger,
 } from "@/components";
-import { ACCOUNT_TYPE_VALUES } from "@/constants/identity";
+import { ACCOUNT_TYPE_VALUES } from "@/constants";
 import { getAccountOptionClassName } from "@/features/identity/account/utils";
 import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import type { AccountFiltersDrawerProps } from "@/types/client/identity";
+import type { AccountFiltersDrawerProps } from "@/types";
 
 export function AccountFiltersDrawer({
 	activeFilter,

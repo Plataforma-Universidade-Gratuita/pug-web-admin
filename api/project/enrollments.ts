@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES } from "@/constants/api";
-import { EnrollmentResponseSchema } from "@/schemas/api/project/enrollment";
+import { API_ROUTE_BASES } from "@/constants";
+import { EnrollmentResponseSchema } from "@/schemas";
 import type {
 	EnrollmentCreateRequest,
 	EnrollmentResponse,
 	EnrollmentStatus,
-} from "@/types/api";
-import { zfetch, zvoid, qs } from "@/utils/api";
+} from "@/types";
+import { zfetch, zvoid, qs } from "@/utils";
 
 export async function get(
 	projectId: string,

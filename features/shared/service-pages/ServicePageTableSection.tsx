@@ -1,5 +1,5 @@
 import { Section, SectionContent, Table } from "@/components";
-import type { ServicePageTableSectionProps } from "@/types/client/service-pages";
+import type { ServicePageTableSectionProps } from "@/types";
 
 export function ServicePageTableSection<TData extends object>({
 	tableProps,

@@ -1,17 +1,17 @@
 import { z } from "zod";
 
-import { WEB_API_ROUTE_BASES } from "@/constants/api";
+import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	AttendanceCreateRequestSchema,
 	AttendanceResponseSchema,
 	AttendanceValidateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas";
 import type {
 	AttendanceCreateRequest,
 	AttendanceResponse,
 	AttendanceValidateRequest,
-} from "@/types/api";
-import { webFetch, webVoid } from "@/utils/web-api";
+} from "@/types";
+import { webFetch, webVoid } from "@/utils";
 
 export async function get(id: string): Promise<AttendanceResponse> {
 	return webFetch(

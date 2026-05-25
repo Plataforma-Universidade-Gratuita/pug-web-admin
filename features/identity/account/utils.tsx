@@ -2,10 +2,10 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
-import type { AccountResponse } from "@/types/api";
-import type { AccountFilterArgs } from "@/types/client/identity";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { normalizeTextForSearch } from "@/utils/lang";
+import type { AccountResponse } from "@/types";
+import type { AccountFilterArgs } from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { normalizeTextForSearch } from "@/utils";
 
 export function getAccountTypeTone(
 	accountType: AccountResponse["accountType"],

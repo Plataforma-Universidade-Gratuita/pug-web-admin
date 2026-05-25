@@ -9,17 +9,17 @@ import type {
 	StaffCreateRequest,
 	StaffResponse,
 	StaffUpdateRequest,
-} from "@/types/api";
+} from "@/types";
 import type {
 	StaffFilterArgs,
 	StaffFilterSummaryArgs,
 	StaffEditorFormValues,
 	StaffEditorMode,
-} from "@/types/client/partner";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { normalizeTextForSearch } from "@/utils/lang";
+} from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { normalizeTextForSearch } from "@/utils";
 
-export { createStaffEditorFormSchema } from "@/schemas/client/features/partner/staff";
+export { createStaffEditorFormSchema } from "@/schemas";
 
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");

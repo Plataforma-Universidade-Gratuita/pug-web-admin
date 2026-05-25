@@ -16,8 +16,8 @@ import {
 	SomeErrorState,
 } from "@/components";
 import { getStudentCampusOptions } from "@/features/academic/student/utils";
-import type { StudentEditorFormProps } from "@/types/client/academic";
-import { WebApiError } from "@/utils/web-api";
+import type { StudentEditorFormProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function StudentEditorForm({
 	canRenderForm,

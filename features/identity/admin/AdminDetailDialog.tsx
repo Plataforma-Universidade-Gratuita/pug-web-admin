@@ -19,8 +19,8 @@ import {
 	ServicePageLinkedAccountBlock,
 	ServicePageLinkedUserBlock,
 } from "@/features/shared/service-pages";
-import type { AdminDetailDialogProps } from "@/types/client/identity";
-import { WebApiError } from "@/utils/web-api";
+import type { AdminDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function AdminDetailDialog({
 	admin,

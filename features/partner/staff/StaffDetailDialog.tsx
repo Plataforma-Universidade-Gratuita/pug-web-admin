@@ -19,8 +19,8 @@ import {
 	ServicePageLinkedAccountBlock,
 	ServicePageLinkedUserBlock,
 } from "@/features/shared/service-pages";
-import type { StaffDetailDialogProps } from "@/types/client/partner";
-import { WebApiError } from "@/utils/web-api";
+import type { StaffDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function StaffDetailDialog({
 	error,

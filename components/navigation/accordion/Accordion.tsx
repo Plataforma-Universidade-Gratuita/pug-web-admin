@@ -6,13 +6,13 @@ import * as RadixAccordion from "@radix-ui/react-accordion";
 import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 
-import { Icon } from "@/components/display/icon/Icon";
+import { Icon } from "@/components";
 import type {
 	AccordionContentProps,
 	AccordionItemProps,
 	AccordionProps,
 	AccordionTriggerProps,
-} from "@/types/client";
+} from "@/types";
 
 export function Accordion(props: AccordionProps) {
 	if (props.type === "multiple") {

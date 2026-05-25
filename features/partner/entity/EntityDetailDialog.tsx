@@ -12,8 +12,8 @@ import {
 	SomeErrorState,
 } from "@/components";
 import { resolveEntityCityLabel } from "@/features/partner/entity/utils";
-import type { EntityDetailDialogProps } from "@/types/client/partner";
-import { WebApiError } from "@/utils/web-api";
+import type { EntityDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function EntityDetailDialog({
 	cityById,

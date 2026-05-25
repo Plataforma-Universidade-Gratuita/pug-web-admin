@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
-import type { IconComponent } from "@/types/client/components/display";
+import type { IconComponent } from "@/types";
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 	children: ReactNode;

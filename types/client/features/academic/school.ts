@@ -4,7 +4,7 @@ import type {
 	SchoolCreateRequest,
 	SchoolResponse,
 	SchoolUpdateRequest,
-} from "@/types/api";
+} from "@/types";
 
 export type SchoolAuditDateField = "" | "createdAt" | "updatedAt";
 export type SchoolEditorMode = "create" | "duplicate" | "update";

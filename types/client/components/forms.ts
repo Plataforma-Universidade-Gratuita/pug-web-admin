@@ -5,8 +5,8 @@ import type {
 	TextareaHTMLAttributes,
 } from "react";
 
-import { BADGE_TONES } from "@/constants/components";
-import type { PopoverContentProps } from "@/types/client/components/display";
+import { BADGE_TONES } from "@/constants";
+import type { PopoverContentProps } from "@/types";
 
 export interface InputProps extends Omit<
 	InputHTMLAttributes<HTMLInputElement>,

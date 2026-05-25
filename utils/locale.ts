@@ -6,10 +6,10 @@ import {
 	I18N_NAMESPACE,
 	LANG_COOKIE_MAX_AGE,
 	LANG_COOKIE_NAME,
-} from "@/constants/locale";
+} from "@/constants";
 import enUSCommon from "@/public/locales/en-US/common.json";
 import ptBRCommon from "@/public/locales/pt-BR/common.json";
-import type { AppLang } from "@/types/client";
+import type { AppLang } from "@/types";
 
 const resources = {
 	"en-US": {

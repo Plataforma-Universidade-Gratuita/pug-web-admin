@@ -17,13 +17,13 @@ import {
 	update,
 } from "@/api/web/project/projects";
 import { projectQueryKeys } from "@/features/project/project/queries";
-import type { ProjectResponse } from "@/types/api";
+import type { ProjectResponse } from "@/types";
 import type {
 	ProjectCreateMutationVariables,
 	ProjectRemoveMutationVariables,
 	ProjectStatusMutationVariables,
 	ProjectUpdateMutationVariables,
-} from "@/types/client/project";
+} from "@/types";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

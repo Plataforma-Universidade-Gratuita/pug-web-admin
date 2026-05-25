@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState } from "react";
 
@@ -6,7 +6,7 @@ import * as RadixSelect from "@radix-ui/react-select";
 import clsx from "clsx";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 
-import { Icon } from "@/components/display/icon/Icon";
+import { Icon } from "@/components";
 import { SelectProvider, useSelect } from "@/contexts/select";
 import type {
 	SelectContentProps,
@@ -16,7 +16,7 @@ import type {
 	SelectProps,
 	SelectSeparatorProps,
 	SelectTriggerProps,
-} from "@/types/client";
+} from "@/types";
 
 export function Select({
 	children,

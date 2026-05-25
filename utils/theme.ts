@@ -4,9 +4,9 @@ import {
 	THEME_ANIMATION_CLASS,
 	THEME_COOKIE_MAX_AGE,
 	THEME_COOKIE_NAME,
-} from "@/constants/theme";
-import type { AppTheme } from "@/types/client";
-import { coerceTheme } from "@/utils/theme-value";
+} from "@/constants";
+import type { AppTheme } from "@/types";
+import { coerceTheme } from "@/utils";
 
 function resolveTheme(mode: AppTheme): Exclude<AppTheme, "system"> {
 	if (mode !== "system") return mode;

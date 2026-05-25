@@ -46,11 +46,8 @@ import {
 	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
-import type { StaffResponse } from "@/types/api";
-import type {
-	StaffEditorMode,
-	StaffSecondaryFilters,
-} from "@/types/client/partner";
+import type { StaffResponse } from "@/types";
+import type { StaffEditorMode, StaffSecondaryFilters } from "@/types";
 
 export function StaffPage() {
 	const { t } = useTranslation();

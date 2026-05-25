@@ -5,14 +5,14 @@ import type { ReactNode } from "react";
 import { Home, RefreshCcw } from "lucide-react";
 
 import { Badge, Button, EmptyState, Icon } from "@/components";
-import { HOME_ROUTE } from "@/constants/auth";
-import { ROUTE_BOUNDARY_CONFIG } from "@/constants/docs";
+import { HOME_ROUTE } from "@/constants";
+import { ROUTE_BOUNDARY_CONFIG } from "@/constants";
 import {
 	getRouteBoundaryDiagnosticsClassName,
 	getRouteBoundaryPanelClassName,
 	getRouteBoundaryScreenShellClassName,
 } from "@/features/docs/routing/utils";
-import type { RouteBoundaryScreenProps } from "@/types/client";
+import type { RouteBoundaryScreenProps } from "@/types";
 
 export function RouteBoundaryScreen({
 	variant,

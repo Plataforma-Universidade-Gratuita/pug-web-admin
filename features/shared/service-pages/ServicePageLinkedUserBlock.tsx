@@ -1,6 +1,6 @@
 import { NotFoundState, SomeErrorState } from "@/components";
-import type { ServicePageLinkedUserBlockProps } from "@/types/client/service-pages";
-import { WebApiError } from "@/utils/web-api";
+import type { ServicePageLinkedUserBlockProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function ServicePageLinkedUserBlock({
 	emptyTitle,

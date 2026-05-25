@@ -6,16 +6,13 @@ import type {
 	CourseResponse,
 	CourseUpdateRequest,
 	SchoolResponse,
-} from "@/types/api";
-import type { ComboboxOption } from "@/types/client";
-import type {
-	CourseEditorFormValues,
-	CourseFilterArgs,
-} from "@/types/client/academic";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
+} from "@/types";
+import type { ComboboxOption } from "@/types";
+import type { CourseEditorFormValues, CourseFilterArgs } from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
 
-export { createCourseEditorFormSchema } from "@/schemas/client/features/academic/course";
+export { createCourseEditorFormSchema } from "@/schemas";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);

@@ -17,11 +17,7 @@ import type * as RadixToggle from "@radix-ui/react-toggle";
 import type * as RadixToggleGroup from "@radix-ui/react-toggle-group";
 import type { LucideProps } from "lucide-react";
 
-import {
-	BUTTON_SIZES,
-	BUTTON_USAGES,
-	BUTTON_VARIANTS,
-} from "@/constants/components";
+import { BUTTON_SIZES, BUTTON_USAGES, BUTTON_VARIANTS } from "@/constants";
 
 export type ButtonUsage = keyof typeof BUTTON_USAGES;
 export type ButtonVariant = keyof typeof BUTTON_VARIANTS;

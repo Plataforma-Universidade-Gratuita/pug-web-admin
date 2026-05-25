@@ -1,11 +1,11 @@
 import clsx from "clsx";
 
-import { Skeleton } from "@/components/display/skeleton/Skeleton";
+import { Skeleton } from "@/components";
 import type {
 	SkeletonActionGroupProps,
 	SkeletonPanelBlockProps,
 	SkeletonTextBlockProps,
-} from "@/types/client/components/display/skeleton";
+} from "@/types";
 
 export function SkeletonTextBlock({
 	className,

@@ -8,8 +8,8 @@ import type {
 	ProjectStatus,
 	ProjectUpdateRequest,
 	SchoolResponse,
-} from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/forms";
+} from "@/types";
+import type { ComboboxOption } from "@/types";
 
 export type ProjectAuditDateField = "" | "createdAt" | "updatedAt";
 export type ProjectEditorMode = "create" | "duplicate" | "update";

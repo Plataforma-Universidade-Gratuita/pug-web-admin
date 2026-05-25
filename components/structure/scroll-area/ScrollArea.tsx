@@ -3,7 +3,7 @@
 import * as RadixScrollArea from "@radix-ui/react-scroll-area";
 import clsx from "clsx";
 
-import type { ScrollAreaProps } from "@/types/client";
+import type { ScrollAreaProps } from "@/types";
 
 export function ScrollArea({
 	children,

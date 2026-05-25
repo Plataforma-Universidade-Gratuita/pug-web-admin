@@ -1,7 +1,4 @@
-import {
-	TokenResponseSchema,
-	createApiSuccessEnvelopeSchema,
-} from "@/schemas/api";
+import { TokenResponseSchema, createApiSuccessEnvelopeSchema } from "@/schemas";
 
 export { createLoginFormSchema } from "./features/auth/login";
 

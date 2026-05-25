@@ -19,8 +19,8 @@ import {
 	resolveAttendanceStudentLabel,
 	resolveAttendanceValidatorLabel,
 } from "@/features/project/attendance/utils";
-import type { AttendanceDetailDialogProps } from "@/types/client/project";
-import { WebApiError } from "@/utils/web-api";
+import type { AttendanceDetailDialogProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function AttendanceDetailDialog({
 	adminById,

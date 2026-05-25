@@ -9,17 +9,17 @@ import type {
 	AttendanceStatus,
 	ProjectResponse,
 	StudentResponse,
-} from "@/types/api";
-import type { BadgeTone, ComboboxOption } from "@/types/client";
+} from "@/types";
+import type { BadgeTone, ComboboxOption } from "@/types";
 import type {
 	AttendanceCreateFormValues,
 	AttendanceFilterArgs,
 	AttendanceValidationAction,
-} from "@/types/client/project";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
+} from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
 
-export { createAttendanceFormSchema } from "@/schemas/client/features/project/attendance";
+export { createAttendanceFormSchema } from "@/schemas";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);

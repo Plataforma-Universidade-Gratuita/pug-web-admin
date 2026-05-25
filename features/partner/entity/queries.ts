@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { get, list, listCities } from "@/api/web/partner/entities";
-import { entityQueryKeys } from "@/constants/query-keys";
+import { entityQueryKeys } from "@/constants";
 
 export { entityQueryKeys };
 

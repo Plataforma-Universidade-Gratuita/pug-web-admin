@@ -14,8 +14,8 @@ import {
 	getStaffSetActiveErrorToastContent,
 } from "@/features/partner/staff/utils";
 import { useDeferredUndoAction } from "@/hooks";
-import type { StaffResponse } from "@/types/api";
-import type { UseStaffPageActionsProps } from "@/types/client";
+import type { StaffResponse } from "@/types";
+import type { UseStaffPageActionsProps } from "@/types";
 
 export function useStaffPageActions({
 	currentEditorId,

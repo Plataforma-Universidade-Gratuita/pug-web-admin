@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES } from "@/constants/api";
-import { AccountResponseSchema } from "@/schemas/api/identity/account";
-import type { AccountResponse } from "@/types/api";
-import { zfetch, qs } from "@/utils/api";
+import { API_ROUTE_BASES } from "@/constants";
+import { AccountResponseSchema } from "@/schemas";
+import type { AccountResponse } from "@/types";
+import { zfetch, qs } from "@/utils";
 
 export async function get(
 	id: string,

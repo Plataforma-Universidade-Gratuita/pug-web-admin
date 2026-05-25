@@ -38,8 +38,8 @@ import {
 	useQueryErrorToasts,
 	useServicePageDetailState,
 } from "@/hooks";
-import type { AccountResponse } from "@/types/api";
-import type { AccountSecondaryFilters } from "@/types/client/identity";
+import type { AccountResponse } from "@/types";
+import type { AccountSecondaryFilters } from "@/types";
 
 export function AccountPage() {
 	const { t } = useTranslation();

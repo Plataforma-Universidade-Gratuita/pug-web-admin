@@ -1,10 +1,9 @@
 import { z } from "zod";
 
-import { WEB_API_ROUTE_BASES } from "@/constants/api";
-import { UserResponseSchema } from "@/schemas/api";
-import type { UserResponse } from "@/types/api";
-import { qs } from "@/utils/api";
-import { webFetch } from "@/utils/web-api";
+import { WEB_API_ROUTE_BASES } from "@/constants";
+import { UserResponseSchema } from "@/schemas";
+import type { UserResponse } from "@/types";
+import { qs, webFetch } from "@/utils";
 
 export async function get(id: string): Promise<UserResponse> {
 	return webFetch(

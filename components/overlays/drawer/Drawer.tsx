@@ -8,14 +8,9 @@ import clsx from "clsx";
 import { Eraser, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/actions/button/Button";
-import { Icon } from "@/components/display/icon/Icon";
-import { Skeleton } from "@/components/display/skeleton/Skeleton";
-import {
-	SkeletonActionGroup,
-	SkeletonPanelBlock,
-	SkeletonTextBlock,
-} from "@/components/display/skeleton/presets";
+import { Button } from "@/components";
+import { Icon } from "@/components";
+import { Skeleton } from "@/components";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -23,14 +18,19 @@ import {
 	AlertDialogFooter as AlertDialogFooterActions,
 	AlertDialogHeader,
 	AlertDialogTitle,
-} from "@/components/overlays/alert-dialog/AlertDialog";
-import { Footer, Header } from "@/components/structure/layout/Layout";
-import { ScrollArea } from "@/components/structure/scroll-area/ScrollArea";
+} from "@/components";
+import { Footer, Header } from "@/components";
+import { ScrollArea } from "@/components";
+import {
+	SkeletonActionGroup,
+	SkeletonPanelBlock,
+	SkeletonTextBlock,
+} from "@/components/display/skeleton/presets";
 import {
 	APP_TOPBAR_HEIGHT,
 	DRAWER_MOTION_STYLES,
 	DRAWER_POSITION_STYLES,
-} from "@/constants/components";
+} from "@/constants";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
 	DrawerBodyProps,
@@ -42,7 +42,7 @@ import type {
 	DrawerProps,
 	DrawerTitleProps,
 	DrawerTriggerProps,
-} from "@/types/client";
+} from "@/types";
 
 export function Drawer({
 	children,

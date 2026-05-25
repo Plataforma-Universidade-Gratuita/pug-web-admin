@@ -3,9 +3,9 @@
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 import clsx from "clsx";
 
-import { Skeleton } from "@/components/display/skeleton/Skeleton";
-import { Tooltip } from "@/components/overlays/tooltip/Tooltip";
-import type { IconProps } from "@/types/client";
+import { Skeleton } from "@/components";
+import { Tooltip } from "@/components";
+import type { IconProps } from "@/types";
 
 export function Icon({
 	icon: IconComponent,

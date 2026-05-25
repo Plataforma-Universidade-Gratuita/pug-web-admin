@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import clsx from "clsx";
 
-import type { DocsTextLinkProps } from "@/types/client";
+import type { DocsTextLinkProps } from "@/types";
 
 export function DocsTextLink({ children, className, href }: DocsTextLinkProps) {
 	return (

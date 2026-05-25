@@ -5,8 +5,8 @@ import {
 	createCpfFieldSchema,
 	createEmailFieldSchema,
 	createRequiredTrimmedStringSchema,
-} from "@/schemas/client/shared";
-import type { StaffEditorMode } from "@/types/client/features/partner/staff";
+} from "@/schemas";
+import type { StaffEditorMode } from "@/types";
 
 export function createStaffEditorFormSchema(
 	t: TFunction,

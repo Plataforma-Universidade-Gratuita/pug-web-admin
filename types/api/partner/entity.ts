@@ -4,7 +4,7 @@ import {
 	EntityCreateRequestSchema,
 	EntityResponseSchema,
 	EntityUpdateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

@@ -8,12 +8,12 @@ import {
 
 import { create, remove, update } from "@/api/web/academic/courses";
 import { courseQueryKeys } from "@/features/academic/course/queries";
-import type { CourseResponse } from "@/types/api";
+import type { CourseResponse } from "@/types";
 import type {
 	CourseCreateMutationVariables,
 	CourseUpdateMutationVariables,
 	RemoveCourseMutationVariables,
-} from "@/types/client/academic";
+} from "@/types";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

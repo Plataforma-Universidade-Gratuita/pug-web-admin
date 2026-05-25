@@ -1,4 +1,4 @@
-import { THEME_BOOTSTRAP_SCRIPT } from "@/constants/theme";
+import { THEME_BOOTSTRAP_SCRIPT } from "@/constants";
 
 export function ThemeScript() {
 	return (

@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { WEB_API_ROUTE_BASES } from "@/constants/api";
-import { CityResponseSchema } from "@/schemas/api";
-import type { CityResponse } from "@/types/api";
-import { webFetch } from "@/utils/web-api";
+import { WEB_API_ROUTE_BASES } from "@/constants";
+import { CityResponseSchema } from "@/schemas";
+import type { CityResponse } from "@/types";
+import { webFetch } from "@/utils";
 
 export async function get(id: string): Promise<CityResponse> {
 	return webFetch(

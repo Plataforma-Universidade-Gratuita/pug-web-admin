@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { ServicePageConfirmDialog } from "@/features/shared/service-pages";
-import type { AdminActionDialogsProps } from "@/types/client";
+import type { AdminActionDialogsProps } from "@/types";
 
 export function AdminActionDialogs({
 	onConfirmDelete,

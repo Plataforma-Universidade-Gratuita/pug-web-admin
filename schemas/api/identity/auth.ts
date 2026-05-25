@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { AccountTypeEnum } from "@/schemas/api";
+import { AccountTypeEnum } from "@/schemas";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

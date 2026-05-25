@@ -14,15 +14,9 @@ import {
 	SectionTitle,
 	Table,
 } from "@/components";
-import {
-	ROUTE_FILE_RECOMMENDATIONS,
-	ROUTE_PREVIEW_CARDS,
-} from "@/constants/docs";
+import { ROUTE_FILE_RECOMMENDATIONS, ROUTE_PREVIEW_CARDS } from "@/constants";
 import { DocsTextLink } from "@/features/docs/primitives";
-import type {
-	RoutePreviewRow,
-	RouteRecommendationRow,
-} from "@/types/client/features/docs/routing";
+import type { RoutePreviewRow, RouteRecommendationRow } from "@/types";
 
 export default function RoutingDocsPage() {
 	const columns = useMemo<ColumnDef<RouteRecommendationRow>[]>(

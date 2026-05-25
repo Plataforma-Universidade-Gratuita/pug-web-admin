@@ -6,10 +6,7 @@ import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import type {
-	SchoolAuditDateField,
-	SchoolFiltersDrawerProps,
-} from "@/types/client/academic";
+import type { SchoolAuditDateField, SchoolFiltersDrawerProps } from "@/types";
 
 export function SchoolFiltersDrawer({
 	dateField,

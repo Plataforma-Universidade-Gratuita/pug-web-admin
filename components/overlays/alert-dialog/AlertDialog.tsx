@@ -6,14 +6,14 @@ import * as RadixAlertDialog from "@radix-ui/react-alert-dialog";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/actions/button/Button";
-import { Skeleton } from "@/components/display/skeleton/Skeleton";
+import { Button } from "@/components";
+import { Skeleton } from "@/components";
+import { Footer, Header } from "@/components";
 import {
 	SkeletonActionGroup,
 	SkeletonTextBlock,
 } from "@/components/display/skeleton/presets";
-import { Footer, Header } from "@/components/structure/layout/Layout";
-import { APP_TOPBAR_HEIGHT } from "@/constants/components";
+import { APP_TOPBAR_HEIGHT } from "@/constants";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {
 	AlertDialogContentProps,
@@ -23,7 +23,7 @@ import type {
 	AlertDialogProps,
 	AlertDialogTitleProps,
 	AlertDialogVariant,
-} from "@/types/client";
+} from "@/types";
 
 const AlertDialogVariantContext = createContext<AlertDialogVariant>("default");
 

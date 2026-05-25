@@ -3,8 +3,8 @@
 import { useTranslation } from "react-i18next";
 
 import { Input, Label, NotFoundState, SomeErrorState } from "@/components";
-import type { SchoolEditorFormProps } from "@/types/client/academic";
-import { WebApiError } from "@/utils/web-api";
+import type { SchoolEditorFormProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function SchoolEditorForm({
 	canRenderForm,

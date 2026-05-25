@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import { Icon as AppIcon, Tooltip } from "@/components";
 import { getSidebarRowStyle } from "@/features/app-shell/Sidebar/utils";
-import type { SidebarRowProps } from "@/types/client";
+import type { SidebarRowProps } from "@/types";
 
 export function SidebarRow(props: SidebarRowProps) {
 	const { t } = useTranslation();

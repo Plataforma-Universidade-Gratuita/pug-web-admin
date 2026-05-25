@@ -1,113 +1,56 @@
-import { z } from "zod";
+"use client";
 
-import { students } from "@/api";
-import {
-	StudentCreateRequestSchema,
-	StudentResponseSchema,
-	StudentUpdateRequestSchema,
-} from "@/schemas/api";
-import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeVoidWithAuthRetry,
-	routeWithAuthRetry,
-} from "@/utils/route";
+import { useEffect, useRef, useState } from "react";
 
-const StudentPatchRequestSchema = z.object({
-	active: z.boolean(),
-});
+import { LoginForm } from "@/features/auth/login/LoginForm";
+import { LoginHero } from "@/features/auth/login/LoginHero";
+import { FloatingPageControls } from "@/features/floating-page-controls";
 
-export async function GET(request: Request, { params }: AppRouteSlugContext) {
-	const { slug = [] } = await params;
-	if (slug.length === 0) {
-		const searchParams = new URL(request.url).searchParams;
-		const q = searchParams.get("q") ?? undefined;
-		const courseId = searchParams.get("courseId") ?? undefined;
-		return routeWithAuthRetry(
-			token => students.list(token, q, courseId),
-			z.array(StudentResponseSchema),
-		);
-	}
-	if (slug.length === 1 && slug[0] === "me") {
-		return routeWithAuthRetry(
-			token => students.getMe(token),
-			StudentResponseSchema,
-		);
-	}
-	if (slug.length === 2 && slug[0] === "by-cpf") {
-		return routeWithAuthRetry(
-			token => students.getByCpf(slug[1]!, token),
-			StudentResponseSchema,
-		);
-	}
-	if (slug.length === 2 && slug[0] === "by-email") {
-		return routeWithAuthRetry(
-			token => students.getByEmail(slug[1]!, token),
-			StudentResponseSchema,
-		);
-	}
-	if (slug.length === 2 && slug[0] === "by-registration") {
-		return routeWithAuthRetry(
-			token => students.getByRegistration(slug[1]!, token),
-			StudentResponseSchema,
-		);
-	}
-	if (slug.length === 1) {
-		return routeWithAuthRetry(
-			token => students.get(slug[0]!, token),
-			StudentResponseSchema,
-		);
-	}
-	return routeError(new Error("Not found"));
-}
-
-export async function POST(request: Request, { params }: AppRouteSlugContext) {
-	const { slug = [] } = await params;
-	if (slug.length === 0) {
-		const body = await parseRouteBody(request, StudentCreateRequestSchema);
-		return routeWithAuthRetry(
-			token => students.create(body, token),
-			StudentResponseSchema,
-		);
-	}
-	if (slug.length === 1 && slug[0] === "bulk") {
-		const body = await parseRouteBody(
-			request,
-			z.array(StudentCreateRequestSchema),
-		);
-		return routeWithAuthRetry(
-			token => students.createBulk(body, token),
-			z.array(StudentResponseSchema),
-		);
-	}
-	return routeError(new Error("Not found"));
-}
-
-export async function PUT(request: Request, { params }: AppRouteSlugContext) {
-	const { slug = [] } = await params;
-	if (slug.length !== 1) return routeError(new Error("Not found"));
-	const body = await parseRouteBody(request, StudentUpdateRequestSchema);
-	return routeWithAuthRetry(
-		token => students.update(slug[0]!, body, token),
-		StudentResponseSchema,
+export default function Page() {
+	const formCardRef = useRef<HTMLDivElement | null>(null);
+	const [desktopHeroHeight, setDesktopHeroHeight] = useState<number | null>(
+		null,
 	);
-}
 
-export async function PATCH(request: Request, { params }: AppRouteSlugContext) {
-	const { slug = [] } = await params;
-	if (slug.length !== 1) return routeError(new Error("Not found"));
-	const body = await parseRouteBody(request, StudentPatchRequestSchema);
-	return routeVoidWithAuthRetry(token =>
-		students.setActive(slug[0]!, body.active, token),
+	useEffect(() => {
+		const card = formCardRef.current;
+		if (!card) {
+			return;
+		}
+
+		const syncHeight = () => {
+			setDesktopHeroHeight(card.getBoundingClientRect().height);
+		};
+
+		syncHeight();
+
+		const observer = new ResizeObserver(() => {
+			syncHeight();
+		});
+
+		observer.observe(card);
+
+		return () => {
+			observer.disconnect();
+		};
+	}, []);
+
+	return (
+		<main className="login-page">
+			<FloatingPageControls />
+			<section className="login-page-content">
+				<div
+					className="login-page-panel login-page-panel-hero"
+					style={
+						desktopHeroHeight ? { height: `${desktopHeroHeight}px` } : undefined
+					}
+				>
+					<LoginHero />
+				</div>
+				<div className="login-page-panel login-page-panel-form">
+					<LoginForm panelRef={formCardRef} />
+				</div>
+			</section>
+		</main>
 	);
-}
-
-export async function DELETE(
-	_request: Request,
-	{ params }: AppRouteSlugContext,
-) {
-	const { slug = [] } = await params;
-	if (slug.length !== 1) return routeError(new Error("Not found"));
-	return routeVoidWithAuthRetry(token => students.remove(slug[0]!, token));
 }

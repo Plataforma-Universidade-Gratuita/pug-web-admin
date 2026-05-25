@@ -10,8 +10,8 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
-import type { StaffEditorFormProps } from "@/types/client/partner";
-import { WebApiError } from "@/utils/web-api";
+import type { StaffEditorFormProps } from "@/types";
+import { WebApiError } from "@/utils";
 
 export function StaffEditorForm({
 	canRenderForm,

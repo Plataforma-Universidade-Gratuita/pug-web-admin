@@ -41,11 +41,8 @@ import {
 	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
-import type { EntityResponse } from "@/types/api";
-import type {
-	EntityEditorMode,
-	EntitySecondaryFilters,
-} from "@/types/client/partner";
+import type { EntityResponse } from "@/types";
+import type { EntityEditorMode, EntitySecondaryFilters } from "@/types";
 
 export function EntityPage() {
 	const { t } = useTranslation();

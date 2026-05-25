@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { get as getAccount } from "@/api/web/identity/accounts";
 import { get, getMe, list } from "@/api/web/identity/admins";
 import { get as getUser } from "@/api/web/identity/users";
-import { adminQueryKeys } from "@/constants/query-keys";
+import { adminQueryKeys } from "@/constants";
 
 export { adminQueryKeys };
 

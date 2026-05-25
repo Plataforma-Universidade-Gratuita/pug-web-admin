@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { AuditInfoResponseSchema } from "@/schemas/api";
+import { AuditInfoResponseSchema } from "@/schemas";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────
 

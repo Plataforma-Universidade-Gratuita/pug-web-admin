@@ -7,7 +7,7 @@ import {
 	ProjectSchoolRequestSchema,
 	ProjectStatusEnum,
 	ProjectUpdateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────
 

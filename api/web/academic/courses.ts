@@ -1,17 +1,17 @@
 import { z } from "zod";
 
-import { WEB_API_ROUTE_BASES } from "@/constants/api";
+import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	CourseCreateRequestSchema,
 	CourseResponseSchema,
 	CourseUpdateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas";
 import type {
 	CourseCreateRequest,
 	CourseResponse,
 	CourseUpdateRequest,
-} from "@/types/api";
-import { webFetch, webVoid } from "@/utils/web-api";
+} from "@/types";
+import { webFetch, webVoid } from "@/utils";
 
 export async function get(id: string): Promise<CourseResponse> {
 	return webFetch(

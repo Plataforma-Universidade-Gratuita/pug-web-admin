@@ -9,7 +9,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 } from "@/components";
-import type { CourseRowActionsProps } from "@/types/client/academic";
+import type { CourseRowActionsProps } from "@/types";
 
 export function CourseRowActions({
 	course,

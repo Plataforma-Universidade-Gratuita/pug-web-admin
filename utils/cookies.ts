@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/constants/auth";
-import type { TokenResponse } from "@/types/api";
+import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/constants";
+import type { TokenResponse } from "@/types";
 
 export function getAccessTokenFromRequest(request: {
 	cookies: { get(name: string): { value: string } | undefined };

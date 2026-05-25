@@ -8,14 +8,11 @@ import type {
 	EnrollmentStatus,
 	ProjectResponse,
 	StudentResponse,
-} from "@/types/api";
-import type { BadgeTone, ComboboxOption } from "@/types/client";
-import type {
-	EnrollmentFilterArgs,
-	EnrollmentStatusAction,
-} from "@/types/client/project";
-import { getApiErrorToastContent } from "@/utils/api-errors";
-import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
+} from "@/types";
+import type { BadgeTone, ComboboxOption } from "@/types";
+import type { EnrollmentFilterArgs, EnrollmentStatusAction } from "@/types";
+import { getApiErrorToastContent } from "@/utils";
+import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);

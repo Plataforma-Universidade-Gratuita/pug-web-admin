@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { CampiEnum, CampusResponseSchema } from "@/schemas/api";
+import { CampiEnum, CampusResponseSchema } from "@/schemas";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

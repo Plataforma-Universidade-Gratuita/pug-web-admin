@@ -7,7 +7,7 @@ import type {
 	AdminUpdateRequest,
 	Campi,
 	UserResponse,
-} from "@/types/api";
+} from "@/types";
 
 export type AdminCampusFilter = "" | Campi;
 export type AdminEditorMode = "create" | "duplicate" | "update";

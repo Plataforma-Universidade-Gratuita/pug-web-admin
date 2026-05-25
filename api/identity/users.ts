@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES } from "@/constants/api";
-import { UserResponseSchema } from "@/schemas/api/identity/user";
-import type { UserResponse } from "@/types/api";
-import { zfetch, qs } from "@/utils/api";
+import { API_ROUTE_BASES } from "@/constants";
+import { UserResponseSchema } from "@/schemas";
+import type { UserResponse } from "@/types";
+import { zfetch, qs } from "@/utils";
 
 export async function get(id: string, token?: string): Promise<UserResponse> {
 	return zfetch(

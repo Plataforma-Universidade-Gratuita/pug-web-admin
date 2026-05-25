@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { JSON_HEADERS } from "@/constants/api";
+import { JSON_HEADERS } from "@/constants";
 
 export class WebApiError extends Error {
 	public readonly status: number;

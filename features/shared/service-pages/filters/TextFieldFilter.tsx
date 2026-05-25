@@ -1,5 +1,5 @@
 import { Input, Label } from "@/components";
-import type { TextFieldFilterProps } from "@/types/client/service-pages";
+import type { TextFieldFilterProps } from "@/types";
 
 export function TextFieldFilter({
 	label,

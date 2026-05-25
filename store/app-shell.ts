@@ -3,8 +3,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { SIDEBAR_STORAGE_KEY } from "@/constants/navigation";
-import type { AppShellStoreState } from "@/types/client";
+import { SIDEBAR_STORAGE_KEY } from "@/constants";
+import type { AppShellStoreState } from "@/types";
 
 export const useAppShellStore = create<AppShellStoreState>()(
 	persist(

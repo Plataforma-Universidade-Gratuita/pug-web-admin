@@ -50,12 +50,12 @@ import {
 	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
-import type { ProjectResponse } from "@/types/api";
+import type { ProjectResponse } from "@/types";
 import type {
 	ProjectEditorMode,
 	ProjectSecondaryFilters,
 	ProjectStatusAction,
-} from "@/types/client/project";
+} from "@/types";
 
 function getStatusDialogVariant(action: ProjectStatusAction) {
 	switch (action) {

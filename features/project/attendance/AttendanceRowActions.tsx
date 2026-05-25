@@ -10,7 +10,7 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import type { AttendanceRowActionsProps } from "@/types/client/project";
+import type { AttendanceRowActionsProps } from "@/types";
 
 export function AttendanceRowActions({
 	attendance,
