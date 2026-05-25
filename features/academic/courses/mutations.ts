@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 
 import { create, remove, update } from "@/api/web/academic/courses";
-import { courseQueryKeys } from "@/features/academic/course/queries";
+import { courseQueryKeys } from "./queries";
 import type { CourseResponse } from "@/types";
 import type {
 	CourseCreateMutationVariables,

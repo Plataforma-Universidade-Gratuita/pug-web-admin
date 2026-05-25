@@ -1,5 +1,9 @@
 {
 	"academic": {
+		"modulePage": {
+			"description": "Academic reference and workflow services for areas of expertise, courses, and students.",
+			"title": "Academic services"
+		},
 		"coursePage": {
 			"create": {
 				"actions": {
@@ -2744,6 +2748,10 @@
 		}
 	},
 	"geo": {
+		"modulePage": {
+			"description": "Reference services for cities and other geographic datasets used across the platform.",
+			"title": "Geographic services"
+		},
 		"cityPage": {
 			"description": "Read-only geographic directory used across academic, identity, partner, and project flows.",
 			"dialog": {
@@ -2832,6 +2840,10 @@
 		}
 	},
 	"identity": {
+		"modulePage": {
+			"description": "Identity directories and administrator workflows for users, accounts, and admins.",
+			"title": "Identity services"
+		},
 		"accountPage": {
 			"description": "Read-only identity directory for account records and their linked user identities.",
 			"dialog": {
@@ -3391,6 +3403,13 @@
 			"title": "Users"
 		}
 	},
+	"modulePages": {
+		"comingSoon": {
+			"availablePages": "Available pages",
+			"description": "This module overview page is reserved for a future implementation.",
+			"title": "Coming soon"
+		}
+	},
 	"Navbar": {
 		"account": {
 			"fallback": "Unavailable",
@@ -3485,6 +3504,10 @@
 		"title": "PUG Admin"
 	},
 	"partner": {
+		"modulePage": {
+			"description": "Partner directories and operational records for entities and staff members.",
+			"title": "Partner services"
+		},
 		"entityPage": {
 			"create": {
 				"actions": {
@@ -4076,6 +4099,10 @@
 		}
 	},
 	"project": {
+		"modulePage": {
+			"description": "Project delivery workflows for projects, enrollments, and attendance records.",
+			"title": "Project services"
+		},
 		"projectPage": {
 			"cancel": {
 				"confirm": {

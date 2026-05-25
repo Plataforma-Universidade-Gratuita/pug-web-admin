@@ -153,7 +153,7 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 				exact: true,
 			},
 			{
-				href: "/geo/city",
+				href: "/geo/cities",
 				label: "Navbar.paths.geo.city",
 				Icon: MapPinned,
 			},
@@ -261,7 +261,8 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/academic/school": "Navbar.paths.academic.school",
 	"/academic/student": "Navbar.paths.academic.student",
 	"/geo": "Navbar.paths.geo.root",
-	"/geo/city": "Navbar.paths.geo.city",
+	"/geo/cities": "Navbar.paths.geo.city",
+	"/geo/cities/[cityId]": "geo.cityPage.dialog.titleFallback",
 	"/identity": "Navbar.paths.identity.root",
 	"/identity/account": "Navbar.paths.identity.account",
 	"/identity/admin": "Navbar.paths.identity.admin",

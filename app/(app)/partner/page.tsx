@@ -1,5 +1,5 @@
-import { PageShell } from "@/components";
+import { PartnerOverviewPage } from "@/features/partner/PartnerOverviewPage";
 
 export default function Page() {
-	return <PageShell className="space-y-8 p-6 lg:p-8"></PageShell>;
+	return <PartnerOverviewPage />;
 }

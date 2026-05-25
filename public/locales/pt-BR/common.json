@@ -1,5 +1,9 @@
 {
 	"academic": {
+		"modulePage": {
+			"description": "Servicos academicos de referencia e fluxo para areas de atuacao, cursos e estudantes.",
+			"title": "Servicos academicos"
+		},
 		"coursePage": {
 			"create": {
 				"actions": {
@@ -2744,6 +2748,10 @@
 		}
 	},
 	"geo": {
+		"modulePage": {
+			"description": "Serviços de referência para cidades e outros conjuntos de dados geográficos usados em toda a plataforma.",
+			"title": "Serviços geográficos"
+		},
 		"cityPage": {
 			"description": "Diret?rio geogr?fico somente leitura usado pelos fluxos acad?micos, de identidade, parceiros e projetos.",
 			"dialog": {
@@ -2832,6 +2840,10 @@
 		}
 	},
 	"identity": {
+		"modulePage": {
+			"description": "Diretorios de identidade e fluxos administrativos para usuarios, contas e administradores.",
+			"title": "Servicos de identidade"
+		},
 		"accountPage": {
 			"description": "Diret?rio somente leitura de registros de contas e de suas identidades de usu?rio vinculadas.",
 			"dialog": {
@@ -3391,6 +3403,13 @@
 			"title": "UsuÃƒÂ¡rios"
 		}
 	},
+	"modulePages": {
+		"comingSoon": {
+			"availablePages": "Paginas disponiveis",
+			"description": "Esta página de visão geral do módulo está reservada para uma implementação futura.",
+			"title": "Em breve"
+		}
+	},
 	"Navbar": {
 		"account": {
 			"fallback": "IndisponÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­vel",
@@ -3485,6 +3504,10 @@
 		"title": "PUG Admin"
 	},
 	"partner": {
+		"modulePage": {
+			"description": "Diretorios de parceiros e registros operacionais para entidades e membros da equipe.",
+			"title": "Servicos de parceiros"
+		},
 		"entityPage": {
 			"create": {
 				"actions": {
@@ -4076,6 +4099,10 @@
 		}
 	},
 	"project": {
+		"modulePage": {
+			"description": "Fluxos de execucao de projetos para projetos, matriculas e registros de frequencia.",
+			"title": "Servicos de projetos"
+		},
 		"projectPage": {
 			"cancel": {
 				"confirm": {

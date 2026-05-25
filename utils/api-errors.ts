@@ -1,5 +1,6 @@
 import type { ApiErrorToastContent, ApiErrorToastOptions } from "@/types";
-import { ApiError, WebApiError } from "@/utils";
+import { ApiError } from "@/utils/api";
+import { WebApiError } from "@/utils/web-api";
 
 function isMeaningfulMessage(message: string | undefined): message is string {
 	if (!message) return false;

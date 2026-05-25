@@ -1,5 +1,5 @@
-import { PageShell } from "@/components";
+import { GeoOverviewPage } from "@/features/geo/GeoOverviewPage";
 
 export default function Page() {
-	return <PageShell className="space-y-8 p-6 lg:p-8"></PageShell>;
+	return <GeoOverviewPage />;
 }

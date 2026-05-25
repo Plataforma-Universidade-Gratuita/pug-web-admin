@@ -21,12 +21,12 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { CourseEditorForm } from "@/features/academic/course/CourseEditorForm";
+import { CourseEditorForm } from "./CourseEditorForm";
 import {
 	useCreateCourseMutation,
 	useUpdateCourseMutation,
-} from "@/features/academic/course/mutations";
-import { useCourseDetailQuery } from "@/features/academic/course/queries";
+} from "./mutations";
+import { useCourseDetailQuery } from "./queries";
 import {
 	buildCourseDuplicateFormValues,
 	buildCourseSchoolOptions,
@@ -40,7 +40,7 @@ import {
 	getEmptyCourseEditorFormValues,
 	toCourseCreateRequest,
 	toCourseUpdateRequest,
-} from "@/features/academic/course/utils";
+} from "./utils";
 import { useSchoolsQuery } from "@/features/academic/school/queries";
 import {
 	useHydratedFormOnOpen,

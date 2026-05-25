@@ -1,2 +1,2 @@
 /* --- Root --- */
-export * from "./city";
+export * from "./cities";

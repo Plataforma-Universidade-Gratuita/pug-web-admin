@@ -5,15 +5,15 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
-import { CourseDetailDialog } from "@/features/academic/course/CourseDetailDialog";
-import { CourseEditorDrawer } from "@/features/academic/course/CourseEditorDrawer";
-import { CourseFiltersDrawer } from "@/features/academic/course/CourseFiltersDrawer";
-import { CourseRowActions } from "@/features/academic/course/CourseRowActions";
-import { useRemoveCourseMutation } from "@/features/academic/course/mutations";
+import { CourseDetailDialog } from "./CourseDetailDialog";
+import { CourseEditorDrawer } from "./CourseEditorDrawer";
+import { CourseFiltersDrawer } from "./CourseFiltersDrawer";
+import { CourseRowActions } from "./CourseRowActions";
+import { useRemoveCourseMutation } from "./mutations";
 import {
 	useCourseDetailQuery,
 	useCoursesQuery,
-} from "@/features/academic/course/queries";
+} from "./queries";
 import {
 	buildCourseSchoolOptions,
 	createCourseColumns,
@@ -24,7 +24,7 @@ import {
 	getCourseFilterSummary,
 	getCoursesListErrorToastContent,
 	getCourseSchoolsErrorToastContent,
-} from "@/features/academic/course/utils";
+} from "./utils";
 import { useSchoolsQuery } from "@/features/academic/school/queries";
 import {
 	ServicePageConfirmDialog,
@@ -44,7 +44,7 @@ import {
 import type { CourseResponse, SchoolResponse } from "@/types";
 import type { CourseEditorMode, CourseSecondaryFilters } from "@/types";
 
-export function CoursePage() {
+export function CoursesPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);

@@ -8,6 +8,10 @@ import { normalizeTextForSearch } from "@/utils";
 export function createCityColumns(t: TFunction): ColumnDef<CityResponse>[] {
 	return [
 		{
+			accessorKey: "id",
+			header: t("geo.cityPage.dialog.fields.id"),
+		},
+		{
 			accessorKey: "name",
 			header: t("geo.cityPage.table.columns.name"),
 		},
@@ -26,8 +30,10 @@ export function filterCities(cities: CityResponse[], query: string) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 
 	return cities.filter(city => {
+		const normalizedId = normalizeTextForSearch(city.id);
 		const normalizedName = normalizeTextForSearch(city.name);
 		return (
+			normalizedId.includes(normalizedQuery) ||
 			normalizedName.includes(normalizedQuery) ||
 			normalizeTextForSearch(city.ibgeCode).includes(normalizedQuery)
 		);

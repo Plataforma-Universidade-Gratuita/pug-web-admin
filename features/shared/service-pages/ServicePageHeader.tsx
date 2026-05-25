@@ -8,7 +8,7 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { ServicePageMetadataPopover } from "@/features/shared/service-pages";
+import { ServicePageMetadataPopover } from "@/features/shared/service-pages/ServicePageMetadataPopover";
 import type { ServicePageHeaderProps } from "@/types";
 
 export function ServicePageHeader({

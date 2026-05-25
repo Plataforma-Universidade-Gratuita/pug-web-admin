@@ -5,7 +5,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
-import { useCoursesQuery } from "@/features/academic/course/queries";
+import { useCoursesQuery } from "../courses/queries";
 import { StudentDetailDialog } from "@/features/academic/student/StudentDetailDialog";
 import { StudentEditorDrawer } from "@/features/academic/student/StudentEditorDrawer";
 import { StudentFiltersDrawer } from "@/features/academic/student/StudentFiltersDrawer";

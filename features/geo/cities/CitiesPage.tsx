@@ -5,35 +5,28 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState } from "@/components";
-import { CityDetailDialog } from "@/features/geo/city/CityDetailDialog";
-import { CityFilters } from "@/features/geo/city/CityFilters";
-import { CityRowActions } from "@/features/geo/city/CityRowActions";
-import {
-	useCitiesQuery,
-	useCityDetailQuery,
-} from "@/features/geo/city/queries";
+import { CitiesFilters } from "./CitiesFilters";
+import { CitiesRowActions } from "./CitiesRowActions";
+import { useCitiesQuery } from "./queries";
 import {
 	createCityColumns,
 	filterCities,
 	getCitiesEmptyStateCopy,
 	getCitiesListErrorToastContent,
-	getCityDetailErrorToastContent,
-} from "@/features/geo/city/utils";
+} from "./utils";
 import {
 	ServicePageHeader,
 	ServicePageShell,
 	ServicePageTableSection,
 } from "@/features/shared/service-pages";
-import { useQueryErrorToasts, useServicePageDetailState } from "@/hooks";
+import { useQueryErrorToasts } from "@/hooks";
 import type { CityResponse } from "@/types";
 
-export function CityPage() {
+export function CitiesPage() {
 	const { t } = useTranslation();
 	const [search, setSearch] = useState("");
-	const detailState = useServicePageDetailState();
 	const deferredSearch = useDeferredValue(search.trim());
 	const citiesQuery = useCitiesQuery();
-	const cityDetailQuery = useCityDetailQuery(detailState.selectedId);
 
 	const allCities = useMemo(() => citiesQuery.data ?? [], [citiesQuery.data]);
 	const filteredCities = useMemo(
@@ -74,13 +67,6 @@ export function CityPage() {
 			getContent: error => getCitiesListErrorToastContent(t, error),
 			isError: citiesQuery.isError,
 		},
-		{
-			key: "city-detail",
-			error: cityDetailQuery.error,
-			errorUpdatedAt: cityDetailQuery.errorUpdatedAt,
-			getContent: error => getCityDetailErrorToastContent(t, error),
-			isError: cityDetailQuery.isError,
-		},
 	]);
 
 	return (
@@ -95,7 +81,7 @@ export function CityPage() {
 				}}
 				filtersClassName="grid gap-2"
 			>
-				<CityFilters
+				<CitiesFilters
 					search={search}
 					onSearchChange={setSearch}
 				/>
@@ -108,26 +94,11 @@ export function CityPage() {
 					data: filteredCities,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<CityRowActions
-							city={row}
-							onView={detailState.openDetail}
-						/>
+						<CitiesRowActions href={`/geo/cities/${row.id}`} />
 					),
 					isLoading: citiesQuery.isLoading,
 					loadingLabel: t("geo.cityPage.loading.list"),
 				}}
-			/>
-
-			<CityDetailDialog
-				city={cityDetailQuery.data}
-				error={cityDetailQuery.error}
-				isError={cityDetailQuery.isError}
-				isLoading={cityDetailQuery.isLoading}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void cityDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
 			/>
 		</ServicePageShell>
 	);

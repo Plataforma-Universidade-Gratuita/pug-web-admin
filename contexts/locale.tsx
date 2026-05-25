@@ -6,7 +6,7 @@ import type { i18n as I18nInstance } from "i18next";
 
 import type { AppLang, LocaleContextValue } from "@/types";
 import { coerceLang } from "@/utils";
-import { applyClientLanguage } from "@/utils";
+import { applyClientLanguage } from "@/utils/locale";
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 

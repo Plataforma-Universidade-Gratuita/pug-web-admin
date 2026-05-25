@@ -158,7 +158,7 @@ export interface AuditInfoFilterProps extends AuditInfoFilterFieldsProps {
 	onOpenChange: (open: boolean) => void;
 }
 
-export type ServicePageDraftFilters = Record<string, boolean | string>;
+export type ServicePageDraftFilters = object;
 
 export interface UseDraftFiltersOptions<
 	TFilters extends ServicePageDraftFilters,

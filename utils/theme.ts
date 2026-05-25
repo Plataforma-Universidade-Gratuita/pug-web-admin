@@ -6,7 +6,7 @@ import {
 	THEME_COOKIE_NAME,
 } from "@/constants";
 import type { AppTheme } from "@/types";
-import { coerceTheme } from "@/utils";
+import { coerceTheme } from "@/utils/theme-value";
 
 function resolveTheme(mode: AppTheme): Exclude<AppTheme, "system"> {
 	if (mode !== "system") return mode;

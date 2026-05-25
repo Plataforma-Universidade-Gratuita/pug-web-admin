@@ -3,9 +3,9 @@
 import { useTranslation } from "react-i18next";
 
 import { TextFieldFilter } from "@/features/shared/service-pages";
-import type { CityFiltersProps } from "@/types";
+import type { CitiesFiltersProps } from "@/types";
 
-export function CityFilters({ onSearchChange, search }: CityFiltersProps) {
+export function CitiesFilters({ onSearchChange, search }: CitiesFiltersProps) {
 	const { t } = useTranslation();
 
 	return (

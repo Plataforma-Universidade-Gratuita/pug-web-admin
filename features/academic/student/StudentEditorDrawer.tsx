@@ -21,7 +21,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useCoursesQuery } from "@/features/academic/course/queries";
+import { useCoursesQuery } from "../courses/queries";
 import { StudentEditorForm } from "@/features/academic/student/StudentEditorForm";
 import {
 	useCreateStudentMutation,
