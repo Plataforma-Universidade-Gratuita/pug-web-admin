@@ -5,27 +5,22 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
-import { CourseDetailDialog } from "./CourseDetailDialog";
-import { CourseEditorDrawer } from "./CourseEditorDrawer";
-import { CourseFiltersDrawer } from "./CourseFiltersDrawer";
-import { CourseRowActions } from "./CourseRowActions";
-import { useRemoveCourseMutation } from "./mutations";
-import {
-	useCourseDetailQuery,
-	useCoursesQuery,
-} from "./queries";
+import { CourseEditorDrawer } from "@/features/academic/courses/CourseEditorDrawer";
+import { CoursesFiltersDrawer } from "@/features/academic/courses/CoursesFiltersDrawer";
+import { CoursesRowActions } from "@/features/academic/courses/CoursesRowActions";
+import { useRemoveCourseMutation } from "@/features/academic/courses/mutations";
+import { useCoursesQuery } from "@/features/academic/courses/queries";
 import {
 	buildCourseSchoolOptions,
 	createCourseColumns,
 	filterCourses,
 	getCourseDeleteErrorToastContent,
-	getCourseDetailErrorToastContent,
 	getCourseEmptyStateCopy,
 	getCourseFilterSummary,
-	getCoursesListErrorToastContent,
 	getCourseSchoolsErrorToastContent,
-} from "./utils";
-import { useSchoolsQuery } from "@/features/academic/school/queries";
+	getCoursesListErrorToastContent,
+} from "@/features/academic/courses/utils";
+import { useSchoolsQuery } from "@/features/academic/schools/queries";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -38,7 +33,6 @@ import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
-	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
 import type { CourseResponse, SchoolResponse } from "@/types";
@@ -67,7 +61,6 @@ export function CoursesPage() {
 	} = useDraftFilters<CourseSecondaryFilters>({
 		initialFilters: initialSecondaryFilters,
 	});
-	const detailState = useServicePageDetailState();
 	const editorState = useServicePageEditorState<CourseEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
@@ -77,7 +70,6 @@ export function CoursesPage() {
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const coursesQuery = useCoursesQuery();
 	const schoolsQuery = useSchoolsQuery();
-	const courseDetailQuery = useCourseDetailQuery(detailState.selectedId);
 	const removeCourseMutation = useRemoveCourseMutation();
 	const { schedule } = useDeferredUndoAction();
 
@@ -151,13 +143,6 @@ export function CoursesPage() {
 			isError: coursesQuery.isError,
 		},
 		{
-			key: "course-detail",
-			error: courseDetailQuery.error,
-			errorUpdatedAt: courseDetailQuery.errorUpdatedAt,
-			getContent: error => getCourseDetailErrorToastContent(t, error),
-			isError: courseDetailQuery.isError,
-		},
-		{
 			key: "course-schools",
 			error: schoolsQuery.error,
 			errorUpdatedAt: schoolsQuery.errorUpdatedAt,
@@ -206,7 +191,6 @@ export function CoursesPage() {
 								},
 							);
 
-							detailState.clearIfMatches(course.id);
 							editorState.clearIfMatches(course.id);
 						},
 						onError: error => {
@@ -250,7 +234,7 @@ export function CoursesPage() {
 					placeholder={t("academic.coursePage.filters.search.placeholder")}
 				/>
 
-				<CourseFiltersDrawer
+				<CoursesFiltersDrawer
 					dateField={draftFilters.dateField}
 					endDate={draftFilters.endDate}
 					hasActiveFilters={hasAppliedFilters}
@@ -283,11 +267,11 @@ export function CoursesPage() {
 					data: filteredCourses,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<CourseRowActions
+						<CoursesRowActions
 							course={row}
+							href={`/academic/courses/${row.id}`}
 							onDelete={setPendingDeleteCourse}
 							onOpenEditor={editorState.openEditor}
-							onView={detailState.openDetail}
 						/>
 					),
 					isLoading: coursesQuery.isLoading,
@@ -300,18 +284,6 @@ export function CoursesPage() {
 				mode={editorState.editorMode}
 				open={editorState.isOpen}
 				onOpenChange={editorState.handleOpenChange}
-			/>
-
-			<CourseDetailDialog
-				course={courseDetailQuery.data}
-				error={courseDetailQuery.error}
-				isError={courseDetailQuery.isError}
-				isLoading={courseDetailQuery.isLoading}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void courseDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
 			/>
 
 			<ServicePageConfirmDialog

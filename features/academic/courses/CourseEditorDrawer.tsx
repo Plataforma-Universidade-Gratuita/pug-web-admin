@@ -21,11 +21,16 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { CourseEditorForm } from "./CourseEditorForm";
+import { useSchoolsQuery } from "@/features/academic/schools/queries";
 import {
-	useCreateCourseMutation,
-	useUpdateCourseMutation,
-} from "./mutations";
+	useHydratedFormOnOpen,
+	useLocalizedZodForm,
+	useQueryErrorToasts,
+} from "@/hooks";
+import type { CourseEditorDrawerProps, CourseEditorFormValues } from "@/types";
+
+import { CourseEditorForm } from "./CourseEditorForm";
+import { useCreateCourseMutation, useUpdateCourseMutation } from "./mutations";
 import { useCourseDetailQuery } from "./queries";
 import {
 	buildCourseDuplicateFormValues,
@@ -41,13 +46,6 @@ import {
 	toCourseCreateRequest,
 	toCourseUpdateRequest,
 } from "./utils";
-import { useSchoolsQuery } from "@/features/academic/school/queries";
-import {
-	useHydratedFormOnOpen,
-	useLocalizedZodForm,
-	useQueryErrorToasts,
-} from "@/hooks";
-import type { CourseEditorDrawerProps, CourseEditorFormValues } from "@/types";
 
 export function CourseEditorDrawer({
 	courseId,

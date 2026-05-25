@@ -15,12 +15,12 @@ import {
 import {
 	getStudentActiveOptionClassName,
 	getStudentCampusOptions,
-} from "@/features/academic/student/utils";
+} from "@/features/academic/students/utils";
 import { AuditInfoFilterFields } from "@/features/shared/service-pages";
 import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
-import type { StudentFiltersDrawerProps } from "@/types";
+import type { StudentsFiltersDrawerProps } from "@/types";
 
-export function StudentFiltersDrawer({
+export function StudentsFiltersDrawer({
 	activeFilter,
 	campusFilter,
 	courseIdFilter,
@@ -41,7 +41,7 @@ export function StudentFiltersDrawer({
 	onStartDateChange,
 	open,
 	startDate,
-}: StudentFiltersDrawerProps) {
+}: StudentsFiltersDrawerProps) {
 	const { t } = useTranslation();
 	const campusOptions = useMemo(() => getStudentCampusOptions(t), [t]);
 

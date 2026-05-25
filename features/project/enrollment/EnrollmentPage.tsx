@@ -5,7 +5,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button, NoContentState, SomeErrorState, toast } from "@/components";
-import { useStudentsQuery } from "@/features/academic/student/queries";
+import { useStudentsQuery } from "@/features/academic/students/queries";
 import { EnrollmentDetailDialog } from "@/features/project/enrollment/EnrollmentDetailDialog";
 import { EnrollmentFiltersDrawer } from "@/features/project/enrollment/EnrollmentFiltersDrawer";
 import { EnrollmentRowActions } from "@/features/project/enrollment/EnrollmentRowActions";

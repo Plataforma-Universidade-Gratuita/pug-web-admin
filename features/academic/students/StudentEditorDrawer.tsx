@@ -21,13 +21,12 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useCoursesQuery } from "../courses/queries";
-import { StudentEditorForm } from "@/features/academic/student/StudentEditorForm";
+import { StudentEditorForm } from "@/features/academic/students/StudentEditorForm";
 import {
 	useCreateStudentMutation,
 	useUpdateStudentMutation,
-} from "@/features/academic/student/mutations";
-import { useStudentDetailQuery } from "@/features/academic/student/queries";
+} from "@/features/academic/students/mutations";
+import { useStudentDetailQuery } from "@/features/academic/students/queries";
 import {
 	buildStudentCourseOptions,
 	buildStudentDuplicateFormValues,
@@ -41,7 +40,7 @@ import {
 	getStudentUpdateErrorToastContent,
 	toStudentCreateRequest,
 	toStudentUpdateRequest,
-} from "@/features/academic/student/utils";
+} from "@/features/academic/students/utils";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
@@ -51,6 +50,8 @@ import type {
 	StudentEditorDrawerProps,
 	StudentEditorFormValues,
 } from "@/types";
+
+import { useCoursesQuery } from "../courses/queries";
 
 export function StudentEditorDrawer({
 	mode,

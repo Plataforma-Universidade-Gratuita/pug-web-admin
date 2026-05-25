@@ -12,6 +12,16 @@ import type { ComboboxOption } from "@/types";
 export type StudentAuditDateField = "" | "createdAt" | "updatedAt";
 export type StudentEditorMode = "create" | "duplicate" | "update";
 
+export interface StudentPageProps {
+	studentId: string;
+}
+
+export interface StudentRoutePageProps {
+	params: Promise<{
+		studentId: string;
+	}>;
+}
+
 export interface StudentSecondaryFilters {
 	activeFilter: string;
 	campusFilter: string;
@@ -71,7 +81,7 @@ export interface StudentEditorFormProps {
 	studentError: unknown;
 }
 
-export interface StudentFiltersDrawerProps {
+export interface StudentsFiltersDrawerProps {
 	activeFilter: string;
 	campusFilter: string;
 	courseIdFilter: string;
@@ -95,22 +105,11 @@ export interface StudentFiltersDrawerProps {
 	startDate: string;
 }
 
-export interface StudentDetailDialogProps {
-	courseName: string;
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
-	student: StudentResponse | undefined;
-}
-
-export interface StudentRowActionsProps {
+export interface StudentsRowActionsProps {
+	href: string;
 	onDelete: (student: StudentResponse) => void;
 	onOpenEditor: (id: string, mode: StudentEditorMode) => void;
 	onSetActive: (student: StudentResponse, active: boolean) => void;
-	onView: (id: string) => void;
 	student: StudentResponse;
 }
 

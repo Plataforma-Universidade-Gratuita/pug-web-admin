@@ -5,7 +5,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
-import { useStudentsQuery } from "@/features/academic/student/queries";
+import { useStudentsQuery } from "@/features/academic/students/queries";
 import { useAdminsQuery } from "@/features/identity/admins/queries";
 import { AttendanceCreateDrawer } from "@/features/project/attendance/AttendanceCreateDrawer";
 import { AttendanceDetailDialog } from "@/features/project/attendance/AttendanceDetailDialog";

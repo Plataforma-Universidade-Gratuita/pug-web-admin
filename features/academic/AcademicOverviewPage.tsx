@@ -18,17 +18,17 @@ export function AcademicOverviewPage() {
 			<ModulePageComingSoon
 				paths={[
 					{
-						href: "/academic/school",
+						href: "/academic/schools",
 						label: t("academic.schoolPage.title"),
 						description: t("academic.schoolPage.description"),
 					},
 					{
-						href: "/academic/course",
+						href: "/academic/courses",
 						label: t("academic.coursePage.title"),
 						description: t("academic.coursePage.description"),
 					},
 					{
-						href: "/academic/student",
+						href: "/academic/students",
 						label: t("academic.studentPage.title"),
 						description: t("academic.studentPage.description"),
 					},

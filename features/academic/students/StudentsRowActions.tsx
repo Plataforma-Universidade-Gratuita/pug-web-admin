@@ -1,8 +1,8 @@
 "use client";
 
 import {
+	ArrowUpRight,
 	CopyPlus,
-	Eye,
 	PenSquare,
 	ShieldCheck,
 	ShieldX,
@@ -18,23 +18,25 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import type { StudentRowActionsProps } from "@/types";
+import type { StudentsRowActionsProps } from "@/types";
 
-export function StudentRowActions({
+export function StudentsRowActions({
+	href,
 	onDelete,
 	onOpenEditor,
 	onSetActive,
-	onView,
 	student,
-}: StudentRowActionsProps) {
+}: StudentsRowActionsProps) {
 	const { t } = useTranslation();
 
 	return (
 		<>
 			<DropdownMenuInfoItem
-				icon={Eye}
+				icon={ArrowUpRight}
 				label={t("academic.studentPage.table.actions.viewDetails")}
-				onClick={() => onView(student.accountId)}
+				onClick={() => {
+					window.open(href, "_blank", "noopener,noreferrer");
+				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}

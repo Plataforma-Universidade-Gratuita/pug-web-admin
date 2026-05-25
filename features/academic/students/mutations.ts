@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 
 import { create, remove, setActive, update } from "@/api/web/academic/students";
-import { studentQueryKeys } from "@/features/academic/student/queries";
+import { studentQueryKeys } from "@/features/academic/students/queries";
 import { accountQueryKeys } from "@/features/identity/accounts/queries";
 import { userQueryKeys } from "@/features/identity/users/queries";
 import type { AccountResponse, StudentResponse, UserResponse } from "@/types";

@@ -1,5 +1,5 @@
-import { SchoolPage } from "@/features/academic/school/SchoolPage";
+import { SchoolsPage } from "@/features/academic/schools/SchoolsPage";
 
 export default function Page() {
-	return <SchoolPage />;
+	return <SchoolsPage />;
 }

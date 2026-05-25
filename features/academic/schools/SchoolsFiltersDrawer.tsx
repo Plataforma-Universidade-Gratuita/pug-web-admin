@@ -6,9 +6,9 @@ import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import type { SchoolAuditDateField, SchoolFiltersDrawerProps } from "@/types";
+import type { SchoolAuditDateField, SchoolsFiltersDrawerProps } from "@/types";
 
-export function SchoolFiltersDrawer({
+export function SchoolsFiltersDrawer({
 	dateField,
 	endDate,
 	hasActiveFilters,
@@ -20,7 +20,7 @@ export function SchoolFiltersDrawer({
 	onStartDateChange,
 	open,
 	startDate,
-}: SchoolFiltersDrawerProps) {
+}: SchoolsFiltersDrawerProps) {
 	const { t } = useTranslation();
 
 	return (

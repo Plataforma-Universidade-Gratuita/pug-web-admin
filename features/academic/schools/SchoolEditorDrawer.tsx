@@ -21,12 +21,12 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { SchoolEditorForm } from "@/features/academic/school/SchoolEditorForm";
+import { SchoolEditorForm } from "@/features/academic/schools/SchoolEditorForm";
 import {
 	useCreateSchoolMutation,
 	useUpdateSchoolMutation,
-} from "@/features/academic/school/mutations";
-import { useSchoolDetailQuery } from "@/features/academic/school/queries";
+} from "@/features/academic/schools/mutations";
+import { useSchoolDetailQuery } from "@/features/academic/schools/queries";
 import {
 	buildSchoolDuplicateFormValues,
 	buildSchoolUpdateFormValues,
@@ -38,7 +38,7 @@ import {
 	getSchoolUpdateErrorToastContent,
 	toSchoolCreateRequest,
 	toSchoolUpdateRequest,
-} from "@/features/academic/school/utils";
+} from "@/features/academic/schools/utils";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,

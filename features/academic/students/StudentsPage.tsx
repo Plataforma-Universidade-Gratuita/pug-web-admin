@@ -5,32 +5,26 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
-import { useCoursesQuery } from "../courses/queries";
-import { StudentDetailDialog } from "@/features/academic/student/StudentDetailDialog";
-import { StudentEditorDrawer } from "@/features/academic/student/StudentEditorDrawer";
-import { StudentFiltersDrawer } from "@/features/academic/student/StudentFiltersDrawer";
-import { StudentRowActions } from "@/features/academic/student/StudentRowActions";
+import { useCoursesQuery } from "@/features/academic/courses/queries";
+import { StudentEditorDrawer } from "@/features/academic/students/StudentEditorDrawer";
+import { StudentsFiltersDrawer } from "@/features/academic/students/StudentsFiltersDrawer";
+import { StudentsRowActions } from "@/features/academic/students/StudentsRowActions";
 import {
 	useRemoveStudentMutation,
 	useSetStudentActiveMutation,
-} from "@/features/academic/student/mutations";
-import {
-	useStudentDetailQuery,
-	useStudentsQuery,
-} from "@/features/academic/student/queries";
+} from "@/features/academic/students/mutations";
+import { useStudentsQuery } from "@/features/academic/students/queries";
 import {
 	buildStudentCourseOptions,
 	createStudentColumns,
 	filterStudents,
+	getStudentCoursesErrorToastContent,
 	getStudentDeleteErrorToastContent,
-	getStudentDetailErrorToastContent,
 	getStudentEmptyStateCopy,
 	getStudentFilterSummary,
-	getStudentCoursesErrorToastContent,
 	getStudentSetActiveErrorToastContent,
 	getStudentsListErrorToastContent,
-	resolveStudentCourseLabel,
-} from "@/features/academic/student/utils";
+} from "@/features/academic/students/utils";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -43,13 +37,12 @@ import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
-	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
 import type { CourseResponse, StudentResponse } from "@/types";
 import type { StudentEditorMode, StudentSecondaryFilters } from "@/types";
 
-export function StudentPage() {
+export function StudentsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
@@ -74,7 +67,6 @@ export function StudentPage() {
 	} = useDraftFilters<StudentSecondaryFilters>({
 		initialFilters: initialSecondaryFilters,
 	});
-	const detailState = useServicePageDetailState();
 	const editorState = useServicePageEditorState<StudentEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
@@ -88,7 +80,6 @@ export function StudentPage() {
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const studentsQuery = useStudentsQuery();
 	const coursesQuery = useCoursesQuery();
-	const studentDetailQuery = useStudentDetailQuery(detailState.selectedId);
 	const removeStudentMutation = useRemoveStudentMutation();
 	const setStudentActiveMutation = useSetStudentActiveMutation();
 	const { schedule } = useDeferredUndoAction();
@@ -166,13 +157,6 @@ export function StudentPage() {
 			errorUpdatedAt: studentsQuery.errorUpdatedAt,
 			getContent: error => getStudentsListErrorToastContent(t, error),
 			isError: studentsQuery.isError,
-		},
-		{
-			key: "student-detail",
-			error: studentDetailQuery.error,
-			errorUpdatedAt: studentDetailQuery.errorUpdatedAt,
-			getContent: error => getStudentDetailErrorToastContent(t, error),
-			isError: studentDetailQuery.isError,
 		},
 		{
 			key: "student-courses",
@@ -270,7 +254,6 @@ export function StudentPage() {
 								},
 							);
 
-							detailState.clearIfMatches(student.accountId);
 							editorState.clearIfMatches(student.accountId);
 						},
 						onError: error => {
@@ -316,7 +299,7 @@ export function StudentPage() {
 					placeholder={t("academic.studentPage.filters.search.placeholder")}
 				/>
 
-				<StudentFiltersDrawer
+				<StudentsFiltersDrawer
 					activeFilter={draftFilters.activeFilter}
 					campusFilter={draftFilters.campusFilter}
 					courseIdFilter={draftFilters.courseIdFilter}
@@ -355,13 +338,13 @@ export function StudentPage() {
 					data: filteredStudents,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<StudentRowActions
+						<StudentsRowActions
+							href={`/academic/students/${row.accountId}`}
 							onDelete={setPendingDeleteStudent}
 							onOpenEditor={editorState.openEditor}
 							onSetActive={(student, active) =>
 								setPendingStatusStudent({ active, student })
 							}
-							onView={detailState.openDetail}
 							student={row}
 						/>
 					),
@@ -375,26 +358,6 @@ export function StudentPage() {
 				onOpenChange={editorState.handleOpenChange}
 				open={editorState.isOpen}
 				studentId={editorState.editorId}
-			/>
-
-			<StudentDetailDialog
-				courseName={
-					studentDetailQuery.data
-						? resolveStudentCourseLabel(
-								courseById as Map<string, CourseResponse>,
-								studentDetailQuery.data.courseId,
-							)
-						: ""
-				}
-				error={studentDetailQuery.error}
-				isError={studentDetailQuery.isError}
-				isLoading={studentDetailQuery.isLoading}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void studentDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
-				student={studentDetailQuery.data}
 			/>
 
 			<ServicePageConfirmDialog

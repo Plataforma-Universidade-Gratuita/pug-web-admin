@@ -15,7 +15,7 @@ import {
 	SelectTrigger,
 	SomeErrorState,
 } from "@/components";
-import { getStudentCampusOptions } from "@/features/academic/student/utils";
+import { getStudentCampusOptions } from "@/features/academic/students/utils";
 import type { StudentEditorFormProps } from "@/types";
 import { WebApiError } from "@/utils";
 

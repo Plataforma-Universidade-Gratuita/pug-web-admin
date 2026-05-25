@@ -9,6 +9,16 @@ import type {
 export type SchoolAuditDateField = "" | "createdAt" | "updatedAt";
 export type SchoolEditorMode = "create" | "duplicate" | "update";
 
+export interface SchoolPageProps {
+	schoolId: string;
+}
+
+export interface SchoolRoutePageProps {
+	params: Promise<{
+		schoolId: string;
+	}>;
+}
+
 export interface SchoolSecondaryFilters {
 	dateField: SchoolAuditDateField;
 	startDate: string;
@@ -48,7 +58,7 @@ export interface SchoolEditorFormProps {
 	schoolError: unknown;
 }
 
-export interface SchoolFiltersDrawerProps {
+export interface SchoolsFiltersDrawerProps {
 	dateField: SchoolAuditDateField;
 	endDate: string;
 	hasActiveFilters: boolean;
@@ -62,20 +72,10 @@ export interface SchoolFiltersDrawerProps {
 	startDate: string;
 }
 
-export interface SchoolDetailDialogProps {
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
-	school: SchoolResponse | undefined;
-}
-
-export interface SchoolRowActionsProps {
+export interface SchoolsRowActionsProps {
+	href: string;
 	onDelete: (school: SchoolResponse) => void;
 	onOpenEditor: (id: string, mode: SchoolEditorMode) => void;
-	onView: (id: string) => void;
 	school: SchoolResponse;
 }
 

@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 
 import { create, remove, update } from "@/api/web/academic/schools";
-import { schoolQueryKeys } from "@/features/academic/school/queries";
+import { schoolQueryKeys } from "@/features/academic/schools/queries";
 import type { SchoolResponse } from "@/types";
 import type {
 	RemoveSchoolMutationVariables,

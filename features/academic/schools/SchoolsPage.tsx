@@ -5,24 +5,19 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
-import { SchoolDetailDialog } from "@/features/academic/school/SchoolDetailDialog";
-import { SchoolEditorDrawer } from "@/features/academic/school/SchoolEditorDrawer";
-import { SchoolFiltersDrawer } from "@/features/academic/school/SchoolFiltersDrawer";
-import { SchoolRowActions } from "@/features/academic/school/SchoolRowActions";
-import { useRemoveSchoolMutation } from "@/features/academic/school/mutations";
-import {
-	useSchoolDetailQuery,
-	useSchoolsQuery,
-} from "@/features/academic/school/queries";
+import { SchoolEditorDrawer } from "@/features/academic/schools/SchoolEditorDrawer";
+import { SchoolsFiltersDrawer } from "@/features/academic/schools/SchoolsFiltersDrawer";
+import { SchoolsRowActions } from "@/features/academic/schools/SchoolsRowActions";
+import { useRemoveSchoolMutation } from "@/features/academic/schools/mutations";
+import { useSchoolsQuery } from "@/features/academic/schools/queries";
 import {
 	createSchoolColumns,
 	filterSchools,
 	getSchoolDeleteErrorToastContent,
-	getSchoolDetailErrorToastContent,
 	getSchoolEmptyStateCopy,
 	getSchoolFilterSummary,
 	getSchoolsListErrorToastContent,
-} from "@/features/academic/school/utils";
+} from "@/features/academic/schools/utils";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -35,13 +30,12 @@ import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
-	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
 import type { SchoolResponse } from "@/types";
 import type { SchoolEditorMode, SchoolSecondaryFilters } from "@/types";
 
-export function SchoolPage() {
+export function SchoolsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
@@ -63,7 +57,6 @@ export function SchoolPage() {
 	} = useDraftFilters<SchoolSecondaryFilters>({
 		initialFilters: initialSecondaryFilters,
 	});
-	const detailState = useServicePageDetailState();
 	const editorState = useServicePageEditorState<SchoolEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
@@ -72,7 +65,6 @@ export function SchoolPage() {
 		useState<SchoolResponse | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const schoolsQuery = useSchoolsQuery();
-	const schoolDetailQuery = useSchoolDetailQuery(detailState.selectedId);
 	const removeSchoolMutation = useRemoveSchoolMutation();
 	const { schedule } = useDeferredUndoAction();
 
@@ -131,13 +123,6 @@ export function SchoolPage() {
 			getContent: error => getSchoolsListErrorToastContent(t, error),
 			isError: schoolsQuery.isError,
 		},
-		{
-			key: "school-detail",
-			error: schoolDetailQuery.error,
-			errorUpdatedAt: schoolDetailQuery.errorUpdatedAt,
-			getContent: error => getSchoolDetailErrorToastContent(t, error),
-			isError: schoolDetailQuery.isError,
-		},
 	]);
 
 	function clearAllFilters() {
@@ -180,7 +165,6 @@ export function SchoolPage() {
 								},
 							);
 
-							detailState.clearIfMatches(school.id);
 							editorState.clearIfMatches(school.id);
 						},
 						onError: error => {
@@ -224,7 +208,7 @@ export function SchoolPage() {
 					placeholder={t("academic.schoolPage.filters.search.placeholder")}
 				/>
 
-				<SchoolFiltersDrawer
+				<SchoolsFiltersDrawer
 					dateField={draftFilters.dateField}
 					endDate={draftFilters.endDate}
 					hasActiveFilters={hasAppliedFilters}
@@ -249,10 +233,10 @@ export function SchoolPage() {
 					data: filteredSchools,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<SchoolRowActions
+						<SchoolsRowActions
+							href={`/academic/schools/${row.id}`}
 							onDelete={setPendingDeleteSchool}
 							onOpenEditor={editorState.openEditor}
-							onView={detailState.openDetail}
 							school={row}
 						/>
 					),
@@ -266,18 +250,6 @@ export function SchoolPage() {
 				mode={editorState.editorMode}
 				open={editorState.isOpen}
 				onOpenChange={editorState.handleOpenChange}
-			/>
-
-			<SchoolDetailDialog
-				error={schoolDetailQuery.error}
-				isError={schoolDetailQuery.isError}
-				isLoading={schoolDetailQuery.isLoading}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void schoolDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
-				school={schoolDetailQuery.data}
 			/>
 
 			<ServicePageConfirmDialog

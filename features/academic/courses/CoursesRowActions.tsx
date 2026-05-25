@@ -1,6 +1,6 @@
 "use client";
 
-import { CopyPlus, Eye, PenSquare, Trash2 } from "lucide-react";
+import { ArrowUpRight, CopyPlus, PenSquare, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -9,22 +9,24 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 } from "@/components";
-import type { CourseRowActionsProps } from "@/types";
+import type { CoursesRowActionsProps } from "@/types";
 
-export function CourseRowActions({
+export function CoursesRowActions({
 	course,
+	href,
 	onDelete,
 	onOpenEditor,
-	onView,
-}: CourseRowActionsProps) {
+}: CoursesRowActionsProps) {
 	const { t } = useTranslation();
 
 	return (
 		<>
 			<DropdownMenuInfoItem
-				icon={Eye}
+				icon={ArrowUpRight}
 				label={t("academic.coursePage.table.actions.viewDetails")}
-				onClick={() => onView(course.id)}
+				onClick={() => {
+					window.open(href, "_blank", "noopener,noreferrer");
+				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}

@@ -127,9 +127,9 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 
 - `/`
 - `/academic`
-- `/academic/course`
-- `/academic/school`
-- `/academic/student`
+- `/academic/courses`
+- `/academic/schools`
+- `/academic/students`
 - `/partner`
 - `/partner/entities`
 - `/partner/staff`
