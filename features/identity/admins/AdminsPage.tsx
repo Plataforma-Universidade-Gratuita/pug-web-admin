@@ -5,34 +5,27 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
-import { AdminActionDialogs } from "@/features/identity/admin/AdminActionDialogs";
-import { AdminDetailDialog } from "@/features/identity/admin/AdminDetailDialog";
-import { AdminFilters } from "@/features/identity/admin/AdminFilters";
-import { AdminRowActions } from "@/features/identity/admin/AdminRowActions";
-import { AdminUpdateDrawer } from "@/features/identity/admin/AdminUpdateDrawer";
+import { AdminsActionDialogs } from "@/features/identity/admins/AdminActionDialogs";
+import { AdminsFilters } from "@/features/identity/admins/AdminsFilters";
+import { AdminsRowActions } from "@/features/identity/admins/AdminsRowActions";
+import { AdminsUpdateDrawer } from "@/features/identity/admins/AdminsUpdateDrawer";
 import {
 	useRemoveAdminMutation,
 	useSetAdminActiveMutation,
-} from "@/features/identity/admin/mutations";
+} from "@/features/identity/admins/mutations";
 import {
-	useAdminDetailQuery,
 	useCurrentAdminQuery,
 	useAdminsQuery,
-	useLinkedAdminAccountQuery,
-	useLinkedAdminUserQuery,
-} from "@/features/identity/admin/queries";
+} from "@/features/identity/admins/queries";
 import {
 	createAdminColumns,
 	filterAdmins,
 	getAdminDeleteErrorToastContent,
-	getAdminDetailErrorToastContent,
 	getAdminEmptyStateCopy,
 	getAdminFilterSummary,
 	getAdminSetActiveErrorToastContent,
 	getAdminsListErrorToastContent,
-	getLinkedAdminAccountErrorToastContent,
-	getLinkedAdminUserErrorToastContent,
-} from "@/features/identity/admin/utils";
+} from "@/features/identity/admins/utils";
 import {
 	ServicePageHeader,
 	ServicePageHeaderActions,
@@ -42,17 +35,15 @@ import {
 import {
 	useDeferredUndoAction,
 	useQueryErrorToasts,
-	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
 import type { AdminResponse } from "@/types";
 import type { AdminCampusFilter, AdminEditorMode } from "@/types";
 
-export function AdminPage() {
+export function AdminsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [campusFilter, setCampusFilter] = useState<AdminCampusFilter>("");
-	const detailState = useServicePageDetailState();
 	const editorState = useServicePageEditorState<AdminEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
@@ -66,13 +57,6 @@ export function AdminPage() {
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const adminsQuery = useAdminsQuery();
 	const currentAdminQuery = useCurrentAdminQuery();
-	const adminDetailQuery = useAdminDetailQuery(detailState.selectedId);
-	const linkedAccountQuery = useLinkedAdminAccountQuery(
-		adminDetailQuery.data?.accountId ?? null,
-	);
-	const linkedUserQuery = useLinkedAdminUserQuery(
-		adminDetailQuery.data?.userId ?? null,
-	);
 	const setAdminActiveMutation = useSetAdminActiveMutation();
 	const removeAdminMutation = useRemoveAdminMutation();
 	const { schedule } = useDeferredUndoAction();
@@ -127,27 +111,6 @@ export function AdminPage() {
 			errorUpdatedAt: adminsQuery.errorUpdatedAt,
 			getContent: error => getAdminsListErrorToastContent(t, error),
 			isError: adminsQuery.isError,
-		},
-		{
-			key: "admin-detail",
-			error: adminDetailQuery.error,
-			errorUpdatedAt: adminDetailQuery.errorUpdatedAt,
-			getContent: error => getAdminDetailErrorToastContent(t, error),
-			isError: adminDetailQuery.isError,
-		},
-		{
-			key: "admin-linked-account",
-			error: linkedAccountQuery.error,
-			errorUpdatedAt: linkedAccountQuery.errorUpdatedAt,
-			getContent: error => getLinkedAdminAccountErrorToastContent(t, error),
-			isError: linkedAccountQuery.isError,
-		},
-		{
-			key: "admin-linked-user",
-			error: linkedUserQuery.error,
-			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
-			getContent: error => getLinkedAdminUserErrorToastContent(t, error),
-			isError: linkedUserQuery.isError,
 		},
 	]);
 
@@ -244,7 +207,6 @@ export function AdminPage() {
 								},
 							);
 
-							detailState.clearIfMatches(admin.accountId);
 							editorState.clearIfMatches(admin.accountId);
 						},
 						onError: error => {
@@ -281,7 +243,7 @@ export function AdminPage() {
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_minmax(16rem,0.9fr)]"
 			>
-				<AdminFilters
+				<AdminsFilters
 					campusFilter={campusFilter}
 					onCampusFilterChange={setCampusFilter}
 					onSearchChange={setQuerySearch}
@@ -296,16 +258,16 @@ export function AdminPage() {
 					data: filteredAdmins,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<AdminRowActions
+						<AdminsRowActions
 							admin={row}
 							canDeactivate={
 								row.accountId !== currentAdminQuery.data?.accountId
 							}
+							href={`/identity/admins/${row.accountId}`}
 							onDelete={setPendingDeleteAdmin}
 							onSetActive={(admin, active) =>
 								setPendingStatusAdmin({ active, admin })
 							}
-							onView={detailState.openDetail}
 							onOpenEditor={editorState.openEditor}
 						/>
 					),
@@ -314,40 +276,14 @@ export function AdminPage() {
 				}}
 			/>
 
-			<AdminUpdateDrawer
+			<AdminsUpdateDrawer
 				adminId={editorState.editorId}
 				mode={editorState.editorMode}
 				open={editorState.isOpen}
 				onOpenChange={editorState.handleOpenChange}
 			/>
 
-			<AdminDetailDialog
-				admin={adminDetailQuery.data}
-				error={adminDetailQuery.error}
-				isError={adminDetailQuery.isError}
-				isLoading={adminDetailQuery.isLoading}
-				linkedAccount={linkedAccountQuery.data}
-				linkedAccountError={linkedAccountQuery.error}
-				linkedAccountIsError={linkedAccountQuery.isError}
-				linkedAccountIsLoading={linkedAccountQuery.isLoading}
-				linkedUser={linkedUserQuery.data}
-				linkedUserError={linkedUserQuery.error}
-				linkedUserIsError={linkedUserQuery.isError}
-				linkedUserIsLoading={linkedUserQuery.isLoading}
-				onLinkedAccountRefresh={() => {
-					void linkedAccountQuery.refetch();
-				}}
-				onLinkedUserRefresh={() => {
-					void linkedUserQuery.refetch();
-				}}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void adminDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
-			/>
-
-			<AdminActionDialogs
+			<AdminsActionDialogs
 				onConfirmDelete={handleDeleteConfirm}
 				onConfirmStatusChange={handleStatusChangeConfirm}
 				onDeleteOpenChange={open => {

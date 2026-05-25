@@ -138,9 +138,12 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - `/project/enrollment`
 - `/project/project`
 - `/identity`
-- `/identity/account`
-- `/identity/admin`
-- `/identity/user`
+- `/identity/accounts`
+- `/identity/accounts/[accountId]`
+- `/identity/admins`
+- `/identity/admins/[adminId]`
+- `/identity/users`
+- `/identity/users/[userId]`
 - `/geo`
 - `/geo/city`
 - `/docs`
@@ -284,10 +287,10 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - current example: `features/geo/city`
   - do not generalize this to large operational lists; those should stay backend-filtered
 - Current established examples:
-  - `features/identity/account/queries.ts`
-  - `features/identity/admin/queries.ts`
-  - `features/identity/admin/mutations.ts`
-  - `features/identity/user/queries.ts`
+- `features/identity/accounts/queries.ts`
+- `features/identity/admins/queries.ts`
+- `features/identity/admins/mutations.ts`
+- `features/identity/users/queries.ts`
 - Shared helpers that should be preferred before open-coded page logic:
   - `hooks/useQueryErrorToast.ts`
   - `hooks/useQueryErrorToasts.ts`
@@ -308,7 +311,7 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - Current mutation cache pattern:
   - list and detail caches should stay in sync after explicit user mutations
   - `me()` and linked-record caches should also be updated when the mutation changes those records
-  - current example: `features/identity/admin/mutations.ts`
+- current example: `features/identity/admins/mutations.ts`
 - Query error rule:
   - do not globally toast query failures by default
   - prefer inline empty/error states for query surfaces

@@ -7,9 +7,9 @@ import {
 	NumberFieldFilter,
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
-import type { UserFiltersProps } from "@/types";
+import type { UsersFiltersProps } from "@/types";
 
-export function UserFilters({
+export function UsersFilters({
 	cpfSearch,
 	dateField,
 	dateFiltersOpen,
@@ -22,7 +22,7 @@ export function UserFilters({
 	onNameSearchChange,
 	onStartDateChange,
 	startDate,
-}: UserFiltersProps) {
+}: UsersFiltersProps) {
 	const { t } = useTranslation();
 
 	return (

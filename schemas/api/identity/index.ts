@@ -1,5 +1,5 @@
 /* --- Root --- */
-export * from "./account";
-export * from "./admin";
+export * from "./accounts";
+export * from "./admins";
 export * from "./auth";
-export * from "./user";
+export * from "./users";

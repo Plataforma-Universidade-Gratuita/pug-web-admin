@@ -22,8 +22,8 @@ import {
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
-} from "@/features/identity/account/utils";
-import { AdminUserTab } from "@/features/identity/admin/AdminUserTab";
+} from "@/features/identity/accounts/utils";
+import { AdminUserTab } from "@/features/identity/admins/AdminUserTab";
 import type { AdminEditorContentProps } from "@/types";
 import { WebApiError } from "@/utils";
 

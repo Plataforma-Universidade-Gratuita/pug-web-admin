@@ -2,46 +2,30 @@
 
 import { useDeferredValue, useMemo, useState } from "react";
 
-import { Eye } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-	Button,
-	DropdownMenuInfoItem,
-	NoContentState,
-	SomeErrorState,
-} from "@/components";
-import { AccountDetailDialog } from "@/features/identity/account/AccountDetailDialog";
-import { AccountFiltersDrawer } from "@/features/identity/account/AccountFiltersDrawer";
-import {
-	useAccountDetailQuery,
-	useAccountsQuery,
-	useLinkedUserQuery,
-} from "@/features/identity/account/queries";
+import { Button, NoContentState, SomeErrorState } from "@/components";
+import { AccountsFiltersDrawer } from "@/features/identity/accounts/AccountsFiltersDrawer";
+import { AccountsRowActions } from "@/features/identity/accounts/AccountsRowActions";
+import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import {
 	createAccountColumns,
 	filterAccounts,
-	getAccountDetailErrorToastContent,
 	getAccountEmptyStateCopy,
 	getAccountFilterSummary,
 	getAccountsListErrorToastContent,
-	getLinkedUserErrorToastContent,
-} from "@/features/identity/account/utils";
+} from "@/features/identity/accounts/utils";
 import {
 	ServicePageHeader,
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
-import {
-	useDraftFilters,
-	useQueryErrorToasts,
-	useServicePageDetailState,
-} from "@/hooks";
+import { useDraftFilters, useQueryErrorToasts } from "@/hooks";
 import type { AccountResponse } from "@/types";
 import type { AccountSecondaryFilters } from "@/types";
 
-export function AccountPage() {
+export function AccountsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
@@ -65,13 +49,8 @@ export function AccountPage() {
 	} = useDraftFilters<AccountSecondaryFilters>({
 		initialFilters: initialSecondaryFilters,
 	});
-	const detailState = useServicePageDetailState();
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const accountsQuery = useAccountsQuery();
-	const accountDetailQuery = useAccountDetailQuery(detailState.selectedId);
-	const linkedUserQuery = useLinkedUserQuery(
-		accountDetailQuery.data?.userId ?? null,
-	);
 
 	const filteredAccounts = useMemo(
 		() =>
@@ -132,20 +111,6 @@ export function AccountPage() {
 			getContent: error => getAccountsListErrorToastContent(t, error),
 			isError: accountsQuery.isError,
 		},
-		{
-			key: "account-detail",
-			error: accountDetailQuery.error,
-			errorUpdatedAt: accountDetailQuery.errorUpdatedAt,
-			getContent: error => getAccountDetailErrorToastContent(t, error),
-			isError: accountDetailQuery.isError,
-		},
-		{
-			key: "account-linked-user",
-			error: linkedUserQuery.error,
-			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
-			getContent: error => getLinkedUserErrorToastContent(t, error),
-			isError: linkedUserQuery.isError,
-		},
 	]);
 
 	function clearAllFilters() {
@@ -185,7 +150,7 @@ export function AccountPage() {
 					placeholder={t("identity.accountPage.filters.search.placeholder")}
 				/>
 
-				<AccountFiltersDrawer
+				<AccountsFiltersDrawer
 					activeFilter={draftFilters.activeFilter}
 					accountTypeFilter={draftFilters.accountTypeFilter}
 					dateField={draftFilters.dateField}
@@ -216,34 +181,11 @@ export function AccountPage() {
 					data: filteredAccounts,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<DropdownMenuInfoItem
-							icon={Eye}
-							label={t("identity.accountPage.table.actions.viewDetails")}
-							onClick={() => detailState.openDetail(row.id)}
-						/>
+						<AccountsRowActions href={`/identity/accounts/${row.id}`} />
 					),
 					isLoading: accountsQuery.isLoading,
 					loadingLabel: t("identity.accountPage.loading.list"),
 				}}
-			/>
-
-			<AccountDetailDialog
-				account={accountDetailQuery.data}
-				error={accountDetailQuery.error}
-				isError={accountDetailQuery.isError}
-				isLoading={accountDetailQuery.isLoading}
-				linkedUser={linkedUserQuery.data}
-				linkedUserError={linkedUserQuery.error}
-				linkedUserIsError={linkedUserQuery.isError}
-				linkedUserIsLoading={linkedUserQuery.isLoading}
-				onLinkedUserRefresh={() => {
-					void linkedUserQuery.refetch();
-				}}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void accountDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
 			/>
 		</ServicePageShell>
 	);

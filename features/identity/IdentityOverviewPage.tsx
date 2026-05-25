@@ -18,17 +18,17 @@ export function IdentityOverviewPage() {
 			<ModulePageComingSoon
 				paths={[
 					{
-						href: "/identity/user",
+						href: "/identity/users",
 						label: t("identity.userPage.title"),
 						description: t("identity.userPage.description"),
 					},
 					{
-						href: "/identity/account",
+						href: "/identity/accounts",
 						label: t("identity.accountPage.title"),
 						description: t("identity.accountPage.description"),
 					},
 					{
-						href: "/identity/admin",
+						href: "/identity/admins",
 						label: t("identity.adminPage.title"),
 						description: t("identity.adminPage.description"),
 					},

@@ -2,11 +2,11 @@
 
 import {
 	CopyPlus,
-	Eye,
 	PenSquare,
 	ShieldCheck,
 	ShieldX,
 	Trash2,
+	ArrowUpRight,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -18,24 +18,26 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import type { AdminRowActionsProps } from "@/types";
+import type { AdminsRowActionsProps } from "@/types";
 
-export function AdminRowActions({
+export function AdminsRowActions({
 	admin,
 	canDeactivate,
+	href,
 	onDelete,
 	onSetActive,
-	onView,
 	onOpenEditor,
-}: AdminRowActionsProps) {
+}: AdminsRowActionsProps) {
 	const { t } = useTranslation();
 
 	return (
 		<>
 			<DropdownMenuInfoItem
-				icon={Eye}
+				icon={ArrowUpRight}
 				label={t("identity.adminPage.table.actions.viewDetails")}
-				onClick={() => onView(admin.accountId)}
+				onClick={() => {
+					window.open(href, "_blank", "noopener,noreferrer");
+				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}

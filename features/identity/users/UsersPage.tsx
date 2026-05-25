@@ -5,30 +5,25 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button, NoContentState, SomeErrorState } from "@/components";
-import { UserDetailDialog } from "@/features/identity/user/UserDetailDialog";
-import { UserFilters } from "@/features/identity/user/UserFilters";
-import { UserRowActions } from "@/features/identity/user/UserRowActions";
-import {
-	useUserDetailQuery,
-	useUsersQuery,
-} from "@/features/identity/user/queries";
+import { UsersFilters } from "@/features/identity/users/UsersFilters";
+import { UsersRowActions } from "@/features/identity/users/UsersRowActions";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	createUserColumns,
 	filterUsers,
-	getUserDetailErrorToastContent,
 	getUserEmptyStateCopy,
 	getUsersListErrorToastContent,
-} from "@/features/identity/user/utils";
+} from "@/features/identity/users/utils";
 import {
 	ServicePageHeader,
 	ServicePageShell,
 	ServicePageTableSection,
 } from "@/features/shared/service-pages";
-import { useQueryErrorToasts, useServicePageDetailState } from "@/hooks";
+import { useQueryErrorToasts } from "@/hooks";
 import type { UserResponse } from "@/types";
 import type { UserAuditDateField } from "@/types";
 
-export function UserPage() {
+export function UsersPage() {
 	const { t } = useTranslation();
 	const [nameSearch, setNameSearch] = useState("");
 	const [cpfSearch, setCpfSearch] = useState("");
@@ -36,11 +31,9 @@ export function UserPage() {
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
 	const [dateFiltersOpen, setDateFiltersOpen] = useState(false);
-	const detailState = useServicePageDetailState();
 	const deferredNameSearch = useDeferredValue(nameSearch.trim());
 	const deferredCpfSearch = useDeferredValue(cpfSearch.trim());
 	const usersQuery = useUsersQuery();
-	const userDetailQuery = useUserDetailQuery(detailState.selectedId);
 
 	const allUsers = useMemo(() => usersQuery.data ?? [], [usersQuery.data]);
 	const filteredUsers = useMemo(
@@ -103,13 +96,6 @@ export function UserPage() {
 			getContent: error => getUsersListErrorToastContent(t, error),
 			isError: usersQuery.isError,
 		},
-		{
-			key: "user-detail",
-			error: userDetailQuery.error,
-			errorUpdatedAt: userDetailQuery.errorUpdatedAt,
-			getContent: error => getUserDetailErrorToastContent(t, error),
-			isError: userDetailQuery.isError,
-		},
 	]);
 
 	function clearFilters() {
@@ -142,7 +128,7 @@ export function UserPage() {
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(16rem,1fr)_auto]"
 			>
-				<UserFilters
+				<UsersFilters
 					cpfSearch={cpfSearch}
 					dateField={dateField}
 					dateFiltersOpen={dateFiltersOpen}
@@ -165,26 +151,11 @@ export function UserPage() {
 					data: filteredUsers,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<UserRowActions
-							user={row}
-							onView={detailState.openDetail}
-						/>
+						<UsersRowActions href={`/identity/users/${row.id}`} />
 					),
 					isLoading: usersQuery.isLoading,
 					loadingLabel: t("identity.userPage.loading.list"),
 				}}
-			/>
-
-			<UserDetailDialog
-				error={userDetailQuery.error}
-				isError={userDetailQuery.isError}
-				isLoading={userDetailQuery.isLoading}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void userDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
-				user={userDetailQuery.data}
 			/>
 		</ServicePageShell>
 	);

@@ -1,5 +1,5 @@
-import { AccountPage } from "@/features/identity/account/AccountPage";
+import { AccountsPage } from "@/features/identity/accounts/AccountsPage";
 
 export default function Page() {
-	return <AccountPage />;
+	return <AccountsPage />;
 }

@@ -2,7 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
-import { getAccountOptionClassName } from "@/features/identity/account/utils";
+import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
 import type {
 	CityResponse,
 	EntityResponse,

@@ -7,9 +7,9 @@ import {
 } from "@tanstack/react-query";
 
 import { create, remove, setActive, update } from "@/api/web/identity/admins";
-import { accountQueryKeys } from "@/features/identity/account/queries";
-import { adminQueryKeys } from "@/features/identity/admin/queries";
-import { userQueryKeys } from "@/features/identity/user/queries";
+import { accountQueryKeys } from "@/features/identity/accounts/queries";
+import { adminQueryKeys } from "@/features/identity/admins/queries";
+import { userQueryKeys } from "@/features/identity/users/queries";
 import type { AccountResponse, AdminResponse, UserResponse } from "@/types";
 import type {
 	AdminCreateMutationVariables,

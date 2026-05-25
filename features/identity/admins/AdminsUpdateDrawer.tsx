@@ -21,16 +21,16 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { AdminEditorContent } from "@/features/identity/admin/AdminEditorContent";
+import { AdminEditorContent } from "@/features/identity/admins/AdminEditorContent";
 import {
 	useCreateAdminMutation,
 	useUpdateAdminMutation,
-} from "@/features/identity/admin/mutations";
+} from "@/features/identity/admins/mutations";
 import {
 	useAdminDetailQuery,
 	useLinkedAdminAccountQuery,
 	useLinkedAdminUserQuery,
-} from "@/features/identity/admin/queries";
+} from "@/features/identity/admins/queries";
 import {
 	buildAdminDuplicateFormValues,
 	buildAdminUpdateFormValues,
@@ -45,20 +45,20 @@ import {
 	getLinkedAdminUserErrorToastContent,
 	toAdminCreateRequest,
 	toAdminUpdateRequest,
-} from "@/features/identity/admin/utils";
+} from "@/features/identity/admins/utils";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type { AdminEditorFormValues, AdminUpdateDrawerProps } from "@/types";
+import type { AdminEditorFormValues, AdminsUpdateDrawerProps } from "@/types";
 
-export function AdminUpdateDrawer({
+export function AdminsUpdateDrawer({
 	adminId,
 	mode,
 	open,
 	onOpenChange,
-}: AdminUpdateDrawerProps) {
+}: AdminsUpdateDrawerProps) {
 	const { t } = useTranslation();
 	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";

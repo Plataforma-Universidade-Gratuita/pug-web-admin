@@ -1,5 +1,15 @@
 import type { UserResponse } from "@/types";
 
+export interface UserPageProps {
+	userId: string;
+}
+
+export interface UserRoutePageProps {
+	params: Promise<{
+		userId: string;
+	}>;
+}
+
 export type UserAuditDateField = "" | "createdAt" | "updatedAt";
 
 export interface UserDateFilters {
@@ -8,7 +18,7 @@ export interface UserDateFilters {
 	endDate: string;
 }
 
-export interface UserFiltersProps {
+export interface UsersFiltersProps {
 	cpfSearch: string;
 	dateField: UserAuditDateField;
 	dateFiltersOpen: boolean;
@@ -23,16 +33,6 @@ export interface UserFiltersProps {
 	nameSearch: string;
 }
 
-export interface UserDetailDialogProps {
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
-	user: UserResponse | undefined;
-}
-
 export interface UserFilterArgs {
 	cpfQuery: string;
 	dateField: UserAuditDateField;
@@ -41,7 +41,6 @@ export interface UserFilterArgs {
 	startDate: string;
 }
 
-export interface UserRowActionsProps {
-	onView: (id: string) => void;
-	user: UserResponse;
+export interface UsersRowActionsProps {
+	href: string;
 }

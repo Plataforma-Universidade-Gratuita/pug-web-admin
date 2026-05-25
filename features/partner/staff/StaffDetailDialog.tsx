@@ -14,7 +14,7 @@ import {
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
-} from "@/features/identity/account/utils";
+} from "@/features/identity/accounts/utils";
 import {
 	ServicePageLinkedAccountBlock,
 	ServicePageLinkedUserBlock,

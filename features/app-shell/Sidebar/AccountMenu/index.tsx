@@ -30,11 +30,11 @@ import { LOGIN_ROUTE } from "@/constants";
 import {
 	adminQueryKeys,
 	useCurrentAdminQuery,
-} from "@/features/identity/admin/queries";
+} from "@/features/identity/admins/queries";
 import {
 	userQueryKeys,
 	useCurrentUserQuery,
-} from "@/features/identity/user/queries";
+} from "@/features/identity/users/queries";
 import type { SidebarProps } from "@/types";
 import type { LogoutScope } from "@/types";
 

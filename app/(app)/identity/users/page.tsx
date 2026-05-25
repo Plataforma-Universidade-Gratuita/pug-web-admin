@@ -1,5 +1,5 @@
-import { UserPage } from "@/features/identity/user/UserPage";
+import { UsersPage } from "@/features/identity/users/UsersPage";
 
 export default function Page() {
-	return <UserPage />;
+	return <UsersPage />;
 }

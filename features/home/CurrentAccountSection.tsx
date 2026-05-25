@@ -18,8 +18,8 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { useCurrentAccountQuery } from "@/features/identity/account/queries";
-import { getAccountTypeLabel } from "@/features/identity/account/utils";
+import { useCurrentAccountQuery } from "@/features/identity/accounts/queries";
+import { getAccountTypeLabel } from "@/features/identity/accounts/utils";
 
 export function CurrentAccountSection() {
 	const { t } = useTranslation();

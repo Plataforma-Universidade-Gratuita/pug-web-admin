@@ -11,16 +11,16 @@ import {
 	SelectItem,
 	SelectTrigger,
 } from "@/components";
-import { getAdminCampusOptions } from "@/features/identity/admin/utils";
+import { getAdminCampusOptions } from "@/features/identity/admins/utils";
 import { TextFieldFilter } from "@/features/shared/service-pages";
-import type { AdminCampusFilter, AdminFiltersProps } from "@/types";
+import type { AdminCampusFilter, AdminsFiltersProps } from "@/types";
 
-export function AdminFilters({
+export function AdminsFilters({
 	campusFilter,
 	onCampusFilterChange,
 	onSearchChange,
 	querySearch,
-}: AdminFiltersProps) {
+}: AdminsFiltersProps) {
 	const { t } = useTranslation();
 	const campusOptions = useMemo(() => getAdminCampusOptions(t), [t]);
 

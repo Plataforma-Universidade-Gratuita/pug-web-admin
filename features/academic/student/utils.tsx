@@ -3,7 +3,7 @@ import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
 import { ADMIN_CAMPI_VALUES } from "@/constants";
-import { getAccountOptionClassName } from "@/features/identity/account/utils";
+import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
 import type {
 	Campi,
 	CourseResponse,

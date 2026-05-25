@@ -3,16 +3,16 @@
 import { useTranslation } from "react-i18next";
 
 import { ServicePageConfirmDialog } from "@/features/shared/service-pages";
-import type { AdminActionDialogsProps } from "@/types";
+import type { AdminsActionDialogsProps } from "@/types";
 
-export function AdminActionDialogs({
+export function AdminsActionDialogs({
 	onConfirmDelete,
 	onConfirmStatusChange,
 	onDeleteOpenChange,
 	onStatusOpenChange,
 	pendingDeleteAdmin,
 	pendingStatusAdmin,
-}: AdminActionDialogsProps) {
+}: AdminsActionDialogsProps) {
 	const { t } = useTranslation();
 
 	return (

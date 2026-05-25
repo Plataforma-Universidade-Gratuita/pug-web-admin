@@ -5,19 +5,12 @@ import { CityResponseSchema } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
 import { routeError, routeWithAuthRetry } from "@/utils/route";
 
-export async function GET(request: Request, { params }: AppRouteSlugContext) {
+export async function GET(_request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
-		const q = new URL(request.url).searchParams.get("q") ?? undefined;
 		return routeWithAuthRetry(
-			token => cities.list(token, q),
+			token => cities.list(token),
 			z.array(CityResponseSchema),
-		);
-	}
-	if (slug.length === 2 && slug[0] === "by-ibge") {
-		return routeWithAuthRetry(
-			token => cities.getByIbge(slug[1]!, token),
-			CityResponseSchema,
 		);
 	}
 	if (slug.length === 1) {

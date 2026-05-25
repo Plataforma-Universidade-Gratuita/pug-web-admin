@@ -1,16 +1,24 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
-	AccountResponse,
 	AdminCreateRequest,
 	AdminResponse,
 	AdminUpdateRequest,
 	Campi,
-	UserResponse,
 } from "@/types";
 
 export type AdminCampusFilter = "" | Campi;
 export type AdminEditorMode = "create" | "duplicate" | "update";
+
+export interface AdminPageProps {
+	adminId: string;
+}
+
+export interface AdminRoutePageProps {
+	params: Promise<{
+		adminId: string;
+	}>;
+}
 
 export interface AdminEditorFormValues {
 	cpf: string;
@@ -33,7 +41,7 @@ export interface AdminSetActiveMutationVariables {
 	id: string;
 }
 
-export interface AdminUpdateDrawerProps {
+export interface AdminsUpdateDrawerProps {
 	adminId: string | null;
 	mode: AdminEditorMode;
 	open: boolean;
@@ -68,7 +76,7 @@ export interface AdminUserTabProps {
 	onRefreshUser: () => void;
 }
 
-export interface AdminFiltersProps {
+export interface AdminsFiltersProps {
 	campusFilter: AdminCampusFilter;
 	onCampusFilterChange: (value: AdminCampusFilter) => void;
 	onSearchChange: (value: string) => void;
@@ -80,7 +88,7 @@ export interface AdminFilterArgs {
 	query: string;
 }
 
-export interface AdminActionDialogsProps {
+export interface AdminsActionDialogsProps {
 	onConfirmDelete: () => void;
 	onConfirmStatusChange: () => void;
 	onDeleteOpenChange: (open: boolean) => void;
@@ -92,32 +100,12 @@ export interface AdminActionDialogsProps {
 	} | null;
 }
 
-export interface AdminDetailDialogProps {
-	admin: AdminResponse | undefined;
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	linkedAccount: AccountResponse | undefined;
-	linkedAccountError: unknown;
-	linkedAccountIsError: boolean;
-	linkedAccountIsLoading: boolean;
-	linkedUser: Pick<UserResponse, "cpfFormatted" | "id" | "name"> | undefined;
-	linkedUserError: unknown;
-	linkedUserIsError: boolean;
-	linkedUserIsLoading: boolean;
-	onLinkedAccountRefresh: () => void;
-	onLinkedUserRefresh: () => void;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
-}
-
-export interface AdminRowActionsProps {
+export interface AdminsRowActionsProps {
 	admin: AdminResponse;
 	canDeactivate: boolean;
+	href: string;
 	onDelete: (admin: AdminResponse) => void;
 	onSetActive: (admin: AdminResponse, active: boolean) => void;
-	onView: (id: string) => void;
 	onOpenEditor: (id: string, mode: AdminEditorMode) => void;
 }
 

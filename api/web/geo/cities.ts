@@ -12,17 +12,6 @@ export async function get(id: string): Promise<CityResponse> {
 	);
 }
 
-export async function getByIbge(ibgeCode: string): Promise<CityResponse> {
-	return webFetch(
-		`${WEB_API_ROUTE_BASES.geo.cities}/by-ibge/${ibgeCode}`,
-		CityResponseSchema,
-	);
-}
-
-export async function list(q?: string): Promise<CityResponse[]> {
-	const search = q ? `?${new URLSearchParams({ q }).toString()}` : "";
-	return webFetch(
-		`${WEB_API_ROUTE_BASES.geo.cities}${search}`,
-		z.array(CityResponseSchema),
-	);
+export async function list(): Promise<CityResponse[]> {
+	return webFetch(WEB_API_ROUTE_BASES.geo.cities, z.array(CityResponseSchema));
 }

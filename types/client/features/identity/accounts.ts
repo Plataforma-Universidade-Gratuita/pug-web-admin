@@ -1,4 +1,12 @@
-import type { AccountResponse, UserResponse } from "@/types";
+export interface AccountPageProps {
+	accountId: string;
+}
+
+export interface AccountRoutePageProps {
+	params: Promise<{
+		accountId: string;
+	}>;
+}
 
 export type AccountAuditDateField = "" | "createdAt" | "updatedAt";
 export type AccountActiveFilter = "" | "true" | "false";
@@ -12,7 +20,7 @@ export interface AccountSecondaryFilters {
 	endDate: string;
 }
 
-export interface AccountFiltersDrawerProps {
+export interface AccountsFiltersDrawerProps {
 	activeFilter: AccountActiveFilter;
 	accountTypeFilter: AccountTypeFilter;
 	dateField: AccountAuditDateField;
@@ -39,17 +47,6 @@ export interface AccountFilterArgs {
 	startDate: string;
 }
 
-export interface AccountDetailDialogProps {
-	account: AccountResponse | undefined;
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	linkedUser: Pick<UserResponse, "cpfFormatted" | "id" | "name"> | undefined;
-	linkedUserError: unknown;
-	linkedUserIsError: boolean;
-	linkedUserIsLoading: boolean;
-	onLinkedUserRefresh: () => void;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
+export interface AccountsRowActionsProps {
+	href: string;
 }

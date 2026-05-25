@@ -10,14 +10,14 @@ import {
 	SelectTrigger,
 } from "@/components";
 import { ACCOUNT_TYPE_VALUES } from "@/constants";
-import { getAccountOptionClassName } from "@/features/identity/account/utils";
+import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
 import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import type { AccountFiltersDrawerProps } from "@/types";
+import type { AccountsFiltersDrawerProps } from "@/types";
 
-export function AccountFiltersDrawer({
+export function AccountsFiltersDrawer({
 	activeFilter,
 	accountTypeFilter,
 	dateField,
@@ -33,7 +33,7 @@ export function AccountFiltersDrawer({
 	onStartDateChange,
 	open,
 	startDate,
-}: AccountFiltersDrawerProps) {
+}: AccountsFiltersDrawerProps) {
 	const { t } = useTranslation();
 
 	return (
