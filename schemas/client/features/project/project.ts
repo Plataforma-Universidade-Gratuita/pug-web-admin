@@ -1,21 +1,13 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
+import {
+	createOptionalNumericStringSchema,
+	createOptionalTrimmedStringSchema,
+	createRequiredNumericStringSchema,
+	createRequiredTrimmedStringSchema,
+} from "@/schemas/client/shared";
 import type { ProjectEditorMode } from "@/types/client/features/project/project";
-
-function parsePositiveInteger(value: string) {
-	const trimmed = value.trim();
-	if (!trimmed) {
-		return null;
-	}
-
-	const parsed = Number(trimmed);
-	if (!Number.isInteger(parsed) || parsed <= 0) {
-		return null;
-	}
-
-	return parsed;
-}
 
 export function createProjectEditorFormSchema(
 	t: TFunction,
@@ -24,36 +16,29 @@ export function createProjectEditorFormSchema(
 	const requiresEntity = mode !== "update";
 
 	return z.object({
-		description: z.string(),
+		description: createOptionalTrimmedStringSchema(
+			4000,
+			t("project.projectPage.editor.validation.description.tooLong"),
+		),
 		entityId: requiresEntity
 			? z
 					.string()
 					.trim()
 					.min(1, t("project.projectPage.editor.validation.entity.required"))
 			: z.string(),
-		maxParticipants: z
-			.string()
-			.refine(
-				value =>
-					value.trim().length === 0 || parsePositiveInteger(value) !== null,
-				{
-					message: t(
-						"project.projectPage.editor.validation.maxParticipants.invalid",
-					),
-				},
-			),
-		name: z
-			.string()
-			.trim()
-			.min(1, t("project.projectPage.editor.validation.name.required")),
-		offeredHours: z
-			.string()
-			.trim()
-			.min(1, t("project.projectPage.editor.validation.offeredHours.required"))
-			.refine(value => parsePositiveInteger(value) !== null, {
-				message: t(
-					"project.projectPage.editor.validation.offeredHours.invalid",
-				),
-			}),
+		maxParticipants: createOptionalNumericStringSchema(
+			t("project.projectPage.editor.validation.maxParticipants.invalid"),
+			true,
+		),
+		name: createRequiredTrimmedStringSchema(
+			t("project.projectPage.editor.validation.name.required"),
+			150,
+			t("project.projectPage.editor.validation.name.tooLong"),
+		),
+		offeredHours: createRequiredNumericStringSchema(
+			t("project.projectPage.editor.validation.offeredHours.required"),
+			t("project.projectPage.editor.validation.offeredHours.invalid"),
+			true,
+		),
 	});
 }

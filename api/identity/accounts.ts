@@ -5,7 +5,6 @@ import { AccountResponseSchema } from "@/schemas/api/identity/account";
 import type { AccountResponse } from "@/types/api";
 import { zfetch, qs } from "@/utils/api";
 
-
 export async function get(
 	id: string,
 	token?: string,
@@ -31,7 +30,12 @@ export async function getByEmail(
 }
 
 export async function getMe(token?: string): Promise<AccountResponse> {
-	return zfetch(`${API_ROUTE_BASES.identity.accounts}/me`, { method: "GET" }, AccountResponseSchema, token);
+	return zfetch(
+		`${API_ROUTE_BASES.identity.accounts}/me`,
+		{ method: "GET" },
+		AccountResponseSchema,
+		token,
+	);
 }
 
 export async function list(

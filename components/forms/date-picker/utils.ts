@@ -4,9 +4,6 @@ import { format, isAfter, isBefore, startOfDay } from "date-fns";
 
 import { DATE_ONLY_VALUE, DATE_TIME_VALUE } from "@/constants";
 
-const DATE_ONLY_VALUE = /^\d{4}-\d{2}-\d{2}$/;
-const DATE_TIME_VALUE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
-
 export function parseDateTimeValue(value?: string): Date | undefined {
 	if (!value) return undefined;
 

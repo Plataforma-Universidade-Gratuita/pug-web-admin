@@ -5,9 +5,13 @@ import { CityResponseSchema } from "@/schemas/api/geo/city";
 import type { CityResponse } from "@/types/api";
 import { zfetch, qs } from "@/utils/api";
 
-
 export async function get(id: string, token?: string): Promise<CityResponse> {
-	return zfetch(`${API_ROUTE_BASES.geo.cities}/${id}`, { method: "GET" }, CityResponseSchema, token);
+	return zfetch(
+		`${API_ROUTE_BASES.geo.cities}/${id}`,
+		{ method: "GET" },
+		CityResponseSchema,
+		token,
+	);
 }
 
 export async function getByIbge(

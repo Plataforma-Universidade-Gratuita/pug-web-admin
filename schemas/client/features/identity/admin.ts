@@ -2,6 +2,11 @@ import type { TFunction } from "i18next";
 import { z } from "zod";
 
 import { CampiEnum } from "@/schemas/api";
+import {
+	createCpfFieldSchema,
+	createEmailFieldSchema,
+	createRequiredTrimmedStringSchema,
+} from "@/schemas/client/shared";
 import type { AdminEditorMode } from "@/types/client/features/identity/admin";
 
 export function createAdminEditorFormSchema(
@@ -11,21 +16,22 @@ export function createAdminEditorFormSchema(
 	const requiresIdentityFields = mode !== "update";
 
 	return z.object({
-		cpf: requiresIdentityFields
-			? z
-					.string()
-					.trim()
-					.min(1, t("identity.adminPage.update.validation.cpf.required"))
-			: z.string(),
-		name: z
-			.string()
-			.trim()
-			.min(1, t("identity.adminPage.update.validation.name")),
-		email: z
-			.string()
-			.trim()
-			.min(1, t("identity.adminPage.update.validation.email.required"))
-			.email(t("identity.adminPage.update.validation.email.invalid")),
+		cpf: createCpfFieldSchema(
+			requiresIdentityFields,
+			t("identity.adminPage.update.validation.cpf.required"),
+			t("identity.adminPage.update.validation.cpf.invalid"),
+		),
+		name: createRequiredTrimmedStringSchema(
+			t("identity.adminPage.update.validation.name"),
+			255,
+			t("identity.adminPage.update.validation.nameTooLong"),
+		),
+		email: createEmailFieldSchema(
+			true,
+			t("identity.adminPage.update.validation.email.required"),
+			t("identity.adminPage.update.validation.email.invalid"),
+			t("identity.adminPage.update.validation.email.tooLong"),
+		),
 		campus: z
 			.string()
 			.min(1, t("identity.adminPage.update.validation.campus"))

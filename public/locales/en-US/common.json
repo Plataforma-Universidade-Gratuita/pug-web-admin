@@ -102,7 +102,8 @@
 				},
 				"validation": {
 					"name": "Enter a name.",
-					"school": "Select an area."
+					"school": "Select an area.",
+					"nameTooLong": "Name must be 150 characters or fewer."
 				}
 			},
 			"empty": {
@@ -318,7 +319,8 @@
 					"title": "Reset area changes?"
 				},
 				"validation": {
-					"name": "Enter a name."
+					"name": "Enter a name.",
+					"nameTooLong": "Name must be 150 characters or fewer."
 				}
 			},
 			"empty": {
@@ -581,7 +583,8 @@
 				},
 				"validation": {
 					"academicRegistration": {
-						"required": "Enter an academic registration."
+						"required": "Enter an academic registration.",
+						"tooLong": "Academic registration must be 15 characters or fewer."
 					},
 					"campus": {
 						"required": "Select a campus."
@@ -590,23 +593,27 @@
 						"required": "Select a course."
 					},
 					"cpf": {
-						"required": "Enter a CPF."
+						"required": "Enter a CPF.",
+						"invalid": "Enter a valid CPF."
 					},
 					"dueDate": {
-						"required": "Select a due date."
+						"required": "Select a due date.",
+						"range": "Due date must be the same as or after the start date."
 					},
 					"email": {
 						"invalid": "Enter a valid email address.",
-						"required": "Enter an email address."
+						"required": "Enter an email address.",
+						"tooLong": "Email must be 254 characters or fewer."
 					},
 					"name": {
-						"required": "Enter a name."
+						"required": "Enter a name.",
+						"tooLong": "Name must be 255 characters or fewer."
 					},
 					"password": {
 						"required": "Enter a password."
 					},
 					"requiredHours": {
-						"invalid": "Enter a valid number of required hours.",
+						"invalid": "Enter a number greater than zero.",
 						"required": "Enter the required hours."
 					},
 					"startDate": {
@@ -3271,16 +3278,19 @@
 				"validation": {
 					"campus": "Select a campus.",
 					"cpf": {
-						"required": "Enter a CPF."
+						"required": "Enter a CPF.",
+						"invalid": "Enter a valid CPF."
 					},
 					"email": {
 						"invalid": "Enter a valid email address.",
-						"required": "Enter an email address."
+						"required": "Enter an email address.",
+						"tooLong": "Email must be 254 characters or fewer."
 					},
 					"name": "Enter a name.",
 					"password": {
 						"required": "Enter a password."
-					}
+					},
+					"nameTooLong": "Name must be 255 characters or fewer."
 				}
 			}
 		},
@@ -3589,7 +3599,12 @@
 						"invalid": "Enter a valid CNPJ.",
 						"required": "Enter a CNPJ."
 					},
-					"name": "Enter a name."
+					"name": "Enter a name.",
+					"nameTooLong": "Name must be 150 characters or fewer.",
+					"address": {
+						"required": "Enter an address.",
+						"tooLong": "Address must be 254 characters or fewer."
+					}
 				}
 			},
 			"empty": {
@@ -3878,17 +3893,20 @@
 				},
 				"validation": {
 					"cpf": {
-						"required": "Enter a CPF."
+						"required": "Enter a CPF.",
+						"invalid": "Enter a valid CPF."
 					},
 					"email": {
 						"invalid": "Enter a valid email address.",
-						"required": "Enter an email address."
+						"required": "Enter an email address.",
+						"tooLong": "Email must be 254 characters or fewer."
 					},
 					"entity": {
 						"required": "Select an entity."
 					},
 					"name": {
-						"required": "Enter a name."
+						"required": "Enter a name.",
+						"tooLong": "Name must be 255 characters or fewer."
 					},
 					"password": {
 						"required": "Enter a password."
@@ -4219,14 +4237,18 @@
 						"required": "Select an entity."
 					},
 					"maxParticipants": {
-						"invalid": "Enter a valid positive number or leave the field blank."
+						"invalid": "Enter zero or a positive number."
 					},
 					"name": {
-						"required": "Enter the project name."
+						"required": "Enter the project name.",
+						"tooLong": "Name must be 150 characters or fewer."
 					},
 					"offeredHours": {
-						"invalid": "Enter a valid positive number.",
+						"invalid": "Enter zero or a positive number.",
 						"required": "Enter the offered workload."
+					},
+					"description": {
+						"tooLong": "Description must be 4000 characters or fewer."
 					}
 				}
 			},
@@ -4811,7 +4833,7 @@
 				},
 				"validation": {
 					"duration": {
-						"invalid": "Enter a valid positive duration.",
+						"invalid": "Enter a number greater than zero.",
 						"required": "Enter the recorded duration."
 					},
 					"project": {

@@ -11,7 +11,6 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-
 export async function get(id: string, token?: string): Promise<EntityResponse> {
 	return zfetch(
 		`${API_ROUTE_BASES.partner.entities}/${id}`,
@@ -81,5 +80,9 @@ export async function update(
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${API_ROUTE_BASES.partner.entities}/${id}`, { method: "DELETE" }, token);
+	return zvoid(
+		`${API_ROUTE_BASES.partner.entities}/${id}`,
+		{ method: "DELETE" },
+		token,
+	);
 }

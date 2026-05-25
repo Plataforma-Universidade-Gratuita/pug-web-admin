@@ -6,15 +6,14 @@ import {
 	type ReactNode,
 } from "react";
 
+import { MIN_TABLE_SCROLLBAR_THUMB_SIZE } from "@/constants";
 import type { DropdownMenuItemProps } from "@/types/client";
 import type {
 	ScrollOffsetFromThumbOffsetArgs,
 	TableScrollbarMetricsArgs,
 } from "@/types/client";
 import type { TableScrollbarMetrics } from "@/types/client/components/display/table";
-import { MIN_TABLE_SCROLLBAR_THUMB_SIZE } from "@/constants";
 import { compareNormalizedText } from "@/utils/lang";
-
 
 function clamp(value: number, min: number, max: number) {
 	return Math.min(Math.max(value, min), max);

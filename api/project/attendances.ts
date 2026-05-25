@@ -9,7 +9,6 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-
 export async function get(
 	id: string,
 	token?: string,
@@ -61,5 +60,9 @@ export async function validate(
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${API_ROUTE_BASES.project.attendances}/${id}`, { method: "DELETE" }, token);
+	return zvoid(
+		`${API_ROUTE_BASES.project.attendances}/${id}`,
+		{ method: "DELETE" },
+		token,
+	);
 }

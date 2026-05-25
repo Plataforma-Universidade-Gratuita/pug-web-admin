@@ -2,12 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { staffQueryKeys } from "@/constants/query-keys";
-
 import { get as getAccount } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
 import { list as listEntities, listCities } from "@/api/web/partner/entities";
 import { get, list } from "@/api/web/partner/staff";
+import { staffQueryKeys } from "@/constants/query-keys";
 
 export { staffQueryKeys };
 

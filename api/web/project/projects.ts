@@ -15,9 +15,11 @@ import type {
 import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-
 export async function get(id: string): Promise<ProjectResponse> {
-	return webFetch(`${WEB_API_ROUTE_BASES.project.projects}/${id}`, ProjectResponseSchema);
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.projects}/${id}`,
+		ProjectResponseSchema,
+	);
 }
 
 export async function list(
@@ -42,30 +44,42 @@ export async function listByCreatedBy(
 export async function create(
 	body: ProjectCreateRequest,
 ): Promise<ProjectResponse> {
-	return webFetch(`${WEB_API_ROUTE_BASES.project.projects}`, ProjectResponseSchema, {
-		method: "POST",
-		body: JSON.stringify(ProjectCreateRequestSchema.parse(body)),
-	});
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.projects}`,
+		ProjectResponseSchema,
+		{
+			method: "POST",
+			body: JSON.stringify(ProjectCreateRequestSchema.parse(body)),
+		},
+	);
 }
 
 export async function update(
 	id: string,
 	body: ProjectUpdateRequest,
 ): Promise<ProjectResponse> {
-	return webFetch(`${WEB_API_ROUTE_BASES.project.projects}/${id}`, ProjectResponseSchema, {
-		method: "PUT",
-		body: JSON.stringify(ProjectUpdateRequestSchema.parse(body)),
-	});
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.projects}/${id}`,
+		ProjectResponseSchema,
+		{
+			method: "PUT",
+			body: JSON.stringify(ProjectUpdateRequestSchema.parse(body)),
+		},
+	);
 }
 
 async function updateStatus(
 	id: string,
 	status: ProjectStatus,
 ): Promise<ProjectResponse> {
-	return webFetch(`${WEB_API_ROUTE_BASES.project.projects}/${id}`, ProjectResponseSchema, {
-		method: "PATCH",
-		body: JSON.stringify({ status }),
-	});
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.projects}/${id}`,
+		ProjectResponseSchema,
+		{
+			method: "PATCH",
+			body: JSON.stringify({ status }),
+		},
+	);
 }
 
 export async function cancel(id: string): Promise<ProjectResponse> {
@@ -89,5 +103,7 @@ export async function start(id: string): Promise<ProjectResponse> {
 }
 
 export async function remove(id: string): Promise<void> {
-	return webVoid(`${WEB_API_ROUTE_BASES.project.projects}/${id}`, { method: "DELETE" });
+	return webVoid(`${WEB_API_ROUTE_BASES.project.projects}/${id}`, {
+		method: "DELETE",
+	});
 }

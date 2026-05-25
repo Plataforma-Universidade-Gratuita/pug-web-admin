@@ -2,10 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { accountQueryKeys } from "@/constants/query-keys";
-
 import { get, getMe, list } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
+import { accountQueryKeys } from "@/constants/query-keys";
 
 export { accountQueryKeys };
 

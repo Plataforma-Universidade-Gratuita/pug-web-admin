@@ -6,6 +6,10 @@ import { createContext, useContext, useMemo, useRef } from "react";
 import * as RadixPopover from "@radix-ui/react-popover";
 import clsx from "clsx";
 
+import {
+	APP_TOPBAR_COLLISION_PADDING,
+	FLOATING_PANEL_VIEWPORT_PADDING,
+} from "@/constants";
 import type {
 	PopoverContentProps,
 	PopoverProps,
@@ -13,14 +17,9 @@ import type {
 } from "@/types/client";
 import type { PopoverContextValue } from "@/types/client/components/overlays/popover";
 import {
-	APP_TOPBAR_COLLISION_PADDING,
-	FLOATING_PANEL_VIEWPORT_PADDING,
-} from "@/constants";
-import {
 	getFloatingLayerBoundary,
 	usesAppTopbarCollisionPadding,
 } from "@/utils/overlay";
-
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
 

@@ -10,7 +10,6 @@ import type {
 import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-
 export async function get(
 	projectId: string,
 	studentId: string,
@@ -39,7 +38,10 @@ export async function list(
 }
 
 export async function listMine(): Promise<EnrollmentResponse[]> {
-	return webFetch(`${WEB_API_ROUTE_BASES.project.enrollments}/me`, z.array(EnrollmentResponseSchema));
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.enrollments}/me`,
+		z.array(EnrollmentResponseSchema),
+	);
 }
 
 export async function create(
@@ -123,7 +125,10 @@ export async function deleteEnrollment(
 	projectId: string,
 	studentId: string,
 ): Promise<void> {
-	return webVoid(`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`, {
-		method: "DELETE",
-	});
+	return webVoid(
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
+		{
+			method: "DELETE",
+		},
+	);
 }

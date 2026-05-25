@@ -13,9 +13,11 @@ import type {
 } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-
 export async function get(id: string): Promise<AttendanceResponse> {
-	return webFetch(`${WEB_API_ROUTE_BASES.project.attendances}/${id}`, AttendanceResponseSchema);
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.attendances}/${id}`,
+		AttendanceResponseSchema,
+	);
 }
 
 export async function list(
@@ -35,22 +37,32 @@ export async function list(
 export async function create(
 	body: AttendanceCreateRequest,
 ): Promise<AttendanceResponse> {
-	return webFetch(`${WEB_API_ROUTE_BASES.project.attendances}`, AttendanceResponseSchema, {
-		method: "POST",
-		body: JSON.stringify(AttendanceCreateRequestSchema.parse(body)),
-	});
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.attendances}`,
+		AttendanceResponseSchema,
+		{
+			method: "POST",
+			body: JSON.stringify(AttendanceCreateRequestSchema.parse(body)),
+		},
+	);
 }
 
 export async function validate(
 	id: string,
 	body: AttendanceValidateRequest,
 ): Promise<AttendanceResponse> {
-	return webFetch(`${WEB_API_ROUTE_BASES.project.attendances}/${id}/validate`, AttendanceResponseSchema, {
-		method: "PATCH",
-		body: JSON.stringify(AttendanceValidateRequestSchema.parse(body)),
-	});
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.attendances}/${id}/validate`,
+		AttendanceResponseSchema,
+		{
+			method: "PATCH",
+			body: JSON.stringify(AttendanceValidateRequestSchema.parse(body)),
+		},
+	);
 }
 
 export async function remove(id: string): Promise<void> {
-	return webVoid(`${WEB_API_ROUTE_BASES.project.attendances}/${id}`, { method: "DELETE" });
+	return webVoid(`${WEB_API_ROUTE_BASES.project.attendances}/${id}`, {
+		method: "DELETE",
+	});
 }

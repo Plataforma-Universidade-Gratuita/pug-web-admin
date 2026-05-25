@@ -8,7 +8,6 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid } from "@/utils/api";
 
-
 export async function login(body: LoginRequest): Promise<TokenResponse> {
 	return zfetch(
 		`${API_ROUTE_BASES.identity.auth}/login`,
@@ -33,5 +32,9 @@ export async function logout(body: LogoutRequest): Promise<void> {
 }
 
 export async function logoutAll(token?: string): Promise<void> {
-	return zvoid(`${API_ROUTE_BASES.identity.auth}/logout-all`, { method: "POST" }, token);
+	return zvoid(
+		`${API_ROUTE_BASES.identity.auth}/logout-all`,
+		{ method: "POST" },
+		token,
+	);
 }

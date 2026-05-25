@@ -11,7 +11,6 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid } from "@/utils/api";
 
-
 export async function listSchoolsByProject(
 	projectId: string,
 	token?: string,

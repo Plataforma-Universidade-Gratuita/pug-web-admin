@@ -9,9 +9,13 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-
 export async function get(id: string, token?: string): Promise<StaffResponse> {
-	return zfetch(`${API_ROUTE_BASES.partner.staff}/${id}`, { method: "GET" }, StaffResponseSchema, token);
+	return zfetch(
+		`${API_ROUTE_BASES.partner.staff}/${id}`,
+		{ method: "GET" },
+		StaffResponseSchema,
+		token,
+	);
 }
 
 export async function getByEmail(
@@ -27,7 +31,12 @@ export async function getByEmail(
 }
 
 export async function getMe(token?: string): Promise<StaffResponse> {
-	return zfetch(`${API_ROUTE_BASES.partner.staff}/me`, { method: "GET" }, StaffResponseSchema, token);
+	return zfetch(
+		`${API_ROUTE_BASES.partner.staff}/me`,
+		{ method: "GET" },
+		StaffResponseSchema,
+		token,
+	);
 }
 
 export async function list(
@@ -108,5 +117,9 @@ export async function deactivate(id: string, token?: string): Promise<void> {
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${API_ROUTE_BASES.partner.staff}/${id}`, { method: "DELETE" }, token);
+	return zvoid(
+		`${API_ROUTE_BASES.partner.staff}/${id}`,
+		{ method: "DELETE" },
+		token,
+	);
 }

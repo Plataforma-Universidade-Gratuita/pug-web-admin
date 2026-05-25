@@ -2,9 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { studentQueryKeys } from "@/constants/query-keys";
-
 import { get, list } from "@/api/web/academic/students";
+import { studentQueryKeys } from "@/constants/query-keys";
 
 export { studentQueryKeys };
 

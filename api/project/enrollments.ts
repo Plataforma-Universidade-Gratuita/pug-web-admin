@@ -9,7 +9,6 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-
 export async function get(
 	projectId: string,
 	studentId: string,

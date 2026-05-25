@@ -17,7 +17,6 @@ import type {
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
 
-
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);
 	date.setHours(0, 0, 0, 0);

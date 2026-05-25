@@ -2,6 +2,14 @@ import type { TFunction } from "i18next";
 import { z } from "zod";
 
 import { CampiEnum } from "@/schemas/api";
+import {
+	createCpfFieldSchema,
+	createEmailFieldSchema,
+	createRequiredDateStringSchema,
+	createRequiredNumericStringSchema,
+	createRequiredTrimmedStringSchema,
+	isDateRangeInvalid,
+} from "@/schemas/client/shared";
 import type { StudentEditorMode } from "@/types/client/features/academic/student";
 
 export function createStudentEditorFormSchema(
@@ -10,60 +18,62 @@ export function createStudentEditorFormSchema(
 ) {
 	const requiresIdentityFields = mode !== "update";
 
-	return z.object({
-		cpf: requiresIdentityFields
-			? z
-					.string()
-					.trim()
-					.min(1, t("academic.studentPage.editor.validation.cpf.required"))
-			: z.string(),
-		name: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.name.required")),
-		email: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.email.required"))
-			.email(t("academic.studentPage.editor.validation.email.invalid")),
-		academicRegistration: z
-			.string()
-			.trim()
-			.min(
-				1,
+	return z
+		.object({
+			cpf: createCpfFieldSchema(
+				requiresIdentityFields,
+				t("academic.studentPage.editor.validation.cpf.required"),
+				t("academic.studentPage.editor.validation.cpf.invalid"),
+			),
+			name: createRequiredTrimmedStringSchema(
+				t("academic.studentPage.editor.validation.name.required"),
+				255,
+				t("academic.studentPage.editor.validation.name.tooLong"),
+			),
+			email: createEmailFieldSchema(
+				true,
+				t("academic.studentPage.editor.validation.email.required"),
+				t("academic.studentPage.editor.validation.email.invalid"),
+				t("academic.studentPage.editor.validation.email.tooLong"),
+			),
+			academicRegistration: createRequiredTrimmedStringSchema(
 				t(
 					"academic.studentPage.editor.validation.academicRegistration.required",
 				),
-			),
-		campus: z
-			.string()
-			.min(1, t("academic.studentPage.editor.validation.campus.required"))
-			.refine(value => CampiEnum.safeParse(value).success, {
-				message: t("academic.studentPage.editor.validation.campus.required"),
-			}),
-		courseId: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.course.required")),
-		requiredHours: z
-			.string()
-			.trim()
-			.min(
-				1,
-				t("academic.studentPage.editor.validation.requiredHours.required"),
-			)
-			.refine(value => !Number.isNaN(Number(value)) && Number(value) > 0, {
-				message: t(
-					"academic.studentPage.editor.validation.requiredHours.invalid",
+				15,
+				t(
+					"academic.studentPage.editor.validation.academicRegistration.tooLong",
 				),
-			}),
-		startDate: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.startDate.required")),
-		dueDate: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.dueDate.required")),
-	});
+			),
+			campus: z
+				.string()
+				.min(1, t("academic.studentPage.editor.validation.campus.required"))
+				.refine(value => CampiEnum.safeParse(value).success, {
+					message: t("academic.studentPage.editor.validation.campus.required"),
+				}),
+			courseId: z
+				.string()
+				.trim()
+				.min(1, t("academic.studentPage.editor.validation.course.required")),
+			requiredHours: createRequiredNumericStringSchema(
+				t("academic.studentPage.editor.validation.requiredHours.required"),
+				t("academic.studentPage.editor.validation.requiredHours.invalid"),
+				false,
+			),
+			startDate: createRequiredDateStringSchema(
+				t("academic.studentPage.editor.validation.startDate.required"),
+			),
+			dueDate: createRequiredDateStringSchema(
+				t("academic.studentPage.editor.validation.dueDate.required"),
+			),
+		})
+		.superRefine((value, ctx) => {
+			if (isDateRangeInvalid(value.startDate, value.dueDate)) {
+				ctx.addIssue({
+					code: z.ZodIssueCode.custom,
+					message: t("academic.studentPage.editor.validation.dueDate.range"),
+					path: ["dueDate"],
+				});
+			}
+		});
 }

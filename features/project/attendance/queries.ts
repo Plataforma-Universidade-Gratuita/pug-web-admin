@@ -2,9 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { attendanceQueryKeys } from "@/constants/query-keys";
-
 import { get, list } from "@/api/web/project/attendances";
+import { attendanceQueryKeys } from "@/constants/query-keys";
 
 export { attendanceQueryKeys };
 

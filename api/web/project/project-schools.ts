@@ -15,7 +15,6 @@ import type {
 } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-
 export async function listSchoolsByProject(
 	projectId: string,
 ): Promise<SchoolResponse[]> {
@@ -56,15 +55,24 @@ export async function deleteAssociation(
 	projectId: string,
 	schoolId: string,
 ): Promise<void> {
-	return webVoid(`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/schools/${schoolId}`, {
-		method: "DELETE",
-	});
+	return webVoid(
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/schools/${schoolId}`,
+		{
+			method: "DELETE",
+		},
+	);
 }
 
 export async function deleteAllByProject(projectId: string): Promise<void> {
-	return webVoid(`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/schools`, { method: "DELETE" });
+	return webVoid(
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/schools`,
+		{ method: "DELETE" },
+	);
 }
 
 export async function deleteAllBySchool(schoolId: string): Promise<void> {
-	return webVoid(`${WEB_API_ROUTE_BASES.academic.schools}/${schoolId}/projects`, { method: "DELETE" });
+	return webVoid(
+		`${WEB_API_ROUTE_BASES.academic.schools}/${schoolId}/projects`,
+		{ method: "DELETE" },
+	);
 }

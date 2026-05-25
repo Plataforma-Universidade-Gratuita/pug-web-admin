@@ -5,9 +5,13 @@ import { UserResponseSchema } from "@/schemas/api/identity/user";
 import type { UserResponse } from "@/types/api";
 import { zfetch, qs } from "@/utils/api";
 
-
 export async function get(id: string, token?: string): Promise<UserResponse> {
-	return zfetch(`${API_ROUTE_BASES.identity.users}/${id}`, { method: "GET" }, UserResponseSchema, token);
+	return zfetch(
+		`${API_ROUTE_BASES.identity.users}/${id}`,
+		{ method: "GET" },
+		UserResponseSchema,
+		token,
+	);
 }
 
 export async function getByCpf(
@@ -23,7 +27,12 @@ export async function getByCpf(
 }
 
 export async function getMe(token?: string): Promise<UserResponse> {
-	return zfetch(`${API_ROUTE_BASES.identity.users}/me`, { method: "GET" }, UserResponseSchema, token);
+	return zfetch(
+		`${API_ROUTE_BASES.identity.users}/me`,
+		{ method: "GET" },
+		UserResponseSchema,
+		token,
+	);
 }
 
 export async function list(

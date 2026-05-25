@@ -102,7 +102,8 @@
 				},
 				"validation": {
 					"name": "Informe um nome.",
-					"school": "Selecione uma ?rea."
+					"school": "Selecione uma área.",
+					"nameTooLong": "O nome deve ter no máximo 150 caracteres."
 				}
 			},
 			"empty": {
@@ -318,7 +319,8 @@
 					"title": "Resetar altera??es da ?rea?"
 				},
 				"validation": {
-					"name": "Informe um nome."
+					"name": "Informe um nome.",
+					"nameTooLong": "O nome deve ter no máximo 150 caracteres."
 				}
 			},
 			"empty": {
@@ -473,13 +475,13 @@
 			},
 			"deactivate": {
 				"confirm": {
-					"description": "{{name}} perder\u00e1 o acesso at\u00e9 que a conta seja reativada.",
+					"description": "{{name}} perderá o acesso até que a conta seja reativada.",
 					"title": "Desativar este estudante?"
 				},
 				"feedback": {
 					"error": {
-						"description": "N\u00e3o foi poss\u00edvel desativar o estudante agora.",
-						"title": "N\u00e3o foi poss\u00edvel desativar o estudante"
+						"description": "Não foi possível desativar o estudante agora.",
+						"title": "Não foi possível desativar o estudante"
 					},
 					"success": {
 						"description": "{{name}} foi desativado com sucesso.",
@@ -581,7 +583,8 @@
 				},
 				"validation": {
 					"academicRegistration": {
-						"required": "Informe uma matr?cula."
+						"required": "Informe uma matrícula.",
+						"tooLong": "A matrícula deve ter no máximo 15 caracteres."
 					},
 					"campus": {
 						"required": "Selecione um campus."
@@ -590,27 +593,31 @@
 						"required": "Selecione um curso."
 					},
 					"cpf": {
-						"required": "Informe um CPF."
+						"required": "Informe um CPF.",
+						"invalid": "Informe um CPF válido."
 					},
 					"dueDate": {
-						"required": "Selecione uma data limite."
+						"required": "Selecione uma data limite.",
+						"range": "A data limite deve ser igual ou posterior à data de início."
 					},
 					"email": {
-						"invalid": "Informe um endere?o de e-mail v?lido.",
-						"required": "Informe um e-mail."
+						"invalid": "Informe um endereço de e-mail válido.",
+						"required": "Informe um e-mail.",
+						"tooLong": "O e-mail deve ter no máximo 254 caracteres."
 					},
 					"name": {
-						"required": "Informe um nome."
+						"required": "Informe um nome.",
+						"tooLong": "O nome deve ter no máximo 255 caracteres."
 					},
 					"password": {
 						"required": "Informe uma senha."
 					},
 					"requiredHours": {
-						"invalid": "Informe uma quantidade v?lida de horas obrigat?rias.",
-						"required": "Informe as horas obrigat?rias."
+						"invalid": "Informe um número maior que zero.",
+						"required": "Informe as horas obrigatórias."
 					},
 					"startDate": {
-						"required": "Selecione uma data de in?cio."
+						"required": "Selecione uma data de início."
 					}
 				}
 			},
@@ -635,13 +642,13 @@
 			},
 			"reactivate": {
 				"confirm": {
-					"description": "{{name}} voltar\u00e1 a ter acesso imediatamente.",
+					"description": "{{name}} voltará a ter acesso imediatamente.",
 					"title": "Reativar este estudante?"
 				},
 				"feedback": {
 					"error": {
-						"description": "N\u00e3o foi poss\u00edvel reativar o estudante agora.",
-						"title": "N\u00e3o foi poss\u00edvel reativar o estudante"
+						"description": "Não foi possível reativar o estudante agora.",
+						"title": "Não foi possível reativar o estudante"
 					},
 					"success": {
 						"description": "{{name}} foi reativado com sucesso.",
@@ -3271,16 +3278,19 @@
 				"validation": {
 					"campus": "Selecione um campus.",
 					"cpf": {
-						"required": "Informe um CPF."
+						"required": "Informe um CPF.",
+						"invalid": "Informe um CPF válido."
 					},
 					"email": {
-						"invalid": "Informe um endere?o de e-mail v?lido.",
-						"required": "Informe um endere?o de e-mail."
+						"invalid": "Informe um endereço de e-mail válido.",
+						"required": "Informe um endereço de e-mail.",
+						"tooLong": "O e-mail deve ter no máximo 254 caracteres."
 					},
 					"name": "Informe um nome.",
 					"password": {
 						"required": "Informe uma senha."
-					}
+					},
+					"nameTooLong": "O nome deve ter no máximo 255 caracteres."
 				}
 			}
 		},
@@ -3586,10 +3596,15 @@
 				"validation": {
 					"city": "Selecione uma cidade.",
 					"cnpj": {
-						"invalid": "Informe um CNPJ vÃƒÂ¡lido.",
+						"invalid": "Informe um CNPJ válido.",
 						"required": "Informe um CNPJ."
 					},
-					"name": "Informe um nome."
+					"name": "Informe um nome.",
+					"nameTooLong": "O nome deve ter no máximo 150 caracteres.",
+					"address": {
+						"required": "Informe um endereço.",
+						"tooLong": "O endereço deve ter no máximo 254 caracteres."
+					}
 				}
 			},
 			"empty": {
@@ -3878,17 +3893,20 @@
 				},
 				"validation": {
 					"cpf": {
-						"required": "Informe um CPF."
+						"required": "Informe um CPF.",
+						"invalid": "Informe um CPF válido."
 					},
 					"email": {
-						"invalid": "Informe um email vÃƒÂ¡lido.",
-						"required": "Informe um email."
+						"invalid": "Informe um e-mail válido.",
+						"required": "Informe um e-mail.",
+						"tooLong": "O e-mail deve ter no máximo 254 caracteres."
 					},
 					"entity": {
 						"required": "Selecione uma entidade."
 					},
 					"name": {
-						"required": "Informe um nome."
+						"required": "Informe um nome.",
+						"tooLong": "O nome deve ter no máximo 255 caracteres."
 					},
 					"password": {
 						"required": "Informe uma senha."
@@ -4219,14 +4237,18 @@
 						"required": "Selecione uma entidade."
 					},
 					"maxParticipants": {
-						"invalid": "Informe um numero positivo valido ou deixe o campo em branco."
+						"invalid": "Informe zero ou um número positivo."
 					},
 					"name": {
-						"required": "Informe o nome do projeto."
+						"required": "Informe o nome do projeto.",
+						"tooLong": "O nome deve ter no máximo 150 caracteres."
 					},
 					"offeredHours": {
-						"invalid": "Informe um numero positivo valido.",
-						"required": "Informe a carga horaria ofertada."
+						"invalid": "Informe zero ou um número positivo.",
+						"required": "Informe a carga horária ofertada."
+					},
+					"description": {
+						"tooLong": "A descrição deve ter no máximo 4000 caracteres."
 					}
 				}
 			},
@@ -4811,8 +4833,8 @@
 				},
 				"validation": {
 					"duration": {
-						"invalid": "Informe uma duracao positiva valida.",
-						"required": "Informe a duracao registrada."
+						"invalid": "Informe um número maior que zero.",
+						"required": "Informe a duração registrada."
 					},
 					"project": {
 						"required": "Selecione um projeto."
