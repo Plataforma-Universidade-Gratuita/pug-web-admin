@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { z } from "zod";
 
 import { Badge } from "@/components";
 import type {
@@ -19,6 +18,8 @@ import type {
 } from "@/types/client/project";
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
+
+export { createAttendanceFormSchema } from "@/schemas/client/features/project/attendance";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);
@@ -72,9 +73,7 @@ export function getAttendanceStatusLabel(
 	return t(`project.attendancePage.status.options.${status}`);
 }
 
-export function getAttendanceStatusTone(
-	status: AttendanceStatus,
-): BadgeTone {
+export function getAttendanceStatusTone(status: AttendanceStatus): BadgeTone {
 	switch (status) {
 		case "PRESENT":
 			return "success";
@@ -119,12 +118,14 @@ export function createAttendanceColumns(
 ): ColumnDef<AttendanceResponse>[] {
 	return [
 		{
-			accessorFn: row => resolveAttendanceStudentLabel(studentById, row.studentId),
+			accessorFn: row =>
+				resolveAttendanceStudentLabel(studentById, row.studentId),
 			id: "student",
 			header: t("project.attendancePage.table.columns.student"),
 		},
 		{
-			accessorFn: row => resolveAttendanceProjectLabel(projectById, row.projectId),
+			accessorFn: row =>
+				resolveAttendanceProjectLabel(projectById, row.projectId),
 			id: "project",
 			header: t("project.attendancePage.table.columns.project"),
 		},
@@ -147,12 +148,15 @@ export function createAttendanceColumns(
 			),
 		},
 		{
-			accessorFn: row => resolveAttendanceValidatorLabel(adminById, row.validatedById) ?? "",
+			accessorFn: row =>
+				resolveAttendanceValidatorLabel(adminById, row.validatedById) ?? "",
 			id: "validatedBy",
 			header: t("project.attendancePage.table.columns.validatedBy"),
 			cell: ({ row }) =>
-				resolveAttendanceValidatorLabel(adminById, row.original.validatedById) ??
-				t("project.attendancePage.table.values.notValidated"),
+				resolveAttendanceValidatorLabel(
+					adminById,
+					row.original.validatedById,
+				) ?? t("project.attendancePage.table.values.notValidated"),
 		},
 		{
 			accessorFn: row => row.validatedAt ?? "",
@@ -216,11 +220,16 @@ export function filterAttendances(
 			const normalizedProject = normalizeTextForSearch(
 				resolveAttendanceProjectLabel(projectById, attendance.projectId),
 			);
-			const normalizedStatus = normalizeTextForSearch(attendance.statusFormatted);
-			const normalizedValidator = normalizeTextForSearch(
-				resolveAttendanceValidatorLabel(adminById, attendance.validatedById) ?? "",
+			const normalizedStatus = normalizeTextForSearch(
+				attendance.statusFormatted,
 			);
-			const normalizedHash = normalizeTextForSearch(attendance.qrValidationHash);
+			const normalizedValidator = normalizeTextForSearch(
+				resolveAttendanceValidatorLabel(adminById, attendance.validatedById) ??
+					"",
+			);
+			const normalizedHash = normalizeTextForSearch(
+				attendance.qrValidationHash,
+			);
 
 			if (
 				!normalizedStudent.includes(normalizedQuery) &&
@@ -371,28 +380,6 @@ export function getAttendanceValidateErrorToastContent(
 	});
 }
 
-export function createAttendanceFormSchema(t: TFunction) {
-	return z.object({
-		duration: z
-			.string()
-			.trim()
-			.min(1, t("project.attendancePage.editor.validation.duration.required"))
-			.refine(value => parseDuration(value) !== null, {
-				message: t(
-					"project.attendancePage.editor.validation.duration.invalid",
-				),
-			}),
-		projectId: z
-			.string()
-			.trim()
-			.min(1, t("project.attendancePage.editor.validation.project.required")),
-		studentId: z
-			.string()
-			.trim()
-			.min(1, t("project.attendancePage.editor.validation.student.required")),
-	});
-}
-
 export function getEmptyAttendanceCreateFormValues(): AttendanceCreateFormValues {
 	return {
 		duration: "",
@@ -444,7 +431,9 @@ export function getAttendanceFilterSummary(
 	}
 
 	if (dateField) {
-		parts.push(t(`project.attendancePage.filters.dateField.options.${dateField}`));
+		parts.push(
+			t(`project.attendancePage.filters.dateField.options.${dateField}`),
+		);
 	}
 
 	if (startDate || endDate) {

@@ -36,8 +36,7 @@ import {
 	useCurrentUserQuery,
 } from "@/features/identity/user/queries";
 import type { SidebarProps } from "@/types/client";
-
-type LogoutScope = "all" | "current";
+import type { LogoutScope } from "@/types/client/features/app-shell/account-menu";
 
 export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 	const queryClient = useQueryClient();

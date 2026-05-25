@@ -10,22 +10,20 @@ import type {
 import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = WEB_API_ROUTE_BASES.project.enrollments;
-const PROJECTS_BASE = WEB_API_ROUTE_BASES.project.projects;
 
 export async function get(
 	projectId: string,
 	studentId: string,
 ): Promise<EnrollmentResponse> {
 	return webFetch(
-		`${PROJECTS_BASE}/${projectId}/enrollments/${studentId}`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
 		EnrollmentResponseSchema,
 	);
 }
 
 export async function getMine(projectId: string): Promise<EnrollmentResponse> {
 	return webFetch(
-		`${PROJECTS_BASE}/${projectId}/enrollments/me`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/me`,
 		EnrollmentResponseSchema,
 	);
 }
@@ -35,20 +33,20 @@ export async function list(
 	studentId?: string,
 ): Promise<EnrollmentResponse[]> {
 	return webFetch(
-		`${BASE}${qs({ projectId, studentId })}`,
+		`${WEB_API_ROUTE_BASES.project.enrollments}${qs({ projectId, studentId })}`,
 		z.array(EnrollmentResponseSchema),
 	);
 }
 
 export async function listMine(): Promise<EnrollmentResponse[]> {
-	return webFetch(`${BASE}/me`, z.array(EnrollmentResponseSchema));
+	return webFetch(`${WEB_API_ROUTE_BASES.project.enrollments}/me`, z.array(EnrollmentResponseSchema));
 }
 
 export async function create(
 	body: EnrollmentCreateRequest,
 ): Promise<EnrollmentResponse> {
 	return webFetch(
-		`${PROJECTS_BASE}/${body.projectId}/enrollments`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${body.projectId}/enrollments`,
 		EnrollmentResponseSchema,
 		{
 			method: "POST",
@@ -62,7 +60,7 @@ async function updateStatus(
 	status: EnrollmentStatus,
 ): Promise<EnrollmentResponse> {
 	return webFetch(
-		`${PROJECTS_BASE}/${projectId}/enrollments/${studentId}`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
 		EnrollmentResponseSchema,
 		{ method: "PATCH", body: JSON.stringify({ status }) },
 	);
@@ -73,7 +71,7 @@ async function updateMyStatus(
 	status: EnrollmentStatus,
 ): Promise<EnrollmentResponse> {
 	return webFetch(
-		`${PROJECTS_BASE}/${projectId}/enrollments/me`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/me`,
 		EnrollmentResponseSchema,
 		{
 			method: "PATCH",
@@ -125,7 +123,7 @@ export async function deleteEnrollment(
 	projectId: string,
 	studentId: string,
 ): Promise<void> {
-	return webVoid(`${PROJECTS_BASE}/${projectId}/enrollments/${studentId}`, {
+	return webVoid(`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`, {
 		method: "DELETE",
 	});
 }

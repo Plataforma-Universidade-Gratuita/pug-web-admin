@@ -11,15 +11,13 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid } from "@/utils/api";
 
-const PROJECTS_BASE = API_ROUTE_BASES.project.projects;
-const SCHOOLS_BASE = API_ROUTE_BASES.academic.schools;
 
 export async function listSchoolsByProject(
 	projectId: string,
 	token?: string,
 ): Promise<SchoolResponse[]> {
 	return zfetch(
-		`${PROJECTS_BASE}/${projectId}/schools`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/schools`,
 		{ method: "GET" },
 		z.array(SchoolResponseSchema),
 		token,
@@ -31,7 +29,7 @@ export async function listProjectsBySchool(
 	token?: string,
 ): Promise<ProjectResponse[]> {
 	return zfetch(
-		`${SCHOOLS_BASE}/${schoolId}/projects`,
+		`${API_ROUTE_BASES.academic.schools}/${schoolId}/projects`,
 		{ method: "GET" },
 		z.array(ProjectResponseSchema),
 		token,
@@ -46,7 +44,7 @@ export async function createAssociations(
 		schoolIds: body.schoolIds,
 	};
 	return zfetch(
-		`${PROJECTS_BASE}/${body.projectId}/schools`,
+		`${API_ROUTE_BASES.project.projects}/${body.projectId}/schools`,
 		{ method: "POST", body: JSON.stringify(payload) },
 		z.array(SchoolResponseSchema),
 		token,
@@ -59,7 +57,7 @@ export async function deleteAssociation(
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${PROJECTS_BASE}/${projectId}/schools/${schoolId}`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/schools/${schoolId}`,
 		{ method: "DELETE" },
 		token,
 	);
@@ -70,7 +68,7 @@ export async function deleteAllByProject(
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${PROJECTS_BASE}/${projectId}/schools`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/schools`,
 		{ method: "DELETE" },
 		token,
 	);
@@ -81,7 +79,7 @@ export async function deleteAllBySchool(
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${SCHOOLS_BASE}/${schoolId}/projects`,
+		`${API_ROUTE_BASES.academic.schools}/${schoolId}/projects`,
 		{ method: "DELETE" },
 		token,
 	);

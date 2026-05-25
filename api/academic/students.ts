@@ -9,14 +9,13 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.academic.students;
 
 export async function get(
 	id: string,
 	token?: string,
 ): Promise<StudentResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.academic.students}/${id}`,
 		{ method: "GET" },
 		StudentResponseSchema,
 		token,
@@ -28,7 +27,7 @@ export async function getByCpf(
 	token?: string,
 ): Promise<StudentResponse> {
 	return zfetch(
-		`${BASE}${qs({ cpf })}`,
+		`${API_ROUTE_BASES.academic.students}${qs({ cpf })}`,
 		{ method: "GET" },
 		StudentResponseSchema,
 		token,
@@ -40,7 +39,7 @@ export async function getByEmail(
 	token?: string,
 ): Promise<StudentResponse> {
 	return zfetch(
-		`${BASE}${qs({ email })}`,
+		`${API_ROUTE_BASES.academic.students}${qs({ email })}`,
 		{ method: "GET" },
 		StudentResponseSchema,
 		token,
@@ -52,7 +51,7 @@ export async function getByRegistration(
 	token?: string,
 ): Promise<StudentResponse> {
 	return zfetch(
-		`${BASE}${qs({ registration })}`,
+		`${API_ROUTE_BASES.academic.students}${qs({ registration })}`,
 		{ method: "GET" },
 		StudentResponseSchema,
 		token,
@@ -60,7 +59,7 @@ export async function getByRegistration(
 }
 
 export async function getMe(token?: string): Promise<StudentResponse> {
-	return zfetch(`${BASE}/me`, { method: "GET" }, StudentResponseSchema, token);
+	return zfetch(`${API_ROUTE_BASES.academic.students}/me`, { method: "GET" }, StudentResponseSchema, token);
 }
 
 export async function list(
@@ -69,7 +68,7 @@ export async function list(
 	courseId?: string,
 ): Promise<StudentResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ q, courseId })}`,
+		`${API_ROUTE_BASES.academic.students}${qs({ q, courseId })}`,
 		{ method: "GET" },
 		z.array(StudentResponseSchema),
 		token,
@@ -81,7 +80,7 @@ export async function create(
 	token?: string,
 ): Promise<StudentResponse> {
 	return zfetch(
-		`${BASE}`,
+		`${API_ROUTE_BASES.academic.students}`,
 		{ method: "POST", body: JSON.stringify(body) },
 		StudentResponseSchema,
 		token,
@@ -93,7 +92,7 @@ export async function createBulk(
 	token?: string,
 ): Promise<StudentResponse[]> {
 	return zfetch(
-		`${BASE}/bulk`,
+		`${API_ROUTE_BASES.academic.students}/bulk`,
 		{ method: "POST", body: JSON.stringify(body) },
 		z.array(StudentResponseSchema),
 		token,
@@ -106,7 +105,7 @@ export async function update(
 	token?: string,
 ): Promise<StudentResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.academic.students}/${id}`,
 		{ method: "PUT", body: JSON.stringify(body) },
 		StudentResponseSchema,
 		token,
@@ -119,7 +118,7 @@ export async function setActive(
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.academic.students}/${id}`,
 		{ method: "PATCH", body: JSON.stringify({ active }) },
 		token,
 	);
@@ -134,5 +133,5 @@ export async function reactivate(id: string, token?: string): Promise<void> {
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${BASE}/${id}`, { method: "DELETE" }, token);
+	return zvoid(`${API_ROUTE_BASES.academic.students}/${id}`, { method: "DELETE" }, token);
 }

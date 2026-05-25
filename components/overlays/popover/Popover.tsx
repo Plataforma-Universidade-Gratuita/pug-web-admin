@@ -11,17 +11,16 @@ import type {
 	PopoverProps,
 	PopoverTriggerProps,
 } from "@/types/client";
+import type { PopoverContextValue } from "@/types/client/components/overlays/popover";
+import {
+	APP_TOPBAR_COLLISION_PADDING,
+	FLOATING_PANEL_VIEWPORT_PADDING,
+} from "@/constants";
 import {
 	getFloatingLayerBoundary,
 	usesAppTopbarCollisionPadding,
 } from "@/utils/overlay";
 
-const FLOATING_PANEL_VIEWPORT_PADDING = 16;
-const APP_TOPBAR_COLLISION_PADDING = 76;
-
-type PopoverContextValue = {
-	triggerRef: React.RefObject<HTMLSpanElement | null>;
-};
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
 

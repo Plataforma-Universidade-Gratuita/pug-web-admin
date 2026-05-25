@@ -3,14 +3,7 @@
 import { useMemo } from "react";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import {
-	CircleAlert,
-	Eye,
-	FolderKanban,
-	Pencil,
-	Save,
-	Trash2,
-} from "lucide-react";
+import { CircleAlert, Eye, FolderKanban, Pencil, Save, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -24,21 +17,11 @@ import {
 	Icon,
 	Table,
 } from "@/components";
+import { TABLE_PARTICLE_STATUS_TONES } from "@/constants";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
+import type { TableExampleRow } from "@/types/client/features/docs/primitives/display";
 
-interface TableExampleRow {
-	name: string;
-	campus: string;
-	status: "active" | "planning" | "hold";
-	updatedAt: string;
-}
-
-const STATUS_TONES = {
-	active: "success",
-	hold: "warning",
-	planning: "info",
-} as const;
 
 export default function TableParticle() {
 	const { t } = useTranslation();
@@ -60,7 +43,7 @@ export default function TableParticle() {
 					const value = row.original.status;
 
 					return (
-						<Badge tone={STATUS_TONES[value]}>
+						<Badge tone={TABLE_PARTICLE_STATUS_TONES[value]}>
 							{t(`docs.table.status.${value}`)}
 						</Badge>
 					);

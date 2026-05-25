@@ -13,10 +13,9 @@ import type {
 } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = WEB_API_ROUTE_BASES.academic.courses;
 
 export async function get(id: string): Promise<CourseResponse> {
-	return webFetch(`${BASE}/${id}`, CourseResponseSchema);
+	return webFetch(`${WEB_API_ROUTE_BASES.academic.courses}/${id}`, CourseResponseSchema);
 }
 
 export async function list(
@@ -28,7 +27,7 @@ export async function list(
 	if (schoolId) params.set("schoolId", schoolId);
 	const search = params.toString();
 	return webFetch(
-		`${BASE}${search ? `?${search}` : ""}`,
+		`${WEB_API_ROUTE_BASES.academic.courses}${search ? `?${search}` : ""}`,
 		z.array(CourseResponseSchema),
 	);
 }
@@ -36,7 +35,7 @@ export async function list(
 export async function create(
 	body: CourseCreateRequest,
 ): Promise<CourseResponse> {
-	return webFetch(`${BASE}`, CourseResponseSchema, {
+	return webFetch(`${WEB_API_ROUTE_BASES.academic.courses}`, CourseResponseSchema, {
 		method: "POST",
 		body: JSON.stringify(CourseCreateRequestSchema.parse(body)),
 	});
@@ -46,12 +45,12 @@ export async function update(
 	id: string,
 	body: CourseUpdateRequest,
 ): Promise<CourseResponse> {
-	return webFetch(`${BASE}/${id}`, CourseResponseSchema, {
+	return webFetch(`${WEB_API_ROUTE_BASES.academic.courses}/${id}`, CourseResponseSchema, {
 		method: "PUT",
 		body: JSON.stringify(CourseUpdateRequestSchema.parse(body)),
 	});
 }
 
 export async function remove(id: string): Promise<void> {
-	return webVoid(`${BASE}/${id}`, { method: "DELETE" });
+	return webVoid(`${WEB_API_ROUTE_BASES.academic.courses}/${id}`, { method: "DELETE" });
 }

@@ -12,11 +12,7 @@ import type {
 	ToggleGroupProps,
 	ToggleGroupVariant,
 } from "@/types/client";
-
-interface ToggleGroupStyleContextValue {
-	colorVariant: ToggleGroupColorVariant;
-	variant: ToggleGroupVariant;
-}
+import type { ToggleGroupStyleContextValue } from "@/types/client/components/actions/toggle-group";
 
 const ToggleGroupStyleContext = createContext<ToggleGroupStyleContextValue>({
 	colorVariant: "default",

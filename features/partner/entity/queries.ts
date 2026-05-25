@@ -2,15 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { entityQueryKeys } from "@/constants/query-keys";
+
 import { get, list, listCities } from "@/api/web/partner/entities";
 
-export const entityQueryKeys = {
-	all: ["partner", "entity"] as const,
-	list: () => [...entityQueryKeys.all, "list"] as const,
-	cities: () => [...entityQueryKeys.all, "cities"] as const,
-	detail: (id: string) => [...entityQueryKeys.all, "detail", id] as const,
-	idleDetail: () => [...entityQueryKeys.all, "detail", "idle"] as const,
-};
+export { entityQueryKeys };
 
 export function useEntitiesQuery() {
 	return useQuery({

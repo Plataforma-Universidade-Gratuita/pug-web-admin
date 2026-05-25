@@ -2,14 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { cityQueryKeys } from "@/constants/query-keys";
+
 import { get as getCity, list as listCities } from "@/api/web/geo/cities";
 
-export const cityQueryKeys = {
-	all: ["geo", "cities"] as const,
-	list: () => [...cityQueryKeys.all, "list"] as const,
-	detail: (id: string) => [...cityQueryKeys.all, "detail", id] as const,
-	idleDetail: () => [...cityQueryKeys.all, "detail", "idle"] as const,
-};
+export { cityQueryKeys };
 
 export function useCitiesQuery() {
 	return useQuery({

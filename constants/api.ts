@@ -6,6 +6,7 @@ export const JSON_HEADERS: Record<string, string> = {
 };
 
 export const API_VERSION_PREFIX = "/v1";
+
 export const WEB_API_VERSION_PREFIX = "/api/v1";
 
 export const API_ROUTE_BASES = {

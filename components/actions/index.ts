@@ -1,3 +1,4 @@
-export * from "./button/Button";
-export * from "./toggle/Toggle";
-export * from "./toggle-group/ToggleGroup";
+/* --- Root --- */
+export * from "./button";
+export * from "./toggle";
+export * from "./toggle-group";

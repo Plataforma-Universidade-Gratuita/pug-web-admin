@@ -8,6 +8,7 @@ import type {
 export const UNKNOWN_ROUTE_LABEL = "Navbar.paths.unknown";
 
 export const SIDEBAR_ROW_BASE_PADDING_REM = 0.725;
+
 export const SIDEBAR_ROW_NEST_STEP_REM = 0.75;
 
 export const THEME_OPTIONS: readonly AppShellThemeOption[] = [

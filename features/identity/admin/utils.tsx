@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { z } from "zod";
 
 import { Badge } from "@/components";
 import { ADMIN_CAMPI_VALUES } from "@/constants/identity";
@@ -19,52 +18,10 @@ import type {
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { normalizeTextForSearch } from "@/utils/lang";
 
+export { createAdminEditorFormSchema } from "@/schemas/client/features/identity/admin";
+
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");
-}
-
-export function createAdminEditorFormSchema(
-	t: TFunction,
-	mode: AdminEditorMode,
-) {
-	const requiresIdentityFields = mode !== "update";
-
-	return z.object({
-		cpf: requiresIdentityFields
-			? z
-					.string()
-					.trim()
-					.min(1, t("identity.adminPage.update.validation.cpf.required"))
-			: z.string(),
-		name: z
-			.string()
-			.trim()
-			.min(1, t("identity.adminPage.update.validation.name")),
-		email: z
-			.string()
-			.trim()
-			.min(1, t("identity.adminPage.update.validation.email.required"))
-			.email(t("identity.adminPage.update.validation.email.invalid")),
-		campus: z
-			.string()
-			.min(1, t("identity.adminPage.update.validation.campus"))
-			.refine(
-				(value): value is Campi =>
-					ADMIN_CAMPI_VALUES.includes(
-						value as (typeof ADMIN_CAMPI_VALUES)[number],
-					),
-				{
-					message: t("identity.adminPage.update.validation.campus"),
-				},
-			),
-		password: requiresIdentityFields
-			? z
-					.string()
-					.trim()
-					.min(1, t("identity.adminPage.update.validation.password.required"))
-			: z.string(),
-		active: z.boolean(),
-	});
 }
 
 export function createAdminColumns(t: TFunction): ColumnDef<AdminResponse>[] {

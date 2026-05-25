@@ -12,11 +12,11 @@ import {
 	SelectTrigger,
 	SomeErrorState,
 } from "@/components";
+import { getEnrollmentStatusOptions } from "@/features/project/enrollment/utils";
 import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import { getEnrollmentStatusOptions } from "@/features/project/enrollment/utils";
 import type {
 	EnrollmentAuditDateField,
 	EnrollmentFiltersDrawerProps,
@@ -146,9 +146,7 @@ export function EnrollmentFiltersDrawer({
 				>
 					<SelectTrigger
 						className="w-full"
-						placeholder={t(
-							"project.enrollmentPage.filters.status.placeholder",
-						)}
+						placeholder={t("project.enrollmentPage.filters.status.placeholder")}
 					/>
 					<SelectContent>
 						{statusOptions.map(option => (

@@ -24,7 +24,7 @@ export const EntityCreateRequestSchema = z.object({
 });
 
 export const EntityUpdateRequestSchema = z.object({
-    cnpj: z.string().nullable().optional(),
+	cnpj: z.string().nullable().optional(),
 	name: z.string().nullable().optional(),
 	cityId: z.string().nullable().optional(),
 	address: z.string().nullable().optional(),

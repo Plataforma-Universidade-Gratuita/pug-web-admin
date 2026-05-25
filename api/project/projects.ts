@@ -10,14 +10,13 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.project.projects;
 
 export async function get(
 	id: string,
 	token?: string,
 ): Promise<ProjectResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.project.projects}/${id}`,
 		{ method: "GET" },
 		ProjectResponseSchema,
 		token,
@@ -30,7 +29,7 @@ export async function list(
 	entityId?: string,
 ): Promise<ProjectResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ q, entityId })}`,
+		`${API_ROUTE_BASES.project.projects}${qs({ q, entityId })}`,
 		{ method: "GET" },
 		z.array(ProjectResponseSchema),
 		token,
@@ -42,7 +41,7 @@ export async function listByCreatedBy(
 	token?: string,
 ): Promise<ProjectResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ createdBy: accountId })}`,
+		`${API_ROUTE_BASES.project.projects}${qs({ createdBy: accountId })}`,
 		{ method: "GET" },
 		z.array(ProjectResponseSchema),
 		token,
@@ -54,7 +53,7 @@ export async function create(
 	token?: string,
 ): Promise<ProjectResponse> {
 	return zfetch(
-		`${BASE}`,
+		`${API_ROUTE_BASES.project.projects}`,
 		{ method: "POST", body: JSON.stringify(body) },
 		ProjectResponseSchema,
 		token,
@@ -67,7 +66,7 @@ export async function update(
 	token?: string,
 ): Promise<ProjectResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.project.projects}/${id}`,
 		{ method: "PUT", body: JSON.stringify(body) },
 		ProjectResponseSchema,
 		token,
@@ -80,7 +79,7 @@ async function updateStatus(
 	token?: string,
 ): Promise<ProjectResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.project.projects}/${id}`,
 		{ method: "PATCH", body: JSON.stringify({ status }) },
 		ProjectResponseSchema,
 		token,
@@ -123,5 +122,5 @@ export async function start(
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${BASE}/${id}`, { method: "DELETE" }, token);
+	return zvoid(`${API_ROUTE_BASES.project.projects}/${id}`, { method: "DELETE" }, token);
 }

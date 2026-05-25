@@ -1,6 +1,9 @@
 import { z } from "zod";
 
-import {AuditInfoResponseSchema, EnrollmentIdentifierResponseSchema} from "@/schemas/api";
+import {
+	AuditInfoResponseSchema,
+	EnrollmentIdentifierResponseSchema,
+} from "@/schemas/api";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────
 
@@ -9,20 +12,20 @@ export const AttendanceStatusEnum = z.enum(["ABSENT", "PRESENT", "WAITING"]);
 // ─── Responses ───────────────────────────────────────────────────────────────
 
 export const AttendanceStatusResponseSchema = z.object({
-    status: AttendanceStatusEnum,
-    statusFormatted: z.string(),
+	status: AttendanceStatusEnum,
+	statusFormatted: z.string(),
 });
 
 export const QrValidationInfoResponseSchema = z.object({
-    duration: z.number(),
-    qrValidationHash: z.string(),
+	duration: z.number(),
+	qrValidationHash: z.string(),
 });
 
 export const AttendanceInfoResponseSchema = z.object({
-    validatedBy: z.string().nullable(),
-    validatedAt: z.string().nullable(),
-    validatedAtFormatted: z.string(),
-    auditInfo: AuditInfoResponseSchema,
+	validatedBy: z.string().nullable(),
+	validatedAt: z.string().nullable(),
+	validatedAtFormatted: z.string(),
+	auditInfo: AuditInfoResponseSchema,
 });
 
 export const AttendanceResponseSchema = z.object({

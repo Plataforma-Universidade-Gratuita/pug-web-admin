@@ -1,155 +1,64 @@
+import type { UseFormReturn } from "react-hook-form";
+
 import type {
 	AccountResponse,
 	CityResponse,
 	EntityResponse,
+	StaffCreateRequest,
 	StaffResponse,
+	StaffUpdateRequest,
 	UserResponse,
 } from "@/types/api";
 import type { ComboboxOption } from "@/types/client/components/forms";
 
-export type EntityAuditDateField = "" | "createdAt" | "updatedAt";
-export type EntityEditorMode = "create" | "duplicate" | "update";
-export type EntitySecondaryFilters = {
-	cityIdFilter: string;
-	dateField: EntityAuditDateField;
-	startDate: string;
-	endDate: string;
-};
-
-export type EntityEditorFormValues = {
-	cnpj: string;
-	name: string;
-	cityId: string;
-	address: string;
-};
-
-export type EntityCreateMutationVariables = {
-	body: import("@/types/api").EntityCreateRequest;
-};
-
-export type EntityUpdateMutationVariables = {
-	id: string;
-	body: import("@/types/api").EntityUpdateRequest;
-};
-
-export type EntityEditorDrawerProps = {
-	entityId: string | null;
-	mode: EntityEditorMode;
-	open: boolean;
-	onOpenChange: (open: boolean) => void;
-};
-
-export interface EntityEditorFormProps {
-	canRenderForm: boolean;
-	citiesError: unknown;
-	cityOptions: ComboboxOption[];
-	entity: EntityResponse | undefined;
-	entityError: unknown;
-	form: import("react-hook-form").UseFormReturn<EntityEditorFormValues>;
-	mode: EntityEditorMode;
-	onRefreshCities: () => void;
-	onRefreshEntity: () => void;
-}
-
-export type EntityFiltersDrawerProps = {
-	citiesError: boolean;
-	cityIdFilter: string;
-	cityOptions: ComboboxOption[];
-	dateField: EntityAuditDateField;
-	endDate: string;
-	hasActiveFilters: boolean;
-	isCitiesLoading: boolean;
-	onApply: () => void;
-	onCityIdChange: (value: string) => void;
-	onClear: () => void;
-	onDateFieldChange: (value: EntityAuditDateField) => void;
-	onEndDateChange: (value: string) => void;
-	onOpenChange: (open: boolean) => void;
-	onRefreshCities: () => void;
-	onStartDateChange: (value: string) => void;
-	open: boolean;
-	startDate: string;
-};
-
-export type EntityDetailDialogProps = {
-	cityById: Map<string, CityResponse>;
-	entity: EntityResponse | undefined;
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
-};
-
-export interface EntityRowActionsProps {
-	entity: EntityResponse;
-	onDelete: (entity: EntityResponse) => void;
-	onOpenEditor: (id: string, mode: EntityEditorMode) => void;
-	onView: (id: string) => void;
-}
-
-export interface EntityFilterArgs {
-	query: string;
-	cityIdFilter: string;
-	dateField: EntityAuditDateField;
-	startDate: string;
-	endDate: string;
-	cityById: Map<string, CityResponse>;
-}
-
-export interface RemoveEntityMutationVariables {
-	id: string;
-}
-
 export type StaffActiveFilter = "" | "true" | "false";
 export type StaffEditorMode = "create" | "duplicate" | "update";
-export type StaffSecondaryFilters = {
+
+export interface StaffSecondaryFilters {
 	entityIdFilter: string;
 	cityIdFilter: string;
 	activeFilter: StaffActiveFilter;
-};
+}
 
-export type StaffEditorFormValues = {
+export interface StaffEditorFormValues {
 	cpf: string;
 	name: string;
 	email: string;
-	password: string;
 	entityId: string;
-};
+}
 
-export type StaffCreateMutationVariables = {
-	body: import("@/types/api").StaffCreateRequest;
-};
+export interface StaffCreateMutationVariables {
+	body: StaffCreateRequest;
+}
 
-export type StaffUpdateMutationVariables = {
+export interface StaffUpdateMutationVariables {
 	id: string;
-	body: import("@/types/api").StaffUpdateRequest;
-};
+	body: StaffUpdateRequest;
+}
 
-export type StaffSetActiveMutationVariables = {
+export interface StaffSetActiveMutationVariables {
 	id: string;
 	active: boolean;
-};
+}
 
-export type StaffRemoveMutationVariables = {
+export interface StaffRemoveMutationVariables {
 	accountId: string;
 	userId: string;
-};
+}
 
-export type StaffEditorDrawerProps = {
+export interface StaffEditorDrawerProps {
 	staffId: string | null;
 	mode: StaffEditorMode;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
-};
+}
 
 export interface StaffEditorFormProps {
 	canRenderForm: boolean;
 	entityById: Map<string, EntityResponse>;
 	entityOptions: ComboboxOption[];
 	entitiesError: unknown;
-	form: import("react-hook-form").UseFormReturn<StaffEditorFormValues>;
+	form: UseFormReturn<StaffEditorFormValues>;
 	mode: StaffEditorMode;
 	onRefreshEntities: () => void;
 	onRefreshStaff: () => void;
@@ -157,7 +66,7 @@ export interface StaffEditorFormProps {
 	staffError: unknown;
 }
 
-export type StaffFiltersDrawerProps = {
+export interface StaffFiltersDrawerProps {
 	activeFilter: StaffActiveFilter;
 	citiesError: boolean;
 	cityIdFilter: string;
@@ -177,9 +86,9 @@ export type StaffFiltersDrawerProps = {
 	onRefreshCities: () => void;
 	onRefreshEntities: () => void;
 	open: boolean;
-};
+}
 
-export type StaffDetailDialogProps = {
+export interface StaffDetailDialogProps {
 	error: unknown;
 	isError: boolean;
 	isLoading: boolean;
@@ -197,7 +106,7 @@ export type StaffDetailDialogProps = {
 	onRefresh: () => void;
 	open: boolean;
 	staff: StaffResponse | undefined;
-};
+}
 
 export interface StaffActionDialogsProps {
 	onConfirmDelete: () => void;

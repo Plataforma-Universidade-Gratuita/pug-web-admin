@@ -2,14 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { schoolQueryKeys } from "@/constants/query-keys";
+
 import { get, list } from "@/api/web/academic/schools";
 
-export const schoolQueryKeys = {
-	all: ["academic", "school"] as const,
-	list: () => [...schoolQueryKeys.all, "list"] as const,
-	detail: (id: string) => [...schoolQueryKeys.all, "detail", id] as const,
-	idleDetail: () => [...schoolQueryKeys.all, "detail", "idle"] as const,
-};
+export { schoolQueryKeys };
 
 export function useSchoolsQuery() {
 	return useQuery({

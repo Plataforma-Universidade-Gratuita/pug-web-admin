@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { z } from "zod";
 
 import type {
 	CourseCreateRequest,
@@ -15,6 +14,8 @@ import type {
 } from "@/types/client/academic";
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
+
+export { createCourseEditorFormSchema } from "@/schemas/client/features/academic/course";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);
@@ -189,19 +190,6 @@ export function getCourseDeleteErrorToastContent(t: TFunction, error: unknown) {
 		fallbackDescription: t(
 			"academic.coursePage.delete.feedback.error.description",
 		),
-	});
-}
-
-export function createCourseEditorFormSchema(t: TFunction) {
-	return z.object({
-		name: z
-			.string()
-			.trim()
-			.min(1, t("academic.coursePage.editor.validation.name")),
-		schoolId: z
-			.string()
-			.trim()
-			.min(1, t("academic.coursePage.editor.validation.school")),
 	});
 }
 

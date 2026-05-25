@@ -2,6 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
+import { ENROLLMENT_KEY_SEPARATOR } from "@/constants";
 import type {
 	EnrollmentResponse,
 	EnrollmentStatus,
@@ -16,7 +17,6 @@ import type {
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
 
-const ENROLLMENT_KEY_SEPARATOR = "::";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);
@@ -65,9 +65,7 @@ export function getEnrollmentStatusLabel(
 	return t(`project.enrollmentPage.status.options.${status}`);
 }
 
-export function getEnrollmentStatusTone(
-	status: EnrollmentStatus,
-): BadgeTone {
+export function getEnrollmentStatusTone(status: EnrollmentStatus): BadgeTone {
 	switch (status) {
 		case "APPROVED":
 			return "success";
@@ -117,12 +115,14 @@ export function createEnrollmentColumns(
 ): ColumnDef<EnrollmentResponse>[] {
 	return [
 		{
-			accessorFn: row => resolveEnrollmentStudentLabel(studentById, row.studentId),
+			accessorFn: row =>
+				resolveEnrollmentStudentLabel(studentById, row.studentId),
 			id: "student",
 			header: t("project.enrollmentPage.table.columns.student"),
 		},
 		{
-			accessorFn: row => resolveEnrollmentProjectLabel(projectById, row.projectId),
+			accessorFn: row =>
+				resolveEnrollmentProjectLabel(projectById, row.projectId),
 			id: "project",
 			header: t("project.enrollmentPage.table.columns.project"),
 		},
@@ -210,7 +210,9 @@ export function filterEnrollments(
 			const normalizedProject = normalizeTextForSearch(
 				resolveEnrollmentProjectLabel(projectById, enrollment.projectId),
 			);
-			const normalizedStatus = normalizeTextForSearch(enrollment.statusFormatted);
+			const normalizedStatus = normalizeTextForSearch(
+				enrollment.statusFormatted,
+			);
 
 			if (
 				!normalizedStudent.includes(normalizedQuery) &&

@@ -5,10 +5,9 @@ import { CityResponseSchema } from "@/schemas/api/geo/city";
 import type { CityResponse } from "@/types/api";
 import { zfetch, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.geo.cities;
 
 export async function get(id: string, token?: string): Promise<CityResponse> {
-	return zfetch(`${BASE}/${id}`, { method: "GET" }, CityResponseSchema, token);
+	return zfetch(`${API_ROUTE_BASES.geo.cities}/${id}`, { method: "GET" }, CityResponseSchema, token);
 }
 
 export async function getByIbge(
@@ -16,7 +15,7 @@ export async function getByIbge(
 	token?: string,
 ): Promise<CityResponse> {
 	return zfetch(
-		`${BASE}/by-ibge/${ibgeCode}`,
+		`${API_ROUTE_BASES.geo.cities}/by-ibge/${ibgeCode}`,
 		{ method: "GET" },
 		CityResponseSchema,
 		token,
@@ -28,7 +27,7 @@ export async function list(
 	q?: string,
 ): Promise<CityResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ q })}`,
+		`${API_ROUTE_BASES.geo.cities}${qs({ q })}`,
 		{ method: "GET" },
 		z.array(CityResponseSchema),
 		token,

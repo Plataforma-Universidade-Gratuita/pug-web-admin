@@ -2,14 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { courseQueryKeys } from "@/constants/query-keys";
+
 import { get, list } from "@/api/web/academic/courses";
 
-export const courseQueryKeys = {
-	all: ["academic", "course"] as const,
-	list: () => [...courseQueryKeys.all, "list"] as const,
-	detail: (id: string) => [...courseQueryKeys.all, "detail", id] as const,
-	idleDetail: () => [...courseQueryKeys.all, "detail", "idle"] as const,
-};
+export { courseQueryKeys };
 
 export function useCoursesQuery() {
 	return useQuery({

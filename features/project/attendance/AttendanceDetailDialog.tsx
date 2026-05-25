@@ -165,8 +165,7 @@ export function AttendanceDetailDialog({
 										{resolveAttendanceValidatorLabel(
 											adminById,
 											attendance.validatedById,
-										) ??
-											t("project.attendancePage.dialog.values.notValidated")}
+										) ?? t("project.attendancePage.dialog.values.notValidated")}
 									</p>
 								</div>
 								<div className="grid gap-1">

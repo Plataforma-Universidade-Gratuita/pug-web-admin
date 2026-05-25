@@ -68,7 +68,8 @@ export function ProjectEditorDrawer({
 	const createMutation = useCreateProjectMutation();
 	const updateMutation = useUpdateProjectMutation();
 	const entityById = useMemo(
-		() => new Map((entitiesQuery.data ?? []).map(entity => [entity.id, entity])),
+		() =>
+			new Map((entitiesQuery.data ?? []).map(entity => [entity.id, entity])),
 		[entitiesQuery.data],
 	);
 	const entityOptions = useMemo(
@@ -77,7 +78,8 @@ export function ProjectEditorDrawer({
 	);
 	const emptyValues = useMemo(() => getEmptyProjectEditorFormValues(), []);
 	const form = useLocalizedZodForm<ProjectEditorFormValues>({
-		schemaFactory: translated => createProjectEditorFormSchema(translated, mode),
+		schemaFactory: translated =>
+			createProjectEditorFormSchema(translated, mode),
 		defaultValues: emptyValues,
 		mode: "onChange",
 	});
@@ -239,14 +241,17 @@ export function ProjectEditorDrawer({
 			},
 			{
 				onSuccess: project => {
-					toast.success(t("project.projectPage.update.feedback.success.title"), {
-						description: t(
-							"project.projectPage.update.feedback.success.description",
-							{
-								name: project.name,
-							},
-						),
-					});
+					toast.success(
+						t("project.projectPage.update.feedback.success.title"),
+						{
+							description: t(
+								"project.projectPage.update.feedback.success.description",
+								{
+									name: project.name,
+								},
+							),
+						},
+					);
 					closeDrawer();
 				},
 				onError: error => {

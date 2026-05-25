@@ -10,6 +10,7 @@ import { useEntitiesQuery } from "@/features/partner/entity/queries";
 import { ProjectDetailDialog } from "@/features/project/project/ProjectDetailDialog";
 import { ProjectEditorDrawer } from "@/features/project/project/ProjectEditorDrawer";
 import { ProjectFiltersDrawer } from "@/features/project/project/ProjectFiltersDrawer";
+import { ProjectRowActions } from "@/features/project/project/ProjectRowActions";
 import {
 	useProjectStatusMutation,
 	useRemoveProjectMutation,
@@ -19,7 +20,6 @@ import {
 	useProjectsQuery,
 	useProjectSchoolsQuery,
 } from "@/features/project/project/queries";
-import { ProjectRowActions } from "@/features/project/project/ProjectRowActions";
 import {
 	buildProjectCreatorOptions,
 	buildProjectEntityOptions,
@@ -118,11 +118,13 @@ export function ProjectPage() {
 	const { schedule } = useDeferredUndoAction();
 
 	const entityById = useMemo(
-		() => new Map((entitiesQuery.data ?? []).map(entity => [entity.id, entity])),
+		() =>
+			new Map((entitiesQuery.data ?? []).map(entity => [entity.id, entity])),
 		[entitiesQuery.data],
 	);
 	const adminById = useMemo(
-		() => new Map((adminsQuery.data ?? []).map(admin => [admin.accountId, admin])),
+		() =>
+			new Map((adminsQuery.data ?? []).map(admin => [admin.accountId, admin])),
 		[adminsQuery.data],
 	);
 	const entityOptions = useMemo(
@@ -146,7 +148,13 @@ export function ProjectPage() {
 				startDate: appliedFilters.startDate,
 				statusFilter: appliedFilters.statusFilter,
 			}),
-		[adminById, appliedFilters, deferredQuerySearch, entityById, projectsQuery.data],
+		[
+			adminById,
+			appliedFilters,
+			deferredQuerySearch,
+			entityById,
+			projectsQuery.data,
+		],
 	);
 	const columns = useMemo(
 		() => createProjectColumns(t, entityById, adminById),
@@ -477,7 +485,7 @@ export function ProjectPage() {
 					pendingStatusAction
 						? t(
 								`project.projectPage.${pendingStatusAction.action}.confirm.title`,
-						  )
+							)
 						: ""
 				}
 				description={
@@ -487,7 +495,7 @@ export function ProjectPage() {
 								{
 									name: pendingStatusAction.project.name,
 								},
-						  )
+							)
 						: ""
 				}
 				cancelLabel={t("common.cancel")}
@@ -495,7 +503,7 @@ export function ProjectPage() {
 					pendingStatusAction
 						? t(
 								`project.projectPage.table.actions.${pendingStatusAction.action}`,
-						  )
+							)
 						: ""
 				}
 				onAction={handleStatusConfirm}

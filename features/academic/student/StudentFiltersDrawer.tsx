@@ -75,7 +75,7 @@ export function StudentFiltersDrawer({
 						value={activeFilter}
 						onValueChange={onActiveFilterChange}
 					>
-					<SelectTrigger
+						<SelectTrigger
 							className="w-full"
 							placeholder={t("academic.studentPage.filters.active.placeholder")}
 						/>

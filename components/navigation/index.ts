@@ -1,4 +1,5 @@
-export * from "./accordion/Accordion";
-export * from "./breadcrumb/Breadcrumb";
-export * from "./dropdown-menu/DropdownMenu";
-export * from "./tabs/Tabs";
+/* --- Root --- */
+export * from "./accordion";
+export * from "./breadcrumb";
+export * from "./dropdown-menu";
+export * from "./tabs";

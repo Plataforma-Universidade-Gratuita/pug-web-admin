@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { z } from "zod";
 
 import { Badge } from "@/components";
 import { ADMIN_CAMPI_VALUES } from "@/constants/identity";
@@ -20,6 +19,8 @@ import type {
 } from "@/types/client/academic";
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
+
+export { createStudentEditorFormSchema } from "@/schemas/client/features/academic/student";
 
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");
@@ -301,82 +302,6 @@ export function getStudentSetActiveErrorToastContent(
 				? "academic.studentPage.reactivate.feedback.error.description"
 				: "academic.studentPage.deactivate.feedback.error.description",
 		),
-	});
-}
-
-export function createStudentEditorFormSchema(
-	t: TFunction,
-	mode: StudentEditorMode,
-) {
-	const requiresIdentityFields = mode !== "update";
-
-	return z.object({
-		cpf: requiresIdentityFields
-			? z
-					.string()
-					.trim()
-					.min(1, t("academic.studentPage.editor.validation.cpf.required"))
-			: z.string(),
-		name: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.name.required")),
-		email: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.email.required"))
-			.email(t("academic.studentPage.editor.validation.email.invalid")),
-		password: requiresIdentityFields
-			? z
-					.string()
-					.trim()
-					.min(1, t("academic.studentPage.editor.validation.password.required"))
-			: z.string(),
-		academicRegistration: z
-			.string()
-			.trim()
-			.min(
-				1,
-				t(
-					"academic.studentPage.editor.validation.academicRegistration.required",
-				),
-			),
-		campus: z
-			.string()
-			.min(1, t("academic.studentPage.editor.validation.campus.required"))
-			.refine(
-				(value): value is Campi =>
-					ADMIN_CAMPI_VALUES.includes(
-						value as (typeof ADMIN_CAMPI_VALUES)[number],
-					),
-				{
-					message: t("academic.studentPage.editor.validation.campus.required"),
-				},
-			),
-		courseId: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.course.required")),
-		requiredHours: z
-			.string()
-			.trim()
-			.min(
-				1,
-				t("academic.studentPage.editor.validation.requiredHours.required"),
-			)
-			.refine(value => !Number.isNaN(Number(value)) && Number(value) > 0, {
-				message: t(
-					"academic.studentPage.editor.validation.requiredHours.invalid",
-				),
-			}),
-		startDate: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.startDate.required")),
-		dueDate: z
-			.string()
-			.trim()
-			.min(1, t("academic.studentPage.editor.validation.dueDate.required")),
 	});
 }
 

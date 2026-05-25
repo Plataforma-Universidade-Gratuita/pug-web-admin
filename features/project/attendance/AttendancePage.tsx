@@ -10,6 +10,7 @@ import { useAdminsQuery } from "@/features/identity/admin/queries";
 import { AttendanceCreateDrawer } from "@/features/project/attendance/AttendanceCreateDrawer";
 import { AttendanceDetailDialog } from "@/features/project/attendance/AttendanceDetailDialog";
 import { AttendanceFiltersDrawer } from "@/features/project/attendance/AttendanceFiltersDrawer";
+import { AttendanceRowActions } from "@/features/project/attendance/AttendanceRowActions";
 import {
 	useRemoveAttendanceMutation,
 	useValidateAttendanceMutation,
@@ -18,7 +19,6 @@ import {
 	useAttendanceDetailQuery,
 	useAttendancesQuery,
 } from "@/features/project/attendance/queries";
-import { AttendanceRowActions } from "@/features/project/attendance/AttendanceRowActions";
 import {
 	buildAttendanceProjectOptions,
 	buildAttendanceStudentOptions,
@@ -96,7 +96,9 @@ export function AttendancePage() {
 	} | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const attendancesQuery = useAttendancesQuery();
-	const attendanceDetailQuery = useAttendanceDetailQuery(detailState.selectedId);
+	const attendanceDetailQuery = useAttendanceDetailQuery(
+		detailState.selectedId,
+	);
 	const projectsQuery = useProjectsQuery();
 	const studentsQuery = useStudentsQuery();
 	const adminsQuery = useAdminsQuery();
@@ -105,16 +107,20 @@ export function AttendancePage() {
 	const { schedule } = useDeferredUndoAction();
 
 	const projectById = useMemo(
-		() => new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
+		() =>
+			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
 	);
 	const studentById = useMemo(
 		() =>
-			new Map((studentsQuery.data ?? []).map(student => [student.accountId, student])),
+			new Map(
+				(studentsQuery.data ?? []).map(student => [student.accountId, student]),
+			),
 		[studentsQuery.data],
 	);
 	const adminById = useMemo(
-		() => new Map((adminsQuery.data ?? []).map(admin => [admin.accountId, admin])),
+		() =>
+			new Map((adminsQuery.data ?? []).map(admin => [admin.accountId, admin])),
 		[adminsQuery.data],
 	);
 	const projectOptions = useMemo(
@@ -167,7 +173,14 @@ export function AttendancePage() {
 				studentById,
 				studentIdFilter: appliedFilters.studentIdFilter,
 			}),
-		[adminById, appliedFilters, deferredQuerySearch, projectById, studentById, t],
+		[
+			adminById,
+			appliedFilters,
+			deferredQuerySearch,
+			projectById,
+			studentById,
+			t,
+		],
 	);
 	const emptyStateCopy = useMemo(
 		() => getAttendanceEmptyStateCopy(t, filterSummary),
@@ -285,10 +298,8 @@ export function AttendancePage() {
 							detailState.clearIfMatches(attendance.id);
 						},
 						onError: error => {
-							const { title, description } = getAttendanceDeleteErrorToastContent(
-								t,
-								error,
-							);
+							const { title, description } =
+								getAttendanceDeleteErrorToastContent(t, error);
 							toast.danger(title, { description });
 						},
 					},
@@ -311,8 +322,7 @@ export function AttendancePage() {
 				id: currentAction.attendance.id,
 				body: {
 					qrValidationHash: currentAction.attendance.qrValidationHash,
-					status:
-						currentAction.action === "markPresent" ? "PRESENT" : "ABSENT",
+					status: currentAction.action === "markPresent" ? "PRESENT" : "ABSENT",
 				},
 			},
 			{
@@ -465,13 +475,13 @@ export function AttendancePage() {
 						? resolveAttendanceProjectLabel(
 								projectById,
 								pendingDeleteAttendance.projectId,
-						  )
+							)
 						: "",
 					student: pendingDeleteAttendance
 						? resolveAttendanceStudentLabel(
 								studentById,
 								pendingDeleteAttendance.studentId,
-						  )
+							)
 						: "",
 				})}
 				cancelLabel={t("common.cancel")}
@@ -495,7 +505,7 @@ export function AttendancePage() {
 					pendingValidation
 						? t(
 								`project.attendancePage.${pendingValidation.action}.confirm.title`,
-						  )
+							)
 						: ""
 				}
 				description={
@@ -503,7 +513,7 @@ export function AttendancePage() {
 						? t(
 								`project.attendancePage.${pendingValidation.action}.confirm.description`,
 								getAttendanceLabels(pendingValidation.attendance),
-						  )
+							)
 						: ""
 				}
 				cancelLabel={t("common.cancel")}
@@ -511,7 +521,7 @@ export function AttendancePage() {
 					pendingValidation
 						? t(
 								`project.attendancePage.table.actions.${pendingValidation.action}`,
-						  )
+							)
 						: ""
 				}
 				onAction={handleValidationConfirm}

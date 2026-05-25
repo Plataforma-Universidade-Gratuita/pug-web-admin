@@ -24,7 +24,6 @@ import {
 import { useStudentsQuery } from "@/features/academic/student/queries";
 import { AttendanceCreateForm } from "@/features/project/attendance/AttendanceCreateForm";
 import { useCreateAttendanceMutation } from "@/features/project/attendance/mutations";
-import { useProjectsQuery } from "@/features/project/project/queries";
 import {
 	buildAttendanceProjectOptions,
 	buildAttendanceStudentOptions,
@@ -35,6 +34,7 @@ import {
 	getEmptyAttendanceCreateFormValues,
 	toAttendanceCreateRequest,
 } from "@/features/project/attendance/utils";
+import { useProjectsQuery } from "@/features/project/project/queries";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
@@ -68,10 +68,12 @@ export function AttendanceCreateDrawer({
 		defaultValues: emptyValues,
 		mode: "onChange",
 	});
-	const isDrawerLoading = open && (projectsQuery.isLoading || studentsQuery.isLoading);
+	const isDrawerLoading =
+		open && (projectsQuery.isLoading || studentsQuery.isLoading);
 	const isSubmitPending = createMutation.isPending;
 	const canRenderForm =
-		(projectsQuery.data?.length ?? 0) > 0 && (studentsQuery.data?.length ?? 0) > 0;
+		(projectsQuery.data?.length ?? 0) > 0 &&
+		(studentsQuery.data?.length ?? 0) > 0;
 
 	useQueryErrorToasts([
 		{
@@ -186,7 +188,9 @@ export function AttendanceCreateDrawer({
 						<Button
 							usage="success"
 							isLoading={isSubmitPending}
-							loadingText={t("project.attendancePage.create.actions.savePending")}
+							loadingText={t(
+								"project.attendancePage.create.actions.savePending",
+							)}
 							leadingIcon={<Save className="h-4 w-4" />}
 							disabled={!form.formState.isDirty || !canRenderForm}
 							onClick={() => {

@@ -1,4 +1,52 @@
-import { Compass, ShieldAlert, TriangleAlert } from "lucide-react";
+import {
+	ArrowRight,
+	CheckCircle2,
+	Compass,
+	Download,
+	Info,
+	OctagonAlert,
+	ShieldAlert,
+	TriangleAlert,
+} from "lucide-react";
+
+export const DOCS_HOME_AREAS = [
+	{
+		href: "/docs/primitives",
+		path: "/docs/primitives",
+		title: "Primitive contracts",
+		description:
+			"Open this when the work is about variants, states, escalation boundaries, or shared interaction patterns.",
+		badge: "System",
+		tone: "info",
+	},
+	{
+		href: "/docs/routing",
+		path: "/docs/routing",
+		title: "Route boundaries",
+		description:
+			"Open this when the work is about fallback scope, route-file ownership, and what the app should preserve when a page, segment, or shell fails.",
+		badge: "Runtime",
+		tone: "success",
+	},
+] as const;
+
+export const DOCS_HOME_PREVIEWS = [
+	{
+		href: "/docs/routing/not-found",
+		path: "/docs/routing/not-found",
+		title: "Missing-route and missing-record fallback surface.",
+	},
+	{
+		href: "/docs/routing/error",
+		path: "/docs/routing/error",
+		title: "Segment-level runtime error surface with retry-focused recovery.",
+	},
+	{
+		href: "/docs/routing/global-error",
+		path: "/docs/routing/global-error",
+		title: "Root fallback mirror for shell-level catastrophic failures.",
+	},
+] as const;
 
 export const DOCS_AREAS = [
 	{
@@ -156,4 +204,19 @@ export const ROUTE_BOUNDARY_CONFIG = {
 		previewNote:
 			"The real global error screen only appears when the root app shell fails. This preview uses the same UI in a safe route.",
 	},
+} as const;
+
+export const BUTTON_PARTICLE_USAGE_ITEMS = [
+	{ key: "primary", icon: ArrowRight },
+	{ key: "secondary", icon: Download },
+	{ key: "success", icon: CheckCircle2 },
+	{ key: "info", icon: Info },
+	{ key: "warning", icon: OctagonAlert },
+	{ key: "danger", icon: ShieldAlert },
+] as const;
+
+export const TABLE_PARTICLE_STATUS_TONES = {
+	active: "success",
+	hold: "warning",
+	planning: "info",
 } as const;

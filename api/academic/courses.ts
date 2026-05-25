@@ -9,11 +9,10 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.academic.courses;
 
 export async function get(id: string, token?: string): Promise<CourseResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.academic.courses}/${id}`,
 		{ method: "GET" },
 		CourseResponseSchema,
 		token,
@@ -26,7 +25,7 @@ export async function list(
 	schoolId?: string,
 ): Promise<CourseResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ q, schoolId })}`,
+		`${API_ROUTE_BASES.academic.courses}${qs({ q, schoolId })}`,
 		{ method: "GET" },
 		z.array(CourseResponseSchema),
 		token,
@@ -38,7 +37,7 @@ export async function create(
 	token?: string,
 ): Promise<CourseResponse> {
 	return zfetch(
-		`${BASE}`,
+		`${API_ROUTE_BASES.academic.courses}`,
 		{ method: "POST", body: JSON.stringify(body) },
 		CourseResponseSchema,
 		token,
@@ -51,7 +50,7 @@ export async function update(
 	token?: string,
 ): Promise<CourseResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.academic.courses}/${id}`,
 		{ method: "PUT", body: JSON.stringify(body) },
 		CourseResponseSchema,
 		token,
@@ -59,5 +58,5 @@ export async function update(
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${BASE}/${id}`, { method: "DELETE" }, token);
+	return zvoid(`${API_ROUTE_BASES.academic.courses}/${id}`, { method: "DELETE" }, token);
 }

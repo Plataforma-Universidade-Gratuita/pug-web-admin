@@ -14,45 +14,7 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-
-const DOCS_HOME_AREAS = [
-	{
-		href: "/docs/primitives",
-		path: "/docs/primitives",
-		title: "Primitive contracts",
-		description:
-			"Open this when the work is about variants, states, escalation boundaries, or shared interaction patterns.",
-		badge: "System",
-		tone: "info" as const,
-	},
-	{
-		href: "/docs/routing",
-		path: "/docs/routing",
-		title: "Route boundaries",
-		description:
-			"Open this when the work is about fallback scope, route-file ownership, and what the app should preserve when a page, segment, or shell fails.",
-		badge: "Runtime",
-		tone: "success" as const,
-	},
-] as const;
-
-const DOCS_HOME_PREVIEWS = [
-	{
-		href: "/docs/routing/not-found",
-		path: "/docs/routing/not-found",
-		title: "Missing-route and missing-record fallback surface.",
-	},
-	{
-		href: "/docs/routing/error",
-		path: "/docs/routing/error",
-		title: "Segment-level runtime error surface with retry-focused recovery.",
-	},
-	{
-		href: "/docs/routing/global-error",
-		path: "/docs/routing/global-error",
-		title: "Root fallback mirror for shell-level catastrophic failures.",
-	},
-] as const;
+import { DOCS_HOME_AREAS, DOCS_HOME_PREVIEWS } from "@/constants";
 
 export default function DocsPage() {
 	return (

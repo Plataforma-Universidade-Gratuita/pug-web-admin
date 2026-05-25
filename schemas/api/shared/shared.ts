@@ -21,5 +21,5 @@ export const CampusResponseSchema = z.object({
 });
 
 export const PasswordCreateRequestSchema = z.object({
-    password: z.string(),
-})
+	password: z.string(),
+});

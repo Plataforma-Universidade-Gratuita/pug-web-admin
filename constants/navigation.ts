@@ -32,6 +32,7 @@ import type {
 } from "@/types/client";
 
 export const NAVBAR_TITLE_ROUTE = "/";
+
 export const SIDEBAR_STORAGE_KEY = "pug.sidebar";
 
 export const SIDEBAR_HOME_ITEM: MenuLeafItem = {

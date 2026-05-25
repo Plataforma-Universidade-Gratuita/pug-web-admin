@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { z } from "zod";
 
 import type {
 	CityResponse,
@@ -20,6 +19,8 @@ import {
 	normalizeDigits,
 	normalizeTextForSearch,
 } from "@/utils/lang";
+
+export { createEntityEditorFormSchema } from "@/schemas/client/features/partner/entity";
 
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);
@@ -228,35 +229,6 @@ export function getEntityDeleteErrorToastContent(t: TFunction, error: unknown) {
 		fallbackDescription: t(
 			"partner.entityPage.delete.feedback.error.description",
 		),
-	});
-}
-
-export function createEntityEditorFormSchema(
-	t: TFunction,
-	mode: EntityEditorMode,
-) {
-	const requiresIdentityField = mode !== "update";
-
-	return z.object({
-		cnpj: requiresIdentityField
-			? z
-					.string()
-					.trim()
-					.min(1, t("partner.entityPage.editor.validation.cnpj.required"))
-					.refine(
-						value => normalizeCnpj(value).length === 14,
-						t("partner.entityPage.editor.validation.cnpj.invalid"),
-					)
-			: z.string(),
-		name: z
-			.string()
-			.trim()
-			.min(1, t("partner.entityPage.editor.validation.name")),
-		cityId: z
-			.string()
-			.trim()
-			.min(1, t("partner.entityPage.editor.validation.city")),
-		address: z.string(),
 	});
 }
 

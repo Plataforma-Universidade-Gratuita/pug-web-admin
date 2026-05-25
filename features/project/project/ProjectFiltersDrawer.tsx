@@ -12,11 +12,11 @@ import {
 	SelectTrigger,
 	SomeErrorState,
 } from "@/components";
+import { getProjectStatusOptions } from "@/features/project/project/utils";
 import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import { getProjectStatusOptions } from "@/features/project/project/utils";
 import type {
 	ProjectAuditDateField,
 	ProjectFiltersDrawerProps,
@@ -90,9 +90,7 @@ export function ProjectFiltersDrawer({
 							options={entityOptions}
 							value={entityIdFilter}
 							onValueChange={onEntityIdFilterChange}
-							placeholder={t(
-								"project.projectPage.filters.entity.placeholder",
-							)}
+							placeholder={t("project.projectPage.filters.entity.placeholder")}
 							searchPlaceholder={t(
 								"project.projectPage.filters.entity.searchPlaceholder",
 							)}

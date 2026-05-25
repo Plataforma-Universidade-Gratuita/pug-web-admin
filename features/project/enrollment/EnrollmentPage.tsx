@@ -8,6 +8,7 @@ import { Button, NoContentState, SomeErrorState, toast } from "@/components";
 import { useStudentsQuery } from "@/features/academic/student/queries";
 import { EnrollmentDetailDialog } from "@/features/project/enrollment/EnrollmentDetailDialog";
 import { EnrollmentFiltersDrawer } from "@/features/project/enrollment/EnrollmentFiltersDrawer";
+import { EnrollmentRowActions } from "@/features/project/enrollment/EnrollmentRowActions";
 import {
 	useDeleteEnrollmentMutation,
 	useEnrollmentStatusMutation,
@@ -16,7 +17,6 @@ import {
 	useEnrollmentDetailQuery,
 	useEnrollmentsQuery,
 } from "@/features/project/enrollment/queries";
-import { EnrollmentRowActions } from "@/features/project/enrollment/EnrollmentRowActions";
 import {
 	buildEnrollmentProjectOptions,
 	buildEnrollmentStudentOptions,
@@ -118,12 +118,15 @@ export function EnrollmentPage() {
 	const { schedule } = useDeferredUndoAction();
 
 	const projectById = useMemo(
-		() => new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
+		() =>
+			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
 	);
 	const studentById = useMemo(
 		() =>
-			new Map((studentsQuery.data ?? []).map(student => [student.accountId, student])),
+			new Map(
+				(studentsQuery.data ?? []).map(student => [student.accountId, student]),
+			),
 		[studentsQuery.data],
 	);
 	const projectOptions = useMemo(
@@ -457,13 +460,13 @@ export function EnrollmentPage() {
 						? resolveEnrollmentProjectLabel(
 								projectById,
 								pendingDeleteEnrollment.projectId,
-						  )
+							)
 						: "",
 					student: pendingDeleteEnrollment
 						? resolveEnrollmentStudentLabel(
 								studentById,
 								pendingDeleteEnrollment.studentId,
-						  )
+							)
 						: "",
 				})}
 				cancelLabel={t("common.cancel")}
@@ -487,7 +490,7 @@ export function EnrollmentPage() {
 					pendingStatusAction
 						? t(
 								`project.enrollmentPage.${pendingStatusAction.action}.confirm.title`,
-						  )
+							)
 						: ""
 				}
 				description={
@@ -495,7 +498,7 @@ export function EnrollmentPage() {
 						? t(
 								`project.enrollmentPage.${pendingStatusAction.action}.confirm.description`,
 								getEnrollmentLabel(pendingStatusAction.enrollment),
-						  )
+							)
 						: ""
 				}
 				cancelLabel={t("common.cancel")}
@@ -503,7 +506,7 @@ export function EnrollmentPage() {
 					pendingStatusAction
 						? t(
 								`project.enrollmentPage.table.actions.${pendingStatusAction.action}`,
-						  )
+							)
 						: ""
 				}
 				onAction={handleStatusConfirm}

@@ -5,14 +5,13 @@ import { AccountResponseSchema } from "@/schemas/api/identity/account";
 import type { AccountResponse } from "@/types/api";
 import { zfetch, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.identity.accounts;
 
 export async function get(
 	id: string,
 	token?: string,
 ): Promise<AccountResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.identity.accounts}/${id}`,
 		{ method: "GET" },
 		AccountResponseSchema,
 		token,
@@ -24,7 +23,7 @@ export async function getByEmail(
 	token?: string,
 ): Promise<AccountResponse> {
 	return zfetch(
-		`${BASE}${qs({ email })}`,
+		`${API_ROUTE_BASES.identity.accounts}${qs({ email })}`,
 		{ method: "GET" },
 		AccountResponseSchema,
 		token,
@@ -32,7 +31,7 @@ export async function getByEmail(
 }
 
 export async function getMe(token?: string): Promise<AccountResponse> {
-	return zfetch(`${BASE}/me`, { method: "GET" }, AccountResponseSchema, token);
+	return zfetch(`${API_ROUTE_BASES.identity.accounts}/me`, { method: "GET" }, AccountResponseSchema, token);
 }
 
 export async function list(
@@ -40,7 +39,7 @@ export async function list(
 	q?: string,
 ): Promise<AccountResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ q })}`,
+		`${API_ROUTE_BASES.identity.accounts}${qs({ q })}`,
 		{ method: "GET" },
 		z.array(AccountResponseSchema),
 		token,
@@ -52,7 +51,7 @@ export async function listByCpf(
 	token?: string,
 ): Promise<AccountResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ cpf })}`,
+		`${API_ROUTE_BASES.identity.accounts}${qs({ cpf })}`,
 		{ method: "GET" },
 		z.array(AccountResponseSchema),
 		token,

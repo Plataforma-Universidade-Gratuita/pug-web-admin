@@ -6,11 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import {
-	create,
-	remove,
-	validate,
-} from "@/api/web/project/attendances";
+import { create, remove, validate } from "@/api/web/project/attendances";
 import { attendanceQueryKeys } from "@/features/project/attendance/queries";
 import type { AttendanceResponse } from "@/types/api";
 import type {
@@ -52,19 +48,27 @@ function writeAttendanceCaches(
 	queryClient: QueryClient,
 	attendance: AttendanceResponse,
 ) {
-	queryClient.setQueryData(attendanceQueryKeys.detail(attendance.id), attendance);
+	queryClient.setQueryData(
+		attendanceQueryKeys.detail(attendance.id),
+		attendance,
+	);
 	queryClient.setQueryData<AttendanceResponse[]>(
 		attendanceQueryKeys.list(),
 		current => upsertListItem(current, attendance, item => item.id),
 	);
 }
 
-function removeAttendanceCaches(queryClient: QueryClient, attendanceId: string) {
+function removeAttendanceCaches(
+	queryClient: QueryClient,
+	attendanceId: string,
+) {
 	queryClient.setQueryData<AttendanceResponse[]>(
 		attendanceQueryKeys.list(),
 		current => removeListItem(current, attendanceId, item => item.id),
 	);
-	queryClient.removeQueries({ queryKey: attendanceQueryKeys.detail(attendanceId) });
+	queryClient.removeQueries({
+		queryKey: attendanceQueryKeys.detail(attendanceId),
+	});
 }
 
 export function useCreateAttendanceMutation() {

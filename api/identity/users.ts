@@ -5,10 +5,9 @@ import { UserResponseSchema } from "@/schemas/api/identity/user";
 import type { UserResponse } from "@/types/api";
 import { zfetch, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.identity.users;
 
 export async function get(id: string, token?: string): Promise<UserResponse> {
-	return zfetch(`${BASE}/${id}`, { method: "GET" }, UserResponseSchema, token);
+	return zfetch(`${API_ROUTE_BASES.identity.users}/${id}`, { method: "GET" }, UserResponseSchema, token);
 }
 
 export async function getByCpf(
@@ -16,7 +15,7 @@ export async function getByCpf(
 	token?: string,
 ): Promise<UserResponse> {
 	return zfetch(
-		`${BASE}${qs({ cpf })}`,
+		`${API_ROUTE_BASES.identity.users}${qs({ cpf })}`,
 		{ method: "GET" },
 		UserResponseSchema,
 		token,
@@ -24,7 +23,7 @@ export async function getByCpf(
 }
 
 export async function getMe(token?: string): Promise<UserResponse> {
-	return zfetch(`${BASE}/me`, { method: "GET" }, UserResponseSchema, token);
+	return zfetch(`${API_ROUTE_BASES.identity.users}/me`, { method: "GET" }, UserResponseSchema, token);
 }
 
 export async function list(
@@ -32,7 +31,7 @@ export async function list(
 	q?: string,
 ): Promise<UserResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ q })}`,
+		`${API_ROUTE_BASES.identity.users}${qs({ q })}`,
 		{ method: "GET" },
 		z.array(UserResponseSchema),
 		token,

@@ -1,14 +1,6 @@
 "use client";
 
-import {
-	ArrowRight,
-	CheckCircle2,
-	Download,
-	Info,
-	OctagonAlert,
-	Plus,
-	ShieldAlert,
-} from "lucide-react";
+import { Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -20,17 +12,10 @@ import {
 	CardTitle,
 	Icon,
 } from "@/components";
+import { BUTTON_PARTICLE_USAGE_ITEMS } from "@/constants";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 
-const USAGE_ITEMS = [
-	{ key: "primary", icon: ArrowRight },
-	{ key: "secondary", icon: Download },
-	{ key: "success", icon: CheckCircle2 },
-	{ key: "info", icon: Info },
-	{ key: "warning", icon: OctagonAlert },
-	{ key: "danger", icon: ShieldAlert },
-] as const;
 
 export default function ButtonParticle() {
 	const { t } = useTranslation();
@@ -97,7 +82,7 @@ export default function ButtonParticle() {
 						</CardDescription>
 					</CardHeader>
 					<CardFooter className="flex flex-wrap items-center gap-3">
-						{USAGE_ITEMS.map(item => (
+						{BUTTON_PARTICLE_USAGE_ITEMS.map(item => (
 							<Button
 								key={item.key}
 								variant="primary"
@@ -130,7 +115,7 @@ export default function ButtonParticle() {
 						</CardDescription>
 					</CardHeader>
 					<CardFooter className="flex flex-wrap items-center gap-3">
-						{USAGE_ITEMS.map(item => (
+						{BUTTON_PARTICLE_USAGE_ITEMS.map(item => (
 							<Button
 								key={item.key}
 								variant="secondary"

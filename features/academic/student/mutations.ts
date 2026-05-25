@@ -6,16 +6,15 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import {
-	create,
-	remove,
-	setActive,
-	update,
-} from "@/api/web/academic/students";
-import { accountQueryKeys } from "@/features/identity/account/queries";
+import { create, remove, setActive, update } from "@/api/web/academic/students";
 import { studentQueryKeys } from "@/features/academic/student/queries";
+import { accountQueryKeys } from "@/features/identity/account/queries";
 import { userQueryKeys } from "@/features/identity/user/queries";
-import type { AccountResponse, StudentResponse, UserResponse } from "@/types/api";
+import type {
+	AccountResponse,
+	StudentResponse,
+	UserResponse,
+} from "@/types/api";
 import type {
 	RemoveStudentMutationVariables,
 	StudentCreateMutationVariables,
@@ -213,9 +212,8 @@ function removeStudentCaches(
 		accountQueryKeys.me(),
 		current => (current?.id === accountId ? undefined : current),
 	);
-	queryClient.setQueryData<UserResponse[]>(
-		userQueryKeys.list(),
-		current => removeListItem(current, userId, item => item.id),
+	queryClient.setQueryData<UserResponse[]>(userQueryKeys.list(), current =>
+		removeListItem(current, userId, item => item.id),
 	);
 	queryClient.removeQueries({ queryKey: userQueryKeys.detail(userId) });
 	queryClient.setQueryData<UserResponse | undefined>(

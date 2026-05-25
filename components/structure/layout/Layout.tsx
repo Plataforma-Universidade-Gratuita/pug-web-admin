@@ -1,13 +1,8 @@
-import type { ComponentPropsWithoutRef } from "react";
-
 import clsx from "clsx";
 
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
 import type { ContentProps, FooterProps, HeaderProps } from "@/types/client";
-
-type PageShellProps = ComponentPropsWithoutRef<"main"> & {
-	width?: "default" | "wide";
-};
+import type { PageShellProps } from "@/types/client/components/structure/layout";
 
 export function PageShell({
 	children,

@@ -32,8 +32,7 @@ import {
 } from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
-
-type ConfirmAction = "save" | "archive" | "delete" | null;
+import type { ConfirmAction } from "@/types/client/features/docs/primitives/navigation";
 
 export default function DropdownMenuParticle() {
 	const { t } = useTranslation();

@@ -9,14 +9,13 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.project.attendances;
 
 export async function get(
 	id: string,
 	token?: string,
 ): Promise<AttendanceResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.project.attendances}/${id}`,
 		{ method: "GET" },
 		AttendanceResponseSchema,
 		token,
@@ -29,7 +28,7 @@ export async function list(
 	studentId?: string,
 ): Promise<AttendanceResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ projectId, studentId })}`,
+		`${API_ROUTE_BASES.project.attendances}${qs({ projectId, studentId })}`,
 		{ method: "GET" },
 		z.array(AttendanceResponseSchema),
 		token,
@@ -41,7 +40,7 @@ export async function create(
 	token?: string,
 ): Promise<AttendanceResponse> {
 	return zfetch(
-		`${BASE}`,
+		`${API_ROUTE_BASES.project.attendances}`,
 		{ method: "POST", body: JSON.stringify(body) },
 		AttendanceResponseSchema,
 		token,
@@ -54,7 +53,7 @@ export async function validate(
 	token?: string,
 ): Promise<AttendanceResponse> {
 	return zfetch(
-		`${BASE}/${id}/validate`,
+		`${API_ROUTE_BASES.project.attendances}/${id}/validate`,
 		{ method: "PATCH", body: JSON.stringify(body) },
 		AttendanceResponseSchema,
 		token,
@@ -62,5 +61,5 @@ export async function validate(
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${BASE}/${id}`, { method: "DELETE" }, token);
+	return zvoid(`${API_ROUTE_BASES.project.attendances}/${id}`, { method: "DELETE" }, token);
 }

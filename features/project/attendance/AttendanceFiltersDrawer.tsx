@@ -12,11 +12,11 @@ import {
 	SelectTrigger,
 	SomeErrorState,
 } from "@/components";
+import { getAttendanceStatusOptions } from "@/features/project/attendance/utils";
 import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import { getAttendanceStatusOptions } from "@/features/project/attendance/utils";
 import type {
 	AttendanceAuditDateField,
 	AttendanceFiltersDrawerProps,
@@ -146,9 +146,7 @@ export function AttendanceFiltersDrawer({
 				>
 					<SelectTrigger
 						className="w-full"
-						placeholder={t(
-							"project.attendancePage.filters.status.placeholder",
-						)}
+						placeholder={t("project.attendancePage.filters.status.placeholder")}
 					/>
 					<SelectContent>
 						{statusOptions.map(option => (

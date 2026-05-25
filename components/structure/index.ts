@@ -1,2 +1,3 @@
-export * from "./layout/Layout";
-export * from "./scroll-area/ScrollArea";
+/* --- Root --- */
+export * from "./layout";
+export * from "./scroll-area";

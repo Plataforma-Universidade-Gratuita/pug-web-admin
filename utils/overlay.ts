@@ -1,10 +1,4 @@
-const FLOATING_BOUNDARY_SELECTOR = [
-	".drawer-content-base",
-	".dialog-content-base",
-	".navbar-content",
-	".navbar-content-scroll-viewport",
-	".login-page-content",
-].join(", ");
+import { FLOATING_BOUNDARY_SELECTOR } from "@/constants";
 
 export function getFloatingLayerBoundary(
 	element: Element | null,

@@ -2,20 +2,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { accountQueryKeys } from "@/constants/query-keys";
+
 import { get, getMe, list } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
 
-export const accountQueryKeys = {
-	all: ["identity", "account"] as const,
-	list: () => [...accountQueryKeys.all, "list"] as const,
-	detail: (id: string) => [...accountQueryKeys.all, "detail", id] as const,
-	idleDetail: () => [...accountQueryKeys.all, "detail", "idle"] as const,
-	linkedUser: (id: string) =>
-		[...accountQueryKeys.all, "linked-user", id] as const,
-	idleLinkedUser: () =>
-		[...accountQueryKeys.all, "linked-user", "idle"] as const,
-	me: () => [...accountQueryKeys.all, "me"] as const,
-};
+export { accountQueryKeys };
 
 export function useAccountsQuery() {
 	return useQuery({

@@ -1,12 +1,11 @@
 import clsx from "clsx";
 
 import { Skeleton } from "@/components/display/skeleton/Skeleton";
-
-interface SkeletonTextBlockProps {
-	className?: string | undefined;
-	lineClassName?: string | undefined;
-	lines?: string[] | undefined;
-}
+import type {
+	SkeletonActionGroupProps,
+	SkeletonPanelBlockProps,
+	SkeletonTextBlockProps,
+} from "@/types/client/components/display/skeleton";
 
 export function SkeletonTextBlock({
 	className,
@@ -28,10 +27,6 @@ export function SkeletonTextBlock({
 	);
 }
 
-interface SkeletonActionGroupProps {
-	className?: string | undefined;
-}
-
 export function SkeletonActionGroup({ className }: SkeletonActionGroupProps) {
 	return (
 		<div
@@ -42,11 +37,6 @@ export function SkeletonActionGroup({ className }: SkeletonActionGroupProps) {
 			<Skeleton className="h-10 w-32 rounded-full" />
 		</div>
 	);
-}
-
-interface SkeletonPanelBlockProps {
-	className?: string | undefined;
-	heightClassName?: string | undefined;
 }
 
 export function SkeletonPanelBlock({

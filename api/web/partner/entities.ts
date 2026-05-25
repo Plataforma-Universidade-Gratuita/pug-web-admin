@@ -16,14 +16,13 @@ import type {
 import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = WEB_API_ROUTE_BASES.partner.entities;
 
 export async function get(id: string): Promise<EntityResponse> {
-	return webFetch(`${BASE}/${id}`, EntityResponseSchema);
+	return webFetch(`${WEB_API_ROUTE_BASES.partner.entities}/${id}`, EntityResponseSchema);
 }
 
 export async function getByCnpj(cnpj: string): Promise<EntityResponse> {
-	return webFetch(`${BASE}${qs({ cnpj })}`, EntityResponseSchema);
+	return webFetch(`${WEB_API_ROUTE_BASES.partner.entities}${qs({ cnpj })}`, EntityResponseSchema);
 }
 
 export async function list(
@@ -35,19 +34,19 @@ export async function list(
 	if (cityId) params.set("cityId", cityId);
 	const search = params.toString();
 	return webFetch(
-		`${BASE}${search ? `?${search}` : ""}`,
+		`${WEB_API_ROUTE_BASES.partner.entities}${search ? `?${search}` : ""}`,
 		z.array(EntityResponseSchema),
 	);
 }
 
 export async function listCities(): Promise<CityResponse[]> {
-	return webFetch(`${BASE}/cities`, z.array(CityResponseSchema));
+	return webFetch(`${WEB_API_ROUTE_BASES.partner.entities}/cities`, z.array(CityResponseSchema));
 }
 
 export async function create(
 	body: EntityCreateRequest,
 ): Promise<EntityResponse> {
-	return webFetch(`${BASE}`, EntityResponseSchema, {
+	return webFetch(`${WEB_API_ROUTE_BASES.partner.entities}`, EntityResponseSchema, {
 		method: "POST",
 		body: JSON.stringify(EntityCreateRequestSchema.parse(body)),
 	});
@@ -57,12 +56,12 @@ export async function update(
 	id: string,
 	body: EntityUpdateRequest,
 ): Promise<EntityResponse> {
-	return webFetch(`${BASE}/${id}`, EntityResponseSchema, {
+	return webFetch(`${WEB_API_ROUTE_BASES.partner.entities}/${id}`, EntityResponseSchema, {
 		method: "PUT",
 		body: JSON.stringify(EntityUpdateRequestSchema.parse(body)),
 	});
 }
 
 export async function remove(id: string): Promise<void> {
-	return webVoid(`${BASE}/${id}`, { method: "DELETE" });
+	return webVoid(`${WEB_API_ROUTE_BASES.partner.entities}/${id}`, { method: "DELETE" });
 }

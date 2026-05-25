@@ -2,15 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { userQueryKeys } from "@/constants/query-keys";
+
 import { get, getMe, list } from "@/api/web/identity/users";
 
-export const userQueryKeys = {
-	all: ["identity", "user"] as const,
-	list: () => [...userQueryKeys.all, "list"] as const,
-	detail: (id: string) => [...userQueryKeys.all, "detail", id] as const,
-	idleDetail: () => [...userQueryKeys.all, "detail", "idle"] as const,
-	me: () => [...userQueryKeys.all, "me"] as const,
-};
+export { userQueryKeys };
 
 export function useUsersQuery() {
 	return useQuery({

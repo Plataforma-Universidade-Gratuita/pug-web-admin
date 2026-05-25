@@ -14,31 +14,30 @@ import type {
 import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = WEB_API_ROUTE_BASES.identity.admins;
 
 export async function get(id: string): Promise<AdminResponse> {
-	return webFetch(`${BASE}/${id}`, AdminResponseSchema);
+	return webFetch(`${WEB_API_ROUTE_BASES.identity.admins}/${id}`, AdminResponseSchema);
 }
 
 export async function getByEmail(email: string): Promise<AdminResponse> {
-	return webFetch(`${BASE}${qs({ email })}`, AdminResponseSchema);
+	return webFetch(`${WEB_API_ROUTE_BASES.identity.admins}${qs({ email })}`, AdminResponseSchema);
 }
 
 export async function getMe(): Promise<AdminResponse> {
-	return webFetch(`${BASE}/me`, AdminResponseSchema);
+	return webFetch(`${WEB_API_ROUTE_BASES.identity.admins}/me`, AdminResponseSchema);
 }
 
 export async function list(q?: string): Promise<AdminResponse[]> {
 	const search = q ? `?${new URLSearchParams({ q }).toString()}` : "";
-	return webFetch(`${BASE}${search}`, z.array(AdminResponseSchema));
+	return webFetch(`${WEB_API_ROUTE_BASES.identity.admins}${search}`, z.array(AdminResponseSchema));
 }
 
 export async function listByCpf(cpf: string): Promise<AdminResponse[]> {
-	return webFetch(`${BASE}${qs({ cpf })}`, z.array(AdminResponseSchema));
+	return webFetch(`${WEB_API_ROUTE_BASES.identity.admins}${qs({ cpf })}`, z.array(AdminResponseSchema));
 }
 
 export async function create(body: AdminCreateRequest): Promise<AdminResponse> {
-	return webFetch(`${BASE}`, AdminResponseSchema, {
+	return webFetch(`${WEB_API_ROUTE_BASES.identity.admins}`, AdminResponseSchema, {
 		method: "POST",
 		body: JSON.stringify(AdminCreateRequestSchema.parse(body)),
 	});
@@ -48,14 +47,14 @@ export async function update(
 	id: string,
 	body: AdminUpdateRequest,
 ): Promise<AdminResponse> {
-	return webFetch(`${BASE}/${id}`, AdminResponseSchema, {
+	return webFetch(`${WEB_API_ROUTE_BASES.identity.admins}/${id}`, AdminResponseSchema, {
 		method: "PUT",
 		body: JSON.stringify(AdminUpdateRequestSchema.parse(body)),
 	});
 }
 
 export async function setActive(id: string, active: boolean): Promise<void> {
-	return webVoid(`${BASE}/${id}`, {
+	return webVoid(`${WEB_API_ROUTE_BASES.identity.admins}/${id}`, {
 		method: "PATCH",
 		body: JSON.stringify({ active }),
 	});
@@ -70,5 +69,5 @@ export async function reactivate(id: string): Promise<void> {
 }
 
 export async function remove(id: string): Promise<void> {
-	return webVoid(`${BASE}/${id}`, { method: "DELETE" });
+	return webVoid(`${WEB_API_ROUTE_BASES.identity.admins}/${id}`, { method: "DELETE" });
 }

@@ -1,11 +1,11 @@
 import type { CityResponse } from "@/types/api";
 
-export type CityFiltersProps = {
+export interface CityFiltersProps {
 	onSearchChange: (value: string) => void;
 	search: string;
-};
+}
 
-export type CityDetailDialogProps = {
+export interface CityDetailDialogProps {
 	city: CityResponse | undefined;
 	error: unknown;
 	isError: boolean;
@@ -13,7 +13,7 @@ export type CityDetailDialogProps = {
 	onOpenChange: (open: boolean) => void;
 	onRefresh: () => void;
 	open: boolean;
-};
+}
 
 export interface CityRowActionsProps {
 	city: CityResponse;

@@ -15,14 +15,12 @@ import type {
 } from "@/types/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const PROJECTS_BASE = WEB_API_ROUTE_BASES.project.projects;
-const SCHOOLS_BASE = WEB_API_ROUTE_BASES.academic.schools;
 
 export async function listSchoolsByProject(
 	projectId: string,
 ): Promise<SchoolResponse[]> {
 	return webFetch(
-		`${PROJECTS_BASE}/${projectId}/schools`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/schools`,
 		z.array(SchoolResponseSchema),
 	);
 }
@@ -31,7 +29,7 @@ export async function listProjectsBySchool(
 	schoolId: string,
 ): Promise<ProjectResponse[]> {
 	return webFetch(
-		`${SCHOOLS_BASE}/${schoolId}/projects`,
+		`${WEB_API_ROUTE_BASES.academic.schools}/${schoolId}/projects`,
 		z.array(ProjectResponseSchema),
 	);
 }
@@ -43,7 +41,7 @@ export async function createAssociations(
 		schoolIds: ProjectSchoolRequestSchema.parse(body).schoolIds,
 	};
 	return webFetch(
-		`${PROJECTS_BASE}/${body.projectId}/schools`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${body.projectId}/schools`,
 		z.array(SchoolResponseSchema),
 		{
 			method: "POST",
@@ -58,15 +56,15 @@ export async function deleteAssociation(
 	projectId: string,
 	schoolId: string,
 ): Promise<void> {
-	return webVoid(`${PROJECTS_BASE}/${projectId}/schools/${schoolId}`, {
+	return webVoid(`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/schools/${schoolId}`, {
 		method: "DELETE",
 	});
 }
 
 export async function deleteAllByProject(projectId: string): Promise<void> {
-	return webVoid(`${PROJECTS_BASE}/${projectId}/schools`, { method: "DELETE" });
+	return webVoid(`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/schools`, { method: "DELETE" });
 }
 
 export async function deleteAllBySchool(schoolId: string): Promise<void> {
-	return webVoid(`${SCHOOLS_BASE}/${schoolId}/projects`, { method: "DELETE" });
+	return webVoid(`${WEB_API_ROUTE_BASES.academic.schools}/${schoolId}/projects`, { method: "DELETE" });
 }

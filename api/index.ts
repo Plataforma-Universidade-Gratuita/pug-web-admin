@@ -1,26 +1,26 @@
-// Identity
+/* --- Identity --- */
 export * as auth from "./identity/auth";
 export * as admins from "./identity/admins";
 export * as accounts from "./identity/accounts";
 export * as users from "./identity/users";
 
-// Academic
+/* --- Academic --- */
 export * as schools from "./academic/schools";
 export * as courses from "./academic/courses";
 export * as students from "./academic/students";
 
-// Partner
+/* --- Partner --- */
 export * as entities from "./partner/entities";
 export * as staff from "./partner/staff";
 
-// Project
+/* --- Project --- */
 export * as projects from "./project/projects";
 export * as projectSchools from "./project/project-schools";
 export * as enrollments from "./project/enrollments";
 export * as attendances from "./project/attendances";
 
-// Geo
+/* --- Geo --- */
 export * as cities from "./geo/cities";
 
-// Client components safe api calls
+/* --- Web --- */
 export * as web from "./web";

@@ -3,9 +3,9 @@
 import { useEffect, useRef } from "react";
 
 import { toast } from "@/components";
+import { DEFAULT_UNDO_DURATION } from "@/constants";
 import type { DeferredUndoActionOptions } from "@/types/client";
 
-const DEFAULT_UNDO_DURATION = 4000;
 
 export function useDeferredUndoAction() {
 	const timersRef = useRef(new Map<string, ReturnType<typeof setTimeout>>());

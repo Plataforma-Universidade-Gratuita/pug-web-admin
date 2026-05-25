@@ -54,7 +54,9 @@ export function ProjectEditorForm({
 		return (
 			<SomeErrorState
 				title={t("project.projectPage.editor.entityLoadError.title")}
-				description={t("project.projectPage.editor.entityLoadError.description")}
+				description={t(
+					"project.projectPage.editor.entityLoadError.description",
+				)}
 				onRefresh={onRefreshEntities}
 			/>
 		);
@@ -62,9 +64,7 @@ export function ProjectEditorForm({
 
 	if (!canRenderForm) {
 		return (
-			<NotFoundState
-				title={t("project.projectPage.update.notFound.title")}
-			/>
+			<NotFoundState title={t("project.projectPage.update.notFound.title")} />
 		);
 	}
 

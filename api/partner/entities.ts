@@ -11,11 +11,10 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.partner.entities;
 
 export async function get(id: string, token?: string): Promise<EntityResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.partner.entities}/${id}`,
 		{ method: "GET" },
 		EntityResponseSchema,
 		token,
@@ -27,7 +26,7 @@ export async function getByCnpj(
 	token?: string,
 ): Promise<EntityResponse> {
 	return zfetch(
-		`${BASE}${qs({ cnpj })}`,
+		`${API_ROUTE_BASES.partner.entities}${qs({ cnpj })}`,
 		{ method: "GET" },
 		EntityResponseSchema,
 		token,
@@ -40,7 +39,7 @@ export async function list(
 	cityId?: string,
 ): Promise<EntityResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ q, cityId })}`,
+		`${API_ROUTE_BASES.partner.entities}${qs({ q, cityId })}`,
 		{ method: "GET" },
 		z.array(EntityResponseSchema),
 		token,
@@ -49,7 +48,7 @@ export async function list(
 
 export async function listCities(token?: string): Promise<CityResponse[]> {
 	return zfetch(
-		`${BASE}/cities`,
+		`${API_ROUTE_BASES.partner.entities}/cities`,
 		{ method: "GET" },
 		z.array(CityResponseSchema),
 		token,
@@ -61,7 +60,7 @@ export async function create(
 	token?: string,
 ): Promise<EntityResponse> {
 	return zfetch(
-		`${BASE}`,
+		`${API_ROUTE_BASES.partner.entities}`,
 		{ method: "POST", body: JSON.stringify(body) },
 		EntityResponseSchema,
 		token,
@@ -74,7 +73,7 @@ export async function update(
 	token?: string,
 ): Promise<EntityResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.partner.entities}/${id}`,
 		{ method: "PUT", body: JSON.stringify(body) },
 		EntityResponseSchema,
 		token,
@@ -82,5 +81,5 @@ export async function update(
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${BASE}/${id}`, { method: "DELETE" }, token);
+	return zvoid(`${API_ROUTE_BASES.partner.entities}/${id}`, { method: "DELETE" }, token);
 }

@@ -9,10 +9,9 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.identity.admins;
 
 export async function get(id: string, token?: string): Promise<AdminResponse> {
-	return zfetch(`${BASE}/${id}`, { method: "GET" }, AdminResponseSchema, token);
+	return zfetch(`${API_ROUTE_BASES.identity.admins}/${id}`, { method: "GET" }, AdminResponseSchema, token);
 }
 
 export async function getByEmail(
@@ -20,7 +19,7 @@ export async function getByEmail(
 	token?: string,
 ): Promise<AdminResponse> {
 	return zfetch(
-		`${BASE}${qs({ email })}`,
+		`${API_ROUTE_BASES.identity.admins}${qs({ email })}`,
 		{ method: "GET" },
 		AdminResponseSchema,
 		token,
@@ -28,7 +27,7 @@ export async function getByEmail(
 }
 
 export async function getMe(token?: string): Promise<AdminResponse> {
-	return zfetch(`${BASE}/me`, { method: "GET" }, AdminResponseSchema, token);
+	return zfetch(`${API_ROUTE_BASES.identity.admins}/me`, { method: "GET" }, AdminResponseSchema, token);
 }
 
 export async function list(
@@ -36,7 +35,7 @@ export async function list(
 	q?: string,
 ): Promise<AdminResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ q })}`,
+		`${API_ROUTE_BASES.identity.admins}${qs({ q })}`,
 		{ method: "GET" },
 		z.array(AdminResponseSchema),
 		token,
@@ -48,7 +47,7 @@ export async function listByCpf(
 	token?: string,
 ): Promise<AdminResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ cpf })}`,
+		`${API_ROUTE_BASES.identity.admins}${qs({ cpf })}`,
 		{ method: "GET" },
 		z.array(AdminResponseSchema),
 		token,
@@ -60,7 +59,7 @@ export async function create(
 	token?: string,
 ): Promise<AdminResponse> {
 	return zfetch(
-		`${BASE}`,
+		`${API_ROUTE_BASES.identity.admins}`,
 		{ method: "POST", body: JSON.stringify(body) },
 		AdminResponseSchema,
 		token,
@@ -73,7 +72,7 @@ export async function update(
 	token?: string,
 ): Promise<AdminResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.identity.admins}/${id}`,
 		{ method: "PUT", body: JSON.stringify(body) },
 		AdminResponseSchema,
 		token,
@@ -86,7 +85,7 @@ export async function setActive(
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.identity.admins}/${id}`,
 		{ method: "PATCH", body: JSON.stringify({ active }) },
 		token,
 	);
@@ -101,5 +100,5 @@ export async function reactivate(id: string, token?: string): Promise<void> {
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${BASE}/${id}`, { method: "DELETE" }, token);
+	return zvoid(`${API_ROUTE_BASES.identity.admins}/${id}`, { method: "DELETE" }, token);
 }

@@ -67,15 +67,8 @@ function writeEnrollmentCaches(
 	queryClient.setQueryData<EnrollmentResponse[]>(
 		enrollmentQueryKeys.list(),
 		current =>
-			upsertListItem(
-				current,
-				enrollment,
-				item =>
-					isSameEnrollment(
-						item,
-						enrollment.projectId,
-						enrollment.studentId,
-					),
+			upsertListItem(current, enrollment, item =>
+				isSameEnrollment(item, enrollment.projectId, enrollment.studentId),
 			),
 	);
 }
@@ -88,7 +81,9 @@ function removeEnrollmentCaches(
 	queryClient.setQueryData<EnrollmentResponse[]>(
 		enrollmentQueryKeys.list(),
 		current =>
-			removeListItem(current, item => isSameEnrollment(item, projectId, studentId)),
+			removeListItem(current, item =>
+				isSameEnrollment(item, projectId, studentId),
+			),
 	);
 	queryClient.removeQueries({
 		queryKey: enrollmentQueryKeys.detail(projectId, studentId),
@@ -130,10 +125,7 @@ export function useDeleteEnrollmentMutation() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: ({
-			projectId,
-			studentId,
-		}: EnrollmentDeleteMutationVariables) =>
+		mutationFn: ({ projectId, studentId }: EnrollmentDeleteMutationVariables) =>
 			deleteEnrollment(projectId, studentId),
 		onSuccess: (_data, variables) => {
 			removeEnrollmentCaches(

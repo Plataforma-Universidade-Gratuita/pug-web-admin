@@ -15,5 +15,5 @@ export const AccountResponseSchema = z.object({
 });
 
 export const AccountStatusRequestSchema = z.object({
-    active: z.boolean(),
-})
+	active: z.boolean(),
+});

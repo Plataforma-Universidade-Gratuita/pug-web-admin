@@ -2,16 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { enrollmentQueryKeys } from "@/constants/query-keys";
+
 import { get, list } from "@/api/web/project/enrollments";
 
-export const enrollmentQueryKeys = {
-	all: ["project", "enrollment"] as const,
-	list: () => [...enrollmentQueryKeys.all, "list"] as const,
-	detail: (projectId: string, studentId: string) =>
-		[...enrollmentQueryKeys.all, "detail", projectId, studentId] as const,
-	idleDetail: () =>
-		[...enrollmentQueryKeys.all, "detail", "idle", "idle"] as const,
-};
+export { enrollmentQueryKeys };
 
 export function useEnrollmentsQuery() {
 	return useQuery({

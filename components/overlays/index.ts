@@ -1,6 +1,7 @@
-export * from "./alert-dialog/AlertDialog";
-export * from "./dialog/Dialog";
-export * from "./drawer/Drawer";
-export * from "./popover/Popover";
-export * from "./toast/Toast";
-export * from "./tooltip/Tooltip";
+/* --- Root --- */
+export * from "./alert-dialog";
+export * from "./dialog";
+export * from "./drawer";
+export * from "./popover";
+export * from "./toast";
+export * from "./tooltip";

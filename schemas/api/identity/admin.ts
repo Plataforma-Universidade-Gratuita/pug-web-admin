@@ -21,7 +21,7 @@ export const AdminCreateRequestSchema = z.object({
 });
 
 export const AdminUpdateRequestSchema = z.object({
-    cpf: z.string().nullable().optional(),
+	cpf: z.string().nullable().optional(),
 	name: z.string().nullable().optional(),
 	email: z.string().nullable().optional(),
 	campus: CampiEnum.nullable().optional(),

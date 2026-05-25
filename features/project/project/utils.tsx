@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { z } from "zod";
 
 import { Badge } from "@/components";
 import type {
@@ -22,6 +21,8 @@ import type {
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { compareNormalizedText, normalizeTextForSearch } from "@/utils/lang";
 
+export { createProjectEditorFormSchema } from "@/schemas/client/features/project/project";
+
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);
 	date.setHours(0, 0, 0, 0);
@@ -42,10 +43,7 @@ function parsePositiveInteger(value: string) {
 	return parsed;
 }
 
-export function getProjectStatusLabel(
-	t: TFunction,
-	status: ProjectStatus,
-) {
+export function getProjectStatusLabel(t: TFunction, status: ProjectStatus) {
 	return t(`project.projectPage.status.options.${status}`);
 }
 
@@ -244,10 +242,7 @@ export function getProjectEmptyStateCopy(t: TFunction, query: string) {
 	};
 }
 
-export function getProjectsListErrorToastContent(
-	t: TFunction,
-	error: unknown,
-) {
+export function getProjectsListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
 		fallbackTitle: t("project.projectPage.feedback.listError.title"),
 		fallbackDescription: t(
@@ -365,47 +360,6 @@ export function getProjectStatusActionErrorToastContent(
 	});
 }
 
-export function createProjectEditorFormSchema(
-	t: TFunction,
-	mode: ProjectEditorMode,
-) {
-	const requiresEntity = mode !== "update";
-
-	return z.object({
-		description: z.string(),
-		entityId: requiresEntity
-			? z
-					.string()
-					.trim()
-					.min(1, t("project.projectPage.editor.validation.entity.required"))
-			: z.string(),
-		maxParticipants: z.string().refine(
-			value => value.trim().length === 0 || parsePositiveInteger(value) !== null,
-			{
-				message: t(
-					"project.projectPage.editor.validation.maxParticipants.invalid",
-				),
-			},
-		),
-		name: z
-			.string()
-			.trim()
-			.min(1, t("project.projectPage.editor.validation.name.required")),
-		offeredHours: z
-			.string()
-			.trim()
-			.min(
-				1,
-				t("project.projectPage.editor.validation.offeredHours.required"),
-			)
-			.refine(value => parsePositiveInteger(value) !== null, {
-				message: t(
-					"project.projectPage.editor.validation.offeredHours.invalid",
-				),
-			}),
-	});
-}
-
 export function getEmptyProjectEditorFormValues(): ProjectEditorFormValues {
 	return {
 		description: "",
@@ -506,16 +460,12 @@ export function getProjectFilterSummary(
 }
 
 export function getProjectStatusOptions(t: TFunction) {
-	return [
-		"PLANNED",
-		"IN_PROGRESS",
-		"ON_HOLD",
-		"COMPLETED",
-		"CANCELED",
-	].map(status => ({
-		value: status as ProjectStatus,
-		label: getProjectStatusLabel(t, status as ProjectStatus),
-	}));
+	return ["PLANNED", "IN_PROGRESS", "ON_HOLD", "COMPLETED", "CANCELED"].map(
+		status => ({
+			value: status as ProjectStatus,
+			label: getProjectStatusLabel(t, status as ProjectStatus),
+		}),
+	);
 }
 
 export function formatProjectSchoolNames(

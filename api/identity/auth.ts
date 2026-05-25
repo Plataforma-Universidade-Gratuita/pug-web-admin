@@ -8,11 +8,10 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.identity.auth;
 
 export async function login(body: LoginRequest): Promise<TokenResponse> {
 	return zfetch(
-		`${BASE}/login`,
+		`${API_ROUTE_BASES.identity.auth}/login`,
 		{ method: "POST", body: JSON.stringify(body) },
 		TokenResponseSchema,
 	);
@@ -20,19 +19,19 @@ export async function login(body: LoginRequest): Promise<TokenResponse> {
 
 export async function refresh(body: RefreshRequest): Promise<TokenResponse> {
 	return zfetch(
-		`${BASE}/refresh`,
+		`${API_ROUTE_BASES.identity.auth}/refresh`,
 		{ method: "POST", body: JSON.stringify(body) },
 		TokenResponseSchema,
 	);
 }
 
 export async function logout(body: LogoutRequest): Promise<void> {
-	return zvoid(`${BASE}/logout`, {
+	return zvoid(`${API_ROUTE_BASES.identity.auth}/logout`, {
 		method: "POST",
 		body: JSON.stringify(body),
 	});
 }
 
 export async function logoutAll(token?: string): Promise<void> {
-	return zvoid(`${BASE}/logout-all`, { method: "POST" }, token);
+	return zvoid(`${API_ROUTE_BASES.identity.auth}/logout-all`, { method: "POST" }, token);
 }

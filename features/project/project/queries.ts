@@ -2,17 +2,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { projectQueryKeys } from "@/constants/query-keys";
+
 import { listSchoolsByProject } from "@/api/web/project/project-schools";
 import { get, list } from "@/api/web/project/projects";
 
-export const projectQueryKeys = {
-	all: ["project", "project"] as const,
-	list: () => [...projectQueryKeys.all, "list"] as const,
-	detail: (id: string) => [...projectQueryKeys.all, "detail", id] as const,
-	idleDetail: () => [...projectQueryKeys.all, "detail", "idle"] as const,
-	schools: (id: string) => [...projectQueryKeys.all, "schools", id] as const,
-	idleSchools: () => [...projectQueryKeys.all, "schools", "idle"] as const,
-};
+export { projectQueryKeys };
 
 export function useProjectsQuery() {
 	return useQuery({

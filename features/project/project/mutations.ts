@@ -54,16 +54,21 @@ function removeListItem<TItem>(
 	return items?.filter(item => getId(item) !== id) ?? items;
 }
 
-function writeProjectCaches(queryClient: QueryClient, project: ProjectResponse) {
+function writeProjectCaches(
+	queryClient: QueryClient,
+	project: ProjectResponse,
+) {
 	queryClient.setQueryData(projectQueryKeys.detail(project.id), project);
-	queryClient.setQueryData<ProjectResponse[]>(projectQueryKeys.list(), current =>
-		upsertListItem(current, project, item => item.id),
+	queryClient.setQueryData<ProjectResponse[]>(
+		projectQueryKeys.list(),
+		current => upsertListItem(current, project, item => item.id),
 	);
 }
 
 function removeProjectCaches(queryClient: QueryClient, projectId: string) {
-	queryClient.setQueryData<ProjectResponse[]>(projectQueryKeys.list(), current =>
-		removeListItem(current, projectId, item => item.id),
+	queryClient.setQueryData<ProjectResponse[]>(
+		projectQueryKeys.list(),
+		current => removeListItem(current, projectId, item => item.id),
 	);
 	queryClient.removeQueries({ queryKey: projectQueryKeys.detail(projectId) });
 	queryClient.removeQueries({ queryKey: projectQueryKeys.schools(projectId) });

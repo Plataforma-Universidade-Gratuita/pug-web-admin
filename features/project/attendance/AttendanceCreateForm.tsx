@@ -50,7 +50,9 @@ export function AttendanceCreateForm({
 
 	if (!canRenderForm) {
 		return (
-			<NotFoundState title={t("project.attendancePage.editor.notReady.title")} />
+			<NotFoundState
+				title={t("project.attendancePage.editor.notReady.title")}
+			/>
 		);
 	}
 

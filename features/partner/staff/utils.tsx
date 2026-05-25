@@ -1,6 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
-import { z } from "zod";
 
 import { Badge } from "@/components";
 import { getAccountOptionClassName } from "@/features/identity/account/utils";
@@ -20,43 +19,10 @@ import type {
 import { getApiErrorToastContent } from "@/utils/api-errors";
 import { normalizeTextForSearch } from "@/utils/lang";
 
+export { createStaffEditorFormSchema } from "@/schemas/client/features/partner/staff";
+
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");
-}
-
-export function createStaffEditorFormSchema(
-	t: TFunction,
-	mode: StaffEditorMode,
-) {
-	const requiresIdentityFields = mode !== "update";
-
-	return z.object({
-		cpf: requiresIdentityFields
-			? z
-					.string()
-					.trim()
-					.min(1, t("partner.staffPage.editor.validation.cpf.required"))
-			: z.string(),
-		name: z
-			.string()
-			.trim()
-			.min(1, t("partner.staffPage.editor.validation.name.required")),
-		email: z
-			.string()
-			.trim()
-			.min(1, t("partner.staffPage.editor.validation.email.required"))
-			.email(t("partner.staffPage.editor.validation.email.invalid")),
-		password: requiresIdentityFields
-			? z
-					.string()
-					.trim()
-					.min(1, t("partner.staffPage.editor.validation.password.required"))
-			: z.string(),
-		entityId: z
-			.string()
-			.trim()
-			.min(1, t("partner.staffPage.editor.validation.entity.required")),
-	});
 }
 
 export function buildStaffEntityOptions(entities: EntityResponse[]) {

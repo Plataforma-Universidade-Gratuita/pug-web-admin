@@ -19,9 +19,10 @@ import {
 	ROUTE_PREVIEW_CARDS,
 } from "@/constants/docs";
 import { DocsTextLink } from "@/features/docs/primitives";
-
-type RouteRecommendationRow = (typeof ROUTE_FILE_RECOMMENDATIONS)[number];
-type RoutePreviewRow = (typeof ROUTE_PREVIEW_CARDS)[number];
+import type {
+	RoutePreviewRow,
+	RouteRecommendationRow,
+} from "@/types/client/features/docs/routing";
 
 export default function RoutingDocsPage() {
 	const columns = useMemo<ColumnDef<RouteRecommendationRow>[]>(

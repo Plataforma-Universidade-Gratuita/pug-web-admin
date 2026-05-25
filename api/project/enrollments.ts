@@ -9,8 +9,6 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.project.enrollments;
-const PROJECTS_BASE = API_ROUTE_BASES.project.projects;
 
 export async function get(
 	projectId: string,
@@ -18,7 +16,7 @@ export async function get(
 	token?: string,
 ): Promise<EnrollmentResponse> {
 	return zfetch(
-		`${PROJECTS_BASE}/${projectId}/enrollments/${studentId}`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
 		{ method: "GET" },
 		EnrollmentResponseSchema,
 		token,
@@ -30,7 +28,7 @@ export async function getMine(
 	token?: string,
 ): Promise<EnrollmentResponse> {
 	return zfetch(
-		`${PROJECTS_BASE}/${projectId}/enrollments/me`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/me`,
 		{ method: "GET" },
 		EnrollmentResponseSchema,
 		token,
@@ -43,7 +41,7 @@ export async function list(
 	studentId?: string,
 ): Promise<EnrollmentResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ projectId, studentId })}`,
+		`${API_ROUTE_BASES.project.enrollments}${qs({ projectId, studentId })}`,
 		{ method: "GET" },
 		z.array(EnrollmentResponseSchema),
 		token,
@@ -52,7 +50,7 @@ export async function list(
 
 export async function listMine(token?: string): Promise<EnrollmentResponse[]> {
 	return zfetch(
-		`${BASE}/me`,
+		`${API_ROUTE_BASES.project.enrollments}/me`,
 		{ method: "GET" },
 		z.array(EnrollmentResponseSchema),
 		token,
@@ -64,7 +62,7 @@ export async function create(
 	token?: string,
 ): Promise<EnrollmentResponse> {
 	return zfetch(
-		`${PROJECTS_BASE}/${body.projectId}/enrollments`,
+		`${API_ROUTE_BASES.project.projects}/${body.projectId}/enrollments`,
 		{ method: "POST" },
 		EnrollmentResponseSchema,
 		token,
@@ -78,7 +76,7 @@ async function updateStatus(
 	token?: string,
 ): Promise<EnrollmentResponse> {
 	return zfetch(
-		`${PROJECTS_BASE}/${projectId}/enrollments/${studentId}`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
 		{ method: "PATCH", body: JSON.stringify({ status }) },
 		EnrollmentResponseSchema,
 		token,
@@ -91,7 +89,7 @@ async function updateMyStatus(
 	token?: string,
 ): Promise<EnrollmentResponse> {
 	return zfetch(
-		`${PROJECTS_BASE}/${projectId}/enrollments/me`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/me`,
 		{ method: "PATCH", body: JSON.stringify({ status }) },
 		EnrollmentResponseSchema,
 		token,
@@ -151,7 +149,7 @@ export async function deleteEnrollment(
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${PROJECTS_BASE}/${projectId}/enrollments/${studentId}`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
 		{ method: "DELETE" },
 		token,
 	);

@@ -15,10 +15,9 @@ import type {
 import { qs } from "@/utils/api";
 import { webFetch, webVoid } from "@/utils/web-api";
 
-const BASE = WEB_API_ROUTE_BASES.project.projects;
 
 export async function get(id: string): Promise<ProjectResponse> {
-	return webFetch(`${BASE}/${id}`, ProjectResponseSchema);
+	return webFetch(`${WEB_API_ROUTE_BASES.project.projects}/${id}`, ProjectResponseSchema);
 }
 
 export async function list(
@@ -26,7 +25,7 @@ export async function list(
 	entityId?: string,
 ): Promise<ProjectResponse[]> {
 	return webFetch(
-		`${BASE}${qs({ q, entityId })}`,
+		`${WEB_API_ROUTE_BASES.project.projects}${qs({ q, entityId })}`,
 		z.array(ProjectResponseSchema),
 	);
 }
@@ -35,7 +34,7 @@ export async function listByCreatedBy(
 	accountId: string,
 ): Promise<ProjectResponse[]> {
 	return webFetch(
-		`${BASE}${qs({ createdBy: accountId })}`,
+		`${WEB_API_ROUTE_BASES.project.projects}${qs({ createdBy: accountId })}`,
 		z.array(ProjectResponseSchema),
 	);
 }
@@ -43,7 +42,7 @@ export async function listByCreatedBy(
 export async function create(
 	body: ProjectCreateRequest,
 ): Promise<ProjectResponse> {
-	return webFetch(`${BASE}`, ProjectResponseSchema, {
+	return webFetch(`${WEB_API_ROUTE_BASES.project.projects}`, ProjectResponseSchema, {
 		method: "POST",
 		body: JSON.stringify(ProjectCreateRequestSchema.parse(body)),
 	});
@@ -53,7 +52,7 @@ export async function update(
 	id: string,
 	body: ProjectUpdateRequest,
 ): Promise<ProjectResponse> {
-	return webFetch(`${BASE}/${id}`, ProjectResponseSchema, {
+	return webFetch(`${WEB_API_ROUTE_BASES.project.projects}/${id}`, ProjectResponseSchema, {
 		method: "PUT",
 		body: JSON.stringify(ProjectUpdateRequestSchema.parse(body)),
 	});
@@ -63,7 +62,7 @@ async function updateStatus(
 	id: string,
 	status: ProjectStatus,
 ): Promise<ProjectResponse> {
-	return webFetch(`${BASE}/${id}`, ProjectResponseSchema, {
+	return webFetch(`${WEB_API_ROUTE_BASES.project.projects}/${id}`, ProjectResponseSchema, {
 		method: "PATCH",
 		body: JSON.stringify({ status }),
 	});
@@ -90,5 +89,5 @@ export async function start(id: string): Promise<ProjectResponse> {
 }
 
 export async function remove(id: string): Promise<void> {
-	return webVoid(`${BASE}/${id}`, { method: "DELETE" });
+	return webVoid(`${WEB_API_ROUTE_BASES.project.projects}/${id}`, { method: "DELETE" });
 }

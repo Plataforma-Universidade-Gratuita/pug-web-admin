@@ -11,15 +11,10 @@ import type {
 	ScrollOffsetFromThumbOffsetArgs,
 	TableScrollbarMetricsArgs,
 } from "@/types/client";
+import type { TableScrollbarMetrics } from "@/types/client/components/display/table";
+import { MIN_TABLE_SCROLLBAR_THUMB_SIZE } from "@/constants";
 import { compareNormalizedText } from "@/utils/lang";
 
-const MIN_TABLE_SCROLLBAR_THUMB_SIZE = 32;
-
-export interface TableScrollbarMetrics {
-	isScrollable: boolean;
-	thumbOffsetPx: number;
-	thumbSizePx: number;
-}
 
 function clamp(value: number, min: number, max: number) {
 	return Math.min(Math.max(value, min), max);

@@ -9,10 +9,9 @@ import type {
 } from "@/types/api";
 import { zfetch, zvoid, qs } from "@/utils/api";
 
-const BASE = API_ROUTE_BASES.partner.staff;
 
 export async function get(id: string, token?: string): Promise<StaffResponse> {
-	return zfetch(`${BASE}/${id}`, { method: "GET" }, StaffResponseSchema, token);
+	return zfetch(`${API_ROUTE_BASES.partner.staff}/${id}`, { method: "GET" }, StaffResponseSchema, token);
 }
 
 export async function getByEmail(
@@ -20,7 +19,7 @@ export async function getByEmail(
 	token?: string,
 ): Promise<StaffResponse> {
 	return zfetch(
-		`${BASE}${qs({ email })}`,
+		`${API_ROUTE_BASES.partner.staff}${qs({ email })}`,
 		{ method: "GET" },
 		StaffResponseSchema,
 		token,
@@ -28,7 +27,7 @@ export async function getByEmail(
 }
 
 export async function getMe(token?: string): Promise<StaffResponse> {
-	return zfetch(`${BASE}/me`, { method: "GET" }, StaffResponseSchema, token);
+	return zfetch(`${API_ROUTE_BASES.partner.staff}/me`, { method: "GET" }, StaffResponseSchema, token);
 }
 
 export async function list(
@@ -36,7 +35,7 @@ export async function list(
 	q?: string,
 ): Promise<StaffResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ q })}`,
+		`${API_ROUTE_BASES.partner.staff}${qs({ q })}`,
 		{ method: "GET" },
 		z.array(StaffResponseSchema),
 		token,
@@ -48,7 +47,7 @@ export async function listByCpf(
 	token?: string,
 ): Promise<StaffResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ cpf })}`,
+		`${API_ROUTE_BASES.partner.staff}${qs({ cpf })}`,
 		{ method: "GET" },
 		z.array(StaffResponseSchema),
 		token,
@@ -60,7 +59,7 @@ export async function listByEntity(
 	token?: string,
 ): Promise<StaffResponse[]> {
 	return zfetch(
-		`${BASE}${qs({ entityId })}`,
+		`${API_ROUTE_BASES.partner.staff}${qs({ entityId })}`,
 		{ method: "GET" },
 		z.array(StaffResponseSchema),
 		token,
@@ -72,7 +71,7 @@ export async function create(
 	token?: string,
 ): Promise<StaffResponse> {
 	return zfetch(
-		`${BASE}`,
+		`${API_ROUTE_BASES.partner.staff}`,
 		{ method: "POST", body: JSON.stringify(body) },
 		StaffResponseSchema,
 		token,
@@ -85,7 +84,7 @@ export async function update(
 	token?: string,
 ): Promise<StaffResponse> {
 	return zfetch(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.partner.staff}/${id}`,
 		{ method: "PUT", body: JSON.stringify(body) },
 		StaffResponseSchema,
 		token,
@@ -98,7 +97,7 @@ export async function setActive(
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${BASE}/${id}`,
+		`${API_ROUTE_BASES.partner.staff}/${id}`,
 		{ method: "PATCH", body: JSON.stringify({ active }) },
 		token,
 	);
@@ -109,5 +108,5 @@ export async function deactivate(id: string, token?: string): Promise<void> {
 }
 
 export async function remove(id: string, token?: string): Promise<void> {
-	return zvoid(`${BASE}/${id}`, { method: "DELETE" }, token);
+	return zvoid(`${API_ROUTE_BASES.partner.staff}/${id}`, { method: "DELETE" }, token);
 }

@@ -156,9 +156,7 @@ export function ProjectDetailDialog({
 									</p>
 									{schoolsIsError ? (
 										<SomeErrorState
-											title={t(
-												"project.projectPage.dialog.schoolsError.title",
-											)}
+											title={t("project.projectPage.dialog.schoolsError.title")}
 											description={t(
 												"project.projectPage.dialog.schoolsError.description",
 											)}
@@ -168,8 +166,8 @@ export function ProjectDetailDialog({
 										<p className="ty-sm-semibold">
 											{schoolsIsLoading
 												? t("project.projectPage.loading.schools")
-												: schoolNames ??
-													t("project.projectPage.dialog.values.noSchools")}
+												: (schoolNames ??
+													t("project.projectPage.dialog.values.noSchools"))}
 										</p>
 									)}
 								</div>

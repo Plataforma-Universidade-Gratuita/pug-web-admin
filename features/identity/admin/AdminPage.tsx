@@ -165,7 +165,8 @@ export function AdminPage() {
 		}
 
 		const { active, admin } = pendingStatusAdmin;
-		const isCurrentAdmin = currentAdminQuery.data?.accountId === admin.accountId;
+		const isCurrentAdmin =
+			currentAdminQuery.data?.accountId === admin.accountId;
 
 		if (!active && isCurrentAdmin) {
 			setPendingStatusAdmin(null);
@@ -300,7 +301,9 @@ export function AdminPage() {
 					getRowActions: row => (
 						<AdminRowActions
 							admin={row}
-							canDeactivate={row.accountId !== currentAdminQuery.data?.accountId}
+							canDeactivate={
+								row.accountId !== currentAdminQuery.data?.accountId
+							}
 							onDelete={setPendingDeleteAdmin}
 							onSetActive={(admin, active) =>
 								setPendingStatusAdmin({ active, admin })
