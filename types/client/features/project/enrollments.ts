@@ -6,6 +6,16 @@ import type {
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
+export interface EnrollmentPageProps {
+	enrollmentId: string;
+}
+
+export interface EnrollmentRoutePageProps {
+	params: Promise<{
+		enrollmentId: string;
+	}>;
+}
+
 export type EnrollmentAuditDateField = "" | "createdAt" | "updatedAt";
 export type EnrollmentStatusFilter = "" | EnrollmentStatus;
 export type EnrollmentStatusAction =
@@ -35,7 +45,7 @@ export interface EnrollmentStatusMutationVariables {
 	studentId: string;
 }
 
-export interface EnrollmentFiltersDrawerProps {
+export interface EnrollmentsFiltersDrawerProps {
 	dateField: EnrollmentAuditDateField;
 	endDate: string;
 	hasActiveFilters: boolean;
@@ -61,26 +71,14 @@ export interface EnrollmentFiltersDrawerProps {
 	studentsError: boolean;
 }
 
-export interface EnrollmentDetailDialogProps {
-	enrollment: EnrollmentResponse | undefined;
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
-	projectById: Map<string, ProjectResponse>;
-	studentById: Map<string, StudentResponse>;
-}
-
-export interface EnrollmentRowActionsProps {
+export interface EnrollmentsRowActionsProps {
 	enrollment: EnrollmentResponse;
+	href: string;
 	onDelete: (enrollment: EnrollmentResponse) => void;
 	onStatusAction: (
 		enrollment: EnrollmentResponse,
 		action: EnrollmentStatusAction,
 	) => void;
-	onView: (compositeKey: string) => void;
 }
 
 export interface EnrollmentFilterArgs {

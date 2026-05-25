@@ -22,8 +22,8 @@ import {
 	toast,
 } from "@/components";
 import { useStudentsQuery } from "@/features/academic/students/queries";
-import { AttendanceCreateForm } from "@/features/project/attendance/AttendanceCreateForm";
-import { useCreateAttendanceMutation } from "@/features/project/attendance/mutations";
+import { AttendancesCreateForm } from "@/features/project/attendances/AttendancesCreateForm";
+import { useCreateAttendanceMutation } from "@/features/project/attendances/mutations";
 import {
 	buildAttendanceProjectOptions,
 	buildAttendanceStudentOptions,
@@ -33,22 +33,22 @@ import {
 	getAttendanceStudentsErrorToastContent,
 	getEmptyAttendanceCreateFormValues,
 	toAttendanceCreateRequest,
-} from "@/features/project/attendance/utils";
-import { useProjectsQuery } from "@/features/project/project/queries";
+} from "@/features/project/attendances/utils";
+import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
 import type {
-	AttendanceCreateDrawerProps,
+	AttendancesCreateDrawerProps,
 	AttendanceCreateFormValues,
 } from "@/types";
 
-export function AttendanceCreateDrawer({
+export function AttendancesCreateDrawer({
 	open,
 	onOpenChange,
-}: AttendanceCreateDrawerProps) {
+}: AttendancesCreateDrawerProps) {
 	const { t } = useTranslation();
 	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const projectsQuery = useProjectsQuery();
@@ -160,7 +160,7 @@ export function AttendanceCreateDrawer({
 					</DrawerHeader>
 
 					<DrawerBody className="grid gap-6">
-						<AttendanceCreateForm
+						<AttendancesCreateForm
 							canRenderForm={canRenderForm}
 							form={form}
 							onRefreshProjects={() => {

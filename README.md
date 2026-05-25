@@ -134,9 +134,12 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - `/partner/entities`
 - `/partner/staff`
 - `/project`
-- `/project/attendance`
-- `/project/enrollment`
-- `/project/project`
+- `/project/attendances`
+- `/project/attendances/[attendanceId]`
+- `/project/enrollments`
+- `/project/enrollments/[enrollmentId]`
+- `/project/projects`
+- `/project/projects/[projectId]`
 - `/identity`
 - `/identity/accounts`
 - `/identity/accounts/[accountId]`
@@ -145,7 +148,8 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - `/identity/users`
 - `/identity/users/[userId]`
 - `/geo`
-- `/geo/city`
+- `/geo/cities`
+- `/geo/cities/[cityId]`
 - `/docs`
 - `/docs/primitives`
 - `/docs/primitives/actions`

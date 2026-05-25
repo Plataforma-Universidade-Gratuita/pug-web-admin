@@ -18,17 +18,17 @@ export function ProjectOverviewPage() {
 			<ModulePageComingSoon
 				paths={[
 					{
-						href: "/project/project",
+						href: "/project/projects",
 						label: t("project.projectPage.title"),
 						description: t("project.projectPage.description"),
 					},
 					{
-						href: "/project/enrollment",
+						href: "/project/enrollments",
 						label: t("project.enrollmentPage.title"),
 						description: t("project.enrollmentPage.description"),
 					},
 					{
-						href: "/project/attendance",
+						href: "/project/attendances",
 						label: t("project.attendancePage.title"),
 						description: t("project.attendancePage.description"),
 					},

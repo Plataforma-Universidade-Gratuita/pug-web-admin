@@ -11,6 +11,16 @@ import type {
 import type { AttendanceValidateRequest } from "@/types";
 import type { ComboboxOption } from "@/types";
 
+export interface AttendancePageProps {
+	attendanceId: string;
+}
+
+export interface AttendanceRoutePageProps {
+	params: Promise<{
+		attendanceId: string;
+	}>;
+}
+
 export type AttendanceAuditDateField = "" | "createdAt" | "updatedAt";
 export type AttendanceStatusFilter = "" | AttendanceStatus;
 export type AttendanceValidationAction = "markAbsent" | "markPresent";
@@ -43,12 +53,12 @@ export interface AttendanceValidateMutationVariables {
 	id: string;
 }
 
-export interface AttendanceCreateDrawerProps {
-	open: boolean;
+export interface AttendancesCreateDrawerProps {
 	onOpenChange: (open: boolean) => void;
+	open: boolean;
 }
 
-export interface AttendanceCreateFormProps {
+export interface AttendancesCreateFormProps {
 	canRenderForm: boolean;
 	form: UseFormReturn<AttendanceCreateFormValues>;
 	onRefreshProjects: () => void;
@@ -59,7 +69,7 @@ export interface AttendanceCreateFormProps {
 	studentsError: unknown;
 }
 
-export interface AttendanceFiltersDrawerProps {
+export interface AttendancesFiltersDrawerProps {
 	dateField: AttendanceAuditDateField;
 	endDate: string;
 	hasActiveFilters: boolean;
@@ -85,27 +95,14 @@ export interface AttendanceFiltersDrawerProps {
 	studentsError: boolean;
 }
 
-export interface AttendanceDetailDialogProps {
-	adminById: Map<string, AdminResponse>;
-	attendance: AttendanceResponse | undefined;
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
-	projectById: Map<string, ProjectResponse>;
-	studentById: Map<string, StudentResponse>;
-}
-
-export interface AttendanceRowActionsProps {
+export interface AttendancesRowActionsProps {
 	attendance: AttendanceResponse;
+	href: string;
 	onDelete: (attendance: AttendanceResponse) => void;
 	onValidate: (
 		attendance: AttendanceResponse,
 		action: AttendanceValidationAction,
 	) => void;
-	onView: (id: string) => void;
 }
 
 export interface AttendanceFilterArgs {

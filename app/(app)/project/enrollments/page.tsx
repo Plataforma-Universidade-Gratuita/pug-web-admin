@@ -1,5 +1,5 @@
-import { EnrollmentPage } from "@/features/project/enrollment/EnrollmentPage";
+import { EnrollmentsPage } from "@/features/project/enrollments/EnrollmentsPage";
 
 export default function Page() {
-	return <EnrollmentPage />;
+	return <EnrollmentsPage />;
 }

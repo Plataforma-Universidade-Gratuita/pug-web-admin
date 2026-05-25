@@ -1,10 +1,10 @@
 "use client";
 
 import {
+	ArrowUpRight,
 	Ban,
 	CheckCheck,
 	CopyPlus,
-	Eye,
 	Pause,
 	PenSquare,
 	Play,
@@ -21,23 +21,25 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import type { ProjectRowActionsProps } from "@/types";
+import type { ProjectsRowActionsProps } from "@/types";
 
-export function ProjectRowActions({
+export function ProjectsRowActions({
+	href,
 	onDelete,
 	onOpenEditor,
 	onStatusAction,
-	onView,
 	project,
-}: ProjectRowActionsProps) {
+}: ProjectsRowActionsProps) {
 	const { t } = useTranslation();
 
 	return (
 		<>
 			<DropdownMenuInfoItem
-				icon={Eye}
+				icon={ArrowUpRight}
 				label={t("project.projectPage.table.actions.viewDetails")}
-				onClick={() => onView(project.id)}
+				onClick={() => {
+					window.open(href, "_blank", "noopener,noreferrer");
+				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}

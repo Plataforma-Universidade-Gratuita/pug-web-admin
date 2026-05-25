@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 
 import { create, remove, validate } from "@/api/web/project/attendances";
-import { attendanceQueryKeys } from "@/features/project/attendance/queries";
+import { attendanceQueryKeys } from "@/features/project/attendances/queries";
 import type { AttendanceResponse } from "@/types";
 import type {
 	AttendanceCreateMutationVariables,

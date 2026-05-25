@@ -11,11 +11,11 @@ import {
 	SomeErrorState,
 	TextArea,
 } from "@/components";
-import { resolveProjectEntityLabel } from "@/features/project/project/utils";
-import type { ProjectEditorFormProps } from "@/types";
+import { resolveProjectEntityLabel } from "@/features/project/projects/utils";
+import type { ProjectsEditorFormProps } from "@/types";
 import { WebApiError } from "@/utils";
 
-export function ProjectEditorForm({
+export function ProjectsEditorForm({
 	canRenderForm,
 	entitiesError,
 	entityById,
@@ -26,7 +26,7 @@ export function ProjectEditorForm({
 	onRefreshProject,
 	project,
 	projectError,
-}: ProjectEditorFormProps) {
+}: ProjectsEditorFormProps) {
 	const { t } = useTranslation();
 	const isCreateMode = mode === "create";
 	const isUpdateMode = mode === "update";

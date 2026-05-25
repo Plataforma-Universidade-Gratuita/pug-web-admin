@@ -7,18 +7,14 @@ import { useTranslation } from "react-i18next";
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { useStudentsQuery } from "@/features/academic/students/queries";
 import { useAdminsQuery } from "@/features/identity/admins/queries";
-import { AttendanceCreateDrawer } from "@/features/project/attendance/AttendanceCreateDrawer";
-import { AttendanceDetailDialog } from "@/features/project/attendance/AttendanceDetailDialog";
-import { AttendanceFiltersDrawer } from "@/features/project/attendance/AttendanceFiltersDrawer";
-import { AttendanceRowActions } from "@/features/project/attendance/AttendanceRowActions";
+import { AttendancesCreateDrawer } from "@/features/project/attendances/AttendancesCreateDrawer";
+import { AttendancesFiltersDrawer } from "@/features/project/attendances/AttendancesFiltersDrawer";
+import { AttendancesRowActions } from "@/features/project/attendances/AttendancesRowActions";
 import {
 	useRemoveAttendanceMutation,
 	useValidateAttendanceMutation,
-} from "@/features/project/attendance/mutations";
-import {
-	useAttendanceDetailQuery,
-	useAttendancesQuery,
-} from "@/features/project/attendance/queries";
+} from "@/features/project/attendances/mutations";
+import { useAttendancesQuery } from "@/features/project/attendances/queries";
 import {
 	buildAttendanceProjectOptions,
 	buildAttendanceStudentOptions,
@@ -26,7 +22,6 @@ import {
 	filterAttendances,
 	getAttendanceAdminsErrorToastContent,
 	getAttendanceDeleteErrorToastContent,
-	getAttendanceDetailErrorToastContent,
 	getAttendanceEmptyStateCopy,
 	getAttendanceFilterSummary,
 	getAttendanceProjectsErrorToastContent,
@@ -35,8 +30,8 @@ import {
 	getAttendanceValidateErrorToastContent,
 	resolveAttendanceProjectLabel,
 	resolveAttendanceStudentLabel,
-} from "@/features/project/attendance/utils";
-import { useProjectsQuery } from "@/features/project/project/queries";
+} from "@/features/project/attendances/utils";
+import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -49,7 +44,6 @@ import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
-	useServicePageDetailState,
 } from "@/hooks";
 import type { AttendanceResponse } from "@/types";
 import type {
@@ -61,7 +55,7 @@ function getValidationVariant(action: AttendanceValidationAction) {
 	return action === "markPresent" ? "success" : "warning";
 }
 
-export function AttendancePage() {
+export function AttendancesPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
@@ -87,7 +81,6 @@ export function AttendancePage() {
 	} = useDraftFilters<AttendanceSecondaryFilters>({
 		initialFilters: initialSecondaryFilters,
 	});
-	const detailState = useServicePageDetailState();
 	const [pendingDeleteAttendance, setPendingDeleteAttendance] =
 		useState<AttendanceResponse | null>(null);
 	const [pendingValidation, setPendingValidation] = useState<{
@@ -96,9 +89,6 @@ export function AttendancePage() {
 	} | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const attendancesQuery = useAttendancesQuery();
-	const attendanceDetailQuery = useAttendanceDetailQuery(
-		detailState.selectedId,
-	);
 	const projectsQuery = useProjectsQuery();
 	const studentsQuery = useStudentsQuery();
 	const adminsQuery = useAdminsQuery();
@@ -216,13 +206,6 @@ export function AttendancePage() {
 			isError: attendancesQuery.isError,
 		},
 		{
-			key: "attendance-detail",
-			error: attendanceDetailQuery.error,
-			errorUpdatedAt: attendanceDetailQuery.errorUpdatedAt,
-			getContent: error => getAttendanceDetailErrorToastContent(t, error),
-			isError: attendanceDetailQuery.isError,
-		},
-		{
 			key: "attendance-projects",
 			error: projectsQuery.error,
 			errorUpdatedAt: projectsQuery.errorUpdatedAt,
@@ -294,8 +277,6 @@ export function AttendancePage() {
 									),
 								},
 							);
-
-							detailState.clearIfMatches(attendance.id);
 						},
 						onError: error => {
 							const { title, description } =
@@ -381,7 +362,7 @@ export function AttendancePage() {
 					placeholder={t("project.attendancePage.filters.search.placeholder")}
 				/>
 
-				<AttendanceFiltersDrawer
+				<AttendancesFiltersDrawer
 					dateField={draftFilters.dateField}
 					endDate={draftFilters.endDate}
 					hasActiveFilters={hasAppliedFilters}
@@ -426,13 +407,13 @@ export function AttendancePage() {
 					data: filteredAttendances,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<AttendanceRowActions
+						<AttendancesRowActions
 							attendance={row}
+							href={`/project/attendances/${row.id}`}
 							onDelete={setPendingDeleteAttendance}
 							onValidate={(attendance, action) =>
 								setPendingValidation({ action, attendance })
 							}
-							onView={detailState.openDetail}
 						/>
 					),
 					isLoading: attendancesQuery.isLoading,
@@ -440,24 +421,9 @@ export function AttendancePage() {
 				}}
 			/>
 
-			<AttendanceCreateDrawer
+			<AttendancesCreateDrawer
 				open={isCreateOpen}
 				onOpenChange={setIsCreateOpen}
-			/>
-
-			<AttendanceDetailDialog
-				adminById={adminById}
-				attendance={attendanceDetailQuery.data}
-				error={attendanceDetailQuery.error}
-				isError={attendanceDetailQuery.isError}
-				isLoading={attendanceDetailQuery.isLoading}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void attendanceDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
-				projectById={projectById}
-				studentById={studentById}
 			/>
 
 			<ServicePageConfirmDialog

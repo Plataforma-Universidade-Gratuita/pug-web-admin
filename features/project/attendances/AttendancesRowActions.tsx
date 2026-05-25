@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Eye, Trash2, UserRoundX } from "lucide-react";
+import { ArrowUpRight, Check, Trash2, UserRoundX } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -10,22 +10,24 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import type { AttendanceRowActionsProps } from "@/types";
+import type { AttendancesRowActionsProps } from "@/types";
 
-export function AttendanceRowActions({
+export function AttendancesRowActions({
 	attendance,
+	href,
 	onDelete,
 	onValidate,
-	onView,
-}: AttendanceRowActionsProps) {
+}: AttendancesRowActionsProps) {
 	const { t } = useTranslation();
 
 	return (
 		<>
 			<DropdownMenuInfoItem
-				icon={Eye}
+				icon={ArrowUpRight}
 				label={t("project.attendancePage.table.actions.viewDetails")}
-				onClick={() => onView(attendance.id)}
+				onClick={() => {
+					window.open(href, "_blank", "noopener,noreferrer");
+				}}
 			/>
 			<DropdownMenuSeparator />
 			{attendance.status !== "PRESENT" ? (

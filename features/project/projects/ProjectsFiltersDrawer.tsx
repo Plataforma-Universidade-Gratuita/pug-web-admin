@@ -12,18 +12,18 @@ import {
 	SelectTrigger,
 	SomeErrorState,
 } from "@/components";
-import { getProjectStatusOptions } from "@/features/project/project/utils";
+import { getProjectStatusOptions } from "@/features/project/projects/utils";
 import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
 import type {
 	ProjectAuditDateField,
-	ProjectFiltersDrawerProps,
+	ProjectsFiltersDrawerProps,
 	ProjectStatusFilter,
 } from "@/types";
 
-export function ProjectFiltersDrawer({
+export function ProjectsFiltersDrawer({
 	adminsError,
 	createdByFilter,
 	creatorOptions,
@@ -47,7 +47,7 @@ export function ProjectFiltersDrawer({
 	open,
 	startDate,
 	statusFilter,
-}: ProjectFiltersDrawerProps) {
+}: ProjectsFiltersDrawerProps) {
 	const { t } = useTranslation();
 	const statusOptions = useMemo(() => getProjectStatusOptions(t), [t]);
 

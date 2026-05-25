@@ -12,18 +12,18 @@ import {
 	SelectTrigger,
 	SomeErrorState,
 } from "@/components";
-import { getAttendanceStatusOptions } from "@/features/project/attendance/utils";
+import { getEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
 import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
 import type {
-	AttendanceAuditDateField,
-	AttendanceFiltersDrawerProps,
-	AttendanceStatusFilter,
+	EnrollmentAuditDateField,
+	EnrollmentsFiltersDrawerProps,
+	EnrollmentStatusFilter,
 } from "@/types";
 
-export function AttendanceFiltersDrawer({
+export function EnrollmentsFiltersDrawer({
 	dateField,
 	endDate,
 	hasActiveFilters,
@@ -47,57 +47,57 @@ export function AttendanceFiltersDrawer({
 	studentIdFilter,
 	studentOptions,
 	studentsError,
-}: AttendanceFiltersDrawerProps) {
+}: EnrollmentsFiltersDrawerProps) {
 	const { t } = useTranslation();
-	const statusOptions = useMemo(() => getAttendanceStatusOptions(t), [t]);
+	const statusOptions = useMemo(() => getEnrollmentStatusOptions(t), [t]);
 
 	return (
 		<ServicePageFiltersDrawer
-			activeLabel={t("project.attendancePage.filters.drawer.active")}
-			applyLabel={t("project.attendancePage.filters.drawer.apply")}
+			activeLabel={t("project.enrollmentPage.filters.drawer.active")}
+			applyLabel={t("project.enrollmentPage.filters.drawer.apply")}
 			clearConfirmDescription={t(
-				"project.attendancePage.filters.drawer.clearConfirm.description",
+				"project.enrollmentPage.filters.drawer.clearConfirm.description",
 			)}
 			clearConfirmTitle={t(
-				"project.attendancePage.filters.drawer.clearConfirm.title",
+				"project.enrollmentPage.filters.drawer.clearConfirm.title",
 			)}
-			clearLabel={t("project.attendancePage.filters.clear")}
+			clearLabel={t("project.enrollmentPage.filters.clear")}
 			hasActiveFilters={hasActiveFilters}
-			label={t("project.attendancePage.filters.drawer.label")}
+			label={t("project.enrollmentPage.filters.drawer.label")}
 			onApply={onApply}
 			onClear={onClear}
 			onOpenChange={onOpenChange}
 			open={open}
-			overhead={t("project.attendancePage.filters.drawer.overhead")}
-			title={t("project.attendancePage.filters.drawer.title")}
-			triggerLabel={t("project.attendancePage.filters.drawer.trigger")}
+			overhead={t("project.enrollmentPage.filters.drawer.overhead")}
+			title={t("project.enrollmentPage.filters.drawer.title")}
+			triggerLabel={t("project.enrollmentPage.filters.drawer.trigger")}
 		>
 			<div className="grid gap-4 sm:grid-cols-2">
 				{projectsError ? (
 					<SomeErrorState
-						title={t("project.attendancePage.filters.project.error.title")}
+						title={t("project.enrollmentPage.filters.project.error.title")}
 						description={t(
-							"project.attendancePage.filters.project.error.description",
+							"project.enrollmentPage.filters.project.error.description",
 						)}
 						onRefresh={onRefreshProjects}
 					/>
 				) : (
 					<div className="grid gap-2">
 						<p className="field-label">
-							{t("project.attendancePage.filters.project.label")}
+							{t("project.enrollmentPage.filters.project.label")}
 						</p>
 						<Combobox
 							options={projectOptions}
 							value={projectIdFilter}
 							onValueChange={onProjectIdFilterChange}
 							placeholder={t(
-								"project.attendancePage.filters.project.placeholder",
+								"project.enrollmentPage.filters.project.placeholder",
 							)}
 							searchPlaceholder={t(
-								"project.attendancePage.filters.project.searchPlaceholder",
+								"project.enrollmentPage.filters.project.searchPlaceholder",
 							)}
 							emptyMessage={t(
-								"project.attendancePage.filters.project.emptyMessage",
+								"project.enrollmentPage.filters.project.emptyMessage",
 							)}
 						/>
 					</div>
@@ -105,29 +105,29 @@ export function AttendanceFiltersDrawer({
 
 				{studentsError ? (
 					<SomeErrorState
-						title={t("project.attendancePage.filters.student.error.title")}
+						title={t("project.enrollmentPage.filters.student.error.title")}
 						description={t(
-							"project.attendancePage.filters.student.error.description",
+							"project.enrollmentPage.filters.student.error.description",
 						)}
 						onRefresh={onRefreshStudents}
 					/>
 				) : (
 					<div className="grid gap-2">
 						<p className="field-label">
-							{t("project.attendancePage.filters.student.label")}
+							{t("project.enrollmentPage.filters.student.label")}
 						</p>
 						<Combobox
 							options={studentOptions}
 							value={studentIdFilter}
 							onValueChange={onStudentIdFilterChange}
 							placeholder={t(
-								"project.attendancePage.filters.student.placeholder",
+								"project.enrollmentPage.filters.student.placeholder",
 							)}
 							searchPlaceholder={t(
-								"project.attendancePage.filters.student.searchPlaceholder",
+								"project.enrollmentPage.filters.student.searchPlaceholder",
 							)}
 							emptyMessage={t(
-								"project.attendancePage.filters.student.emptyMessage",
+								"project.enrollmentPage.filters.student.emptyMessage",
 							)}
 						/>
 					</div>
@@ -136,17 +136,17 @@ export function AttendanceFiltersDrawer({
 
 			<div className="grid gap-2">
 				<p className="field-label">
-					{t("project.attendancePage.filters.status.label")}
+					{t("project.enrollmentPage.filters.status.label")}
 				</p>
 				<Select
 					value={statusFilter}
 					onValueChange={value =>
-						onStatusFilterChange(value as AttendanceStatusFilter)
+						onStatusFilterChange(value as EnrollmentStatusFilter)
 					}
 				>
 					<SelectTrigger
 						className="w-full"
-						placeholder={t("project.attendancePage.filters.status.placeholder")}
+						placeholder={t("project.enrollmentPage.filters.status.placeholder")}
 					/>
 					<SelectContent>
 						{statusOptions.map(option => (
@@ -162,37 +162,37 @@ export function AttendanceFiltersDrawer({
 			</div>
 
 			<AuditInfoFilterFields
-				dateFieldLabel={t("project.attendancePage.filters.dateField.label")}
+				dateFieldLabel={t("project.enrollmentPage.filters.dateField.label")}
 				dateFieldPlaceholder={t(
-					"project.attendancePage.filters.dateField.placeholder",
+					"project.enrollmentPage.filters.dateField.placeholder",
 				)}
 				dateField={dateField}
 				onDateFieldChange={value =>
-					onDateFieldChange(value as AttendanceAuditDateField)
+					onDateFieldChange(value as EnrollmentAuditDateField)
 				}
 				dateFieldOptions={[
 					{
 						value: "createdAt",
 						label: t(
-							"project.attendancePage.filters.dateField.options.createdAt",
+							"project.enrollmentPage.filters.dateField.options.createdAt",
 						),
 					},
 					{
 						value: "updatedAt",
 						label: t(
-							"project.attendancePage.filters.dateField.options.updatedAt",
+							"project.enrollmentPage.filters.dateField.options.updatedAt",
 						),
 					},
 				]}
-				startDateLabel={t("project.attendancePage.filters.startDate.label")}
+				startDateLabel={t("project.enrollmentPage.filters.startDate.label")}
 				startDatePlaceholder={t(
-					"project.attendancePage.filters.startDate.placeholder",
+					"project.enrollmentPage.filters.startDate.placeholder",
 				)}
 				startDate={startDate}
 				onStartDateChange={onStartDateChange}
-				endDateLabel={t("project.attendancePage.filters.endDate.label")}
+				endDateLabel={t("project.enrollmentPage.filters.endDate.label")}
 				endDatePlaceholder={t(
-					"project.attendancePage.filters.endDate.placeholder",
+					"project.enrollmentPage.filters.endDate.placeholder",
 				)}
 				endDate={endDate}
 				onEndDateChange={onEndDateChange}

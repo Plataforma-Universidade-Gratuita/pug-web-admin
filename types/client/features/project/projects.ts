@@ -11,6 +11,16 @@ import type {
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
+export interface ProjectPageProps {
+	projectId: string;
+}
+
+export interface ProjectRoutePageProps {
+	params: Promise<{
+		projectId: string;
+	}>;
+}
+
 export type ProjectAuditDateField = "" | "createdAt" | "updatedAt";
 export type ProjectEditorMode = "create" | "duplicate" | "update";
 export type ProjectStatusFilter = "" | ProjectStatus;
@@ -56,14 +66,14 @@ export interface ProjectStatusMutationVariables {
 	id: string;
 }
 
-export interface ProjectEditorDrawerProps {
+export interface ProjectsEditorDrawerProps {
 	mode: ProjectEditorMode;
-	open: boolean;
 	onOpenChange: (open: boolean) => void;
+	open: boolean;
 	projectId: string | null;
 }
 
-export interface ProjectEditorFormProps {
+export interface ProjectsEditorFormProps {
 	canRenderForm: boolean;
 	entitiesError: unknown;
 	entityById: Map<string, EntityResponse>;
@@ -76,7 +86,7 @@ export interface ProjectEditorFormProps {
 	projectError: unknown;
 }
 
-export interface ProjectFiltersDrawerProps {
+export interface ProjectsFiltersDrawerProps {
 	adminsError: boolean;
 	createdByFilter: string;
 	creatorOptions: ComboboxOption[];
@@ -102,34 +112,19 @@ export interface ProjectFiltersDrawerProps {
 	statusFilter: ProjectStatusFilter;
 }
 
-export interface ProjectDetailDialogProps {
-	adminById: Map<string, AdminResponse>;
-	entityById: Map<string, EntityResponse>;
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	onRefreshSchools: () => void;
-	open: boolean;
-	project: ProjectResponse | undefined;
-	schools: SchoolResponse[] | undefined;
-	schoolsIsError: boolean;
-	schoolsIsLoading: boolean;
-}
-
-export interface ProjectRowActionsProps {
+export interface ProjectsRowActionsProps {
+	href: string;
 	onDelete: (project: ProjectResponse) => void;
 	onOpenEditor: (id: string, mode: ProjectEditorMode) => void;
 	onStatusAction: (
 		project: ProjectResponse,
 		action: ProjectStatusAction,
 	) => void;
-	onView: (id: string) => void;
 	project: ProjectResponse;
 }
 
 export interface ProjectFilterArgs {
+	adminById: Map<string, AdminResponse>;
 	createdByFilter: string;
 	dateField: ProjectAuditDateField;
 	endDate: string;
@@ -138,5 +133,11 @@ export interface ProjectFilterArgs {
 	query: string;
 	startDate: string;
 	statusFilter: ProjectStatusFilter;
+}
+
+export interface ProjectDetailFieldsArgs {
 	adminById: Map<string, AdminResponse>;
+	entityById: Map<string, EntityResponse>;
+	project: ProjectResponse;
+	schools: SchoolResponse[] | undefined;
 }

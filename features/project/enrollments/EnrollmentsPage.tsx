@@ -6,17 +6,13 @@ import { useTranslation } from "react-i18next";
 
 import { Button, NoContentState, SomeErrorState, toast } from "@/components";
 import { useStudentsQuery } from "@/features/academic/students/queries";
-import { EnrollmentDetailDialog } from "@/features/project/enrollment/EnrollmentDetailDialog";
-import { EnrollmentFiltersDrawer } from "@/features/project/enrollment/EnrollmentFiltersDrawer";
-import { EnrollmentRowActions } from "@/features/project/enrollment/EnrollmentRowActions";
+import { EnrollmentsFiltersDrawer } from "@/features/project/enrollments/EnrollmentsFiltersDrawer";
+import { EnrollmentsRowActions } from "@/features/project/enrollments/EnrollmentsRowActions";
 import {
 	useDeleteEnrollmentMutation,
 	useEnrollmentStatusMutation,
-} from "@/features/project/enrollment/mutations";
-import {
-	useEnrollmentDetailQuery,
-	useEnrollmentsQuery,
-} from "@/features/project/enrollment/queries";
+} from "@/features/project/enrollments/mutations";
+import { useEnrollmentsQuery } from "@/features/project/enrollments/queries";
 import {
 	buildEnrollmentProjectOptions,
 	buildEnrollmentStudentOptions,
@@ -24,18 +20,16 @@ import {
 	createEnrollmentCompositeKey,
 	filterEnrollments,
 	getEnrollmentDeleteErrorToastContent,
-	getEnrollmentDetailErrorToastContent,
 	getEnrollmentEmptyStateCopy,
 	getEnrollmentFilterSummary,
 	getEnrollmentProjectsErrorToastContent,
 	getEnrollmentsListErrorToastContent,
 	getEnrollmentStatusActionErrorToastContent,
 	getEnrollmentStudentsErrorToastContent,
-	parseEnrollmentCompositeKey,
 	resolveEnrollmentProjectLabel,
 	resolveEnrollmentStudentLabel,
-} from "@/features/project/enrollment/utils";
-import { useProjectsQuery } from "@/features/project/project/queries";
+} from "@/features/project/enrollments/utils";
+import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -47,7 +41,6 @@ import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
-	useServicePageDetailState,
 } from "@/hooks";
 import type { EnrollmentResponse } from "@/types";
 import type {
@@ -69,7 +62,7 @@ function getStatusDialogVariant(action: EnrollmentStatusAction) {
 	}
 }
 
-export function EnrollmentPage() {
+export function EnrollmentsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
@@ -94,7 +87,6 @@ export function EnrollmentPage() {
 	} = useDraftFilters<EnrollmentSecondaryFilters>({
 		initialFilters: initialSecondaryFilters,
 	});
-	const detailState = useServicePageDetailState();
 	const [pendingDeleteEnrollment, setPendingDeleteEnrollment] =
 		useState<EnrollmentResponse | null>(null);
 	const [pendingStatusAction, setPendingStatusAction] = useState<{
@@ -105,14 +97,6 @@ export function EnrollmentPage() {
 	const enrollmentsQuery = useEnrollmentsQuery();
 	const projectsQuery = useProjectsQuery();
 	const studentsQuery = useStudentsQuery();
-	const selectedEnrollmentIds = useMemo(
-		() => parseEnrollmentCompositeKey(detailState.selectedId),
-		[detailState.selectedId],
-	);
-	const enrollmentDetailQuery = useEnrollmentDetailQuery(
-		selectedEnrollmentIds?.projectId ?? null,
-		selectedEnrollmentIds?.studentId ?? null,
-	);
 	const deleteEnrollmentMutation = useDeleteEnrollmentMutation();
 	const enrollmentStatusMutation = useEnrollmentStatusMutation();
 	const { schedule } = useDeferredUndoAction();
@@ -212,13 +196,6 @@ export function EnrollmentPage() {
 			isError: enrollmentsQuery.isError,
 		},
 		{
-			key: "enrollments-detail",
-			error: enrollmentDetailQuery.error,
-			errorUpdatedAt: enrollmentDetailQuery.errorUpdatedAt,
-			getContent: error => getEnrollmentDetailErrorToastContent(t, error),
-			isError: enrollmentDetailQuery.isError,
-		},
-		{
 			key: "enrollment-projects",
 			error: projectsQuery.error,
 			errorUpdatedAt: projectsQuery.errorUpdatedAt,
@@ -280,13 +257,6 @@ export function EnrollmentPage() {
 										labels,
 									),
 								},
-							);
-
-							detailState.clearIfMatches(
-								createEnrollmentCompositeKey(
-									enrollment.projectId,
-									enrollment.studentId,
-								),
 							);
 						},
 						onError: error => {
@@ -373,7 +343,7 @@ export function EnrollmentPage() {
 					placeholder={t("project.enrollmentPage.filters.search.placeholder")}
 				/>
 
-				<EnrollmentFiltersDrawer
+				<EnrollmentsFiltersDrawer
 					dateField={draftFilters.dateField}
 					endDate={draftFilters.endDate}
 					hasActiveFilters={hasAppliedFilters}
@@ -418,32 +388,18 @@ export function EnrollmentPage() {
 					data: filteredEnrollments,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<EnrollmentRowActions
+						<EnrollmentsRowActions
 							enrollment={row}
+							href={`/project/enrollments/${createEnrollmentCompositeKey(row.projectId, row.studentId)}`}
 							onDelete={setPendingDeleteEnrollment}
 							onStatusAction={(enrollment, action) =>
 								setPendingStatusAction({ action, enrollment })
 							}
-							onView={detailState.openDetail}
 						/>
 					),
 					isLoading: enrollmentsQuery.isLoading,
 					loadingLabel: t("project.enrollmentPage.loading.list"),
 				}}
-			/>
-
-			<EnrollmentDetailDialog
-				enrollment={enrollmentDetailQuery.data}
-				error={enrollmentDetailQuery.error}
-				isError={enrollmentDetailQuery.isError}
-				isLoading={enrollmentDetailQuery.isLoading}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void enrollmentDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
-				projectById={projectById}
-				studentById={studentById}
 			/>
 
 			<ServicePageConfirmDialog

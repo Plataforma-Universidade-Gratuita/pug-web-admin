@@ -14,7 +14,7 @@ import {
 	reject,
 	remove as markRemoved,
 } from "@/api/web/project/enrollments";
-import { enrollmentQueryKeys } from "@/features/project/enrollment/queries";
+import { enrollmentQueryKeys } from "@/features/project/enrollments/queries";
 import type { EnrollmentResponse } from "@/types";
 import type {
 	EnrollmentDeleteMutationVariables,

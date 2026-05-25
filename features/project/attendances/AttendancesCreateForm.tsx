@@ -10,9 +10,9 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
-import type { AttendanceCreateFormProps } from "@/types";
+import type { AttendancesCreateFormProps } from "@/types";
 
-export function AttendanceCreateForm({
+export function AttendancesCreateForm({
 	canRenderForm,
 	form,
 	onRefreshProjects,
@@ -21,7 +21,7 @@ export function AttendanceCreateForm({
 	projectsError,
 	studentOptions,
 	studentsError,
-}: AttendanceCreateFormProps) {
+}: AttendancesCreateFormProps) {
 	const { t } = useTranslation();
 
 	if (projectsError) {

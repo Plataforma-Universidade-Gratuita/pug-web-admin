@@ -7,19 +7,14 @@ import { useTranslation } from "react-i18next";
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { useAdminsQuery } from "@/features/identity/admins/queries";
 import { useEntitiesQuery } from "@/features/partner/entities/queries";
-import { ProjectDetailDialog } from "@/features/project/project/ProjectDetailDialog";
-import { ProjectEditorDrawer } from "@/features/project/project/ProjectEditorDrawer";
-import { ProjectFiltersDrawer } from "@/features/project/project/ProjectFiltersDrawer";
-import { ProjectRowActions } from "@/features/project/project/ProjectRowActions";
+import { ProjectsEditorDrawer } from "@/features/project/projects/ProjectsEditorDrawer";
+import { ProjectsFiltersDrawer } from "@/features/project/projects/ProjectsFiltersDrawer";
+import { ProjectsRowActions } from "@/features/project/projects/ProjectsRowActions";
 import {
 	useProjectStatusMutation,
 	useRemoveProjectMutation,
-} from "@/features/project/project/mutations";
-import {
-	useProjectDetailQuery,
-	useProjectsQuery,
-	useProjectSchoolsQuery,
-} from "@/features/project/project/queries";
+} from "@/features/project/projects/mutations";
+import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
 	buildProjectCreatorOptions,
 	buildProjectEntityOptions,
@@ -27,14 +22,12 @@ import {
 	filterProjects,
 	getProjectAdminsErrorToastContent,
 	getProjectDeleteErrorToastContent,
-	getProjectDetailErrorToastContent,
 	getProjectEmptyStateCopy,
 	getProjectEntitiesErrorToastContent,
 	getProjectFilterSummary,
 	getProjectsListErrorToastContent,
-	getProjectSchoolsErrorToastContent,
 	getProjectStatusActionErrorToastContent,
-} from "@/features/project/project/utils";
+} from "@/features/project/projects/utils";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -47,7 +40,6 @@ import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
-	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
 import type { ProjectResponse } from "@/types";
@@ -71,7 +63,7 @@ function getStatusDialogVariant(action: ProjectStatusAction) {
 	}
 }
 
-export function ProjectPage() {
+export function ProjectsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
@@ -96,7 +88,6 @@ export function ProjectPage() {
 	} = useDraftFilters<ProjectSecondaryFilters>({
 		initialFilters: initialSecondaryFilters,
 	});
-	const detailState = useServicePageDetailState();
 	const editorState = useServicePageEditorState<ProjectEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
@@ -109,8 +100,6 @@ export function ProjectPage() {
 	} | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const projectsQuery = useProjectsQuery();
-	const projectDetailQuery = useProjectDetailQuery(detailState.selectedId);
-	const projectSchoolsQuery = useProjectSchoolsQuery(detailState.selectedId);
 	const entitiesQuery = useEntitiesQuery();
 	const adminsQuery = useAdminsQuery();
 	const removeProjectMutation = useRemoveProjectMutation();
@@ -210,20 +199,6 @@ export function ProjectPage() {
 			isError: projectsQuery.isError,
 		},
 		{
-			key: "projects-detail",
-			error: projectDetailQuery.error,
-			errorUpdatedAt: projectDetailQuery.errorUpdatedAt,
-			getContent: error => getProjectDetailErrorToastContent(t, error),
-			isError: projectDetailQuery.isError,
-		},
-		{
-			key: "projects-schools",
-			error: projectSchoolsQuery.error,
-			errorUpdatedAt: projectSchoolsQuery.errorUpdatedAt,
-			getContent: error => getProjectSchoolsErrorToastContent(t, error),
-			isError: projectSchoolsQuery.isError,
-		},
-		{
 			key: "projects-entities",
 			error: entitiesQuery.error,
 			errorUpdatedAt: entitiesQuery.errorUpdatedAt,
@@ -279,7 +254,6 @@ export function ProjectPage() {
 								},
 							);
 
-							detailState.clearIfMatches(project.id);
 							editorState.clearIfMatches(project.id);
 						},
 						onError: error => {
@@ -365,7 +339,7 @@ export function ProjectPage() {
 					placeholder={t("project.projectPage.filters.search.placeholder")}
 				/>
 
-				<ProjectFiltersDrawer
+				<ProjectsFiltersDrawer
 					adminsError={adminsQuery.isError}
 					createdByFilter={draftFilters.createdByFilter}
 					creatorOptions={creatorOptions}
@@ -410,13 +384,13 @@ export function ProjectPage() {
 					data: filteredProjects,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<ProjectRowActions
+						<ProjectsRowActions
+							href={`/project/projects/${row.id}`}
 							onDelete={setPendingDeleteProject}
 							onOpenEditor={editorState.openEditor}
 							onStatusAction={(project, action) =>
 								setPendingStatusAction({ action, project })
 							}
-							onView={detailState.openDetail}
 							project={row}
 						/>
 					),
@@ -425,31 +399,11 @@ export function ProjectPage() {
 				}}
 			/>
 
-			<ProjectEditorDrawer
+			<ProjectsEditorDrawer
 				mode={editorState.editorMode}
 				open={editorState.isOpen}
 				onOpenChange={editorState.handleOpenChange}
 				projectId={editorState.editorId}
-			/>
-
-			<ProjectDetailDialog
-				adminById={adminById}
-				entityById={entityById}
-				error={projectDetailQuery.error}
-				isError={projectDetailQuery.isError}
-				isLoading={projectDetailQuery.isLoading}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void projectDetailQuery.refetch();
-				}}
-				onRefreshSchools={() => {
-					void projectSchoolsQuery.refetch();
-				}}
-				open={detailState.isOpen}
-				project={projectDetailQuery.data}
-				schools={projectSchoolsQuery.data}
-				schoolsIsError={projectSchoolsQuery.isError}
-				schoolsIsLoading={projectSchoolsQuery.isLoading}
 			/>
 
 			<ServicePageConfirmDialog

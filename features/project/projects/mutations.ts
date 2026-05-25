@@ -16,7 +16,7 @@ import {
 	start,
 	update,
 } from "@/api/web/project/projects";
-import { projectQueryKeys } from "@/features/project/project/queries";
+import { projectQueryKeys } from "@/features/project/projects/queries";
 import type { ProjectResponse } from "@/types";
 import type {
 	ProjectCreateMutationVariables,

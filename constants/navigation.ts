@@ -99,17 +99,17 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 				exact: true,
 			},
 			{
-				href: "/project/attendance",
+				href: "/project/attendances",
 				label: "Navbar.paths.project.attendance",
 				Icon: ClipboardCheck,
 			},
 			{
-				href: "/project/enrollment",
+				href: "/project/enrollments",
 				label: "Navbar.paths.project.enrollment",
 				Icon: ClipboardList,
 			},
 			{
-				href: "/project/project",
+				href: "/project/projects",
 				label: "Navbar.paths.project.project",
 				Icon: FolderKanban,
 			},
@@ -279,7 +279,12 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/partner/staff": "Navbar.paths.partner.staff",
 	"/partner/staff/[staffId]": "partner.staffPage.dialog.titleFallback",
 	"/project": "Navbar.paths.project.root",
-	"/project/attendance": "Navbar.paths.project.attendance",
-	"/project/enrollment": "Navbar.paths.project.enrollment",
-	"/project/project": "Navbar.paths.project.project",
+	"/project/attendances": "Navbar.paths.project.attendance",
+	"/project/attendances/[attendanceId]":
+		"project.attendancePage.dialog.titleFallback",
+	"/project/enrollments": "Navbar.paths.project.enrollment",
+	"/project/enrollments/[enrollmentId]":
+		"project.enrollmentPage.dialog.titleFallback",
+	"/project/projects": "Navbar.paths.project.project",
+	"/project/projects/[projectId]": "project.projectPage.dialog.titleFallback",
 };

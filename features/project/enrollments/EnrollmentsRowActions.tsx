@@ -1,10 +1,10 @@
 "use client";
 
 import {
+	ArrowUpRight,
 	Ban,
 	Check,
 	CheckCheck,
-	Eye,
 	Trash2,
 	UserMinus,
 	XCircle,
@@ -18,30 +18,24 @@ import {
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
 } from "@/components";
-import { createEnrollmentCompositeKey } from "@/features/project/enrollment/utils";
-import type { EnrollmentRowActionsProps } from "@/types";
+import type { EnrollmentsRowActionsProps } from "@/types";
 
-export function EnrollmentRowActions({
+export function EnrollmentsRowActions({
 	enrollment,
+	href,
 	onDelete,
 	onStatusAction,
-	onView,
-}: EnrollmentRowActionsProps) {
+}: EnrollmentsRowActionsProps) {
 	const { t } = useTranslation();
 
 	return (
 		<>
 			<DropdownMenuInfoItem
-				icon={Eye}
+				icon={ArrowUpRight}
 				label={t("project.enrollmentPage.table.actions.viewDetails")}
-				onClick={() =>
-					onView(
-						createEnrollmentCompositeKey(
-							enrollment.projectId,
-							enrollment.studentId,
-						),
-					)
-				}
+				onClick={() => {
+					window.open(href, "_blank", "noopener,noreferrer");
+				}}
 			/>
 
 			{enrollment.status === "PENDING" ? (

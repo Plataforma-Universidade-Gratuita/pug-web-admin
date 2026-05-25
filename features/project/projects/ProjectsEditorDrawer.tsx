@@ -22,12 +22,12 @@ import {
 	toast,
 } from "@/components";
 import { useEntitiesQuery } from "@/features/partner/entities/queries";
-import { ProjectEditorForm } from "@/features/project/project/ProjectEditorForm";
+import { ProjectsEditorForm } from "@/features/project/projects/ProjectsEditorForm";
 import {
 	useCreateProjectMutation,
 	useUpdateProjectMutation,
-} from "@/features/project/project/mutations";
-import { useProjectDetailQuery } from "@/features/project/project/queries";
+} from "@/features/project/projects/mutations";
+import { useProjectDetailQuery } from "@/features/project/projects/queries";
 import {
 	buildProjectDuplicateFormValues,
 	buildProjectEntityOptions,
@@ -41,23 +41,23 @@ import {
 	getProjectUpdateErrorToastContent,
 	toProjectCreateRequest,
 	toProjectUpdateRequest,
-} from "@/features/project/project/utils";
+} from "@/features/project/projects/utils";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
 import type {
-	ProjectEditorDrawerProps,
+	ProjectsEditorDrawerProps,
 	ProjectEditorFormValues,
 } from "@/types";
 
-export function ProjectEditorDrawer({
+export function ProjectsEditorDrawer({
 	mode,
 	open,
 	onOpenChange,
 	projectId,
-}: ProjectEditorDrawerProps) {
+}: ProjectsEditorDrawerProps) {
 	const { t } = useTranslation();
 	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
@@ -281,7 +281,7 @@ export function ProjectEditorDrawer({
 					</DrawerHeader>
 
 					<DrawerBody className="grid gap-6">
-						<ProjectEditorForm
+						<ProjectsEditorForm
 							canRenderForm={canRenderForm}
 							entitiesError={entitiesQuery.isError ? entitiesQuery.error : null}
 							entityById={entityById}

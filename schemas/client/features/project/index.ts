@@ -1,3 +1,3 @@
 /* --- Root --- */
-export * from "./attendance";
-export * from "./project";
+export * from "./attendances";
+export * from "./projects";
