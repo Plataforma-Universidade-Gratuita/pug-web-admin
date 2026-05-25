@@ -1,56 +1,88 @@
-"use client";
+import { auth } from "@/api";
+import { REFRESH_TOKEN_COOKIE } from "@/constants/auth";
+import {
+	LoginRequestSchema,
+	LogoutRequestSchema,
+	RefreshRequestSchema,
+	TokenResponseSchema,
+} from "@/schemas/api";
+import type { AppRouteSlugContext } from "@/types/client";
+import { validateAdminToken } from "@/utils/auth";
+import {
+	applySessionCookies,
+	clearSessionCookies,
+	getServerCookie,
+} from "@/utils/cookies";
+import {
+	parseRouteBody,
+	routeData,
+	routeError,
+	routeNoContent,
+	routeVoidWithAuthRetry,
+} from "@/utils/route";
 
-import { useEffect, useRef, useState } from "react";
+async function resolveLogoutRefreshToken(
+	request: Request,
+): Promise<string | undefined> {
+	const bodyText = await request.text();
+	if (bodyText.trim().length > 0) {
+		const body = LogoutRequestSchema.parse(JSON.parse(bodyText));
+		return body.refreshToken;
+	}
 
-import { LoginForm } from "@/features/auth/login/LoginForm";
-import { LoginHero } from "@/features/auth/login/LoginHero";
-import { FloatingPageControls } from "@/features/floating-page-controls";
+	return getServerCookie(REFRESH_TOKEN_COOKIE);
+}
 
-export default function Page() {
-	const formCardRef = useRef<HTMLDivElement | null>(null);
-	const [desktopHeroHeight, setDesktopHeroHeight] = useState<number | null>(
-		null,
-	);
-
-	useEffect(() => {
-		const card = formCardRef.current;
-		if (!card) {
-			return;
+export async function POST(request: Request, { params }: AppRouteSlugContext) {
+	const { slug = [] } = await params;
+	if (slug.length === 1 && slug[0] === "login") {
+		const body = await parseRouteBody(request, LoginRequestSchema);
+		try {
+			const data = await auth.login(body);
+			if (!validateAdminToken(data.token).isValid) {
+				return routeError(new Error("Forbidden"));
+			}
+			return applySessionCookies(
+				routeData(TokenResponseSchema.parse(data)),
+				data,
+			);
+		} catch (error) {
+			return routeError(error);
 		}
+	}
+	if (slug.length === 1 && slug[0] === "refresh") {
+		try {
+			const body = await parseRouteBody(request, RefreshRequestSchema);
+			const data = await auth.refresh(body);
+			if (!validateAdminToken(data.token).isValid) {
+				return routeError(new Error("Forbidden"), { clearSession: true });
+			}
+			return applySessionCookies(
+				routeData(TokenResponseSchema.parse(data)),
+				data,
+			);
+		} catch (error) {
+			return routeError(error, { clearSession: true });
+		}
+	}
+	if (slug.length === 1 && slug[0] === "logout") {
+		try {
+			const refreshToken = await resolveLogoutRefreshToken(request);
+			if (!refreshToken) {
+				return clearSessionCookies(routeNoContent());
+			}
 
-		const syncHeight = () => {
-			setDesktopHeroHeight(card.getBoundingClientRect().height);
-		};
-
-		syncHeight();
-
-		const observer = new ResizeObserver(() => {
-			syncHeight();
-		});
-
-		observer.observe(card);
-
-		return () => {
-			observer.disconnect();
-		};
-	}, []);
-
-	return (
-		<main className="login-page">
-			<FloatingPageControls />
-			<section className="login-page-content">
-				<div
-					className="login-page-panel login-page-panel-hero"
-					style={
-						desktopHeroHeight ? { height: `${desktopHeroHeight}px` } : undefined
-					}
-				>
-					<LoginHero />
-				</div>
-				<div className="login-page-panel login-page-panel-form">
-					<LoginForm panelRef={formCardRef} />
-				</div>
-			</section>
-		</main>
-	);
+			await auth.logout({ refreshToken });
+			return clearSessionCookies(routeNoContent());
+		} catch (error) {
+			return routeError(error);
+		}
+	}
+	if (slug.length === 1 && slug[0] === "logout-all") {
+		const response = await routeVoidWithAuthRetry(token =>
+			auth.logoutAll(token),
+		);
+		return clearSessionCookies(response);
+	}
+	return routeError(new Error("Not found"));
 }

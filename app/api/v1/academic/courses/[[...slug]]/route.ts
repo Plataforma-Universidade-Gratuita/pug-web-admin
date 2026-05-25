@@ -1,56 +1,62 @@
-"use client";
+import { z } from "zod";
 
-import { useEffect, useRef, useState } from "react";
+import { courses } from "@/api";
+import {
+	CourseCreateRequestSchema,
+	CourseResponseSchema,
+	CourseUpdateRequestSchema,
+} from "@/schemas/api";
+import type { AppRouteSlugContext } from "@/types/client";
+import {
+	parseRouteBody,
+	routeError,
+	routeVoidWithAuthRetry,
+	routeWithAuthRetry,
+} from "@/utils/route";
 
-import { LoginForm } from "@/features/auth/login/LoginForm";
-import { LoginHero } from "@/features/auth/login/LoginHero";
-import { FloatingPageControls } from "@/features/floating-page-controls";
+export async function GET(request: Request, { params }: AppRouteSlugContext) {
+	const { slug = [] } = await params;
+	if (slug.length === 0) {
+		const searchParams = new URL(request.url).searchParams;
+		const q = searchParams.get("q") ?? undefined;
+		const schoolId = searchParams.get("schoolId") ?? undefined;
+		return routeWithAuthRetry(
+			token => courses.list(token, q, schoolId),
+			z.array(CourseResponseSchema),
+		);
+	}
+	if (slug.length === 1) {
+		return routeWithAuthRetry(
+			token => courses.get(slug[0]!, token),
+			CourseResponseSchema,
+		);
+	}
+	return routeError(new Error("Not found"));
+}
 
-export default function Page() {
-	const formCardRef = useRef<HTMLDivElement | null>(null);
-	const [desktopHeroHeight, setDesktopHeroHeight] = useState<number | null>(
-		null,
+export async function POST(request: Request) {
+	const body = await parseRouteBody(request, CourseCreateRequestSchema);
+	return routeWithAuthRetry(
+		token => courses.create(body, token),
+		CourseResponseSchema,
 	);
+}
 
-	useEffect(() => {
-		const card = formCardRef.current;
-		if (!card) {
-			return;
-		}
-
-		const syncHeight = () => {
-			setDesktopHeroHeight(card.getBoundingClientRect().height);
-		};
-
-		syncHeight();
-
-		const observer = new ResizeObserver(() => {
-			syncHeight();
-		});
-
-		observer.observe(card);
-
-		return () => {
-			observer.disconnect();
-		};
-	}, []);
-
-	return (
-		<main className="login-page">
-			<FloatingPageControls />
-			<section className="login-page-content">
-				<div
-					className="login-page-panel login-page-panel-hero"
-					style={
-						desktopHeroHeight ? { height: `${desktopHeroHeight}px` } : undefined
-					}
-				>
-					<LoginHero />
-				</div>
-				<div className="login-page-panel login-page-panel-form">
-					<LoginForm panelRef={formCardRef} />
-				</div>
-			</section>
-		</main>
+export async function PUT(request: Request, { params }: AppRouteSlugContext) {
+	const { slug = [] } = await params;
+	if (slug.length !== 1) return routeError(new Error("Not found"));
+	const body = await parseRouteBody(request, CourseUpdateRequestSchema);
+	return routeWithAuthRetry(
+		token => courses.update(slug[0]!, body, token),
+		CourseResponseSchema,
 	);
+}
+
+export async function DELETE(
+	_request: Request,
+	{ params }: AppRouteSlugContext,
+) {
+	const { slug = [] } = await params;
+	if (slug.length !== 1) return routeError(new Error("Not found"));
+	return routeVoidWithAuthRetry(token => courses.remove(slug[0]!, token));
 }
