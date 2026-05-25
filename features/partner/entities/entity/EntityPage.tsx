@@ -1,0 +1,129 @@
+"use client";
+
+import { useMemo } from "react";
+
+import { useTranslation } from "react-i18next";
+
+import { NotFoundState, SomeErrorState } from "@/components";
+import {
+	useEntityCitiesQuery,
+	useEntityDetailQuery,
+} from "@/features/partner/entities/queries";
+import {
+	getEntityCitiesErrorToastContent,
+	getEntityDetailErrorToastContent,
+	resolveEntityCityLabel,
+} from "@/features/partner/entities/utils";
+import {
+	EntityPageFieldsGrid,
+	EntityPageFieldsGridSkeleton,
+	EntityPageShell,
+} from "@/features/shared/entity-pages";
+import { useQueryErrorToasts } from "@/hooks";
+import type { EntityPageProps } from "@/types";
+import { WebApiError } from "@/utils";
+
+export function EntityPage({ entityId }: EntityPageProps) {
+	const { t } = useTranslation();
+	const entityDetailQuery = useEntityDetailQuery(entityId);
+	const citiesQuery = useEntityCitiesQuery();
+
+	useQueryErrorToasts([
+		{
+			key: `entity-detail-${entityId}`,
+			error: entityDetailQuery.error,
+			errorUpdatedAt: entityDetailQuery.errorUpdatedAt,
+			getContent: error => getEntityDetailErrorToastContent(t, error),
+			isError: entityDetailQuery.isError,
+		},
+		{
+			key: `entity-cities-${entityId}`,
+			error: citiesQuery.error,
+			errorUpdatedAt: citiesQuery.errorUpdatedAt,
+			getContent: error => getEntityCitiesErrorToastContent(t, error),
+			isError: citiesQuery.isError,
+		},
+	]);
+
+	const cityById = useMemo(
+		() => new Map((citiesQuery.data ?? []).map(city => [city.id, city])),
+		[citiesQuery.data],
+	);
+	const entity = entityDetailQuery.data;
+	const fields = useMemo(
+		() =>
+			entity
+				? [
+						{
+							id: "id",
+							label: t("partner.entityPage.dialog.fields.id"),
+							value: entity.id,
+						},
+						{
+							id: "name",
+							label: t("partner.entityPage.dialog.fields.name"),
+							value: entity.name,
+						},
+						{
+							id: "cnpj",
+							label: t("partner.entityPage.dialog.fields.cnpj"),
+							value: entity.cnpjFormatted,
+						},
+						{
+							id: "city",
+							label: t("partner.entityPage.dialog.fields.city"),
+							value: resolveEntityCityLabel(cityById, entity.cityId),
+						},
+						{
+							id: "address",
+							label: t("partner.entityPage.dialog.fields.address"),
+							value:
+								entity.address ||
+								t("partner.entityPage.dialog.values.noAddress"),
+						},
+						{
+							id: "createdAt",
+							label: t("partner.entityPage.dialog.fields.createdAt"),
+							value: entity.auditInfo.createdAtFormatted,
+						},
+						{
+							id: "updatedAt",
+							label: t("partner.entityPage.dialog.fields.updatedAt"),
+							value: entity.auditInfo.updatedAtFormatted,
+						},
+					]
+				: [],
+		[cityById, entity, t],
+	);
+
+	return (
+		<EntityPageShell
+			title={entity?.name ?? t("partner.entityPage.dialog.titleFallback")}
+			description={t("partner.entityPage.description")}
+		>
+			{entityDetailQuery.isError ? (
+				entityDetailQuery.error instanceof WebApiError &&
+				entityDetailQuery.error.status === 404 ? (
+					<NotFoundState
+						title={t("partner.entityPage.dialog.notFound.title")}
+						description={t("partner.entityPage.dialog.notFound.description")}
+					/>
+				) : (
+					<SomeErrorState
+						title={t("partner.entityPage.dialog.error.title")}
+						description={t("partner.entityPage.dialog.error.description")}
+						onRefresh={() => {
+							void entityDetailQuery.refetch();
+						}}
+					/>
+				)
+			) : entity ? (
+				<EntityPageFieldsGrid fields={fields} />
+			) : entityDetailQuery.isLoading ? (
+				<EntityPageFieldsGridSkeleton />
+			) : (
+				<NotFoundState title={t("partner.entityPage.dialog.notFound.title")} />
+			)}
+		</EntityPageShell>
+	);
+}

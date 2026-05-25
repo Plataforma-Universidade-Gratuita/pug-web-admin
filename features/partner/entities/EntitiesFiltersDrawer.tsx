@@ -7,9 +7,9 @@ import {
 	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import type { EntityAuditDateField, EntityFiltersDrawerProps } from "@/types";
+import type { EntitiesFiltersDrawerProps, EntityAuditDateField } from "@/types";
 
-export function EntityFiltersDrawer({
+export function EntitiesFiltersDrawer({
 	citiesError,
 	cityIdFilter,
 	cityOptions,
@@ -27,7 +27,7 @@ export function EntityFiltersDrawer({
 	onStartDateChange,
 	open,
 	startDate,
-}: EntityFiltersDrawerProps) {
+}: EntitiesFiltersDrawerProps) {
 	const { t } = useTranslation();
 
 	return (

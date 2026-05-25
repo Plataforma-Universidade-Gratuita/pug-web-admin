@@ -1,5 +1,5 @@
-import { EntityPage } from "@/features/partner/entity/EntityPage";
+import { EntitiesPage } from "@/features/partner/entities/EntitiesPage";
 
 export default function Page() {
-	return <EntityPage />;
+	return <EntitiesPage />;
 }

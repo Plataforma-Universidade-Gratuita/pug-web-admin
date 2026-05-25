@@ -1,6 +1,6 @@
 "use client";
 
-import { CopyPlus, Eye, PenSquare, Trash2 } from "lucide-react";
+import { ArrowUpRight, CopyPlus, PenSquare, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -9,22 +9,24 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 } from "@/components";
-import type { EntityRowActionsProps } from "@/types";
+import type { EntitiesRowActionsProps } from "@/types";
 
-export function EntityRowActions({
+export function EntitiesRowActions({
 	entity,
+	href,
 	onDelete,
 	onOpenEditor,
-	onView,
-}: EntityRowActionsProps) {
+}: EntitiesRowActionsProps) {
 	const { t } = useTranslation();
 
 	return (
 		<>
 			<DropdownMenuInfoItem
-				icon={Eye}
+				icon={ArrowUpRight}
 				label={t("partner.entityPage.table.actions.viewDetails")}
-				onClick={() => onView(entity.id)}
+				onClick={() => {
+					window.open(href, "_blank", "noopener,noreferrer");
+				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}

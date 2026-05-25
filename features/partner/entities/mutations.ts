@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 
 import { create, remove, update } from "@/api/web/partner/entities";
-import { entityQueryKeys } from "@/features/partner/entity/queries";
+import { entityQueryKeys } from "@/features/partner/entities/queries";
 import type { EntityResponse } from "@/types";
 import type {
 	EntityCreateMutationVariables,

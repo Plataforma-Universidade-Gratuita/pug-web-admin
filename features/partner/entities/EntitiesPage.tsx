@@ -5,16 +5,14 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
-import { EntityDetailDialog } from "@/features/partner/entity/EntityDetailDialog";
-import { EntityEditorDrawer } from "@/features/partner/entity/EntityEditorDrawer";
-import { EntityFiltersDrawer } from "@/features/partner/entity/EntityFiltersDrawer";
-import { EntityRowActions } from "@/features/partner/entity/EntityRowActions";
-import { useRemoveEntityMutation } from "@/features/partner/entity/mutations";
+import { EntitiesFiltersDrawer } from "@/features/partner/entities/EntitiesFiltersDrawer";
+import { EntitiesRowActions } from "@/features/partner/entities/EntitiesRowActions";
+import { EntityEditorDrawer } from "@/features/partner/entities/EntityEditorDrawer";
+import { useRemoveEntityMutation } from "@/features/partner/entities/mutations";
 import {
 	useEntitiesQuery,
 	useEntityCitiesQuery,
-	useEntityDetailQuery,
-} from "@/features/partner/entity/queries";
+} from "@/features/partner/entities/queries";
 import {
 	buildEntityCityOptions,
 	createEntityColumns,
@@ -22,10 +20,9 @@ import {
 	getEntitiesListErrorToastContent,
 	getEntityCitiesErrorToastContent,
 	getEntityDeleteErrorToastContent,
-	getEntityDetailErrorToastContent,
 	getEntityEmptyStateCopy,
 	getEntityFilterSummary,
-} from "@/features/partner/entity/utils";
+} from "@/features/partner/entities/utils";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -38,13 +35,12 @@ import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
-	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
 import type { EntityResponse } from "@/types";
 import type { EntityEditorMode, EntitySecondaryFilters } from "@/types";
 
-export function EntityPage() {
+export function EntitiesPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
@@ -67,7 +63,6 @@ export function EntityPage() {
 	} = useDraftFilters<EntitySecondaryFilters>({
 		initialFilters: initialSecondaryFilters,
 	});
-	const detailState = useServicePageDetailState();
 	const editorState = useServicePageEditorState<EntityEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
@@ -77,7 +72,6 @@ export function EntityPage() {
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const entitiesQuery = useEntitiesQuery();
 	const citiesQuery = useEntityCitiesQuery();
-	const entityDetailQuery = useEntityDetailQuery(detailState.selectedId);
 	const removeEntityMutation = useRemoveEntityMutation();
 	const { schedule } = useDeferredUndoAction();
 
@@ -158,13 +152,6 @@ export function EntityPage() {
 			getContent: error => getEntityCitiesErrorToastContent(t, error),
 			isError: citiesQuery.isError,
 		},
-		{
-			key: "entity-detail",
-			error: entityDetailQuery.error,
-			errorUpdatedAt: entityDetailQuery.errorUpdatedAt,
-			getContent: error => getEntityDetailErrorToastContent(t, error),
-			isError: entityDetailQuery.isError,
-		},
 	]);
 
 	function clearAllFilters() {
@@ -207,7 +194,6 @@ export function EntityPage() {
 								},
 							);
 
-							detailState.clearIfMatches(entity.id);
 							editorState.clearIfMatches(entity.id);
 						},
 						onError: error => {
@@ -251,7 +237,7 @@ export function EntityPage() {
 					placeholder={t("partner.entityPage.filters.search.placeholder")}
 				/>
 
-				<EntityFiltersDrawer
+				<EntitiesFiltersDrawer
 					citiesError={citiesQuery.isError}
 					cityIdFilter={draftFilters.cityIdFilter}
 					cityOptions={cityOptions}
@@ -284,11 +270,11 @@ export function EntityPage() {
 					data: filteredEntities,
 					emptyState: tableEmptyState,
 					getRowActions: row => (
-						<EntityRowActions
+						<EntitiesRowActions
 							entity={row}
+							href={`/partner/entities/${row.id}`}
 							onDelete={setPendingDeleteEntity}
 							onOpenEditor={editorState.openEditor}
-							onView={detailState.openDetail}
 						/>
 					),
 					isLoading: entitiesQuery.isLoading,
@@ -301,19 +287,6 @@ export function EntityPage() {
 				mode={editorState.editorMode}
 				open={editorState.isOpen}
 				onOpenChange={editorState.handleOpenChange}
-			/>
-
-			<EntityDetailDialog
-				cityById={cityById}
-				entity={entityDetailQuery.data}
-				error={entityDetailQuery.error}
-				isError={entityDetailQuery.isError}
-				isLoading={entityDetailQuery.isLoading}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void entityDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
 			/>
 
 			<ServicePageConfirmDialog

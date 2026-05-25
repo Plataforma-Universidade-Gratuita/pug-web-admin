@@ -131,7 +131,7 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - `/academic/school`
 - `/academic/student`
 - `/partner`
-- `/partner/entity`
+- `/partner/entities`
 - `/partner/staff`
 - `/project`
 - `/project/attendance`

@@ -1,18 +1,26 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
-	AccountResponse,
 	CityResponse,
 	EntityResponse,
 	StaffCreateRequest,
 	StaffResponse,
 	StaffUpdateRequest,
-	UserResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
 export type StaffActiveFilter = "" | "true" | "false";
 export type StaffEditorMode = "create" | "duplicate" | "update";
+
+export interface StaffPageProps {
+	staffId: string;
+}
+
+export interface StaffRoutePageProps {
+	params: Promise<{
+		staffId: string;
+	}>;
+}
 
 export interface StaffSecondaryFilters {
 	entityIdFilter: string;
@@ -88,26 +96,6 @@ export interface StaffFiltersDrawerProps {
 	open: boolean;
 }
 
-export interface StaffDetailDialogProps {
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	linkedAccount: AccountResponse | undefined;
-	linkedAccountError: unknown;
-	linkedAccountIsError: boolean;
-	linkedAccountIsLoading: boolean;
-	linkedUser: Pick<UserResponse, "cpfFormatted" | "id" | "name"> | undefined;
-	linkedUserError: unknown;
-	linkedUserIsError: boolean;
-	linkedUserIsLoading: boolean;
-	onLinkedAccountRefresh: () => void;
-	onLinkedUserRefresh: () => void;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
-	staff: StaffResponse | undefined;
-}
-
 export interface StaffActionDialogsProps {
 	onConfirmDelete: () => void;
 	onConfirmStatusChange: () => void;
@@ -121,10 +109,10 @@ export interface StaffActionDialogsProps {
 }
 
 export interface StaffRowActionsProps {
+	href: string;
 	onDelete: (staff: StaffResponse) => void;
 	onOpenEditor: (id: string, mode: StaffEditorMode) => void;
 	onSetActive: (staff: StaffResponse, active: boolean) => void;
-	onView: (id: string) => void;
 	staff: StaffResponse;
 }
 

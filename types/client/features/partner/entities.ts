@@ -11,6 +11,16 @@ import type { ComboboxOption } from "@/types";
 export type EntityAuditDateField = "" | "createdAt" | "updatedAt";
 export type EntityEditorMode = "create" | "duplicate" | "update";
 
+export interface EntityPageProps {
+	entityId: string;
+}
+
+export interface EntityRoutePageProps {
+	params: Promise<{
+		entityId: string;
+	}>;
+}
+
 export interface EntitySecondaryFilters {
 	cityIdFilter: string;
 	dateField: EntityAuditDateField;
@@ -53,7 +63,7 @@ export interface EntityEditorFormProps {
 	onRefreshEntity: () => void;
 }
 
-export interface EntityFiltersDrawerProps {
+export interface EntitiesFiltersDrawerProps {
 	citiesError: boolean;
 	cityIdFilter: string;
 	cityOptions: ComboboxOption[];
@@ -73,22 +83,11 @@ export interface EntityFiltersDrawerProps {
 	startDate: string;
 }
 
-export interface EntityDetailDialogProps {
-	cityById: Map<string, CityResponse>;
-	entity: EntityResponse | undefined;
-	error: unknown;
-	isError: boolean;
-	isLoading: boolean;
-	onOpenChange: (open: boolean) => void;
-	onRefresh: () => void;
-	open: boolean;
-}
-
-export interface EntityRowActionsProps {
+export interface EntitiesRowActionsProps {
 	entity: EntityResponse;
+	href: string;
 	onDelete: (entity: EntityResponse) => void;
 	onOpenEditor: (id: string, mode: EntityEditorMode) => void;
-	onView: (id: string) => void;
 }
 
 export interface EntityFilterArgs {

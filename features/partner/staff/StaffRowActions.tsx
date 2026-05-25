@@ -1,8 +1,8 @@
 "use client";
 
 import {
+	ArrowUpRight,
 	CopyPlus,
-	Eye,
 	PenSquare,
 	ShieldCheck,
 	ShieldX,
@@ -21,10 +21,10 @@ import {
 import type { StaffRowActionsProps } from "@/types";
 
 export function StaffRowActions({
+	href,
 	onDelete,
 	onOpenEditor,
 	onSetActive,
-	onView,
 	staff,
 }: StaffRowActionsProps) {
 	const { t } = useTranslation();
@@ -32,9 +32,11 @@ export function StaffRowActions({
 	return (
 		<>
 			<DropdownMenuInfoItem
-				icon={Eye}
+				icon={ArrowUpRight}
 				label={t("partner.staffPage.table.actions.viewDetails")}
-				onClick={() => onView(staff.accountId)}
+				onClick={() => {
+					window.open(href, "_blank", "noopener,noreferrer");
+				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}

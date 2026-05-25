@@ -21,15 +21,15 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { EntityEditorForm } from "@/features/partner/entity/EntityEditorForm";
+import { EntityEditorForm } from "@/features/partner/entities/EntityEditorForm";
 import {
 	useCreateEntityMutation,
 	useUpdateEntityMutation,
-} from "@/features/partner/entity/mutations";
+} from "@/features/partner/entities/mutations";
 import {
 	useEntityCitiesQuery,
 	useEntityDetailQuery,
-} from "@/features/partner/entity/queries";
+} from "@/features/partner/entities/queries";
 import {
 	buildEntityCityOptions,
 	buildEntityDuplicateFormValues,
@@ -43,7 +43,7 @@ import {
 	getEntityUpdateErrorToastContent,
 	toEntityCreateRequest,
 	toEntityUpdateRequest,
-} from "@/features/partner/entity/utils";
+} from "@/features/partner/entities/utils";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,

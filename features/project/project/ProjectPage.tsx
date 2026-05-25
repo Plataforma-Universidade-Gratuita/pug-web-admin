@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { useAdminsQuery } from "@/features/identity/admins/queries";
-import { useEntitiesQuery } from "@/features/partner/entity/queries";
+import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import { ProjectDetailDialog } from "@/features/project/project/ProjectDetailDialog";
 import { ProjectEditorDrawer } from "@/features/project/project/ProjectEditorDrawer";
 import { ProjectFiltersDrawer } from "@/features/project/project/ProjectFiltersDrawer";

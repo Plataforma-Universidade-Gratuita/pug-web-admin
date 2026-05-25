@@ -6,15 +6,11 @@ import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState } from "@/components";
 import { StaffActionDialogs } from "@/features/partner/staff/StaffActionDialogs";
-import { StaffDetailDialog } from "@/features/partner/staff/StaffDetailDialog";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
 import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
 import { StaffRowActions } from "@/features/partner/staff/StaffRowActions";
 import {
-	useLinkedStaffAccountQuery,
-	useLinkedStaffUserQuery,
 	useStaffCitiesQuery,
-	useStaffDetailQuery,
 	useStaffEntitiesQuery,
 	useStaffQuery,
 } from "@/features/partner/staff/queries";
@@ -24,10 +20,7 @@ import {
 	buildStaffEntityOptions,
 	createStaffColumns,
 	filterStaff,
-	getLinkedStaffAccountErrorToastContent,
-	getLinkedStaffUserErrorToastContent,
 	getStaffCitiesErrorToastContent,
-	getStaffDetailErrorToastContent,
 	getStaffEmptyStateCopy,
 	getStaffEntitiesErrorToastContent,
 	getStaffFilterSummary,
@@ -43,7 +36,6 @@ import {
 import {
 	useDraftFilters,
 	useQueryErrorToasts,
-	useServicePageDetailState,
 	useServicePageEditorState,
 } from "@/hooks";
 import type { StaffResponse } from "@/types";
@@ -71,7 +63,6 @@ export function StaffPage() {
 	} = useDraftFilters<StaffSecondaryFilters>({
 		initialFilters: initialSecondaryFilters,
 	});
-	const detailState = useServicePageDetailState();
 	const editorState = useServicePageEditorState<StaffEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
@@ -80,13 +71,6 @@ export function StaffPage() {
 	const staffQuery = useStaffQuery();
 	const staffCitiesQuery = useStaffCitiesQuery();
 	const staffEntitiesQuery = useStaffEntitiesQuery();
-	const staffDetailQuery = useStaffDetailQuery(detailState.selectedId);
-	const linkedAccountQuery = useLinkedStaffAccountQuery(
-		staffDetailQuery.data?.accountId ?? null,
-	);
-	const linkedUserQuery = useLinkedStaffUserQuery(
-		staffDetailQuery.data?.userId ?? null,
-	);
 	const {
 		confirmDelete,
 		confirmStatusChange,
@@ -96,9 +80,9 @@ export function StaffPage() {
 		setPendingStatusStaff,
 	} = useStaffPageActions({
 		currentEditorId: editorState.editorId,
-		currentSelectedId: detailState.selectedId,
+		currentSelectedId: null,
 		onClearEditor: editorState.closeEditor,
-		onClearSelection: detailState.closeDetail,
+		onClearSelection: () => {},
 	});
 
 	const cityById = useMemo(
@@ -176,27 +160,6 @@ export function StaffPage() {
 			errorUpdatedAt: staffQuery.errorUpdatedAt,
 			getContent: error => getStaffListErrorToastContent(t, error),
 			isError: staffQuery.isError,
-		},
-		{
-			key: "staff-detail",
-			error: staffDetailQuery.error,
-			errorUpdatedAt: staffDetailQuery.errorUpdatedAt,
-			getContent: error => getStaffDetailErrorToastContent(t, error),
-			isError: staffDetailQuery.isError,
-		},
-		{
-			key: "staff-linked-account",
-			error: linkedAccountQuery.error,
-			errorUpdatedAt: linkedAccountQuery.errorUpdatedAt,
-			getContent: error => getLinkedStaffAccountErrorToastContent(t, error),
-			isError: linkedAccountQuery.isError,
-		},
-		{
-			key: "staff-linked-user",
-			error: linkedUserQuery.error,
-			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
-			getContent: error => getLinkedStaffUserErrorToastContent(t, error),
-			isError: linkedUserQuery.isError,
 		},
 		{
 			key: "staff-cities",
@@ -286,12 +249,12 @@ export function StaffPage() {
 					emptyState: tableEmptyState,
 					getRowActions: row => (
 						<StaffRowActions
+							href={`/partner/staff/${row.accountId}`}
 							onDelete={setPendingDeleteStaff}
 							onOpenEditor={editorState.openEditor}
 							onSetActive={(staff, active) =>
 								setPendingStatusStaff({ active, staff })
 							}
-							onView={detailState.openDetail}
 							staff={row}
 						/>
 					),
@@ -305,32 +268,6 @@ export function StaffPage() {
 				mode={editorState.editorMode}
 				open={editorState.isOpen}
 				onOpenChange={editorState.handleOpenChange}
-			/>
-
-			<StaffDetailDialog
-				error={staffDetailQuery.error}
-				isError={staffDetailQuery.isError}
-				isLoading={staffDetailQuery.isLoading}
-				linkedAccount={linkedAccountQuery.data}
-				linkedAccountError={linkedAccountQuery.error}
-				linkedAccountIsError={linkedAccountQuery.isError}
-				linkedAccountIsLoading={linkedAccountQuery.isLoading}
-				linkedUser={linkedUserQuery.data}
-				linkedUserError={linkedUserQuery.error}
-				linkedUserIsError={linkedUserQuery.isError}
-				linkedUserIsLoading={linkedUserQuery.isLoading}
-				onLinkedAccountRefresh={() => {
-					void linkedAccountQuery.refetch();
-				}}
-				onLinkedUserRefresh={() => {
-					void linkedUserQuery.refetch();
-				}}
-				onOpenChange={detailState.handleOpenChange}
-				onRefresh={() => {
-					void staffDetailQuery.refetch();
-				}}
-				open={detailState.isOpen}
-				staff={staffDetailQuery.data}
 			/>
 
 			<StaffActionDialogs

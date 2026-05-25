@@ -18,7 +18,7 @@ export function PartnerOverviewPage() {
 			<ModulePageComingSoon
 				paths={[
 					{
-						href: "/partner/entity",
+						href: "/partner/entities",
 						label: t("partner.entityPage.title"),
 						description: t("partner.entityPage.description"),
 					},

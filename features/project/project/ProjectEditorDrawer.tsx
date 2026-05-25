@@ -21,7 +21,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useEntitiesQuery } from "@/features/partner/entity/queries";
+import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import { ProjectEditorForm } from "@/features/project/project/ProjectEditorForm";
 import {
 	useCreateProjectMutation,
