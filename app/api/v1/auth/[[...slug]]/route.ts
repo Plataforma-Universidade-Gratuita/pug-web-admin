@@ -1,4 +1,5 @@
 import { auth } from "@/api";
+import { REFRESH_TOKEN_COOKIE } from "@/constants/auth";
 import {
 	LoginRequestSchema,
 	LogoutRequestSchema,
@@ -7,7 +8,11 @@ import {
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
 import { validateAdminToken } from "@/utils/auth";
-import { applySessionCookies, clearSessionCookies } from "@/utils/cookies";
+import {
+	applySessionCookies,
+	clearSessionCookies,
+	getServerCookie,
+} from "@/utils/cookies";
 import {
 	parseRouteBody,
 	routeData,
@@ -15,6 +20,18 @@ import {
 	routeNoContent,
 	routeVoidWithAuthRetry,
 } from "@/utils/route";
+
+async function resolveLogoutRefreshToken(
+	request: Request,
+): Promise<string | undefined> {
+	const bodyText = await request.text();
+	if (bodyText.trim().length > 0) {
+		const body = LogoutRequestSchema.parse(JSON.parse(bodyText));
+		return body.refreshToken;
+	}
+
+	return getServerCookie(REFRESH_TOKEN_COOKIE);
+}
 
 export async function POST(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -49,9 +66,13 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 		}
 	}
 	if (slug.length === 1 && slug[0] === "logout") {
-		const body = await parseRouteBody(request, LogoutRequestSchema);
 		try {
-			await auth.logout(body);
+			const refreshToken = await resolveLogoutRefreshToken(request);
+			if (!refreshToken) {
+				return clearSessionCookies(routeNoContent());
+			}
+
+			await auth.logout({ refreshToken });
 			return clearSessionCookies(routeNoContent());
 		} catch (error) {
 			return routeError(error);

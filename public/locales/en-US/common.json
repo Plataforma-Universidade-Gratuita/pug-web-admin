@@ -792,14 +792,14 @@
         "login": {
             "brand": {
                 "name": "PUG Web Admin",
-                "subtitle": "Administrator workspace"
+                "subtitle": "Academic backoffice"
             },
             "feedback": {
                 "error": "Unable to sign in right now.",
                 "success": "Signed in successfully."
             },
             "form": {
-                "description": "Enter your administrator credentials to continue into the PUG operations workspace.",
+                "description": "Enter your administrator credentials to access the academic backoffice and operational overview.",
                 "fields": {
                     "email": {
                         "label": "Email",
@@ -818,19 +818,19 @@
                 "badge": "Protected access",
                 "highlights": {
                     "adminOnly": {
-                        "description": "The login entry point is reserved for the admin workspace and protected routes.",
-                        "title": "Administrator-only access"
+                        "description": "Open the operational overview and keep track of what needs attention across the admin area.",
+                        "title": "Review the operational overview"
                     },
                     "refresh": {
-                        "description": "Expired access tokens are refreshed through the middleware before the shell is interrupted.",
-                        "title": "Automatic token refresh"
+                        "description": "Monitor projects, enrollments, and attendance from the same backoffice flow.",
+                        "title": "Track projects and participation"
                     },
                     "session": {
-                        "description": "Secure cookies keep the session stable across the protected application area.",
-                        "title": "Session continuity"
+                        "description": "Update admins, students, staff, schools, courses, and linked accounts in one place.",
+                        "title": "Maintain service records"
                     }
                 },
-                "title": "Sign in to keep academic operations controlled and consistent."
+                "title": "Sign in to manage the academic backoffice and monitor the operational overview."
             },
             "validation": {
                 "email": "Enter a valid email address.",
@@ -2908,6 +2908,10 @@
                     "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
                 },
                 "clear": "$t(docs.drawer.examples.filters.clear.action)",
+                "search": {
+                    "label": "Search",
+                    "placeholder": "Search by name or email"
+                },
                 "dateField": {
                     "label": "Date field",
                     "options": {
@@ -3382,6 +3386,15 @@
             "fallback": "Unavailable",
             "label": "Account",
             "logout": "Log out",
+            "logoutAllDevices": "Sign out everywhere",
+            "logoutAllPending": "Signing out everywhere...",
+            "logoutAllSuccess": "Signed out on all devices.",
+            "logoutCancel": "Stay signed in",
+            "logoutCurrentDevice": "Sign out here",
+            "logoutCurrentPending": "Signing out here...",
+            "logoutCurrentSuccess": "Signed out on this device.",
+            "logoutDialogDescription": "End this session on the current device or revoke access on every device where this account is signed in.",
+            "logoutDialogTitle": "Choose how to sign out",
             "logoutError": "Unable to sign out right now.",
             "logoutPending": "Logging out...",
             "logoutSuccess": "Signed out successfully."
@@ -3458,7 +3471,7 @@
             },
             "unknown": "Unknown"
         },
-        "subtitle": "Operations workspace",
+        "subtitle": "Academic backoffice",
         "title": "PUG Admin"
     },
     "partner": {

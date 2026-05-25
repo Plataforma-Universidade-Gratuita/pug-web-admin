@@ -165,6 +165,7 @@ export type AdminDetailDialogProps = {
 
 export interface AdminRowActionsProps {
 	admin: AdminResponse;
+	canDeactivate: boolean;
 	onDelete: (admin: AdminResponse) => void;
 	onSetActive: (admin: AdminResponse, active: boolean) => void;
 	onView: (id: string) => void;

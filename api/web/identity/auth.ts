@@ -24,11 +24,16 @@ export async function refresh(body: RefreshRequest): Promise<TokenResponse> {
 	});
 }
 
-export async function logout(body: LogoutRequest): Promise<void> {
-	return webVoid(`${BASE}/logout`, {
-		method: "POST",
-		body: JSON.stringify(body),
-	});
+export async function logout(body?: LogoutRequest): Promise<void> {
+	return webVoid(
+		`${BASE}/logout`,
+		body
+			? {
+					method: "POST",
+					body: JSON.stringify(body),
+				}
+			: { method: "POST" },
+	);
 }
 
 export async function logoutAll(): Promise<void> {

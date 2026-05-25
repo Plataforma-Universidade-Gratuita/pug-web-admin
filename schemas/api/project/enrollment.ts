@@ -16,16 +16,24 @@ export const EnrollmentStatusEnum = z.enum([
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 
+export const EnrollmentIdentifierResponseSchema = z.object({
+    projectId: z.string(),
+    studentId: z.string(),
+});
+
+export const EnrollmentInfoResponseSchema = z.object({
+    acceptedAt: z.string().nullable(),
+    acceptedAtFormatted: z.string(),
+    closingStatusAt: z.string().nullable(),
+    closingStatusAtFormatted: z.string(),
+    auditInfo: AuditInfoResponseSchema,
+})
+
 export const EnrollmentResponseSchema = z.object({
-	projectId: z.string(),
-	studentId: z.string(),
+    enrollmentId: EnrollmentIdentifierResponseSchema,
 	status: EnrollmentStatusEnum,
 	statusFormatted: z.string(),
-	acceptedAt: z.string().nullable(),
-	acceptedAtFormatted: z.string(),
-	closingStatusAt: z.string().nullable(),
-	closingStatusAtFormatted: z.string(),
-	auditInfo: AuditInfoResponseSchema,
+	enrollmentInfo: EnrollmentInfoResponseSchema,
 });
 
 // ─── Requests ────────────────────────────────────────────────────────────────
@@ -34,6 +42,6 @@ export const EnrollmentCreateRequestSchema = z.object({
 	projectId: z.string(),
 });
 
-export const EnrollmentUpdateRequestSchema = z.object({
+export const EnrollmentStatusUpdateRequestSchema = z.object({
 	status: EnrollmentStatusEnum,
 });

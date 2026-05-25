@@ -10,10 +10,7 @@ import {
 
 export const StudentResponseSchema = z.object({
 	accountId: z.string(),
-	accountEmail: z.string(),
-	accountActive: z.boolean(),
 	userId: z.string(),
-	userName: z.string(),
 	academicRegistration: z.string(),
 	campus: CampusResponseSchema,
 	courseId: z.string(),
@@ -35,7 +32,6 @@ export const StudentCreateRequestSchema = z.object({
 	cpf: z.string(),
 	name: z.string(),
 	email: z.string(),
-	password: z.string(),
 	academicRegistration: z.string(),
 	campus: CampiEnum,
 	courseId: z.string(),
@@ -45,10 +41,9 @@ export const StudentCreateRequestSchema = z.object({
 });
 
 export const StudentUpdateRequestSchema = z.object({
-	name: z.string().nullable().optional(),
 	cpf: z.string().nullable().optional(),
+	name: z.string().nullable().optional(),
 	email: z.string().nullable().optional(),
-	password: z.string().nullable().optional(),
 	academicRegistration: z.string().nullable().optional(),
 	campus: CampiEnum.nullable().optional(),
 	courseId: z.string().nullable().optional(),

@@ -14,20 +14,28 @@ export const ProjectStatusEnum = z.enum([
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 
+export const ProjectStatusResponseSchema = z.object({
+    status: ProjectStatusEnum,
+    statusFormatted: z.string(),
+})
+
+export const ProjectInfoResponseSchema = z.object({
+    createdBy: z.string(),
+    maxParticipants: z.number().nullable(),
+    offeredHours: z.number(),
+    completedHours: z.number(),
+    closedAt: z.string().nullable(),
+    closedAtFormatted: z.string(),
+    auditInfo: AuditInfoResponseSchema,
+})
+
 export const ProjectResponseSchema = z.object({
 	id: z.string(),
 	name: z.string(),
 	entityId: z.string(),
 	description: z.string(),
-	createdBy: z.string(),
-	maxParticipants: z.number().nullable(),
-	offeredHours: z.number(),
-	completedHours: z.number(),
-	status: ProjectStatusEnum,
-	statusFormatted: z.string(),
-	closedAt: z.string().nullable(),
-	closedAtFormatted: z.string(),
-	auditInfo: AuditInfoResponseSchema,
+	status: ProjectStatusResponseSchema,
+    projectInfo: ProjectInfoResponseSchema,
 });
 
 // ─── Requests ────────────────────────────────────────────────────────────────
@@ -45,8 +53,11 @@ export const ProjectUpdateRequestSchema = z.object({
 	description: z.string().nullable().optional(),
 	maxParticipants: z.number().nullable().optional(),
 	offeredHours: z.number().nullable().optional(),
-	status: ProjectStatusEnum.nullable().optional(),
 });
+
+export const ProjectStatusUpdateRequestSchema = z.object({
+    status: ProjectStatusEnum,
+})
 
 export const ProjectSchoolRequestSchema = z.object({
 	projectId: z.string(),

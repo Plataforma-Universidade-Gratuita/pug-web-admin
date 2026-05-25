@@ -7,10 +7,13 @@ import { AccountTypeEnum, AuditInfoResponseSchema } from "@/schemas/api";
 export const AccountResponseSchema = z.object({
 	id: z.string(),
 	userId: z.string(),
-	userName: z.string(),
 	email: z.string(),
 	accountType: AccountTypeEnum,
 	accountTypeFormatted: z.string(),
 	auditInfo: AuditInfoResponseSchema,
 	active: z.boolean(),
 });
+
+export const AccountStatusRequestSchema = z.object({
+    active: z.boolean(),
+})

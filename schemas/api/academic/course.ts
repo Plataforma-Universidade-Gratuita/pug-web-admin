@@ -7,7 +7,7 @@ import { AuditInfoResponseSchema, SchoolResponseSchema } from "@/schemas/api";
 export const CourseResponseSchema = z.object({
 	id: z.string(),
 	name: z.string(),
-	school: SchoolResponseSchema,
+	schoolId: z.string(),
 	auditInfo: AuditInfoResponseSchema,
 });
 

@@ -16,6 +16,7 @@ import {
 } from "@/features/identity/admin/mutations";
 import {
 	useAdminDetailQuery,
+	useCurrentAdminQuery,
 	useAdminsQuery,
 	useLinkedAdminAccountQuery,
 	useLinkedAdminUserQuery,
@@ -67,6 +68,7 @@ export function AdminPage() {
 		useState<AdminResponse | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const adminsQuery = useAdminsQuery();
+	const currentAdminQuery = useCurrentAdminQuery();
 	const adminDetailQuery = useAdminDetailQuery(detailState.selectedId);
 	const linkedAccountQuery = useLinkedAdminAccountQuery(
 		adminDetailQuery.data?.accountId ?? null,
@@ -163,6 +165,12 @@ export function AdminPage() {
 		}
 
 		const { active, admin } = pendingStatusAdmin;
+		const isCurrentAdmin = currentAdminQuery.data?.accountId === admin.accountId;
+
+		if (!active && isCurrentAdmin) {
+			setPendingStatusAdmin(null);
+			return;
+		}
 
 		setAdminActiveMutation.mutate(
 			{
@@ -292,6 +300,7 @@ export function AdminPage() {
 					getRowActions: row => (
 						<AdminRowActions
 							admin={row}
+							canDeactivate={row.accountId !== currentAdminQuery.data?.accountId}
 							onDelete={setPendingDeleteAdmin}
 							onSetActive={(admin, active) =>
 								setPendingStatusAdmin({ active, admin })

@@ -4,7 +4,7 @@ import {
 	EnrollmentCreateRequestSchema,
 	EnrollmentResponseSchema,
 	EnrollmentStatusEnum,
-	EnrollmentUpdateRequestSchema,
+	EnrollmentStatusUpdateRequestSchema,
 } from "@/schemas/api";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────
@@ -21,5 +21,5 @@ export type EnrollmentCreateRequest = z.infer<
 	typeof EnrollmentCreateRequestSchema
 >;
 export type EnrollmentUpdateRequest = z.infer<
-	typeof EnrollmentUpdateRequestSchema
+	typeof EnrollmentStatusUpdateRequestSchema
 >;

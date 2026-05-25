@@ -6,10 +6,6 @@ import { CampiEnum, CampusResponseSchema } from "@/schemas/api";
 
 export const AdminResponseSchema = z.object({
 	accountId: z.string(),
-	accountEmail: z.string(),
-	accountActive: z.boolean(),
-	userId: z.string(),
-	userName: z.string(),
 	campus: CampusResponseSchema,
 	grantedAt: z.string(),
 	grantedAtFormatted: z.string(),
@@ -21,14 +17,12 @@ export const AdminCreateRequestSchema = z.object({
 	cpf: z.string(),
 	name: z.string(),
 	email: z.string(),
-	password: z.string(),
 	campus: CampiEnum,
 });
 
 export const AdminUpdateRequestSchema = z.object({
+    cpf: z.string().nullable().optional(),
 	name: z.string().nullable().optional(),
 	email: z.string().nullable().optional(),
-	password: z.string().nullable().optional(),
 	campus: CampiEnum.nullable().optional(),
-	active: z.boolean().nullable().optional(),
 });

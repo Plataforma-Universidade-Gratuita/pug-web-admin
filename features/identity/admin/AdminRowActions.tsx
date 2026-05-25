@@ -22,6 +22,7 @@ import type { AdminRowActionsProps } from "@/types/client";
 
 export function AdminRowActions({
 	admin,
+	canDeactivate,
 	onDelete,
 	onSetActive,
 	onView,
@@ -47,19 +48,19 @@ export function AdminRowActions({
 				onClick={() => onOpenEditor(admin.accountId, "duplicate")}
 			/>
 			<DropdownMenuSeparator />
-			{admin.accountActive ? (
+			{admin.accountActive && canDeactivate ? (
 				<DropdownMenuWarningItem
 					icon={ShieldX}
 					label={t("identity.adminPage.table.actions.deactivate")}
 					onClick={() => onSetActive(admin, false)}
 				/>
-			) : (
+			) : !admin.accountActive ? (
 				<DropdownMenuSuccessItem
 					icon={ShieldCheck}
 					label={t("identity.adminPage.table.actions.reactivate")}
 					onClick={() => onSetActive(admin, true)}
 				/>
-			)}
+			) : null}
 			<DropdownMenuDangerItem
 				icon={Trash2}
 				label={t("identity.adminPage.table.actions.delete")}

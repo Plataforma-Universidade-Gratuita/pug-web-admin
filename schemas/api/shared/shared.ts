@@ -19,3 +19,7 @@ export const CampusResponseSchema = z.object({
 	campus: CampiEnum,
 	campusFormatted: z.string(),
 });
+
+export const PasswordCreateRequestSchema = z.object({
+    password: z.string(),
+})
