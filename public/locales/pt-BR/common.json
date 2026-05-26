@@ -3210,20 +3210,32 @@
         }
       },
       "filters": {
-        "campus": {
-          "label": "Campus",
-          "options": {
-            "all": "Todos os campus",
-            "JARAGUA_DO_SUL": "JaraguÃƒÂ¡ do Sul",
-            "JOINVILLE": "Joinville"
-          },
-          "placeholder": "Selecione..."
+      "campus": {
+        "label": "Campus",
+        "options": {
+          "all": "Todos os campus",
+          "JARAGUA_DO_SUL": "JaraguÃƒÂ¡ do Sul",
+          "JOINVILLE": "Joinville"
         },
-        "clear": "$t(identity.accountPage.filters.clear)",
-        "search": {
-          "label": "Nome ou e-mail",
-          "placeholder": "Filtrar por nome ou e-mail do administrador"
-        }
+        "placeholder": "Selecione..."
+      },
+      "clear": "$t(identity.accountPage.filters.clear)",
+      "drawer": {
+        "active": "Filtros ativos",
+        "apply": "Aplicar filtros",
+        "clearConfirm": {
+          "description": "Isso vai limpar os filtros atuais de administradores.",
+          "title": "Limpar estes filtros?"
+        },
+        "label": "Filtros",
+        "overhead": "Filtros de administradores",
+        "title": "Refinar diretÃ³rio",
+        "trigger": "Abrir filtros"
+      },
+      "search": {
+        "label": "Nome ou e-mail",
+        "placeholder": "Filtrar por nome ou e-mail do administrador"
+      }
       },
       "loading": {
         "detail": "Carregando detalhes do administrador",
@@ -3252,7 +3264,7 @@
           }
         }
       },
-      "table": {
+    "table": {
         "actions": {
           "deactivate": "Desativar administrador",
           "delete": "Excluir administrador",
@@ -3265,13 +3277,14 @@
           "no": "Inativo",
           "yes": "Ativo"
         },
-        "columns": {
-          "active": "Status",
-          "campus": "Campus",
-          "email": "$t(identity.accountPage.table.columns.email)",
-          "grantedAt": "Concedido em",
-          "name": "$t(identity.userPage.table.columns.name)"
-        },
+      "columns": {
+        "active": "Status",
+        "campus": "Campus",
+        "email": "$t(identity.accountPage.table.columns.email)",
+        "grantedAt": "Concedido em",
+        "id": "Identificador",
+        "name": "$t(identity.userPage.table.columns.name)"
+      },
         "error": {
           "description": "O diretÃƒÂ³rio de administradores nÃƒÂ£o pÃƒÂ´de ser carregado agora.",
           "title": "NÃƒÂ£o foi possÃƒÂ­vel carregar os administradores"

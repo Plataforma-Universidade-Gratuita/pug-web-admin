@@ -32,11 +32,8 @@ export function createAdminEditorFormSchema(
 			t("identity.adminPage.update.validation.email.invalid"),
 			t("identity.adminPage.update.validation.email.tooLong"),
 		),
-		campus: z
-			.string()
-			.min(1, t("identity.adminPage.update.validation.campus"))
-			.refine(value => CampiEnum.safeParse(value).success, {
-				message: t("identity.adminPage.update.validation.campus"),
-			}),
+		campus: CampiEnum,
+		password: z.string().trim(),
+		active: z.boolean(),
 	});
 }

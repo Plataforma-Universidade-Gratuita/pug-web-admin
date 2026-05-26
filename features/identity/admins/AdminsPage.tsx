@@ -1,26 +1,37 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	NoContentState,
+	SomeErrorState,
+	toast,
+} from "@/components";
+import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AdminsActionDialogs } from "@/features/identity/admins/AdminActionDialogs";
 import { AdminsFilters } from "@/features/identity/admins/AdminsFilters";
 import { AdminsRowActions } from "@/features/identity/admins/AdminsRowActions";
 import { AdminsUpdateDrawer } from "@/features/identity/admins/AdminsUpdateDrawer";
 import {
+	useCreateAdminMutation,
 	useRemoveAdminMutation,
 	useSetAdminActiveMutation,
 } from "@/features/identity/admins/mutations";
 import {
+	useAdminsSearchQuery,
 	useCurrentAdminQuery,
-	useAdminsQuery,
 } from "@/features/identity/admins/queries";
+import { get as getUser } from "@/api/web/identity/users";
 import {
+	appendCopyToEmail,
+	buildAdminDuplicateCreateRequest,
 	createAdminColumns,
-	filterAdmins,
+	filterAdminsByBackendFilters,
+	filterAdminsByFrontendFilters,
 	getAdminDeleteErrorToastContent,
+	getAdminDuplicateErrorToastContent,
 	getAdminEmptyStateCopy,
 	getAdminFilterSummary,
 	getAdminSetActiveErrorToastContent,
@@ -29,68 +40,131 @@ import {
 import {
 	ServicePageHeader,
 	ServicePageHeaderActions,
+	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
 } from "@/features/shared/service-pages";
 import {
 	useDeferredUndoAction,
+	useDraftFilters,
 	useQueryErrorToasts,
 	useServicePageEditorState,
+	useServicePagePagination,
 } from "@/hooks";
-import type { AdminResponse } from "@/types";
-import type { AdminCampusFilter, AdminEditorMode } from "@/types";
+import type {
+	AdminComplexSearchFilters,
+	AdminEditorMode,
+	AdminSearchResponse,
+	Campi,
+} from "@/types";
+
+const ADMIN_ALL_PAGE_SIZE = 2147483647;
 
 export function AdminsPage() {
 	const { t } = useTranslation();
-	const [querySearch, setQuerySearch] = useState("");
-	const [campusFilter, setCampusFilter] = useState<AdminCampusFilter>("");
+	const [frontendQuerySearch, setFrontendQuerySearch] = useState("");
+	const [frontendCampusFilters, setFrontendCampusFilters] = useState<Campi[]>(
+		[],
+	);
+	const [backendFiltersOpen, setBackendFiltersOpen] = useState(false);
 	const editorState = useServicePageEditorState<AdminEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
 	});
 	const [pendingStatusAdmin, setPendingStatusAdmin] = useState<{
 		active: boolean;
-		admin: AdminResponse;
+		admin: AdminSearchResponse;
 	} | null>(null);
 	const [pendingDeleteAdmin, setPendingDeleteAdmin] =
-		useState<AdminResponse | null>(null);
-	const deferredQuerySearch = useDeferredValue(querySearch.trim());
-	const adminsQuery = useAdminsQuery();
+		useState<AdminSearchResponse | null>(null);
+	const deferredFrontendQuerySearch = useDeferredValue(
+		frontendQuerySearch.trim(),
+	);
+	const {
+		appliedFilters,
+		applyDraftFilters,
+		clearFilters,
+		draftFilters,
+		hasAppliedFilters,
+		setDraftFilter,
+	} = useDraftFilters<AdminComplexSearchFilters>({
+		initialFilters: {
+			name: "",
+			cpf: "",
+			email: "",
+			accountType: "",
+			dateFrom: "",
+			dateTo: "",
+			activeOnly: true,
+			campuses: [],
+		},
+	});
+	const adminsPagination = useServicePagePagination({
+		key: "identity.admins",
+	});
+	const adminsSearchQuery = useAdminsSearchQuery(
+		adminsPagination.isAll ? 0 : (adminsPagination.backendPage ?? 0),
+		adminsPagination.isAll
+			? ADMIN_ALL_PAGE_SIZE
+			: (adminsPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE),
+		appliedFilters,
+	);
 	const currentAdminQuery = useCurrentAdminQuery();
+	const createAdminMutation = useCreateAdminMutation();
 	const setAdminActiveMutation = useSetAdminActiveMutation();
 	const removeAdminMutation = useRemoveAdminMutation();
 	const { schedule } = useDeferredUndoAction();
 
+	const backendFilteredAdmins = useMemo(
+		() =>
+			filterAdminsByBackendFilters(
+				adminsSearchQuery.data?.content ?? [],
+				appliedFilters,
+			),
+		[adminsSearchQuery.data, appliedFilters],
+	);
 	const filteredAdmins = useMemo(
 		() =>
-			filterAdmins(adminsQuery.data ?? [], {
-				campusFilter,
-				query: deferredQuerySearch,
+			filterAdminsByFrontendFilters(backendFilteredAdmins, {
+				campusFilters: frontendCampusFilters,
+				query: deferredFrontendQuerySearch,
 			}),
-		[adminsQuery.data, campusFilter, deferredQuerySearch],
+		[
+			backendFilteredAdmins,
+			deferredFrontendQuerySearch,
+			frontendCampusFilters,
+		],
 	);
 	const columns = useMemo(() => createAdminColumns(t), [t]);
-	const hasAnyFilters = Boolean(querySearch.trim() || campusFilter);
+	const hasAnyFilters = Boolean(
+		frontendQuerySearch.trim() ||
+			frontendCampusFilters.length > 0 ||
+			hasAppliedFilters,
+	);
 	const filterSummary = useMemo(
 		() =>
-			getAdminFilterSummary(t, {
-				campusFilter,
-				query: deferredQuerySearch,
-			}),
-		[campusFilter, deferredQuerySearch, t],
+			getAdminFilterSummary(
+				t,
+				{
+					campusFilters: frontendCampusFilters,
+					query: deferredFrontendQuerySearch,
+				},
+				appliedFilters,
+			),
+		[appliedFilters, deferredFrontendQuerySearch, frontendCampusFilters, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getAdminEmptyStateCopy(t, filterSummary),
 		[filterSummary, t],
 	);
 	const tableEmptyState = useMemo(() => {
-		if (adminsQuery.isError) {
+		if (adminsSearchQuery.isError) {
 			return (
 				<SomeErrorState
 					title={t("identity.adminPage.table.error.title")}
 					description={t("identity.adminPage.table.error.description")}
 					onRefresh={() => {
-						void adminsQuery.refetch();
+						void adminsSearchQuery.refetch();
 					}}
 				/>
 			);
@@ -102,21 +176,89 @@ export function AdminsPage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [adminsQuery, emptyStateCopy.description, emptyStateCopy.title, t]);
+	}, [adminsSearchQuery, emptyStateCopy, t]);
+
+	const totalElements = adminsPagination.isAll
+		? backendFilteredAdmins.length
+		: (adminsSearchQuery.data?.totalElements ?? 0);
+	const totalPages = adminsPagination.isAll
+		? 1
+		: Math.max(adminsSearchQuery.data?.totalPages ?? 1, 1);
+
+	useEffect(() => {
+		if (
+			adminsPagination.isAll ||
+			!adminsSearchQuery.data ||
+			adminsPagination.currentPage <= totalPages
+		) {
+			return;
+		}
+
+		adminsPagination.setCurrentPage(totalPages);
+	}, [
+		adminsPagination.currentPage,
+		adminsPagination.isAll,
+		adminsPagination.setCurrentPage,
+		adminsSearchQuery.data,
+		totalPages,
+	]);
 
 	useQueryErrorToasts([
 		{
 			key: "admins-list",
-			error: adminsQuery.error,
-			errorUpdatedAt: adminsQuery.errorUpdatedAt,
+			error: adminsSearchQuery.error,
+			errorUpdatedAt: adminsSearchQuery.errorUpdatedAt,
 			getContent: error => getAdminsListErrorToastContent(t, error),
-			isError: adminsQuery.isError,
+			isError: adminsSearchQuery.isError,
 		},
 	]);
 
-	function clearFilters() {
-		setQuerySearch("");
-		setCampusFilter("");
+	function clearAllFilters() {
+		setFrontendQuerySearch("");
+		setFrontendCampusFilters([]);
+		clearFilters();
+		adminsPagination.resetPage();
+		setBackendFiltersOpen(false);
+	}
+
+	async function handleDuplicate(admin: AdminSearchResponse) {
+		try {
+			const user = await getUser(admin.account.user.id);
+			const body = buildAdminDuplicateCreateRequest(admin, user);
+
+			createAdminMutation.mutate(
+				{
+					active: admin.account.active,
+					body,
+				},
+				{
+					onSuccess: ({ admin: createdAdmin }) => {
+						toast.success(
+							t("identity.adminPage.duplicate.feedback.success.title"),
+							{
+								description: t(
+									"identity.adminPage.duplicate.feedback.success.description",
+									{
+										name: createdAdmin.userName,
+										email: appendCopyToEmail(admin.account.email),
+									},
+								),
+							},
+						);
+					},
+					onError: error => {
+						const { title, description } = getAdminDuplicateErrorToastContent(
+							t,
+							error,
+						);
+						toast.danger(title, { description });
+					},
+				},
+			);
+		} catch (error) {
+			const { title, description } = getAdminDuplicateErrorToastContent(t, error);
+			toast.danger(title, { description });
+		}
 	}
 
 	function handleStatusChangeConfirm() {
@@ -126,7 +268,7 @@ export function AdminsPage() {
 
 		const { active, admin } = pendingStatusAdmin;
 		const isCurrentAdmin =
-			currentAdminQuery.data?.accountId === admin.accountId;
+			currentAdminQuery.data?.accountId === admin.account.id;
 
 		if (!active && isCurrentAdmin) {
 			setPendingStatusAdmin(null);
@@ -136,7 +278,7 @@ export function AdminsPage() {
 		setAdminActiveMutation.mutate(
 			{
 				active,
-				id: admin.accountId,
+				id: admin.account.id,
 			},
 			{
 				onSuccess: () => {
@@ -152,7 +294,7 @@ export function AdminsPage() {
 									? "identity.adminPage.reactivate.feedback.success.description"
 									: "identity.adminPage.deactivate.feedback.success.description",
 								{
-									name: admin.userName,
+									name: admin.account.user.name,
 								},
 							),
 						},
@@ -181,17 +323,17 @@ export function AdminsPage() {
 		setPendingDeleteAdmin(null);
 
 		schedule({
-			key: admin.accountId,
+			key: admin.account.id,
 			title: t("identity.adminPage.delete.undo.title"),
 			description: t("identity.adminPage.delete.undo.description", {
-				name: admin.userName,
+				name: admin.account.user.name,
 			}),
 			undoLabel: t("identity.adminPage.delete.undo.action"),
 			onCommit: () => {
 				removeAdminMutation.mutate(
 					{
-						accountId: admin.accountId,
-						userId: admin.userId,
+						accountId: admin.account.id,
+						userId: admin.account.user.id,
 					},
 					{
 						onSuccess: () => {
@@ -201,13 +343,13 @@ export function AdminsPage() {
 									description: t(
 										"identity.adminPage.delete.feedback.success.description",
 										{
-											name: admin.userName,
+											name: admin.account.user.name,
 										},
 									),
 								},
 							);
 
-							editorState.clearIfMatches(admin.accountId);
+							editorState.clearIfMatches(admin.account.id);
 						},
 						onError: error => {
 							const { title, description } = getAdminDeleteErrorToastContent(
@@ -237,21 +379,49 @@ export function AdminsPage() {
 						clearLabel={t("identity.adminPage.filters.clear")}
 						createLabel={t("identity.adminPage.create.open")}
 						hasFilters={hasAnyFilters}
-						onClear={clearFilters}
+						onClear={clearAllFilters}
 						onCreate={editorState.openCreate}
 					/>
 				}
-				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_minmax(16rem,0.9fr)]"
+				filtersClassName="grid gap-2"
 			>
 				<AdminsFilters
-					campusFilter={campusFilter}
-					onCampusFilterChange={setCampusFilter}
-					onSearchChange={setQuerySearch}
-					querySearch={querySearch}
+					backendFilters={draftFilters}
+					backendFiltersOpen={backendFiltersOpen}
+					frontendCampusFilters={frontendCampusFilters}
+					frontendQuerySearch={frontendQuerySearch}
+					hasBackendFilters={hasAppliedFilters}
+					onApplyBackendFilters={() => {
+						adminsPagination.resetPage();
+						applyDraftFilters();
+						setBackendFiltersOpen(false);
+					}}
+					onBackendFilterChange={(key, value) => {
+						setDraftFilter(key, value);
+					}}
+					onBackendFiltersOpenChange={setBackendFiltersOpen}
+					onClearBackendFilters={() => {
+						clearFilters();
+						adminsPagination.resetPage();
+						setBackendFiltersOpen(false);
+					}}
+					onFrontendCampusFiltersChange={setFrontendCampusFilters}
+					onFrontendQuerySearchChange={setFrontendQuerySearch}
 				/>
 			</ServicePageHeader>
 
-			<ServicePageTableSection<AdminResponse>
+			<ServicePageTableSection<AdminSearchResponse>
+				footer={
+					<ServicePagePagination
+						currentPage={adminsPagination.currentPage}
+						pageSize={adminsPagination.pageSize}
+						totalElements={totalElements}
+						totalPages={totalPages}
+						onPageChange={adminsPagination.setCurrentPage}
+						onPageSizeChange={adminsPagination.setPageSize}
+						disabled={adminsSearchQuery.isLoading}
+					/>
+				}
 				tableProps={{
 					className: "h-full",
 					columns,
@@ -261,17 +431,18 @@ export function AdminsPage() {
 						<AdminsRowActions
 							admin={row}
 							canDeactivate={
-								row.accountId !== currentAdminQuery.data?.accountId
+								row.account.id !== currentAdminQuery.data?.accountId
 							}
-							href={`/identity/admins/${row.accountId}`}
+							href={`/identity/admins/${row.account.id}`}
 							onDelete={setPendingDeleteAdmin}
+							onDuplicate={handleDuplicate}
 							onSetActive={(admin, active) =>
 								setPendingStatusAdmin({ active, admin })
 							}
 							onOpenEditor={editorState.openEditor}
 						/>
 					),
-					isLoading: adminsQuery.isLoading,
+					isLoading: adminsSearchQuery.isLoading,
 					loadingLabel: t("identity.adminPage.loading.list"),
 				}}
 			/>

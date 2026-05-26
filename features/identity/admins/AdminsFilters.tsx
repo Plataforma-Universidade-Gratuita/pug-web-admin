@@ -2,66 +2,56 @@
 
 import { useMemo } from "react";
 
+import { MultiSelect } from "@/components";
 import { useTranslation } from "react-i18next";
 
-import {
-	Label,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-} from "@/components";
 import { getAdminCampusOptions } from "@/features/identity/admins/utils";
 import { TextFieldFilter } from "@/features/shared/service-pages";
-import type { AdminCampusFilter, AdminsFiltersProps } from "@/types";
+import type { AdminsFiltersProps } from "@/types";
+
+import { AdminsFiltersDrawer } from "./AdminsFiltersDrawer";
 
 export function AdminsFilters({
-	campusFilter,
-	onCampusFilterChange,
-	onSearchChange,
-	querySearch,
+	backendFilters,
+	backendFiltersOpen,
+	frontendCampusFilters,
+	frontendQuerySearch,
+	hasBackendFilters,
+	onApplyBackendFilters,
+	onBackendFilterChange,
+	onBackendFiltersOpenChange,
+	onClearBackendFilters,
+	onFrontendCampusFiltersChange,
+	onFrontendQuerySearchChange,
 }: AdminsFiltersProps) {
 	const { t } = useTranslation();
 	const campusOptions = useMemo(() => getAdminCampusOptions(t), [t]);
 
 	return (
-		<>
+		<div className="grid gap-2 lg:grid-cols-[minmax(0,1.6fr)_minmax(16rem,1fr)_auto] lg:items-end">
 			<TextFieldFilter
 				label={t("identity.adminPage.filters.search.label")}
-				value={querySearch}
-				onChange={onSearchChange}
+				value={frontendQuerySearch}
+				onChange={onFrontendQuerySearchChange}
 				placeholder={t("identity.adminPage.filters.search.placeholder")}
 			/>
-
-			<div className="grid gap-2">
-				<Label>{t("identity.adminPage.filters.campus.label")}</Label>
-				<Select
-					value={campusFilter || "ALL"}
-					onValueChange={value =>
-						onCampusFilterChange(
-							value === "ALL" ? "" : (value as AdminCampusFilter),
-						)
-					}
-				>
-					<SelectTrigger
-						className="w-full"
-						placeholder={t("identity.adminPage.filters.campus.placeholder")}
-					/>
-					<SelectContent>
-						<SelectItem value="ALL">
-							{t("identity.adminPage.filters.campus.options.all")}
-						</SelectItem>
-						{campusOptions.map(option => (
-							<SelectItem
-								key={option.value}
-								value={option.value}
-							>
-								{option.label}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
-			</div>
-		</>
+			<MultiSelect
+				options={campusOptions}
+				value={frontendCampusFilters}
+				onValueChange={value =>
+					onFrontendCampusFiltersChange(value as typeof frontendCampusFilters)
+				}
+				placeholder={t("identity.adminPage.filters.campus.placeholder")}
+			/>
+			<AdminsFiltersDrawer
+				filters={backendFilters}
+				hasActiveFilters={hasBackendFilters}
+				onApply={onApplyBackendFilters}
+				onClear={onClearBackendFilters}
+				onFilterChange={onBackendFilterChange}
+				onOpenChange={onBackendFiltersOpenChange}
+				open={backendFiltersOpen}
+			/>
+		</div>
 	);
 }

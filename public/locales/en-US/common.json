@@ -3210,20 +3210,32 @@
         }
       },
       "filters": {
-        "campus": {
-          "label": "Campus",
-          "options": {
-            "all": "All campuses",
-            "JARAGUA_DO_SUL": "JaraguÃ¡ do Sul",
-            "JOINVILLE": "Joinville"
-          },
-          "placeholder": "Select..."
+      "campus": {
+        "label": "Campus",
+        "options": {
+          "all": "All campuses",
+          "JARAGUA_DO_SUL": "JaraguÃ¡ do Sul",
+          "JOINVILLE": "Joinville"
         },
-        "clear": "$t(identity.accountPage.filters.clear)",
-        "search": {
-          "label": "Name or email",
-          "placeholder": "Filter by administrator name or email"
-        }
+        "placeholder": "Select..."
+      },
+      "clear": "$t(identity.accountPage.filters.clear)",
+      "drawer": {
+        "active": "Filters active",
+        "apply": "Apply filters",
+        "clearConfirm": {
+          "description": "This will clear the current administrator filters.",
+          "title": "Clear these filters?"
+        },
+        "label": "Filters",
+        "overhead": "Administrator filters",
+        "title": "Refine directory",
+        "trigger": "Open filters"
+      },
+      "search": {
+        "label": "Name or email",
+        "placeholder": "Filter by administrator name or email"
+      }
       },
       "loading": {
         "detail": "Loading administrator details",
@@ -3252,7 +3264,7 @@
           }
         }
       },
-      "table": {
+    "table": {
         "actions": {
           "deactivate": "Deactivate administrator",
           "delete": "Delete administrator",
@@ -3265,13 +3277,14 @@
           "no": "Inactive",
           "yes": "Active"
         },
-        "columns": {
-          "active": "Status",
-          "campus": "Campus",
-          "email": "$t(identity.accountPage.table.columns.email)",
-          "grantedAt": "Granted at",
-          "name": "$t(identity.userPage.table.columns.name)"
-        },
+      "columns": {
+        "active": "Status",
+        "campus": "Campus",
+        "email": "$t(identity.accountPage.table.columns.email)",
+        "grantedAt": "Granted at",
+        "id": "Identifier",
+        "name": "$t(identity.userPage.table.columns.name)"
+      },
         "error": {
           "description": "The administrator directory could not be loaded right now.",
           "title": "Unable to load administrators"

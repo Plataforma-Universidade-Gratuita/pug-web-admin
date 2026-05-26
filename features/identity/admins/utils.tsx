@@ -1,35 +1,68 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge } from "@/components";
-import { ADMIN_CAMPI_VALUES } from "@/constants";
+import { Badge, TableText } from "@/components";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+export { createAdminEditorFormSchema } from "@/schemas";
 import type {
+	AdminComplexSearchFilters,
 	AdminCreateRequest,
+	AdminEditorFormValues,
 	AdminResponse,
+	AdminSearchResponse,
 	AdminUpdateRequest,
 	Campi,
 	UserResponse,
 } from "@/types";
-import type {
-	AdminFilterArgs,
-	AdminEditorFormValues,
-	AdminEditorMode,
-} from "@/types";
-import { getApiErrorToastContent } from "@/utils";
-import { normalizeTextForSearch } from "@/utils";
+import type { AdminFrontendFilterArgs } from "@/types";
+import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
 
-export { createAdminEditorFormSchema } from "@/schemas";
+const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
 
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");
 }
 
-export function createAdminColumns(t: TFunction): ColumnDef<AdminResponse>[] {
+function getStartOfDayTimestamp(value: string) {
+	const date = new Date(value);
+	date.setHours(0, 0, 0, 0);
+	return date.getTime();
+}
+
+function matchesDateFrom(admin: AdminSearchResponse, value: string) {
+	const threshold = getStartOfDayTimestamp(value);
+	const createdAt = getStartOfDayTimestamp(admin.account.auditInfo.createdAt);
+	const updatedAt = getStartOfDayTimestamp(admin.account.auditInfo.updatedAt);
+	const grantedAt = getStartOfDayTimestamp(admin.grantedAt);
+
+	return (
+		createdAt >= threshold ||
+		updatedAt >= threshold ||
+		grantedAt >= threshold
+	);
+}
+
+function matchesDateTo(admin: AdminSearchResponse, value: string) {
+	const threshold = getStartOfDayTimestamp(value);
+	const createdAt = getStartOfDayTimestamp(admin.account.auditInfo.createdAt);
+	const updatedAt = getStartOfDayTimestamp(admin.account.auditInfo.updatedAt);
+	const grantedAt = getStartOfDayTimestamp(admin.grantedAt);
+
+	return (
+		createdAt <= threshold ||
+		updatedAt <= threshold ||
+		grantedAt <= threshold
+	);
+}
+
+export function createAdminColumns(
+	t: TFunction,
+): ColumnDef<AdminSearchResponse>[] {
 	return [
 		{
-			accessorFn: row => row.accountActive,
+			accessorFn: row => row.account.active,
 			id: "active",
-			size: 96,
+			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 			header: () => (
 				<div className="flex w-full justify-center">
 					{t("identity.adminPage.table.columns.active")}
@@ -39,10 +72,10 @@ export function createAdminColumns(t: TFunction): ColumnDef<AdminResponse>[] {
 				<div className="flex w-full justify-center">
 					<Badge
 						className="min-h-5 px-2 py-0.5"
-						tone={row.original.accountActive ? "success" : "danger"}
+						tone={row.original.account.active ? "success" : "danger"}
 						variant="primary"
 					>
-						{row.original.accountActive
+						{row.original.account.active
 							? t("identity.adminPage.table.active.yes")
 							: t("identity.adminPage.table.active.no")}
 					</Badge>
@@ -50,12 +83,29 @@ export function createAdminColumns(t: TFunction): ColumnDef<AdminResponse>[] {
 			),
 		},
 		{
-			accessorKey: "userName",
-			header: t("identity.adminPage.table.columns.name"),
+			accessorFn: row => row.account.id,
+			id: "id",
+			header: t("identity.adminPage.table.columns.id"),
+			size: TABLE_IDENTIFIER_TEXT_WIDTH,
+			cell: ({ row }) => (
+				<TableText
+					text={row.original.account.id}
+					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
+					tooltiped
+				/>
+			),
 		},
 		{
-			accessorKey: "accountEmail",
+			accessorFn: row => row.account.user.name,
+			id: "name",
+			header: t("identity.adminPage.table.columns.name"),
+			cell: ({ row }) => row.original.account.user.name,
+		},
+		{
+			accessorFn: row => row.account.email,
+			id: "email",
 			header: t("identity.adminPage.table.columns.email"),
+			cell: ({ row }) => row.original.account.email,
 		},
 		{
 			accessorFn: row => row.campus.campus,
@@ -71,22 +121,100 @@ export function createAdminColumns(t: TFunction): ColumnDef<AdminResponse>[] {
 	];
 }
 
-export function filterAdmins(
-	admins: AdminResponse[],
-	{ campusFilter, query }: AdminFilterArgs,
+export function buildAdminComplexSearchRequest(
+	filters: AdminComplexSearchFilters,
+) {
+	const normalizedName = filters.name.trim();
+	const normalizedCpf = normalizeCpf(filters.cpf.trim());
+	const normalizedEmail = filters.email.trim();
+	const normalizedDateFrom = filters.dateFrom.trim();
+	const normalizedDateTo = filters.dateTo.trim();
+
+	return {
+		name: normalizedName || undefined,
+		cpf: normalizedCpf || undefined,
+		email: normalizedEmail || undefined,
+		accountType: filters.accountType || undefined,
+		dateFrom: normalizedDateFrom || undefined,
+		dateTo: normalizedDateTo || undefined,
+		activeOnly: filters.activeOnly,
+		campuses: filters.campuses,
+	};
+}
+
+export function filterAdminsByBackendFilters(
+	admins: AdminSearchResponse[],
+	filters: AdminComplexSearchFilters,
+) {
+	const request = buildAdminComplexSearchRequest(filters);
+
+	return admins.filter(admin => {
+		if (request.activeOnly && !admin.account.active) {
+			return false;
+		}
+
+		if (
+			request.name &&
+			!normalizeTextForSearch(admin.account.user.name).includes(
+				normalizeTextForSearch(request.name),
+			)
+		) {
+			return false;
+		}
+
+		if (
+			request.email &&
+			!normalizeTextForSearch(admin.account.email).includes(
+				normalizeTextForSearch(request.email),
+			)
+		) {
+			return false;
+		}
+
+		if (
+			request.accountType &&
+			admin.account.accountType !== request.accountType
+		) {
+			return false;
+		}
+
+		if (
+			request.campuses.length > 0 &&
+			!request.campuses.includes(admin.campus.campus)
+		) {
+			return false;
+		}
+
+		if (request.dateFrom && !matchesDateFrom(admin, request.dateFrom)) {
+			return false;
+		}
+
+		if (request.dateTo && !matchesDateTo(admin, request.dateTo)) {
+			return false;
+		}
+
+		return true;
+	});
+}
+
+export function filterAdminsByFrontendFilters(
+	admins: AdminSearchResponse[],
+	{ campusFilters, query }: AdminFrontendFilterArgs,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const hasQuery = normalizedQuery.length > 0;
-	const hasCampusFilter = campusFilter !== "";
+	const hasCampusFilters = campusFilters.length > 0;
 
-	if (!hasQuery && !hasCampusFilter) {
+	if (!hasQuery && !hasCampusFilters) {
 		return admins;
 	}
 
 	return admins.filter(admin => {
 		if (hasQuery) {
-			const normalizedEmail = normalizeTextForSearch(admin.accountEmail);
-			const normalizedUserName = normalizeTextForSearch(admin.userName);
+			const normalizedEmail = normalizeTextForSearch(admin.account.email);
+			const normalizedUserName = normalizeTextForSearch(
+				admin.account.user.name,
+			);
 
 			if (
 				!normalizedEmail.includes(normalizedQuery) &&
@@ -96,7 +224,10 @@ export function filterAdmins(
 			}
 		}
 
-		if (hasCampusFilter && admin.campus.campus !== campusFilter) {
+		if (
+			hasCampusFilters &&
+			!campusFilters.includes(admin.campus.campus)
+		) {
 			return false;
 		}
 
@@ -248,20 +379,6 @@ export function buildAdminUpdateFormValues(
 	};
 }
 
-export function buildAdminDuplicateFormValues(
-	admin: AdminResponse,
-	user: UserResponse | null,
-): AdminEditorFormValues {
-	return {
-		cpf: user?.cpf ?? "",
-		name: admin.userName,
-		email: admin.accountEmail,
-		password: "",
-		campus: admin.campus.campus,
-		active: admin.accountActive,
-	};
-}
-
 export function toAdminUpdateRequest(
 	values: AdminEditorFormValues,
 ): AdminUpdateRequest {
@@ -279,27 +396,102 @@ export function toAdminUpdateRequest(
 export function toAdminCreateRequest(
 	values: AdminEditorFormValues,
 ): AdminCreateRequest {
+	const password = values.password.trim();
+
 	return {
 		cpf: normalizeCpf(values.cpf.trim()),
 		name: values.name.trim(),
 		email: values.email.trim(),
-		password: values.password.trim(),
+		password: password.length > 0 ? password : undefined,
 		campus: values.campus,
+		active: values.active,
 	};
+}
+
+export function buildAdminDuplicateCreateRequest(
+	admin: AdminSearchResponse,
+	user: Pick<UserResponse, "cpf" | "name">,
+): AdminCreateRequest {
+	return {
+		cpf: normalizeCpf(user.cpf),
+		name: user.name,
+		email: appendCopyToEmail(admin.account.email),
+		campus: admin.campus.campus,
+		active: admin.account.active,
+	};
+}
+
+export function appendCopyToEmail(email: string) {
+	const separatorIndex = email.indexOf("@");
+
+	if (separatorIndex === -1) {
+		return `${email}Copy`;
+	}
+
+	return `${email.slice(0, separatorIndex)}Copy${email.slice(separatorIndex)}`;
 }
 
 export function getAdminFilterSummary(
 	t: TFunction,
-	{ campusFilter, query }: AdminFilterArgs,
+	frontendFilters: AdminFrontendFilterArgs,
+	backendFilters: AdminComplexSearchFilters,
 ) {
 	const parts: string[] = [];
 
-	if (query.trim()) {
-		parts.push(query.trim());
+	if (frontendFilters.query.trim()) {
+		parts.push(frontendFilters.query.trim());
 	}
 
-	if (campusFilter) {
-		parts.push(t(`identity.adminPage.filters.campus.options.${campusFilter}`));
+	if (frontendFilters.campusFilters.length > 0) {
+		parts.push(
+			frontendFilters.campusFilters
+				.map(campus =>
+					t(`identity.adminPage.filters.campus.options.${campus}`),
+				)
+				.join(", "),
+		);
+	}
+
+	if (backendFilters.name.trim()) {
+		parts.push(backendFilters.name.trim());
+	}
+
+	if (backendFilters.cpf.trim()) {
+		parts.push(backendFilters.cpf.trim());
+	}
+
+	if (backendFilters.email.trim()) {
+		parts.push(backendFilters.email.trim());
+	}
+
+	if (backendFilters.accountType) {
+		parts.push(
+			t(
+				`identity.accountPage.filters.accountType.options.${backendFilters.accountType}`,
+			),
+		);
+	}
+
+	if (backendFilters.campuses.length > 0) {
+		parts.push(
+			backendFilters.campuses
+				.map(campus =>
+					t(`identity.adminPage.filters.campus.options.${campus}`),
+				)
+				.join(", "),
+		);
+	}
+
+	if (backendFilters.dateFrom || backendFilters.dateTo) {
+		parts.push(
+			[backendFilters.dateFrom || "...", backendFilters.dateTo || "..."].join(
+				" - ",
+			),
+		);
+	}
+
+	if (!backendFilters.activeOnly) {
+		parts.push(t("identity.accountPage.filters.activeOnly.off"));
 	}
 
 	return parts.join(" | ");

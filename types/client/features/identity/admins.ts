@@ -1,14 +1,17 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
+	AccountResponse,
+	AccountSearchResponse,
 	AdminCreateRequest,
 	AdminResponse,
+	AdminSearchResponse,
 	AdminUpdateRequest,
 	Campi,
+	UserResponse,
 } from "@/types";
 
-export type AdminCampusFilter = "" | Campi;
-export type AdminEditorMode = "create" | "duplicate" | "update";
+export type AdminEditorMode = "create" | "update";
 
 export interface AdminPageProps {
 	adminId: string;
@@ -20,14 +23,33 @@ export interface AdminRoutePageProps {
 	}>;
 }
 
+export interface AdminComplexSearchFilters {
+	name: string;
+	cpf: string;
+	email: string;
+	accountType: "" | AccountSearchResponse["accountType"];
+	dateFrom: string;
+	dateTo: string;
+	activeOnly: boolean;
+	campuses: Campi[];
+}
+
+export interface AdminFrontendFilterArgs {
+	campusFilters: Campi[];
+	query: string;
+}
+
 export interface AdminEditorFormValues {
 	cpf: string;
 	name: string;
 	email: string;
+	password: string;
 	campus: Campi;
+	active: boolean;
 }
 
 export interface AdminCreateMutationVariables {
+	active: boolean;
 	body: AdminCreateRequest;
 }
 
@@ -77,15 +99,33 @@ export interface AdminUserTabProps {
 }
 
 export interface AdminsFiltersProps {
-	campusFilter: AdminCampusFilter;
-	onCampusFilterChange: (value: AdminCampusFilter) => void;
-	onSearchChange: (value: string) => void;
-	querySearch: string;
+	backendFilters: AdminComplexSearchFilters;
+	backendFiltersOpen: boolean;
+	frontendCampusFilters: Campi[];
+	frontendQuerySearch: string;
+	hasBackendFilters: boolean;
+	onApplyBackendFilters: () => void;
+	onBackendFilterChange: <TKey extends keyof AdminComplexSearchFilters>(
+		key: TKey,
+		value: AdminComplexSearchFilters[TKey],
+	) => void;
+	onBackendFiltersOpenChange: (open: boolean) => void;
+	onClearBackendFilters: () => void;
+	onFrontendCampusFiltersChange: (value: Campi[]) => void;
+	onFrontendQuerySearchChange: (value: string) => void;
 }
 
-export interface AdminFilterArgs {
-	campusFilter: AdminCampusFilter;
-	query: string;
+export interface AdminsFiltersDrawerProps {
+	filters: AdminComplexSearchFilters;
+	hasActiveFilters: boolean;
+	onApply: () => void;
+	onClear: () => void;
+	onFilterChange: <TKey extends keyof AdminComplexSearchFilters>(
+		key: TKey,
+		value: AdminComplexSearchFilters[TKey],
+	) => void;
+	onOpenChange: (open: boolean) => void;
+	open: boolean;
 }
 
 export interface AdminsActionDialogsProps {
@@ -93,19 +133,20 @@ export interface AdminsActionDialogsProps {
 	onConfirmStatusChange: () => void;
 	onDeleteOpenChange: (open: boolean) => void;
 	onStatusOpenChange: (open: boolean) => void;
-	pendingDeleteAdmin: AdminResponse | null;
+	pendingDeleteAdmin: AdminSearchResponse | null;
 	pendingStatusAdmin: {
 		active: boolean;
-		admin: AdminResponse;
+		admin: AdminSearchResponse;
 	} | null;
 }
 
 export interface AdminsRowActionsProps {
-	admin: AdminResponse;
+	admin: AdminSearchResponse;
 	canDeactivate: boolean;
 	href: string;
-	onDelete: (admin: AdminResponse) => void;
-	onSetActive: (admin: AdminResponse, active: boolean) => void;
+	onDelete: (admin: AdminSearchResponse) => void;
+	onDuplicate: (admin: AdminSearchResponse) => void;
+	onSetActive: (admin: AdminSearchResponse, active: boolean) => void;
 	onOpenEditor: (id: string, mode: AdminEditorMode) => void;
 }
 

@@ -10,13 +10,14 @@ import { create, remove, setActive, update } from "@/api/web/identity/admins";
 import { accountQueryKeys } from "@/features/identity/accounts/queries";
 import { adminQueryKeys } from "@/features/identity/admins/queries";
 import { userQueryKeys } from "@/features/identity/users/queries";
-import type { AccountResponse, AdminResponse, UserResponse } from "@/types";
+import type { AccountResponse, UserResponse } from "@/types";
 import type {
 	AdminCreateMutationVariables,
-	PatchAdminCachesArgs,
-	RemoveAdminMutationVariables,
+	AdminResponse,
 	AdminSetActiveMutationVariables,
 	AdminUpdateMutationVariables,
+	PatchAdminCachesArgs,
+	RemoveAdminMutationVariables,
 } from "@/types";
 
 function formatCpf(value: string) {
@@ -136,7 +137,6 @@ function buildNextAccountRecord(
 	return {
 		id: admin.accountId,
 		userId: admin.userId,
-		userName: admin.userName,
 		email: admin.accountEmail,
 		accountType: options.existing?.accountType ?? "ADMIN",
 		accountTypeFormatted: options.existing?.accountTypeFormatted ?? "ADMIN",
@@ -169,14 +169,12 @@ function buildNextUserRecord(
 
 function writeAdminCaches(queryClient: QueryClient, admin: AdminResponse) {
 	queryClient.setQueryData(adminQueryKeys.detail(admin.accountId), admin);
-	queryClient.setQueryData<AdminResponse[]>(adminQueryKeys.list(), current =>
-		upsertListItem(current, admin, item => item.accountId),
-	);
-
 	queryClient.setQueryData<AdminResponse | undefined>(
 		adminQueryKeys.me(),
 		current => (current?.accountId === admin.accountId ? admin : current),
 	);
+	queryClient.invalidateQueries({ queryKey: adminQueryKeys.directory() });
+	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });
 }
 
 function patchAdminCaches(
@@ -193,18 +191,6 @@ function patchAdminCaches(
 					}
 				: current,
 	);
-	queryClient.setQueryData<AdminResponse[]>(
-		adminQueryKeys.list(),
-		current =>
-			current?.map(admin =>
-				admin.accountId === accountId
-					? {
-							...admin,
-							accountActive,
-						}
-					: admin,
-			) ?? current,
-	);
 	queryClient.setQueryData<AdminResponse | undefined>(
 		adminQueryKeys.me(),
 		current =>
@@ -215,19 +201,17 @@ function patchAdminCaches(
 					}
 				: current,
 	);
+	queryClient.invalidateQueries({ queryKey: adminQueryKeys.directory() });
+	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });
 }
 
-function writeAccountCaches(
-	queryClient: QueryClient,
-	account: AccountResponse,
-) {
+function writeAccountCaches(queryClient: QueryClient, account: AccountResponse) {
 	queryClient.setQueryData(accountQueryKeys.detail(account.id), account);
 	queryClient.setQueryData(adminQueryKeys.linkedAccount(account.id), account);
 	queryClient.setQueryData<AccountResponse[]>(
 		accountQueryKeys.list(),
 		current => upsertListItem(current, account, item => item.id),
 	);
-
 	queryClient.setQueryData<AccountResponse | undefined>(
 		accountQueryKeys.me(),
 		current => (current?.id === account.id ? account : current),
@@ -240,7 +224,6 @@ function writeUserCaches(queryClient: QueryClient, user: UserResponse) {
 	queryClient.setQueryData<UserResponse[]>(userQueryKeys.list(), current =>
 		upsertListItem(current, user, item => item.id),
 	);
-
 	queryClient.setQueryData<UserResponse | undefined>(
 		userQueryKeys.me(),
 		current => (current?.id === user.id ? user : current),
@@ -254,9 +237,6 @@ function removeAdminRelatedCaches(
 		userId: string;
 	},
 ) {
-	queryClient.setQueryData<AdminResponse[]>(adminQueryKeys.list(), current =>
-		removeListItem(current, ids.accountId, item => item.accountId),
-	);
 	queryClient.removeQueries({ queryKey: adminQueryKeys.detail(ids.accountId) });
 	queryClient.removeQueries({
 		queryKey: adminQueryKeys.linkedAccount(ids.accountId),
@@ -268,6 +248,8 @@ function removeAdminRelatedCaches(
 		adminQueryKeys.me(),
 		current => (current?.accountId === ids.accountId ? undefined : current),
 	);
+	queryClient.invalidateQueries({ queryKey: adminQueryKeys.directory() });
+	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });
 
 	queryClient.setQueryData<AccountResponse[]>(
 		accountQueryKeys.list(),
@@ -317,7 +299,9 @@ export function useCreateAdminMutation() {
 			const nextAccount = buildNextAccountRecord(nextAdmin, { active });
 			writeAccountCaches(queryClient, nextAccount);
 
-			const nextUser = buildNextUserRecord(nextAdmin, { cpf: body.cpf });
+			const nextUser = buildNextUserRecord(nextAdmin, {
+				...(body.cpf ? { cpf: body.cpf } : {}),
+			});
 			if (nextUser) {
 				writeUserCaches(queryClient, nextUser);
 			}

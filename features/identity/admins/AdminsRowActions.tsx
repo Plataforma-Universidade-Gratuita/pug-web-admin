@@ -27,6 +27,7 @@ export function AdminsRowActions({
 	canDeactivate,
 	href,
 	onDelete,
+	onDuplicate,
 	onSetActive,
 	onOpenEditor,
 }: AdminsRowActionsProps) {
@@ -45,21 +46,21 @@ export function AdminsRowActions({
 			<DropdownMenuItem
 				icon={PenSquare}
 				label={t("identity.adminPage.table.actions.update")}
-				onClick={() => onOpenEditor(admin.accountId, "update")}
+				onClick={() => onOpenEditor(admin.account.id, "update")}
 			/>
 			<DropdownMenuItem
 				icon={CopyPlus}
 				label={t("identity.adminPage.table.actions.duplicate")}
-				onClick={() => onOpenEditor(admin.accountId, "duplicate")}
+				onClick={() => onDuplicate(admin)}
 			/>
 			<DropdownMenuSeparator />
-			{admin.accountActive && canDeactivate ? (
+			{admin.account.active && canDeactivate ? (
 				<DropdownMenuWarningItem
 					icon={ShieldX}
 					label={t("identity.adminPage.table.actions.deactivate")}
 					onClick={() => onSetActive(admin, false)}
 				/>
-			) : !admin.accountActive ? (
+			) : !admin.account.active ? (
 				<DropdownMenuSuccessItem
 					icon={ShieldCheck}
 					label={t("identity.adminPage.table.actions.reactivate")}

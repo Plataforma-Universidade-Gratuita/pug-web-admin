@@ -31,7 +31,7 @@ export function AdminsActionDialogs({
 						? "identity.adminPage.reactivate.confirm.description"
 						: "identity.adminPage.deactivate.confirm.description",
 					{
-						name: pendingStatusAdmin?.admin.userName ?? "",
+						name: pendingStatusAdmin?.admin.account.user.name ?? "",
 					},
 				)}
 				cancelLabel={t("common.cancel")}
@@ -49,7 +49,7 @@ export function AdminsActionDialogs({
 				variant="danger"
 				title={t("identity.adminPage.delete.confirm.title")}
 				description={t("identity.adminPage.delete.confirm.description", {
-					name: pendingDeleteAdmin?.userName ?? "",
+					name: pendingDeleteAdmin?.account.user.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("identity.adminPage.table.actions.delete")}

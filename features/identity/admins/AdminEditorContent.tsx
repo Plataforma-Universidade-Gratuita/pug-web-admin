@@ -44,7 +44,6 @@ export function AdminEditorContent({
 }: AdminEditorContentProps) {
 	const { t } = useTranslation();
 	const isCreateMode = mode === "create";
-	const isDuplicateMode = mode === "duplicate";
 
 	if (!isCreateMode && adminError) {
 		if (adminError instanceof WebApiError && adminError.status === 404) {
@@ -174,7 +173,7 @@ export function AdminEditorContent({
 					) : null}
 				</div>
 
-				{isDuplicateMode ? (
+				{isCreateMode ? (
 					<div className="grid gap-2">
 						<Label htmlFor="admin-cpf">
 							{t("identity.adminPage.update.fields.cpf")}
@@ -218,9 +217,7 @@ export function AdminEditorContent({
 						placeholder={t(
 							isCreateMode
 								? "identity.adminPage.create.fields.passwordPlaceholder"
-								: isDuplicateMode
-									? "identity.adminPage.duplicate.fields.passwordPlaceholder"
-									: "identity.adminPage.update.fields.passwordPlaceholder",
+								: "identity.adminPage.update.fields.passwordPlaceholder",
 						)}
 					/>
 					{form.formState.errors.password ? (

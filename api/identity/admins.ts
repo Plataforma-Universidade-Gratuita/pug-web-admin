@@ -1,29 +1,23 @@
-import { z } from "zod";
-
 import { API_ROUTE_BASES } from "@/constants";
-import { AdminResponseSchema } from "@/schemas";
+import {
+	AdminComplexSearchRequestSchema,
+	AdminResponseSchema,
+	AdminSearchResponseSchema,
+	createPageResponseSchema,
+} from "@/schemas";
 import type {
+	AdminComplexSearchRequest,
+	AdminComplexSearchResponse,
 	AdminCreateRequest,
 	AdminResponse,
 	AdminUpdateRequest,
+	PaginationRequest,
 } from "@/types";
-import { zfetch, zvoid, qs } from "@/utils";
+import { qs, zfetch, zvoid } from "@/utils";
 
 export async function get(id: string, token?: string): Promise<AdminResponse> {
 	return zfetch(
 		`${API_ROUTE_BASES.identity.admins}/${id}`,
-		{ method: "GET" },
-		AdminResponseSchema,
-		token,
-	);
-}
-
-export async function getByEmail(
-	email: string,
-	token?: string,
-): Promise<AdminResponse> {
-	return zfetch(
-		`${API_ROUTE_BASES.identity.admins}${qs({ email })}`,
 		{ method: "GET" },
 		AdminResponseSchema,
 		token,
@@ -39,26 +33,21 @@ export async function getMe(token?: string): Promise<AdminResponse> {
 	);
 }
 
-export async function list(
+export async function search(
+	pagination: PaginationRequest,
+	body: AdminComplexSearchRequest,
 	token?: string,
-	q?: string,
-): Promise<AdminResponse[]> {
+): Promise<AdminComplexSearchResponse> {
 	return zfetch(
-		`${API_ROUTE_BASES.identity.admins}${qs({ q })}`,
-		{ method: "GET" },
-		z.array(AdminResponseSchema),
-		token,
-	);
-}
-
-export async function listByCpf(
-	cpf: string,
-	token?: string,
-): Promise<AdminResponse[]> {
-	return zfetch(
-		`${API_ROUTE_BASES.identity.admins}${qs({ cpf })}`,
-		{ method: "GET" },
-		z.array(AdminResponseSchema),
+		`${API_ROUTE_BASES.identity.admins}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		{
+			method: "POST",
+			body: JSON.stringify(AdminComplexSearchRequestSchema.parse(body)),
+		},
+		createPageResponseSchema(AdminSearchResponseSchema),
 		token,
 	);
 }
@@ -98,14 +87,6 @@ export async function setActive(
 		{ method: "PATCH", body: JSON.stringify({ active }) },
 		token,
 	);
-}
-
-export async function deactivate(id: string, token?: string): Promise<void> {
-	return setActive(id, false, token);
-}
-
-export async function reactivate(id: string, token?: string): Promise<void> {
-	return setActive(id, true, token);
 }
 
 export async function remove(id: string, token?: string): Promise<void> {

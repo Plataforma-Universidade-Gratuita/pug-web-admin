@@ -10,7 +10,10 @@ export const accountQueryKeys = {
 
 export const adminQueryKeys = {
 	all: ["identity", "admin"] as const,
-	list: () => [...adminQueryKeys.all, "list"] as const,
+	directory: () => [...adminQueryKeys.all, "directory"] as const,
+	searchRoot: () => [...adminQueryKeys.all, "search"] as const,
+	search: (page: number, size: number, filtersKey: string) =>
+		[...adminQueryKeys.searchRoot(), page, size, filtersKey] as const,
 	detail: (id: string) => [...adminQueryKeys.all, "detail", id] as const,
 	idleDetail: () => [...adminQueryKeys.all, "detail", "idle"] as const,
 	linkedAccount: (id: string) =>

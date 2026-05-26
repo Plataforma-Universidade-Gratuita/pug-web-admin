@@ -2,6 +2,10 @@ export interface AccountPageProps {
 	accountId: string;
 }
 
+export interface AccountDetailsContentProps {
+	accountId: string;
+}
+
 export interface AccountRoutePageProps {
 	params: Promise<{
 		accountId: string;

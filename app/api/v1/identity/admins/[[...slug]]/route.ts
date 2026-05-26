@@ -2,9 +2,13 @@ import { z } from "zod";
 
 import { admins } from "@/api";
 import {
+	AdminComplexSearchRequestSchema,
 	AdminCreateRequestSchema,
 	AdminResponseSchema,
+	AdminSearchResponseSchema,
 	AdminUpdateRequestSchema,
+	createPageResponseSchema,
+	PaginationRequestSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
 import {
@@ -14,31 +18,12 @@ import {
 	routeWithAuthRetry,
 } from "@/utils/route";
 
-export async function GET(request: Request, { params }: AppRouteSlugContext) {
+export async function GET(_request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
-	if (slug.length === 0) {
-		const q = new URL(request.url).searchParams.get("q") ?? undefined;
-		return routeWithAuthRetry(
-			token => admins.list(token, q),
-			z.array(AdminResponseSchema),
-		);
-	}
 	if (slug.length === 1 && slug[0] === "me") {
 		return routeWithAuthRetry(
 			token => admins.getMe(token),
 			AdminResponseSchema,
-		);
-	}
-	if (slug.length === 2 && slug[0] === "by-email") {
-		return routeWithAuthRetry(
-			token => admins.getByEmail(slug[1]!, token),
-			AdminResponseSchema,
-		);
-	}
-	if (slug.length === 2 && slug[0] === "by-cpf") {
-		return routeWithAuthRetry(
-			token => admins.listByCpf(slug[1]!, token),
-			z.array(AdminResponseSchema),
 		);
 	}
 	if (slug.length === 1) {
@@ -50,7 +35,22 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	return routeError(new Error("Not found"));
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request, { params }: AppRouteSlugContext) {
+	const { slug = [] } = await params;
+
+	if (slug.length === 1 && slug[0] === "search") {
+		const url = new URL(request.url);
+		const pagination = PaginationRequestSchema.parse({
+			page: url.searchParams.get("page"),
+			size: url.searchParams.get("size"),
+		});
+		const body = await parseRouteBody(request, AdminComplexSearchRequestSchema);
+		return routeWithAuthRetry(
+			token => admins.search(pagination, body, token),
+			createPageResponseSchema(AdminSearchResponseSchema),
+		);
+	}
+
 	const body = await parseRouteBody(request, AdminCreateRequestSchema);
 	return routeWithAuthRetry(
 		token => admins.create(body, token),

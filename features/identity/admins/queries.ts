@@ -3,16 +3,72 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { get as getAccount } from "@/api/web/identity/accounts";
-import { get, getMe, list } from "@/api/web/identity/admins";
+import { get, getMe, search } from "@/api/web/identity/admins";
 import { get as getUser } from "@/api/web/identity/users";
 import { adminQueryKeys } from "@/constants";
+import type { AdminComplexSearchFilters } from "@/types";
+
+import { buildAdminComplexSearchRequest } from "./utils";
 
 export { adminQueryKeys };
 
-export function useAdminsQuery() {
+const ADMIN_DIRECTORY_SEARCH_SIZE = 2147483647;
+
+export function useAdminsQuery(enabled = true) {
 	return useQuery({
-		queryKey: adminQueryKeys.list(),
-		queryFn: () => list(),
+		queryKey: adminQueryKeys.directory(),
+		queryFn: async () => {
+			const response = await search(
+				{
+					page: 0,
+					size: ADMIN_DIRECTORY_SEARCH_SIZE,
+				},
+				{
+					name: "",
+					cpf: "",
+					email: "",
+					dateFrom: "",
+					dateTo: "",
+					activeOnly: false,
+					campuses: [],
+				},
+			);
+
+			return response.content.map(admin => ({
+				accountId: admin.account.id,
+				accountEmail: admin.account.email,
+				accountActive: admin.account.active,
+				userId: admin.account.user.id,
+				userName: admin.account.user.name,
+				campus: admin.campus,
+				grantedAt: admin.grantedAt,
+				grantedAtFormatted: admin.grantedAtFormatted,
+			}));
+		},
+		enabled,
+	});
+}
+
+export function useAdminsSearchQuery(
+	page: number,
+	size: number,
+	filters: AdminComplexSearchFilters,
+	enabled = true,
+) {
+	const complexSearchRequest = buildAdminComplexSearchRequest(filters);
+	const filtersKey = JSON.stringify(complexSearchRequest);
+
+	return useQuery({
+		queryKey: adminQueryKeys.search(page, size, filtersKey),
+		queryFn: () =>
+			search(
+				{
+					page,
+					size,
+				},
+				complexSearchRequest,
+			),
+		enabled,
 	});
 }
 

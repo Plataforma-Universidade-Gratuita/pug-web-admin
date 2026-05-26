@@ -1,28 +1,25 @@
-import { z } from "zod";
-
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
+	AdminComplexSearchRequestSchema,
 	AdminCreateRequestSchema,
 	AdminResponseSchema,
+	AdminSearchResponseSchema,
 	AdminUpdateRequestSchema,
+	createPageResponseSchema,
 } from "@/schemas";
 import type {
+	AdminComplexSearchRequest,
+	AdminComplexSearchResponse,
 	AdminCreateRequest,
 	AdminResponse,
 	AdminUpdateRequest,
+	PaginationRequest,
 } from "@/types";
 import { qs, webFetch, webVoid } from "@/utils";
 
 export async function get(id: string): Promise<AdminResponse> {
 	return webFetch(
 		`${WEB_API_ROUTE_BASES.identity.admins}/${id}`,
-		AdminResponseSchema,
-	);
-}
-
-export async function getByEmail(email: string): Promise<AdminResponse> {
-	return webFetch(
-		`${WEB_API_ROUTE_BASES.identity.admins}${qs({ email })}`,
 		AdminResponseSchema,
 	);
 }
@@ -34,18 +31,20 @@ export async function getMe(): Promise<AdminResponse> {
 	);
 }
 
-export async function list(q?: string): Promise<AdminResponse[]> {
-	const search = q ? `?${new URLSearchParams({ q }).toString()}` : "";
+export async function search(
+	pagination: PaginationRequest,
+	body: AdminComplexSearchRequest,
+): Promise<AdminComplexSearchResponse> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.identity.admins}${search}`,
-		z.array(AdminResponseSchema),
-	);
-}
-
-export async function listByCpf(cpf: string): Promise<AdminResponse[]> {
-	return webFetch(
-		`${WEB_API_ROUTE_BASES.identity.admins}${qs({ cpf })}`,
-		z.array(AdminResponseSchema),
+		`${WEB_API_ROUTE_BASES.identity.admins}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		createPageResponseSchema(AdminSearchResponseSchema),
+		{
+			method: "POST",
+			body: JSON.stringify(AdminComplexSearchRequestSchema.parse(body)),
+		},
 	);
 }
 

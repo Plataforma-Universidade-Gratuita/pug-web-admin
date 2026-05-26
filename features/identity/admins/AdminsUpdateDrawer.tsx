@@ -32,13 +32,11 @@ import {
 	useLinkedAdminUserQuery,
 } from "@/features/identity/admins/queries";
 import {
-	buildAdminDuplicateFormValues,
 	buildAdminUpdateFormValues,
 	createAdminEditorFormSchema,
 	getAdminCampusOptions,
 	getAdminCreateErrorToastContent,
 	getAdminDetailErrorToastContent,
-	getAdminDuplicateErrorToastContent,
 	getAdminUpdateErrorToastContent,
 	getEmptyAdminEditorFormValues,
 	getLinkedAdminAccountErrorToastContent,
@@ -62,7 +60,6 @@ export function AdminsUpdateDrawer({
 	const { t } = useTranslation();
 	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
-	const isDuplicateMode = mode === "duplicate";
 	const adminDetailQuery = useAdminDetailQuery(adminId);
 	const linkedAccountQuery = useLinkedAdminAccountQuery(
 		adminDetailQuery.data?.accountId ?? null,
@@ -88,19 +85,12 @@ export function AdminsUpdateDrawer({
 			return null;
 		}
 
-		return isDuplicateMode
-			? buildAdminDuplicateFormValues(
-					adminDetailQuery.data,
-					linkedUserQuery.data ?? null,
-				)
-			: buildAdminUpdateFormValues(adminDetailQuery.data);
+		return buildAdminUpdateFormValues(adminDetailQuery.data);
 	}, [
 		adminDetailQuery.data,
 		emptyValues,
-		isDuplicateMode,
 		isCreateMode,
 		linkedAccountQuery.data,
-		linkedUserQuery.data,
 	]);
 	const hydrationKey = useMemo(() => {
 		if (isCreateMode) {
@@ -138,38 +128,27 @@ export function AdminsUpdateDrawer({
 		!isCreateMode &&
 		open &&
 		(adminDetailQuery.isLoading ||
-			(Boolean(adminDetailQuery.data) && linkedAccountQuery.isLoading) ||
-			(isDuplicateMode &&
-				Boolean(adminDetailQuery.data) &&
-				linkedUserQuery.isLoading));
+			(Boolean(adminDetailQuery.data) && linkedAccountQuery.isLoading));
 	const isSubmitPending = updateMutation.isPending || createMutation.isPending;
 	const drawerOverhead = t(
 		isCreateMode
 			? "identity.adminPage.create.overhead"
-			: isDuplicateMode
-				? "identity.adminPage.duplicate.overhead"
-				: "identity.adminPage.update.overhead",
+			: "identity.adminPage.update.overhead",
 	);
 	const drawerTitleFallback = t(
 		isCreateMode
 			? "identity.adminPage.create.titleFallback"
-			: isDuplicateMode
-				? "identity.adminPage.duplicate.titleFallback"
-				: "identity.adminPage.update.titleFallback",
+			: "identity.adminPage.update.titleFallback",
 	);
 	const saveLabel = t(
 		isCreateMode
 			? "identity.adminPage.create.actions.save"
-			: isDuplicateMode
-				? "identity.adminPage.duplicate.actions.save"
-				: "identity.adminPage.update.actions.save",
+			: "identity.adminPage.update.actions.save",
 	);
 	const savePendingLabel = t(
 		isCreateMode
 			? "identity.adminPage.create.actions.savePending"
-			: isDuplicateMode
-				? "identity.adminPage.duplicate.actions.savePending"
-				: "identity.adminPage.update.actions.savePending",
+			: "identity.adminPage.update.actions.savePending",
 	);
 
 	useQueryErrorToasts([
@@ -221,7 +200,7 @@ export function AdminsUpdateDrawer({
 	}
 
 	function onSubmit(values: AdminEditorFormValues) {
-		if (isCreateMode || isDuplicateMode) {
+		if (isCreateMode) {
 			createMutation.mutate(
 				{
 					active: values.active,
@@ -230,16 +209,10 @@ export function AdminsUpdateDrawer({
 				{
 					onSuccess: ({ admin }) => {
 						toast.success(
-							t(
-								isCreateMode
-									? "identity.adminPage.create.feedback.success.title"
-									: "identity.adminPage.duplicate.feedback.success.title",
-							),
+							t("identity.adminPage.create.feedback.success.title"),
 							{
 								description: t(
-									isCreateMode
-										? "identity.adminPage.create.feedback.success.description"
-										: "identity.adminPage.duplicate.feedback.success.description",
+									"identity.adminPage.create.feedback.success.description",
 									{
 										name: admin.userName,
 									},
@@ -249,9 +222,10 @@ export function AdminsUpdateDrawer({
 						closeDrawer();
 					},
 					onError: error => {
-						const { title, description } = isCreateMode
-							? getAdminCreateErrorToastContent(t, error)
-							: getAdminDuplicateErrorToastContent(t, error);
+						const { title, description } = getAdminCreateErrorToastContent(
+							t,
+							error,
+						);
 						toast.danger(title, { description });
 					},
 				},
