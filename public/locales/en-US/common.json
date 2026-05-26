@@ -3377,35 +3377,53 @@
 				}
 			},
 			"filters": {
-				"advanced": {
-					"active": "Date filters active",
-					"label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
-					"trigger": "Date filters"
+				"backend": {
+					"active": "Filters active",
+					"apply": "Apply filters",
+					"clear": "Clear filters",
+					"clearConfirm": {
+						"description": "This will remove the applied filters from the users table.",
+						"title": "Clear filters?"
+					},
+					"cpf": {
+						"label": "CPF pattern",
+						"placeholder": "Filter users by CPF pattern"
+					},
+					"dateFrom": {
+						"label": "Date from",
+						"placeholder": "Select a start date"
+					},
+					"dateTo": {
+						"label": "Date to",
+						"placeholder": "Select an end date"
+					},
+					"label": "Filters",
+					"name": {
+						"label": "Name pattern",
+						"placeholder": "Filter users by name pattern"
+					},
+					"operator": {
+						"label": "Logical operator",
+						"options": {
+							"AND": "AND",
+							"OR": "OR"
+						},
+						"placeholder": "Select"
+					},
+					"overhead": "Refinement",
+					"title": "Filters",
+					"trigger": "Open filters"
 				},
 				"clear": "$t(docs.drawer.examples.filters.clear.action)",
-				"cpf": {
-					"label": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
-					"placeholder": "Filter by CPF"
-				},
-				"dateField": {
-					"label": "$t(identity.accountPage.filters.dateField.label)",
-					"options": {
-						"createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-						"updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+				"frontend": {
+					"cpf": {
+						"label": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+						"placeholder": "Filter the current results by CPF"
 					},
-					"placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
-				},
-				"endDate": {
-					"label": "$t(identity.accountPage.filters.endDate.label)",
-					"placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
-				},
-				"name": {
-					"label": "$t(identity.accountPage.table.columns.name)",
-					"placeholder": "Filter by user name"
-				},
-				"startDate": {
-					"label": "$t(identity.accountPage.filters.startDate.label)",
-					"placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
+					"name": {
+						"label": "$t(identity.accountPage.table.columns.name)",
+						"placeholder": "Filter the current results by user name"
+					}
 				}
 			},
 			"loading": {
@@ -3424,6 +3442,7 @@
 					"viewDetails": "View user details"
 				},
 				"columns": {
+					"id": "UUID",
 					"cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
 					"createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
 					"name": "User",

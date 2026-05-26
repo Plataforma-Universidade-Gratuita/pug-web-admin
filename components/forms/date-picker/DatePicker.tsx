@@ -25,7 +25,6 @@ import {
 	clampDateToBounds,
 	formatDateTimeValue,
 	getDayPickerDisabled,
-	getScrollableAncestor,
 	normalizeDatePickerValue,
 	parseDateTimeValue,
 	setRefValue,
@@ -137,50 +136,6 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 			setMonth(new Date());
 		}, [minDate, selectedDate]);
 
-		useEffect(() => {
-			if (!open) return;
-
-			let frameOne = 0;
-			let frameTwo = 0;
-
-			frameOne = requestAnimationFrame(() => {
-				frameTwo = requestAnimationFrame(() => {
-					const panel =
-						document.querySelector<HTMLElement>(".date-picker-panel");
-					if (!panel || !triggerButtonRef.current) return;
-
-					const scrollContainer = getScrollableAncestor(
-						triggerButtonRef.current,
-					);
-					const panelRect = panel.getBoundingClientRect();
-					const containerBottom = scrollContainer
-						? scrollContainer.getBoundingClientRect().bottom
-						: window.innerHeight;
-					const overflow = panelRect.bottom - (containerBottom - 12);
-
-					if (overflow <= 0) return;
-
-					if (scrollContainer) {
-						scrollContainer.scrollBy({
-							top: overflow + 12,
-							behavior: "smooth",
-						});
-						return;
-					}
-
-					window.scrollBy({
-						top: overflow + 12,
-						behavior: "smooth",
-					});
-				});
-			});
-
-			return () => {
-				cancelAnimationFrame(frameOne);
-				cancelAnimationFrame(frameTwo);
-			};
-		}, [open]);
-
 		function emitValue(nextValue: string) {
 			if (!isControlled) {
 				setInternalValue(nextValue);
@@ -283,7 +238,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 					<PopoverContent
 						align={panelAlign}
 						side={panelSide}
-						avoidCollisions={panelAvoidCollisions ?? panelSide !== "bottom"}
+						avoidCollisions={panelAvoidCollisions ?? true}
 						{...(panelCollisionPadding !== undefined
 							? { collisionPadding: panelCollisionPadding }
 							: {})}

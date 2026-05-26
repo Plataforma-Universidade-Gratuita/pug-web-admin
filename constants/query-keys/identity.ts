@@ -28,6 +28,8 @@ export const adminQueryKeys = {
 export const userQueryKeys = {
 	all: ["identity", "user"] as const,
 	list: () => [...userQueryKeys.all, "list"] as const,
+	search: (page: number, size: number, filtersKey: string) =>
+		[...userQueryKeys.all, "search", page, size, filtersKey] as const,
 	detail: (id: string) => [...userQueryKeys.all, "detail", id] as const,
 	idleDetail: () => [...userQueryKeys.all, "detail", "idle"] as const,
 	me: () => [...userQueryKeys.all, "me"] as const,

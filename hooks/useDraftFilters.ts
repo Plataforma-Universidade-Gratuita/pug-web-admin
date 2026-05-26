@@ -8,12 +8,13 @@ import type {
 	UseDraftFiltersResult,
 } from "@/types";
 
-function hasTruthyFilterValue(value: boolean | string) {
-	if (typeof value === "boolean") {
-		return value;
-	}
-
-	return value.length > 0;
+function hasChangedFilterValue<TFilters extends ServicePageDraftFilters>(
+	appliedFilters: TFilters,
+	initialFilters: TFilters,
+) {
+	return (Object.keys(initialFilters) as Array<keyof TFilters>).some(
+		key => appliedFilters[key] !== initialFilters[key],
+	);
 }
 
 export function useDraftFilters<TFilters extends ServicePageDraftFilters>({
@@ -24,8 +25,8 @@ export function useDraftFilters<TFilters extends ServicePageDraftFilters>({
 		useState<TFilters>(initialFilters);
 
 	const hasAppliedFilters = useMemo(
-		() => Object.values(appliedFilters).some(hasTruthyFilterValue),
-		[appliedFilters],
+		() => hasChangedFilterValue(appliedFilters, initialFilters),
+		[appliedFilters, initialFilters],
 	);
 
 	const applyDraftFilters = useCallback(() => {

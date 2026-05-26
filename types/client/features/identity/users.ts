@@ -1,5 +1,3 @@
-import type { UserResponse } from "@/types";
-
 export interface UserPageProps {
 	userId: string;
 }
@@ -10,35 +8,46 @@ export interface UserRoutePageProps {
 	}>;
 }
 
-export type UserAuditDateField = "" | "createdAt" | "updatedAt";
-
-export interface UserDateFilters {
-	dateField: UserAuditDateField;
-	startDate: string;
-	endDate: string;
+export interface UserComplexSearchFilters {
+	name: string;
+	cpf: string;
+	dateFrom: string;
+	dateTo: string;
 }
 
 export interface UsersFiltersProps {
-	cpfSearch: string;
-	dateField: UserAuditDateField;
-	dateFiltersOpen: boolean;
-	endDate: string;
-	onCpfSearchChange: (value: string) => void;
-	onDateFieldChange: (value: UserAuditDateField) => void;
-	onDateFiltersOpenChange: (open: boolean) => void;
-	onEndDateChange: (value: string) => void;
-	onNameSearchChange: (value: string) => void;
-	onStartDateChange: (value: string) => void;
-	startDate: string;
-	nameSearch: string;
+	backendFilters: UserComplexSearchFilters;
+	backendFiltersOpen: boolean;
+	frontendCpfSearch: string;
+	frontendNameSearch: string;
+	hasBackendFilters: boolean;
+	onApplyBackendFilters: () => void;
+	onBackendFilterChange: <TKey extends keyof UserComplexSearchFilters>(
+		key: TKey,
+		value: UserComplexSearchFilters[TKey],
+	) => void;
+	onBackendFiltersOpenChange: (open: boolean) => void;
+	onClearBackendFilters: () => void;
+	onFrontendCpfSearchChange: (value: string) => void;
+	onFrontendNameSearchChange: (value: string) => void;
 }
 
-export interface UserFilterArgs {
+export interface UsersFiltersDrawerProps {
+	filters: UserComplexSearchFilters;
+	hasActiveFilters: boolean;
+	onApply: () => void;
+	onFilterChange: <TKey extends keyof UserComplexSearchFilters>(
+		key: TKey,
+		value: UserComplexSearchFilters[TKey],
+	) => void;
+	onClear: () => void;
+	onOpenChange: (open: boolean) => void;
+	open: boolean;
+}
+
+export interface UserFrontendFilterArgs {
 	cpfQuery: string;
-	dateField: UserAuditDateField;
-	endDate: string;
 	nameQuery: string;
-	startDate: string;
 }
 
 export interface UsersRowActionsProps {

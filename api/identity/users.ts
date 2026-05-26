@@ -1,25 +1,22 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
-import { UserResponseSchema } from "@/schemas";
-import type { UserResponse } from "@/types";
+import {
+	createPageResponseSchema,
+	UserComplexSearchRequestSchema,
+	UserResponseSchema,
+} from "@/schemas";
+import type {
+	PaginationRequest,
+	UserComplexSearchRequest,
+	UserComplexSearchResponse,
+	UserResponse,
+} from "@/types";
 import { zfetch, qs } from "@/utils";
 
 export async function get(id: string, token?: string): Promise<UserResponse> {
 	return zfetch(
 		`${API_ROUTE_BASES.identity.users}/${id}`,
-		{ method: "GET" },
-		UserResponseSchema,
-		token,
-	);
-}
-
-export async function getByCpf(
-	cpf: string,
-	token?: string,
-): Promise<UserResponse> {
-	return zfetch(
-		`${API_ROUTE_BASES.identity.users}${qs({ cpf })}`,
 		{ method: "GET" },
 		UserResponseSchema,
 		token,
@@ -35,14 +32,30 @@ export async function getMe(token?: string): Promise<UserResponse> {
 	);
 }
 
-export async function list(
-	token?: string,
-	q?: string,
-): Promise<UserResponse[]> {
+export async function list(token?: string): Promise<UserResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.identity.users}${qs({ q })}`,
+		`${API_ROUTE_BASES.identity.users}`,
 		{ method: "GET" },
 		z.array(UserResponseSchema),
+		token,
+	);
+}
+
+export async function search(
+	pagination: PaginationRequest,
+	body: UserComplexSearchRequest,
+	token?: string,
+): Promise<UserComplexSearchResponse> {
+	return zfetch(
+		`${API_ROUTE_BASES.identity.users}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		{
+			method: "POST",
+			body: JSON.stringify(UserComplexSearchRequestSchema.parse(body)),
+		},
+		createPageResponseSchema(UserResponseSchema),
 		token,
 	);
 }

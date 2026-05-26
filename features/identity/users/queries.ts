@@ -2,15 +2,42 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { get, getMe, list } from "@/api/web/identity/users";
+import { get, getMe, list, search } from "@/api/web/identity/users";
 import { userQueryKeys } from "@/constants";
+import type { UserComplexSearchFilters } from "@/types";
+
+import { buildUserComplexSearchRequest } from "./utils";
 
 export { userQueryKeys };
 
-export function useUsersQuery() {
+export function useUsersQuery(enabled = true) {
 	return useQuery({
 		queryKey: userQueryKeys.list(),
 		queryFn: () => list(),
+		enabled,
+	});
+}
+
+export function useUsersSearchQuery(
+	page: number,
+	size: number,
+	filters: UserComplexSearchFilters,
+	enabled = true,
+) {
+	const complexSearchRequest = buildUserComplexSearchRequest(filters);
+	const filtersKey = JSON.stringify(complexSearchRequest);
+
+	return useQuery({
+		queryKey: userQueryKeys.search(page, size, filtersKey),
+		queryFn: () =>
+			search(
+				{
+					page,
+					size,
+				},
+				complexSearchRequest,
+			),
+		enabled,
 	});
 }
 

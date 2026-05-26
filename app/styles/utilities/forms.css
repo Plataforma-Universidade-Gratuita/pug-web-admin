@@ -729,7 +729,13 @@
 	}
 
 	.date-picker-panel {
+		display: grid;
+		grid-template-rows: auto minmax(0, 1fr) auto;
+		gap: 0.25rem;
 		width: min(20.5rem, calc(100vw - 0.75rem));
+		max-height: min(26rem, var(--popover-content-available-height, 26rem));
+		min-height: 0;
+		overflow: hidden;
 		padding: 0.5rem;
 	}
 
@@ -746,6 +752,9 @@
 	}
 
 	.date-picker-calendar-shell {
+		min-height: 0;
+		overflow-y: auto;
+		overscroll-behavior: contain;
 		padding: 0.625rem;
 	}
 

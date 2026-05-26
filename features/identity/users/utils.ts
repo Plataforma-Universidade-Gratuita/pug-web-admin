@@ -1,13 +1,21 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import type { UserResponse } from "@/types";
-import type { UserFilterArgs } from "@/types";
-import { getApiErrorToastContent } from "@/utils";
-import { normalizeTextForSearch } from "@/utils";
+import type {
+	UserComplexSearchFilters,
+	UserComplexSearchRequest,
+	UserFrontendFilterArgs,
+	UserResponse,
+} from "@/types";
+import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
 
 export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 	return [
+		{
+			accessorKey: "id",
+			header: t("identity.userPage.table.columns.id"),
+			size: 280,
+		},
 		{
 			accessorKey: "name",
 			header: t("identity.userPage.table.columns.name"),
@@ -42,25 +50,85 @@ function getStartOfDayTimestamp(value: string) {
 	return date.getTime();
 }
 
-export function filterUsers(
+function matchesName(user: UserResponse, value: string) {
+	return normalizeTextForSearch(user.name).includes(
+		normalizeTextForSearch(value),
+	);
+}
+
+function matchesCpf(user: UserResponse, value: string) {
+	return normalizeCpfSearch(user.cpf).includes(normalizeCpfSearch(value));
+}
+
+function matchesDateFrom(user: UserResponse, value: string) {
+	const threshold = getStartOfDayTimestamp(value);
+	const createdAt = getStartOfDayTimestamp(user.auditInfo.createdAt);
+	const updatedAt = getStartOfDayTimestamp(user.auditInfo.updatedAt);
+
+	return createdAt >= threshold || updatedAt >= threshold;
+}
+
+function matchesDateTo(user: UserResponse, value: string) {
+	const threshold = getStartOfDayTimestamp(value);
+	const createdAt = getStartOfDayTimestamp(user.auditInfo.createdAt);
+	const updatedAt = getStartOfDayTimestamp(user.auditInfo.updatedAt);
+
+	return createdAt <= threshold || updatedAt <= threshold;
+}
+
+export function buildUserComplexSearchRequest(
+	filters: UserComplexSearchFilters,
+): UserComplexSearchRequest {
+	const normalizedName = filters.name.trim();
+	const normalizedCpf = normalizeCpfSearch(filters.cpf.trim());
+	const normalizedDateFrom = filters.dateFrom.trim();
+	const normalizedDateTo = filters.dateTo.trim();
+
+	return {
+		name: normalizedName || undefined,
+		cpf: normalizedCpf || undefined,
+		dateFrom: normalizedDateFrom || undefined,
+		dateTo: normalizedDateTo || undefined,
+	};
+}
+
+export function filterUsersByComplexSearch(
 	users: UserResponse[],
-	{ cpfQuery, dateField, endDate, nameQuery, startDate }: UserFilterArgs,
+	filters: UserComplexSearchFilters,
+) {
+	const request = buildUserComplexSearchRequest(filters);
+	const criteria = [
+		request.name
+			? (user: UserResponse) => matchesName(user, request.name!)
+			: null,
+		request.cpf ? (user: UserResponse) => matchesCpf(user, request.cpf!) : null,
+		request.dateFrom
+			? (user: UserResponse) => matchesDateFrom(user, request.dateFrom!)
+			: null,
+		request.dateTo
+			? (user: UserResponse) => matchesDateTo(user, request.dateTo!)
+			: null,
+	].filter((criterion): criterion is (user: UserResponse) => boolean =>
+		Boolean(criterion),
+	);
+
+	if (criteria.length === 0) {
+		return users;
+	}
+
+	return users.filter(user => criteria.every(criterion => criterion(user)));
+}
+
+export function filterUsersByFrontendFilters(
+	users: UserResponse[],
+	{ cpfQuery, nameQuery }: UserFrontendFilterArgs,
 ) {
 	const normalizedNameQuery = normalizeTextForSearch(nameQuery.trim());
 	const normalizedCpfQuery = normalizeCpfSearch(cpfQuery.trim());
 	const hasNameQuery = normalizedNameQuery.length > 0;
 	const hasCpfQuery = normalizedCpfQuery.length > 0;
-	const hasDateField = Boolean(dateField);
-	const startTimestamp = startDate ? getStartOfDayTimestamp(startDate) : null;
-	const endTimestamp = endDate ? getStartOfDayTimestamp(endDate) : null;
 
-	if (
-		!hasNameQuery &&
-		!hasCpfQuery &&
-		!hasDateField &&
-		startTimestamp === null &&
-		endTimestamp === null
-	) {
+	if (!hasNameQuery && !hasCpfQuery) {
 		return users;
 	}
 
@@ -75,18 +143,6 @@ export function filterUsers(
 		if (hasCpfQuery) {
 			const normalizedCpf = normalizeCpfSearch(user.cpf);
 			if (!normalizedCpf.includes(normalizedCpfQuery)) {
-				return false;
-			}
-		}
-
-		if (dateField && (startTimestamp !== null || endTimestamp !== null)) {
-			const auditTimestamp = getStartOfDayTimestamp(user.auditInfo[dateField]);
-
-			if (startTimestamp !== null && auditTimestamp < startTimestamp) {
-				return false;
-			}
-
-			if (endTimestamp !== null && auditTimestamp > endTimestamp) {
 				return false;
 			}
 		}

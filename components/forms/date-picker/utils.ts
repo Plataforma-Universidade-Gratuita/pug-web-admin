@@ -105,24 +105,3 @@ export function setRefValue<T>(ref: Ref<T> | undefined, value: T | null) {
 	}
 	ref.current = value;
 }
-
-export function getScrollableAncestor(
-	node: HTMLElement | null,
-): HTMLElement | null {
-	let current = node?.parentElement ?? null;
-
-	while (current) {
-		const { overflowY } = window.getComputedStyle(current);
-		const canScroll =
-			(overflowY === "auto" || overflowY === "scroll") &&
-			current.scrollHeight > current.clientHeight;
-
-		if (canScroll) {
-			return current;
-		}
-
-		current = current.parentElement;
-	}
-
-	return null;
-}
