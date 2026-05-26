@@ -1,20 +1,23 @@
 import { z } from "zod";
 
 import { WEB_API_ROUTE_BASES } from "@/constants";
-import { AccountResponseSchema } from "@/schemas";
-import type { AccountResponse } from "@/types";
+import {
+	createPageResponseSchema,
+	AccountComplexSearchRequestSchema,
+	AccountResponseSchema,
+	AccountSearchResponseSchema,
+} from "@/schemas";
+import type {
+	AccountComplexSearchRequest,
+	AccountComplexSearchResponse,
+	AccountResponse,
+	PaginationRequest,
+} from "@/types";
 import { qs, webFetch } from "@/utils";
 
 export async function get(id: string): Promise<AccountResponse> {
 	return webFetch(
 		`${WEB_API_ROUTE_BASES.identity.accounts}/${id}`,
-		AccountResponseSchema,
-	);
-}
-
-export async function getByEmail(email: string): Promise<AccountResponse> {
-	return webFetch(
-		`${WEB_API_ROUTE_BASES.identity.accounts}${qs({ email })}`,
 		AccountResponseSchema,
 	);
 }
@@ -26,17 +29,26 @@ export async function getMe(): Promise<AccountResponse> {
 	);
 }
 
-export async function list(q?: string): Promise<AccountResponse[]> {
-	const search = q ? `?${new URLSearchParams({ q }).toString()}` : "";
+export async function list(): Promise<AccountResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.identity.accounts}${search}`,
+		`${WEB_API_ROUTE_BASES.identity.accounts}`,
 		z.array(AccountResponseSchema),
 	);
 }
 
-export async function listByCpf(cpf: string): Promise<AccountResponse[]> {
+export async function search(
+	pagination: PaginationRequest,
+	body: AccountComplexSearchRequest,
+): Promise<AccountComplexSearchResponse> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.identity.accounts}${qs({ cpf })}`,
-		z.array(AccountResponseSchema),
+		`${WEB_API_ROUTE_BASES.identity.accounts}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		createPageResponseSchema(AccountSearchResponseSchema),
+		{
+			method: "POST",
+			body: JSON.stringify(AccountComplexSearchRequestSchema.parse(body)),
+		},
 	);
 }

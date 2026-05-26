@@ -261,6 +261,56 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - API types: `types/api`
   - client/UI/app types: `types/client`
 
+### Search request pattern
+
+- Complex table searching should use a dedicated `search` endpoint instead of overloading `list`.
+- Keep the request contract split in two parts:
+  - query params for pagination only:
+    - `page`
+    - `size`
+  - request body for entity-specific complex filters
+- Shared pagination request/response contracts belong under:
+  - `schemas/api/shared/pagination.ts`
+  - `types/api/shared/pagination.ts`
+- Entity-specific complex search bodies belong under the entity schema/type file at the narrowest API level that owns them.
+  - example:
+    - `schemas/api/identity/users.ts`
+    - `types/api/identity/users.ts`
+- Search responses should return a paged payload inside `ApiEnvelope.data`:
+  - `PageResponse<T>`
+- Pattern summary:
+  - `GET list()` returns the plain bounded catalog when the endpoint intentionally exposes a full list
+  - `POST search?page=...&size=...` returns the paged operational dataset
+  - frontend-only quick filters stay local to the page
+  - backend-backed filters belong in the complex search body
+
+### Pagination pattern
+
+- Service-page pagination is page-based, not offset-based.
+- Shared pagination UI state is persisted in Zustand so returning from an entity page restores the previous table page.
+- Shared pagination pieces:
+  - store:
+    - `store/pagination.ts`
+  - hook:
+    - `hooks/useServicePagePagination.ts`
+  - UI:
+    - `features/shared/service-pages/ServicePagePagination.tsx`
+  - constants:
+    - `constants/pagination.ts`
+- Supported page sizes are:
+  - `25`
+  - `50`
+  - `100`
+  - `all`
+- Default page size is `25`.
+- Current page rules:
+  - changing backend filters resets to page `1`
+  - changing page size resets to page `1`
+  - when the backend result shrinks below the current page, clamp back to the last valid page
+- Page-level filter split:
+  - frontend filters stay in the header, popovers, or compact inline controls
+  - backend filters expand in a drawer
+
 ## TanStack Query conventions
 
 - TanStack Query is the default server-state layer.

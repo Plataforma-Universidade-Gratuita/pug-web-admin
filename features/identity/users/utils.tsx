@@ -1,6 +1,8 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
+import { TableText } from "@/components";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type {
 	UserComplexSearchFilters,
 	UserComplexSearchRequest,
@@ -14,11 +16,19 @@ export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 		{
 			accessorKey: "id",
 			header: t("identity.userPage.table.columns.id"),
-			size: 280,
+			size: TABLE_TRUNCATED_COLUMN_WIDTH,
+			cell: ({ row }) => (
+				<TableText
+					text={row.original.id}
+					maxWidth={TABLE_TRUNCATED_COLUMN_WIDTH}
+					tooltiped
+				/>
+			),
 		},
 		{
 			accessorKey: "name",
 			header: t("identity.userPage.table.columns.name"),
+			cell: ({ row }) => row.original.name,
 		},
 		{
 			accessorKey: "cpf",

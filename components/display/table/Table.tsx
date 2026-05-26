@@ -1,41 +1,34 @@
 "use client";
 
-import {
-	useCallback,
-	useEffect,
-	useRef,
-	useState,
-	type CSSProperties,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
 	flexRender,
 	getCoreRowModel,
 	getSortedRowModel,
-	useReactTable,
 	type SortingFn,
+	useReactTable,
 } from "@tanstack/react-table";
 import clsx from "clsx";
 import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { NoContentState } from "@/components";
-import { Icon } from "@/components";
-import { Skeleton } from "@/components";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuTrigger,
+	Icon,
+	NoContentState,
+	Skeleton,
 } from "@/components";
-import type { TableProps } from "@/types";
-import type { RowActionsCellProps, SortIconProps } from "@/types";
+import type { RowActionsCellProps, SortIconProps, TableProps } from "@/types";
 
 import {
 	compareTableValues,
 	flattenActionNodes,
 	getDirectActionProps,
-	getTableColumnStyle,
 	getScrollOffsetFromThumbOffset,
+	getTableColumnStyle,
 	getTableScrollbarMetrics,
 } from "./utils";
 
@@ -111,11 +104,6 @@ export function Table<TData extends object>({
 	const hasTabularContent = isLoading || rows.length > 0;
 	const hasRowActions = Boolean(getRowActions);
 	const totalColumnCount = leafColumns.length + (hasRowActions ? 1 : 0);
-	const tableStyle = hasTabularContent
-		? ({
-				minWidth: `${Math.max(leafColumns.length, 1) * 10 + (hasRowActions ? 4 : 0)}rem`,
-			} as CSSProperties)
-		: undefined;
 
 	const syncScrollbar = useCallback(() => {
 		const scrollContainer = scrollContainerRef.current;
@@ -419,7 +407,6 @@ export function Table<TData extends object>({
 								"table-element",
 								!hasTabularContent && "table-element-empty",
 							)}
-							style={tableStyle}
 						>
 							<thead className="table-head">
 								{table.getHeaderGroups().map(headerGroup => (
@@ -427,37 +414,40 @@ export function Table<TData extends object>({
 										key={headerGroup.id}
 										className="table-header-row"
 									>
-										{headerGroup.headers.map(header => (
-											<th
-												key={header.id}
-												className="table-header-cell"
-												scope="col"
-												style={getTableColumnStyle(
-													header.column.columnDef.size,
-												)}
-											>
-												{header.isPlaceholder ? null : header.column.getCanSort() ? (
-													<button
-														type="button"
-														className="table-sort-button"
-														onClick={header.column.getToggleSortingHandler()}
-													>
-														<span className="table-sort-label">
-															{flexRender(
-																header.column.columnDef.header,
-																header.getContext(),
-															)}
-														</span>
-														<SortIcon direction={header.column.getIsSorted()} />
-													</button>
-												) : (
-													flexRender(
-														header.column.columnDef.header,
-														header.getContext(),
-													)
-												)}
-											</th>
-										))}
+										{headerGroup.headers.map(header => {
+											const renderedHeaderContent = flexRender(
+												header.column.columnDef.header,
+												header.getContext(),
+											);
+
+											return (
+												<th
+													key={header.id}
+													className="table-header-cell"
+													scope="col"
+													style={getTableColumnStyle(
+														header.column.columnDef.size,
+													)}
+												>
+													{header.isPlaceholder ? null : header.column.getCanSort() ? (
+														<button
+															type="button"
+															className="table-sort-button"
+															onClick={header.column.getToggleSortingHandler()}
+														>
+															<span className="table-sort-label">
+																{renderedHeaderContent}
+															</span>
+															<SortIcon
+																direction={header.column.getIsSorted()}
+															/>
+														</button>
+													) : (
+														renderedHeaderContent
+													)}
+												</th>
+											);
+										})}
 										{hasRowActions ? (
 											<th
 												aria-label={t("components.table.actions")}
@@ -498,20 +488,22 @@ export function Table<TData extends object>({
 												key={row.id}
 												className="table-body-row"
 											>
-												{row.getVisibleCells().map(cell => (
-													<td
-														key={cell.id}
-														className="table-body-cell"
-														style={getTableColumnStyle(
-															cell.column.columnDef.size,
-														)}
-													>
-														{flexRender(
-															cell.column.columnDef.cell,
-															cell.getContext(),
-														)}
-													</td>
-												))}
+												{row.getVisibleCells().map(cell => {
+													return (
+														<td
+															key={cell.id}
+															className="table-body-cell"
+															style={getTableColumnStyle(
+																cell.column.columnDef.size,
+															)}
+														>
+															{flexRender(
+																cell.column.columnDef.cell,
+																cell.getContext(),
+															)}
+														</td>
+													);
+												})}
 												{hasRowActions ? (
 													<td className="table-body-cell table-body-cell-actions">
 														<RowActionsCell

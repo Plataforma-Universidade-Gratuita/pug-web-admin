@@ -1,11 +1,18 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge } from "@/components";
-import type { AccountResponse } from "@/types";
-import type { AccountFilterArgs } from "@/types";
-import { getApiErrorToastContent } from "@/utils";
-import { normalizeTextForSearch } from "@/utils";
+import { Badge, TableText } from "@/components";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import type {
+	AccountComplexSearchFilters,
+	AccountFilterArgs,
+	AccountResponse,
+	AccountSearchResponse,
+	UserResponse,
+} from "@/types";
+import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
+
+const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
 
 export function getAccountTypeTone(
 	accountType: AccountResponse["accountType"],
@@ -29,87 +36,78 @@ export function getAccountTypeLabel(
 	return t(`identity.accountPage.filters.accountType.options.${accountType}`);
 }
 
-export function getAccountOptionClassName(
-	type: "active" | "accountType",
-	value: string,
-) {
-	if (type === "active") {
-		if (value === "true") {
-			return "data-[highlighted=true]:border-transparent data-[highlighted=true]:bg-[color:color-mix(in_srgb,var(--color-success)_14%,var(--twc-surface-2))] data-[highlighted=true]:text-[color:var(--color-success)]";
-		}
-
-		if (value === "false") {
-			return "data-[highlighted=true]:border-transparent data-[highlighted=true]:bg-[color:color-mix(in_srgb,var(--color-danger)_14%,var(--twc-surface-2))] data-[highlighted=true]:text-[color:var(--color-danger)]";
-		}
-
-		return "";
-	}
-
-	switch (value) {
-		case "ADMIN":
-			return "data-[highlighted=true]:border-transparent data-[highlighted=true]:bg-[color:color-mix(in_srgb,var(--color-warning)_14%,var(--twc-surface-2))] data-[highlighted=true]:text-[color:var(--color-warning)]";
-		case "PARTNER":
-			return "data-[highlighted=true]:border-transparent data-[highlighted=true]:bg-[color:color-mix(in_srgb,var(--color-info)_14%,var(--twc-surface-2))] data-[highlighted=true]:text-[color:var(--color-info)]";
-		case "STUDENT":
-			return "data-[highlighted=true]:border-transparent data-[highlighted=true]:bg-[color:color-mix(in_srgb,var(--color-brand)_14%,var(--twc-surface-2))] data-[highlighted=true]:text-[color:var(--color-brand)]";
-		default:
-			return "";
-	}
-}
-
 export function createAccountColumns(
 	t: TFunction,
-): ColumnDef<AccountResponse>[] {
+): ColumnDef<AccountSearchResponse>[] {
 	return [
 		{
 			accessorKey: "active",
-			size: 96,
-			header: () => (
-				<div className="flex w-full justify-center">
-					{t("identity.accountPage.table.columns.active")}
-				</div>
-			),
+			size: TABLE_TRUNCATED_COLUMN_WIDTH,
+			header: t("identity.accountPage.table.columns.active"),
+			cell: ({ row }) => {
+				const label = row.original.active
+					? t("identity.accountPage.table.active.yes")
+					: t("identity.accountPage.table.active.no");
+
+				return (
+					<div className="flex w-full justify-center">
+						<Badge
+							className="min-h-5 max-w-full overflow-hidden px-2 py-0.5 text-ellipsis whitespace-nowrap"
+							tone={row.original.active ? "success" : "danger"}
+							variant="primary"
+						>
+							<span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+								{label}
+							</span>
+						</Badge>
+					</div>
+				);
+			},
+		},
+		{
+			accessorKey: "id",
+			header: t("identity.accountPage.table.columns.id"),
+			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			cell: ({ row }) => (
-				<div className="flex w-full justify-center">
-					<Badge
-						className="min-h-5 px-2 py-0.5"
-						tone={row.original.active ? "success" : "danger"}
-						variant="primary"
-					>
-						{row.original.active
-							? t("identity.accountPage.table.active.yes")
-							: t("identity.accountPage.table.active.no")}
-					</Badge>
-				</div>
+				<TableText
+					text={row.original.id}
+					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
+					tooltiped
+				/>
 			),
 		},
 		{
-			accessorKey: "userName",
+			accessorFn: row => row.user.name,
+			id: "name",
 			header: t("identity.accountPage.table.columns.name"),
+			cell: ({ row }) => row.original.user.name,
 		},
 		{
 			accessorKey: "email",
 			header: t("identity.accountPage.table.columns.email"),
+			cell: ({ row }) => row.original.email,
 		},
 		{
 			accessorKey: "accountType",
-			size: 116,
-			header: () => (
-				<div className="flex w-full justify-center">
-					{t("identity.accountPage.table.columns.accountType")}
-				</div>
-			),
-			cell: ({ row }) => (
-				<div className="flex w-full justify-center">
-					<Badge
-						className="min-h-5 px-2 py-0.5"
-						tone={getAccountTypeTone(row.original.accountType)}
-						variant="primary"
-					>
-						{getAccountTypeLabel(t, row.original.accountType)}
-					</Badge>
-				</div>
-			),
+			size: TABLE_TRUNCATED_COLUMN_WIDTH,
+			header: t("identity.accountPage.table.columns.accountType"),
+			cell: ({ row }) => {
+				const label = getAccountTypeLabel(t, row.original.accountType);
+
+				return (
+					<div className="flex w-full justify-center">
+						<Badge
+							className="min-h-5 max-w-full overflow-hidden px-2 py-0.5 text-ellipsis whitespace-nowrap"
+							tone={getAccountTypeTone(row.original.accountType)}
+							variant="primary"
+						>
+							<span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+								{label}
+							</span>
+						</Badge>
+					</div>
+				);
+			},
 		},
 		{
 			accessorFn: row => row.auditInfo.createdAt,
@@ -126,78 +124,225 @@ export function createAccountColumns(
 	];
 }
 
+export function mapAccountsToSearchResponses(
+	accounts: AccountResponse[],
+	userNameById: Map<string, string>,
+) {
+	return accounts.map<AccountSearchResponse>(account => ({
+		id: account.id,
+		user: {
+			id: account.userId,
+			name: userNameById.get(account.userId) ?? account.userId,
+		},
+		email: account.email,
+		accountType: account.accountType,
+		accountTypeFormatted: account.accountTypeFormatted,
+		auditInfo: account.auditInfo,
+		active: account.active,
+	}));
+}
+
+function normalizeCpfSearch(value: string) {
+	return value.replace(/\D+/g, "");
+}
+
 function getStartOfDayTimestamp(value: string) {
 	const date = new Date(value);
 	date.setHours(0, 0, 0, 0);
 	return date.getTime();
 }
 
-export function filterAccounts(
+export function filterAccountListByBackendFilters(
 	accounts: AccountResponse[],
-	{
-		activeFilter,
-		accountTypeFilter,
-		dateField,
-		query,
-		endDate,
-		startDate,
-	}: AccountFilterArgs,
+	users: UserResponse[],
+	filters: AccountComplexSearchFilters,
 ) {
-	const normalizedQuery = normalizeTextForSearch(query.trim());
-	const hasQuery = normalizedQuery.length > 0;
-	const hasDateField = Boolean(dateField);
-	const hasActiveFilter = activeFilter !== "";
-	const hasAccountTypeFilter = accountTypeFilter !== "";
-	const startTimestamp = startDate ? getStartOfDayTimestamp(startDate) : null;
-	const endTimestamp = endDate ? getStartOfDayTimestamp(endDate) : null;
-
-	if (
-		!hasQuery &&
-		!hasDateField &&
-		!hasActiveFilter &&
-		!hasAccountTypeFilter &&
-		startTimestamp === null &&
-		endTimestamp === null
-	) {
-		return accounts;
-	}
+	const request = buildAccountComplexSearchRequest(filters);
+	const userById = new Map(users.map(user => [user.id, user]));
 
 	return accounts.filter(account => {
-		if (hasQuery) {
-			const normalizedEmail = normalizeTextForSearch(account.email);
-			const normalizedUserName = normalizeTextForSearch(account.userName);
+		if (request.activeOnly && !account.active) {
+			return false;
+		}
+
+		const user = userById.get(account.userId);
+
+		if (
+			request.name &&
+			!normalizeTextForSearch(user?.name ?? "").includes(
+				normalizeTextForSearch(request.name),
+			)
+		) {
+			return false;
+		}
+
+		if (
+			request.cpf &&
+			!normalizeCpfSearch(user?.cpf ?? "").includes(request.cpf)
+		) {
+			return false;
+		}
+
+		if (
+			request.email &&
+			!normalizeTextForSearch(account.email).includes(
+				normalizeTextForSearch(request.email),
+			)
+		) {
+			return false;
+		}
+
+		if (request.accountType && account.accountType !== request.accountType) {
+			return false;
+		}
+
+		if (request.dateFrom || request.dateTo) {
+			const createdAt = getStartOfDayTimestamp(account.auditInfo.createdAt);
+			const updatedAt = getStartOfDayTimestamp(account.auditInfo.updatedAt);
+			const startTimestamp = request.dateFrom
+				? getStartOfDayTimestamp(request.dateFrom)
+				: null;
+			const endTimestamp = request.dateTo
+				? getStartOfDayTimestamp(request.dateTo)
+				: null;
 
 			if (
-				!normalizedEmail.includes(normalizedQuery) &&
-				!normalizedUserName.includes(normalizedQuery)
+				startTimestamp !== null &&
+				createdAt < startTimestamp &&
+				updatedAt < startTimestamp
+			) {
+				return false;
+			}
+
+			if (
+				endTimestamp !== null &&
+				createdAt > endTimestamp &&
+				updatedAt > endTimestamp
 			) {
 				return false;
 			}
 		}
 
-		if (hasActiveFilter && String(account.active) !== activeFilter) {
-			return false;
-		}
-
-		if (hasAccountTypeFilter && account.accountType !== accountTypeFilter) {
-			return false;
-		}
-
-		if (dateField && (startTimestamp !== null || endTimestamp !== null)) {
-			const auditTimestamp = getStartOfDayTimestamp(
-				account.auditInfo[dateField],
-			);
-
-			if (startTimestamp !== null && auditTimestamp < startTimestamp) {
-				return false;
-			}
-
-			if (endTimestamp !== null && auditTimestamp > endTimestamp) {
-				return false;
-			}
-		}
-
 		return true;
+	});
+}
+
+export function buildAccountComplexSearchRequest(
+	filters: AccountComplexSearchFilters,
+) {
+	const normalizedName = filters.name.trim();
+	const normalizedCpf = normalizeCpfSearch(filters.cpf.trim());
+	const normalizedEmail = filters.email.trim();
+	const normalizedDateFrom = filters.dateFrom.trim();
+	const normalizedDateTo = filters.dateTo.trim();
+
+	return {
+		name: normalizedName || undefined,
+		cpf: normalizedCpf || undefined,
+		email: normalizedEmail || undefined,
+		accountType: filters.accountType || undefined,
+		dateFrom: normalizedDateFrom || undefined,
+		dateTo: normalizedDateTo || undefined,
+		activeOnly: filters.activeOnly,
+	};
+}
+
+function matchesBackendFilters(
+	account: AccountSearchResponse,
+	filters: ReturnType<typeof buildAccountComplexSearchRequest>,
+) {
+	if (filters.activeOnly && !account.active) {
+		return false;
+	}
+
+	if (
+		filters.name &&
+		!normalizeTextForSearch(account.user.name).includes(
+			normalizeTextForSearch(filters.name),
+		)
+	) {
+		return false;
+	}
+
+	if (
+		filters.cpf &&
+		typeof (account as { user?: { cpf?: string } }).user?.cpf === "string"
+	) {
+		const accountCpf = normalizeCpfSearch(
+			(account as { user: { cpf: string } }).user.cpf,
+		);
+		if (!accountCpf.includes(filters.cpf)) {
+			return false;
+		}
+	}
+
+	if (
+		filters.email &&
+		!normalizeTextForSearch(account.email).includes(
+			normalizeTextForSearch(filters.email),
+		)
+	) {
+		return false;
+	}
+
+	if (filters.accountType && account.accountType !== filters.accountType) {
+		return false;
+	}
+
+	if (filters.dateFrom || filters.dateTo) {
+		const createdAt = getStartOfDayTimestamp(account.auditInfo.createdAt);
+		const updatedAt = getStartOfDayTimestamp(account.auditInfo.updatedAt);
+		const startTimestamp = filters.dateFrom
+			? getStartOfDayTimestamp(filters.dateFrom)
+			: null;
+		const endTimestamp = filters.dateTo
+			? getStartOfDayTimestamp(filters.dateTo)
+			: null;
+
+		if (
+			startTimestamp !== null &&
+			createdAt < startTimestamp &&
+			updatedAt < startTimestamp
+		) {
+			return false;
+		}
+
+		if (
+			endTimestamp !== null &&
+			createdAt > endTimestamp &&
+			updatedAt > endTimestamp
+		) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+export function filterAccountsByBackendFilters(
+	accounts: AccountSearchResponse[],
+	filters: AccountComplexSearchFilters,
+) {
+	const request = buildAccountComplexSearchRequest(filters);
+	return accounts.filter(account => matchesBackendFilters(account, request));
+}
+
+export function filterAccountsByFrontendFilters(
+	accounts: AccountSearchResponse[],
+	{ query }: AccountFilterArgs,
+) {
+	const normalizedQuery = normalizeTextForSearch(query.trim());
+
+	if (!normalizedQuery) {
+		return accounts;
+	}
+
+	return accounts.filter(account => {
+		return (
+			normalizeTextForSearch(account.id).includes(normalizedQuery) ||
+			normalizeTextForSearch(account.user.name).includes(normalizedQuery) ||
+			normalizeTextForSearch(account.email).includes(normalizedQuery)
+		);
 	});
 }
 
@@ -231,25 +376,10 @@ export function getAccountDetailErrorToastContent(
 	});
 }
 
-export function getLinkedUserErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.accountPage.feedback.linkedUserError.title"),
-		fallbackDescription: t(
-			"identity.accountPage.feedback.linkedUserError.description",
-		),
-	});
-}
-
 export function getAccountFilterSummary(
 	t: TFunction,
-	{
-		activeFilter,
-		accountTypeFilter,
-		dateField,
-		query,
-		endDate,
-		startDate,
-	}: AccountFilterArgs,
+	filters: AccountComplexSearchFilters,
+	query: string,
 ) {
 	const parts: string[] = [];
 
@@ -257,32 +387,34 @@ export function getAccountFilterSummary(
 		parts.push(query.trim());
 	}
 
-	if (accountTypeFilter) {
+	if (filters.name.trim()) {
+		parts.push(filters.name.trim());
+	}
+
+	if (filters.cpf.trim()) {
+		parts.push(filters.cpf.trim());
+	}
+
+	if (filters.email.trim()) {
+		parts.push(filters.email.trim());
+	}
+
+	if (filters.accountType) {
 		parts.push(
 			t(
-				`identity.accountPage.filters.accountType.options.${accountTypeFilter}`,
+				`identity.accountPage.filters.accountType.options.${filters.accountType}`,
 			),
 		);
 	}
 
-	if (activeFilter) {
+	if (filters.dateFrom || filters.dateTo) {
 		parts.push(
-			t(
-				activeFilter === "true"
-					? "identity.accountPage.filters.active.options.active"
-					: "identity.accountPage.filters.active.options.inactive",
-			),
+			[filters.dateFrom || "...", filters.dateTo || "..."].join(" - "),
 		);
 	}
 
-	if (dateField) {
-		parts.push(
-			t(`identity.accountPage.filters.dateField.options.${dateField}`),
-		);
-	}
-
-	if (startDate || endDate) {
-		parts.push([startDate || "...", endDate || "..."].join(" - "));
+	if (!filters.activeOnly) {
+		parts.push(t("identity.accountPage.filters.activeOnly.off"));
 	}
 
 	return parts.join(" | ");

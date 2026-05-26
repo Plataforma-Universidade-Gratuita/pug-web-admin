@@ -69,6 +69,7 @@ export const FLOATING_BOUNDARY_SELECTOR = [
 ].join(", ");
 
 export const MIN_TABLE_SCROLLBAR_THUMB_SIZE = 32;
+export const TABLE_TRUNCATED_COLUMN_WIDTH = 100;
 
 export const DRAWER_MOTION_STYLES = {
 	top: "drawer-content-top",

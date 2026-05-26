@@ -1,12 +1,10 @@
 export const accountQueryKeys = {
 	all: ["identity", "account"] as const,
 	list: () => [...accountQueryKeys.all, "list"] as const,
+	search: (page: number, size: number, filtersKey: string) =>
+		[...accountQueryKeys.all, "search", page, size, filtersKey] as const,
 	detail: (id: string) => [...accountQueryKeys.all, "detail", id] as const,
 	idleDetail: () => [...accountQueryKeys.all, "detail", "idle"] as const,
-	linkedUser: (id: string) =>
-		[...accountQueryKeys.all, "linked-user", id] as const,
-	idleLinkedUser: () =>
-		[...accountQueryKeys.all, "linked-user", "idle"] as const,
 	me: () => [...accountQueryKeys.all, "me"] as const,
 };
 

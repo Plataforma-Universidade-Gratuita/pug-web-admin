@@ -3,6 +3,8 @@
 import { useTranslation } from "react-i18next";
 
 import {
+	Checkbox,
+	DatePicker,
 	Label,
 	Select,
 	SelectContent,
@@ -10,29 +12,21 @@ import {
 	SelectTrigger,
 } from "@/components";
 import { ACCOUNT_TYPE_VALUES } from "@/constants";
-import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
 import {
-	AuditInfoFilterFields,
+	NumberFieldFilter,
 	ServicePageFiltersDrawer,
+	TextFieldFilter,
 } from "@/features/shared/service-pages";
 import type { AccountsFiltersDrawerProps } from "@/types";
 
 export function AccountsFiltersDrawer({
-	activeFilter,
-	accountTypeFilter,
-	dateField,
-	endDate,
+	filters,
 	hasActiveFilters,
-	onActiveFilterChange,
-	onAccountTypeChange,
 	onApply,
 	onClear,
-	onDateFieldChange,
-	onEndDateChange,
+	onFilterChange,
 	onOpenChange,
-	onStartDateChange,
 	open,
-	startDate,
 }: AccountsFiltersDrawerProps) {
 	const { t } = useTranslation();
 
@@ -57,47 +51,35 @@ export function AccountsFiltersDrawer({
 			onClear={onClear}
 			onApply={onApply}
 		>
-			<div className="grid gap-2">
-				<Label>{t("identity.accountPage.filters.active.label")}</Label>
-				<Select
-					value={activeFilter}
-					onValueChange={value =>
-						onActiveFilterChange(
-							value === "ALL" ? "" : (value as typeof activeFilter),
-						)
-					}
-				>
-					<SelectTrigger
-						className="w-full"
-						placeholder={t("identity.accountPage.filters.active.placeholder")}
-					/>
-					<SelectContent>
-						<SelectItem value="ALL">
-							{t("identity.accountPage.filters.active.options.all")}
-						</SelectItem>
-						<SelectItem
-							value="true"
-							className={getAccountOptionClassName("active", "true")}
-						>
-							{t("identity.accountPage.filters.active.options.active")}
-						</SelectItem>
-						<SelectItem
-							value="false"
-							className={getAccountOptionClassName("active", "false")}
-						>
-							{t("identity.accountPage.filters.active.options.inactive")}
-						</SelectItem>
-					</SelectContent>
-				</Select>
-			</div>
+			<TextFieldFilter
+				label={t("identity.accountPage.filters.name.label")}
+				value={filters.name}
+				onChange={value => onFilterChange("name", value)}
+				placeholder={t("identity.accountPage.filters.name.placeholder")}
+			/>
+
+			<NumberFieldFilter
+				label={t("identity.accountPage.filters.cpf.label")}
+				value={filters.cpf}
+				onChange={value => onFilterChange("cpf", value)}
+				placeholder={t("identity.accountPage.filters.cpf.placeholder")}
+			/>
+
+			<TextFieldFilter
+				label={t("identity.accountPage.filters.email.label")}
+				value={filters.email}
+				onChange={value => onFilterChange("email", value)}
+				placeholder={t("identity.accountPage.filters.email.placeholder")}
+			/>
 
 			<div className="grid gap-2">
 				<Label>{t("identity.accountPage.filters.accountType.label")}</Label>
 				<Select
-					value={accountTypeFilter}
+					value={filters.accountType}
 					onValueChange={value =>
-						onAccountTypeChange(
-							value === "ALL" ? "" : (value as typeof accountTypeFilter),
+						onFilterChange(
+							"accountType",
+							value === "ALL" ? "" : (value as typeof filters.accountType),
 						)
 					}
 				>
@@ -115,10 +97,6 @@ export function AccountsFiltersDrawer({
 							<SelectItem
 								key={accountType}
 								value={accountType}
-								className={getAccountOptionClassName(
-									"accountType",
-									accountType,
-								)}
 							>
 								{t(
 									`identity.accountPage.filters.accountType.options.${accountType}`,
@@ -129,41 +107,31 @@ export function AccountsFiltersDrawer({
 				</Select>
 			</div>
 
-			<AuditInfoFilterFields
-				dateFieldLabel={t("identity.accountPage.filters.dateField.label")}
-				dateFieldPlaceholder={t(
-					"identity.accountPage.filters.dateField.placeholder",
-				)}
-				dateField={dateField}
-				onDateFieldChange={value =>
-					onDateFieldChange(value as typeof dateField)
+			<div className="grid gap-2 min-w-0">
+				<Label>{t("identity.accountPage.filters.startDate.label")}</Label>
+				<DatePicker
+					value={filters.dateFrom}
+					onValueChange={value => onFilterChange("dateFrom", value)}
+					placeholder={t("identity.accountPage.filters.startDate.placeholder")}
+				/>
+			</div>
+
+			<div className="grid gap-2 min-w-0">
+				<Label>{t("identity.accountPage.filters.endDate.label")}</Label>
+				<DatePicker
+					value={filters.dateTo}
+					onValueChange={value => onFilterChange("dateTo", value)}
+					placeholder={t("identity.accountPage.filters.endDate.placeholder")}
+				/>
+			</div>
+
+			<Checkbox
+				checked={filters.activeOnly}
+				onCheckedChange={checked =>
+					onFilterChange("activeOnly", checked === true)
 				}
-				dateFieldOptions={[
-					{
-						value: "createdAt",
-						label: t(
-							"identity.accountPage.filters.dateField.options.createdAt",
-						),
-					},
-					{
-						value: "updatedAt",
-						label: t(
-							"identity.accountPage.filters.dateField.options.updatedAt",
-						),
-					},
-				]}
-				startDateLabel={t("identity.accountPage.filters.startDate.label")}
-				startDatePlaceholder={t(
-					"identity.accountPage.filters.startDate.placeholder",
-				)}
-				startDate={startDate}
-				onStartDateChange={onStartDateChange}
-				endDateLabel={t("identity.accountPage.filters.endDate.label")}
-				endDatePlaceholder={t(
-					"identity.accountPage.filters.endDate.placeholder",
-				)}
-				endDate={endDate}
-				onEndDateChange={onEndDateChange}
+				label={t("identity.accountPage.filters.activeOnly.label")}
+				description={t("identity.accountPage.filters.activeOnly.description")}
 			/>
 		</ServicePageFiltersDrawer>
 	);

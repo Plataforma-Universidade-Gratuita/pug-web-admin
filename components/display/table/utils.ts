@@ -95,7 +95,6 @@ export function getTableColumnStyle(size: number | undefined) {
 	return {
 		width: `${size}px`,
 		minWidth: `${size}px`,
-		maxWidth: `${size}px`,
 	};
 }
 

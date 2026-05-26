@@ -2,6 +2,10 @@ export interface UserPageProps {
 	userId: string;
 }
 
+export interface UserDetailsContentProps {
+	userId: string;
+}
+
 export interface UserRoutePageProps {
 	params: Promise<{
 		userId: string;

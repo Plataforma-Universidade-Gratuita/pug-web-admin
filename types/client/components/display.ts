@@ -33,6 +33,15 @@ export interface TooltipProps {
 	align?: "start" | "center" | "end";
 }
 
+export interface TableTextProps {
+	text: string;
+	align?: "left" | "center" | "right";
+	className?: string;
+	maxWidth?: number;
+	tooltiped?: boolean;
+	tooltipText?: string;
+}
+
 export interface PopoverProps {
 	children: ReactNode;
 	open?: boolean | undefined;

@@ -1,6 +1,8 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
+import { TableText } from "@/components";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type { CityResponse } from "@/types";
 import { getApiErrorToastContent } from "@/utils";
 import { normalizeTextForSearch } from "@/utils";
@@ -9,15 +11,18 @@ export function createCityColumns(t: TFunction): ColumnDef<CityResponse>[] {
 	return [
 		{
 			accessorKey: "id",
-			header: t("geo.cityPage.dialog.fields.id"),
+			header: t("geo.cityPage.table.columns.identifier"),
+			cell: ({ row }) => <TableText text={row.original.id} tooltiped />,
 		},
 		{
 			accessorKey: "name",
 			header: t("geo.cityPage.table.columns.name"),
+			cell: ({ row }) => row.original.name,
 		},
 		{
 			accessorKey: "ibgeCode",
 			header: t("geo.cityPage.table.columns.ibgeCode"),
+			cell: ({ row }) => row.original.ibgeCode,
 		},
 	];
 }

@@ -1,81 +1,134 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
 import { Button, NoContentState, SomeErrorState } from "@/components";
+import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AccountsFiltersDrawer } from "@/features/identity/accounts/AccountsFiltersDrawer";
 import { AccountsRowActions } from "@/features/identity/accounts/AccountsRowActions";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
+import {
+	useAccountsQuery,
+	useAccountsSearchQuery,
+} from "@/features/identity/accounts/queries";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	createAccountColumns,
-	filterAccounts,
+	filterAccountListByBackendFilters,
+	filterAccountsByBackendFilters,
+	filterAccountsByFrontendFilters,
 	getAccountEmptyStateCopy,
 	getAccountFilterSummary,
 	getAccountsListErrorToastContent,
+	mapAccountsToSearchResponses,
 } from "@/features/identity/accounts/utils";
 import {
 	ServicePageHeader,
+	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
-import { useDraftFilters, useQueryErrorToasts } from "@/hooks";
-import type { AccountResponse } from "@/types";
-import type { AccountSecondaryFilters } from "@/types";
+import {
+	useDraftFilters,
+	useQueryErrorToasts,
+	useServicePagePagination,
+} from "@/hooks";
+import type { AccountComplexSearchFilters, AccountSearchResponse } from "@/types";
 
 export function AccountsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
-	const initialSecondaryFilters = useMemo<AccountSecondaryFilters>(
-		() => ({
-			activeFilter: "",
-			accountTypeFilter: "",
-			dateField: "",
-			startDate: "",
-			endDate: "",
-		}),
-		[],
-	);
+	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const {
 		appliedFilters,
 		applyDraftFilters,
-		clearFilters: clearDraftFilters,
+		clearFilters,
 		draftFilters,
 		hasAppliedFilters,
 		setDraftFilter,
-	} = useDraftFilters<AccountSecondaryFilters>({
-		initialFilters: initialSecondaryFilters,
+	} = useDraftFilters<AccountComplexSearchFilters>({
+		initialFilters: {
+			name: "",
+			cpf: "",
+			email: "",
+			accountType: "",
+			dateFrom: "",
+			dateTo: "",
+			activeOnly: true,
+		},
 	});
-	const deferredQuerySearch = useDeferredValue(querySearch.trim());
-	const accountsQuery = useAccountsQuery();
+	const accountsPagination = useServicePagePagination({
+		key: "identity.accounts",
+	});
+	const accountsQuery = useAccountsQuery(accountsPagination.isAll);
+	const usersQuery = useUsersQuery(accountsPagination.isAll);
+	const accountsSearchQuery = useAccountsSearchQuery(
+		accountsPagination.backendPage ?? 0,
+		accountsPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
+		appliedFilters,
+		!accountsPagination.isAll,
+	);
+	const activeQueryError = accountsPagination.isAll
+		? (accountsQuery.error ?? usersQuery.error)
+		: accountsSearchQuery.error;
+	const activeQueryErrorUpdatedAt = accountsPagination.isAll
+		? Math.max(accountsQuery.errorUpdatedAt, usersQuery.errorUpdatedAt)
+		: accountsSearchQuery.errorUpdatedAt;
+	const activeQueryIsError = accountsPagination.isAll
+		? accountsQuery.isError || usersQuery.isError
+		: accountsSearchQuery.isError;
+	const activeQueryIsLoading = accountsPagination.isAll
+		? accountsQuery.isLoading || usersQuery.isLoading
+		: accountsSearchQuery.isLoading;
+	const allAccounts = useMemo(() => accountsQuery.data ?? [], [accountsQuery.data]);
+	const allUsers = useMemo(() => usersQuery.data ?? [], [usersQuery.data]);
+	const backendFilteredAllAccounts = useMemo(() => {
+		if (!accountsPagination.isAll) {
+			return [];
+		}
 
+		const filteredAccounts = filterAccountListByBackendFilters(
+			allAccounts,
+			allUsers,
+			appliedFilters,
+		);
+		const userNameById = new Map(allUsers.map(user => [user.id, user.name]));
+
+		return mapAccountsToSearchResponses(filteredAccounts, userNameById);
+	}, [accountsPagination.isAll, allAccounts, allUsers, appliedFilters]);
+	const backendFilteredSearchAccounts = useMemo(
+		() =>
+			filterAccountsByBackendFilters(
+				accountsSearchQuery.data?.content ?? [],
+				appliedFilters,
+			),
+		[accountsSearchQuery.data, appliedFilters],
+	);
+	const tableSourceAccounts = useMemo(
+		() =>
+			accountsPagination.isAll
+				? backendFilteredAllAccounts
+				: backendFilteredSearchAccounts,
+		[
+			accountsPagination.isAll,
+			backendFilteredAllAccounts,
+			backendFilteredSearchAccounts,
+		],
+	);
 	const filteredAccounts = useMemo(
 		() =>
-			filterAccounts(accountsQuery.data ?? [], {
-				activeFilter: appliedFilters.activeFilter,
-				accountTypeFilter: appliedFilters.accountTypeFilter,
-				dateField: appliedFilters.dateField,
+			filterAccountsByFrontendFilters(tableSourceAccounts, {
 				query: deferredQuerySearch,
-				endDate: appliedFilters.endDate,
-				startDate: appliedFilters.startDate,
 			}),
-		[accountsQuery.data, appliedFilters, deferredQuerySearch],
+		[tableSourceAccounts, deferredQuerySearch],
 	);
 	const columns = useMemo(() => createAccountColumns(t), [t]);
 	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
-		() =>
-			getAccountFilterSummary(t, {
-				activeFilter: appliedFilters.activeFilter,
-				accountTypeFilter: appliedFilters.accountTypeFilter,
-				dateField: appliedFilters.dateField,
-				query: deferredQuerySearch,
-				endDate: appliedFilters.endDate,
-				startDate: appliedFilters.startDate,
-			}),
+		() => getAccountFilterSummary(t, appliedFilters, deferredQuerySearch),
 		[appliedFilters, deferredQuerySearch, t],
 	);
 	const emptyStateCopy = useMemo(
@@ -83,13 +136,18 @@ export function AccountsPage() {
 		[filterSummary, t],
 	);
 	const tableEmptyState = useMemo(() => {
-		if (accountsQuery.isError) {
+		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
 					title={t("identity.accountPage.table.error.title")}
 					description={t("identity.accountPage.table.error.description")}
 					onRefresh={() => {
-						void accountsQuery.refetch();
+						if (accountsPagination.isAll) {
+							void Promise.all([accountsQuery.refetch(), usersQuery.refetch()]);
+							return;
+						}
+
+						void accountsSearchQuery.refetch();
 					}}
 				/>
 			);
@@ -101,21 +159,55 @@ export function AccountsPage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [accountsQuery, emptyStateCopy.description, emptyStateCopy.title, t]);
+	}, [
+		accountsPagination.isAll,
+		accountsQuery,
+		accountsSearchQuery,
+		activeQueryIsError,
+		emptyStateCopy,
+		t,
+		usersQuery,
+	]);
+
+	const totalElements = accountsPagination.isAll
+		? backendFilteredAllAccounts.length
+		: (accountsSearchQuery.data?.totalElements ?? 0);
+	const totalPages = accountsPagination.isAll
+		? 1
+		: Math.max(accountsSearchQuery.data?.totalPages ?? 1, 1);
+
+	useEffect(() => {
+		if (
+			accountsPagination.isAll ||
+			!accountsSearchQuery.data ||
+			accountsPagination.currentPage <= totalPages
+		) {
+			return;
+		}
+
+		accountsPagination.setCurrentPage(totalPages);
+	}, [
+		accountsPagination.currentPage,
+		accountsSearchQuery.data,
+		accountsPagination.isAll,
+		accountsPagination.setCurrentPage,
+		totalPages,
+	]);
 
 	useQueryErrorToasts([
 		{
 			key: "accounts-list",
-			error: accountsQuery.error,
-			errorUpdatedAt: accountsQuery.errorUpdatedAt,
+			error: activeQueryError,
+			errorUpdatedAt: activeQueryErrorUpdatedAt,
 			getContent: error => getAccountsListErrorToastContent(t, error),
-			isError: accountsQuery.isError,
+			isError: activeQueryIsError,
 		},
 	]);
 
 	function clearAllFilters() {
 		setQuerySearch("");
-		clearDraftFilters();
+		clearFilters();
+		accountsPagination.resetPage();
 		setFiltersOpen(false);
 	}
 
@@ -151,30 +243,32 @@ export function AccountsPage() {
 				/>
 
 				<AccountsFiltersDrawer
-					activeFilter={draftFilters.activeFilter}
-					accountTypeFilter={draftFilters.accountTypeFilter}
-					dateField={draftFilters.dateField}
-					endDate={draftFilters.endDate}
+					filters={draftFilters}
 					hasActiveFilters={hasAppliedFilters}
-					onActiveFilterChange={value => setDraftFilter("activeFilter", value)}
-					onAccountTypeChange={value =>
-						setDraftFilter("accountTypeFilter", value)
-					}
 					onApply={() => {
+						accountsPagination.resetPage();
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
 					onClear={clearAllFilters}
-					onDateFieldChange={value => setDraftFilter("dateField", value)}
-					onEndDateChange={value => setDraftFilter("endDate", value)}
+					onFilterChange={(key, value) => setDraftFilter(key, value)}
 					onOpenChange={setFiltersOpen}
-					onStartDateChange={value => setDraftFilter("startDate", value)}
 					open={filtersOpen}
-					startDate={draftFilters.startDate}
 				/>
 			</ServicePageHeader>
 
-			<ServicePageTableSection<AccountResponse>
+			<ServicePageTableSection<AccountSearchResponse>
+				footer={
+					<ServicePagePagination
+						currentPage={accountsPagination.currentPage}
+						pageSize={accountsPagination.pageSize}
+						totalElements={totalElements}
+						totalPages={totalPages}
+						onPageChange={accountsPagination.setCurrentPage}
+						onPageSizeChange={accountsPagination.setPageSize}
+						disabled={activeQueryIsLoading}
+					/>
+				}
 				tableProps={{
 					className: "h-full",
 					columns,
@@ -183,7 +277,7 @@ export function AccountsPage() {
 					getRowActions: row => (
 						<AccountsRowActions href={`/identity/accounts/${row.id}`} />
 					),
-					isLoading: accountsQuery.isLoading,
+					isLoading: activeQueryIsLoading,
 					loadingLabel: t("identity.accountPage.loading.list"),
 				}}
 			/>

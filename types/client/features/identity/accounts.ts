@@ -8,43 +8,33 @@ export interface AccountRoutePageProps {
 	}>;
 }
 
-export type AccountAuditDateField = "" | "createdAt" | "updatedAt";
-export type AccountActiveFilter = "" | "true" | "false";
-export type AccountTypeFilter = "" | "ADMIN" | "PARTNER" | "STUDENT";
+export type AccountSearchAccountType = "" | "ADMIN" | "PARTNER" | "STUDENT";
 
-export interface AccountSecondaryFilters {
-	activeFilter: AccountActiveFilter;
-	accountTypeFilter: AccountTypeFilter;
-	dateField: AccountAuditDateField;
-	startDate: string;
-	endDate: string;
+export interface AccountComplexSearchFilters {
+	name: string;
+	cpf: string;
+	email: string;
+	accountType: AccountSearchAccountType;
+	dateFrom: string;
+	dateTo: string;
+	activeOnly: boolean;
 }
 
 export interface AccountsFiltersDrawerProps {
-	activeFilter: AccountActiveFilter;
-	accountTypeFilter: AccountTypeFilter;
-	dateField: AccountAuditDateField;
-	endDate: string;
+	filters: AccountComplexSearchFilters;
 	hasActiveFilters: boolean;
-	onActiveFilterChange: (value: AccountActiveFilter) => void;
-	onAccountTypeChange: (value: AccountTypeFilter) => void;
 	onApply: () => void;
 	onClear: () => void;
-	onDateFieldChange: (value: AccountAuditDateField) => void;
-	onEndDateChange: (value: string) => void;
+	onFilterChange: <TKey extends keyof AccountComplexSearchFilters>(
+		key: TKey,
+		value: AccountComplexSearchFilters[TKey],
+	) => void;
 	onOpenChange: (open: boolean) => void;
-	onStartDateChange: (value: string) => void;
 	open: boolean;
-	startDate: string;
 }
 
 export interface AccountFilterArgs {
-	activeFilter: AccountActiveFilter;
-	accountTypeFilter: AccountTypeFilter;
-	dateField: AccountAuditDateField;
 	query: string;
-	endDate: string;
-	startDate: string;
 }
 
 export interface AccountsRowActionsProps {

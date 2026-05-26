@@ -5,22 +5,18 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Badge, NotFoundState, SomeErrorState } from "@/components";
+import { useAccountDetailQuery } from "@/features/identity/accounts/queries";
 import {
-	useAccountDetailQuery,
-	useLinkedUserQuery,
-} from "@/features/identity/accounts/queries";
-import {
+	getAccountDetailErrorToastContent,
 	getAccountTypeLabel,
 	getAccountTypeTone,
-	getAccountDetailErrorToastContent,
-	getLinkedUserErrorToastContent,
 } from "@/features/identity/accounts/utils";
+import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
 import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
 } from "@/features/shared/entity-pages";
-import { ServicePageLinkedUserBlock } from "@/features/shared/service-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AccountPageProps } from "@/types";
 import { WebApiError } from "@/utils";
@@ -28,9 +24,6 @@ import { WebApiError } from "@/utils";
 export function AccountPage({ accountId }: AccountPageProps) {
 	const { t } = useTranslation();
 	const accountDetailQuery = useAccountDetailQuery(accountId);
-	const linkedUserQuery = useLinkedUserQuery(
-		accountDetailQuery.data?.userId ?? null,
-	);
 
 	useQueryErrorToasts([
 		{
@@ -39,13 +32,6 @@ export function AccountPage({ accountId }: AccountPageProps) {
 			errorUpdatedAt: accountDetailQuery.errorUpdatedAt,
 			getContent: error => getAccountDetailErrorToastContent(t, error),
 			isError: accountDetailQuery.isError,
-		},
-		{
-			key: `account-linked-user-${accountId}`,
-			error: linkedUserQuery.error,
-			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
-			getContent: error => getLinkedUserErrorToastContent(t, error),
-			isError: linkedUserQuery.isError,
 		},
 	]);
 
@@ -135,36 +121,7 @@ export function AccountPage({ accountId }: AccountPageProps) {
 						<p className="ty-overhead">
 							{t("identity.accountPage.dialog.linkedUser.overhead")}
 						</p>
-						<ServicePageLinkedUserBlock
-							user={linkedUserQuery.data}
-							isLoading={linkedUserQuery.isLoading}
-							isError={linkedUserQuery.isError}
-							error={linkedUserQuery.error}
-							loadingLabel={t("identity.accountPage.dialog.linkedUser.loading")}
-							notFoundTitle={t(
-								"identity.accountPage.dialog.linkedUser.notFound.title",
-							)}
-							notFoundDescription={t(
-								"identity.accountPage.dialog.linkedUser.notFound.description",
-							)}
-							errorTitle={t(
-								"identity.accountPage.dialog.linkedUser.error.title",
-							)}
-							errorDescription={t(
-								"identity.accountPage.dialog.linkedUser.error.description",
-							)}
-							emptyTitle={t(
-								"identity.accountPage.dialog.linkedUser.notFound.title",
-							)}
-							onRefresh={() => {
-								void linkedUserQuery.refetch();
-							}}
-							fields={{
-								cpf: t("identity.accountPage.dialog.linkedUser.fields.cpf"),
-								id: t("identity.accountPage.dialog.linkedUser.fields.id"),
-								name: t("identity.accountPage.dialog.linkedUser.fields.name"),
-							}}
-						/>
+						<UserDetailsContent userId={account.userId} />
 					</div>
 				</div>
 			) : accountDetailQuery.isLoading ? (

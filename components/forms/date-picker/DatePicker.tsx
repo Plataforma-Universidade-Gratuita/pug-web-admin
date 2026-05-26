@@ -8,6 +8,7 @@ import {
 	useMemo,
 	useRef,
 	useState,
+	type WheelEvent,
 } from "react";
 
 import clsx from "clsx";
@@ -59,6 +60,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 		const isControlled = value !== undefined;
 		const hiddenInputRef = useRef<HTMLInputElement | null>(null);
 		const triggerButtonRef = useRef<HTMLButtonElement | null>(null);
+		const calendarScrollRef = useRef<HTMLDivElement | null>(null);
 		const [internalValue, setInternalValue] = useState(defaultValue ?? "");
 		const [open, setOpen] = useState(false);
 		const [month, setMonth] = useState<Date>(new Date());
@@ -194,6 +196,31 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 			setOpen(false);
 		}
 
+		function handleCalendarWheel(event: WheelEvent<HTMLDivElement>) {
+			const scrollElement = calendarScrollRef.current;
+
+			if (
+				!scrollElement ||
+				scrollElement.scrollHeight <= scrollElement.clientHeight
+			) {
+				return;
+			}
+
+			const canScrollUp = event.deltaY < 0 && scrollElement.scrollTop > 0;
+			const canScrollDown =
+				event.deltaY > 0 &&
+				scrollElement.scrollTop <
+					scrollElement.scrollHeight - scrollElement.clientHeight;
+
+			if (!canScrollUp && !canScrollDown) {
+				return;
+			}
+
+			event.preventDefault();
+			event.stopPropagation();
+			scrollElement.scrollTop += event.deltaY;
+		}
+
 		return (
 			<div className={clsx("date-picker-shell", className)}>
 				<Popover
@@ -288,7 +315,11 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 							</Select>
 						</div>
 
-						<div className="date-picker-calendar-shell">
+						<div
+							ref={calendarScrollRef}
+							className="date-picker-calendar-shell"
+							onWheel={handleCalendarWheel}
+						>
 							<DayPicker
 								mode="single"
 								month={month}

@@ -1,9 +1,19 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
-import { AccountResponseSchema } from "@/schemas";
-import type { AccountResponse } from "@/types";
-import { zfetch, qs } from "@/utils";
+import {
+	createPageResponseSchema,
+	AccountComplexSearchRequestSchema,
+	AccountResponseSchema,
+	AccountSearchResponseSchema,
+} from "@/schemas";
+import type {
+	AccountComplexSearchRequest,
+	AccountComplexSearchResponse,
+	AccountResponse,
+	PaginationRequest,
+} from "@/types";
+import { qs, zfetch } from "@/utils";
 
 export async function get(
 	id: string,
@@ -11,18 +21,6 @@ export async function get(
 ): Promise<AccountResponse> {
 	return zfetch(
 		`${API_ROUTE_BASES.identity.accounts}/${id}`,
-		{ method: "GET" },
-		AccountResponseSchema,
-		token,
-	);
-}
-
-export async function getByEmail(
-	email: string,
-	token?: string,
-): Promise<AccountResponse> {
-	return zfetch(
-		`${API_ROUTE_BASES.identity.accounts}${qs({ email })}`,
 		{ method: "GET" },
 		AccountResponseSchema,
 		token,
@@ -38,26 +36,30 @@ export async function getMe(token?: string): Promise<AccountResponse> {
 	);
 }
 
-export async function list(
-	token?: string,
-	q?: string,
-): Promise<AccountResponse[]> {
+export async function list(token?: string): Promise<AccountResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.identity.accounts}${qs({ q })}`,
+		`${API_ROUTE_BASES.identity.accounts}`,
 		{ method: "GET" },
 		z.array(AccountResponseSchema),
 		token,
 	);
 }
 
-export async function listByCpf(
-	cpf: string,
+export async function search(
+	pagination: PaginationRequest,
+	body: AccountComplexSearchRequest,
 	token?: string,
-): Promise<AccountResponse[]> {
+): Promise<AccountComplexSearchResponse> {
 	return zfetch(
-		`${API_ROUTE_BASES.identity.accounts}${qs({ cpf })}`,
-		{ method: "GET" },
-		z.array(AccountResponseSchema),
+		`${API_ROUTE_BASES.identity.accounts}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		{
+			method: "POST",
+			body: JSON.stringify(AccountComplexSearchRequestSchema.parse(body)),
+		},
+		createPageResponseSchema(AccountSearchResponseSchema),
 		token,
 	);
 }
