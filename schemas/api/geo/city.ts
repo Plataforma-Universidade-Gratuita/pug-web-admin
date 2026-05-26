@@ -7,3 +7,7 @@ export const CityResponseSchema = z.object({
 	name: z.string(),
 	ibgeCode: z.string(),
 });
+
+export const CityComplexSearchRequestSchema = z.object({
+	name: z.string().trim().min(1).optional(),
+});

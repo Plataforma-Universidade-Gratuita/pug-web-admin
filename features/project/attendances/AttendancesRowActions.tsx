@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { ArrowUpRight, Check, Trash2, UserRoundX } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -19,6 +21,7 @@ export function AttendancesRowActions({
 	onValidate,
 }: AttendancesRowActionsProps) {
 	const { t } = useTranslation();
+	const router = useRouter();
 
 	return (
 		<>
@@ -26,7 +29,7 @@ export function AttendancesRowActions({
 				icon={ArrowUpRight}
 				label={t("project.attendancePage.table.actions.viewDetails")}
 				onClick={() => {
-					window.open(href, "_blank", "noopener,noreferrer");
+					router.push(href);
 				}}
 			/>
 			<DropdownMenuSeparator />

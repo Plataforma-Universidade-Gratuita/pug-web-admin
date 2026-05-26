@@ -40,11 +40,31 @@ export function filterCities(cities: CityResponse[], query: string) {
 	});
 }
 
-export function getCitiesEmptyStateCopy(t: TFunction, query: string) {
+export function filterCitiesByName(cities: CityResponse[], name: string) {
+	if (!name) {
+		return cities;
+	}
+
+	const normalizedName = normalizeTextForSearch(name.trim());
+
+	return cities.filter(city =>
+		normalizeTextForSearch(city.name).includes(normalizedName),
+	);
+}
+
+export function getCitiesEmptyStateCopy(
+	t: TFunction,
+	frontendQuery: string,
+	backendNameFilter: string,
+) {
+	const activeFilterValue = frontendQuery || backendNameFilter;
+
 	return {
 		title: t("geo.cityPage.empty.title"),
-		description: query
-			? t("geo.cityPage.empty.filteredDescription", { value: query })
+		description: activeFilterValue
+			? t("geo.cityPage.empty.filteredDescription", {
+					value: activeFilterValue,
+				})
 			: t("geo.cityPage.empty.defaultDescription"),
 	};
 }

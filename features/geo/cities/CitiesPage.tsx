@@ -1,51 +1,94 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState } from "@/components";
+import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
+import {
+	ServicePageHeader,
+	ServicePagePagination,
+	ServicePageShell,
+	ServicePageTableSection,
+} from "@/features/shared/service-pages";
+import {
+	useDraftFilters,
+	useQueryErrorToasts,
+	useServicePagePagination,
+} from "@/hooks";
+import type { CityResponse } from "@/types";
+
 import { CitiesFilters } from "./CitiesFilters";
 import { CitiesRowActions } from "./CitiesRowActions";
-import { useCitiesQuery } from "./queries";
+import { useCitiesQuery, useCitiesSearchQuery } from "./queries";
 import {
 	createCityColumns,
+	filterCitiesByName,
 	filterCities,
 	getCitiesEmptyStateCopy,
 	getCitiesListErrorToastContent,
 } from "./utils";
-import {
-	ServicePageHeader,
-	ServicePageShell,
-	ServicePageTableSection,
-} from "@/features/shared/service-pages";
-import { useQueryErrorToasts } from "@/hooks";
-import type { CityResponse } from "@/types";
 
 export function CitiesPage() {
 	const { t } = useTranslation();
-	const [search, setSearch] = useState("");
-	const deferredSearch = useDeferredValue(search.trim());
-	const citiesQuery = useCitiesQuery();
+	const [frontendSearch, setFrontendSearch] = useState("");
+	const deferredFrontendSearch = useDeferredValue(frontendSearch.trim());
+	const [backendFiltersOpen, setBackendFiltersOpen] = useState(false);
+	const {
+		appliedFilters,
+		draftFilters,
+		hasAppliedFilters,
+		applyDraftFilters,
+		clearFilters,
+		setDraftFilter,
+	} = useDraftFilters({
+		initialFilters: {
+			name: "",
+		},
+	});
+	const citiesPagination = useServicePagePagination({
+		key: "geo.cities",
+	});
+	const citiesQuery = useCitiesQuery(citiesPagination.isAll);
+	const citiesSearchQuery = useCitiesSearchQuery(
+		citiesPagination.backendPage ?? 0,
+		citiesPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
+		appliedFilters.name,
+		!citiesPagination.isAll,
+	);
+	const activeQuery = citiesPagination.isAll ? citiesQuery : citiesSearchQuery;
 
 	const allCities = useMemo(() => citiesQuery.data ?? [], [citiesQuery.data]);
+	const backendFilteredCities = useMemo(
+		() => filterCitiesByName(allCities, appliedFilters.name),
+		[allCities, appliedFilters.name],
+	);
+	const tableSourceCities = useMemo(
+		() =>
+			citiesPagination.isAll
+				? backendFilteredCities
+				: (citiesSearchQuery.data?.content ?? []),
+		[backendFilteredCities, citiesPagination.isAll, citiesSearchQuery.data],
+	);
 	const filteredCities = useMemo(
-		() => filterCities(allCities, deferredSearch),
-		[allCities, deferredSearch],
+		() => filterCities(tableSourceCities, deferredFrontendSearch),
+		[deferredFrontendSearch, tableSourceCities],
 	);
 	const columns = useMemo(() => createCityColumns(t), [t]);
 	const emptyStateCopy = useMemo(
-		() => getCitiesEmptyStateCopy(t, deferredSearch),
-		[t, deferredSearch],
+		() =>
+			getCitiesEmptyStateCopy(t, deferredFrontendSearch, appliedFilters.name),
+		[t, deferredFrontendSearch, appliedFilters.name],
 	);
 	const tableEmptyState = useMemo(() => {
-		if (citiesQuery.isError) {
+		if (activeQuery.isError) {
 			return (
 				<SomeErrorState
 					title={t("geo.cityPage.table.error.title")}
 					description={t("geo.cityPage.table.error.description")}
 					onRefresh={() => {
-						void citiesQuery.refetch();
+						void activeQuery.refetch();
 					}}
 				/>
 			);
@@ -57,15 +100,40 @@ export function CitiesPage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [citiesQuery, emptyStateCopy, t]);
+	}, [activeQuery, emptyStateCopy, t]);
+
+	const totalElements = citiesPagination.isAll
+		? backendFilteredCities.length
+		: (citiesSearchQuery.data?.totalElements ?? 0);
+	const totalPages = citiesPagination.isAll
+		? 1
+		: Math.max(citiesSearchQuery.data?.totalPages ?? 1, 1);
+
+	useEffect(() => {
+		if (
+			citiesPagination.isAll ||
+			!citiesSearchQuery.data ||
+			citiesPagination.currentPage <= totalPages
+		) {
+			return;
+		}
+
+		citiesPagination.setCurrentPage(totalPages);
+	}, [
+		citiesPagination.currentPage,
+		citiesPagination.isAll,
+		citiesPagination.setCurrentPage,
+		citiesSearchQuery.data,
+		totalPages,
+	]);
 
 	useQueryErrorToasts([
 		{
-			key: "cities-list",
-			error: citiesQuery.error,
-			errorUpdatedAt: citiesQuery.errorUpdatedAt,
+			key: "cities-table",
+			error: activeQuery.error,
+			errorUpdatedAt: activeQuery.errorUpdatedAt,
 			getContent: error => getCitiesListErrorToastContent(t, error),
-			isError: citiesQuery.isError,
+			isError: activeQuery.isError,
 		},
 	]);
 
@@ -82,12 +150,40 @@ export function CitiesPage() {
 				filtersClassName="grid gap-2"
 			>
 				<CitiesFilters
-					search={search}
-					onSearchChange={setSearch}
+					backendNameFilter={draftFilters.name}
+					backendFiltersOpen={backendFiltersOpen}
+					hasBackendFilters={hasAppliedFilters}
+					onApplyBackendFilters={() => {
+						citiesPagination.resetPage();
+						applyDraftFilters();
+						setBackendFiltersOpen(false);
+					}}
+					onBackendFiltersOpenChange={setBackendFiltersOpen}
+					onBackendNameFilterChange={value => {
+						setDraftFilter("name", value);
+					}}
+					onClearBackendFilters={() => {
+						clearFilters();
+						citiesPagination.resetPage();
+						setBackendFiltersOpen(false);
+					}}
+					onFrontendSearchChange={setFrontendSearch}
+					frontendSearch={frontendSearch}
 				/>
 			</ServicePageHeader>
 
 			<ServicePageTableSection<CityResponse>
+				footer={
+					<ServicePagePagination
+						currentPage={citiesPagination.currentPage}
+						pageSize={citiesPagination.pageSize}
+						totalElements={totalElements}
+						totalPages={totalPages}
+						onPageChange={citiesPagination.setCurrentPage}
+						onPageSizeChange={citiesPagination.setPageSize}
+						disabled={activeQuery.isLoading}
+					/>
+				}
 				tableProps={{
 					className: "h-full",
 					columns,
@@ -96,7 +192,7 @@ export function CitiesPage() {
 					getRowActions: row => (
 						<CitiesRowActions href={`/geo/cities/${row.id}`} />
 					),
-					isLoading: citiesQuery.isLoading,
+					isLoading: activeQuery.isLoading,
 					loadingLabel: t("geo.cityPage.loading.list"),
 				}}
 			/>

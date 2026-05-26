@@ -1,9 +1,14 @@
 import { z } from "zod";
 
 import { WEB_API_ROUTE_BASES } from "@/constants";
-import { CityResponseSchema } from "@/schemas";
-import type { CityResponse } from "@/types";
-import { webFetch } from "@/utils";
+import { CityResponseSchema, createPageResponseSchema } from "@/schemas";
+import type {
+	CityComplexSearchRequest,
+	CityResponse,
+	CityComplexSearchResponse,
+	PaginationRequest,
+} from "@/types";
+import { qs, webFetch } from "@/utils";
 
 export async function get(id: string): Promise<CityResponse> {
 	return webFetch(
@@ -14,4 +19,21 @@ export async function get(id: string): Promise<CityResponse> {
 
 export async function list(): Promise<CityResponse[]> {
 	return webFetch(WEB_API_ROUTE_BASES.geo.cities, z.array(CityResponseSchema));
+}
+
+export async function search(
+	pagination: PaginationRequest,
+	body: CityComplexSearchRequest,
+): Promise<CityComplexSearchResponse> {
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.geo.cities}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		createPageResponseSchema(CityResponseSchema),
+		{
+			method: "POST",
+			body: JSON.stringify(body),
+		},
+	);
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { ArrowUpRight, CopyPlus, PenSquare, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +20,7 @@ export function CoursesRowActions({
 	onOpenEditor,
 }: CoursesRowActionsProps) {
 	const { t } = useTranslation();
+	const router = useRouter();
 
 	return (
 		<>
@@ -25,7 +28,7 @@ export function CoursesRowActions({
 				icon={ArrowUpRight}
 				label={t("academic.coursePage.table.actions.viewDetails")}
 				onClick={() => {
-					window.open(href, "_blank", "noopener,noreferrer");
+					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem

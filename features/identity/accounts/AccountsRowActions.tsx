@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { ArrowUpRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -8,13 +10,14 @@ import type { AccountsRowActionsProps } from "@/types";
 
 export function AccountsRowActions({ href }: AccountsRowActionsProps) {
 	const { t } = useTranslation();
+	const router = useRouter();
 
 	return (
 		<DropdownMenuInfoItem
 			icon={ArrowUpRight}
 			label={t("identity.accountPage.table.actions.viewDetails")}
 			onClick={() => {
-				window.open(href, "_blank", "noopener,noreferrer");
+				router.push(href);
 			}}
 		/>
 	);

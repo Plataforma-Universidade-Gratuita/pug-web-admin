@@ -6,3 +6,4 @@ export * from "./useLocalizedZodForm";
 export * from "./useQueryErrorToasts";
 export * from "./useServicePageDetailState";
 export * from "./useServicePageEditorState";
+export * from "./useServicePagePagination";

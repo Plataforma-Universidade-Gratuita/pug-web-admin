@@ -882,6 +882,21 @@
 				}
 			}
 		},
+		"pagination": {
+			"firstPage": "Ir para a primeira página",
+			"lastPage": "Ir para a última página",
+			"nextPage": "Ir para a próxima página",
+			"page": "Página {{page}} de {{totalPages}}",
+			"pageSize": {
+				"options": {
+					"all": "Todos",
+					"number": "{{value}} por página"
+				},
+				"placeholder": "Tamanho da página"
+			},
+			"previousPage": "Ir para a página anterior",
+			"total": "{{count}} registros"
+		},
 		"table": {
 			"actions": "AÃƒÂ§ÃƒÂµes",
 			"empty": {
@@ -2787,7 +2802,26 @@
 				}
 			},
 			"filters": {
-				"searchPlaceholder": "Buscar por nome da cidade ou c?digo IBGE"
+				"backend": {
+					"active": "Filtros ativos",
+					"apply": "Aplicar filtros",
+					"clear": "Limpar filtros",
+					"clearConfirm": {
+						"description": "Isso vai remover os filtros aplicados da tabela de cidades.",
+						"title": "Limpar filtros?"
+					},
+					"label": "Filtros",
+					"name": {
+						"label": "Padrão de nome",
+						"placeholder": "Filtrar por nome da cidade no servidor"
+					},
+					"overhead": "Refino",
+					"title": "Filtros",
+					"trigger": "Abrir filtros"
+				},
+				"frontend": {
+					"searchPlaceholder": "Filtrar os resultados atuais por nome da cidade ou código IBGE"
+				}
 			},
 			"loading": {
 				"detail": "Carregando detalhes da cidade",

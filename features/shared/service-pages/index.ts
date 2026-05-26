@@ -5,6 +5,7 @@ export * from "./ServicePageConfirmDialog";
 export * from "./ServicePageFiltersDrawer";
 export * from "./ServicePageLinkedAccountBlock";
 export * from "./ServicePageLinkedUserBlock";
+export * from "./ServicePagePagination";
 export * from "./ServicePageTableSection";
 export * from "./filters/TextFieldFilter";
 export * from "./filters/NumberFieldFilter";

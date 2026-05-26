@@ -30,6 +30,7 @@ export interface ServicePageHeaderActionsProps {
 
 export interface ServicePageTableSectionProps<TData extends RowData> {
 	tableProps: TableProps<TData>;
+	footer?: ReactNode;
 }
 
 export interface ServicePageShellProps {
@@ -159,6 +160,43 @@ export interface AuditInfoFilterProps extends AuditInfoFilterFieldsProps {
 }
 
 export type ServicePageDraftFilters = object;
+
+export type ServicePageSizeOption = 25 | 50 | 100 | "all";
+
+export interface UseServicePagePaginationOptions {
+	key: string;
+	totalPages?: number;
+	defaultPage?: number;
+	defaultSize?: ServicePageSizeOption;
+}
+
+export interface UseServicePagePaginationResult {
+	currentPage: number;
+	pageSize: ServicePageSizeOption;
+	isAll: boolean;
+	backendPage: number | null;
+	backendSize: number | null;
+	totalPages: number;
+	canGoToPreviousPage: boolean;
+	canGoToNextPage: boolean;
+	setCurrentPage: (page: number) => void;
+	setPageSize: (size: ServicePageSizeOption) => void;
+	resetPage: () => void;
+	goToFirstPage: () => void;
+	goToPreviousPage: () => void;
+	goToNextPage: () => void;
+	goToLastPage: () => void;
+}
+
+export interface ServicePagePaginationProps {
+	currentPage: number;
+	pageSize: ServicePageSizeOption;
+	totalElements: number;
+	totalPages: number;
+	onPageChange: (page: number) => void;
+	onPageSizeChange: (size: ServicePageSizeOption) => void;
+	disabled?: boolean;
+}
 
 export interface UseDraftFiltersOptions<
 	TFilters extends ServicePageDraftFilters,

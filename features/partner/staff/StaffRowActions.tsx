@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
 	ArrowUpRight,
 	CopyPlus,
@@ -28,6 +30,7 @@ export function StaffRowActions({
 	staff,
 }: StaffRowActionsProps) {
 	const { t } = useTranslation();
+	const router = useRouter();
 
 	return (
 		<>
@@ -35,7 +38,7 @@ export function StaffRowActions({
 				icon={ArrowUpRight}
 				label={t("partner.staffPage.table.actions.viewDetails")}
 				onClick={() => {
-					window.open(href, "_blank", "noopener,noreferrer");
+					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem

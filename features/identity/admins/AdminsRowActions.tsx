@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
 	CopyPlus,
 	PenSquare,
@@ -29,6 +31,7 @@ export function AdminsRowActions({
 	onOpenEditor,
 }: AdminsRowActionsProps) {
 	const { t } = useTranslation();
+	const router = useRouter();
 
 	return (
 		<>
@@ -36,7 +39,7 @@ export function AdminsRowActions({
 				icon={ArrowUpRight}
 				label={t("identity.adminPage.table.actions.viewDetails")}
 				onClick={() => {
-					window.open(href, "_blank", "noopener,noreferrer");
+					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem

@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
 	ArrowUpRight,
 	Ban,
@@ -27,6 +29,7 @@ export function EnrollmentsRowActions({
 	onStatusAction,
 }: EnrollmentsRowActionsProps) {
 	const { t } = useTranslation();
+	const router = useRouter();
 
 	return (
 		<>
@@ -34,7 +37,7 @@ export function EnrollmentsRowActions({
 				icon={ArrowUpRight}
 				label={t("project.enrollmentPage.table.actions.viewDetails")}
 				onClick={() => {
-					window.open(href, "_blank", "noopener,noreferrer");
+					router.push(href);
 				}}
 			/>
 

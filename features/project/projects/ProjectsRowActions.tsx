@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
 	ArrowUpRight,
 	Ban,
@@ -31,6 +33,7 @@ export function ProjectsRowActions({
 	project,
 }: ProjectsRowActionsProps) {
 	const { t } = useTranslation();
+	const router = useRouter();
 
 	return (
 		<>
@@ -38,7 +41,7 @@ export function ProjectsRowActions({
 				icon={ArrowUpRight}
 				label={t("project.projectPage.table.actions.viewDetails")}
 				onClick={() => {
-					window.open(href, "_blank", "noopener,noreferrer");
+					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem

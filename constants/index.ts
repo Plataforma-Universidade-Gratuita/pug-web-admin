@@ -9,6 +9,7 @@ export * from "./hooks";
 export * from "./identity";
 export * from "./locale";
 export * from "./navigation";
+export * from "./pagination";
 export * from "./project";
 export * from "./react-query";
 export * from "./theme";

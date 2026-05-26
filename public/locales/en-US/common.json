@@ -882,6 +882,21 @@
 				}
 			}
 		},
+		"pagination": {
+			"firstPage": "Go to first page",
+			"lastPage": "Go to last page",
+			"nextPage": "Go to next page",
+			"page": "Page {{page}} of {{totalPages}}",
+			"pageSize": {
+				"options": {
+					"all": "All",
+					"number": "{{value}} per page"
+				},
+				"placeholder": "Page size"
+			},
+			"previousPage": "Go to previous page",
+			"total": "{{count}} records"
+		},
 		"table": {
 			"actions": "Actions",
 			"empty": {
@@ -2787,7 +2802,26 @@
 				}
 			},
 			"filters": {
-				"searchPlaceholder": "Search by city name or IBGE code"
+				"backend": {
+					"active": "Filters active",
+					"apply": "Apply filters",
+					"clear": "Clear filters",
+					"clearConfirm": {
+						"description": "This will remove the applied filters from the city table.",
+						"title": "Clear filters?"
+					},
+					"label": "Filters",
+					"name": {
+						"label": "Name pattern",
+						"placeholder": "Filter by city name on the server"
+					},
+					"overhead": "Refinement",
+					"title": "Filters",
+					"trigger": "Open filters"
+				},
+				"frontend": {
+					"searchPlaceholder": "Filter the current results by city name or IBGE code"
+				}
 			},
 			"loading": {
 				"detail": "Loading city details",
