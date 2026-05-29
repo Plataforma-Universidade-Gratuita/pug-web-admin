@@ -277,30 +277,22 @@ export function useCreateAdminMutation() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: async ({ active, body }: AdminCreateMutationVariables) => {
+		mutationFn: async ({ body }: AdminCreateMutationVariables) => {
 			const admin = await create(body);
-
-			if (!active) {
-				await setActive(admin.accountId, false);
-			}
-
-			return { active, admin, body };
+			return { admin, body };
 		},
-		onSuccess: ({ active, admin, body }) => {
-			const nextAdmin =
-				admin.accountActive === active
-					? admin
-					: {
-							...admin,
-							accountActive: active,
-						};
-			writeAdminCaches(queryClient, nextAdmin);
+		onSuccess: ({ admin, body }) => {
+			writeAdminCaches(queryClient, admin);
 
-			const nextAccount = buildNextAccountRecord(nextAdmin, { active });
+			const nextAccount = buildNextAccountRecord(admin, {
+				active: admin.accountActive,
+			});
 			writeAccountCaches(queryClient, nextAccount);
 
-			const nextUser = buildNextUserRecord(nextAdmin, {
+			const existingUser = getCachedUser(queryClient, admin.userId);
+			const nextUser = buildNextUserRecord(admin, {
 				...(body.cpf ? { cpf: body.cpf } : {}),
+				...(existingUser ? { existing: existingUser } : {}),
 			});
 			if (nextUser) {
 				writeUserCaches(queryClient, nextUser);

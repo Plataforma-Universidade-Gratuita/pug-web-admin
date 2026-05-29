@@ -23,7 +23,6 @@ import {
 	useAdminsSearchQuery,
 	useCurrentAdminQuery,
 } from "@/features/identity/admins/queries";
-import { get as getUser } from "@/api/web/identity/users";
 import {
 	appendCopyToEmail,
 	buildAdminDuplicateCreateRequest,
@@ -184,24 +183,17 @@ export function AdminsPage() {
 	const totalPages = adminsPagination.isAll
 		? 1
 		: Math.max(adminsSearchQuery.data?.totalPages ?? 1, 1);
+	const adminsCurrentPage = adminsPagination.currentPage;
+	const adminsAreShowingAll = adminsPagination.isAll;
+	const setAdminsCurrentPage = adminsPagination.setCurrentPage;
 
 	useEffect(() => {
-		if (
-			adminsPagination.isAll ||
-			!adminsSearchQuery.data ||
-			adminsPagination.currentPage <= totalPages
-		) {
+		if (adminsAreShowingAll || !adminsSearchQuery.data || adminsCurrentPage <= totalPages) {
 			return;
 		}
 
-		adminsPagination.setCurrentPage(totalPages);
-	}, [
-		adminsPagination.currentPage,
-		adminsPagination.isAll,
-		adminsPagination.setCurrentPage,
-		adminsSearchQuery.data,
-		totalPages,
-	]);
+		setAdminsCurrentPage(totalPages);
+	}, [adminsAreShowingAll, adminsCurrentPage, adminsSearchQuery.data, setAdminsCurrentPage, totalPages]);
 
 	useQueryErrorToasts([
 		{
@@ -221,44 +213,37 @@ export function AdminsPage() {
 		setBackendFiltersOpen(false);
 	}
 
-	async function handleDuplicate(admin: AdminSearchResponse) {
-		try {
-			const user = await getUser(admin.account.user.id);
-			const body = buildAdminDuplicateCreateRequest(admin, user);
+	function handleDuplicate(admin: AdminSearchResponse) {
+		const body = buildAdminDuplicateCreateRequest(admin);
 
-			createAdminMutation.mutate(
-				{
-					active: admin.account.active,
-					body,
+		createAdminMutation.mutate(
+			{
+				body,
+			},
+			{
+				onSuccess: ({ admin: createdAdmin }) => {
+					toast.success(
+						t("identity.adminPage.duplicate.feedback.success.title"),
+						{
+							description: t(
+								"identity.adminPage.duplicate.feedback.success.description",
+								{
+									name: createdAdmin.userName,
+									email: appendCopyToEmail(admin.account.email),
+								},
+							),
+						},
+					);
 				},
-				{
-					onSuccess: ({ admin: createdAdmin }) => {
-						toast.success(
-							t("identity.adminPage.duplicate.feedback.success.title"),
-							{
-								description: t(
-									"identity.adminPage.duplicate.feedback.success.description",
-									{
-										name: createdAdmin.userName,
-										email: appendCopyToEmail(admin.account.email),
-									},
-								),
-							},
-						);
-					},
-					onError: error => {
-						const { title, description } = getAdminDuplicateErrorToastContent(
-							t,
-							error,
-						);
-						toast.danger(title, { description });
-					},
+				onError: error => {
+					const { title, description } = getAdminDuplicateErrorToastContent(
+						t,
+						error,
+					);
+					toast.danger(title, { description });
 				},
-			);
-		} catch (error) {
-			const { title, description } = getAdminDuplicateErrorToastContent(t, error);
-			toast.danger(title, { description });
-		}
+			},
+		);
 	}
 
 	function handleStatusChangeConfirm() {

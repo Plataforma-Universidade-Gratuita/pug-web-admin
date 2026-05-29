@@ -48,8 +48,12 @@ export interface AdminEditorFormValues {
 	active: boolean;
 }
 
+export type AdminCreateExistingUser = Pick<
+	UserResponse,
+	"id" | "cpf" | "cpfFormatted" | "name"
+>;
+
 export interface AdminCreateMutationVariables {
-	active: boolean;
 	body: AdminCreateRequest;
 }
 
@@ -80,6 +84,7 @@ export interface AdminEditorContentProps {
 		label: string;
 		value: Campi;
 	}[];
+	existingUsers: AdminCreateExistingUser[];
 	form: UseFormReturn<AdminEditorFormValues>;
 	linkedAccount: AccountResponse | undefined;
 	linkedAccountError: unknown;

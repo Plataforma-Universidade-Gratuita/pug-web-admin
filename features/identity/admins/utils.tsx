@@ -6,13 +6,12 @@ import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 export { createAdminEditorFormSchema } from "@/schemas";
 import type {
 	AdminComplexSearchFilters,
+	AdminCreateExistingUser,
 	AdminCreateRequest,
 	AdminEditorFormValues,
 	AdminResponse,
 	AdminSearchResponse,
 	AdminUpdateRequest,
-	Campi,
-	UserResponse,
 } from "@/types";
 import type { AdminFrontendFilterArgs } from "@/types";
 import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
@@ -395,30 +394,44 @@ export function toAdminUpdateRequest(
 
 export function toAdminCreateRequest(
 	values: AdminEditorFormValues,
+	existingUser?: AdminCreateExistingUser | null,
 ): AdminCreateRequest {
-	const password = values.password.trim();
+	if (existingUser) {
+		return {
+			userId: existingUser.id,
+			email: values.email.trim(),
+			campus: values.campus,
+		};
+	}
 
 	return {
 		cpf: normalizeCpf(values.cpf.trim()),
 		name: values.name.trim(),
 		email: values.email.trim(),
-		password: password.length > 0 ? password : undefined,
 		campus: values.campus,
-		active: values.active,
 	};
 }
 
 export function buildAdminDuplicateCreateRequest(
 	admin: AdminSearchResponse,
-	user: Pick<UserResponse, "cpf" | "name">,
 ): AdminCreateRequest {
 	return {
-		cpf: normalizeCpf(user.cpf),
-		name: user.name,
+		userId: admin.account.user.id,
 		email: appendCopyToEmail(admin.account.email),
 		campus: admin.campus.campus,
-		active: admin.account.active,
 	};
+}
+
+export function findAdminExistingUserByCpf(
+	users: AdminCreateExistingUser[],
+	cpfValue: string,
+) {
+	const normalizedCpf = normalizeCpf(cpfValue.trim());
+	if (normalizedCpf.length === 0) {
+		return null;
+	}
+
+	return users.find(user => user.cpf === normalizedCpf) ?? null;
 }
 
 export function appendCopyToEmail(email: string) {

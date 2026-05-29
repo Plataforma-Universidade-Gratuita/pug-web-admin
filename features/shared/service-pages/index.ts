@@ -2,6 +2,7 @@ export * from "./ServicePageHeader";
 export * from "./ServicePageHeaderActions";
 export * from "./ServicePageShell";
 export * from "./ServicePageConfirmDialog";
+export * from "./ServicePageEditorDrawer";
 export * from "./ServicePageFiltersDrawer";
 export * from "./ServicePageLinkedAccountBlock";
 export * from "./ServicePageLinkedUserBlock";

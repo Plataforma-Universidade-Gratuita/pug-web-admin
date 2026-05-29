@@ -2,8 +2,12 @@ import type { Dispatch, ReactNode, SetStateAction } from "react";
 
 import type { RowData } from "@tanstack/react-table";
 
-import type { AccountResponse, UserResponse } from "@/types";
-import type { TableProps } from "@/types";
+import type {
+	AccountResponse,
+	TableProps,
+	TabsProps,
+	UserResponse,
+} from "@/types";
 
 export interface ServicePageMetadataPopoverProps {
 	triggerLabel: string;
@@ -53,6 +57,24 @@ export interface ServicePageFiltersDrawerProps {
 	overhead: ReactNode;
 	title: ReactNode;
 	triggerLabel: ReactNode;
+}
+
+export interface ServicePageEditorDrawerTabsProps
+	extends Omit<TabsProps, "children"> {
+	list: ReactNode;
+}
+
+export interface ServicePageEditorDrawerProps {
+	bodyClassName?: string;
+	children: ReactNode;
+	footer: ReactNode;
+	isLoading?: boolean;
+	loadingLabel?: string;
+	onOpenChange: (open: boolean) => void;
+	open: boolean;
+	overhead: ReactNode;
+	tabs?: ServicePageEditorDrawerTabsProps;
+	title: ReactNode;
 }
 
 export interface ServicePageConfirmDialogProps {

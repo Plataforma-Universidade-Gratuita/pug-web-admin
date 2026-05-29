@@ -13,12 +13,9 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 	Button,
-	Drawer,
-	DrawerBody,
-	DrawerContent,
-	DrawerHeader,
-	DrawerTitle,
 	Footer,
+	TabsList,
+	TabsTrigger,
 	toast,
 } from "@/components";
 import { AdminEditorContent } from "@/features/identity/admins/AdminEditorContent";
@@ -31,9 +28,11 @@ import {
 	useLinkedAdminAccountQuery,
 	useLinkedAdminUserQuery,
 } from "@/features/identity/admins/queries";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	buildAdminUpdateFormValues,
 	createAdminEditorFormSchema,
+	findAdminExistingUserByCpf,
 	getAdminCampusOptions,
 	getAdminCreateErrorToastContent,
 	getAdminDetailErrorToastContent,
@@ -49,6 +48,7 @@ import {
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
+import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import type { AdminEditorFormValues, AdminsUpdateDrawerProps } from "@/types";
 
 export function AdminsUpdateDrawer({
@@ -60,6 +60,7 @@ export function AdminsUpdateDrawer({
 	const { t } = useTranslation();
 	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
+	const existingUsersQuery = useUsersQuery(open && isCreateMode);
 	const adminDetailQuery = useAdminDetailQuery(adminId);
 	const linkedAccountQuery = useLinkedAdminAccountQuery(
 		adminDetailQuery.data?.accountId ?? null,
@@ -150,6 +151,29 @@ export function AdminsUpdateDrawer({
 			? "identity.adminPage.create.actions.savePending"
 			: "identity.adminPage.update.actions.savePending",
 	);
+	const editorTabs =
+		canRenderForm &&
+		!adminDetailQuery.isError &&
+		!linkedAccountQuery.isError
+			? {
+					defaultValue: "profile" as const,
+					list: (
+						<TabsList>
+							<TabsTrigger value="profile">
+								{t("identity.adminPage.update.tabs.profile")}
+							</TabsTrigger>
+							<TabsTrigger value="access">
+								{t("identity.adminPage.update.tabs.access")}
+							</TabsTrigger>
+							{!isCreateMode ? (
+								<TabsTrigger value="user">
+									{t("identity.adminPage.update.tabs.user")}
+								</TabsTrigger>
+							) : null}
+						</TabsList>
+					),
+				}
+			: undefined;
 
 	useQueryErrorToasts([
 		{
@@ -201,10 +225,14 @@ export function AdminsUpdateDrawer({
 
 	function onSubmit(values: AdminEditorFormValues) {
 		if (isCreateMode) {
+			const existingUser = findAdminExistingUserByCpf(
+				existingUsersQuery.data ?? [],
+				values.cpf,
+			);
+
 			createMutation.mutate(
 				{
-					active: values.active,
-					body: toAdminCreateRequest(values),
+					body: toAdminCreateRequest(values, existingUser),
 				},
 				{
 					onSuccess: ({ admin }) => {
@@ -267,49 +295,16 @@ export function AdminsUpdateDrawer({
 
 	return (
 		<>
-			<Drawer
+			<ServicePageEditorDrawer
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
 				loadingLabel={t("identity.adminPage.update.loading")}
-			>
-				<DrawerContent>
-					<DrawerHeader overhead={drawerOverhead}>
-						<DrawerTitle>
-							{adminDetailQuery.data?.userName ?? drawerTitleFallback}
-						</DrawerTitle>
-					</DrawerHeader>
-
-					<DrawerBody className="grid gap-6">
-						<AdminEditorContent
-							admin={adminDetailQuery.data}
-							adminError={
-								adminDetailQuery.isError ? adminDetailQuery.error : null
-							}
-							canRenderForm={canRenderForm}
-							campusOptions={campusOptions}
-							form={form}
-							linkedAccount={linkedAccountQuery.data}
-							linkedAccountError={
-								linkedAccountQuery.isError ? linkedAccountQuery.error : null
-							}
-							linkedUser={linkedUserQuery.data}
-							linkedUserError={
-								linkedUserQuery.isError ? linkedUserQuery.error : null
-							}
-							mode={mode}
-							onRefreshAccount={() => {
-								void linkedAccountQuery.refetch();
-							}}
-							onRefreshAdmin={() => {
-								void adminDetailQuery.refetch();
-							}}
-							onRefreshUser={() => {
-								void linkedUserQuery.refetch();
-							}}
-						/>
-					</DrawerBody>
-
+				overhead={drawerOverhead}
+				title={adminDetailQuery.data?.userName ?? drawerTitleFallback}
+				tabs={editorTabs}
+				bodyClassName="grid gap-6"
+				footer={
 					<Footer className="drawer-footer">
 						<Button
 							variant="secondary"
@@ -332,8 +327,37 @@ export function AdminsUpdateDrawer({
 							{saveLabel}
 						</Button>
 					</Footer>
-				</DrawerContent>
-			</Drawer>
+				}
+			>
+				<AdminEditorContent
+					admin={adminDetailQuery.data}
+					adminError={
+						adminDetailQuery.isError ? adminDetailQuery.error : null
+					}
+					canRenderForm={canRenderForm}
+					campusOptions={campusOptions}
+					existingUsers={existingUsersQuery.data ?? []}
+					form={form}
+					linkedAccount={linkedAccountQuery.data}
+					linkedAccountError={
+						linkedAccountQuery.isError ? linkedAccountQuery.error : null
+					}
+					linkedUser={linkedUserQuery.data}
+					linkedUserError={
+						linkedUserQuery.isError ? linkedUserQuery.error : null
+					}
+					mode={mode}
+					onRefreshAccount={() => {
+						void linkedAccountQuery.refetch();
+					}}
+					onRefreshAdmin={() => {
+						void adminDetailQuery.refetch();
+					}}
+					onRefreshUser={() => {
+						void linkedUserQuery.refetch();
+					}}
+				/>
+			</ServicePageEditorDrawer>
 
 			<AlertDialog
 				open={isResetConfirmOpen}

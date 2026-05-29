@@ -38,9 +38,7 @@ export const AdminCreateRequestSchema = z.object({
 	cpf: z.string().optional(),
 	name: z.string().optional(),
 	email: z.string(),
-	password: z.string().optional(),
 	campus: CampiEnum,
-	active: z.boolean().optional(),
 	userId: z.string().optional(),
 });
 

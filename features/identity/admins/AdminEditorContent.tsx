@@ -1,6 +1,8 @@
 "use client";
 
-import { Controller } from "react-hook-form";
+import { useEffect, useMemo, useRef } from "react";
+
+import { Controller, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -14,15 +16,13 @@ import {
 	SelectTrigger,
 	SomeErrorState,
 	Switch,
-	Tabs,
 	TabsContent,
-	TabsList,
-	TabsTrigger,
 } from "@/components";
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
+import { findAdminExistingUserByCpf } from "@/features/identity/admins/utils";
 import { AdminUserTab } from "@/features/identity/admins/AdminUserTab";
 import type { AdminEditorContentProps } from "@/types";
 import { WebApiError } from "@/utils";
@@ -32,6 +32,7 @@ export function AdminEditorContent({
 	adminError,
 	canRenderForm,
 	campusOptions,
+	existingUsers,
 	form,
 	linkedAccount,
 	linkedAccountError,
@@ -44,6 +45,45 @@ export function AdminEditorContent({
 }: AdminEditorContentProps) {
 	const { t } = useTranslation();
 	const isCreateMode = mode === "create";
+	const watchedCpf = useWatch({
+		control: form.control,
+		name: "cpf",
+	});
+	const matchedExistingUser = useMemo(
+		() => findAdminExistingUserByCpf(existingUsers, watchedCpf ?? ""),
+		[existingUsers, watchedCpf],
+	);
+	const lastAutoFilledNameRef = useRef<string | null>(null);
+
+	useEffect(() => {
+		if (!isCreateMode) {
+			return;
+		}
+
+		if (matchedExistingUser) {
+			if (form.getValues("name") !== matchedExistingUser.name) {
+				form.setValue("name", matchedExistingUser.name, {
+					shouldDirty: true,
+					shouldValidate: true,
+				});
+			}
+
+			lastAutoFilledNameRef.current = matchedExistingUser.name;
+			return;
+		}
+
+		if (
+			lastAutoFilledNameRef.current &&
+			form.getValues("name") === lastAutoFilledNameRef.current
+		) {
+			form.setValue("name", "", {
+				shouldDirty: true,
+				shouldValidate: true,
+			});
+		}
+
+		lastAutoFilledNameRef.current = null;
+	}, [form, isCreateMode, matchedExistingUser]);
 
 	if (!isCreateMode && adminError) {
 		if (adminError instanceof WebApiError && adminError.status === 404) {
@@ -107,21 +147,7 @@ export function AdminEditorContent({
 			: getAccountTypeTone(linkedAccount.accountType);
 
 	return (
-		<Tabs defaultValue="profile">
-			<TabsList>
-				<TabsTrigger value="profile">
-					{t("identity.adminPage.update.tabs.profile")}
-				</TabsTrigger>
-				<TabsTrigger value="access">
-					{t("identity.adminPage.update.tabs.access")}
-				</TabsTrigger>
-				{!isCreateMode ? (
-					<TabsTrigger value="user">
-						{t("identity.adminPage.update.tabs.user")}
-					</TabsTrigger>
-				) : null}
-			</TabsList>
-
+		<>
 			<TabsContent
 				value="profile"
 				className="grid gap-4 pt-4"
@@ -133,12 +159,20 @@ export function AdminEditorContent({
 					<Input
 						id="admin-name"
 						{...form.register("name")}
+						disabled={isCreateMode && matchedExistingUser != null}
 						aria-describedby={
 							form.formState.errors.name ? "admin-name-error" : undefined
 						}
 						aria-invalid={form.formState.errors.name ? "true" : "false"}
-						placeholder={t("identity.adminPage.update.fields.name")}
+						placeholder={t("identity.adminPage.update.fields.namePlaceholder")}
 					/>
+					{isCreateMode ? (
+						<p className="control-description">
+							{matchedExistingUser
+								? t("identity.adminPage.update.fields.nameLockedDescription")
+								: t("identity.adminPage.update.fields.nameEditableDescription")}
+						</p>
+					) : null}
 					{form.formState.errors.name ? (
 						<p
 							id="admin-name-error"
@@ -181,13 +215,24 @@ export function AdminEditorContent({
 						<Input
 							id="admin-cpf"
 							inputMode="numeric"
+							list="admin-cpf-options"
 							{...form.register("cpf")}
 							aria-describedby={
 								form.formState.errors.cpf ? "admin-cpf-error" : undefined
 							}
 							aria-invalid={form.formState.errors.cpf ? "true" : "false"}
-							placeholder={t("identity.adminPage.update.fields.cpf")}
+							placeholder={t("identity.adminPage.update.fields.cpfPlaceholder")}
 						/>
+						<datalist id="admin-cpf-options">
+							{existingUsers.map(user => (
+								<option
+									key={user.id}
+									value={user.cpfFormatted}
+								>
+									{`${user.cpfFormatted} - ${user.name}`}
+								</option>
+							))}
+						</datalist>
 						{form.formState.errors.cpf ? (
 							<p
 								id="admin-cpf-error"
@@ -199,36 +244,36 @@ export function AdminEditorContent({
 					</div>
 				) : null}
 
-				<div className="grid gap-2">
-					<Label htmlFor="admin-password">
-						{t("identity.adminPage.update.fields.password")}
-					</Label>
-					<Input
-						id="admin-password"
-						type="password"
-						showPasswordToggle
-						{...form.register("password")}
-						aria-describedby={
-							form.formState.errors.password
-								? "admin-password-error"
-								: undefined
-						}
-						aria-invalid={form.formState.errors.password ? "true" : "false"}
-						placeholder={t(
-							isCreateMode
-								? "identity.adminPage.create.fields.passwordPlaceholder"
-								: "identity.adminPage.update.fields.passwordPlaceholder",
-						)}
-					/>
-					{form.formState.errors.password ? (
-						<p
-							id="admin-password-error"
-							className="field-error"
-						>
-							{form.formState.errors.password.message}
-						</p>
-					) : null}
-				</div>
+				{!isCreateMode ? (
+					<div className="grid gap-2">
+						<Label htmlFor="admin-password">
+							{t("identity.adminPage.update.fields.password")}
+						</Label>
+						<Input
+							id="admin-password"
+							type="password"
+							showPasswordToggle
+							{...form.register("password")}
+							aria-describedby={
+								form.formState.errors.password
+									? "admin-password-error"
+									: undefined
+							}
+							aria-invalid={form.formState.errors.password ? "true" : "false"}
+							placeholder={t(
+								"identity.adminPage.update.fields.passwordPlaceholder",
+							)}
+						/>
+						{form.formState.errors.password ? (
+							<p
+								id="admin-password-error"
+								className="field-error"
+							>
+								{form.formState.errors.password.message}
+							</p>
+						) : null}
+					</div>
+				) : null}
 			</TabsContent>
 
 			<TabsContent
@@ -293,11 +338,16 @@ export function AdminEditorContent({
 						<Switch
 							checked={field.value}
 							onCheckedChange={field.onChange}
+							disabled={isCreateMode}
 							label={t("identity.adminPage.update.fields.active")}
 							description={
-								field.value
-									? t("identity.adminPage.update.fields.activeValues.active")
-									: t("identity.adminPage.update.fields.activeValues.inactive")
+								isCreateMode
+									? t("identity.adminPage.update.fields.activeDescription")
+									: field.value
+										? t("identity.adminPage.update.fields.activeValues.active")
+										: t(
+												"identity.adminPage.update.fields.activeValues.inactive",
+											)
 							}
 						/>
 					)}
@@ -321,6 +371,6 @@ export function AdminEditorContent({
 					onRefreshUser={onRefreshUser}
 				/>
 			) : null}
-		</Tabs>
+		</>
 	);
 }
