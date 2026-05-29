@@ -1,7 +1,6 @@
 "use client";
 
-import { MultiSelect, Checkbox, DatePicker, Label, Select, SelectContent, SelectItem, SelectTrigger } from "@/components";
-import { ACCOUNT_TYPE_VALUES } from "@/constants";
+import { MultiSelect, Checkbox, DatePicker, Label } from "@/components";
 import { useTranslation } from "react-i18next";
 
 import { getAdminCampusOptions } from "@/features/identity/admins/utils";
@@ -65,41 +64,6 @@ export function AdminsFiltersDrawer({
 				onChange={value => onFilterChange("email", value)}
 				placeholder={t("identity.accountPage.filters.email.placeholder")}
 			/>
-
-			<div className="grid gap-2">
-				<Label>{t("identity.accountPage.filters.accountType.label")}</Label>
-				<Select
-					value={filters.accountType || "ALL"}
-					onValueChange={value =>
-						onFilterChange(
-							"accountType",
-							value === "ALL" ? "" : (value as typeof filters.accountType),
-						)
-					}
-				>
-					<SelectTrigger
-						className="w-full"
-						placeholder={t(
-							"identity.accountPage.filters.accountType.placeholder",
-						)}
-					/>
-					<SelectContent>
-						<SelectItem value="ALL">
-							{t("identity.accountPage.filters.accountType.options.all")}
-						</SelectItem>
-						{ACCOUNT_TYPE_VALUES.map(accountType => (
-							<SelectItem
-								key={accountType}
-								value={accountType}
-							>
-								{t(
-									`identity.accountPage.filters.accountType.options.${accountType}`,
-								)}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
-			</div>
 
 			<div className="grid gap-2">
 				<Label>{t("identity.adminPage.filters.campus.label")}</Label>

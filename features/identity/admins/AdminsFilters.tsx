@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 
-import { MultiSelect } from "@/components";
+import { Label, MultiSelect } from "@/components";
 import { useTranslation } from "react-i18next";
 
 import { getAdminCampusOptions } from "@/features/identity/admins/utils";
@@ -35,14 +35,18 @@ export function AdminsFilters({
 				onChange={onFrontendQuerySearchChange}
 				placeholder={t("identity.adminPage.filters.search.placeholder")}
 			/>
-			<MultiSelect
-				options={campusOptions}
-				value={frontendCampusFilters}
-				onValueChange={value =>
-					onFrontendCampusFiltersChange(value as typeof frontendCampusFilters)
-				}
-				placeholder={t("identity.adminPage.filters.campus.placeholder")}
-			/>
+			<div className="grid gap-2">
+				<Label>{t("identity.adminPage.filters.campus.label")}</Label>
+				<MultiSelect
+					options={campusOptions}
+					value={frontendCampusFilters}
+					onValueChange={value =>
+						onFrontendCampusFiltersChange(value as typeof frontendCampusFilters)
+					}
+					placeholder={t("identity.adminPage.filters.campus.placeholder")}
+					className="min-h-11"
+				/>
+			</div>
 			<AdminsFiltersDrawer
 				filters={backendFilters}
 				hasActiveFilters={hasBackendFilters}
