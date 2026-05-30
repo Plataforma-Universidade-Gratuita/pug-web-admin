@@ -1,7 +1,7 @@
 {
   "academic": {
     "modulePage": {
-      "description": "Academic reference and workflow services for areas of expertise, courses, and students.",
+      "description": "Academic reference and workflow services for areas of expertise, courses, and formerStudents.",
       "title": "Academic services"
     },
     "coursePage": {
