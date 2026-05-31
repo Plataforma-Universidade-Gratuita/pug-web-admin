@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { createRequiredTrimmedStringSchema } from "@/schemas";
 
-export function createSchoolEditorFormSchema(t: TFunction) {
+export function createAreaOfExpertiseEditorFormSchema(t: TFunction) {
 	return z.object({
 		name: createRequiredTrimmedStringSchema(
 			t("academic.schoolPage.editor.validation.name"),

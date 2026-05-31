@@ -12,13 +12,18 @@ export interface AccountRoutePageProps {
 	}>;
 }
 
-export type AccountSearchAccountType = "" | "ADMIN" | "PARTNER" | "STUDENT";
+export type AccountSearchAccountType =
+	| ""
+	| "ADMIN"
+	| "FORMER_STUDENT"
+	| "PARTNER"
+	| "STAFF";
 
 export interface AccountComplexSearchFilters {
 	name: string;
 	cpf: string;
 	email: string;
-	accountType: AccountSearchAccountType;
+	accountTypes: AccountSearchAccountType[];
 	dateFrom: string;
 	dateTo: string;
 	activeOnly: boolean;

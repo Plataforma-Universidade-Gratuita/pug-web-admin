@@ -10,7 +10,7 @@ export function createCourseEditorFormSchema(t: TFunction) {
 			150,
 			t("academic.coursePage.editor.validation.nameTooLong"),
 		),
-		schoolId: z
+		areaOfExpertiseId: z
 			.string()
 			.trim()
 			.min(1, t("academic.coursePage.editor.validation.school")),

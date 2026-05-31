@@ -10,11 +10,11 @@ import {
 	createRequiredTrimmedStringSchema,
 	isDateRangeInvalid,
 } from "@/schemas";
-import type { StudentEditorMode } from "@/types";
+import type { FormerStudentEditorMode } from "@/types";
 
-export function createStudentEditorFormSchema(
+export function createFormerStudentEditorFormSchema(
 	t: TFunction,
-	mode: StudentEditorMode,
+	mode: FormerStudentEditorMode,
 ) {
 	const requiresIdentityFields = mode !== "update";
 

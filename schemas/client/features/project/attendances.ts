@@ -14,7 +14,7 @@ export function createAttendanceFormSchema(t: TFunction) {
 			.string()
 			.trim()
 			.min(1, t("project.attendancePage.editor.validation.project.required")),
-		studentId: z
+		formerStudentId: z
 			.string()
 			.trim()
 			.min(1, t("project.attendancePage.editor.validation.student.required")),

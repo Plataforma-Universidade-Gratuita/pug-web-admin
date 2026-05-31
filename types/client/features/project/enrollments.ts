@@ -1,8 +1,8 @@
 import type {
 	EnrollmentResponse,
 	EnrollmentStatus,
+	FormerStudentResponse,
 	ProjectResponse,
-	StudentResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
@@ -31,18 +31,18 @@ export interface EnrollmentSecondaryFilters {
 	projectIdFilter: string;
 	startDate: string;
 	statusFilter: EnrollmentStatusFilter;
-	studentIdFilter: string;
+	formerStudentIdFilter: string;
 }
 
 export interface EnrollmentDeleteMutationVariables {
 	projectId: string;
-	studentId: string;
+	formerStudentId: string;
 }
 
 export interface EnrollmentStatusMutationVariables {
 	action: EnrollmentStatusAction;
 	projectId: string;
-	studentId: string;
+	formerStudentId: string;
 }
 
 export interface EnrollmentsFiltersDrawerProps {
@@ -56,19 +56,19 @@ export interface EnrollmentsFiltersDrawerProps {
 	onOpenChange: (open: boolean) => void;
 	onProjectIdFilterChange: (value: string) => void;
 	onRefreshProjects: () => void;
-	onRefreshStudents: () => void;
+	onRefreshFormerStudents: () => void;
 	onStartDateChange: (value: string) => void;
 	onStatusFilterChange: (value: EnrollmentStatusFilter) => void;
-	onStudentIdFilterChange: (value: string) => void;
+	onFormerStudentIdFilterChange: (value: string) => void;
 	open: boolean;
 	projectIdFilter: string;
 	projectOptions: ComboboxOption[];
 	projectsError: boolean;
 	startDate: string;
 	statusFilter: EnrollmentStatusFilter;
-	studentIdFilter: string;
-	studentOptions: ComboboxOption[];
-	studentsError: boolean;
+	formerStudentIdFilter: string;
+	formerStudentOptions: ComboboxOption[];
+	formerStudentsError: boolean;
 }
 
 export interface EnrollmentsRowActionsProps {
@@ -89,6 +89,6 @@ export interface EnrollmentFilterArgs {
 	query: string;
 	startDate: string;
 	statusFilter: EnrollmentStatusFilter;
-	studentById: Map<string, StudentResponse>;
-	studentIdFilter: string;
+	formerStudentById: Map<string, FormerStudentResponse>;
+	formerStudentIdFilter: string;
 }

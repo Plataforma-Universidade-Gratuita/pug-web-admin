@@ -5,8 +5,8 @@ import type {
 	AttendanceCreateRequest,
 	AttendanceResponse,
 	AttendanceStatus,
+	FormerStudentResponse,
 	ProjectResponse,
-	StudentResponse,
 } from "@/types";
 import type { AttendanceValidateRequest } from "@/types";
 import type { ComboboxOption } from "@/types";
@@ -31,13 +31,13 @@ export interface AttendanceSecondaryFilters {
 	projectIdFilter: string;
 	startDate: string;
 	statusFilter: AttendanceStatusFilter;
-	studentIdFilter: string;
+	formerStudentIdFilter: string;
 }
 
 export interface AttendanceCreateFormValues {
 	duration: string;
 	projectId: string;
-	studentId: string;
+	formerStudentId: string;
 }
 
 export interface AttendanceCreateMutationVariables {
@@ -62,11 +62,11 @@ export interface AttendancesCreateFormProps {
 	canRenderForm: boolean;
 	form: UseFormReturn<AttendanceCreateFormValues>;
 	onRefreshProjects: () => void;
-	onRefreshStudents: () => void;
+	onRefreshFormerStudents: () => void;
 	projectOptions: ComboboxOption[];
 	projectsError: unknown;
-	studentOptions: ComboboxOption[];
-	studentsError: unknown;
+	formerStudentOptions: ComboboxOption[];
+	formerStudentsError: unknown;
 }
 
 export interface AttendancesFiltersDrawerProps {
@@ -80,19 +80,19 @@ export interface AttendancesFiltersDrawerProps {
 	onOpenChange: (open: boolean) => void;
 	onProjectIdFilterChange: (value: string) => void;
 	onRefreshProjects: () => void;
-	onRefreshStudents: () => void;
+	onRefreshFormerStudents: () => void;
 	onStartDateChange: (value: string) => void;
 	onStatusFilterChange: (value: AttendanceStatusFilter) => void;
-	onStudentIdFilterChange: (value: string) => void;
+	onFormerStudentIdFilterChange: (value: string) => void;
 	open: boolean;
 	projectIdFilter: string;
 	projectOptions: ComboboxOption[];
 	projectsError: boolean;
 	startDate: string;
 	statusFilter: AttendanceStatusFilter;
-	studentIdFilter: string;
-	studentOptions: ComboboxOption[];
-	studentsError: boolean;
+	formerStudentIdFilter: string;
+	formerStudentOptions: ComboboxOption[];
+	formerStudentsError: boolean;
 }
 
 export interface AttendancesRowActionsProps {
@@ -114,6 +114,6 @@ export interface AttendanceFilterArgs {
 	query: string;
 	startDate: string;
 	statusFilter: AttendanceStatusFilter;
-	studentById: Map<string, StudentResponse>;
-	studentIdFilter: string;
+	formerStudentById: Map<string, FormerStudentResponse>;
+	formerStudentIdFilter: string;
 }

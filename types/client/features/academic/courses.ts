@@ -21,7 +21,7 @@ export interface CourseRoutePageProps {
 }
 
 export interface CourseSecondaryFilters {
-	schoolIdFilter: string;
+	areaOfExpertiseIdFilter: string;
 	dateField: CourseAuditDateField;
 	startDate: string;
 	endDate: string;
@@ -29,7 +29,7 @@ export interface CourseSecondaryFilters {
 
 export interface CourseEditorFormValues {
 	name: string;
-	schoolId: string;
+	areaOfExpertiseId: string;
 }
 
 export interface CourseCreateMutationVariables {
@@ -59,28 +59,28 @@ export interface CourseEditorFormProps {
 	form: UseFormReturn<CourseEditorFormValues>;
 	mode: CourseEditorMode;
 	onRefreshCourse: () => void;
-	onRefreshSchools: () => void;
-	schoolOptions: ComboboxOption[];
-	schoolsError: unknown;
+	onRefreshAreasOfExpertise: () => void;
+	areaOfExpertiseOptions: ComboboxOption[];
+	areasOfExpertiseError: unknown;
 }
 
 export interface CoursesFiltersDrawerProps {
 	dateField: CourseAuditDateField;
 	endDate: string;
 	hasActiveFilters: boolean;
-	isSchoolsLoading: boolean;
+	isAreasOfExpertiseLoading: boolean;
 	onApply: () => void;
 	onClear: () => void;
 	onDateFieldChange: (value: CourseAuditDateField) => void;
 	onEndDateChange: (value: string) => void;
 	onOpenChange: (open: boolean) => void;
-	onRefreshSchools: () => void;
-	onSchoolIdChange: (value: string) => void;
+	onRefreshAreasOfExpertise: () => void;
+	onAreaOfExpertiseIdChange: (value: string) => void;
 	onStartDateChange: (value: string) => void;
 	open: boolean;
-	schoolIdFilter: string;
-	schoolOptions: ComboboxOption[];
-	schoolsError: boolean;
+	areaOfExpertiseIdFilter: string;
+	areaOfExpertiseOptions: ComboboxOption[];
+	areasOfExpertiseError: boolean;
 	startDate: string;
 }
 
@@ -95,6 +95,6 @@ export interface CourseFilterArgs {
 	dateField: CourseAuditDateField;
 	endDate: string;
 	query: string;
-	schoolIdFilter: string;
+	areaOfExpertiseIdFilter: string;
 	startDate: string;
 }

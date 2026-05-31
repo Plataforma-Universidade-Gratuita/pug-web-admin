@@ -1,4 +1,4 @@
 /* --- Root --- */
-export * as schools from "./schools";
+export * as areasOfExpertise from "./areas-of-expertise";
 export * as courses from "./courses";
-export * as students from "./students";
+export * as formerStudents from "./former-students";
