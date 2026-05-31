@@ -4,5 +4,6 @@ import type { EntityRoutePageProps } from "@/types";
 export default async function Page({ params }: EntityRoutePageProps) {
 	const { entityId } = await params;
 
-	return <EntityPage entityId={entityId} />;
+	// return <EntityPage entityId={entityId} />;
+    return (<></>);
 }

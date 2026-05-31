@@ -4,5 +4,6 @@ import type { CourseRoutePageProps } from "@/types";
 export default async function Page({ params }: CourseRoutePageProps) {
 	const { courseId } = await params;
 
-	return <CoursePage courseId={courseId} />;
+	// return <CoursePage courseId={courseId} />;
+    return (<></>);
 }

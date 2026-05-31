@@ -1,8 +1,9 @@
 import { StudentPage } from "@/features/academic/students/student/StudentPage";
-import type { StudentRoutePageProps } from "@/types";
+import type { FormerStudentRoutePageProps } from "@/types";
 
-export default async function Page({ params }: StudentRoutePageProps) {
-	const { studentId } = await params;
+export default async function Page({ params }: FormerStudentRoutePageProps) {
+	const { formerStudentId } = await params;
 
-	return <StudentPage studentId={studentId} />;
+	// return <StudentPage studentId={studentId} />;
+    return (<></>);
 }
