@@ -1,8 +1,6 @@
 /* --- Academic --- */
 export * as areasOfExpertise from "./academic/areas-of-expertise";
-export * as schools from "./academic/schools";
 export * as courses from "./academic/courses";
-export * as students from "./academic/students";
 export * as formerStudents from "./academic/former-students";
 
 /* --- Geo --- */
@@ -20,6 +18,6 @@ export * as staff from "./partner/staff";
 
 /* --- Project --- */
 export * as projects from "./project/projects";
-export * as projectSchools from "./project/project-schools";
+export * as projectAreasOfExpertise from "./project/project-areas-of-expertise";
 export * as enrollments from "./project/enrollments";
 export * as attendances from "./project/attendances";

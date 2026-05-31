@@ -9,14 +9,14 @@ import { useAdminsQuery } from "@/features/identity/admins/queries";
 import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import {
 	useProjectDetailQuery,
-	useProjectSchoolsQuery,
+	useProjectAreasOfExpertiseQuery,
 } from "@/features/project/projects/queries";
 import {
-	formatProjectSchoolNames,
+	formatProjectAreaOfExpertiseNames,
 	getProjectAdminsErrorToastContent,
+	getProjectAreasOfExpertiseErrorToastContent,
 	getProjectDetailErrorToastContent,
 	getProjectEntitiesErrorToastContent,
-	getProjectSchoolsErrorToastContent,
 	getProjectStatusLabel,
 	getProjectStatusTone,
 	resolveProjectCreatorLabel,
@@ -34,7 +34,8 @@ import { WebApiError } from "@/utils";
 export function ProjectPage({ projectId }: ProjectPageProps) {
 	const { t } = useTranslation();
 	const projectDetailQuery = useProjectDetailQuery(projectId);
-	const projectSchoolsQuery = useProjectSchoolsQuery(projectId);
+	const projectAreasOfExpertiseQuery =
+		useProjectAreasOfExpertiseQuery(projectId);
 	const entitiesQuery = useEntitiesQuery();
 	const adminsQuery = useAdminsQuery();
 
@@ -47,11 +48,12 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 			isError: projectDetailQuery.isError,
 		},
 		{
-			key: `project-schools-${projectId}`,
-			error: projectSchoolsQuery.error,
-			errorUpdatedAt: projectSchoolsQuery.errorUpdatedAt,
-			getContent: error => getProjectSchoolsErrorToastContent(t, error),
-			isError: projectSchoolsQuery.isError,
+			key: `project-areas-of-expertise-${projectId}`,
+			error: projectAreasOfExpertiseQuery.error,
+			errorUpdatedAt: projectAreasOfExpertiseQuery.errorUpdatedAt,
+			getContent: error =>
+				getProjectAreasOfExpertiseErrorToastContent(t, error),
+			isError: projectAreasOfExpertiseQuery.isError,
 		},
 		{
 			key: `project-entities-${projectId}`,
@@ -81,7 +83,9 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 	);
 
 	const project = projectDetailQuery.data;
-	const schoolNames = formatProjectSchoolNames(projectSchoolsQuery.data);
+	const areaOfExpertiseNames = formatProjectAreaOfExpertiseNames(
+		projectAreasOfExpertiseQuery.data,
+	);
 	const fields = useMemo(
 		() =>
 			project
@@ -153,9 +157,9 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 						{
 							id: "schools",
 							label: t("project.projectPage.dialog.fields.schools"),
-							value: projectSchoolsQuery.isLoading
+							value: projectAreasOfExpertiseQuery.isLoading
 								? t("project.projectPage.loading.schools")
-								: (schoolNames ??
+								: (areaOfExpertiseNames ??
 									t("project.projectPage.dialog.values.noSchools")),
 						},
 						{
@@ -174,8 +178,8 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 			adminById,
 			entityById,
 			project,
-			projectSchoolsQuery.isLoading,
-			schoolNames,
+			projectAreasOfExpertiseQuery.isLoading,
+			areaOfExpertiseNames,
 			t,
 		],
 	);
@@ -204,14 +208,14 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 			) : project ? (
 				<div className="grid gap-6">
 					<EntityPageFieldsGrid fields={fields} />
-					{projectSchoolsQuery.isError ? (
+					{projectAreasOfExpertiseQuery.isError ? (
 						<SomeErrorState
 							title={t("project.projectPage.dialog.schoolsError.title")}
 							description={t(
 								"project.projectPage.dialog.schoolsError.description",
 							)}
 							onRefresh={() => {
-								void projectSchoolsQuery.refetch();
+								void projectAreasOfExpertiseQuery.refetch();
 							}}
 						/>
 					) : null}

@@ -1,0 +1,73 @@
+import { z } from "zod";
+
+import { WEB_API_ROUTE_BASES } from "@/constants";
+import {
+	AreaOfExpertiseResponseSchema,
+	ProjectAreaOfExpertiseRequestSchema,
+	ProjectResponseSchema,
+} from "@/schemas";
+import type {
+	AreaOfExpertiseResponse,
+	ProjectAreaOfExpertiseRequest,
+	ProjectResponse,
+} from "@/types";
+import { webFetch, webVoid } from "@/utils";
+
+export async function listAreasOfExpertiseByProject(
+	projectId: string,
+): Promise<AreaOfExpertiseResponse[]> {
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/areas-of-expertise`,
+		z.array(AreaOfExpertiseResponseSchema),
+	);
+}
+
+export async function listProjectsByAreaOfExpertise(
+	areaOfExpertiseId: string,
+): Promise<ProjectResponse[]> {
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.academic.areasOfExpertise}/${areaOfExpertiseId}/projects`,
+		z.array(ProjectResponseSchema),
+	);
+}
+
+export async function createAssociations(
+	projectId: string,
+	body: ProjectAreaOfExpertiseRequest,
+): Promise<void> {
+	return webVoid(
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/areas-of-expertise`,
+		{
+			method: "POST",
+			body: JSON.stringify(ProjectAreaOfExpertiseRequestSchema.parse(body)),
+		},
+	);
+}
+
+export async function deleteAssociation(
+	projectId: string,
+	areaOfExpertiseId: string,
+): Promise<void> {
+	return webVoid(
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/areas-of-expertise/${areaOfExpertiseId}`,
+		{
+			method: "DELETE",
+		},
+	);
+}
+
+export async function deleteAllByProject(projectId: string): Promise<void> {
+	return webVoid(
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/areas-of-expertise`,
+		{ method: "DELETE" },
+	);
+}
+
+export async function deleteAllByAreaOfExpertise(
+	areaOfExpertiseId: string,
+): Promise<void> {
+	return webVoid(
+		`${WEB_API_ROUTE_BASES.academic.areasOfExpertise}/${areaOfExpertiseId}/projects`,
+		{ method: "DELETE" },
+	);
+}

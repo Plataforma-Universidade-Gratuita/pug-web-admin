@@ -1,8 +1,9 @@
 import { z } from "zod";
 
-import { AuditInfoResponseSchema } from "@/schemas";
-
-// ─── Enums ───────────────────────────────────────────────────────────────────
+import {
+	AuditInfoResponseSchema,
+	EntitySimpleComplexSearchResponseSchema,
+} from "@/schemas";
 
 export const ProjectStatusEnum = z.enum([
 	"CANCELED",
@@ -12,18 +13,40 @@ export const ProjectStatusEnum = z.enum([
 	"PLANNED",
 ]);
 
-// ─── Responses ───────────────────────────────────────────────────────────────
-
 export const ProjectStatusResponseSchema = z.object({
 	status: ProjectStatusEnum,
 	statusFormatted: z.string(),
 });
 
+export const ProjectSimpleComplexSearchResponseSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+});
+
+export const ProjectAreaOfExpertiseRequestSchema = z.object({
+	areaOfExpertiseIds: z.array(z.string()),
+});
+
+export const ProjectCreateRequestSchema = z.object({
+	name: z.string(),
+	entityId: z.string(),
+	description: z.string(),
+	maxParticipants: z.number().nullable(),
+	offeredHours: z.number(),
+});
+
+export const ProjectUpdateRequestSchema = z.object({
+	name: z.string(),
+	description: z.string(),
+	maxParticipants: z.number().nullable(),
+	offeredHours: z.number(),
+});
+
 export const ProjectInfoResponseSchema = z.object({
 	createdBy: z.string(),
 	maxParticipants: z.number().nullable(),
-	offeredHours: z.number(),
-	completedHours: z.number(),
+	offeredHours: z.number().nullable(),
+	completedHours: z.number().nullable(),
 	closedAt: z.string().nullable(),
 	closedAtFormatted: z.string(),
 	auditInfo: AuditInfoResponseSchema,
@@ -32,38 +55,29 @@ export const ProjectInfoResponseSchema = z.object({
 export const ProjectResponseSchema = z.object({
 	id: z.string(),
 	name: z.string(),
-	entityId: z.string(),
+	entity: EntitySimpleComplexSearchResponseSchema,
 	description: z.string(),
-	status: ProjectStatusResponseSchema,
 	projectInfo: ProjectInfoResponseSchema,
+	status: ProjectStatusResponseSchema,
 });
 
-// ─── Requests ────────────────────────────────────────────────────────────────
+export const ProjectComplexSearchRequestSchema = z.object({
+	name: z.string().optional(),
+	entityIds: z.array(z.string()).optional(),
+	description: z.string().optional(),
+	createdByIds: z.array(z.string()).optional(),
+	dateFrom: z.string().optional(),
+	dateTo: z.string().optional(),
+	statuses: z.array(ProjectStatusEnum).optional(),
+	maxOfferedHours: z.number().optional(),
+	minOfferedHours: z.number().optional(),
+});
 
-export const ProjectCreateRequestSchema = z.object({
+export const ProjectComplexSearchResponseSchema = z.object({
+	id: z.string(),
 	name: z.string(),
-	entityId: z.string(),
-	description: z.string().nullable().optional(),
-	maxParticipants: z.number().nullable().optional(),
-	offeredHours: z.number(),
-});
-
-export const ProjectUpdateRequestSchema = z.object({
-	name: z.string().nullable().optional(),
-	description: z.string().nullable().optional(),
-	maxParticipants: z.number().nullable().optional(),
-	offeredHours: z.number().nullable().optional(),
-});
-
-export const ProjectStatusUpdateRequestSchema = z.object({
-	status: ProjectStatusEnum,
-});
-
-export const ProjectSchoolRequestSchema = z.object({
-	projectId: z.string(),
-	schoolIds: z.array(z.string()),
-});
-
-export const ProjectSchoolAssociationUpdateRequestSchema = z.object({
-	schoolIds: z.array(z.string()),
+	entity: EntitySimpleComplexSearchResponseSchema,
+	description: z.string(),
+	projectInfo: ProjectInfoResponseSchema,
+	status: ProjectStatusResponseSchema,
 });

@@ -1,21 +1,29 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
-import { EnrollmentResponseSchema } from "@/schemas";
+import {
+	EnrollmentComplexSearchRequestSchema,
+	EnrollmentComplexSearchResponseSchema,
+	EnrollmentResponseSchema,
+	EnrollmentStatusUpdateRequestSchema,
+	createPageResponseSchema,
+} from "@/schemas";
 import type {
-	EnrollmentCreateRequest,
+	EnrollmentComplexSearchRequest,
+	EnrollmentComplexSearchResponse,
 	EnrollmentResponse,
 	EnrollmentStatus,
+	PaginationRequest,
 } from "@/types";
-import { zfetch, zvoid, qs } from "@/utils";
+import { qs, zfetch, zvoid } from "@/utils";
 
 export async function get(
 	projectId: string,
-	studentId: string,
+	formerStudentId: string,
 	token?: string,
 ): Promise<EnrollmentResponse> {
 	return zfetch(
-		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${formerStudentId}`,
 		{ method: "GET" },
 		EnrollmentResponseSchema,
 		token,
@@ -37,10 +45,13 @@ export async function getMine(
 export async function list(
 	token?: string,
 	projectId?: string,
-	studentId?: string,
+	formerStudentId?: string,
 ): Promise<EnrollmentResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.project.enrollments}${qs({ projectId, studentId })}`,
+		`${API_ROUTE_BASES.project.enrollments}${qs({
+			projectId,
+			formerStudentId,
+		})}`,
 		{ method: "GET" },
 		z.array(EnrollmentResponseSchema),
 		token,
@@ -56,99 +67,84 @@ export async function listMine(token?: string): Promise<EnrollmentResponse[]> {
 	);
 }
 
+export async function search(
+	pagination: PaginationRequest,
+	body: EnrollmentComplexSearchRequest,
+	token?: string,
+): Promise<EnrollmentComplexSearchResponse> {
+	return zfetch(
+		`${API_ROUTE_BASES.project.enrollments}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		{
+			method: "POST",
+			body: JSON.stringify(EnrollmentComplexSearchRequestSchema.parse(body)),
+		},
+		createPageResponseSchema(EnrollmentComplexSearchResponseSchema),
+		token,
+	);
+}
+
 export async function create(
-	body: EnrollmentCreateRequest,
+	projectId: string,
+	formerStudentId?: string,
 	token?: string,
 ): Promise<EnrollmentResponse> {
 	return zfetch(
-		`${API_ROUTE_BASES.project.projects}/${body.projectId}/enrollments`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments${qs({
+			formerStudentId,
+		})}`,
 		{ method: "POST" },
 		EnrollmentResponseSchema,
 		token,
 	);
 }
 
-async function updateStatus(
+export async function updateStatus(
 	projectId: string,
-	studentId: string,
+	formerStudentId: string,
 	status: EnrollmentStatus,
 	token?: string,
 ): Promise<EnrollmentResponse> {
 	return zfetch(
-		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
-		{ method: "PATCH", body: JSON.stringify({ status }) },
+		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${formerStudentId}`,
+		{
+			method: "PATCH",
+			body: JSON.stringify(
+				EnrollmentStatusUpdateRequestSchema.parse({ status }),
+			),
+		},
 		EnrollmentResponseSchema,
 		token,
 	);
 }
 
-async function updateMyStatus(
+export async function updateMyStatus(
 	projectId: string,
 	status: EnrollmentStatus,
 	token?: string,
 ): Promise<EnrollmentResponse> {
 	return zfetch(
 		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/me`,
-		{ method: "PATCH", body: JSON.stringify({ status }) },
+		{
+			method: "PATCH",
+			body: JSON.stringify(
+				EnrollmentStatusUpdateRequestSchema.parse({ status }),
+			),
+		},
 		EnrollmentResponseSchema,
 		token,
 	);
 }
 
-export async function accept(
-	projectId: string,
-	studentId: string,
-	token?: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "APPROVED", token);
-}
-
-export async function cancel(
-	projectId: string,
-	studentId: string,
-	token?: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "CANCELED", token);
-}
-
-export async function complete(
-	projectId: string,
-	studentId: string,
-	token?: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "COMPLETED", token);
-}
-
-export async function exit(
-	projectId: string,
-	token?: string,
-): Promise<EnrollmentResponse> {
-	return updateMyStatus(projectId, "EXITED", token);
-}
-
-export async function reject(
-	projectId: string,
-	studentId: string,
-	token?: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "REJECTED", token);
-}
-
-export async function remove(
-	projectId: string,
-	studentId: string,
-	token?: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "REMOVED", token);
-}
-
 export async function deleteEnrollment(
 	projectId: string,
-	studentId: string,
+	formerStudentId: string,
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
+		`${API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${formerStudentId}`,
 		{ method: "DELETE" },
 		token,
 	);

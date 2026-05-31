@@ -2,11 +2,18 @@ import { z } from "zod";
 
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
+	ProjectComplexSearchRequestSchema,
+	ProjectComplexSearchResponseSchema,
 	ProjectCreateRequestSchema,
 	ProjectResponseSchema,
+	ProjectStatusEnum,
 	ProjectUpdateRequestSchema,
+	createPageResponseSchema,
 } from "@/schemas";
 import type {
+	PaginationRequest,
+	ProjectComplexSearchRequest,
+	ProjectComplexSearchResponse,
 	ProjectCreateRequest,
 	ProjectResponse,
 	ProjectStatus,
@@ -21,12 +28,16 @@ export async function get(id: string): Promise<ProjectResponse> {
 	);
 }
 
-export async function list(
-	q?: string,
-	entityId?: string,
-): Promise<ProjectResponse[]> {
+export async function list(ids?: string[]): Promise<ProjectResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.project.projects}${qs({ q, entityId })}`,
+		`${WEB_API_ROUTE_BASES.project.projects}${qs({ ids: ids?.join(",") })}`,
+		z.array(ProjectResponseSchema),
+	);
+}
+
+export async function listByEntity(entityId: string): Promise<ProjectResponse[]> {
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.projects}/entities/${entityId}`,
 		z.array(ProjectResponseSchema),
 	);
 }
@@ -35,8 +46,25 @@ export async function listByCreatedBy(
 	accountId: string,
 ): Promise<ProjectResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.project.projects}${qs({ createdBy: accountId })}`,
+		`${WEB_API_ROUTE_BASES.project.projects}/creators/${accountId}`,
 		z.array(ProjectResponseSchema),
+	);
+}
+
+export async function search(
+	pagination: PaginationRequest,
+	body: ProjectComplexSearchRequest,
+): Promise<ProjectComplexSearchResponse> {
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.projects}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		createPageResponseSchema(ProjectComplexSearchResponseSchema),
+		{
+			method: "POST",
+			body: JSON.stringify(ProjectComplexSearchRequestSchema.parse(body)),
+		},
 	);
 }
 
@@ -67,38 +95,18 @@ export async function update(
 	);
 }
 
-async function updateStatus(
+export async function updateStatus(
 	id: string,
 	status: ProjectStatus,
 ): Promise<ProjectResponse> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.project.projects}/${id}`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${id}/status`,
 		ProjectResponseSchema,
 		{
 			method: "PATCH",
-			body: JSON.stringify({ status }),
+			body: JSON.stringify(ProjectStatusEnum.parse(status)),
 		},
 	);
-}
-
-export async function cancel(id: string): Promise<ProjectResponse> {
-	return updateStatus(id, "CANCELED");
-}
-
-export async function complete(id: string): Promise<ProjectResponse> {
-	return updateStatus(id, "COMPLETED");
-}
-
-export async function hold(id: string): Promise<ProjectResponse> {
-	return updateStatus(id, "ON_HOLD");
-}
-
-export async function retake(id: string): Promise<ProjectResponse> {
-	return updateStatus(id, "PLANNED");
-}
-
-export async function start(id: string): Promise<ProjectResponse> {
-	return updateStatus(id, "IN_PROGRESS");
 }
 
 export async function remove(id: string): Promise<void> {

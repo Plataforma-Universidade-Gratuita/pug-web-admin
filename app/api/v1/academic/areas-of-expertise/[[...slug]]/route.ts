@@ -1,12 +1,13 @@
 import { z } from "zod";
 
-import { areasOfExpertise } from "@/api";
+import { areasOfExpertise, projectAreasOfExpertise } from "@/api";
 import {
 	AreaOfExpertiseComplexSearchRequestSchema,
 	AreaOfExpertiseComplexSearchResponseSchema,
 	AreaOfExpertiseCreateRequestSchema,
 	AreaOfExpertiseResponseSchema,
 	AreaOfExpertiseUpdateRequestSchema,
+	ProjectResponseSchema,
 	createPageResponseSchema,
 	PaginationRequestSchema,
 } from "@/schemas/api";
@@ -35,6 +36,16 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 		return routeWithAuthRetry(
 			token => areasOfExpertise.get(slug[0]!, token),
 			AreaOfExpertiseResponseSchema,
+		);
+	}
+	if (slug.length === 2 && slug[1] === "projects") {
+		return routeWithAuthRetry(
+			token =>
+				projectAreasOfExpertise.listProjectsByAreaOfExpertise(
+					slug[0]!,
+					token,
+				),
+			z.array(ProjectResponseSchema),
 		);
 	}
 	return routeError(new Error("Not found"));
@@ -80,6 +91,11 @@ export async function DELETE(
 	{ params }: AppRouteSlugContext,
 ) {
 	const { slug = [] } = await params;
+	if (slug.length === 2 && slug[1] === "projects") {
+		return routeVoidWithAuthRetry(token =>
+			projectAreasOfExpertise.deleteAllByAreaOfExpertise(slug[0]!, token),
+		);
+	}
 	if (slug.length !== 1) return routeError(new Error("Not found"));
 	return routeVoidWithAuthRetry(token =>
 		areasOfExpertise.remove(slug[0]!, token),

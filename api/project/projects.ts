@@ -1,14 +1,23 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
-import { ProjectResponseSchema } from "@/schemas";
+import {
+	ProjectComplexSearchRequestSchema,
+	ProjectComplexSearchResponseSchema,
+	ProjectResponseSchema,
+	ProjectStatusEnum,
+	createPageResponseSchema,
+} from "@/schemas";
 import type {
+	PaginationRequest,
+	ProjectComplexSearchRequest,
+	ProjectComplexSearchResponse,
 	ProjectCreateRequest,
 	ProjectResponse,
 	ProjectStatus,
 	ProjectUpdateRequest,
 } from "@/types";
-import { zfetch, zvoid, qs } from "@/utils";
+import { qs, zfetch, zvoid } from "@/utils";
 
 export async function get(
 	id: string,
@@ -24,11 +33,22 @@ export async function get(
 
 export async function list(
 	token?: string,
-	q?: string,
-	entityId?: string,
+	ids?: string[],
 ): Promise<ProjectResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.project.projects}${qs({ q, entityId })}`,
+		`${API_ROUTE_BASES.project.projects}${qs({ ids: ids?.join(",") })}`,
+		{ method: "GET" },
+		z.array(ProjectResponseSchema),
+		token,
+	);
+}
+
+export async function listByEntity(
+	entityId: string,
+	token?: string,
+): Promise<ProjectResponse[]> {
+	return zfetch(
+		`${API_ROUTE_BASES.project.projects}/entities/${entityId}`,
 		{ method: "GET" },
 		z.array(ProjectResponseSchema),
 		token,
@@ -40,9 +60,28 @@ export async function listByCreatedBy(
 	token?: string,
 ): Promise<ProjectResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.project.projects}${qs({ createdBy: accountId })}`,
+		`${API_ROUTE_BASES.project.projects}/creators/${accountId}`,
 		{ method: "GET" },
 		z.array(ProjectResponseSchema),
+		token,
+	);
+}
+
+export async function search(
+	pagination: PaginationRequest,
+	body: ProjectComplexSearchRequest,
+	token?: string,
+): Promise<ProjectComplexSearchResponse> {
+	return zfetch(
+		`${API_ROUTE_BASES.project.projects}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		{
+			method: "POST",
+			body: JSON.stringify(ProjectComplexSearchRequestSchema.parse(body)),
+		},
+		createPageResponseSchema(ProjectComplexSearchResponseSchema),
 		token,
 	);
 }
@@ -72,52 +111,17 @@ export async function update(
 	);
 }
 
-async function updateStatus(
+export async function updateStatus(
 	id: string,
 	status: ProjectStatus,
 	token?: string,
 ): Promise<ProjectResponse> {
 	return zfetch(
-		`${API_ROUTE_BASES.project.projects}/${id}`,
-		{ method: "PATCH", body: JSON.stringify({ status }) },
+		`${API_ROUTE_BASES.project.projects}/${id}/status`,
+		{ method: "PATCH", body: JSON.stringify(ProjectStatusEnum.parse(status)) },
 		ProjectResponseSchema,
 		token,
 	);
-}
-
-export async function cancel(
-	id: string,
-	token?: string,
-): Promise<ProjectResponse> {
-	return updateStatus(id, "CANCELED", token);
-}
-
-export async function complete(
-	id: string,
-	token?: string,
-): Promise<ProjectResponse> {
-	return updateStatus(id, "COMPLETED", token);
-}
-
-export async function hold(
-	id: string,
-	token?: string,
-): Promise<ProjectResponse> {
-	return updateStatus(id, "ON_HOLD", token);
-}
-
-export async function retake(
-	id: string,
-	token?: string,
-): Promise<ProjectResponse> {
-	return updateStatus(id, "PLANNED", token);
-}
-
-export async function start(
-	id: string,
-	token?: string,
-): Promise<ProjectResponse> {
-	return updateStatus(id, "IN_PROGRESS", token);
 }
 
 export async function remove(id: string, token?: string): Promise<void> {

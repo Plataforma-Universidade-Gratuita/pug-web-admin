@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { listSchoolsByProject } from "@/api/web/project/project-schools";
+import { listAreasOfExpertiseByProject } from "@/api/web/project/project-areas-of-expertise";
 import { get, list } from "@/api/web/project/projects";
 import { projectQueryKeys } from "@/constants";
 
@@ -24,13 +24,13 @@ export function useProjectDetailQuery(id: string | null) {
 	});
 }
 
-export function useProjectSchoolsQuery(projectId: string | null) {
+export function useProjectAreasOfExpertiseQuery(projectId: string | null) {
 	return useQuery({
 		queryKey:
 			projectId === null
 				? projectQueryKeys.idleSchools()
 				: projectQueryKeys.schools(projectId),
-		queryFn: () => listSchoolsByProject(projectId!),
+		queryFn: () => listAreasOfExpertiseByProject(projectId!),
 		enabled: projectId !== null,
 	});
 }

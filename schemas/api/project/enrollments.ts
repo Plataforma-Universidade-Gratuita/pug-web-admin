@@ -1,24 +1,26 @@
 import { z } from "zod";
 
-import { AuditInfoResponseSchema } from "@/schemas";
-
-// ─── Enums ───────────────────────────────────────────────────────────────────
+import {
+	AccountSimpleComplexSearchResponseSchema,
+	AuditInfoResponseSchema,
+	FormerStudentSimpleComplexSearchResponseSchema,
+	ProjectSimpleComplexSearchResponseSchema,
+} from "@/schemas";
 
 export const EnrollmentStatusEnum = z.enum([
 	"APPROVED",
 	"CANCELED",
 	"COMPLETED",
 	"EXITED",
+	"ON_HOLD",
 	"PENDING",
 	"REJECTED",
 	"REMOVED",
 ]);
 
-// ─── Responses ───────────────────────────────────────────────────────────────
-
-export const EnrollmentIdentifierResponseSchema = z.object({
-	projectId: z.string(),
-	studentId: z.string(),
+export const EnrollmentStatusResponseSchema = z.object({
+	status: EnrollmentStatusEnum,
+	statusFormatted: z.string(),
 });
 
 export const EnrollmentInfoResponseSchema = z.object({
@@ -30,18 +32,37 @@ export const EnrollmentInfoResponseSchema = z.object({
 });
 
 export const EnrollmentResponseSchema = z.object({
-	enrollmentId: EnrollmentIdentifierResponseSchema,
-	status: EnrollmentStatusEnum,
-	statusFormatted: z.string(),
+	projectId: z.string(),
+	formerStudentId: z.string(),
+	status: EnrollmentStatusResponseSchema,
 	enrollmentInfo: EnrollmentInfoResponseSchema,
 });
 
-// ─── Requests ────────────────────────────────────────────────────────────────
+export const EnrollmentUpdateStatusRequestSchema = z.object({
+	status: EnrollmentStatusEnum,
+});
+
+export const EnrollmentComplexSearchRequestSchema = z.object({
+	projectIds: z.array(z.string()).optional(),
+	formerStudentIds: z.array(z.string()).optional(),
+	statuses: z.array(EnrollmentStatusEnum).optional(),
+	dateFrom: z.string().optional(),
+	dateTo: z.string().optional(),
+	periodFrom: z.string().optional(),
+	periodTo: z.string().optional(),
+});
+
+export const EnrollmentComplexSearchResponseSchema = z.object({
+	project: ProjectSimpleComplexSearchResponseSchema,
+	student: FormerStudentSimpleComplexSearchResponseSchema,
+	status: EnrollmentStatusResponseSchema,
+	enrollmentInfo: EnrollmentInfoResponseSchema,
+});
 
 export const EnrollmentCreateRequestSchema = z.object({
 	projectId: z.string(),
+	formerStudentId: z.string().optional(),
 });
 
-export const EnrollmentStatusUpdateRequestSchema = z.object({
-	status: EnrollmentStatusEnum,
-});
+export const EnrollmentValidatorResponseSchema =
+	AccountSimpleComplexSearchResponseSchema;

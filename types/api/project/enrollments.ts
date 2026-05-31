@@ -1,25 +1,26 @@
 import { z } from "zod";
 
 import {
+	EnrollmentComplexSearchRequestSchema,
+	EnrollmentComplexSearchResponseSchema,
 	EnrollmentCreateRequestSchema,
 	EnrollmentResponseSchema,
 	EnrollmentStatusEnum,
-	EnrollmentStatusUpdateRequestSchema,
+	EnrollmentUpdateStatusRequestSchema,
 } from "@/schemas";
-
-// ─── Enums ───────────────────────────────────────────────────────────────────
+import type { PageResponse } from "@/types";
 
 export type EnrollmentStatus = z.infer<typeof EnrollmentStatusEnum>;
-
-// ─── Responses ───────────────────────────────────────────────────────────────
-
 export type EnrollmentResponse = z.infer<typeof EnrollmentResponseSchema>;
-
-// ─── Requests ────────────────────────────────────────────────────────────────
-
+export type EnrollmentComplexSearchRequest = z.infer<
+	typeof EnrollmentComplexSearchRequestSchema
+>;
+export type EnrollmentComplexSearchResponse = PageResponse<
+	z.infer<typeof EnrollmentComplexSearchResponseSchema>
+>;
 export type EnrollmentCreateRequest = z.infer<
 	typeof EnrollmentCreateRequestSchema
 >;
-export type EnrollmentUpdateRequest = z.infer<
-	typeof EnrollmentStatusUpdateRequestSchema
+export type EnrollmentUpdateStatusRequest = z.infer<
+	typeof EnrollmentUpdateStatusRequestSchema
 >;

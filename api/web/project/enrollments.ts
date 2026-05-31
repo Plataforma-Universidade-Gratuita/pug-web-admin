@@ -1,20 +1,28 @@
 import { z } from "zod";
 
 import { WEB_API_ROUTE_BASES } from "@/constants";
-import { EnrollmentResponseSchema } from "@/schemas";
+import {
+	EnrollmentComplexSearchRequestSchema,
+	EnrollmentComplexSearchResponseSchema,
+	EnrollmentResponseSchema,
+	EnrollmentStatusUpdateRequestSchema,
+	createPageResponseSchema,
+} from "@/schemas";
 import type {
-	EnrollmentCreateRequest,
+	EnrollmentComplexSearchRequest,
+	EnrollmentComplexSearchResponse,
 	EnrollmentResponse,
 	EnrollmentStatus,
+	PaginationRequest,
 } from "@/types";
 import { qs, webFetch, webVoid } from "@/utils";
 
 export async function get(
 	projectId: string,
-	studentId: string,
+	formerStudentId: string,
 ): Promise<EnrollmentResponse> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${formerStudentId}`,
 		EnrollmentResponseSchema,
 	);
 }
@@ -28,10 +36,13 @@ export async function getMine(projectId: string): Promise<EnrollmentResponse> {
 
 export async function list(
 	projectId?: string,
-	studentId?: string,
+	formerStudentId?: string,
 ): Promise<EnrollmentResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.project.enrollments}${qs({ projectId, studentId })}`,
+		`${WEB_API_ROUTE_BASES.project.enrollments}${qs({
+			projectId,
+			formerStudentId,
+		})}`,
 		z.array(EnrollmentResponseSchema),
 	);
 }
@@ -43,11 +54,31 @@ export async function listMine(): Promise<EnrollmentResponse[]> {
 	);
 }
 
+export async function search(
+	pagination: PaginationRequest,
+	body: EnrollmentComplexSearchRequest,
+): Promise<EnrollmentComplexSearchResponse> {
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.enrollments}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		createPageResponseSchema(EnrollmentComplexSearchResponseSchema),
+		{
+			method: "POST",
+			body: JSON.stringify(EnrollmentComplexSearchRequestSchema.parse(body)),
+		},
+	);
+}
+
 export async function create(
-	body: EnrollmentCreateRequest,
+	projectId: string,
+	formerStudentId?: string,
 ): Promise<EnrollmentResponse> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.project.projects}/${body.projectId}/enrollments`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments${qs({
+			formerStudentId,
+		})}`,
 		EnrollmentResponseSchema,
 		{
 			method: "POST",
@@ -55,19 +86,24 @@ export async function create(
 	);
 }
 
-async function updateStatus(
+export async function updateStatus(
 	projectId: string,
-	studentId: string,
+	formerStudentId: string,
 	status: EnrollmentStatus,
 ): Promise<EnrollmentResponse> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${formerStudentId}`,
 		EnrollmentResponseSchema,
-		{ method: "PATCH", body: JSON.stringify({ status }) },
+		{
+			method: "PATCH",
+			body: JSON.stringify(
+				EnrollmentStatusUpdateRequestSchema.parse({ status }),
+			),
+		},
 	);
 }
 
-async function updateMyStatus(
+export async function updateMyStatus(
 	projectId: string,
 	status: EnrollmentStatus,
 ): Promise<EnrollmentResponse> {
@@ -76,56 +112,19 @@ async function updateMyStatus(
 		EnrollmentResponseSchema,
 		{
 			method: "PATCH",
-			body: JSON.stringify({ status }),
+			body: JSON.stringify(
+				EnrollmentStatusUpdateRequestSchema.parse({ status }),
+			),
 		},
 	);
 }
 
-export async function accept(
-	projectId: string,
-	studentId: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "APPROVED");
-}
-
-export async function cancel(
-	projectId: string,
-	studentId: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "CANCELED");
-}
-
-export async function complete(
-	projectId: string,
-	studentId: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "COMPLETED");
-}
-
-export async function exit(projectId: string): Promise<EnrollmentResponse> {
-	return updateMyStatus(projectId, "EXITED");
-}
-
-export async function reject(
-	projectId: string,
-	studentId: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "REJECTED");
-}
-
-export async function remove(
-	projectId: string,
-	studentId: string,
-): Promise<EnrollmentResponse> {
-	return updateStatus(projectId, studentId, "REMOVED");
-}
-
 export async function deleteEnrollment(
 	projectId: string,
-	studentId: string,
+	formerStudentId: string,
 ): Promise<void> {
 	return webVoid(
-		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${studentId}`,
+		`${WEB_API_ROUTE_BASES.project.projects}/${projectId}/enrollments/${formerStudentId}`,
 		{
 			method: "DELETE",
 		},

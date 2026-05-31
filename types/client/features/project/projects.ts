@@ -2,12 +2,12 @@ import type { UseFormReturn } from "react-hook-form";
 
 import type {
 	AdminResponse,
+	AreaOfExpertiseResponse,
 	EntityResponse,
 	ProjectCreateRequest,
 	ProjectResponse,
 	ProjectStatus,
 	ProjectUpdateRequest,
-	SchoolResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
@@ -139,5 +139,5 @@ export interface ProjectDetailFieldsArgs {
 	adminById: Map<string, AdminResponse>;
 	entityById: Map<string, EntityResponse>;
 	project: ProjectResponse;
-	schools: SchoolResponse[] | undefined;
+	areasOfExpertise: AreaOfExpertiseResponse[] | undefined;
 }

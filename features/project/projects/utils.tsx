@@ -4,17 +4,16 @@ import type { TFunction } from "i18next";
 import { Badge } from "@/components";
 import type {
 	AdminResponse,
+	AreaOfExpertiseResponse,
 	EntityResponse,
 	ProjectCreateRequest,
 	ProjectResponse,
 	ProjectStatus,
 	ProjectUpdateRequest,
-	SchoolResponse,
 } from "@/types";
 import type { BadgeTone, ComboboxOption } from "@/types";
 import type {
 	ProjectEditorFormValues,
-	ProjectEditorMode,
 	ProjectFilterArgs,
 	ProjectStatusAction,
 } from "@/types";
@@ -287,7 +286,7 @@ export function getProjectAdminsErrorToastContent(
 	});
 }
 
-export function getProjectSchoolsErrorToastContent(
+export function getProjectAreasOfExpertiseErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
@@ -468,15 +467,15 @@ export function getProjectStatusOptions(t: TFunction) {
 	);
 }
 
-export function formatProjectSchoolNames(
-	schools: SchoolResponse[] | undefined,
+export function formatProjectAreaOfExpertiseNames(
+	areasOfExpertise: AreaOfExpertiseResponse[] | undefined,
 ) {
-	if (!schools || schools.length === 0) {
+	if (!areasOfExpertise || areasOfExpertise.length === 0) {
 		return null;
 	}
 
-	return schools
-		.map(school => school.name)
+	return areasOfExpertise
+		.map(areaOfExpertise => areaOfExpertise.name)
 		.sort(compareNormalizedText)
 		.join(", ");
 }

@@ -1,22 +1,23 @@
 import { z } from "zod";
 
 import {
+	AttendanceComplexSearchRequestSchema,
+	AttendanceComplexSearchResponseSchema,
 	AttendanceCreateRequestSchema,
 	AttendanceResponseSchema,
 	AttendanceStatusEnum,
 	AttendanceValidateRequestSchema,
 } from "@/schemas";
-
-// ─── Enums ───────────────────────────────────────────────────────────────────
+import type { PageResponse } from "@/types";
 
 export type AttendanceStatus = z.infer<typeof AttendanceStatusEnum>;
-
-// ─── Responses ───────────────────────────────────────────────────────────────
-
 export type AttendanceResponse = z.infer<typeof AttendanceResponseSchema>;
-
-// ─── Requests ────────────────────────────────────────────────────────────────
-
+export type AttendanceComplexSearchRequest = z.infer<
+	typeof AttendanceComplexSearchRequestSchema
+>;
+export type AttendanceComplexSearchResponse = PageResponse<
+	z.infer<typeof AttendanceComplexSearchResponseSchema>
+>;
 export type AttendanceCreateRequest = z.infer<
 	typeof AttendanceCreateRequestSchema
 >;

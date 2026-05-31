@@ -14,8 +14,6 @@ export const API_ROUTE_BASES = {
 		areasOfExpertise: `${API_VERSION_PREFIX}/academic/areas-of-expertise`,
 		courses: `${API_VERSION_PREFIX}/academic/courses`,
 		formerStudents: `${API_VERSION_PREFIX}/academic/former-students`,
-		schools: `${API_VERSION_PREFIX}/academic/schools`,
-		students: `${API_VERSION_PREFIX}/academic/students`,
 	},
 	geo: {
 		cities: `${API_VERSION_PREFIX}/geo/cities`,
@@ -33,7 +31,6 @@ export const API_ROUTE_BASES = {
 	project: {
 		attendances: `${API_VERSION_PREFIX}/projects/attendances`,
 		enrollments: `${API_VERSION_PREFIX}/projects/enrollments`,
-		projectSchools: `${API_VERSION_PREFIX}/project-school-associations`,
 		projects: `${API_VERSION_PREFIX}/projects`,
 	},
 } as const;
@@ -43,8 +40,6 @@ export const WEB_API_ROUTE_BASES = {
 		areasOfExpertise: `${WEB_API_VERSION_PREFIX}/academic/areas-of-expertise`,
 		courses: `${WEB_API_VERSION_PREFIX}/academic/courses`,
 		formerStudents: `${WEB_API_VERSION_PREFIX}/academic/former-students`,
-		schools: `${WEB_API_VERSION_PREFIX}/academic/schools`,
-		students: `${WEB_API_VERSION_PREFIX}/academic/students`,
 	},
 	geo: {
 		cities: `${WEB_API_VERSION_PREFIX}/geo/cities`,
@@ -62,7 +57,6 @@ export const WEB_API_ROUTE_BASES = {
 	project: {
 		attendances: `${WEB_API_VERSION_PREFIX}/projects/attendances`,
 		enrollments: `${WEB_API_VERSION_PREFIX}/projects/enrollments`,
-		projectSchools: `${WEB_API_VERSION_PREFIX}/project-school-associations`,
 		projects: `${WEB_API_VERSION_PREFIX}/projects`,
 	},
 } as const;

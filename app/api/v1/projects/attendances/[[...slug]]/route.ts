@@ -2,9 +2,13 @@ import { z } from "zod";
 
 import { attendances } from "@/api";
 import {
+	AttendanceComplexSearchRequestSchema,
+	AttendanceComplexSearchResponseSchema,
 	AttendanceCreateRequestSchema,
 	AttendanceResponseSchema,
 	AttendanceValidateRequestSchema,
+	PaginationRequestSchema,
+	createPageResponseSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
 import {
@@ -17,11 +21,13 @@ import {
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
-		const searchParams = new URL(request.url).searchParams;
-		const projectId = searchParams.get("projectId") ?? undefined;
-		const studentId = searchParams.get("studentId") ?? undefined;
+		const ids =
+			new URL(request.url)
+				.searchParams.get("ids")
+				?.split(",")
+				.filter(Boolean) ?? undefined;
 		return routeWithAuthRetry(
-			token => attendances.list(token, projectId, studentId),
+			token => attendances.list(token, ids),
 			z.array(AttendanceResponseSchema),
 		);
 	}
@@ -34,7 +40,24 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	return routeError(new Error("Not found"));
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request, { params }: AppRouteSlugContext) {
+	const { slug = [] } = await params;
+	if (slug.length === 1 && slug[0] === "search") {
+		const url = new URL(request.url);
+		const pagination = PaginationRequestSchema.parse({
+			page: url.searchParams.get("page"),
+			size: url.searchParams.get("size"),
+		});
+		const body = await parseRouteBody(
+			request,
+			AttendanceComplexSearchRequestSchema,
+		);
+		return routeWithAuthRetry(
+			token => attendances.search(pagination, body, token),
+			createPageResponseSchema(AttendanceComplexSearchResponseSchema),
+		);
+	}
+
 	const body = await parseRouteBody(request, AttendanceCreateRequestSchema);
 	return routeWithAuthRetry(
 		token => attendances.create(body, token),

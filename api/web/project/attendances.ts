@@ -2,16 +2,22 @@ import { z } from "zod";
 
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
+	AttendanceComplexSearchRequestSchema,
+	AttendanceComplexSearchResponseSchema,
 	AttendanceCreateRequestSchema,
 	AttendanceResponseSchema,
 	AttendanceValidateRequestSchema,
+	createPageResponseSchema,
 } from "@/schemas";
 import type {
+	AttendanceComplexSearchRequest,
+	AttendanceComplexSearchResponse,
 	AttendanceCreateRequest,
 	AttendanceResponse,
 	AttendanceValidateRequest,
+	PaginationRequest,
 } from "@/types";
-import { webFetch, webVoid } from "@/utils";
+import { qs, webFetch, webVoid } from "@/utils";
 
 export async function get(id: string): Promise<AttendanceResponse> {
 	return webFetch(
@@ -20,17 +26,27 @@ export async function get(id: string): Promise<AttendanceResponse> {
 	);
 }
 
-export async function list(
-	projectId?: string,
-	studentId?: string,
-): Promise<AttendanceResponse[]> {
-	const params = new URLSearchParams();
-	if (projectId) params.set("projectId", projectId);
-	if (studentId) params.set("studentId", studentId);
-	const search = params.toString();
+export async function list(ids?: string[]): Promise<AttendanceResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.project.attendances}${search ? `?${search}` : ""}`,
+		`${WEB_API_ROUTE_BASES.project.attendances}${qs({ ids: ids?.join(",") })}`,
 		z.array(AttendanceResponseSchema),
+	);
+}
+
+export async function search(
+	pagination: PaginationRequest,
+	body: AttendanceComplexSearchRequest,
+): Promise<AttendanceComplexSearchResponse> {
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.project.attendances}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		createPageResponseSchema(AttendanceComplexSearchResponseSchema),
+		{
+			method: "POST",
+			body: JSON.stringify(AttendanceComplexSearchRequestSchema.parse(body)),
+		},
 	);
 }
 

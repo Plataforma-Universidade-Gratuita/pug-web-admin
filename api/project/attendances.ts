@@ -1,13 +1,21 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
-import { AttendanceResponseSchema } from "@/schemas";
+import {
+	AttendanceComplexSearchRequestSchema,
+	AttendanceComplexSearchResponseSchema,
+	AttendanceResponseSchema,
+	createPageResponseSchema,
+} from "@/schemas";
 import type {
+	AttendanceComplexSearchRequest,
+	AttendanceComplexSearchResponse,
 	AttendanceCreateRequest,
 	AttendanceResponse,
 	AttendanceValidateRequest,
+	PaginationRequest,
 } from "@/types";
-import { zfetch, zvoid, qs } from "@/utils";
+import { qs, zfetch, zvoid } from "@/utils";
 
 export async function get(
 	id: string,
@@ -23,13 +31,31 @@ export async function get(
 
 export async function list(
 	token?: string,
-	projectId?: string,
-	studentId?: string,
+	ids?: string[],
 ): Promise<AttendanceResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.project.attendances}${qs({ projectId, studentId })}`,
+		`${API_ROUTE_BASES.project.attendances}${qs({ ids: ids?.join(",") })}`,
 		{ method: "GET" },
 		z.array(AttendanceResponseSchema),
+		token,
+	);
+}
+
+export async function search(
+	pagination: PaginationRequest,
+	body: AttendanceComplexSearchRequest,
+	token?: string,
+): Promise<AttendanceComplexSearchResponse> {
+	return zfetch(
+		`${API_ROUTE_BASES.project.attendances}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		{
+			method: "POST",
+			body: JSON.stringify(AttendanceComplexSearchRequestSchema.parse(body)),
+		},
+		createPageResponseSchema(AttendanceComplexSearchResponseSchema),
 		token,
 	);
 }
