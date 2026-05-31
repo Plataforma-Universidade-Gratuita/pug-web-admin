@@ -30,20 +30,10 @@ export function useAdminsQuery(enabled = true) {
 					dateFrom: "",
 					dateTo: "",
 					activeOnly: false,
-					campuses: [],
 				},
 			);
 
-			return response.content.map(admin => ({
-				accountId: admin.account.id,
-				accountEmail: admin.account.email,
-				accountActive: admin.account.active,
-				userId: admin.account.user.id,
-				userName: admin.account.user.name,
-				campus: admin.campus,
-				grantedAt: admin.grantedAt,
-				grantedAtFormatted: admin.grantedAtFormatted,
-			}));
+			return response.content;
 		},
 		enabled,
 	});

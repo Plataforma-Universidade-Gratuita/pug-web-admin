@@ -7,5 +7,5 @@ export const CityResponseSchema = z.object({
 });
 
 export const CityComplexSearchRequestSchema = z.object({
-	name: z.string().optional(),
+	name: z.string(),
 });

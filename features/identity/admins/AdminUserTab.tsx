@@ -23,13 +23,13 @@ export function AdminUserTab({
 				<p className="ty-helper">
 					{t("identity.adminPage.update.fields.accountId")}
 				</p>
-				<p className="ty-sm-semibold">{admin.accountId}</p>
+				<p className="ty-sm-semibold">{admin.accountResponse.id}</p>
 			</div>
 			<div className="grid gap-1">
 				<p className="ty-helper">
 					{t("identity.adminPage.update.fields.userId")}
 				</p>
-				<p className="ty-sm-semibold">{admin.userId}</p>
+				<p className="ty-sm-semibold">{admin.accountResponse.userId}</p>
 			</div>
 
 			{linkedUserError ? (

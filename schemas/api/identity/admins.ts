@@ -26,8 +26,8 @@ export const AdminComplexSearchRequestSchema = z.object({
 	name: z.string().optional(),
 	cpf: z.string().optional(),
 	email: z.string().optional(),
-	dateFrom: z.string().optional(),
-	dateTo: z.string().optional(),
+	dateFrom: z.iso.datetime({ offset: true }).optional(),
+	dateTo: z.iso.datetime({ offset: true }).optional(),
 	activeOnly: z.boolean().optional(),
 });
 

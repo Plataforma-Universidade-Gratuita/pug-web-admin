@@ -2,8 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { MultiSelect, Checkbox, DatePicker, Label } from "@/components";
-import { getAdminCampusOptions } from "@/features/identity/admins/utils";
+import { Checkbox, DatePicker, Label } from "@/components";
 import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
@@ -21,7 +20,6 @@ export function AdminsFiltersDrawer({
 	open,
 }: AdminsFiltersDrawerProps) {
 	const { t } = useTranslation();
-	const campusOptions = getAdminCampusOptions(t);
 
 	return (
 		<ServicePageFiltersDrawer
@@ -64,18 +62,6 @@ export function AdminsFiltersDrawer({
 				onChange={value => onFilterChange("email", value)}
 				placeholder={t("identity.accountPage.filters.email.placeholder")}
 			/>
-
-			<div className="grid gap-2">
-				<Label>{t("identity.adminPage.filters.campus.label")}</Label>
-				<MultiSelect
-					options={campusOptions}
-					value={filters.campuses}
-					onValueChange={value =>
-						onFilterChange("campuses", value as typeof filters.campuses)
-					}
-					placeholder={t("identity.adminPage.filters.campus.placeholder")}
-				/>
-			</div>
 
 			<div className="grid min-w-0 gap-2">
 				<Label>{t("identity.accountPage.filters.startDate.label")}</Label>

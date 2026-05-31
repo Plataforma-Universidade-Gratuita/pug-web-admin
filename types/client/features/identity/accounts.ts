@@ -16,8 +16,7 @@ export type AccountSearchAccountType =
 	| ""
 	| "ADMIN"
 	| "FORMER_STUDENT"
-	| "PARTNER"
-	| "STAFF";
+	| "PARTNER";
 
 export interface AccountComplexSearchFilters {
 	name: string;

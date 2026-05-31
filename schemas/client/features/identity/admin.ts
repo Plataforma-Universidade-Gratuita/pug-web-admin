@@ -33,7 +33,5 @@ export function createAdminEditorFormSchema(
 			t("identity.adminPage.update.validation.email.tooLong"),
 		),
 		campus: CampiEnum,
-		password: z.string().trim(),
-		active: z.boolean(),
 	});
 }

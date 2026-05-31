@@ -6,8 +6,14 @@ import { useTranslation } from "react-i18next";
 
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
-import { useAdminDetailQuery } from "@/features/identity/admins/queries";
-import { getAdminDetailErrorToastContent } from "@/features/identity/admins/utils";
+import {
+	useAdminDetailQuery,
+	useLinkedAdminUserQuery,
+} from "@/features/identity/admins/queries";
+import {
+	getAdminDetailErrorToastContent,
+	getLinkedAdminUserErrorToastContent,
+} from "@/features/identity/admins/utils";
 import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
@@ -20,6 +26,9 @@ import { WebApiError } from "@/utils";
 export function AdminPage({ adminId }: AdminPageProps) {
 	const { t } = useTranslation();
 	const adminDetailQuery = useAdminDetailQuery(adminId);
+	const linkedUserQuery = useLinkedAdminUserQuery(
+		adminDetailQuery.data?.accountResponse.userId ?? null,
+	);
 
 	useQueryErrorToasts([
 		{
@@ -28,6 +37,13 @@ export function AdminPage({ adminId }: AdminPageProps) {
 			errorUpdatedAt: adminDetailQuery.errorUpdatedAt,
 			getContent: error => getAdminDetailErrorToastContent(t, error),
 			isError: adminDetailQuery.isError,
+		},
+		{
+			key: `admin-detail-linked-user-${adminId}`,
+			error: linkedUserQuery.error,
+			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
+			getContent: error => getLinkedAdminUserErrorToastContent(t, error),
+			isError: linkedUserQuery.isError,
 		},
 	]);
 
@@ -39,17 +55,17 @@ export function AdminPage({ adminId }: AdminPageProps) {
 						{
 							id: "userId",
 							label: t("identity.adminPage.dialog.fields.userId"),
-							value: admin.userId,
+							value: admin.accountResponse.userId,
 						},
 						{
 							id: "name",
 							label: t("identity.adminPage.dialog.fields.name"),
-							value: admin.userName,
+							value: linkedUserQuery.data?.name ?? "-",
 						},
 						{
 							id: "email",
 							label: t("identity.adminPage.dialog.fields.email"),
-							value: admin.accountEmail,
+							value: admin.accountResponse.email,
 						},
 						{
 							id: "campus",
@@ -63,12 +79,14 @@ export function AdminPage({ adminId }: AdminPageProps) {
 						},
 					]
 				: [],
-		[admin, t],
+		[admin, linkedUserQuery.data, t],
 	);
 
 	return (
 		<EntityPageShell
-			title={admin?.userName ?? t("identity.adminPage.dialog.titleFallback")}
+			title={
+				linkedUserQuery.data?.name ?? t("identity.adminPage.dialog.titleFallback")
+			}
 			description={t("identity.adminPage.description")}
 		>
 			{adminDetailQuery.isError ? (
@@ -87,6 +105,14 @@ export function AdminPage({ adminId }: AdminPageProps) {
 						}}
 					/>
 				)
+			) : linkedUserQuery.isError ? (
+				<SomeErrorState
+					title={t("identity.adminPage.dialog.error.title")}
+					description={t("identity.adminPage.dialog.error.description")}
+					onRefresh={() => {
+						void linkedUserQuery.refetch();
+					}}
+				/>
 			) : admin ? (
 				<div className="grid gap-6">
 					<EntityPageFieldsGrid fields={fields} />
@@ -94,7 +120,7 @@ export function AdminPage({ adminId }: AdminPageProps) {
 						<p className="ty-overhead">
 							{t("identity.adminPage.dialog.linkedAccount.overhead")}
 						</p>
-						<AccountDetailsContent accountId={admin.accountId} />
+						<AccountDetailsContent accountId={admin.accountResponse.id} />
 					</div>
 				</div>
 			) : adminDetailQuery.isLoading ? (

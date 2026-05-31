@@ -63,10 +63,10 @@ export function AdminsUpdateDrawer({
 	const existingUsersQuery = useUsersQuery(open && isCreateMode);
 	const adminDetailQuery = useAdminDetailQuery(adminId);
 	const linkedAccountQuery = useLinkedAdminAccountQuery(
-		adminDetailQuery.data?.accountId ?? null,
+		adminDetailQuery.data?.accountResponse.id ?? null,
 	);
 	const linkedUserQuery = useLinkedAdminUserQuery(
-		adminDetailQuery.data?.userId ?? null,
+		adminDetailQuery.data?.accountResponse.userId ?? null,
 	);
 	const updateMutation = useUpdateAdminMutation();
 	const createMutation = useCreateAdminMutation();
@@ -82,16 +82,17 @@ export function AdminsUpdateDrawer({
 			return emptyValues;
 		}
 
-		if (!adminDetailQuery.data || !linkedAccountQuery.data) {
+		if (!adminDetailQuery.data || !linkedAccountQuery.data || !linkedUserQuery.data) {
 			return null;
 		}
 
-		return buildAdminUpdateFormValues(adminDetailQuery.data);
+		return buildAdminUpdateFormValues(adminDetailQuery.data, linkedUserQuery.data);
 	}, [
 		adminDetailQuery.data,
 		emptyValues,
 		isCreateMode,
 		linkedAccountQuery.data,
+		linkedUserQuery.data,
 	]);
 	const hydrationKey = useMemo(() => {
 		if (isCreateMode) {
@@ -101,30 +102,33 @@ export function AdminsUpdateDrawer({
 		if (
 			!loadedFormValues ||
 			!adminDetailQuery.data ||
-			!linkedAccountQuery.data
+			!linkedAccountQuery.data ||
+			!linkedUserQuery.data
 		) {
 			return null;
 		}
 
 		return [
 			mode,
-			adminDetailQuery.data.accountId,
+			adminDetailQuery.data.accountResponse.id,
 			loadedFormValues.cpf,
 			loadedFormValues.name,
 			loadedFormValues.email,
 			loadedFormValues.campus,
-			loadedFormValues.active ? "active" : "inactive",
 		].join("|");
 	}, [
 		adminDetailQuery.data,
 		isCreateMode,
 		linkedAccountQuery.data,
+		linkedUserQuery.data,
 		loadedFormValues,
 		mode,
 	]);
 	const canRenderForm = isCreateMode
 		? true
-		: Boolean(adminDetailQuery.data && linkedAccountQuery.data);
+		: Boolean(
+				adminDetailQuery.data && linkedAccountQuery.data && linkedUserQuery.data,
+			);
 	const isDrawerLoading =
 		!isCreateMode &&
 		open &&
@@ -233,14 +237,14 @@ export function AdminsUpdateDrawer({
 					body: toAdminCreateRequest(values, existingUser),
 				},
 				{
-					onSuccess: ({ admin }) => {
+					onSuccess: () => {
 						toast.success(
 							t("identity.adminPage.create.feedback.success.title"),
 							{
 								description: t(
 									"identity.adminPage.create.feedback.success.description",
 									{
-										name: admin.userName,
+										name: values.name.trim(),
 									},
 								),
 							},
@@ -269,12 +273,12 @@ export function AdminsUpdateDrawer({
 				body: toAdminUpdateRequest(values),
 			},
 			{
-				onSuccess: admin => {
+				onSuccess: () => {
 					toast.success(t("identity.adminPage.update.feedback.success.title"), {
 						description: t(
 							"identity.adminPage.update.feedback.success.description",
 							{
-								name: admin.userName,
+								name: values.name.trim(),
 							},
 						),
 					});
@@ -299,9 +303,9 @@ export function AdminsUpdateDrawer({
 				isLoading={isDrawerLoading}
 				loadingLabel={t("identity.adminPage.update.loading")}
 				overhead={drawerOverhead}
-				title={adminDetailQuery.data?.userName ?? drawerTitleFallback}
-				tabs={editorTabs}
+				title={linkedUserQuery.data?.name ?? drawerTitleFallback}
 				bodyClassName="grid gap-6"
+				{...(editorTabs ? { tabs: editorTabs } : {})}
 				footer={
 					<Footer className="drawer-footer">
 						<Button

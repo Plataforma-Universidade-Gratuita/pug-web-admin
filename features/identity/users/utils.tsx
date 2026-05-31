@@ -9,7 +9,12 @@ import type {
 	UserFrontendFilterArgs,
 	UserResponse,
 } from "@/types";
-import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
+import {
+	getApiErrorToastContent,
+	matchesAnyDateRange,
+	normalizeTextForSearch,
+	toSearchDateOffsetDateTime,
+} from "@/utils";
 
 export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 	return [
@@ -54,12 +59,6 @@ function normalizeCpfSearch(value: string) {
 	return value.replace(/\D+/g, "");
 }
 
-function getStartOfDayTimestamp(value: string) {
-	const date = new Date(value);
-	date.setHours(0, 0, 0, 0);
-	return date.getTime();
-}
-
 function matchesName(user: UserResponse, value: string) {
 	return normalizeTextForSearch(user.name).includes(
 		normalizeTextForSearch(value),
@@ -71,19 +70,17 @@ function matchesCpf(user: UserResponse, value: string) {
 }
 
 function matchesDateFrom(user: UserResponse, value: string) {
-	const threshold = getStartOfDayTimestamp(value);
-	const createdAt = getStartOfDayTimestamp(user.auditInfo.createdAt);
-	const updatedAt = getStartOfDayTimestamp(user.auditInfo.updatedAt);
-
-	return createdAt >= threshold || updatedAt >= threshold;
+	return matchesAnyDateRange(
+		[user.auditInfo.createdAt, user.auditInfo.updatedAt],
+		{ dateFrom: value },
+	);
 }
 
 function matchesDateTo(user: UserResponse, value: string) {
-	const threshold = getStartOfDayTimestamp(value);
-	const createdAt = getStartOfDayTimestamp(user.auditInfo.createdAt);
-	const updatedAt = getStartOfDayTimestamp(user.auditInfo.updatedAt);
-
-	return createdAt <= threshold || updatedAt <= threshold;
+	return matchesAnyDateRange(
+		[user.auditInfo.createdAt, user.auditInfo.updatedAt],
+		{ dateTo: value },
+	);
 }
 
 export function buildUserComplexSearchRequest(
@@ -91,14 +88,20 @@ export function buildUserComplexSearchRequest(
 ): UserComplexSearchRequest {
 	const normalizedName = filters.name.trim();
 	const normalizedCpf = normalizeCpfSearch(filters.cpf.trim());
-	const normalizedDateFrom = filters.dateFrom.trim();
-	const normalizedDateTo = filters.dateTo.trim();
+	const normalizedDateFrom = toSearchDateOffsetDateTime(
+		filters.dateFrom.trim(),
+		"start",
+	);
+	const normalizedDateTo = toSearchDateOffsetDateTime(
+		filters.dateTo.trim(),
+		"end",
+	);
 
 	return {
 		name: normalizedName || undefined,
 		cpf: normalizedCpf || undefined,
-		dateFrom: normalizedDateFrom || undefined,
-		dateTo: normalizedDateTo || undefined,
+		dateFrom: normalizedDateFrom,
+		dateTo: normalizedDateTo,
 	};
 }
 

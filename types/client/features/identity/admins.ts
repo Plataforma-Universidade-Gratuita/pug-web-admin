@@ -2,7 +2,6 @@ import type { UseFormReturn } from "react-hook-form";
 
 import type {
 	AccountResponse,
-	AccountSearchResponse,
 	AdminCreateRequest,
 	AdminResponse,
 	AdminSearchResponse,
@@ -27,11 +26,9 @@ export interface AdminComplexSearchFilters {
 	name: string;
 	cpf: string;
 	email: string;
-	accountType: "" | AccountSearchResponse["accountType"];
 	dateFrom: string;
 	dateTo: string;
 	activeOnly: boolean;
-	campuses: Campi[];
 }
 
 export interface AdminFrontendFilterArgs {
@@ -43,9 +40,7 @@ export interface AdminEditorFormValues {
 	cpf: string;
 	name: string;
 	email: string;
-	password: string;
 	campus: Campi;
-	active: boolean;
 }
 
 export type AdminCreateExistingUser = Pick<

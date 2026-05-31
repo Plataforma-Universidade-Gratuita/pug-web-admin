@@ -17,9 +17,7 @@ export const UserSimpleComplexSearchResponseSchema = z.object({
 
 export const UserComplexSearchRequestSchema = z.object({
 	cpf: z.string().optional(),
-	dateFrom: z.string().optional(),
-	dateTo: z.string().optional(),
+	dateFrom: z.iso.datetime({ offset: true }).optional(),
+	dateTo: z.iso.datetime({ offset: true }).optional(),
 	name: z.string().optional(),
 });
-
-export const UserSearchResponseSchema = UserSimpleComplexSearchResponseSchema;

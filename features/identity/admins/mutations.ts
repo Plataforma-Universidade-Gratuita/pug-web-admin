@@ -135,13 +135,11 @@ function buildNextAccountRecord(
 	},
 ): AccountResponse {
 	return {
-		id: admin.accountId,
-		userId: admin.userId,
-		email: admin.accountEmail,
-		accountType: options.existing?.accountType ?? "ADMIN",
-		accountTypeFormatted: options.existing?.accountTypeFormatted ?? "ADMIN",
+		...admin.accountResponse,
 		active: options.active,
-		auditInfo: createAuditInfo(options.existing?.auditInfo),
+		auditInfo: createAuditInfo(
+			admin.accountResponse.auditInfo ?? options.existing?.auditInfo,
+		),
 	};
 }
 
@@ -150,6 +148,7 @@ function buildNextUserRecord(
 	options: {
 		cpf?: string;
 		existing?: UserResponse;
+		name: string;
 	},
 ) {
 	const cpf = options.cpf ?? options.existing?.cpf;
@@ -159,19 +158,20 @@ function buildNextUserRecord(
 	}
 
 	return {
-		id: admin.userId,
+		id: admin.accountResponse.userId,
 		cpf,
 		cpfFormatted: formatCpf(cpf),
-		name: admin.userName,
+		name: options.name,
 		auditInfo: createAuditInfo(options.existing?.auditInfo),
 	} satisfies UserResponse;
 }
 
 function writeAdminCaches(queryClient: QueryClient, admin: AdminResponse) {
-	queryClient.setQueryData(adminQueryKeys.detail(admin.accountId), admin);
+	queryClient.setQueryData(adminQueryKeys.detail(admin.accountResponse.id), admin);
 	queryClient.setQueryData<AdminResponse | undefined>(
 		adminQueryKeys.me(),
-		current => (current?.accountId === admin.accountId ? admin : current),
+		current =>
+			current?.accountResponse.id === admin.accountResponse.id ? admin : current,
 	);
 	queryClient.invalidateQueries({ queryKey: adminQueryKeys.directory() });
 	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });
@@ -187,17 +187,23 @@ function patchAdminCaches(
 			current
 				? {
 						...current,
-						accountActive,
+						accountResponse: {
+							...current.accountResponse,
+							active: accountActive,
+						},
 					}
 				: current,
 	);
 	queryClient.setQueryData<AdminResponse | undefined>(
 		adminQueryKeys.me(),
 		current =>
-			current?.accountId === accountId
+			current?.accountResponse.id === accountId
 				? {
 						...current,
-						accountActive,
+						accountResponse: {
+							...current.accountResponse,
+							active: accountActive,
+						},
 					}
 				: current,
 	);
@@ -249,7 +255,8 @@ function removeAdminRelatedCaches(
 	});
 	queryClient.setQueryData<AdminResponse | undefined>(
 		adminQueryKeys.me(),
-		current => (current?.accountId === ids.accountId ? undefined : current),
+		current =>
+			current?.accountResponse.id === ids.accountId ? undefined : current,
 	);
 	queryClient.invalidateQueries({ queryKey: adminQueryKeys.directory() });
 	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });
@@ -288,13 +295,17 @@ export function useCreateAdminMutation() {
 			writeAdminCaches(queryClient, admin);
 
 			const nextAccount = buildNextAccountRecord(admin, {
-				active: admin.accountActive,
+				active: admin.accountResponse.active,
 			});
 			writeAccountCaches(queryClient, nextAccount);
 
-			const existingUser = getCachedUser(queryClient, admin.userId);
+			const existingUser = getCachedUser(
+				queryClient,
+				admin.accountResponse.userId,
+			);
 			const nextUser = buildNextUserRecord(admin, {
-				...(body.cpf ? { cpf: body.cpf } : {}),
+				cpf: body.cpfString,
+				name: body.name,
 				...(existingUser ? { existing: existingUser } : {}),
 			});
 			if (nextUser) {
@@ -313,15 +324,22 @@ export function useUpdateAdminMutation() {
 		onSuccess: (admin, variables) => {
 			writeAdminCaches(queryClient, admin);
 
-			const existingAccount = getCachedAccount(queryClient, admin.accountId);
+			const existingAccount = getCachedAccount(
+				queryClient,
+				admin.accountResponse.id,
+			);
 			const nextAccount = buildNextAccountRecord(admin, {
-				active: variables.body.active ?? existingAccount?.active ?? true,
+				active: existingAccount?.active ?? admin.accountResponse.active,
 				...(existingAccount ? { existing: existingAccount } : {}),
 			});
 			writeAccountCaches(queryClient, nextAccount);
 
-			const existingUser = getCachedUser(queryClient, admin.userId);
+			const existingUser = getCachedUser(
+				queryClient,
+				admin.accountResponse.userId,
+			);
 			const nextUser = buildNextUserRecord(admin, {
+				name: variables.body.name,
 				...(existingUser ? { existing: existingUser } : {}),
 			});
 			if (nextUser) {

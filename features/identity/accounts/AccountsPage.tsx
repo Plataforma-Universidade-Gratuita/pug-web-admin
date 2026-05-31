@@ -57,7 +57,7 @@ export function AccountsPage() {
 			name: "",
 			cpf: "",
 			email: "",
-			accountType: "",
+			accountTypes: [],
 			dateFrom: "",
 			dateTo: "",
 			activeOnly: true,
@@ -181,22 +181,25 @@ export function AccountsPage() {
 	const totalPages = accountsPagination.isAll
 		? 1
 		: Math.max(accountsSearchQuery.data?.totalPages ?? 1, 1);
+	const accountsCurrentPage = accountsPagination.currentPage;
+	const accountsAreShowingAll = accountsPagination.isAll;
+	const setAccountsCurrentPage = accountsPagination.setCurrentPage;
 
 	useEffect(() => {
 		if (
-			accountsPagination.isAll ||
+			accountsAreShowingAll ||
 			!accountsSearchQuery.data ||
-			accountsPagination.currentPage <= totalPages
+			accountsCurrentPage <= totalPages
 		) {
 			return;
 		}
 
-		accountsPagination.setCurrentPage(totalPages);
+		setAccountsCurrentPage(totalPages);
 	}, [
-		accountsPagination.currentPage,
+		accountsAreShowingAll,
+		accountsCurrentPage,
 		accountsSearchQuery.data,
-		accountsPagination.isAll,
-		accountsPagination.setCurrentPage,
+		setAccountsCurrentPage,
 		totalPages,
 	]);
 

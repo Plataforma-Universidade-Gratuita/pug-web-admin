@@ -36,8 +36,8 @@ export const AccountComplexSearchRequestSchema = z.object({
 	cpf: z.string().optional(),
 	email: z.string().optional(),
 	accountTypes: z.array(AccountTypeEnum).optional(),
-	dateFrom: z.string().optional(),
-	dateTo: z.string().optional(),
+	dateFrom: z.iso.datetime({ offset: true }).optional(),
+	dateTo: z.iso.datetime({ offset: true }).optional(),
 	activeOnly: z.boolean().optional(),
 });
 

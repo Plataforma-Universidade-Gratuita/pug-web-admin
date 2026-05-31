@@ -34,6 +34,8 @@ export interface DeferredUndoActionOptions {
 	undoLabel: string;
 }
 
+export type SearchDateBoundary = "start" | "end";
+
 export interface ApiErrorToastOptions {
 	fallbackTitle: ReactNode;
 	fallbackDescription?: ReactNode;

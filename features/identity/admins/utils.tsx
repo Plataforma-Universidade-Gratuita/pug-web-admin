@@ -5,15 +5,22 @@ import { Badge, TableText } from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type {
 	AdminComplexSearchFilters,
+	AdminComplexSearchRequest,
 	AdminCreateExistingUser,
 	AdminCreateRequest,
 	AdminEditorFormValues,
+	AdminLinkedUser,
 	AdminResponse,
 	AdminSearchResponse,
 	AdminUpdateRequest,
 } from "@/types";
 import type { AdminFrontendFilterArgs } from "@/types";
-import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
+import {
+	getApiErrorToastContent,
+	matchesAnyDateRange,
+	normalizeTextForSearch,
+	toSearchDateOffsetDateTime,
+} from "@/utils";
 
 export { createAdminEditorFormSchema } from "@/schemas";
 
@@ -21,34 +28,6 @@ const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
 
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");
-}
-
-function getStartOfDayTimestamp(value: string) {
-	const date = new Date(value);
-	date.setHours(0, 0, 0, 0);
-	return date.getTime();
-}
-
-function matchesDateFrom(admin: AdminSearchResponse, value: string) {
-	const threshold = getStartOfDayTimestamp(value);
-	const createdAt = getStartOfDayTimestamp(admin.account.auditInfo.createdAt);
-	const updatedAt = getStartOfDayTimestamp(admin.account.auditInfo.updatedAt);
-	const grantedAt = getStartOfDayTimestamp(admin.grantedAt);
-
-	return (
-		createdAt >= threshold || updatedAt >= threshold || grantedAt >= threshold
-	);
-}
-
-function matchesDateTo(admin: AdminSearchResponse, value: string) {
-	const threshold = getStartOfDayTimestamp(value);
-	const createdAt = getStartOfDayTimestamp(admin.account.auditInfo.createdAt);
-	const updatedAt = getStartOfDayTimestamp(admin.account.auditInfo.updatedAt);
-	const grantedAt = getStartOfDayTimestamp(admin.grantedAt);
-
-	return (
-		createdAt <= threshold || updatedAt <= threshold || grantedAt <= threshold
-	);
 }
 
 export function createAdminColumns(
@@ -119,22 +98,26 @@ export function createAdminColumns(
 
 export function buildAdminComplexSearchRequest(
 	filters: AdminComplexSearchFilters,
-) {
+): AdminComplexSearchRequest {
 	const normalizedName = filters.name.trim();
 	const normalizedCpf = normalizeCpf(filters.cpf.trim());
 	const normalizedEmail = filters.email.trim();
-	const normalizedDateFrom = filters.dateFrom.trim();
-	const normalizedDateTo = filters.dateTo.trim();
+	const normalizedDateFrom = toSearchDateOffsetDateTime(
+		filters.dateFrom.trim(),
+		"start",
+	);
+	const normalizedDateTo = toSearchDateOffsetDateTime(
+		filters.dateTo.trim(),
+		"end",
+	);
 
 	return {
 		name: normalizedName || undefined,
 		cpf: normalizedCpf || undefined,
 		email: normalizedEmail || undefined,
-		accountType: filters.accountType || undefined,
-		dateFrom: normalizedDateFrom || undefined,
-		dateTo: normalizedDateTo || undefined,
+		dateFrom: normalizedDateFrom,
+		dateTo: normalizedDateTo,
 		activeOnly: filters.activeOnly,
-		campuses: filters.campuses,
 	};
 }
 
@@ -168,24 +151,19 @@ export function filterAdminsByBackendFilters(
 		}
 
 		if (
-			request.accountType &&
-			admin.account.accountType !== request.accountType
+			(request.dateFrom || request.dateTo) &&
+			!matchesAnyDateRange(
+				[
+					admin.account.auditInfo.createdAt,
+					admin.account.auditInfo.updatedAt,
+					admin.grantedAt,
+				],
+				{
+					...(request.dateFrom ? { dateFrom: request.dateFrom } : {}),
+					...(request.dateTo ? { dateTo: request.dateTo } : {}),
+				},
+			)
 		) {
-			return false;
-		}
-
-		if (
-			request.campuses.length > 0 &&
-			!request.campuses.includes(admin.campus.campus)
-		) {
-			return false;
-		}
-
-		if (request.dateFrom && !matchesDateFrom(admin, request.dateFrom)) {
-			return false;
-		}
-
-		if (request.dateTo && !matchesDateTo(admin, request.dateTo)) {
 			return false;
 		}
 
@@ -353,36 +331,29 @@ export function getEmptyAdminEditorFormValues(): AdminEditorFormValues {
 		cpf: "",
 		name: "",
 		email: "",
-		password: "",
 		campus: "JARAGUA_DO_SUL",
-		active: true,
 	};
 }
 
 export function buildAdminUpdateFormValues(
 	admin: AdminResponse,
+	linkedUser: AdminLinkedUser,
 ): AdminEditorFormValues {
 	return {
 		cpf: "",
-		name: admin.userName,
-		email: admin.accountEmail,
-		password: "",
+		name: linkedUser.name,
+		email: admin.accountResponse.email,
 		campus: admin.campus.campus,
-		active: admin.accountActive,
 	};
 }
 
 export function toAdminUpdateRequest(
 	values: AdminEditorFormValues,
 ): AdminUpdateRequest {
-	const password = values.password.trim();
-
 	return {
 		name: values.name.trim(),
-		email: values.email.trim(),
-		password: password.length > 0 ? password : null,
+		emailString: values.email.trim(),
 		campus: values.campus,
-		active: values.active,
 	};
 }
 
@@ -391,28 +362,18 @@ export function toAdminCreateRequest(
 	existingUser?: AdminCreateExistingUser | null,
 ): AdminCreateRequest {
 	if (existingUser) {
-		return {
-			userId: existingUser.id,
-			email: values.email.trim(),
-			campus: values.campus,
-		};
+		return toAdminCreateRequest({
+			...values,
+			cpf: existingUser.cpf,
+			name: existingUser.name,
+		});
 	}
 
 	return {
-		cpf: normalizeCpf(values.cpf.trim()),
+		cpfString: normalizeCpf(values.cpf.trim()),
 		name: values.name.trim(),
-		email: values.email.trim(),
+		emailString: values.email.trim(),
 		campus: values.campus,
-	};
-}
-
-export function buildAdminDuplicateCreateRequest(
-	admin: AdminSearchResponse,
-): AdminCreateRequest {
-	return {
-		userId: admin.account.user.id,
-		email: appendCopyToEmail(admin.account.email),
-		campus: admin.campus.campus,
 	};
 }
 
@@ -467,22 +428,6 @@ export function getAdminFilterSummary(
 
 	if (backendFilters.email.trim()) {
 		parts.push(backendFilters.email.trim());
-	}
-
-	if (backendFilters.accountType) {
-		parts.push(
-			t(
-				`identity.accountPage.filters.accountType.options.${backendFilters.accountType}`,
-			),
-		);
-	}
-
-	if (backendFilters.campuses.length > 0) {
-		parts.push(
-			backendFilters.campuses
-				.map(campus => t(`identity.adminPage.filters.campus.options.${campus}`))
-				.join(", "),
-		);
 	}
 
 	if (backendFilters.dateFrom || backendFilters.dateTo) {

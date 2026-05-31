@@ -4,6 +4,8 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { get as getAdmin } from "@/api/web/identity/admins";
+import { get as getUser } from "@/api/web/identity/users";
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AdminsActionDialogs } from "@/features/identity/admins/AdminActionDialogs";
@@ -21,7 +23,6 @@ import {
 } from "@/features/identity/admins/queries";
 import {
 	appendCopyToEmail,
-	buildAdminDuplicateCreateRequest,
 	createAdminColumns,
 	filterAdminsByBackendFilters,
 	filterAdminsByFrontendFilters,
@@ -87,11 +88,9 @@ export function AdminsPage() {
 			name: "",
 			cpf: "",
 			email: "",
-			accountType: "",
 			dateFrom: "",
 			dateTo: "",
 			activeOnly: true,
-			campuses: [],
 		},
 	});
 	const adminsPagination = useServicePagePagination({
@@ -215,37 +214,48 @@ export function AdminsPage() {
 		setBackendFiltersOpen(false);
 	}
 
-	function handleDuplicate(admin: AdminSearchResponse) {
-		const body = buildAdminDuplicateCreateRequest(admin);
+	async function handleDuplicate(admin: AdminSearchResponse) {
+		try {
+			const adminDetail = await getAdmin(admin.account.id);
+			const linkedUser = await getUser(adminDetail.accountResponse.userId);
 
-		createAdminMutation.mutate(
-			{
-				body,
-			},
-			{
-				onSuccess: ({ admin: createdAdmin }) => {
-					toast.success(
-						t("identity.adminPage.duplicate.feedback.success.title"),
-						{
-							description: t(
-								"identity.adminPage.duplicate.feedback.success.description",
-								{
-									name: createdAdmin.userName,
-									email: appendCopyToEmail(admin.account.email),
-								},
-							),
-						},
-					);
+			createAdminMutation.mutate(
+				{
+					body: {
+						cpfString: linkedUser.cpf,
+						name: linkedUser.name,
+						emailString: appendCopyToEmail(admin.account.email),
+						campus: admin.campus.campus,
+					},
 				},
-				onError: error => {
-					const { title, description } = getAdminDuplicateErrorToastContent(
-						t,
-						error,
-					);
-					toast.danger(title, { description });
+				{
+					onSuccess: () => {
+						toast.success(
+							t("identity.adminPage.duplicate.feedback.success.title"),
+							{
+								description: t(
+									"identity.adminPage.duplicate.feedback.success.description",
+									{
+										name: linkedUser.name,
+										email: appendCopyToEmail(admin.account.email),
+									},
+								),
+							},
+						);
+					},
+					onError: error => {
+						const { title, description } = getAdminDuplicateErrorToastContent(
+							t,
+							error,
+						);
+						toast.danger(title, { description });
+					},
 				},
-			},
-		);
+			);
+		} catch (error) {
+			const { title, description } = getAdminDuplicateErrorToastContent(t, error);
+			toast.danger(title, { description });
+		}
 	}
 
 	function handleStatusChangeConfirm() {
@@ -255,7 +265,7 @@ export function AdminsPage() {
 
 		const { active, admin } = pendingStatusAdmin;
 		const isCurrentAdmin =
-			currentAdminQuery.data?.accountId === admin.account.id;
+			currentAdminQuery.data?.accountResponse.id === admin.account.id;
 
 		if (!active && isCurrentAdmin) {
 			setPendingStatusAdmin(null);
@@ -418,7 +428,7 @@ export function AdminsPage() {
 						<AdminsRowActions
 							admin={row}
 							canDeactivate={
-								row.account.id !== currentAdminQuery.data?.accountId
+								row.account.id !== currentAdminQuery.data?.accountResponse.id
 							}
 							href={`/identity/admins/${row.account.id}`}
 							onDelete={setPendingDeleteAdmin}

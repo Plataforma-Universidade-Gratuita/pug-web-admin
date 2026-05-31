@@ -5,4 +5,8 @@ export const ADMIN_CAMPI_VALUES = [
 	"JOINVILLE",
 ] as const satisfies readonly Campi[];
 
-export const ACCOUNT_TYPE_VALUES = ["ADMIN", "PARTNER", "STUDENT"] as const;
+export const ACCOUNT_TYPE_VALUES = [
+	"ADMIN",
+	"FORMER_STUDENT",
+	"PARTNER",
+] as const;

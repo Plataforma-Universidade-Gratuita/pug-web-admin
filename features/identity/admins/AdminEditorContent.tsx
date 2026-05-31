@@ -15,7 +15,6 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SomeErrorState,
-	Switch,
 	TabsContent,
 } from "@/components";
 import {
@@ -126,6 +125,27 @@ export function AdminEditorContent({
 					"identity.adminPage.update.accountLoadError.description",
 				)}
 				onRefresh={onRefreshAccount}
+			/>
+		);
+	}
+
+	if (linkedUserError) {
+		if (linkedUserError instanceof WebApiError && linkedUserError.status === 404) {
+			return (
+				<NotFoundState
+					title={t("identity.adminPage.dialog.linkedUser.notFound.title")}
+					description={t(
+						"identity.adminPage.dialog.linkedUser.notFound.description",
+					)}
+				/>
+			);
+		}
+
+		return (
+			<SomeErrorState
+				title={t("identity.adminPage.dialog.linkedUser.error.title")}
+				description={t("identity.adminPage.dialog.linkedUser.error.description")}
+				onRefresh={onRefreshUser}
 			/>
 		);
 	}
@@ -244,36 +264,6 @@ export function AdminEditorContent({
 					</div>
 				) : null}
 
-				{!isCreateMode ? (
-					<div className="grid gap-2">
-						<Label htmlFor="admin-password">
-							{t("identity.adminPage.update.fields.password")}
-						</Label>
-						<Input
-							id="admin-password"
-							type="password"
-							showPasswordToggle
-							{...form.register("password")}
-							aria-describedby={
-								form.formState.errors.password
-									? "admin-password-error"
-									: undefined
-							}
-							aria-invalid={form.formState.errors.password ? "true" : "false"}
-							placeholder={t(
-								"identity.adminPage.update.fields.passwordPlaceholder",
-							)}
-						/>
-						{form.formState.errors.password ? (
-							<p
-								id="admin-password-error"
-								className="field-error"
-							>
-								{form.formState.errors.password.message}
-							</p>
-						) : null}
-					</div>
-				) : null}
 			</TabsContent>
 
 			<TabsContent
@@ -330,28 +320,6 @@ export function AdminEditorContent({
 						</Badge>
 					</div>
 				</div>
-
-				<Controller
-					control={form.control}
-					name="active"
-					render={({ field }) => (
-						<Switch
-							checked={field.value}
-							onCheckedChange={field.onChange}
-							disabled={isCreateMode}
-							label={t("identity.adminPage.update.fields.active")}
-							description={
-								isCreateMode
-									? t("identity.adminPage.update.fields.activeDescription")
-									: field.value
-										? t("identity.adminPage.update.fields.activeValues.active")
-										: t(
-												"identity.adminPage.update.fields.activeValues.inactive",
-											)
-							}
-						/>
-					)}
-				/>
 
 				{!isCreateMode && admin ? (
 					<div className="grid gap-1">

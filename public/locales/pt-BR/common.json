@@ -2992,6 +2992,7 @@
 					"options": {
 						"ADMIN": "Administrador",
 						"all": "Todos os tipos",
+						"FORMER_STUDENT": "Egresso",
 						"PARTNER": "Parceiro",
 						"STUDENT": "Estudante"
 					},

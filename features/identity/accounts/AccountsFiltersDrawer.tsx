@@ -29,6 +29,7 @@ export function AccountsFiltersDrawer({
 	open,
 }: AccountsFiltersDrawerProps) {
 	const { t } = useTranslation();
+	const selectedAccountType = filters.accountTypes[0] ?? "ALL";
 
 	return (
 		<ServicePageFiltersDrawer
@@ -75,11 +76,13 @@ export function AccountsFiltersDrawer({
 			<div className="grid gap-2">
 				<Label>{t("identity.accountPage.filters.accountType.label")}</Label>
 				<Select
-					value={filters.accountType}
+					value={selectedAccountType}
 					onValueChange={value =>
 						onFilterChange(
-							"accountType",
-							value === "ALL" ? "" : (value as typeof filters.accountType),
+							"accountTypes",
+							value === "ALL"
+								? []
+								: [value as (typeof filters.accountTypes)[number]],
 						)
 					}
 				>

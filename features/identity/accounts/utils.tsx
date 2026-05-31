@@ -4,25 +4,48 @@ import type { TFunction } from "i18next";
 import { Badge, TableText } from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type {
+	AccountType,
+	AccountTypeResponse,
 	AccountComplexSearchFilters,
 	AccountFilterArgs,
 	AccountResponse,
 	AccountSearchResponse,
 	UserResponse,
 } from "@/types";
-import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
+import {
+	getApiErrorToastContent,
+	matchesAnyDateRange,
+	normalizeTextForSearch,
+	toSearchDateOffsetDateTime,
+} from "@/utils";
 
 const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
 
+function getAccountTypeValue(accountType: AccountType | AccountTypeResponse) {
+	return typeof accountType === "string"
+		? accountType
+		: accountType.accountType;
+}
+
+export function getAccountOptionClassName(kind: "active", value: string) {
+	if (kind === "active") {
+		return value === "true"
+			? "text-[color:var(--twc-success-strong)]"
+			: "text-[color:var(--twc-danger-strong)]";
+	}
+
+	return "";
+}
+
 export function getAccountTypeTone(
-	accountType: AccountResponse["accountType"],
+	accountType: AccountType | AccountTypeResponse,
 ) {
-	switch (accountType) {
+	switch (getAccountTypeValue(accountType)) {
 		case "ADMIN":
 			return "warning";
 		case "PARTNER":
 			return "info";
-		case "STUDENT":
+		case "FORMER_STUDENT":
 			return "brand";
 		default:
 			return "neutral";
@@ -31,9 +54,31 @@ export function getAccountTypeTone(
 
 export function getAccountTypeLabel(
 	t: TFunction,
-	accountType: AccountResponse["accountType"],
+	accountType: AccountType | AccountTypeResponse,
 ) {
-	return t(`identity.accountPage.filters.accountType.options.${accountType}`);
+	if (
+		typeof accountType !== "string" &&
+		accountType.accountTypeFormatted.trim()
+	) {
+		return accountType.accountTypeFormatted;
+	}
+
+	const accountTypeValue = getAccountTypeValue(accountType);
+	const localized = t(
+		`identity.accountPage.filters.accountType.options.${accountTypeValue}`,
+	);
+
+	if (
+		!localized.includes("identity.accountPage.filters.accountType.options.")
+	) {
+		return localized;
+	}
+
+	return accountTypeValue
+		.toLowerCase()
+		.split("_")
+		.map(segment => segment.charAt(0).toUpperCase() + segment.slice(1))
+		.join(" ");
 }
 
 export function createAccountColumns(
@@ -136,7 +181,6 @@ export function mapAccountsToSearchResponses(
 		},
 		email: account.email,
 		accountType: account.accountType,
-		accountTypeFormatted: account.accountTypeFormatted,
 		auditInfo: account.auditInfo,
 		active: account.active,
 	}));
@@ -144,12 +188,6 @@ export function mapAccountsToSearchResponses(
 
 function normalizeCpfSearch(value: string) {
 	return value.replace(/\D+/g, "");
-}
-
-function getStartOfDayTimestamp(value: string) {
-	const date = new Date(value);
-	date.setHours(0, 0, 0, 0);
-	return date.getTime();
 }
 
 export function filterAccountListByBackendFilters(
@@ -192,38 +230,21 @@ export function filterAccountListByBackendFilters(
 			return false;
 		}
 
-		if (request.accountType && account.accountType !== request.accountType) {
+		if (
+			request.accountTypes?.length &&
+			!request.accountTypes.includes(account.accountType.accountType)
+		) {
 			return false;
 		}
 
-		if (request.dateFrom || request.dateTo) {
-			const createdAt = getStartOfDayTimestamp(account.auditInfo.createdAt);
-			const updatedAt = getStartOfDayTimestamp(account.auditInfo.updatedAt);
-			const startTimestamp = request.dateFrom
-				? getStartOfDayTimestamp(request.dateFrom)
-				: null;
-			const endTimestamp = request.dateTo
-				? getStartOfDayTimestamp(request.dateTo)
-				: null;
-
-			if (
-				startTimestamp !== null &&
-				createdAt < startTimestamp &&
-				updatedAt < startTimestamp
-			) {
-				return false;
-			}
-
-			if (
-				endTimestamp !== null &&
-				createdAt > endTimestamp &&
-				updatedAt > endTimestamp
-			) {
-				return false;
-			}
-		}
-
-		return true;
+		return !((request.dateFrom || request.dateTo) &&
+            !matchesAnyDateRange(
+                [account.auditInfo.createdAt, account.auditInfo.updatedAt],
+                {
+                    ...(request.dateFrom ? {dateFrom: request.dateFrom} : {}),
+                    ...(request.dateTo ? {dateTo: request.dateTo} : {}),
+                },
+            ));
 	});
 }
 
@@ -233,16 +254,27 @@ export function buildAccountComplexSearchRequest(
 	const normalizedName = filters.name.trim();
 	const normalizedCpf = normalizeCpfSearch(filters.cpf.trim());
 	const normalizedEmail = filters.email.trim();
-	const normalizedDateFrom = filters.dateFrom.trim();
-	const normalizedDateTo = filters.dateTo.trim();
+	const normalizedDateFrom = toSearchDateOffsetDateTime(
+		filters.dateFrom.trim(),
+		"start",
+	);
+	const normalizedDateTo = toSearchDateOffsetDateTime(
+		filters.dateTo.trim(),
+		"end",
+	);
+	const normalizedAccountTypes = filters.accountTypes.filter(
+		(accountType): accountType is Exclude<typeof accountType, ""> =>
+			accountType.length > 0,
+	);
 
 	return {
 		name: normalizedName || undefined,
 		cpf: normalizedCpf || undefined,
 		email: normalizedEmail || undefined,
-		accountType: filters.accountType || undefined,
-		dateFrom: normalizedDateFrom || undefined,
-		dateTo: normalizedDateTo || undefined,
+		accountTypes:
+			normalizedAccountTypes.length > 0 ? normalizedAccountTypes : undefined,
+		dateFrom: normalizedDateFrom,
+		dateTo: normalizedDateTo,
 		activeOnly: filters.activeOnly,
 	};
 }
@@ -266,10 +298,11 @@ function matchesBackendFilters(
 
 	if (
 		filters.cpf &&
-		typeof (account as { user?: { cpf?: string } }).user?.cpf === "string"
+		typeof (account as unknown as { user?: { cpf?: string } }).user?.cpf ===
+			"string"
 	) {
 		const accountCpf = normalizeCpfSearch(
-			(account as { user: { cpf: string } }).user.cpf,
+			(account as unknown as { user: { cpf: string } }).user.cpf,
 		);
 		if (!accountCpf.includes(filters.cpf)) {
 			return false;
@@ -285,38 +318,21 @@ function matchesBackendFilters(
 		return false;
 	}
 
-	if (filters.accountType && account.accountType !== filters.accountType) {
+	if (
+		filters.accountTypes?.length &&
+		!filters.accountTypes.includes(account.accountType.accountType)
+	) {
 		return false;
 	}
 
-	if (filters.dateFrom || filters.dateTo) {
-		const createdAt = getStartOfDayTimestamp(account.auditInfo.createdAt);
-		const updatedAt = getStartOfDayTimestamp(account.auditInfo.updatedAt);
-		const startTimestamp = filters.dateFrom
-			? getStartOfDayTimestamp(filters.dateFrom)
-			: null;
-		const endTimestamp = filters.dateTo
-			? getStartOfDayTimestamp(filters.dateTo)
-			: null;
-
-		if (
-			startTimestamp !== null &&
-			createdAt < startTimestamp &&
-			updatedAt < startTimestamp
-		) {
-			return false;
-		}
-
-		if (
-			endTimestamp !== null &&
-			createdAt > endTimestamp &&
-			updatedAt > endTimestamp
-		) {
-			return false;
-		}
-	}
-
-	return true;
+	return !((filters.dateFrom || filters.dateTo) &&
+        !matchesAnyDateRange(
+            [account.auditInfo.createdAt, account.auditInfo.updatedAt],
+            {
+                ...(filters.dateFrom ? {dateFrom: filters.dateFrom} : {}),
+                ...(filters.dateTo ? {dateTo: filters.dateTo} : {}),
+            },
+        ));
 }
 
 export function filterAccountsByBackendFilters(
@@ -399,11 +415,13 @@ export function getAccountFilterSummary(
 		parts.push(filters.email.trim());
 	}
 
-	if (filters.accountType) {
+	if (filters.accountTypes.length > 0) {
 		parts.push(
-			t(
-				`identity.accountPage.filters.accountType.options.${filters.accountType}`,
-			),
+			filters.accountTypes
+				.map(accountType =>
+					t(`identity.accountPage.filters.accountType.options.${accountType}`),
+				)
+				.join(", "),
 		);
 	}
 

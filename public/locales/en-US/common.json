@@ -2992,6 +2992,7 @@
 					"options": {
 						"ADMIN": "Admin",
 						"all": "All account types",
+						"FORMER_STUDENT": "Former Student",
 						"PARTNER": "Partner",
 						"STUDENT": "Student"
 					},

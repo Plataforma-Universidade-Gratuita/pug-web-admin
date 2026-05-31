@@ -27,7 +27,7 @@ export function useCitiesSearchQuery(
 ) {
 	const normalizedName = name.trim();
 	const complexSearchRequest = {
-		name: normalizedName || undefined,
+		name: normalizedName,
 	};
 
 	return useQuery({
