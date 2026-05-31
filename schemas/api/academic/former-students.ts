@@ -3,12 +3,14 @@ import { z } from "zod";
 import {
 	AccountComplexSearchResponseSchema,
 	AccountSimpleComplexSearchResponseSchema,
-	AccountStatusRequestSchema,
-	CampiEnum,
-	CampusResponseSchema,
 	CourseComplexSearchResponseSchema,
 	AuditInfoResponseSchema,
 } from "@/schemas";
+import {
+	AccountStatusRequestSchema,
+	CampiEnum,
+	CampusResponseSchema,
+} from "@/schemas/api/shared/shared";
 
 export const CounterpartHoursResponseSchema = z.object({
 	requiredHours: z.number(),

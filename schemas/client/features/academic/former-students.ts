@@ -70,7 +70,7 @@ export function createFormerStudentEditorFormSchema(
 		.superRefine((value, ctx) => {
 			if (isDateRangeInvalid(value.startDate, value.dueDate)) {
 				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
+					code: "custom",
 					message: t("academic.studentPage.editor.validation.dueDate.range"),
 					path: ["dueDate"],
 				});

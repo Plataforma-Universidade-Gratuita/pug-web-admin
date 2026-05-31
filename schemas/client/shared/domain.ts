@@ -16,7 +16,7 @@ export function createRequiredTrimmedStringSchema(
 
 		if (trimmed.length === 0) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: requiredMessage,
 			});
 			return;
@@ -24,7 +24,7 @@ export function createRequiredTrimmedStringSchema(
 
 		if (trimmed.length > maxLength) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: tooLongMessage,
 			});
 		}
@@ -44,7 +44,7 @@ export function createOptionalTrimmedStringSchema(
 
 		if (trimmed.length > maxLength) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: tooLongMessage,
 			});
 		}
@@ -63,7 +63,7 @@ export function createEmailFieldSchema(
 		if (normalized.length === 0) {
 			if (required) {
 				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
+					code: "custom",
 					message: requiredMessage,
 				});
 			}
@@ -72,7 +72,7 @@ export function createEmailFieldSchema(
 
 		if (normalized.length > 254) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: tooLongMessage,
 			});
 			return;
@@ -80,7 +80,7 @@ export function createEmailFieldSchema(
 
 		if (!EMAIL_VALUE_SCHEMA.safeParse(normalized).success) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: invalidMessage,
 			});
 		}
@@ -98,7 +98,7 @@ export function createCpfFieldSchema(
 		if (digits.length === 0) {
 			if (required) {
 				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
+					code: "custom",
 					message: requiredMessage,
 				});
 			}
@@ -107,7 +107,7 @@ export function createCpfFieldSchema(
 
 		if (!isValidCpf(digits)) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: invalidMessage,
 			});
 		}
@@ -125,7 +125,7 @@ export function createCnpjFieldSchema(
 		if (digits.length === 0) {
 			if (required) {
 				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
+					code: "custom",
 					message: requiredMessage,
 				});
 			}
@@ -134,7 +134,7 @@ export function createCnpjFieldSchema(
 
 		if (!isValidCnpj(digits)) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: invalidMessage,
 			});
 		}
@@ -151,7 +151,7 @@ export function createRequiredNumericStringSchema(
 
 		if (trimmed.length === 0) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: requiredMessage,
 			});
 			return;
@@ -163,7 +163,7 @@ export function createRequiredNumericStringSchema(
 
 		if (!isValid) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: invalidMessage,
 			});
 		}
@@ -187,7 +187,7 @@ export function createOptionalNumericStringSchema(
 
 		if (!isValid) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: invalidMessage,
 			});
 		}
@@ -198,7 +198,7 @@ export function createRequiredDateStringSchema(requiredMessage: string) {
 	return z.string().superRefine((value, ctx) => {
 		if (value.trim().length === 0) {
 			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+				code: "custom",
 				message: requiredMessage,
 			});
 		}

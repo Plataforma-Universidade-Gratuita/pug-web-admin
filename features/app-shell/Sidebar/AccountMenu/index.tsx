@@ -46,9 +46,13 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 	const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 	const [isPending, startTransition] = useTransition();
 	const [pendingScope, setPendingScope] = useState<LogoutScope | null>(null);
-	const { data: admin } = useCurrentAdminQuery();
-	const { data: user } = useCurrentUserQuery();
-	const isProfileLoading = !admin || !user;
+	const adminQuery = useCurrentAdminQuery();
+	const userQuery = useCurrentUserQuery();
+	const admin = adminQuery.data;
+	const user = userQuery.data;
+	const isProfileLoading = adminQuery.isLoading || userQuery.isLoading;
+	const isProfileError = adminQuery.isError || userQuery.isError;
+	const profileError = adminQuery.error ?? userQuery.error;
 
 	async function finalizeLogout(successMessage: string) {
 		await queryClient.invalidateQueries({ queryKey: adminQueryKeys.all });
@@ -88,6 +92,10 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 				setPendingScope(null);
 			}
 		});
+	}
+
+	function handleRetryProfile() {
+		void Promise.all([adminQuery.refetch(), userQuery.refetch()]);
 	}
 
 	return (
@@ -139,51 +147,75 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 					collisionPadding={8}
 					className="app-sidebar-account-popover"
 				>
-					<div className="app-sidebar-account-summary">
-						<div className="app-sidebar-account-avatar">
-							<Icon
-								icon={UserRound}
-								size={16}
-							/>
+					{isProfileError ? (
+						<div className="flex flex-col items-start gap-4 rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4">
+							<div className="space-y-1">
+								<p className="ty-sm-bold">
+									{t("home.currentAccount.error.title")}
+								</p>
+								<p className="ty-helper">
+									{profileError instanceof Error
+										? profileError.message
+										: t("home.currentAccount.error.description")}
+								</p>
+							</div>
+							<Button
+								usage="secondary"
+								variant="ghost"
+								onClick={handleRetryProfile}
+							>
+								{t("home.currentAccount.error.retry")}
+							</Button>
 						</div>
-						<div className="app-sidebar-account-copy">
-							{isProfileLoading ? (
-								<>
-									<Skeleton className="h-4 w-28 rounded-[var(--twc-radius-square)]" />
-									<Skeleton className="h-3 w-40 rounded-[var(--twc-radius-square)]" />
-									<Skeleton className="h-3 w-24 rounded-[var(--twc-radius-square)]" />
-								</>
-							) : (
-								<>
-									<p className="app-sidebar-account-name">
-										{user?.name ?? t("Navbar.account.fallback")}
-									</p>
-									<p className="app-sidebar-account-meta">
-										{admin?.accountEmail ?? t("Navbar.account.fallback")}
-									</p>
-									<p className="app-sidebar-account-meta">
-										{admin?.campus.campusFormatted ??
-											t("Navbar.account.fallback")}
-									</p>
-								</>
-							)}
-						</div>
-					</div>
-					<Separator className="separator-horizontal" />
-					<Button
-						className="w-full justify-start"
-						usage="secondary"
-						variant="ghost"
-						onClick={handleOpenLogoutDialog}
-						leadingIcon={
-							<Icon
-								icon={LogOut}
-								size={16}
-							/>
-						}
-					>
-						{t("Navbar.account.logout")}
-					</Button>
+					) : (
+						<>
+							<div className="app-sidebar-account-summary">
+								<div className="app-sidebar-account-avatar">
+									<Icon
+										icon={UserRound}
+										size={16}
+									/>
+								</div>
+								<div className="app-sidebar-account-copy">
+									{isProfileLoading ? (
+										<>
+											<Skeleton className="h-4 w-28 rounded-[var(--twc-radius-square)]" />
+											<Skeleton className="h-3 w-40 rounded-[var(--twc-radius-square)]" />
+											<Skeleton className="h-3 w-24 rounded-[var(--twc-radius-square)]" />
+										</>
+									) : (
+										<>
+											<p className="app-sidebar-account-name">
+												{user?.name ?? t("Navbar.account.fallback")}
+											</p>
+											<p className="app-sidebar-account-meta">
+												{admin?.accountEmail ?? t("Navbar.account.fallback")}
+											</p>
+											<p className="app-sidebar-account-meta">
+												{admin?.campus.campusFormatted ??
+													t("Navbar.account.fallback")}
+											</p>
+										</>
+									)}
+								</div>
+							</div>
+							<Separator className="separator-horizontal" />
+							<Button
+								className="w-full justify-start"
+								usage="secondary"
+								variant="ghost"
+								onClick={handleOpenLogoutDialog}
+								leadingIcon={
+									<Icon
+										icon={LogOut}
+										size={16}
+									/>
+								}
+							>
+								{t("Navbar.account.logout")}
+							</Button>
+						</>
+					)}
 				</PopoverContent>
 			</Popover>
 			<AlertDialog
