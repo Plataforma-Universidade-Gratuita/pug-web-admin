@@ -2,16 +2,20 @@ import { z } from "zod";
 
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
-	CityResponseSchema,
+	EntityComplexSearchRequestSchema,
+	EntityComplexSearchResponseSchema,
 	EntityCreateRequestSchema,
 	EntityResponseSchema,
 	EntityUpdateRequestSchema,
+	createPageResponseSchema,
 } from "@/schemas";
 import type {
-	CityResponse,
+	EntityComplexSearchRequest,
+	EntityComplexSearchResponse,
 	EntityCreateRequest,
 	EntityResponse,
 	EntityUpdateRequest,
+	PaginationRequest,
 } from "@/types";
 import { qs, webFetch, webVoid } from "@/utils";
 
@@ -22,31 +26,29 @@ export async function get(id: string): Promise<EntityResponse> {
 	);
 }
 
-export async function getByCnpj(cnpj: string): Promise<EntityResponse> {
+export async function list(ids?: string[]): Promise<EntityResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.partner.entities}${qs({ cnpj })}`,
-		EntityResponseSchema,
-	);
-}
-
-export async function list(
-	q?: string,
-	cityId?: string,
-): Promise<EntityResponse[]> {
-	const params = new URLSearchParams();
-	if (q) params.set("q", q);
-	if (cityId) params.set("cityId", cityId);
-	const search = params.toString();
-	return webFetch(
-		`${WEB_API_ROUTE_BASES.partner.entities}${search ? `?${search}` : ""}`,
+		`${WEB_API_ROUTE_BASES.partner.entities}${qs({
+			ids: ids?.join(","),
+		})}`,
 		z.array(EntityResponseSchema),
 	);
 }
 
-export async function listCities(): Promise<CityResponse[]> {
+export async function search(
+	pagination: PaginationRequest,
+	body: EntityComplexSearchRequest,
+): Promise<EntityComplexSearchResponse> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.partner.entities}/cities`,
-		z.array(CityResponseSchema),
+		`${WEB_API_ROUTE_BASES.partner.entities}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		createPageResponseSchema(EntityComplexSearchResponseSchema),
+		{
+			method: "POST",
+			body: JSON.stringify(EntityComplexSearchRequestSchema.parse(body)),
+		},
 	);
 }
 

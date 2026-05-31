@@ -2,16 +2,22 @@ import { z } from "zod";
 
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
+	CourseComplexSearchRequestSchema,
 	CourseCreateRequestSchema,
 	CourseResponseSchema,
 	CourseUpdateRequestSchema,
+	CourseWithAuditInfoComplexSearchResponseSchema,
+	createPageResponseSchema,
 } from "@/schemas";
 import type {
+	CourseComplexSearchRequest,
+	CourseComplexSearchResponse,
 	CourseCreateRequest,
 	CourseResponse,
 	CourseUpdateRequest,
+	PaginationRequest,
 } from "@/types";
-import { webFetch, webVoid } from "@/utils";
+import { qs, webFetch, webVoid } from "@/utils";
 
 export async function get(id: string): Promise<CourseResponse> {
 	return webFetch(
@@ -20,17 +26,29 @@ export async function get(id: string): Promise<CourseResponse> {
 	);
 }
 
-export async function list(
-	q?: string,
-	schoolId?: string,
-): Promise<CourseResponse[]> {
-	const params = new URLSearchParams();
-	if (q) params.set("q", q);
-	if (schoolId) params.set("schoolId", schoolId);
-	const search = params.toString();
+export async function list(ids?: string[]): Promise<CourseResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.academic.courses}${search ? `?${search}` : ""}`,
+		`${WEB_API_ROUTE_BASES.academic.courses}${qs({
+			ids: ids?.join(","),
+		})}`,
 		z.array(CourseResponseSchema),
+	);
+}
+
+export async function search(
+	pagination: PaginationRequest,
+	body: CourseComplexSearchRequest,
+): Promise<CourseComplexSearchResponse> {
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.academic.courses}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		createPageResponseSchema(CourseWithAuditInfoComplexSearchResponseSchema),
+		{
+			method: "POST",
+			body: JSON.stringify(CourseComplexSearchRequestSchema.parse(body)),
+		},
 	);
 }
 

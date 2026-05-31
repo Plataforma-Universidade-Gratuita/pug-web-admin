@@ -1,7 +1,9 @@
 /* --- Academic --- */
+export * as areasOfExpertise from "./academic/areas-of-expertise";
 export * as schools from "./academic/schools";
 export * as courses from "./academic/courses";
 export * as students from "./academic/students";
+export * as formerStudents from "./academic/former-students";
 
 /* --- Geo --- */
 export * as cities from "./geo/cities";

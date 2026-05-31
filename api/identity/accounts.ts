@@ -2,10 +2,10 @@ import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
 import {
+	AccountComplexSearchResponseSchema,
 	createPageResponseSchema,
 	AccountComplexSearchRequestSchema,
 	AccountResponseSchema,
-	AccountSearchResponseSchema,
 } from "@/schemas";
 import type {
 	AccountComplexSearchRequest,
@@ -36,9 +36,14 @@ export async function getMe(token?: string): Promise<AccountResponse> {
 	);
 }
 
-export async function list(token?: string): Promise<AccountResponse[]> {
+export async function list(
+	token?: string,
+	ids?: string[],
+): Promise<AccountResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.identity.accounts}`,
+		`${API_ROUTE_BASES.identity.accounts}${qs({
+			ids: ids?.join(","),
+		})}`,
 		{ method: "GET" },
 		z.array(AccountResponseSchema),
 		token,
@@ -59,7 +64,7 @@ export async function search(
 			method: "POST",
 			body: JSON.stringify(AccountComplexSearchRequestSchema.parse(body)),
 		},
-		createPageResponseSchema(AccountSearchResponseSchema),
+		createPageResponseSchema(AccountComplexSearchResponseSchema),
 		token,
 	);
 }

@@ -1,52 +1,49 @@
 import { z } from "zod";
 
 import {
-	AccountComplexSearchRequestSchema,
-	AccountSearchResponseSchema,
-	CampiEnum,
+	AccountComplexSearchResponseSchema,
+	AccountResponseSchema,
 	CampusResponseSchema,
 } from "@/schemas";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 
 export const AdminResponseSchema = z.object({
-	accountId: z.string(),
-	accountEmail: z.string(),
-	accountActive: z.boolean(),
-	userId: z.string(),
-	userName: z.string(),
+	accountResponse: AccountResponseSchema,
 	campus: CampusResponseSchema,
 	grantedAt: z.string(),
 	grantedAtFormatted: z.string(),
 });
 
-export const AdminSearchResponseSchema = z.object({
-	account: AccountSearchResponseSchema,
+export const AdminComplexSearchResponseSchema = z.object({
+	account: AccountComplexSearchResponseSchema,
 	campus: CampusResponseSchema,
 	grantedAt: z.string(),
 	grantedAtFormatted: z.string(),
 });
 
-export const AdminComplexSearchRequestSchema =
-	AccountComplexSearchRequestSchema.extend({
-		campuses: z.array(CampiEnum),
-	});
+export const AdminComplexSearchRequestSchema = z.object({
+	name: z.string().optional(),
+	cpf: z.string().optional(),
+	email: z.string().optional(),
+	dateFrom: z.string().optional(),
+	dateTo: z.string().optional(),
+	activeOnly: z.boolean().optional(),
+});
 
 // ─── Requests ────────────────────────────────────────────────────────────────
 
 export const AdminCreateRequestSchema = z.object({
-	cpf: z.string().optional(),
-	name: z.string().optional(),
-	email: z.string(),
-	campus: CampiEnum,
-	userId: z.string().optional(),
+	cpfString: z.string(),
+	name: z.string(),
+	emailString: z.string(),
+	campus: CampusResponseSchema.shape.campus,
 });
 
 export const AdminUpdateRequestSchema = z.object({
-	cpf: z.string().nullable().optional(),
-	name: z.string().nullable().optional(),
-	email: z.string().nullable().optional(),
-	password: z.string().nullable().optional(),
-	campus: CampiEnum.nullable().optional(),
-	active: z.boolean().optional(),
+	name: z.string(),
+	emailString: z.string(),
+	campus: CampusResponseSchema.shape.campus,
 });
+
+export const AdminSearchResponseSchema = AdminComplexSearchResponseSchema;

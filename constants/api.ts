@@ -11,7 +11,9 @@ export const WEB_API_VERSION_PREFIX = "/api/v1";
 
 export const API_ROUTE_BASES = {
 	academic: {
+		areasOfExpertise: `${API_VERSION_PREFIX}/academic/areas-of-expertise`,
 		courses: `${API_VERSION_PREFIX}/academic/courses`,
+		formerStudents: `${API_VERSION_PREFIX}/academic/former-students`,
 		schools: `${API_VERSION_PREFIX}/academic/schools`,
 		students: `${API_VERSION_PREFIX}/academic/students`,
 	},
@@ -38,7 +40,9 @@ export const API_ROUTE_BASES = {
 
 export const WEB_API_ROUTE_BASES = {
 	academic: {
+		areasOfExpertise: `${WEB_API_VERSION_PREFIX}/academic/areas-of-expertise`,
 		courses: `${WEB_API_VERSION_PREFIX}/academic/courses`,
+		formerStudents: `${WEB_API_VERSION_PREFIX}/academic/former-students`,
 		schools: `${WEB_API_VERSION_PREFIX}/academic/schools`,
 		students: `${WEB_API_VERSION_PREFIX}/academic/students`,
 	},

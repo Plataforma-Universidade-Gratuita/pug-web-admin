@@ -2,10 +2,11 @@ import { z } from "zod";
 
 import { admins } from "@/api";
 import {
+	AccountStatusRequestSchema,
 	AdminComplexSearchRequestSchema,
+	AdminComplexSearchResponseSchema,
 	AdminCreateRequestSchema,
 	AdminResponseSchema,
-	AdminSearchResponseSchema,
 	AdminUpdateRequestSchema,
 	createPageResponseSchema,
 	PaginationRequestSchema,
@@ -18,8 +19,19 @@ import {
 	routeWithAuthRetry,
 } from "@/utils/route";
 
-export async function GET(_request: Request, { params }: AppRouteSlugContext) {
+export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
+	if (slug.length === 0) {
+		const ids =
+			new URL(request.url)
+				.searchParams.get("ids")
+				?.split(",")
+				.filter(Boolean) ?? undefined;
+		return routeWithAuthRetry(
+			token => admins.list(token, ids),
+			z.array(AdminResponseSchema),
+		);
+	}
 	if (slug.length === 1 && slug[0] === "me") {
 		return routeWithAuthRetry(
 			token => admins.getMe(token),
@@ -47,7 +59,7 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 		const body = await parseRouteBody(request, AdminComplexSearchRequestSchema);
 		return routeWithAuthRetry(
 			token => admins.search(pagination, body, token),
-			createPageResponseSchema(AdminSearchResponseSchema),
+			createPageResponseSchema(AdminComplexSearchResponseSchema),
 		);
 	}
 
@@ -70,11 +82,11 @@ export async function PUT(request: Request, { params }: AppRouteSlugContext) {
 
 export async function PATCH(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
-	if (slug.length !== 1) {
+	if (slug.length !== 2 || slug[1] !== "status") {
 		return routeError(new Error("Not found"));
 	}
 
-	const body = await parseRouteBody(request, z.object({ active: z.boolean() }));
+	const body = await parseRouteBody(request, AccountStatusRequestSchema);
 	return routeVoidWithAuthRetry(token =>
 		admins.setActive(slug[0]!, body.active, token),
 	);

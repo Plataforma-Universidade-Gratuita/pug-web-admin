@@ -1,15 +1,21 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
-import { CityResponseSchema } from "@/schemas";
-import { EntityResponseSchema } from "@/schemas";
+import {
+	EntityComplexSearchRequestSchema,
+	EntityComplexSearchResponseSchema,
+	EntityResponseSchema,
+	createPageResponseSchema,
+} from "@/schemas";
 import type {
-	CityResponse,
+	EntityComplexSearchRequest,
+	EntityComplexSearchResponse,
 	EntityCreateRequest,
 	EntityResponse,
 	EntityUpdateRequest,
+	PaginationRequest,
 } from "@/types";
-import { zfetch, zvoid, qs } from "@/utils";
+import { qs, zfetch, zvoid } from "@/utils";
 
 export async function get(id: string, token?: string): Promise<EntityResponse> {
 	return zfetch(
@@ -20,36 +26,35 @@ export async function get(id: string, token?: string): Promise<EntityResponse> {
 	);
 }
 
-export async function getByCnpj(
-	cnpj: string,
-	token?: string,
-): Promise<EntityResponse> {
-	return zfetch(
-		`${API_ROUTE_BASES.partner.entities}${qs({ cnpj })}`,
-		{ method: "GET" },
-		EntityResponseSchema,
-		token,
-	);
-}
-
 export async function list(
 	token?: string,
-	q?: string,
-	cityId?: string,
+	ids?: string[],
 ): Promise<EntityResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.partner.entities}${qs({ q, cityId })}`,
+		`${API_ROUTE_BASES.partner.entities}${qs({
+			ids: ids?.join(","),
+		})}`,
 		{ method: "GET" },
 		z.array(EntityResponseSchema),
 		token,
 	);
 }
 
-export async function listCities(token?: string): Promise<CityResponse[]> {
+export async function search(
+	pagination: PaginationRequest,
+	body: EntityComplexSearchRequest,
+	token?: string,
+): Promise<EntityComplexSearchResponse> {
 	return zfetch(
-		`${API_ROUTE_BASES.partner.entities}/cities`,
-		{ method: "GET" },
-		z.array(CityResponseSchema),
+		`${API_ROUTE_BASES.partner.entities}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		{
+			method: "POST",
+			body: JSON.stringify(EntityComplexSearchRequestSchema.parse(body)),
+		},
+		createPageResponseSchema(EntityComplexSearchResponseSchema),
 		token,
 	);
 }

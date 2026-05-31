@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import {
+	CredentialsRequestSchema,
 	LoginRequestSchema,
 	LogoutRequestSchema,
 	RefreshRequestSchema,
@@ -16,3 +17,4 @@ export type TokenResponse = z.infer<typeof TokenResponseSchema>;
 export type LoginRequest = z.infer<typeof LoginRequestSchema>;
 export type RefreshRequest = z.infer<typeof RefreshRequestSchema>;
 export type LogoutRequest = z.infer<typeof LogoutRequestSchema>;
+export type CredentialsRequest = z.infer<typeof CredentialsRequestSchema>;

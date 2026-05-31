@@ -10,11 +10,16 @@ import {
 import type { AppRouteSlugContext } from "@/types/client";
 import { parseRouteBody, routeError, routeWithAuthRetry } from "@/utils/route";
 
-export async function GET(_request: Request, { params }: AppRouteSlugContext) {
+export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
+		const ids =
+			new URL(request.url)
+				.searchParams.get("ids")
+				?.split(",")
+				.filter(Boolean) ?? undefined;
 		return routeWithAuthRetry(
-			token => users.list(token),
+			token => users.list(token, ids),
 			z.array(UserResponseSchema),
 		);
 	}

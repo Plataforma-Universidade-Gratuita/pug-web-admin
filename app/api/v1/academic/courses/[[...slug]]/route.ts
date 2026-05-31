@@ -2,9 +2,13 @@ import { z } from "zod";
 
 import { courses } from "@/api";
 import {
+	CourseComplexSearchRequestSchema,
 	CourseCreateRequestSchema,
 	CourseResponseSchema,
 	CourseUpdateRequestSchema,
+	CourseWithAuditInfoComplexSearchResponseSchema,
+	createPageResponseSchema,
+	PaginationRequestSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
 import {
@@ -17,11 +21,13 @@ import {
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
-		const searchParams = new URL(request.url).searchParams;
-		const q = searchParams.get("q") ?? undefined;
-		const schoolId = searchParams.get("schoolId") ?? undefined;
+		const ids =
+			new URL(request.url)
+				.searchParams.get("ids")
+				?.split(",")
+				.filter(Boolean) ?? undefined;
 		return routeWithAuthRetry(
-			token => courses.list(token, q, schoolId),
+			token => courses.list(token, ids),
 			z.array(CourseResponseSchema),
 		);
 	}
@@ -34,7 +40,21 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	return routeError(new Error("Not found"));
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request, { params }: AppRouteSlugContext) {
+	const { slug = [] } = await params;
+	if (slug.length === 1 && slug[0] === "search") {
+		const url = new URL(request.url);
+		const pagination = PaginationRequestSchema.parse({
+			page: url.searchParams.get("page"),
+			size: url.searchParams.get("size"),
+		});
+		const body = await parseRouteBody(request, CourseComplexSearchRequestSchema);
+		return routeWithAuthRetry(
+			token => courses.search(pagination, body, token),
+			createPageResponseSchema(CourseWithAuditInfoComplexSearchResponseSchema),
+		);
+	}
+
 	const body = await parseRouteBody(request, CourseCreateRequestSchema);
 	return routeWithAuthRetry(
 		token => courses.create(body, token),

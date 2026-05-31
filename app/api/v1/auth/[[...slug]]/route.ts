@@ -1,6 +1,7 @@
 import { auth } from "@/api";
 import { REFRESH_TOKEN_COOKIE } from "@/constants/auth";
 import {
+	CredentialsRequestSchema,
 	LoginRequestSchema,
 	LogoutRequestSchema,
 	RefreshRequestSchema,
@@ -83,6 +84,15 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 			auth.logoutAll(token),
 		);
 		return clearSessionCookies(response);
+	}
+	if (slug.length === 1 && slug[0] === "wire-credentials") {
+		try {
+			const body = await parseRouteBody(request, CredentialsRequestSchema);
+			await auth.wireCredentials(body);
+			return routeNoContent();
+		} catch (error) {
+			return routeError(error);
+		}
 	}
 	return routeError(new Error("Not found"));
 }

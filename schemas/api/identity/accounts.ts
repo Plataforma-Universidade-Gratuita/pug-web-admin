@@ -2,36 +2,43 @@ import { z } from "zod";
 
 import {
 	AccountTypeEnum,
+	AccountTypeResponseSchema,
 	AuditInfoResponseSchema,
-	UserSearchResponseSchema,
+	UserSimpleComplexSearchResponseSchema,
 } from "@/schemas";
 
 export const AccountResponseSchema = z.object({
 	id: z.string(),
 	userId: z.string(),
 	email: z.string(),
-	accountType: AccountTypeEnum,
-	accountTypeFormatted: z.string(),
+	accountType: AccountTypeResponseSchema,
 	auditInfo: AuditInfoResponseSchema,
 	active: z.boolean(),
 });
 
-export const AccountSearchResponseSchema = z.object({
+export const AccountSimpleComplexSearchResponseSchema = z.object({
 	id: z.string(),
-	user: UserSearchResponseSchema,
+	name: z.string(),
 	email: z.string(),
-	accountType: AccountTypeEnum,
-	accountTypeFormatted: z.string(),
+});
+
+export const AccountComplexSearchResponseSchema = z.object({
+	id: z.string(),
+	user: UserSimpleComplexSearchResponseSchema,
+	email: z.string(),
+	accountType: AccountTypeResponseSchema,
 	auditInfo: AuditInfoResponseSchema,
 	active: z.boolean(),
 });
 
 export const AccountComplexSearchRequestSchema = z.object({
-	name: z.string().trim().min(1).optional(),
-	cpf: z.string().trim().min(1).optional(),
-	email: z.string().trim().min(1).optional(),
-	accountType: AccountTypeEnum.optional(),
-	dateFrom: z.string().trim().min(1).optional(),
-	dateTo: z.string().trim().min(1).optional(),
-	activeOnly: z.boolean(),
+	name: z.string().optional(),
+	cpf: z.string().optional(),
+	email: z.string().optional(),
+	accountTypes: z.array(AccountTypeEnum).optional(),
+	dateFrom: z.string().optional(),
+	dateTo: z.string().optional(),
+	activeOnly: z.boolean().optional(),
 });
+
+export const AccountSearchResponseSchema = AccountComplexSearchResponseSchema;

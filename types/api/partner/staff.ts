@@ -1,16 +1,20 @@
 import { z } from "zod";
 
 import {
+	StaffComplexSearchRequestSchema,
+	StaffComplexSearchResponseSchema,
 	StaffCreateRequestSchema,
 	StaffResponseSchema,
 	StaffUpdateRequestSchema,
 } from "@/schemas";
-
-// ─── Responses ───────────────────────────────────────────────────────────────
+import type { PageResponse } from "@/types";
 
 export type StaffResponse = z.infer<typeof StaffResponseSchema>;
-
-// ─── Requests ────────────────────────────────────────────────────────────────
-
+export type StaffComplexSearchRequest = z.infer<
+	typeof StaffComplexSearchRequestSchema
+>;
+export type StaffComplexSearchResponse = PageResponse<
+	z.infer<typeof StaffComplexSearchResponseSchema>
+>;
 export type StaffCreateRequest = z.infer<typeof StaffCreateRequestSchema>;
 export type StaffUpdateRequest = z.infer<typeof StaffUpdateRequestSchema>;

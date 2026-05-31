@@ -1,13 +1,21 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
-import { CourseResponseSchema } from "@/schemas";
+import {
+	CourseComplexSearchRequestSchema,
+	CourseResponseSchema,
+	CourseWithAuditInfoComplexSearchResponseSchema,
+	createPageResponseSchema,
+} from "@/schemas";
 import type {
+	CourseComplexSearchRequest,
+	CourseComplexSearchResponse,
 	CourseCreateRequest,
 	CourseResponse,
 	CourseUpdateRequest,
+	PaginationRequest,
 } from "@/types";
-import { zfetch, zvoid, qs } from "@/utils";
+import { qs, zfetch, zvoid } from "@/utils";
 
 export async function get(id: string, token?: string): Promise<CourseResponse> {
 	return zfetch(
@@ -20,13 +28,33 @@ export async function get(id: string, token?: string): Promise<CourseResponse> {
 
 export async function list(
 	token?: string,
-	q?: string,
-	schoolId?: string,
+	ids?: string[],
 ): Promise<CourseResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.academic.courses}${qs({ q, schoolId })}`,
+		`${API_ROUTE_BASES.academic.courses}${qs({
+			ids: ids?.join(","),
+		})}`,
 		{ method: "GET" },
 		z.array(CourseResponseSchema),
+		token,
+	);
+}
+
+export async function search(
+	pagination: PaginationRequest,
+	body: CourseComplexSearchRequest,
+	token?: string,
+): Promise<CourseComplexSearchResponse> {
+	return zfetch(
+		`${API_ROUTE_BASES.academic.courses}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		{
+			method: "POST",
+			body: JSON.stringify(CourseComplexSearchRequestSchema.parse(body)),
+		},
+		createPageResponseSchema(CourseWithAuditInfoComplexSearchResponseSchema),
 		token,
 	);
 }

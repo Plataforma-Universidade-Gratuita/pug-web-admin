@@ -5,7 +5,7 @@ import {
 	createPageResponseSchema,
 	AccountComplexSearchRequestSchema,
 	AccountResponseSchema,
-	AccountSearchResponseSchema,
+	AccountComplexSearchResponseSchema,
 } from "@/schemas";
 import type {
 	AccountComplexSearchRequest,
@@ -29,9 +29,11 @@ export async function getMe(): Promise<AccountResponse> {
 	);
 }
 
-export async function list(): Promise<AccountResponse[]> {
+export async function list(ids?: string[]): Promise<AccountResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.identity.accounts}`,
+		`${WEB_API_ROUTE_BASES.identity.accounts}${qs({
+			ids: ids?.join(","),
+		})}`,
 		z.array(AccountResponseSchema),
 	);
 }
@@ -45,7 +47,7 @@ export async function search(
 			page: String(pagination.page),
 			size: String(pagination.size),
 		})}`,
-		createPageResponseSchema(AccountSearchResponseSchema),
+		createPageResponseSchema(AccountComplexSearchResponseSchema),
 		{
 			method: "POST",
 			body: JSON.stringify(AccountComplexSearchRequestSchema.parse(body)),

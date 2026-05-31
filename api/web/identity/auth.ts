@@ -1,6 +1,7 @@
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import { TokenResponseSchema } from "@/schemas";
 import type {
+	CredentialsRequest,
 	LoginRequest,
 	LogoutRequest,
 	RefreshRequest,
@@ -45,5 +46,14 @@ export async function logout(body?: LogoutRequest): Promise<void> {
 export async function logoutAll(): Promise<void> {
 	return webVoid(`${WEB_API_ROUTE_BASES.identity.auth}/logout-all`, {
 		method: "POST",
+	});
+}
+
+export async function wireCredentials(
+	body: CredentialsRequest,
+): Promise<void> {
+	return webVoid(`${WEB_API_ROUTE_BASES.identity.auth}/wire-credentials`, {
+		method: "POST",
+		body: JSON.stringify(body),
 	});
 }

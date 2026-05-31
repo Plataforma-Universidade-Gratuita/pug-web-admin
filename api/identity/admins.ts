@@ -1,8 +1,9 @@
 import { API_ROUTE_BASES } from "@/constants";
 import {
 	AdminComplexSearchRequestSchema,
+	AdminComplexSearchResponseSchema,
 	AdminResponseSchema,
-	AdminSearchResponseSchema,
+	AccountStatusRequestSchema,
 	createPageResponseSchema,
 } from "@/schemas";
 import type {
@@ -33,6 +34,20 @@ export async function getMe(token?: string): Promise<AdminResponse> {
 	);
 }
 
+export async function list(
+	token?: string,
+	ids?: string[],
+): Promise<AdminResponse[]> {
+	return zfetch(
+		`${API_ROUTE_BASES.identity.admins}${qs({
+			ids: ids?.join(","),
+		})}`,
+		{ method: "GET" },
+		z.array(AdminResponseSchema),
+		token,
+	);
+}
+
 export async function search(
 	pagination: PaginationRequest,
 	body: AdminComplexSearchRequest,
@@ -47,7 +62,7 @@ export async function search(
 			method: "POST",
 			body: JSON.stringify(AdminComplexSearchRequestSchema.parse(body)),
 		},
-		createPageResponseSchema(AdminSearchResponseSchema),
+		createPageResponseSchema(AdminComplexSearchResponseSchema),
 		token,
 	);
 }
@@ -83,8 +98,11 @@ export async function setActive(
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${API_ROUTE_BASES.identity.admins}/${id}`,
-		{ method: "PATCH", body: JSON.stringify({ active }) },
+		`${API_ROUTE_BASES.identity.admins}/${id}/status`,
+		{
+			method: "PATCH",
+			body: JSON.stringify(AccountStatusRequestSchema.parse({ active })),
+		},
 		token,
 	);
 }

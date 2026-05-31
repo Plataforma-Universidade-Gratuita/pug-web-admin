@@ -2,11 +2,18 @@ import { z } from "zod";
 
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
+	AccountStatusRequestSchema,
+	StaffComplexSearchRequestSchema,
+	StaffComplexSearchResponseSchema,
 	StaffCreateRequestSchema,
 	StaffResponseSchema,
 	StaffUpdateRequestSchema,
+	createPageResponseSchema,
 } from "@/schemas";
 import type {
+	PaginationRequest,
+	StaffComplexSearchRequest,
+	StaffComplexSearchResponse,
 	StaffCreateRequest,
 	StaffResponse,
 	StaffUpdateRequest,
@@ -20,13 +27,6 @@ export async function get(id: string): Promise<StaffResponse> {
 	);
 }
 
-export async function getByEmail(email: string): Promise<StaffResponse> {
-	return webFetch(
-		`${WEB_API_ROUTE_BASES.partner.staff}${qs({ email })}`,
-		StaffResponseSchema,
-	);
-}
-
 export async function getMe(): Promise<StaffResponse> {
 	return webFetch(
 		`${WEB_API_ROUTE_BASES.partner.staff}/me`,
@@ -34,25 +34,29 @@ export async function getMe(): Promise<StaffResponse> {
 	);
 }
 
-export async function list(q?: string): Promise<StaffResponse[]> {
-	const search = q ? `?${new URLSearchParams({ q }).toString()}` : "";
+export async function list(ids?: string[]): Promise<StaffResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.partner.staff}${search}`,
+		`${WEB_API_ROUTE_BASES.partner.staff}${qs({
+			ids: ids?.join(","),
+		})}`,
 		z.array(StaffResponseSchema),
 	);
 }
 
-export async function listByCpf(cpf: string): Promise<StaffResponse[]> {
+export async function search(
+	pagination: PaginationRequest,
+	body: StaffComplexSearchRequest,
+): Promise<StaffComplexSearchResponse> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.partner.staff}${qs({ cpf })}`,
-		z.array(StaffResponseSchema),
-	);
-}
-
-export async function listByEntity(entityId: string): Promise<StaffResponse[]> {
-	return webFetch(
-		`${WEB_API_ROUTE_BASES.partner.staff}${qs({ entityId })}`,
-		z.array(StaffResponseSchema),
+		`${WEB_API_ROUTE_BASES.partner.staff}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		createPageResponseSchema(StaffComplexSearchResponseSchema),
+		{
+			method: "POST",
+			body: JSON.stringify(StaffComplexSearchRequestSchema.parse(body)),
+		},
 	);
 }
 
@@ -78,14 +82,18 @@ export async function update(
 }
 
 export async function setActive(id: string, active: boolean): Promise<void> {
-	return webVoid(`${WEB_API_ROUTE_BASES.partner.staff}/${id}`, {
+	return webVoid(`${WEB_API_ROUTE_BASES.partner.staff}/${id}/status`, {
 		method: "PATCH",
-		body: JSON.stringify({ active }),
+		body: JSON.stringify(AccountStatusRequestSchema.parse({ active })),
 	});
 }
 
 export async function deactivate(id: string): Promise<void> {
 	return setActive(id, false);
+}
+
+export async function reactivate(id: string): Promise<void> {
+	return setActive(id, true);
 }
 
 export async function remove(id: string): Promise<void> {

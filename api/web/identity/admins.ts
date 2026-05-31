@@ -1,10 +1,11 @@
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	AdminComplexSearchRequestSchema,
+	AdminComplexSearchResponseSchema,
 	AdminCreateRequestSchema,
 	AdminResponseSchema,
-	AdminSearchResponseSchema,
 	AdminUpdateRequestSchema,
+	AccountStatusRequestSchema,
 	createPageResponseSchema,
 } from "@/schemas";
 import type {
@@ -31,6 +32,15 @@ export async function getMe(): Promise<AdminResponse> {
 	);
 }
 
+export async function list(ids?: string[]): Promise<AdminResponse[]> {
+	return webFetch(
+		`${WEB_API_ROUTE_BASES.identity.admins}${qs({
+			ids: ids?.join(","),
+		})}`,
+		z.array(AdminResponseSchema),
+	);
+}
+
 export async function search(
 	pagination: PaginationRequest,
 	body: AdminComplexSearchRequest,
@@ -40,7 +50,7 @@ export async function search(
 			page: String(pagination.page),
 			size: String(pagination.size),
 		})}`,
-		createPageResponseSchema(AdminSearchResponseSchema),
+		createPageResponseSchema(AdminComplexSearchResponseSchema),
 		{
 			method: "POST",
 			body: JSON.stringify(AdminComplexSearchRequestSchema.parse(body)),
@@ -74,9 +84,9 @@ export async function update(
 }
 
 export async function setActive(id: string, active: boolean): Promise<void> {
-	return webVoid(`${WEB_API_ROUTE_BASES.identity.admins}/${id}`, {
+	return webVoid(`${WEB_API_ROUTE_BASES.identity.admins}/${id}/status`, {
 		method: "PATCH",
-		body: JSON.stringify({ active }),
+		body: JSON.stringify(AccountStatusRequestSchema.parse({ active })),
 	});
 }
 

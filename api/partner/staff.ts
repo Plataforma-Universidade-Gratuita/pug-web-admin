@@ -1,29 +1,26 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
-import { StaffResponseSchema } from "@/schemas";
+import {
+	AccountStatusRequestSchema,
+	StaffComplexSearchRequestSchema,
+	StaffComplexSearchResponseSchema,
+	StaffResponseSchema,
+	createPageResponseSchema,
+} from "@/schemas";
 import type {
+	PaginationRequest,
+	StaffComplexSearchRequest,
+	StaffComplexSearchResponse,
 	StaffCreateRequest,
 	StaffResponse,
 	StaffUpdateRequest,
 } from "@/types";
-import { zfetch, zvoid, qs } from "@/utils";
+import { qs, zfetch, zvoid } from "@/utils";
 
 export async function get(id: string, token?: string): Promise<StaffResponse> {
 	return zfetch(
 		`${API_ROUTE_BASES.partner.staff}/${id}`,
-		{ method: "GET" },
-		StaffResponseSchema,
-		token,
-	);
-}
-
-export async function getByEmail(
-	email: string,
-	token?: string,
-): Promise<StaffResponse> {
-	return zfetch(
-		`${API_ROUTE_BASES.partner.staff}${qs({ email })}`,
 		{ method: "GET" },
 		StaffResponseSchema,
 		token,
@@ -41,36 +38,33 @@ export async function getMe(token?: string): Promise<StaffResponse> {
 
 export async function list(
 	token?: string,
-	q?: string,
+	ids?: string[],
 ): Promise<StaffResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.partner.staff}${qs({ q })}`,
+		`${API_ROUTE_BASES.partner.staff}${qs({
+			ids: ids?.join(","),
+		})}`,
 		{ method: "GET" },
 		z.array(StaffResponseSchema),
 		token,
 	);
 }
 
-export async function listByCpf(
-	cpf: string,
+export async function search(
+	pagination: PaginationRequest,
+	body: StaffComplexSearchRequest,
 	token?: string,
-): Promise<StaffResponse[]> {
+): Promise<StaffComplexSearchResponse> {
 	return zfetch(
-		`${API_ROUTE_BASES.partner.staff}${qs({ cpf })}`,
-		{ method: "GET" },
-		z.array(StaffResponseSchema),
-		token,
-	);
-}
-
-export async function listByEntity(
-	entityId: string,
-	token?: string,
-): Promise<StaffResponse[]> {
-	return zfetch(
-		`${API_ROUTE_BASES.partner.staff}${qs({ entityId })}`,
-		{ method: "GET" },
-		z.array(StaffResponseSchema),
+		`${API_ROUTE_BASES.partner.staff}/search${qs({
+			page: String(pagination.page),
+			size: String(pagination.size),
+		})}`,
+		{
+			method: "POST",
+			body: JSON.stringify(StaffComplexSearchRequestSchema.parse(body)),
+		},
+		createPageResponseSchema(StaffComplexSearchResponseSchema),
 		token,
 	);
 }
@@ -106,8 +100,11 @@ export async function setActive(
 	token?: string,
 ): Promise<void> {
 	return zvoid(
-		`${API_ROUTE_BASES.partner.staff}/${id}`,
-		{ method: "PATCH", body: JSON.stringify({ active }) },
+		`${API_ROUTE_BASES.partner.staff}/${id}/status`,
+		{
+			method: "PATCH",
+			body: JSON.stringify(AccountStatusRequestSchema.parse({ active })),
+		},
 		token,
 	);
 }

@@ -1,23 +1,41 @@
 import { z } from "zod";
 
-import { AuditInfoResponseSchema } from "@/schemas";
+import {
+	AccountComplexSearchResponseSchema,
+	AccountResponseSchema,
+	EntitySimpleComplexSearchResponseSchema,
+} from "@/schemas";
 
 export const StaffResponseSchema = z.object({
-	accountId: z.string(),
+	account: AccountResponseSchema,
 	entityId: z.string(),
-	auditInfo: AuditInfoResponseSchema,
+	cityId: z.string(),
+});
+
+export const StaffComplexSearchRequestSchema = z.object({
+	name: z.string().optional(),
+	cpf: z.string().optional(),
+	email: z.string().optional(),
+	dateFrom: z.string().optional(),
+	dateTo: z.string().optional(),
+	activeOnly: z.boolean().optional(),
+	entityIds: z.array(z.string()).optional(),
+});
+
+export const StaffComplexSearchResponseSchema = z.object({
+	account: AccountComplexSearchResponseSchema,
+	entity: EntitySimpleComplexSearchResponseSchema,
 });
 
 export const StaffCreateRequestSchema = z.object({
-	cpf: z.string(),
+	cpfString: z.string(),
 	name: z.string(),
-	email: z.string(),
+	emailString: z.string(),
 	entityId: z.string(),
 });
 
 export const StaffUpdateRequestSchema = z.object({
-	cpf: z.string().nullable().optional(),
-	name: z.string().nullable().optional(),
-	email: z.string().nullable().optional(),
-	entityId: z.string().nullable().optional(),
+	name: z.string(),
+	emailString: z.string(),
+	entityId: z.string(),
 });

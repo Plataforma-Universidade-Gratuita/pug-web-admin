@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { AccountTypeEnum } from "@/schemas";
+import { AccountTypeEnum, CredentialsRequestSchema } from "@/schemas";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 
@@ -9,6 +9,7 @@ export const TokenResponseSchema = z.object({
 	refreshToken: z.string(),
 	accountId: z.string(),
 	accountType: AccountTypeEnum,
+	passwordWired: z.boolean(),
 	expiresIn: z.number(),
 	refreshExpiresIn: z.number(),
 });
@@ -17,7 +18,7 @@ export const TokenResponseSchema = z.object({
 
 export const LoginRequestSchema = z.object({
 	email: z.string(),
-	password: z.string().nullable().optional(),
+	password: z.string(),
 });
 
 export const RefreshRequestSchema = z.object({
@@ -27,3 +28,5 @@ export const RefreshRequestSchema = z.object({
 export const LogoutRequestSchema = z.object({
 	refreshToken: z.string(),
 });
+
+export { CredentialsRequestSchema };

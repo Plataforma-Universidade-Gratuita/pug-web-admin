@@ -1,11 +1,15 @@
 import { z } from "zod";
 
 import { WEB_API_ROUTE_BASES } from "@/constants";
-import { CityResponseSchema, createPageResponseSchema } from "@/schemas";
+import {
+	CityComplexSearchRequestSchema,
+	CityResponseSchema,
+	createPageResponseSchema,
+} from "@/schemas";
 import type {
 	CityComplexSearchRequest,
-	CityResponse,
 	CityComplexSearchResponse,
+	CityResponse,
 	PaginationRequest,
 } from "@/types";
 import { qs, webFetch } from "@/utils";
@@ -33,7 +37,7 @@ export async function search(
 		createPageResponseSchema(CityResponseSchema),
 		{
 			method: "POST",
-			body: JSON.stringify(body),
+			body: JSON.stringify(CityComplexSearchRequestSchema.parse(body)),
 		},
 	);
 }

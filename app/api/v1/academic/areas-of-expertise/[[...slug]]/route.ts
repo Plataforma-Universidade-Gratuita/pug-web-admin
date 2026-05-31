@@ -1,14 +1,14 @@
 import { z } from "zod";
 
-import { entities } from "@/api";
+import { areasOfExpertise } from "@/api";
 import {
-	EntityComplexSearchRequestSchema,
-	EntityComplexSearchResponseSchema,
-	EntityCreateRequestSchema,
-	EntityResponseSchema,
-	EntityUpdateRequestSchema,
-	PaginationRequestSchema,
+	AreaOfExpertiseComplexSearchRequestSchema,
+	AreaOfExpertiseComplexSearchResponseSchema,
+	AreaOfExpertiseCreateRequestSchema,
+	AreaOfExpertiseResponseSchema,
+	AreaOfExpertiseUpdateRequestSchema,
 	createPageResponseSchema,
+	PaginationRequestSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
 import {
@@ -27,14 +27,14 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 				?.split(",")
 				.filter(Boolean) ?? undefined;
 		return routeWithAuthRetry(
-			token => entities.list(token, ids),
-			z.array(EntityResponseSchema),
+			token => areasOfExpertise.list(token, ids),
+			z.array(AreaOfExpertiseResponseSchema),
 		);
 	}
 	if (slug.length === 1) {
 		return routeWithAuthRetry(
-			token => entities.get(slug[0]!, token),
-			EntityResponseSchema,
+			token => areasOfExpertise.get(slug[0]!, token),
+			AreaOfExpertiseResponseSchema,
 		);
 	}
 	return routeError(new Error("Not found"));
@@ -42,34 +42,36 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 
 export async function POST(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
-
 	if (slug.length === 1 && slug[0] === "search") {
 		const url = new URL(request.url);
 		const pagination = PaginationRequestSchema.parse({
 			page: url.searchParams.get("page"),
 			size: url.searchParams.get("size"),
 		});
-		const body = await parseRouteBody(request, EntityComplexSearchRequestSchema);
+		const body = await parseRouteBody(
+			request,
+			AreaOfExpertiseComplexSearchRequestSchema,
+		);
 		return routeWithAuthRetry(
-			token => entities.search(pagination, body, token),
-			createPageResponseSchema(EntityComplexSearchResponseSchema),
+			token => areasOfExpertise.search(pagination, body, token),
+			createPageResponseSchema(AreaOfExpertiseComplexSearchResponseSchema),
 		);
 	}
 
-	const body = await parseRouteBody(request, EntityCreateRequestSchema);
+	const body = await parseRouteBody(request, AreaOfExpertiseCreateRequestSchema);
 	return routeWithAuthRetry(
-		token => entities.create(body, token),
-		EntityResponseSchema,
+		token => areasOfExpertise.create(body, token),
+		AreaOfExpertiseResponseSchema,
 	);
 }
 
 export async function PUT(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length !== 1) return routeError(new Error("Not found"));
-	const body = await parseRouteBody(request, EntityUpdateRequestSchema);
+	const body = await parseRouteBody(request, AreaOfExpertiseUpdateRequestSchema);
 	return routeWithAuthRetry(
-		token => entities.update(slug[0]!, body, token),
-		EntityResponseSchema,
+		token => areasOfExpertise.update(slug[0]!, body, token),
+		AreaOfExpertiseResponseSchema,
 	);
 }
 
@@ -79,5 +81,7 @@ export async function DELETE(
 ) {
 	const { slug = [] } = await params;
 	if (slug.length !== 1) return routeError(new Error("Not found"));
-	return routeVoidWithAuthRetry(token => entities.remove(slug[0]!, token));
+	return routeVoidWithAuthRetry(token =>
+		areasOfExpertise.remove(slug[0]!, token),
+	);
 }
