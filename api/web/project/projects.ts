@@ -35,7 +35,9 @@ export async function list(ids?: string[]): Promise<ProjectResponse[]> {
 	);
 }
 
-export async function listByEntity(entityId: string): Promise<ProjectResponse[]> {
+export async function listByEntity(
+	entityId: string,
+): Promise<ProjectResponse[]> {
 	return webFetch(
 		`${WEB_API_ROUTE_BASES.project.projects}/entities/${entityId}`,
 		z.array(ProjectResponseSchema),

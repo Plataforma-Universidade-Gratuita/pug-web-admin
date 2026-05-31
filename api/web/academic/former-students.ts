@@ -81,7 +81,9 @@ export async function createBulk(
 		z.array(FormerStudentResponseSchema),
 		{
 			method: "POST",
-			body: JSON.stringify(z.array(FormerStudentCreateRequestSchema).parse(body)),
+			body: JSON.stringify(
+				z.array(FormerStudentCreateRequestSchema).parse(body),
+			),
 		},
 	);
 }
@@ -101,10 +103,13 @@ export async function update(
 }
 
 export async function setActive(id: string, active: boolean): Promise<void> {
-	return webVoid(`${WEB_API_ROUTE_BASES.academic.formerStudents}/${id}/status`, {
-		method: "PATCH",
-		body: JSON.stringify(AccountStatusRequestSchema.parse({ active })),
-	});
+	return webVoid(
+		`${WEB_API_ROUTE_BASES.academic.formerStudents}/${id}/status`,
+		{
+			method: "PATCH",
+			body: JSON.stringify(AccountStatusRequestSchema.parse({ active })),
+		},
+	);
 }
 
 export async function remove(id: string): Promise<void> {

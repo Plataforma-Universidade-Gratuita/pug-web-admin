@@ -5,5 +5,5 @@ export default async function Page({ params }: EnrollmentRoutePageProps) {
 	const { enrollmentId } = await params;
 
 	// return <EnrollmentPage enrollmentId={enrollmentId} />;
-    return (<></>);
+	return <></>;
 }

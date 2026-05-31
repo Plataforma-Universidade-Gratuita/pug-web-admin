@@ -49,9 +49,7 @@ export async function logoutAll(): Promise<void> {
 	});
 }
 
-export async function wireCredentials(
-	body: CredentialsRequest,
-): Promise<void> {
+export async function wireCredentials(body: CredentialsRequest): Promise<void> {
 	return webVoid(`${WEB_API_ROUTE_BASES.identity.auth}/wire-credentials`, {
 		method: "POST",
 		body: JSON.stringify(body),

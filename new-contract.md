@@ -3,6 +3,7 @@
 This file documents the current API contract implemented by `pug-service`.
 
 It is intended to support frontend mapping of:
+
 - routes
 - request payloads
 - response payloads
@@ -520,16 +521,19 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 ### Shared DTOs
 
 #### `AuditInfoResponse`
+
 - `createdAt: OffsetDateTime`
 - `createdAtFormatted: String`
 - `updatedAt: OffsetDateTime`
 - `updatedAtFormatted: String`
 
 #### `CampusResponse`
+
 - `campus: Campi`
 - `campusFormatted: String`
 
 #### `PageResponse<T>`
+
 - `content: List<T>`
 - `page: int`
 - `size: int`
@@ -537,71 +541,87 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `totalPages: int`
 
 #### `AccountTypeResponse`
+
 - `accountType: AccountType`
 - `accountTypeFormatted: String`
 
 #### `ProjectStatusResponse`
+
 - `status: ProjectStatus`
 - `statusFormatted: String`
 
 #### `EnrollmentStatusResponse`
+
 - `status: EnrollmentStatus`
 - `statusFormatted: String`
 
 #### `AttendanceStatusResponse`
+
 - `status: AttendanceStatus`
 - `statusFormatted: String`
 
 ### Academic DTOs
 
 #### `AreaOfExpertiseComplexSearchRequest`
+
 - `name: String`
 
 #### `AreaOfExpertiseCreateRequest`
+
 - `name: String`
 
 #### `AreaOfExpertiseUpdateRequest`
+
 - `name: String`
 
 #### `AreaOfExpertiseResponse`
+
 - `id: UUID`
 - `name: String`
 - `auditInfo: AuditInfoResponse`
 
 #### `AreaOfExpertiseComplexSearchResponse`
+
 - `id: UUID`
 - `name: String`
 
 #### `CourseComplexSearchRequest`
+
 - `name: String`
 - `areaOfExpertiseIds: List<UUID>`
 
 #### `CourseCreateRequest`
+
 - `name: String`
 - `areaOfExpertiseId: UUID`
 
 #### `CourseUpdateRequest`
+
 - `name: String`
 - `areaOfExpertiseId: UUID`
 
 #### `CourseComplexSearchResponse`
+
 - `id: UUID`
 - `name: String`
 - `areaOfExpertise: AreaOfExpertiseComplexSearchResponse`
 
 #### `CourseWithAuditInfoComplexSearchResponse`
+
 - `id: UUID`
 - `name: String`
 - `areaOfExpertise: AreaOfExpertiseComplexSearchResponse`
 - `auditInfo: AuditInfoResponse`
 
 #### `CourseResponse`
+
 - `id: UUID`
 - `name: String`
 - `areaOfExpertise: AreaOfExpertiseResponse`
 - `auditInfo: AuditInfoResponse`
 
 #### `CounterpartHoursResponse`
+
 - `requiredHours: BigDecimal`
 - `completedHours: BigDecimal`
 - `missingHours: BigDecimal`
@@ -609,6 +629,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `concluded: boolean`
 
 #### `PeriodResponse`
+
 - `startDate: LocalDate`
 - `startDateFormatted: String`
 - `dueDate: LocalDate`
@@ -617,6 +638,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `remainingDaysFormatted: String`
 
 #### `FormerStudentCreateRequest`
+
 - `cpf: String`
 - `name: String`
 - `email: String`
@@ -628,6 +650,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `dueDate: LocalDate`
 
 #### `FormerStudentUpdateRequest`
+
 - `name: String`
 - `cpf: String`
 - `email: String`
@@ -639,6 +662,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `dueDate: LocalDate`
 
 #### `FormerStudentResponse`
+
 - `accountId: UUID`
 - `academicRegistration: String`
 - `campus: CampusResponse`
@@ -648,11 +672,13 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `auditInfo: AuditInfoResponse`
 
 #### `FormerStudentSimpleComplexSearchResponse`
+
 - `account: AccountSimpleComplexSearchResponse`
 - `academicRegistration: String`
 - `campus: CampusResponse`
 
 #### `FormerStudentComplexSearchRequest`
+
 - `name: String`
 - `cpf: String`
 - `email: String`
@@ -668,6 +694,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `areaOfExpertiseIds: List<UUID>`
 
 #### `FormerStudentComplexSearchResponse`
+
 - `account: AccountComplexSearchResponse`
 - `academicRegistration: String`
 - `campus: CampusResponse`
@@ -679,9 +706,11 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 ### Geo DTOs
 
 #### `CityComplexSearchRequest`
+
 - `name: String`
 
 #### `CityResponse`
+
 - `id: UUID`
 - `name: String`
 - `ibgeCode: String`
@@ -689,14 +718,17 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 ### Identity DTOs
 
 #### `AccountSimpleComplexSearchResponse`
+
 - `id: UUID`
 - `name: String`
 - `email: String`
 
 #### `AccountStatusRequest`
+
 - `active: Boolean`
 
 #### `AccountResponse`
+
 - `id: UUID`
 - `userId: UUID`
 - `email: String`
@@ -705,6 +737,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `active: Boolean`
 
 #### `AccountComplexSearchRequest`
+
 - `name: String`
 - `cpf: String`
 - `email: String`
@@ -714,6 +747,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `activeOnly: Boolean`
 
 #### `AccountComplexSearchResponse`
+
 - `id: UUID`
 - `user: UserSimpleComplexSearchResponse`
 - `email: String`
@@ -722,23 +756,27 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `active: Boolean`
 
 #### `AdminCreateRequest`
+
 - `cpfString: String`
 - `name: String`
 - `emailString: String`
 - `campus: Campi`
 
 #### `AdminUpdateRequest`
+
 - `name: String`
 - `emailString: String`
 - `campus: Campi`
 
 #### `AdminResponse`
+
 - `accountResponse: AccountResponse`
 - `campus: CampusResponse`
 - `grantedAt: OffsetDateTime`
 - `grantedAtFormatted: String`
 
 #### `AdminComplexSearchRequest`
+
 - `name: String`
 - `cpf: String`
 - `email: String`
@@ -747,26 +785,32 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `activeOnly: Boolean`
 
 #### `AdminComplexSearchResponse`
+
 - `account: AccountComplexSearchResponse`
 - `campus: CampusResponse`
 - `grantedAt: OffsetDateTime`
 - `grantedAtFormatted: String`
 
 #### `LoginRequest`
+
 - `email: String`
 - `password: String`
 
 #### `LogoutRequest`
+
 - `refreshToken: String`
 
 #### `RefreshRequest`
+
 - `refreshToken: String`
 
 #### `CredentialsRequest`
+
 - `email: String`
 - `password: String`
 
 #### `TokenResponse`
+
 - `token: String`
 - `refreshToken: String`
 - `accountId: UUID`
@@ -776,10 +820,12 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `refreshExpiresIn: long`
 
 #### `UserSimpleComplexSearchResponse`
+
 - `id: UUID`
 - `name: String`
 
 #### `UserResponse`
+
 - `id: UUID`
 - `cpf: String`
 - `cpfFormatted: String`
@@ -787,6 +833,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `auditInfo: AuditInfoResponse`
 
 #### `UserComplexSearchRequest`
+
 - `cpf: String`
 - `dateFrom: OffsetDateTime`
 - `dateTo: OffsetDateTime`
@@ -795,21 +842,25 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 ### Partner DTOs
 
 #### `EntitySimpleComplexSearchResponse`
+
 - `id: UUID`
 - `name: String`
 
 #### `EntityCreateRequest`
+
 - `cnpjString: String`
 - `name: String`
 - `cityId: UUID`
 - `address: String`
 
 #### `EntityUpdateRequest`
+
 - `name: String`
 - `cityId: UUID`
 - `address: String`
 
 #### `EntityResponse`
+
 - `id: UUID`
 - `cnpj: String`
 - `cnpjFormatted: String`
@@ -819,6 +870,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `auditInfo: AuditInfoResponse`
 
 #### `EntityComplexSearchRequest`
+
 - `name: String`
 - `cnpj: String`
 - `address: String`
@@ -827,6 +879,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `dateTo: OffsetDateTime`
 
 #### `EntityComplexSearchResponse`
+
 - `id: UUID`
 - `cnpj: String`
 - `cnpjFormatted: String`
@@ -836,22 +889,26 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `auditInfo: AuditInfoResponse`
 
 #### `StaffCreateRequest`
+
 - `cpfString: String`
 - `name: String`
 - `emailString: String`
 - `entityId: UUID`
 
 #### `StaffUpdateRequest`
+
 - `name: String`
 - `emailString: String`
 - `entityId: UUID`
 
 #### `StaffResponse`
+
 - `account: AccountResponse`
 - `entityId: UUID`
 - `cityId: UUID`
 
 #### `StaffComplexSearchRequest`
+
 - `name: String`
 - `cpf: String`
 - `email: String`
@@ -861,19 +918,23 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `entityIds: List<UUID>`
 
 #### `StaffComplexSearchResponse`
+
 - `account: AccountComplexSearchResponse`
 - `entity: EntitySimpleComplexSearchResponse`
 
 ### Project DTOs
 
 #### `ProjectSimpleComplexSearchResponse`
+
 - `id: UUID`
 - `name: String`
 
 #### `ProjectAreaOfExpertiseRequest`
+
 - `areaOfExpertiseIds: List<UUID>`
 
 #### `ProjectCreateRequest`
+
 - `name: String`
 - `entityId: UUID`
 - `description: String`
@@ -881,12 +942,14 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `offeredHours: BigDecimal`
 
 #### `ProjectUpdateRequest`
+
 - `name: String`
 - `description: String`
 - `maxParticipants: Integer`
 - `offeredHours: BigDecimal`
 
 #### `ProjectInfoResponse`
+
 - `createdBy: UUID`
 - `maxParticipants: Integer`
 - `offeredHours: BigDecimal`
@@ -896,6 +959,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `auditInfo: AuditInfoResponse`
 
 #### `ProjectResponse`
+
 - `id: UUID`
 - `name: String`
 - `entity: EntitySimpleComplexSearchResponse`
@@ -904,6 +968,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `status: ProjectStatusResponse`
 
 #### `ProjectComplexSearchRequest`
+
 - `name: String`
 - `entityIds: List<UUID>`
 - `description: String`
@@ -915,6 +980,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `minOfferedHours: BigDecimal`
 
 #### `ProjectComplexSearchResponse`
+
 - `id: UUID`
 - `name: String`
 - `entity: EntitySimpleComplexSearchResponse`
@@ -923,6 +989,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `status: ProjectStatusResponse`
 
 #### `EnrollmentInfoResponse`
+
 - `acceptedAt: OffsetDateTime`
 - `acceptedAtFormatted: String`
 - `closingStatusAt: OffsetDateTime`
@@ -930,15 +997,18 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `auditInfo: AuditInfoResponse`
 
 #### `EnrollmentResponse`
+
 - `projectId: UUID`
 - `formerStudentId: UUID`
 - `status: EnrollmentStatusResponse`
 - `enrollmentInfo: EnrollmentInfoResponse`
 
 #### `EnrollmentUpdateStatusRequest`
+
 - `status: EnrollmentStatus`
 
 #### `EnrollmentComplexSearchRequest`
+
 - `projectIds: List<UUID>`
 - `formerStudentIds: List<UUID>`
 - `statuses: List<EnrollmentStatus>`
@@ -948,31 +1018,37 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `periodTo: LocalDate`
 
 #### `EnrollmentComplexSearchResponse`
+
 - `project: ProjectSimpleComplexSearchResponse`
 - `student: FormerStudentSimpleComplexSearchResponse`
 - `status: EnrollmentStatusResponse`
 - `enrollmentInfo: EnrollmentInfoResponse`
 
 #### `QrValidationInfoResponse`
+
 - `duration: BigDecimal`
 - `qrValidationHash: String`
 
 #### `AttendanceInfoResponse`
+
 - `validatedBy: UUID`
 - `validatedAt: OffsetDateTime`
 - `validatedAtFormatted: String`
 - `auditInfo: AuditInfoResponse`
 
 #### `AttendanceCreateRequest`
+
 - `projectId: UUID`
 - `formerStudentId: UUID`
 - `duration: BigDecimal`
 
 #### `AttendanceValidateRequest`
+
 - `status: AttendanceStatus`
 - `qrValidationHash: String`
 
 #### `AttendanceResponse`
+
 - `id: UUID`
 - `projectId: UUID`
 - `formerStudentId: UUID`
@@ -981,6 +1057,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `qrValidationInfo: QrValidationInfoResponse`
 
 #### `AttendanceComplexSearchRequest`
+
 - `projectIds: List<UUID>`
 - `formerStudentIds: List<UUID>`
 - `statuses: List<AttendanceStatus>`
@@ -991,6 +1068,7 @@ Types below use Java names as implemented in the backend. They can be mapped dir
 - `dateTo: OffsetDateTime`
 
 #### `AttendanceComplexSearchResponse`
+
 - `id: UUID`
 - `project: ProjectSimpleComplexSearchResponse`
 - `student: FormerStudentSimpleComplexSearchResponse`
@@ -1006,6 +1084,7 @@ These are the backend model validations enforced by aggregate/value-object `coll
 ### Shared
 
 #### `AuditInfo`
+
 - `createdAt` must exist.
 - `updatedAt` must exist.
 - `updatedAt` cannot be before `createdAt`.
@@ -1013,17 +1092,20 @@ These are the backend model validations enforced by aggregate/value-object `coll
 ### Identity
 
 #### `Cpf`
+
 - input is sanitized to digits only
 - must not be blank
 - must be a valid Brazilian CPF checksum
 
 #### `Email`
+
 - input is trimmed and lowercased
 - must not be blank
 - must not exceed `254`
 - must pass Apache Commons email validation
 
 #### `User`
+
 - `id` must exist
 - `cpf` must exist and bubbles `Cpf` validation
 - `name` must not be blank
@@ -1031,6 +1113,7 @@ These are the backend model validations enforced by aggregate/value-object `coll
 - `auditInfo` must exist and bubbles `AuditInfo` validation
 
 #### `Account`
+
 - `id` must exist
 - `userId` must not be null
 - `email` must exist and bubbles `Email` validation
@@ -1040,6 +1123,7 @@ These are the backend model validations enforced by aggregate/value-object `coll
 - `active` must not be null
 
 #### `Admin`
+
 - `accountId` must not be null
 - `grantedAt` must not be null
 - `campus` must not be null
@@ -1047,12 +1131,14 @@ These are the backend model validations enforced by aggregate/value-object `coll
 ### Academic
 
 #### `AreaOfExpertise`
+
 - `id` must exist
 - `name` must not be blank
 - `name` must not exceed `150`
 - `auditInfo` must exist and bubbles `AuditInfo` validation
 
 #### `Course`
+
 - `id` must exist
 - `name` must not be blank
 - `name` must not exceed `150`
@@ -1060,21 +1146,25 @@ These are the backend model validations enforced by aggregate/value-object `coll
 - `auditInfo` must exist and bubbles `AuditInfo` validation
 
 #### `AcademicRegistration`
+
 - value is trimmed
 - must not be blank
 - must not exceed `15`
 
 #### `CounterpartHours`
+
 - `requiredHours` must exist and be `> 0`
 - `completedHours` must exist and be `>= 0`
 - `completedHours` cannot exceed `requiredHours`
 
 #### `Period`
+
 - `startDate` must not be null
 - `dueDate` must not be null
 - `dueDate` cannot be before `startDate`
 
 #### `FormerStudent`
+
 - `accountId` must not be null
 - `academicRegistration` must exist and bubbles `AcademicRegistration` validation
 - `campus` must not be null
@@ -1086,10 +1176,12 @@ These are the backend model validations enforced by aggregate/value-object `coll
 ### Geo
 
 #### `IbgeCode`
+
 - must not be blank
 - must be exactly `7` numeric chars
 
 #### `City`
+
 - `id` must exist
 - `name` must not be blank
 - `name` must not exceed `150`
@@ -1098,11 +1190,13 @@ These are the backend model validations enforced by aggregate/value-object `coll
 ### Partner
 
 #### `Cnpj`
+
 - input is sanitized to digits only
 - must not be blank
 - must be a valid Brazilian CNPJ checksum
 
 #### `Entity`
+
 - `id` must exist
 - `cnpj` must exist and bubbles `Cnpj` validation
 - `name` must not be blank
@@ -1113,12 +1207,14 @@ These are the backend model validations enforced by aggregate/value-object `coll
 - `auditInfo` must exist and bubbles `AuditInfo` validation
 
 #### `Staff`
+
 - `accountId` must not be null
 - `entityId` must not be null
 
 ### Project
 
 #### `ProjectInfo`
+
 - `createdBy` must not be null
 - `maxParticipants`, when present, must be `>= 0`
 - `offeredHours`, when present, must be `>= 0`
@@ -1127,6 +1223,7 @@ These are the backend model validations enforced by aggregate/value-object `coll
 - `auditInfo` must exist and bubbles `AuditInfo` validation
 
 #### `Project`
+
 - `id` must exist
 - `entityId` must not be null
 - `description`, when present, must not exceed `4000`
@@ -1136,30 +1233,36 @@ These are the backend model validations enforced by aggregate/value-object `coll
 - `projectStatus` must not be null
 
 #### `EnrollmentIdentifier`
+
 - `formerStudentId` must not be null
 - `projectId` must not be null
 
 #### `EnrollmentInfo`
+
 - `auditInfo` must exist and bubbles `AuditInfo` validation
 - `acceptedAt`, when present, cannot be before `auditInfo.createdAt`
 - `closingStatusAt`, when present, cannot be before `auditInfo.createdAt`
 
 #### `Enrollment`
+
 - `identifier` must exist; otherwise missing former-student and missing project errors are added
 - `identifier`, when present, bubbles `EnrollmentIdentifier` validation
 - `status` must not be null
 - `enrollmentInfo`, when present, bubbles `EnrollmentInfo` validation
 
 #### `QrValidationInfo`
+
 - `duration` must exist and be `> 0`
 - `qrValidationHash` must not be blank
 
 #### `AttendanceInfo`
+
 - `validatedBy` and `validatedAt` must either both exist or both be absent
 - `validatedAt`, when present, cannot be before `auditInfo.createdAt`
 - `auditInfo` must exist and bubbles `AuditInfo` validation
 
 #### `Attendance`
+
 - `id` must exist
 - `enrollmentIdentifier` must exist; otherwise missing project and missing former-student errors are added
 - `enrollmentIdentifier`, when present, bubbles `EnrollmentIdentifier` validation
@@ -1170,6 +1273,7 @@ These are the backend model validations enforced by aggregate/value-object `coll
 ## Lifecycle / business transition rules
 
 ### Projects
+
 - `start`: only from `PLANNED`
 - `putOnHold`: only from `IN_PROGRESS`
 - `retake`: only from `ON_HOLD`
@@ -1178,6 +1282,7 @@ These are the backend model validations enforced by aggregate/value-object `coll
 - `addCompletedHours`: auto-completes when completed hours reach or exceed offered hours
 
 ### Enrollments
+
 - terminal statuses: `REJECTED`, `EXITED`, `REMOVED`, `CANCELED`, `COMPLETED`
 - terminal statuses cannot transition further
 - `APPROVED`: only from `PENDING` or `ON_HOLD`
@@ -1189,6 +1294,7 @@ These are the backend model validations enforced by aggregate/value-object `coll
   - former-student self endpoint accepts only `EXITED`
 
 ### Attendances
+
 - validation only accepts `PRESENT` or `ABSENT`
 - validation stamps `validatedBy`, `validatedAt`, and updates attendance audit metadata
 

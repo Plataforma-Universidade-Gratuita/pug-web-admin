@@ -32,6 +32,5 @@ export type FormerStudentComplexSearchRequest = z.infer<
 export type FormerStudentComplexSearchItemResponse = z.infer<
 	typeof FormerStudentComplexSearchResponseSchema
 >;
-export type FormerStudentComplexSearchResponse = PageResponse<
-	FormerStudentComplexSearchItemResponse
->;
+export type FormerStudentComplexSearchResponse =
+	PageResponse<FormerStudentComplexSearchItemResponse>;

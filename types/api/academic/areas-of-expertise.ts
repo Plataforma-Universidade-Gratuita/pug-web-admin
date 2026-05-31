@@ -24,6 +24,5 @@ export type AreaOfExpertiseCreateRequest = z.infer<
 export type AreaOfExpertiseUpdateRequest = z.infer<
 	typeof AreaOfExpertiseUpdateRequestSchema
 >;
-export type AreaOfExpertiseComplexSearchResponse = PageResponse<
-	AreaOfExpertiseComplexSearchItemResponse
->;
+export type AreaOfExpertiseComplexSearchResponse =
+	PageResponse<AreaOfExpertiseComplexSearchItemResponse>;

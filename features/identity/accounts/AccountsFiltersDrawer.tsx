@@ -107,7 +107,7 @@ export function AccountsFiltersDrawer({
 				</Select>
 			</div>
 
-			<div className="grid gap-2 min-w-0">
+			<div className="grid min-w-0 gap-2">
 				<Label>{t("identity.accountPage.filters.startDate.label")}</Label>
 				<DatePicker
 					value={filters.dateFrom}
@@ -116,7 +116,7 @@ export function AccountsFiltersDrawer({
 				/>
 			</div>
 
-			<div className="grid gap-2 min-w-0">
+			<div className="grid min-w-0 gap-2">
 				<Label>{t("identity.accountPage.filters.endDate.label")}</Label>
 				<DatePicker
 					value={filters.dateTo}

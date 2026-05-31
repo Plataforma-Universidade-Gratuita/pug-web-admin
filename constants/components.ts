@@ -5,13 +5,13 @@ export const BUTTON_USAGES = {
 	info: "btn-usage-info",
 	warning: "btn-usage-warning",
 	danger: "btn-usage-danger",
+	light: "btn-usage-light",
+	dark: "btn-usage-dark",
 } as const;
 
 export const BUTTON_VARIANTS = {
 	primary: "btn-variant-primary",
 	secondary: "btn-variant-secondary",
-	flat: "btn-variant-primary",
-	ghost: "btn-variant-secondary",
 } as const;
 
 export const BUTTON_SIZES = {

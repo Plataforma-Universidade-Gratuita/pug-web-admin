@@ -1,8 +1,8 @@
 "use client";
 
-import { MultiSelect, Checkbox, DatePicker, Label } from "@/components";
 import { useTranslation } from "react-i18next";
 
+import { MultiSelect, Checkbox, DatePicker, Label } from "@/components";
 import { getAdminCampusOptions } from "@/features/identity/admins/utils";
 import {
 	NumberFieldFilter,
@@ -77,7 +77,7 @@ export function AdminsFiltersDrawer({
 				/>
 			</div>
 
-			<div className="grid gap-2 min-w-0">
+			<div className="grid min-w-0 gap-2">
 				<Label>{t("identity.accountPage.filters.startDate.label")}</Label>
 				<DatePicker
 					value={filters.dateFrom}
@@ -86,7 +86,7 @@ export function AdminsFiltersDrawer({
 				/>
 			</div>
 
-			<div className="grid gap-2 min-w-0">
+			<div className="grid min-w-0 gap-2">
 				<Label>{t("identity.accountPage.filters.endDate.label")}</Label>
 				<DatePicker
 					value={filters.dateTo}

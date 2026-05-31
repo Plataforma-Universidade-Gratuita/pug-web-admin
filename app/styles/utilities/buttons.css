@@ -125,6 +125,66 @@
 	--btn-outline: color-mix(in oklab, var(--color-danger-800) 36%, transparent);
 }
 
+@utility btn-usage-light {
+	--btn-accent: #edeef0;
+	--btn-tint: color-mix(in oklab, #edeef0 10%, transparent);
+	--btn-soft: color-mix(in oklab, #edeef0 12%, transparent);
+	--btn-outline: color-mix(in oklab, #edeef0 20%, transparent);
+
+	html.dark &,
+	html.dark-theme &,
+	html[data-theme="dark"] & {
+		--btn-accent: #b0b4ba;
+		--btn-contrast: var(--white-a12);
+		--btn-tint: color-mix(in oklab, #b0b4ba 10%, transparent);
+		--btn-soft: color-mix(in oklab, #b0b4ba 12%, transparent);
+		--btn-outline: color-mix(in oklab, #b0b4ba 20%, transparent);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		html:not(.light):not(.light-theme):not([data-theme="light"]):not(.dark):not(
+				.dark-theme
+			):not([data-theme="dark"])
+			& {
+			--btn-accent: #b0b4ba;
+			--btn-contrast: var(--white-a12);
+			--btn-tint: color-mix(in oklab, #b0b4ba 10%, transparent);
+			--btn-soft: color-mix(in oklab, #b0b4ba 12%, transparent);
+			--btn-outline: color-mix(in oklab, #b0b4ba 20%, transparent);
+		}
+	}
+}
+
+@utility btn-usage-dark {
+	--btn-accent: #18191b;
+	--btn-tint: color-mix(in oklab, #18191b 10%, transparent);
+	--btn-soft: color-mix(in oklab, #18191b 12%, transparent);
+	--btn-outline: color-mix(in oklab, #18191b 20%, transparent);
+
+	html.dark &,
+	html.dark-theme &,
+	html[data-theme="dark"] & {
+		--btn-accent: #111113;
+		--btn-contrast: var(--white-a12);
+		--btn-tint: color-mix(in oklab, #111113 10%, transparent);
+		--btn-soft: color-mix(in oklab, #111113 12%, transparent);
+		--btn-outline: color-mix(in oklab, #111113 20%, transparent);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		html:not(.light):not(.light-theme):not([data-theme="light"]):not(.dark):not(
+				.dark-theme
+			):not([data-theme="dark"])
+			& {
+			--btn-accent: #111113;
+			--btn-contrast: var(--white-a12);
+			--btn-tint: color-mix(in oklab, #111113 10%, transparent);
+			--btn-soft: color-mix(in oklab, #111113 12%, transparent);
+			--btn-outline: color-mix(in oklab, #111113 20%, transparent);
+		}
+	}
+}
+
 @utility btn-variant-primary {
 	--btn-flat-border: transparent;
 	--btn-flat-bg: var(--btn-accent);

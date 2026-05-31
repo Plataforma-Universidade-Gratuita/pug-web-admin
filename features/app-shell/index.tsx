@@ -6,6 +6,8 @@ import { ScrollArea } from "@/components";
 import { RouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs";
 import { Sidebar } from "@/features/app-shell/Sidebar";
 import { TopBar } from "@/features/app-shell/Topbar";
+import { WireCredentialsDialog } from "@/features/app-shell/WireCredentialsDialog";
+import { usePasswordWiringState } from "@/features/app-shell/utils";
 import { useAppShellStore } from "@/store";
 import type { NavbarProps } from "@/types";
 
@@ -15,6 +17,8 @@ export function Navbar({ children }: NavbarProps) {
 	const toggleCollapsed = useAppShellStore(state => state.toggleCollapsed);
 	const topbarRef = useRef<HTMLDivElement | null>(null);
 	const sidebarRef = useRef<HTMLDivElement | null>(null);
+	const { requiresPasswordWiring, isDialogOpen, setIsDialogOpen, handleWired } =
+		usePasswordWiringState();
 	useEffect(() => {
 		if (collapsed) {
 			return;
@@ -50,6 +54,8 @@ export function Navbar({ children }: NavbarProps) {
 				<TopBar
 					collapsed={collapsed}
 					onToggleSidebar={toggleCollapsed}
+					showWireCredentialsAction={requiresPasswordWiring}
+					onOpenWireCredentials={() => setIsDialogOpen(true)}
 				/>
 			</div>
 			<div className="navbar-main">
@@ -70,6 +76,11 @@ export function Navbar({ children }: NavbarProps) {
 					</ScrollArea>
 				</main>
 			</div>
+			<WireCredentialsDialog
+				open={isDialogOpen}
+				onOpenChange={setIsDialogOpen}
+				onWired={handleWired}
+			/>
 		</div>
 	);
 }

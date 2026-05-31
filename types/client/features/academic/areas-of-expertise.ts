@@ -75,10 +75,7 @@ export interface AreasOfExpertiseFiltersDrawerProps {
 export interface AreasOfExpertiseRowActionsProps {
 	href: string;
 	onDelete: (areaOfExpertise: AreaOfExpertiseResponse) => void;
-	onOpenEditor: (
-		id: string,
-		mode: AreaOfExpertiseEditorMode,
-	) => void;
+	onOpenEditor: (id: string, mode: AreaOfExpertiseEditorMode) => void;
 	areaOfExpertise: AreaOfExpertiseResponse;
 }
 

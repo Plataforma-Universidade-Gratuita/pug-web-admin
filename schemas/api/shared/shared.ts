@@ -2,11 +2,7 @@ import { z } from "zod";
 
 export const CampiEnum = z.enum(["JARAGUA_DO_SUL", "JOINVILLE"]);
 
-export const AccountTypeEnum = z.enum([
-	"ADMIN",
-	"FORMER_STUDENT",
-	"PARTNER",
-]);
+export const AccountTypeEnum = z.enum(["ADMIN", "FORMER_STUDENT", "PARTNER"]);
 
 export const AuditInfoResponseSchema = z.object({
 	createdAt: z.string(),

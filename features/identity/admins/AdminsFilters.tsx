@@ -2,9 +2,9 @@
 
 import { useMemo } from "react";
 
-import { Label, MultiSelect } from "@/components";
 import { useTranslation } from "react-i18next";
 
+import { Label, MultiSelect } from "@/components";
 import { getAdminCampusOptions } from "@/features/identity/admins/utils";
 import { TextFieldFilter } from "@/features/shared/service-pages";
 import type { AdminsFiltersProps } from "@/types";

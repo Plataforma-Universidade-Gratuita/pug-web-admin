@@ -28,7 +28,6 @@ import {
 	useLinkedAdminAccountQuery,
 	useLinkedAdminUserQuery,
 } from "@/features/identity/admins/queries";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	buildAdminUpdateFormValues,
 	createAdminEditorFormSchema,
@@ -43,12 +42,13 @@ import {
 	toAdminCreateRequest,
 	toAdminUpdateRequest,
 } from "@/features/identity/admins/utils";
+import { useUsersQuery } from "@/features/identity/users/queries";
+import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import type { AdminEditorFormValues, AdminsUpdateDrawerProps } from "@/types";
 
 export function AdminsUpdateDrawer({
@@ -152,9 +152,7 @@ export function AdminsUpdateDrawer({
 			: "identity.adminPage.update.actions.savePending",
 	);
 	const editorTabs =
-		canRenderForm &&
-		!adminDetailQuery.isError &&
-		!linkedAccountQuery.isError
+		canRenderForm && !adminDetailQuery.isError && !linkedAccountQuery.isError
 			? {
 					defaultValue: "profile" as const,
 					list: (
@@ -331,9 +329,7 @@ export function AdminsUpdateDrawer({
 			>
 				<AdminEditorContent
 					admin={adminDetailQuery.data}
-					adminError={
-						adminDetailQuery.isError ? adminDetailQuery.error : null
-					}
+					adminError={adminDetailQuery.isError ? adminDetailQuery.error : null}
 					canRenderForm={canRenderForm}
 					campusOptions={campusOptions}
 					existingUsers={existingUsersQuery.data ?? []}

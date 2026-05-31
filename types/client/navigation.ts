@@ -116,6 +116,8 @@ export interface SidebarProps {
 export interface TopBarProps {
 	collapsed: boolean;
 	onToggleSidebar: () => void;
+	showWireCredentialsAction?: boolean;
+	onOpenWireCredentials?: () => void;
 }
 
 export interface RouteBreadcrumbEntry {

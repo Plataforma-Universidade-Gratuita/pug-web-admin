@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/constants";
-import { AreaOfExpertiseResponseSchema, ProjectResponseSchema } from "@/schemas";
+import {
+	AreaOfExpertiseResponseSchema,
+	ProjectResponseSchema,
+} from "@/schemas";
 import type {
 	AreaOfExpertiseResponse,
 	ProjectAreaOfExpertiseRequest,

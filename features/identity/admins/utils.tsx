@@ -3,7 +3,6 @@ import type { TFunction } from "i18next";
 
 import { Badge, TableText } from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
-export { createAdminEditorFormSchema } from "@/schemas";
 import type {
 	AdminComplexSearchFilters,
 	AdminCreateExistingUser,
@@ -15,6 +14,8 @@ import type {
 } from "@/types";
 import type { AdminFrontendFilterArgs } from "@/types";
 import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
+
+export { createAdminEditorFormSchema } from "@/schemas";
 
 const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
 
@@ -35,9 +36,7 @@ function matchesDateFrom(admin: AdminSearchResponse, value: string) {
 	const grantedAt = getStartOfDayTimestamp(admin.grantedAt);
 
 	return (
-		createdAt >= threshold ||
-		updatedAt >= threshold ||
-		grantedAt >= threshold
+		createdAt >= threshold || updatedAt >= threshold || grantedAt >= threshold
 	);
 }
 
@@ -48,9 +47,7 @@ function matchesDateTo(admin: AdminSearchResponse, value: string) {
 	const grantedAt = getStartOfDayTimestamp(admin.grantedAt);
 
 	return (
-		createdAt <= threshold ||
-		updatedAt <= threshold ||
-		grantedAt <= threshold
+		createdAt <= threshold || updatedAt <= threshold || grantedAt <= threshold
 	);
 }
 
@@ -223,10 +220,7 @@ export function filterAdminsByFrontendFilters(
 			}
 		}
 
-		if (
-			hasCampusFilters &&
-			!campusFilters.includes(admin.campus.campus)
-		) {
+		if (hasCampusFilters && !campusFilters.includes(admin.campus.campus)) {
 			return false;
 		}
 
@@ -458,9 +452,7 @@ export function getAdminFilterSummary(
 	if (frontendFilters.campusFilters.length > 0) {
 		parts.push(
 			frontendFilters.campusFilters
-				.map(campus =>
-					t(`identity.adminPage.filters.campus.options.${campus}`),
-				)
+				.map(campus => t(`identity.adminPage.filters.campus.options.${campus}`))
 				.join(", "),
 		);
 	}
@@ -488,9 +480,7 @@ export function getAdminFilterSummary(
 	if (backendFilters.campuses.length > 0) {
 		parts.push(
 			backendFilters.campuses
-				.map(campus =>
-					t(`identity.adminPage.filters.campus.options.${campus}`),
-				)
+				.map(campus => t(`identity.adminPage.filters.campus.options.${campus}`))
 				.join(", "),
 		);
 	}

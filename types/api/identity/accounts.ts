@@ -20,6 +20,5 @@ export type AccountSearchResponse = z.infer<typeof AccountSearchResponseSchema>;
 export type AccountComplexSearchRequest = z.infer<
 	typeof AccountComplexSearchRequestSchema
 >;
-export type AccountComplexSearchResponse = PageResponse<
-	AccountComplexSearchItemResponse
->;
+export type AccountComplexSearchResponse =
+	PageResponse<AccountComplexSearchItemResponse>;

@@ -4,11 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import {
-	NoContentState,
-	SomeErrorState,
-	toast,
-} from "@/components";
+import { NoContentState, SomeErrorState, toast } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AdminsActionDialogs } from "@/features/identity/admins/AdminActionDialogs";
 import { AdminsFilters } from "@/features/identity/admins/AdminsFilters";
@@ -128,17 +124,13 @@ export function AdminsPage() {
 				campusFilters: frontendCampusFilters,
 				query: deferredFrontendQuerySearch,
 			}),
-		[
-			backendFilteredAdmins,
-			deferredFrontendQuerySearch,
-			frontendCampusFilters,
-		],
+		[backendFilteredAdmins, deferredFrontendQuerySearch, frontendCampusFilters],
 	);
 	const columns = useMemo(() => createAdminColumns(t), [t]);
 	const hasAnyFilters = Boolean(
 		frontendQuerySearch.trim() ||
-			frontendCampusFilters.length > 0 ||
-			hasAppliedFilters,
+		frontendCampusFilters.length > 0 ||
+		hasAppliedFilters,
 	);
 	const filterSummary = useMemo(
 		() =>
@@ -188,12 +180,22 @@ export function AdminsPage() {
 	const setAdminsCurrentPage = adminsPagination.setCurrentPage;
 
 	useEffect(() => {
-		if (adminsAreShowingAll || !adminsSearchQuery.data || adminsCurrentPage <= totalPages) {
+		if (
+			adminsAreShowingAll ||
+			!adminsSearchQuery.data ||
+			adminsCurrentPage <= totalPages
+		) {
 			return;
 		}
 
 		setAdminsCurrentPage(totalPages);
-	}, [adminsAreShowingAll, adminsCurrentPage, adminsSearchQuery.data, setAdminsCurrentPage, totalPages]);
+	}, [
+		adminsAreShowingAll,
+		adminsCurrentPage,
+		adminsSearchQuery.data,
+		setAdminsCurrentPage,
+		totalPages,
+	]);
 
 	useQueryErrorToasts([
 		{

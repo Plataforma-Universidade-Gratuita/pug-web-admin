@@ -22,6 +22,5 @@ export type CourseWithAuditInfoComplexSearchResponse = z.infer<
 >;
 export type CourseCreateRequest = z.infer<typeof CourseCreateRequestSchema>;
 export type CourseUpdateRequest = z.infer<typeof CourseUpdateRequestSchema>;
-export type CourseComplexSearchResponse = PageResponse<
-	CourseWithAuditInfoComplexSearchResponse
->;
+export type CourseComplexSearchResponse =
+	PageResponse<CourseWithAuditInfoComplexSearchResponse>;

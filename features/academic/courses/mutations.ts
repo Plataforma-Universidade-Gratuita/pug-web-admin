@@ -7,13 +7,14 @@ import {
 } from "@tanstack/react-query";
 
 import { create, remove, update } from "@/api/web/academic/courses";
-import { courseQueryKeys } from "./queries";
 import type { CourseResponse } from "@/types";
 import type {
 	CourseCreateMutationVariables,
 	CourseUpdateMutationVariables,
 	RemoveCourseMutationVariables,
 } from "@/types";
+
+import { courseQueryKeys } from "./queries";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

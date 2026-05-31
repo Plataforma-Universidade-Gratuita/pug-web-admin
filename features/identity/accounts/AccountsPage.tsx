@@ -12,7 +12,6 @@ import {
 	useAccountsQuery,
 	useAccountsSearchQuery,
 } from "@/features/identity/accounts/queries";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	createAccountColumns,
 	filterAccountListByBackendFilters,
@@ -23,6 +22,7 @@ import {
 	getAccountsListErrorToastContent,
 	mapAccountsToSearchResponses,
 } from "@/features/identity/accounts/utils";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	ServicePageHeader,
 	ServicePagePagination,
@@ -35,7 +35,10 @@ import {
 	useQueryErrorToasts,
 	useServicePagePagination,
 } from "@/hooks";
-import type { AccountComplexSearchFilters, AccountSearchResponse } from "@/types";
+import type {
+	AccountComplexSearchFilters,
+	AccountSearchResponse,
+} from "@/types";
 
 export function AccountsPage() {
 	const { t } = useTranslation();
@@ -83,7 +86,10 @@ export function AccountsPage() {
 	const activeQueryIsLoading = accountsPagination.isAll
 		? accountsQuery.isLoading || usersQuery.isLoading
 		: accountsSearchQuery.isLoading;
-	const allAccounts = useMemo(() => accountsQuery.data ?? [], [accountsQuery.data]);
+	const allAccounts = useMemo(
+		() => accountsQuery.data ?? [],
+		[accountsQuery.data],
+	);
 	const allUsers = useMemo(() => usersQuery.data ?? [], [usersQuery.data]);
 	const backendFilteredAllAccounts = useMemo(() => {
 		if (!accountsPagination.isAll) {

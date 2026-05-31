@@ -22,8 +22,8 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
 		const ids =
-			new URL(request.url)
-				.searchParams.get("ids")
+			new URL(request.url).searchParams
+				.get("ids")
 				?.split(",")
 				.filter(Boolean) ?? undefined;
 		return routeWithAuthRetry(
@@ -49,7 +49,10 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 			page: url.searchParams.get("page"),
 			size: url.searchParams.get("size"),
 		});
-		const body = await parseRouteBody(request, EntityComplexSearchRequestSchema);
+		const body = await parseRouteBody(
+			request,
+			EntityComplexSearchRequestSchema,
+		);
 		return routeWithAuthRetry(
 			token => entities.search(pagination, body, token),
 			createPageResponseSchema(EntityComplexSearchResponseSchema),

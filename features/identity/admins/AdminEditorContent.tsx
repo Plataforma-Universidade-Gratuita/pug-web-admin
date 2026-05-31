@@ -22,8 +22,8 @@ import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
-import { findAdminExistingUserByCpf } from "@/features/identity/admins/utils";
 import { AdminUserTab } from "@/features/identity/admins/AdminUserTab";
+import { findAdminExistingUserByCpf } from "@/features/identity/admins/utils";
 import type { AdminEditorContentProps } from "@/types";
 import { WebApiError } from "@/utils";
 

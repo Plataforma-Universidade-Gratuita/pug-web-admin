@@ -12,8 +12,8 @@ import { LocaleProvider } from "@/contexts/locale";
 import { ThemeProvider } from "@/contexts/theme";
 import type { ProvidersProps } from "@/types";
 import { coerceLang } from "@/utils";
-import { initI18n } from "@/utils/locale";
 import { coerceTheme } from "@/utils";
+import { initI18n } from "@/utils/locale";
 
 export function Providers({
 	children,

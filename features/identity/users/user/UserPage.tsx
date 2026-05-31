@@ -3,8 +3,8 @@
 import { useTranslation } from "react-i18next";
 
 import { useUserDetailQuery } from "@/features/identity/users/queries";
-import { EntityPageShell } from "@/features/shared/entity-pages";
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
+import { EntityPageShell } from "@/features/shared/entity-pages";
 import type { UserPageProps } from "@/types";
 
 export function UserPage({ userId }: UserPageProps) {
@@ -14,7 +14,8 @@ export function UserPage({ userId }: UserPageProps) {
 	return (
 		<EntityPageShell
 			title={
-				userDetailQuery.data?.name ?? t("identity.userPage.dialog.titleFallback")
+				userDetailQuery.data?.name ??
+				t("identity.userPage.dialog.titleFallback")
 			}
 			description={t("identity.userPage.description")}
 		>

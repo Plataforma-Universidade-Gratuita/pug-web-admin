@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { KeyRound, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Button, Icon, LanguageSelector, ThemeSelector } from "@/components";
@@ -12,7 +12,12 @@ import { useLocale } from "@/contexts/locale";
 import { useTheme } from "@/contexts/theme";
 import type { TopBarProps } from "@/types";
 
-export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
+export function TopBar({
+	collapsed,
+	onToggleSidebar,
+	showWireCredentialsAction = false,
+	onOpenWireCredentials,
+}: TopBarProps) {
 	const { t } = useTranslation();
 	const { lang, setLang } = useLocale();
 	const { mode, setMode } = useTheme();
@@ -34,7 +39,7 @@ export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 					<Button
 						size="icon"
 						usage="secondary"
-						variant="ghost"
+						variant="secondary"
 						onClick={onToggleSidebar}
 						title={collapsed ? t("Navbar.expand") : t("Navbar.collapse")}
 						className="app-topbar-toggle"
@@ -58,6 +63,22 @@ export function TopBar({ collapsed, onToggleSidebar }: TopBarProps) {
 						</p>
 					</div>
 					<div className="app-topbar-controls">
+						{showWireCredentialsAction ? (
+							<Button
+								usage="light"
+								variant="secondary"
+								onClick={onOpenWireCredentials}
+								title={t("auth.login.wireCredentials.reopen")}
+								leadingIcon={
+									<Icon
+										icon={KeyRound}
+										size={16}
+									/>
+								}
+							>
+								{t("auth.login.wireCredentials.reopen")}
+							</Button>
+						) : null}
 						<div className="app-topbar-picker app-topbar-picker-theme">
 							<ThemeSelector
 								value={mode}

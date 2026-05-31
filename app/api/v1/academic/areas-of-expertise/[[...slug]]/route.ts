@@ -23,8 +23,8 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
 		const ids =
-			new URL(request.url)
-				.searchParams.get("ids")
+			new URL(request.url).searchParams
+				.get("ids")
 				?.split(",")
 				.filter(Boolean) ?? undefined;
 		return routeWithAuthRetry(
@@ -41,10 +41,7 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	if (slug.length === 2 && slug[1] === "projects") {
 		return routeWithAuthRetry(
 			token =>
-				projectAreasOfExpertise.listProjectsByAreaOfExpertise(
-					slug[0]!,
-					token,
-				),
+				projectAreasOfExpertise.listProjectsByAreaOfExpertise(slug[0]!, token),
 			z.array(ProjectResponseSchema),
 		);
 	}
@@ -69,7 +66,10 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 		);
 	}
 
-	const body = await parseRouteBody(request, AreaOfExpertiseCreateRequestSchema);
+	const body = await parseRouteBody(
+		request,
+		AreaOfExpertiseCreateRequestSchema,
+	);
 	return routeWithAuthRetry(
 		token => areasOfExpertise.create(body, token),
 		AreaOfExpertiseResponseSchema,
@@ -79,7 +79,10 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 export async function PUT(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length !== 1) return routeError(new Error("Not found"));
-	const body = await parseRouteBody(request, AreaOfExpertiseUpdateRequestSchema);
+	const body = await parseRouteBody(
+		request,
+		AreaOfExpertiseUpdateRequestSchema,
+	);
 	return routeWithAuthRetry(
 		token => areasOfExpertise.update(slug[0]!, body, token),
 		AreaOfExpertiseResponseSchema,

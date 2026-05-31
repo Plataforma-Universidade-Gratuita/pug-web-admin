@@ -17,6 +17,12 @@ export interface LoginFormValues {
 	password: string;
 }
 
+export interface WireCredentialsFormValues {
+	email: string;
+	password: string;
+	confirmPassword: string;
+}
+
 export interface LoginFormProps {
 	panelRef?: import("react").Ref<HTMLDivElement>;
 }

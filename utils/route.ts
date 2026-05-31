@@ -3,12 +3,12 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { REFRESH_TOKEN_COOKIE } from "@/constants";
+import { ApiError } from "@/utils/api";
 import {
 	applySessionCookies,
 	clearSessionCookies,
 	getServerCookie,
 } from "@/utils/cookies";
-import { ApiError } from "@/utils/api";
 import { refreshAdminSession } from "@/utils/session";
 
 export function routeData<T>(data: T, init?: ResponseInit): NextResponse<T> {

@@ -20,6 +20,5 @@ export type AdminComplexSearchRequest = z.infer<
 >;
 export type AdminCreateRequest = z.infer<typeof AdminCreateRequestSchema>;
 export type AdminUpdateRequest = z.infer<typeof AdminUpdateRequestSchema>;
-export type AdminComplexSearchResponse = PageResponse<
-	AdminComplexSearchItemResponse
->;
+export type AdminComplexSearchResponse =
+	PageResponse<AdminComplexSearchItemResponse>;

@@ -12,7 +12,12 @@ export function createCityColumns(t: TFunction): ColumnDef<CityResponse>[] {
 		{
 			accessorKey: "id",
 			header: t("geo.cityPage.table.columns.identifier"),
-			cell: ({ row }) => <TableText text={row.original.id} tooltiped />,
+			cell: ({ row }) => (
+				<TableText
+					text={row.original.id}
+					tooltiped
+				/>
+			),
 		},
 		{
 			accessorKey: "name",

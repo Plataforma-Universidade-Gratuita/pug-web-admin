@@ -112,7 +112,7 @@ export async function updateStatus(
 		{
 			method: "PATCH",
 			body: JSON.stringify(
-                EnrollmentUpdateStatusRequestSchema.parse({ status }),
+				EnrollmentUpdateStatusRequestSchema.parse({ status }),
 			),
 		},
 		EnrollmentResponseSchema,
@@ -130,7 +130,7 @@ export async function updateMyStatus(
 		{
 			method: "PATCH",
 			body: JSON.stringify(
-                EnrollmentUpdateStatusRequestSchema.parse({ status }),
+				EnrollmentUpdateStatusRequestSchema.parse({ status }),
 			),
 		},
 		EnrollmentResponseSchema,

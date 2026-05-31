@@ -55,7 +55,7 @@ export function CurrentAccountSection() {
 						</div>
 						<Button
 							usage="secondary"
-							variant="ghost"
+							variant="secondary"
 							onClick={() => void refetch()}
 						>
 							{t("home.currentAccount.error.retry")}

@@ -1,6 +1,9 @@
 import { z } from "zod";
 
-import { AccountTypeEnum, CredentialsRequestSchema } from "@/schemas/api/shared/shared";
+import {
+	AccountTypeEnum,
+	CredentialsRequestSchema,
+} from "@/schemas/api/shared/shared";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

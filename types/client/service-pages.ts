@@ -59,8 +59,10 @@ export interface ServicePageFiltersDrawerProps {
 	triggerLabel: ReactNode;
 }
 
-export interface ServicePageEditorDrawerTabsProps
-	extends Omit<TabsProps, "children"> {
+export interface ServicePageEditorDrawerTabsProps extends Omit<
+	TabsProps,
+	"children"
+> {
 	list: ReactNode;
 }
 

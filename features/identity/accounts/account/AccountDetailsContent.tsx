@@ -130,5 +130,7 @@ export function AccountDetailsContent({
 		return <EntityPageFieldsGridSkeleton />;
 	}
 
-	return <NotFoundState title={t("identity.accountPage.dialog.notFound.title")} />;
+	return (
+		<NotFoundState title={t("identity.accountPage.dialog.notFound.title")} />
+	);
 }

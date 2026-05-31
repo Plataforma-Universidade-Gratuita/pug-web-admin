@@ -23,8 +23,7 @@ export function Button({
 	...props
 }: ButtonProps) {
 	const resolvedUsage =
-		usage ??
-		(variant === "secondary" || variant === "ghost" ? "secondary" : "primary");
+		usage ?? (variant === "secondary" ? "secondary" : "primary");
 	const label = isLoading && loadingText ? loadingText : children;
 	const derivedAriaLabel =
 		ariaLabel ??

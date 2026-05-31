@@ -35,9 +35,7 @@ function areFilterValuesEqual(left: unknown, right: unknown): boolean {
 			return false;
 		}
 
-		return leftKeys.every(key =>
-			areFilterValuesEqual(left[key], right[key]),
-		);
+		return leftKeys.every(key => areFilterValuesEqual(left[key], right[key]));
 	}
 
 	return false;

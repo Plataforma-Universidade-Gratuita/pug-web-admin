@@ -205,7 +205,10 @@ function patchAdminCaches(
 	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });
 }
 
-function writeAccountCaches(queryClient: QueryClient, account: AccountResponse) {
+function writeAccountCaches(
+	queryClient: QueryClient,
+	account: AccountResponse,
+) {
 	queryClient.setQueryData(accountQueryKeys.detail(account.id), account);
 	queryClient.setQueryData(adminQueryKeys.linkedAccount(account.id), account);
 	queryClient.setQueryData<AccountResponse[]>(

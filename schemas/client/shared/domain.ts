@@ -87,6 +87,33 @@ export function createEmailFieldSchema(
 	});
 }
 
+export function createPasswordFieldSchema(
+	required: boolean,
+	requiredMessage: string,
+	invalidMessage: string,
+) {
+	return z.string().superRefine((value, ctx) => {
+		const trimmed = value.trim();
+
+		if (trimmed.length === 0) {
+			if (required) {
+				ctx.addIssue({
+					code: "custom",
+					message: requiredMessage,
+				});
+			}
+			return;
+		}
+
+		if (trimmed.length < 8 || trimmed.length > 255) {
+			ctx.addIssue({
+				code: "custom",
+				message: invalidMessage,
+			});
+		}
+	});
+}
+
 export function createCpfFieldSchema(
 	required: boolean,
 	requiredMessage: string,

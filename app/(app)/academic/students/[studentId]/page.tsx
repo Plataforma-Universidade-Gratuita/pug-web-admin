@@ -5,5 +5,5 @@ export default async function Page({ params }: FormerStudentRoutePageProps) {
 	const { formerStudentId } = await params;
 
 	// return <StudentPage studentId={studentId} />;
-    return (<></>);
+	return <></>;
 }

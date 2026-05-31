@@ -2,8 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 
-import { EntityPageShell } from "@/features/shared/entity-pages";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
+import { EntityPageShell } from "@/features/shared/entity-pages";
 import type { AccountPageProps } from "@/types";
 
 export function AccountPage({ accountId }: AccountPageProps) {

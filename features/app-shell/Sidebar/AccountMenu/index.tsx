@@ -108,7 +108,7 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 					<Button
 						size={collapsed ? "icon" : "md"}
 						usage="secondary"
-						variant="ghost"
+						variant="secondary"
 						title={t("Navbar.account.label")}
 						aria-label={t("Navbar.account.label")}
 						className={clsx(
@@ -148,25 +148,42 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 					className="app-sidebar-account-popover"
 				>
 					{isProfileError ? (
-						<div className="flex flex-col items-start gap-4 rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4">
-							<div className="space-y-1">
-								<p className="ty-sm-bold">
-									{t("home.currentAccount.error.title")}
-								</p>
-								<p className="ty-helper">
-									{profileError instanceof Error
-										? profileError.message
-										: t("home.currentAccount.error.description")}
-								</p>
+						<>
+							<div className="flex flex-col items-start gap-4 rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4">
+								<div className="space-y-1">
+									<p className="ty-sm-bold">
+										{t("home.currentAccount.error.title")}
+									</p>
+									<p className="ty-helper">
+										{profileError instanceof Error
+											? profileError.message
+											: t("home.currentAccount.error.description")}
+									</p>
+								</div>
+								<Button
+									usage="secondary"
+									variant="secondary"
+									onClick={handleRetryProfile}
+								>
+									{t("home.currentAccount.error.retry")}
+								</Button>
 							</div>
+							<Separator className="separator-horizontal" />
 							<Button
+								className="w-full justify-start"
 								usage="secondary"
-								variant="ghost"
-								onClick={handleRetryProfile}
+								variant="secondary"
+								onClick={handleOpenLogoutDialog}
+								leadingIcon={
+									<Icon
+										icon={LogOut}
+										size={16}
+									/>
+								}
 							>
-								{t("home.currentAccount.error.retry")}
+								{t("Navbar.account.logout")}
 							</Button>
-						</div>
+						</>
 					) : (
 						<>
 							<div className="app-sidebar-account-summary">
@@ -189,7 +206,8 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 												{user?.name ?? t("Navbar.account.fallback")}
 											</p>
 											<p className="app-sidebar-account-meta">
-												{admin?.accountEmail ?? t("Navbar.account.fallback")}
+												{admin?.accountResponse.email ??
+													t("Navbar.account.fallback")}
 											</p>
 											<p className="app-sidebar-account-meta">
 												{admin?.campus.campusFormatted ??
@@ -203,7 +221,7 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 							<Button
 								className="w-full justify-start"
 								usage="secondary"
-								variant="ghost"
+								variant="secondary"
 								onClick={handleOpenLogoutDialog}
 								leadingIcon={
 									<Icon

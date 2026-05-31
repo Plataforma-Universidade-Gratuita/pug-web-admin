@@ -27,8 +27,8 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
 		const ids =
-			new URL(request.url)
-				.searchParams.get("ids")
+			new URL(request.url).searchParams
+				.get("ids")
 				?.split(",")
 				.filter(Boolean) ?? undefined;
 		return routeWithAuthRetry(
@@ -51,10 +51,7 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	if (slug.length === 3 && slug[1] === "areas-of-expertise") {
 		return routeWithAuthRetry(
 			token =>
-				projectAreasOfExpertise.listAreasOfExpertiseByProject(
-					slug[0]!,
-					token,
-				),
+				projectAreasOfExpertise.listAreasOfExpertiseByProject(slug[0]!, token),
 			z.array(AreaOfExpertiseResponseSchema),
 		);
 	}
@@ -88,7 +85,10 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 			page: url.searchParams.get("page"),
 			size: url.searchParams.get("size"),
 		});
-		const body = await parseRouteBody(request, ProjectComplexSearchRequestSchema);
+		const body = await parseRouteBody(
+			request,
+			ProjectComplexSearchRequestSchema,
+		);
 		return routeWithAuthRetry(
 			token => projects.search(pagination, body, token),
 			createPageResponseSchema(ProjectComplexSearchResponseSchema),
@@ -141,14 +141,20 @@ export async function PATCH(request: Request, { params }: AppRouteSlugContext) {
 		);
 	}
 	if (slug.length === 3 && slug[1] === "enrollments" && slug[2] === "me") {
-		const body = await parseRouteBody(request, EnrollmentStatusUpdateRequestSchema);
+		const body = await parseRouteBody(
+			request,
+			EnrollmentStatusUpdateRequestSchema,
+		);
 		return routeWithAuthRetry(
 			token => enrollments.updateMyStatus(slug[0]!, body.status, token),
 			EnrollmentResponseSchema,
 		);
 	}
 	if (slug.length === 3 && slug[1] === "enrollments") {
-		const body = await parseRouteBody(request, EnrollmentStatusUpdateRequestSchema);
+		const body = await parseRouteBody(
+			request,
+			EnrollmentStatusUpdateRequestSchema,
+		);
 		return routeWithAuthRetry(
 			token => enrollments.updateStatus(slug[0]!, slug[2]!, body.status, token),
 			EnrollmentResponseSchema,

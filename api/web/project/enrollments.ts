@@ -5,7 +5,7 @@ import {
 	EnrollmentComplexSearchRequestSchema,
 	EnrollmentComplexSearchResponseSchema,
 	EnrollmentResponseSchema,
-    EnrollmentUpdateStatusRequestSchema,
+	EnrollmentUpdateStatusRequestSchema,
 	createPageResponseSchema,
 } from "@/schemas";
 import type {
@@ -97,7 +97,7 @@ export async function updateStatus(
 		{
 			method: "PATCH",
 			body: JSON.stringify(
-                EnrollmentUpdateStatusRequestSchema.parse({ status }),
+				EnrollmentUpdateStatusRequestSchema.parse({ status }),
 			),
 		},
 	);
@@ -113,7 +113,7 @@ export async function updateMyStatus(
 		{
 			method: "PATCH",
 			body: JSON.stringify(
-                EnrollmentUpdateStatusRequestSchema.parse({ status }),
+				EnrollmentUpdateStatusRequestSchema.parse({ status }),
 			),
 		},
 	);

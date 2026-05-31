@@ -575,14 +575,18 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - use separators sparingly to reinforce grouping, metadata rhythm, or section transitions
   - separators support hierarchy; they do not replace spacing and layout decisions
 - Button contract:
-  - the canonical button variants are `primary` and `secondary`
+  - the canonical button variants are `primary`, `secondary`, `light`, and `dark`
   - `variant="primary"` is the main filled action pattern
-  - `variant="secondary"` is the lower-emphasis ghost action pattern
+  - `variant="secondary"` is the lower-emphasis secondary action pattern
+  - `variant="light"` is the light-surface action pattern for colored backgrounds
+  - `variant="dark"` is the dark-surface action pattern for colored backgrounds
   - default button contract is:
     - `variant="primary"`
     - `usage="primary"`
     - `size="md"`
   - when `variant="secondary"` is used without an explicit `usage`, it should render with the neutral grey action treatment
+  - when `variant="light"` is used on a colored surface, the foreground should stay white in light mode and whiteish in dark mode
+  - when `variant="dark"` is used on a colored surface, the foreground should stay almost black in light mode and slightly softened in dark mode
   - `usage` still controls semantic color meaning:
     - `primary`
     - `secondary`
@@ -590,7 +594,6 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
     - `info`
     - `warning`
     - `danger`
-  - `flat` and `ghost` remain compatibility aliases only; do not prefer them in new code
 - Button action ordering rule:
   - in grouped actions, the primary action belongs at the far right
   - secondary and fallback actions stack to the left in decreasing emphasis

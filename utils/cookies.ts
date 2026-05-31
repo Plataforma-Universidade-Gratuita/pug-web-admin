@@ -1,7 +1,11 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/constants";
+import {
+	ACCESS_TOKEN_COOKIE,
+	PASSWORD_WIRED_COOKIE,
+	REFRESH_TOKEN_COOKIE,
+} from "@/constants";
 import type { TokenResponse } from "@/types";
 
 export function getAccessTokenFromRequest(request: {
@@ -24,7 +28,6 @@ export async function getServerCookie(
 
 function sessionCookieOptions(maxAge: number) {
 	return {
-		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		sameSite: "lax" as const,
 		path: "/",
@@ -36,14 +39,17 @@ export function applySessionCookies(
 	response: NextResponse,
 	tokens: TokenResponse,
 ): NextResponse {
+	response.cookies.set(ACCESS_TOKEN_COOKIE, tokens.token, {
+		...sessionCookieOptions(tokens.expiresIn),
+		httpOnly: true,
+	});
+	response.cookies.set(REFRESH_TOKEN_COOKIE, tokens.refreshToken, {
+		...sessionCookieOptions(tokens.refreshExpiresIn),
+		httpOnly: true,
+	});
 	response.cookies.set(
-		ACCESS_TOKEN_COOKIE,
-		tokens.token,
-		sessionCookieOptions(tokens.expiresIn),
-	);
-	response.cookies.set(
-		REFRESH_TOKEN_COOKIE,
-		tokens.refreshToken,
+		PASSWORD_WIRED_COOKIE,
+		String(tokens.passwordWired),
 		sessionCookieOptions(tokens.refreshExpiresIn),
 	);
 	return response;
@@ -52,5 +58,6 @@ export function applySessionCookies(
 export function clearSessionCookies(response: NextResponse): NextResponse {
 	response.cookies.delete(ACCESS_TOKEN_COOKIE);
 	response.cookies.delete(REFRESH_TOKEN_COOKIE);
+	response.cookies.delete(PASSWORD_WIRED_COOKIE);
 	return response;
 }
