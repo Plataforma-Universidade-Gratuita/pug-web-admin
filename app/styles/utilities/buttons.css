@@ -41,10 +41,10 @@
 	html.dark &,
 	html.dark-theme &,
 	html[data-theme="dark"] & {
-		--btn-accent: var(--color-brand);
-		--btn-tint: color-mix(in oklab, var(--color-brand) 24%, transparent);
-		--btn-soft: color-mix(in oklab, var(--color-brand) 30%, transparent);
-		--btn-outline: color-mix(in oklab, var(--color-brand) 48%, transparent);
+		--btn-accent: color-mix(in oklab, var(--color-brand) 95%, white);
+		--btn-tint: color-mix(in oklab, var(--btn-accent) 26%, transparent);
+		--btn-soft: color-mix(in oklab, var(--btn-accent) 32%, transparent);
+		--btn-outline: color-mix(in oklab, var(--btn-accent) 52%, transparent);
 	}
 
 	@media (prefers-color-scheme: dark) {
@@ -52,10 +52,10 @@
 				.dark-theme
 			):not([data-theme="dark"])
 			& {
-			--btn-accent: var(--color-brand);
-			--btn-tint: color-mix(in oklab, var(--color-brand) 24%, transparent);
-			--btn-soft: color-mix(in oklab, var(--color-brand) 30%, transparent);
-			--btn-outline: color-mix(in oklab, var(--color-brand) 48%, transparent);
+			--btn-accent: color-mix(in oklab, var(--color-brand) 95%, white);
+			--btn-tint: color-mix(in oklab, var(--btn-accent) 26%, transparent);
+			--btn-soft: color-mix(in oklab, var(--btn-accent) 32%, transparent);
+			--btn-outline: color-mix(in oklab, var(--btn-accent) 52%, transparent);
 		}
 	}
 }
@@ -203,9 +203,9 @@
 	html.dark-theme &,
 	html[data-theme="dark"] & {
 		--btn-flat-border: color-mix(in oklab, var(--btn-accent) 10%, transparent);
-		--btn-flat-bg: var(--btn-soft);
+		--btn-flat-bg: color-mix(in oklab, var(--btn-accent) 24%, transparent);
 		--btn-flat-color: var(--btn-accent);
-		--btn-flat-hover: color-mix(in oklab, var(--btn-accent) 24%, transparent);
+		--btn-flat-hover: var(--btn-soft);
 		--btn-flat-highlight: var(--twc-surface-highlight);
 		--btn-flat-lowlight: var(--twc-surface-lowlight);
 	}
@@ -220,9 +220,9 @@
 				var(--btn-accent) 10%,
 				transparent
 			);
-			--btn-flat-bg: var(--btn-soft);
+			--btn-flat-bg: color-mix(in oklab, var(--btn-accent) 24%, transparent);
 			--btn-flat-color: var(--btn-accent);
-			--btn-flat-hover: color-mix(in oklab, var(--btn-accent) 24%, transparent);
+			--btn-flat-hover: var(--btn-soft);
 			--btn-flat-highlight: var(--twc-surface-highlight);
 			--btn-flat-lowlight: var(--twc-surface-lowlight);
 		}

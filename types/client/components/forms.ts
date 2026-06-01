@@ -4,6 +4,7 @@ import type {
 	ReactNode,
 	TextareaHTMLAttributes,
 } from "react";
+import type { FieldValues, UseFormReturn } from "react-hook-form";
 
 import { BADGE_TONES } from "@/constants";
 import type { PopoverContentProps } from "@/types";
@@ -58,8 +59,37 @@ export interface ComboboxProps {
 	placeholder?: ReactNode;
 	searchPlaceholder?: string;
 	emptyMessage?: ReactNode;
+	creatable?: boolean;
+	createLabel?: (value: string) => ReactNode;
+	onCreateValue?: (value: string) => void;
+	queryNormalizer?: (value: string) => string;
+	canCreateValue?: (value: string, options: ComboboxOption[]) => boolean;
 	disabled?: boolean;
 	className?: string;
+}
+
+export interface CpfFormFieldExistingUser {
+	cpf: string;
+	cpfFormatted: string;
+	name: string;
+}
+
+export interface CpfFormFieldProps<
+	TValues extends FieldValues & {
+		cpf: string;
+		name: string;
+	},
+> {
+	form: UseFormReturn<TValues>;
+	existingUsers: CpfFormFieldExistingUser[];
+	id?: string;
+	label: ReactNode;
+	tooltipContent?: ReactNode;
+	placeholder?: ReactNode;
+	searchPlaceholder?: string;
+	emptyMessage?: ReactNode;
+	createOptionLabel?: (value: string) => ReactNode;
+	onExistingUserChange?: (user: CpfFormFieldExistingUser | null) => void;
 }
 
 export type MultiSelectSelectionTone = keyof typeof BADGE_TONES;

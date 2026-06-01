@@ -1,6 +1,7 @@
 /* --- Root --- */
 export * from "./checkbox";
 export * from "./combobox";
+export * from "./cpf-form-field";
 export * from "./date-picker";
 export * from "./input";
 export * from "./label";

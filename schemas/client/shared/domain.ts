@@ -243,7 +243,7 @@ export function isDateRangeInvalid(startDate: string, dueDate: string) {
 	return dueTimestamp < startTimestamp;
 }
 
-function isValidCpf(digits: string) {
+export function isValidCpf(digits: string) {
 	if (digits.length !== 11 || /^(\d)\1{10}$/.test(digits)) {
 		return false;
 	}

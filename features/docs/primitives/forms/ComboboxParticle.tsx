@@ -19,6 +19,50 @@ import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 export default function ComboboxParticle() {
 	const { t } = useTranslation();
 	const [ownerValue, setOwnerValue] = useState("maria");
+	const [creatableValue, setCreatableValue] = useState("onboarding");
+	const [creatableOptions, setCreatableOptions] = useState([
+		{
+			value: "onboarding",
+			label: t("docs.combobox.cards.creatable.options.onboarding.label"),
+			description: t(
+				"docs.combobox.cards.creatable.options.onboarding.description",
+			),
+		},
+		{
+			value: "follow-up",
+			label: t("docs.combobox.cards.creatable.options.followUp.label"),
+			description: t(
+				"docs.combobox.cards.creatable.options.followUp.description",
+			),
+		},
+		{
+			value: "internal",
+			label: t("docs.combobox.cards.creatable.options.internal.label"),
+			description: t(
+				"docs.combobox.cards.creatable.options.internal.description",
+			),
+		},
+	]);
+
+	function handleCreateValue(value: string) {
+		const nextValue = value.trim();
+		if (!nextValue) return;
+
+		setCreatableOptions(currentOptions => {
+			if (currentOptions.some(option => option.value === nextValue)) {
+				return currentOptions;
+			}
+
+			return [
+				...currentOptions,
+				{
+					value: nextValue,
+					label: nextValue,
+					description: t("docs.combobox.cards.creatable.createdDescription"),
+				},
+			];
+		});
+	}
 
 	return (
 		<ParticleContainer
@@ -128,6 +172,41 @@ export default function ComboboxParticle() {
 						</CardContent>
 					</Card>
 				</div>
+			</ParticleSection>
+
+			<ParticleSection
+				title={t("docs.combobox.sections.creatable.title")}
+				description={t("docs.combobox.sections.creatable.description")}
+			>
+				<Card className="p-4">
+					<CardHeader>
+						<CardTitle>{t("docs.combobox.cards.creatable.title")}</CardTitle>
+						<CardDescription>
+							{t("docs.combobox.cards.creatable.description")}
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-2">
+						<Label htmlFor="docs-combobox-creatable">
+							{t("docs.combobox.cards.creatable.label")}
+						</Label>
+						<Combobox
+							id="docs-combobox-creatable"
+							value={creatableValue}
+							onValueChange={setCreatableValue}
+							placeholder={t("docs.combobox.cards.creatable.placeholder")}
+							searchPlaceholder={t(
+								"docs.combobox.cards.creatable.searchPlaceholder",
+							)}
+							emptyMessage={t("docs.combobox.cards.creatable.empty")}
+							options={creatableOptions}
+							creatable
+							createLabel={value =>
+								t("docs.combobox.cards.creatable.createLabel", { value })
+							}
+							onCreateValue={handleCreateValue}
+						/>
+					</CardContent>
+				</Card>
 			</ParticleSection>
 		</ParticleContainer>
 	);

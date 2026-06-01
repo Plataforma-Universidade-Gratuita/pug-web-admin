@@ -23,12 +23,18 @@ export function Combobox({
 	placeholder = "Select an option",
 	searchPlaceholder = "Search options",
 	emptyMessage = "No options found.",
+	creatable = false,
+	createLabel,
+	onCreateValue,
+	queryNormalizer,
+	canCreateValue,
 	disabled = false,
 	className,
 }: ComboboxProps) {
 	const [open, setOpen] = useState(false);
 	const [query, setQuery] = useState("");
 	const [internalValue, setInternalValue] = useState(defaultValue);
+	const triggerButtonRef = useRef<HTMLButtonElement | null>(null);
 	const scrollRef = useRef<HTMLDivElement | null>(null);
 	const selectedValue = value ?? internalValue;
 
@@ -41,6 +47,13 @@ export function Combobox({
 			getSearchableComboboxText(option).includes(normalizedQuery),
 		);
 	}, [options, query]);
+	const creatableValue = query.trim();
+	const canCreate =
+		creatable &&
+		creatableValue.length > 0 &&
+		(canCreateValue
+			? canCreateValue(creatableValue, options)
+			: !options.some(option => option.value === creatableValue));
 
 	function handleValueChange(nextValue: string) {
 		if (value === undefined) setInternalValue(nextValue);
@@ -49,7 +62,21 @@ export function Combobox({
 		setQuery("");
 	}
 
+	function handleCreateValue() {
+		if (!canCreate) {
+			return;
+		}
+
+		onCreateValue?.(creatableValue);
+		handleValueChange(creatableValue);
+	}
+
 	function handleOptionsWheel(event: React.WheelEvent<HTMLDivElement>) {
+		const isInsideDrawer = triggerButtonRef.current?.closest(".drawer-content-base");
+		if (!isInsideDrawer) {
+			return;
+		}
+
 		const scrollElement = scrollRef.current;
 
 		if (
@@ -90,6 +117,7 @@ export function Combobox({
 			<div className="combobox-trigger-shell">
 				<PopoverTrigger className="w-full">
 					<button
+						ref={triggerButtonRef}
 						id={id}
 						type="button"
 						role="combobox"
@@ -108,7 +136,7 @@ export function Combobox({
 						>
 							{selectedOption
 								? getComboboxSelectedLabel(selectedOption)
-								: placeholder}
+								: selectedValue || placeholder}
 						</span>
 					</button>
 				</PopoverTrigger>
@@ -165,7 +193,13 @@ export function Combobox({
 							id={id ? `${id}-search` : undefined}
 							type="text"
 							value={query}
-							onChange={event => setQuery(event.target.value)}
+							onChange={event =>
+								setQuery(
+									queryNormalizer
+										? queryNormalizer(event.target.value)
+										: event.target.value,
+								)
+							}
 							placeholder={searchPlaceholder}
 							disabled={disabled}
 							className="combobox-search-input"
@@ -177,7 +211,32 @@ export function Combobox({
 						className="combobox-scroll"
 						onWheel={handleOptionsWheel}
 					>
-						{filteredOptions.length === 0 ? (
+						{canCreate ? (
+							<div className="combobox-options">
+								<button
+									type="button"
+									onClick={handleCreateValue}
+									disabled={disabled}
+									className="focus-ring combobox-option"
+								>
+									<span className="combobox-option-indicator">
+										<span
+											aria-hidden="true"
+											className="combobox-option-indicator-bar"
+										/>
+									</span>
+									<span className="combobox-option-copy">
+										<span className="combobox-option-label">
+											{createLabel
+												? createLabel(creatableValue)
+												: creatableValue}
+										</span>
+									</span>
+								</button>
+							</div>
+						) : null}
+
+						{filteredOptions.length === 0 && !canCreate ? (
 							<div className="combobox-empty">{emptyMessage}</div>
 						) : (
 							<div className="combobox-options">

@@ -14,8 +14,6 @@ import {
 	AlertDialogTitle,
 	Button,
 	Footer,
-	TabsList,
-	TabsTrigger,
 	toast,
 } from "@/components";
 import { AdminEditorContent } from "@/features/identity/admins/AdminEditorContent";
@@ -155,27 +153,6 @@ export function AdminsUpdateDrawer({
 			? "identity.adminPage.create.actions.savePending"
 			: "identity.adminPage.update.actions.savePending",
 	);
-	const editorTabs =
-		canRenderForm && !adminDetailQuery.isError && !linkedAccountQuery.isError
-			? {
-					defaultValue: "profile" as const,
-					list: (
-						<TabsList>
-							<TabsTrigger value="profile">
-								{t("identity.adminPage.update.tabs.profile")}
-							</TabsTrigger>
-							<TabsTrigger value="access">
-								{t("identity.adminPage.update.tabs.access")}
-							</TabsTrigger>
-							{!isCreateMode ? (
-								<TabsTrigger value="user">
-									{t("identity.adminPage.update.tabs.user")}
-								</TabsTrigger>
-							) : null}
-						</TabsList>
-					),
-				}
-			: undefined;
 
 	useQueryErrorToasts([
 		{
@@ -305,7 +282,6 @@ export function AdminsUpdateDrawer({
 				overhead={drawerOverhead}
 				title={linkedUserQuery.data?.name ?? drawerTitleFallback}
 				bodyClassName="grid gap-6"
-				{...(editorTabs ? { tabs: editorTabs } : {})}
 				footer={
 					<Footer className="drawer-footer">
 						<Button

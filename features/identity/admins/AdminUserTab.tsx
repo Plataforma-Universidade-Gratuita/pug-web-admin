@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { NotFoundState, SomeErrorState, TabsContent } from "@/components";
+import { NotFoundState, SomeErrorState } from "@/components";
 import type { AdminUserTabProps } from "@/types";
 import { WebApiError } from "@/utils";
 
@@ -15,10 +15,7 @@ export function AdminUserTab({
 	const { t } = useTranslation();
 
 	return (
-		<TabsContent
-			value="user"
-			className="grid gap-4 pt-4"
-		>
+		<div className="grid gap-4">
 			<div className="grid gap-1">
 				<p className="ty-helper">
 					{t("identity.adminPage.update.fields.accountId")}
@@ -70,6 +67,6 @@ export function AdminUserTab({
 					title={t("identity.adminPage.dialog.linkedUser.notFound.title")}
 				/>
 			)}
-		</TabsContent>
+		</div>
 	);
 }

@@ -1,12 +1,17 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useState } from "react";
 
 import { Controller, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
 	Badge,
+	CpfFormField,
 	Input,
 	Label,
 	NotFoundState,
@@ -15,15 +20,16 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SomeErrorState,
-	TabsContent,
 } from "@/components";
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
 import { AdminUserTab } from "@/features/identity/admins/AdminUserTab";
-import { findAdminExistingUserByCpf } from "@/features/identity/admins/utils";
-import type { AdminEditorContentProps } from "@/types";
+import type {
+	AdminEditorContentProps,
+	CpfFormFieldExistingUser,
+} from "@/types";
 import { WebApiError } from "@/utils";
 
 export function AdminEditorContent({
@@ -48,41 +54,8 @@ export function AdminEditorContent({
 		control: form.control,
 		name: "cpf",
 	});
-	const matchedExistingUser = useMemo(
-		() => findAdminExistingUserByCpf(existingUsers, watchedCpf ?? ""),
-		[existingUsers, watchedCpf],
-	);
-	const lastAutoFilledNameRef = useRef<string | null>(null);
-
-	useEffect(() => {
-		if (!isCreateMode) {
-			return;
-		}
-
-		if (matchedExistingUser) {
-			if (form.getValues("name") !== matchedExistingUser.name) {
-				form.setValue("name", matchedExistingUser.name, {
-					shouldDirty: true,
-					shouldValidate: true,
-				});
-			}
-
-			lastAutoFilledNameRef.current = matchedExistingUser.name;
-			return;
-		}
-
-		if (
-			lastAutoFilledNameRef.current &&
-			form.getValues("name") === lastAutoFilledNameRef.current
-		) {
-			form.setValue("name", "", {
-				shouldDirty: true,
-				shouldValidate: true,
-			});
-		}
-
-		lastAutoFilledNameRef.current = null;
-	}, [form, isCreateMode, matchedExistingUser]);
+	const [matchedExistingUser, setMatchedExistingUser] =
+		useState<CpfFormFieldExistingUser | null>(null);
 
 	if (!isCreateMode && adminError) {
 		if (adminError instanceof WebApiError && adminError.status === 404) {
@@ -165,13 +138,44 @@ export function AdminEditorContent({
 		isCreateMode || !linkedAccount
 			? "warning"
 			: getAccountTypeTone(linkedAccount.accountType);
+	const accountIsActive = linkedAccount?.active ?? true;
+	const accountStatusLabel = accountIsActive
+		? t("identity.accountPage.dialog.active.yes")
+		: t("identity.accountPage.dialog.active.no");
+	const accountStatusTone = accountIsActive ? "success" : "danger";
+	const hasCpfValue = (watchedCpf ?? "").trim().length > 0;
+	const isNameDisabled =
+		isCreateMode && (!hasCpfValue || matchedExistingUser != null);
 
 	return (
 		<>
-			<TabsContent
-				value="profile"
-				className="grid gap-4 pt-4"
-			>
+			<section className="grid gap-4">
+				<div className="grid gap-1">
+					<p className="ty-overhead">
+						{t("identity.adminPage.update.tabs.profile")}
+					</p>
+				</div>
+				<div className="grid gap-2">
+					<CpfFormField
+						id="admin-cpf"
+						form={form}
+						existingUsers={existingUsers}
+						label={t("identity.adminPage.update.fields.cpf")}
+						tooltipContent={t("identity.adminPage.update.fields.cpfHelp")}
+						placeholder={t("identity.adminPage.update.fields.cpfPlaceholder")}
+						searchPlaceholder={t(
+							"identity.adminPage.update.fields.cpfSearchPlaceholder",
+						)}
+						emptyMessage={t("identity.adminPage.update.fields.cpfEmpty")}
+						createOptionLabel={value =>
+							t("identity.adminPage.update.fields.cpfCreateOption", {
+								value,
+							})
+						}
+						onExistingUserChange={user => setMatchedExistingUser(user)}
+					/>
+				</div>
+
 				<div className="grid gap-2">
 					<Label htmlFor="admin-name">
 						{t("identity.adminPage.update.fields.name")}
@@ -179,20 +183,13 @@ export function AdminEditorContent({
 					<Input
 						id="admin-name"
 						{...form.register("name")}
-						disabled={isCreateMode && matchedExistingUser != null}
+						disabled={isNameDisabled}
 						aria-describedby={
 							form.formState.errors.name ? "admin-name-error" : undefined
 						}
 						aria-invalid={form.formState.errors.name ? "true" : "false"}
 						placeholder={t("identity.adminPage.update.fields.namePlaceholder")}
 					/>
-					{isCreateMode ? (
-						<p className="control-description">
-							{matchedExistingUser
-								? t("identity.adminPage.update.fields.nameLockedDescription")
-								: t("identity.adminPage.update.fields.nameEditableDescription")}
-						</p>
-					) : null}
 					{form.formState.errors.name ? (
 						<p
 							id="admin-name-error"
@@ -226,50 +223,14 @@ export function AdminEditorContent({
 						</p>
 					) : null}
 				</div>
+			</section>
 
-				{isCreateMode ? (
-					<div className="grid gap-2">
-						<Label htmlFor="admin-cpf">
-							{t("identity.adminPage.update.fields.cpf")}
-						</Label>
-						<Input
-							id="admin-cpf"
-							inputMode="numeric"
-							list="admin-cpf-options"
-							{...form.register("cpf")}
-							aria-describedby={
-								form.formState.errors.cpf ? "admin-cpf-error" : undefined
-							}
-							aria-invalid={form.formState.errors.cpf ? "true" : "false"}
-							placeholder={t("identity.adminPage.update.fields.cpfPlaceholder")}
-						/>
-						<datalist id="admin-cpf-options">
-							{existingUsers.map(user => (
-								<option
-									key={user.id}
-									value={user.cpfFormatted}
-								>
-									{`${user.cpfFormatted} - ${user.name}`}
-								</option>
-							))}
-						</datalist>
-						{form.formState.errors.cpf ? (
-							<p
-								id="admin-cpf-error"
-								className="field-error"
-							>
-								{form.formState.errors.cpf.message}
-							</p>
-						) : null}
-					</div>
-				) : null}
-
-			</TabsContent>
-
-			<TabsContent
-				value="access"
-				className="grid gap-4 pt-4"
-			>
+			<section className="grid gap-4">
+				<div className="grid gap-1">
+					<p className="ty-overhead">
+						{t("identity.adminPage.update.tabs.access")}
+					</p>
+				</div>
 				<div className="grid gap-2">
 					<Label htmlFor="admin-campus">
 						{t("identity.adminPage.update.fields.campus")}
@@ -308,16 +269,31 @@ export function AdminEditorContent({
 					) : null}
 				</div>
 
-				<div className="grid gap-2">
-					<Label>{t("identity.adminPage.update.fields.accountType")}</Label>
-					<div>
-						<Badge
-							className="min-h-5 px-2 py-0.5"
-							tone={accountTypeTone}
-							variant="primary"
-						>
-							{accountTypeLabel}
-						</Badge>
+				<div className="grid gap-4 md:grid-cols-2">
+					<div className="grid gap-2">
+						<Label>{t("identity.adminPage.update.fields.accountType")}</Label>
+						<div>
+							<Badge
+								className="min-h-5 px-2 py-0.5"
+								tone={accountTypeTone}
+								variant="primary"
+							>
+								{accountTypeLabel}
+							</Badge>
+						</div>
+					</div>
+
+					<div className="grid gap-2">
+						<Label>{t("identity.adminPage.update.fields.active")}</Label>
+						<div>
+							<Badge
+								className="min-h-5 px-2 py-0.5"
+								tone={accountStatusTone}
+								variant="primary"
+							>
+								{accountStatusLabel}
+							</Badge>
+						</div>
 					</div>
 				</div>
 
@@ -329,15 +305,29 @@ export function AdminEditorContent({
 						<p className="ty-sm-semibold">{admin.grantedAtFormatted}</p>
 					</div>
 				) : null}
-			</TabsContent>
+			</section>
 
 			{!isCreateMode && admin ? (
-				<AdminUserTab
-					admin={admin}
-					linkedUser={linkedUser}
-					linkedUserError={linkedUserError}
-					onRefreshUser={onRefreshUser}
-				/>
+				<Accordion
+					type="single"
+					collapsible
+					className="pt-2"
+					defaultValue="linked-user"
+				>
+					<AccordionItem value="linked-user">
+						<AccordionTrigger>
+							{t("identity.adminPage.update.tabs.user")}
+						</AccordionTrigger>
+						<AccordionContent>
+							<AdminUserTab
+								admin={admin}
+								linkedUser={linkedUser}
+								linkedUserError={linkedUserError}
+								onRefreshUser={onRefreshUser}
+							/>
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
 			) : null}
 		</>
 	);

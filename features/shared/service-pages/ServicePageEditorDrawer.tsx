@@ -22,33 +22,34 @@ export function ServicePageEditorDrawer({
 	tabs,
 	title,
 }: ServicePageEditorDrawerProps) {
-	const drawerBody = (
-		<DrawerBody className={bodyClassName}>{children}</DrawerBody>
-	);
+	const drawerProps = {
+		open,
+		onOpenChange,
+		isLoading,
+		...(loadingLabel ? { loadingLabel } : {}),
+	};
+	const drawerBodyProps = bodyClassName ? { className: bodyClassName } : {};
 
 	return (
-		<Drawer
-			open={open}
-			onOpenChange={onOpenChange}
-			isLoading={isLoading}
-			loadingLabel={loadingLabel}
-		>
+		<Drawer {...drawerProps}>
 			<DrawerContent>
 				<DrawerHeader overhead={overhead}>
 					<DrawerTitle>{title}</DrawerTitle>
 				</DrawerHeader>
 
-				{tabs ? (
-					<Tabs
-						{...tabs}
-						className={clsx("service-page-editor-tabs-root", tabs.className)}
-					>
-						<div className="service-page-editor-tabs">{tabs.list}</div>
-						{drawerBody}
-					</Tabs>
-				) : (
-					drawerBody
-				)}
+				<DrawerBody {...drawerBodyProps}>
+					{tabs ? (
+						<Tabs
+							{...tabs}
+							className={clsx("service-page-editor-tabs-root", tabs.className)}
+						>
+							<div className="service-page-editor-tabs">{tabs.list}</div>
+							{children}
+						</Tabs>
+					) : (
+						children
+					)}
+				</DrawerBody>
 
 				{footer}
 			</DrawerContent>

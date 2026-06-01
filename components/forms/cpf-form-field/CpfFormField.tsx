@@ -1,0 +1,182 @@
+"use client";
+
+import { useEffect, useMemo, useRef } from "react";
+
+import { CircleAlert } from "lucide-react";
+import { Controller, useWatch, type FieldValues, type Path } from "react-hook-form";
+
+import { Combobox, Icon, Label } from "@/components";
+import { isValidCpf, normalizeDigits } from "@/schemas";
+import type { ComboboxOption, CpfFormFieldProps } from "@/types";
+
+function formatCpfValue(value: string) {
+	const digits = normalizeDigits(value).slice(0, 11);
+
+	if (digits.length <= 3) {
+		return digits;
+	}
+
+	if (digits.length <= 6) {
+		return `${digits.slice(0, 3)}.${digits.slice(3)}`;
+	}
+
+	if (digits.length <= 9) {
+		return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6)}`;
+	}
+
+	return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6, 9)}-${digits.slice(9)}`;
+}
+
+function findExistingUserByCpf<
+	TUser extends {
+		cpf: string;
+	},
+>(users: TUser[], cpfValue: string) {
+	const normalizedCpf = normalizeDigits(cpfValue.trim());
+
+	if (normalizedCpf.length === 0) {
+		return null;
+	}
+
+	return users.find(user => user.cpf === normalizedCpf) ?? null;
+}
+
+export function CpfFormField<
+	TValues extends FieldValues & {
+		cpf: string;
+		name: string;
+	},
+>({
+	form,
+	existingUsers,
+	id = "cpf",
+	label,
+	tooltipContent,
+	placeholder = "Select an existing CPF or enter a new one",
+	searchPlaceholder = "Search or create a CPF",
+	emptyMessage = "No CPF found.",
+	createOptionLabel,
+	onExistingUserChange,
+}: CpfFormFieldProps<TValues>) {
+	const watchedCpf = useWatch({
+		control: form.control,
+		name: "cpf" as Path<TValues>,
+	}) as string | undefined;
+	const matchedExistingUser = useMemo(
+		() => findExistingUserByCpf(existingUsers, watchedCpf ?? ""),
+		[existingUsers, watchedCpf],
+	);
+	const cpfOptions = useMemo(() => {
+		const options: ComboboxOption[] = existingUsers.map(user => ({
+			value: user.cpfFormatted,
+			label: user.cpfFormatted,
+			description: user.name,
+			keywords: [user.cpf, user.name],
+			searchText: `${user.cpfFormatted} ${user.name}`,
+		}));
+		const normalizedWatchedCpf = normalizeDigits(watchedCpf ?? "");
+
+		if (
+			normalizedWatchedCpf.length === 11 &&
+			isValidCpf(normalizedWatchedCpf) &&
+			!existingUsers.some(user => user.cpf === normalizedWatchedCpf)
+		) {
+			const formattedCpf = formatCpfValue(normalizedWatchedCpf);
+
+			options.unshift({
+				value: formattedCpf,
+				label: formattedCpf,
+			});
+		}
+
+		return options;
+	}, [existingUsers, watchedCpf]);
+	const lastAutoFilledNameRef = useRef<string | null>(null);
+
+	useEffect(() => {
+		onExistingUserChange?.(matchedExistingUser);
+	}, [matchedExistingUser, onExistingUserChange]);
+
+	useEffect(() => {
+		if (matchedExistingUser) {
+			if ((form.getValues("name" as Path<TValues>) as string) !== matchedExistingUser.name) {
+				form.setValue("name" as Path<TValues>, matchedExistingUser.name as TValues[Path<TValues>], {
+					shouldDirty: true,
+					shouldValidate: true,
+				});
+			}
+
+			lastAutoFilledNameRef.current = matchedExistingUser.name;
+			return;
+		}
+
+		if (
+			lastAutoFilledNameRef.current &&
+			(form.getValues("name" as Path<TValues>) as string) ===
+				lastAutoFilledNameRef.current
+		) {
+			form.setValue("name" as Path<TValues>, "" as TValues[Path<TValues>], {
+				shouldDirty: true,
+				shouldValidate: true,
+			});
+		}
+
+		lastAutoFilledNameRef.current = null;
+	}, [form, matchedExistingUser]);
+
+	return (
+		<div className="grid gap-2">
+			<div className="flex items-center gap-2">
+				<Label htmlFor={id}>{label}</Label>
+				{tooltipContent ? (
+					<Icon
+						icon={CircleAlert}
+						className="text-[color:var(--twc-muted)]"
+						tooltipContent={tooltipContent}
+					/>
+				) : null}
+			</div>
+			<Controller
+				control={form.control}
+				name={"cpf" as Path<TValues>}
+				render={({ field }) => (
+					<Combobox
+						id={id}
+						options={cpfOptions}
+						value={field.value}
+						onValueChange={field.onChange}
+						onCreateValue={value => {
+							field.onChange(formatCpfValue(value));
+						}}
+						creatable
+						createLabel={value =>
+							createOptionLabel
+								? createOptionLabel(formatCpfValue(value))
+								: formatCpfValue(value)
+						}
+						queryNormalizer={value => formatCpfValue(value)}
+						canCreateValue={value => {
+							const digits = normalizeDigits(value);
+							return (
+								digits.length === 11 &&
+								isValidCpf(digits) &&
+								!existingUsers.some(user => user.cpf === digits)
+							);
+						}}
+						placeholder={placeholder}
+						searchPlaceholder={searchPlaceholder}
+						emptyMessage={emptyMessage}
+					/>
+				)}
+			/>
+			{form.formState.errors.cpf ? (
+				<p
+					id={`${id}-error`}
+					className="field-error"
+				>
+					{String(form.formState.errors.cpf.message ?? "")}
+				</p>
+			) : null}
+		</div>
+	);
+}

@@ -1424,6 +1424,30 @@
 					"placeholder": "Choose owner",
 					"searchPlaceholder": "Search owners",
 					"title": "Owner assignment"
+				},
+				"creatable": {
+					"createLabel": "Create \"{{value}}\"",
+					"createdDescription": "Added in this demo session.",
+					"description": "Use creatable combobox when the person usually picks from a known list but can register a new value inline without leaving the current flow.",
+					"empty": "No tags found.",
+					"label": "Staff tag",
+					"options": {
+						"followUp": {
+							"description": "Items that need another review touchpoint.",
+							"label": "Follow-up"
+						},
+						"internal": {
+							"description": "Internal-only operational work.",
+							"label": "Internal"
+						},
+						"onboarding": {
+							"description": "Initial setup and first-contact workflows.",
+							"label": "Onboarding"
+						}
+					},
+					"placeholder": "Choose or create tag",
+					"searchPlaceholder": "Search or create tags",
+					"title": "Creatable combobox"
 				}
 			},
 			"description": "Combobox combines a trigger field with search and option picking. Use it when users must choose one value from a defined set but the list is long enough that search dramatically improves scanning.",
@@ -1440,6 +1464,10 @@
 				"examples": {
 					"description": "Combobox is useful when the selected value should still look like a field, but the underlying option set needs quick filtering.",
 					"title": "Searchable selection"
+				},
+				"creatable": {
+					"description": "Use the creatable mode when the existing list should remain searchable but the user also needs a direct path to register a new option.",
+					"title": "Creatable selection"
 				}
 			},
 			"title": "Combobox"
@@ -3372,7 +3400,11 @@
 					},
 					"campus": "Campus",
 					"cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
+					"cpfCreateOption": "Use {{value}}",
+					"cpfEmpty": "No CPF found.",
+					"cpfHelp": "Selecting an existing CPF links this administrator to that existing user. Entering a new CPF creates a new linked user.",
 					"cpfPlaceholder": "Select an existing CPF or enter a new one",
+					"cpfSearchPlaceholder": "Search or create a CPF",
 					"email": "$t(identity.accountPage.dialog.fields.email)",
 					"grantedAt": "Granted at",
 					"name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
