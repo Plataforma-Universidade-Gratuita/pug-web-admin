@@ -5,7 +5,6 @@ import {
 	DatePickerParticle,
 	InputParticle,
 	LabelParticle,
-	MultiSelectParticle,
 	RadioGroupParticle,
 	SelectParticle,
 	SwitchParticle,
@@ -20,7 +19,6 @@ export default function ComponentsDocsPage() {
 			<DatePickerParticle />
 			<InputParticle />
 			<LabelParticle />
-			<MultiSelectParticle />
 			<RadioGroupParticle />
 			<SelectParticle />
 			<SwitchParticle />

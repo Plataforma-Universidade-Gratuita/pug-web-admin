@@ -49,6 +49,7 @@ function writeEntityCaches(queryClient: QueryClient, entity: EntityResponse) {
 	queryClient.setQueryData<EntityResponse[]>(entityQueryKeys.list(), current =>
 		upsertListItem(current, entity, item => item.id),
 	);
+	queryClient.invalidateQueries({ queryKey: entityQueryKeys.searchRoot() });
 }
 
 function removeEntityCaches(queryClient: QueryClient, entityId: string) {
@@ -56,6 +57,7 @@ function removeEntityCaches(queryClient: QueryClient, entityId: string) {
 		removeListItem(current, entityId, item => item.id),
 	);
 	queryClient.removeQueries({ queryKey: entityQueryKeys.detail(entityId) });
+	queryClient.invalidateQueries({ queryKey: entityQueryKeys.searchRoot() });
 }
 
 export function useCreateEntityMutation() {

@@ -14,7 +14,7 @@ import {
 	getStaffSetActiveErrorToastContent,
 } from "@/features/partner/staff/utils";
 import { useDeferredUndoAction } from "@/hooks";
-import type { StaffResponse } from "@/types";
+import type { StaffSearchResponse } from "@/types";
 import type { UseStaffPageActionsProps } from "@/types";
 
 export function useStaffPageActions({
@@ -26,10 +26,10 @@ export function useStaffPageActions({
 	const { t } = useTranslation();
 	const [pendingStatusStaff, setPendingStatusStaff] = useState<{
 		active: boolean;
-		staff: StaffResponse;
+		staff: StaffSearchResponse;
 	} | null>(null);
 	const [pendingDeleteStaff, setPendingDeleteStaff] =
-		useState<StaffResponse | null>(null);
+		useState<StaffSearchResponse | null>(null);
 	const setStaffActiveMutation = useSetStaffActiveMutation();
 	const removeStaffMutation = useRemoveStaffMutation();
 	const { schedule } = useDeferredUndoAction();
@@ -43,7 +43,7 @@ export function useStaffPageActions({
 
 		setStaffActiveMutation.mutate(
 			{
-				id: staff.accountId,
+				id: staff.account.id,
 				active,
 			},
 			{
@@ -60,7 +60,7 @@ export function useStaffPageActions({
 									? "partner.staffPage.reactivate.feedback.success.description"
 									: "partner.staffPage.deactivate.feedback.success.description",
 								{
-									name: staff.userName,
+									name: staff.account.user.name,
 								},
 							),
 						},
@@ -89,17 +89,17 @@ export function useStaffPageActions({
 		setPendingDeleteStaff(null);
 
 		schedule({
-			key: staff.accountId,
+			key: staff.account.id,
 			title: t("partner.staffPage.delete.undo.title"),
 			description: t("partner.staffPage.delete.undo.description", {
-				name: staff.userName,
+				name: staff.account.user.name,
 			}),
 			undoLabel: t("partner.staffPage.delete.undo.action"),
 			onCommit: () => {
 				removeStaffMutation.mutate(
 					{
-						accountId: staff.accountId,
-						userId: staff.userId,
+						accountId: staff.account.id,
+						userId: staff.account.user.id,
 					},
 					{
 						onSuccess: () => {
@@ -109,17 +109,17 @@ export function useStaffPageActions({
 									description: t(
 										"partner.staffPage.delete.feedback.success.description",
 										{
-											name: staff.userName,
+											name: staff.account.user.name,
 										},
 									),
 								},
 							);
 
-							if (currentSelectedId === staff.accountId) {
+							if (currentSelectedId === staff.account.id) {
 								onClearSelection();
 							}
 
-							if (currentEditorId === staff.accountId) {
+							if (currentEditorId === staff.account.id) {
 								onClearEditor();
 							}
 						},

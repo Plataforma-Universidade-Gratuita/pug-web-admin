@@ -1,42 +1,54 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
+import { TableText } from "@/components";
 import type {
 	CityResponse,
-	EntityCreateRequest,
+	EntityComplexSearchFilters,
+	EntityComplexSearchRequest,
+	EntityComplexSearchResponse,
 	EntityResponse,
+	EntityCreateRequest,
+	EntityTableRow,
 	EntityUpdateRequest,
 } from "@/types";
-import type { ComboboxOption } from "@/types";
 import type {
+	ComboboxOption,
 	EntityEditorFormValues,
 	EntityFilterArgs,
-	EntityEditorMode,
 } from "@/types";
 import { getApiErrorToastContent } from "@/utils";
 import {
 	compareNormalizedText,
+	matchesAnyDateRange,
 	normalizeDigits,
 	normalizeTextForSearch,
+	toSearchDateOffsetDateTime,
 } from "@/utils";
 
 export { createEntityEditorFormSchema } from "@/schemas";
 
-function getStartOfDayTimestamp(value: string) {
-	const date = new Date(value);
-	date.setHours(0, 0, 0, 0);
-	return date.getTime();
-}
+const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
+const TABLE_ADDRESS_TEXT_WIDTH = 150;
 
 function normalizeCnpj(value: string) {
 	return normalizeDigits(value).slice(0, 14);
 }
 
-export function createEntityColumns(
-	t: TFunction,
-	cityById: Map<string, CityResponse>,
-): ColumnDef<EntityResponse>[] {
+export function createEntityColumns(t: TFunction): ColumnDef<EntityTableRow>[] {
 	return [
+		{
+			accessorKey: "id",
+			header: t("partner.entityPage.table.columns.id"),
+			size: TABLE_IDENTIFIER_TEXT_WIDTH,
+			cell: ({ row }) => (
+				<TableText
+					text={row.original.id}
+					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
+					tooltiped
+				/>
+			),
+		},
 		{
 			accessorKey: "name",
 			header: t("partner.entityPage.table.columns.name"),
@@ -48,9 +60,20 @@ export function createEntityColumns(
 			cell: ({ row }) => row.original.cnpjFormatted,
 		},
 		{
-			accessorFn: row => resolveEntityCityLabel(cityById, row.cityId),
+			accessorKey: "cityLabel",
 			id: "city",
 			header: t("partner.entityPage.table.columns.city"),
+		},
+		{
+			accessorKey: "address",
+			header: t("partner.entityPage.table.columns.address"),
+			cell: ({ row }) => (
+				<TableText
+					text={row.original.address}
+					maxWidth={TABLE_ADDRESS_TEXT_WIDTH}
+					tooltiped
+				/>
+			),
 		},
 		{
 			accessorFn: row => row.auditInfo.createdAt,
@@ -67,13 +90,6 @@ export function createEntityColumns(
 	];
 }
 
-export function resolveEntityCityLabel(
-	cityById: Map<string, CityResponse>,
-	cityId: string,
-) {
-	return cityById.get(cityId)?.name ?? cityId;
-}
-
 export function buildEntityCityOptions(
 	cities: CityResponse[],
 ): ComboboxOption[] {
@@ -87,75 +103,119 @@ export function buildEntityCityOptions(
 		}));
 }
 
-export function filterEntities(
+export function mapEntitiesToTableRows(
 	entities: EntityResponse[],
-	{
-		query,
-		cityIdFilter,
-		dateField,
-		startDate,
-		endDate,
-		cityById,
-	}: EntityFilterArgs,
+	cityById: Map<string, CityResponse>,
+): EntityTableRow[] {
+	return entities.map(entity => ({
+		id: entity.id,
+		cnpj: entity.cnpj,
+		cnpjFormatted: entity.cnpjFormatted,
+		name: entity.name,
+		address: entity.address,
+		cityId: entity.cityId,
+		cityLabel: cityById.get(entity.cityId)?.name ?? entity.cityId,
+		auditInfo: entity.auditInfo,
+	}));
+}
+
+export function mapEntitySearchResponsesToTableRows(
+	entities: EntityComplexSearchResponse["content"],
+): EntityTableRow[] {
+	return entities.map(entity => ({
+		id: entity.id,
+		cnpj: entity.cnpj,
+		cnpjFormatted: entity.cnpjFormatted,
+		name: entity.name,
+		address: entity.address,
+		cityId: entity.city.id,
+		cityLabel: entity.city.name,
+		auditInfo: entity.auditInfo,
+	}));
+}
+
+export function resolveEntityCityLabel(
+	cityById: Map<string, CityResponse>,
+	cityId: string,
+) {
+	return cityById.get(cityId)?.name ?? cityId;
+}
+
+export function filterEntitiesByFrontendQuery(
+	entities: EntityTableRow[],
+	query: string,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const normalizedDigitsQuery = normalizeDigits(query);
 	const hasQuery = normalizedQuery.length > 0;
-	const hasCityFilter = cityIdFilter.length > 0;
-	const startTimestamp = startDate ? getStartOfDayTimestamp(startDate) : null;
-	const endTimestamp = endDate ? getStartOfDayTimestamp(endDate) : null;
 
-	if (
-		!hasQuery &&
-		!hasCityFilter &&
-		!dateField &&
-		startTimestamp === null &&
-		endTimestamp === null
-	) {
+	if (!hasQuery) {
 		return entities;
 	}
 
 	return entities.filter(entity => {
-		if (hasQuery) {
-			const normalizedName = normalizeTextForSearch(entity.name);
-			const normalizedAddress = normalizeTextForSearch(entity.address);
-			const normalizedCity = normalizeTextForSearch(
-				resolveEntityCityLabel(cityById, entity.cityId),
-			);
-			const normalizedCnpj = normalizeCnpj(entity.cnpj);
+		const normalizedName = normalizeTextForSearch(entity.name);
+		const normalizedAddress = normalizeTextForSearch(entity.address);
+		const normalizedCity = normalizeTextForSearch(entity.cityLabel);
+		const normalizedCnpj = normalizeCnpj(entity.cnpj);
 
-			const matchesText =
-				normalizedName.includes(normalizedQuery) ||
-				normalizedAddress.includes(normalizedQuery) ||
-				normalizedCity.includes(normalizedQuery);
-			const matchesCnpj =
-				normalizedDigitsQuery.length > 0 &&
-				normalizedCnpj.includes(normalizedDigitsQuery);
+		const matchesText =
+			normalizedName.includes(normalizedQuery) ||
+			normalizedAddress.includes(normalizedQuery) ||
+			normalizedCity.includes(normalizedQuery);
+		const matchesCnpj =
+			normalizedDigitsQuery.length > 0 &&
+			normalizedCnpj.includes(normalizedDigitsQuery);
 
-			if (!matchesText && !matchesCnpj) {
-				return false;
-			}
-		}
+		return matchesText || matchesCnpj;
+	});
+}
 
-		if (hasCityFilter && entity.cityId !== cityIdFilter) {
+export function filterEntitiesByBackendFilters(
+	entities: EntityTableRow[],
+	filters: EntityComplexSearchFilters,
+) {
+	const { cityIdsFilter, dateFrom, dateTo } = filters;
+
+	if (cityIdsFilter.length === 0 && !dateFrom && !dateTo) {
+		return entities;
+	}
+
+	return entities.filter(entity => {
+		if (
+			cityIdsFilter.length > 0 &&
+			!cityIdsFilter.includes(entity.cityId)
+		) {
 			return false;
 		}
 
-		if (dateField && (startTimestamp !== null || endTimestamp !== null)) {
-			const auditTimestamp = getStartOfDayTimestamp(
-				entity.auditInfo[dateField],
-			);
-
-			if (startTimestamp !== null && auditTimestamp < startTimestamp) {
-				return false;
-			}
-
-			if (endTimestamp !== null && auditTimestamp > endTimestamp) {
-				return false;
-			}
+		if (!dateFrom && !dateTo) {
+			return true;
 		}
 
-		return true;
+		const range: {
+			dateFrom?: string;
+			dateTo?: string;
+		} = {};
+		const normalizedDateFrom = dateFrom
+			? toSearchDateOffsetDateTime(dateFrom, "start")
+			: undefined;
+		const normalizedDateTo = dateTo
+			? toSearchDateOffsetDateTime(dateTo, "end")
+			: undefined;
+
+		if (normalizedDateFrom) {
+			range.dateFrom = normalizedDateFrom;
+		}
+
+		if (normalizedDateTo) {
+			range.dateTo = normalizedDateTo;
+		}
+
+		return matchesAnyDateRange(
+			[entity.auditInfo.createdAt, entity.auditInfo.updatedAt],
+			range,
+		);
 	});
 }
 
@@ -256,7 +316,7 @@ export function buildEntityDuplicateFormValues(
 	entity: EntityResponse,
 ): EntityEditorFormValues {
 	return {
-		cnpj: entity.cnpj,
+		cnpj: "",
 		name: entity.name,
 		cityId: entity.cityId,
 		address: entity.address,
@@ -266,25 +326,37 @@ export function buildEntityDuplicateFormValues(
 export function toEntityCreateRequest(
 	values: EntityEditorFormValues,
 ): EntityCreateRequest {
-	const address = values.address.trim();
-
 	return {
-		cnpj: normalizeCnpj(values.cnpj),
+		cnpjString: normalizeCnpj(values.cnpj),
 		name: values.name.trim(),
 		cityId: values.cityId,
-		address: address.length > 0 ? address : null,
+		address: values.address.trim(),
 	};
 }
 
 export function toEntityUpdateRequest(
 	values: EntityEditorFormValues,
 ): EntityUpdateRequest {
-	const address = values.address.trim();
-
 	return {
 		name: values.name.trim(),
 		cityId: values.cityId,
-		address: address.length > 0 ? address : null,
+		address: values.address.trim(),
+	};
+}
+
+export function buildEntityComplexSearchRequest(
+	filters: EntityComplexSearchFilters,
+): EntityComplexSearchRequest {
+	return {
+		...(filters.cityIdsFilter.length > 0
+			? { cityIds: filters.cityIdsFilter }
+			: {}),
+		...(filters.dateFrom
+			? { dateFrom: toSearchDateOffsetDateTime(filters.dateFrom, "start") }
+			: {}),
+		...(filters.dateTo
+			? { dateTo: toSearchDateOffsetDateTime(filters.dateTo, "end") }
+			: {}),
 	};
 }
 
@@ -292,11 +364,8 @@ export function getEntityFilterSummary(
 	t: TFunction,
 	{
 		query,
-		cityIdFilter,
-		dateField,
-		startDate,
-		endDate,
-		cityById,
+		dateFrom,
+		dateTo,
 	}: EntityFilterArgs,
 ) {
 	const parts: string[] = [];
@@ -305,16 +374,8 @@ export function getEntityFilterSummary(
 		parts.push(query.trim());
 	}
 
-	if (cityIdFilter) {
-		parts.push(resolveEntityCityLabel(cityById, cityIdFilter));
-	}
-
-	if (dateField) {
-		parts.push(t(`partner.entityPage.filters.dateField.options.${dateField}`));
-	}
-
-	if (startDate || endDate) {
-		parts.push([startDate || "...", endDate || "..."].join(" - "));
+	if (dateFrom || dateTo) {
+		parts.push([dateFrom || "...", dateTo || "..."].join(" - "));
 	}
 
 	return parts.join(" | ");

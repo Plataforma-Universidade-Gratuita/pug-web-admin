@@ -27,6 +27,7 @@ import {
 	useUpdateStaffMutation,
 } from "@/features/partner/staff/mutations";
 import {
+	useLinkedStaffUserQuery,
 	useStaffDetailQuery,
 	useStaffEntitiesQuery,
 } from "@/features/partner/staff/queries";
@@ -35,7 +36,9 @@ import {
 	buildStaffEntityOptions,
 	buildStaffUpdateFormValues,
 	createStaffEditorFormSchema,
+	findStaffExistingUserByCpf,
 	getEmptyStaffEditorFormValues,
+	getLinkedStaffUserErrorToastContent,
 	getStaffCreateErrorToastContent,
 	getStaffDetailErrorToastContent,
 	getStaffDuplicateErrorToastContent,
@@ -44,6 +47,7 @@ import {
 	toStaffCreateRequest,
 	toStaffUpdateRequest,
 } from "@/features/partner/staff/utils";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
@@ -61,7 +65,11 @@ export function StaffEditorDrawer({
 	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
 	const isDuplicateMode = mode === "duplicate";
+	const existingUsersQuery = useUsersQuery(open && !isUpdateMode(mode));
 	const staffDetailQuery = useStaffDetailQuery(staffId);
+	const linkedUserQuery = useLinkedStaffUserQuery(
+		staffDetailQuery.data?.account.userId ?? null,
+	);
 	const entitiesQuery = useStaffEntitiesQuery();
 	const createMutation = useCreateStaffMutation();
 	const updateMutation = useUpdateStaffMutation();
@@ -85,36 +93,52 @@ export function StaffEditorDrawer({
 			return emptyValues;
 		}
 
-		if (!staffDetailQuery.data) {
+		if (!staffDetailQuery.data || !linkedUserQuery.data) {
 			return null;
 		}
 
 		return isDuplicateMode
 			? buildStaffDuplicateFormValues(staffDetailQuery.data)
-			: buildStaffUpdateFormValues(staffDetailQuery.data);
-	}, [emptyValues, isCreateMode, isDuplicateMode, staffDetailQuery.data]);
+			: buildStaffUpdateFormValues(staffDetailQuery.data, linkedUserQuery.data);
+	}, [
+		emptyValues,
+		isCreateMode,
+		isDuplicateMode,
+		linkedUserQuery.data,
+		staffDetailQuery.data,
+	]);
 	const hydrationKey = useMemo(() => {
 		if (isCreateMode) {
 			return "create";
 		}
 
-		if (!loadedFormValues || !staffDetailQuery.data) {
+		if (!loadedFormValues || !staffDetailQuery.data || !linkedUserQuery.data) {
 			return null;
 		}
 
 		return [
 			mode,
-			staffDetailQuery.data.accountId,
+			staffDetailQuery.data.account.id,
 			loadedFormValues.cpf,
 			loadedFormValues.name,
 			loadedFormValues.email,
 			loadedFormValues.entityId,
 		].join("|");
-	}, [isCreateMode, loadedFormValues, mode, staffDetailQuery.data]);
-	const canRenderForm = isCreateMode ? true : Boolean(staffDetailQuery.data);
+	}, [
+		isCreateMode,
+		linkedUserQuery.data,
+		loadedFormValues,
+		mode,
+		staffDetailQuery.data,
+	]);
+	const canRenderForm = isCreateMode
+		? true
+		: Boolean(staffDetailQuery.data && linkedUserQuery.data);
 	const isDrawerLoading =
 		open &&
-		(entitiesQuery.isLoading || (!isCreateMode && staffDetailQuery.isLoading));
+		(entitiesQuery.isLoading ||
+			(!isCreateMode &&
+				(staffDetailQuery.isLoading || linkedUserQuery.isLoading)));
 	const isSubmitPending = createMutation.isPending || updateMutation.isPending;
 	const drawerOverhead = t(
 		isCreateMode
@@ -154,6 +178,13 @@ export function StaffEditorDrawer({
 			isError: staffDetailQuery.isError,
 		},
 		{
+			key: "staff-editor-linked-user",
+			error: linkedUserQuery.error,
+			errorUpdatedAt: linkedUserQuery.errorUpdatedAt,
+			getContent: error => getLinkedStaffUserErrorToastContent(t, error),
+			isError: linkedUserQuery.isError,
+		},
+		{
 			key: "staff-editor-entities",
 			error: entitiesQuery.error,
 			errorUpdatedAt: entitiesQuery.errorUpdatedAt,
@@ -188,12 +219,17 @@ export function StaffEditorDrawer({
 
 	function onSubmit(values: StaffEditorFormValues) {
 		if (isCreateMode || isDuplicateMode) {
+			const existingUser = findStaffExistingUserByCpf(
+				existingUsersQuery.data ?? [],
+				values.cpf,
+			);
+
 			createMutation.mutate(
 				{
-					body: toStaffCreateRequest(values),
+					body: toStaffCreateRequest(values, existingUser),
 				},
 				{
-					onSuccess: staff => {
+					onSuccess: () => {
 						toast.success(
 							t(
 								isCreateMode
@@ -206,7 +242,7 @@ export function StaffEditorDrawer({
 										? "partner.staffPage.create.feedback.success.description"
 										: "partner.staffPage.duplicate.feedback.success.description",
 									{
-										name: staff.userName,
+										name: values.name.trim(),
 									},
 								),
 							},
@@ -234,12 +270,12 @@ export function StaffEditorDrawer({
 				body: toStaffUpdateRequest(values),
 			},
 			{
-				onSuccess: staff => {
+				onSuccess: () => {
 					toast.success(t("partner.staffPage.update.feedback.success.title"), {
 						description: t(
 							"partner.staffPage.update.feedback.success.description",
 							{
-								name: staff.userName,
+								name: values.name.trim(),
 							},
 						),
 					});
@@ -267,7 +303,7 @@ export function StaffEditorDrawer({
 				<DrawerContent>
 					<DrawerHeader overhead={drawerOverhead}>
 						<DrawerTitle>
-							{staffDetailQuery.data?.userName ?? drawerTitleFallback}
+							{linkedUserQuery.data?.name ?? drawerTitleFallback}
 						</DrawerTitle>
 					</DrawerHeader>
 
@@ -277,7 +313,9 @@ export function StaffEditorDrawer({
 							entityById={entityById}
 							entityOptions={entityOptions}
 							entitiesError={entitiesQuery.isError ? entitiesQuery.error : null}
+							existingUsers={existingUsersQuery.data ?? []}
 							form={form}
+							linkedAccount={staffDetailQuery.data?.account}
 							mode={mode}
 							onRefreshEntities={() => {
 								void entitiesQuery.refetch();
@@ -285,10 +323,14 @@ export function StaffEditorDrawer({
 							onRefreshStaff={() => {
 								void staffDetailQuery.refetch();
 							}}
+							onRefreshUser={() => {
+								void linkedUserQuery.refetch();
+							}}
 							staff={staffDetailQuery.data}
 							staffError={
 								staffDetailQuery.isError ? staffDetailQuery.error : null
 							}
+							userError={linkedUserQuery.isError ? linkedUserQuery.error : null}
 						/>
 					</DrawerBody>
 
@@ -339,4 +381,8 @@ export function StaffEditorDrawer({
 			</AlertDialog>
 		</>
 	);
+}
+
+function isUpdateMode(mode: StaffEditorDrawerProps["mode"]) {
+	return mode === "update";
 }

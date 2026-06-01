@@ -15,7 +15,12 @@ import { useQueryErrorToasts } from "@/hooks";
 import type { UserDetailsContentProps } from "@/types";
 import { WebApiError } from "@/utils";
 
-export function UserDetailsContent({ userId }: UserDetailsContentProps) {
+export function UserDetailsContent({
+	userId,
+	columns = 3,
+}: UserDetailsContentProps & {
+	columns?: 2 | 3;
+}) {
 	const { t } = useTranslation();
 	const userDetailQuery = useUserDetailQuery(userId);
 
@@ -83,11 +88,16 @@ export function UserDetailsContent({ userId }: UserDetailsContentProps) {
 	}
 
 	if (user) {
-		return <EntityPageFieldsGrid fields={fields} />;
+		return (
+			<EntityPageFieldsGrid
+				fields={fields}
+				columns={columns}
+			/>
+		);
 	}
 
 	if (userDetailQuery.isLoading) {
-		return <EntityPageFieldsGridSkeleton />;
+		return <EntityPageFieldsGridSkeleton columns={columns} />;
 	}
 
 	return <NotFoundState title={t("identity.userPage.dialog.notFound.title")} />;

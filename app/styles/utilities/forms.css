@@ -332,15 +332,13 @@
 	}
 
 	.select-trigger-shell,
-	.combobox-trigger-shell,
-	.multi-select-shell {
+	.combobox-trigger-shell {
 		position: relative;
 		width: 100%;
 	}
 
 	.select-trigger,
-	.combobox-trigger,
-	.multi-select-trigger {
+	.combobox-trigger {
 		display: inline-flex;
 		width: 100%;
 		align-items: center;
@@ -358,8 +356,7 @@
 	}
 
 	.select-trigger:focus-visible,
-	.combobox-trigger:focus-visible,
-	.multi-select-trigger:focus-visible {
+	.combobox-trigger:focus-visible {
 		box-shadow:
 			0 0 0 1px var(--twc-focus-ring),
 			0 0 0 4px var(--twc-focus-halo);
@@ -372,13 +369,8 @@
 		gap: 0.75rem;
 	}
 
-	.multi-select-trigger {
-		min-height: 2.5rem;
-	}
-
 	.select-trigger:disabled,
-	.combobox-trigger:disabled,
-	.multi-select-trigger:disabled {
+	.combobox-trigger:disabled {
 		pointer-events: none;
 		opacity: 0.6;
 	}
@@ -387,8 +379,7 @@
 		color: var(--twc-muted);
 	}
 
-	.select-adornment,
-	.multi-select-adornment {
+	.select-adornment {
 		pointer-events: none;
 		position: absolute;
 		inset-block: 0;
@@ -538,8 +529,7 @@
 		border-top: 1px solid var(--twc-border-2);
 	}
 
-	.combobox-content,
-	.multi-select-content {
+	.combobox-content {
 		width: min(28rem, calc(100vw - 2rem));
 		padding: 0.5rem;
 	}
@@ -610,8 +600,7 @@
 		color: var(--twc-muted);
 	}
 
-	.combobox-options,
-	.multi-select-options {
+	.combobox-options {
 		display: grid;
 		gap: 0.25rem;
 	}
@@ -624,69 +613,6 @@
 		);
 		overflow-y: auto;
 		overscroll-behavior: contain;
-	}
-
-	.multi-select-values {
-		pointer-events: none;
-		display: flex;
-		min-width: 0;
-		flex: 1;
-		align-items: center;
-		gap: 0.5rem;
-		overflow: hidden;
-	}
-
-	.multi-select-value-list {
-		display: flex;
-		min-width: 0;
-		flex: 1;
-		flex-wrap: nowrap;
-		align-items: center;
-		gap: 0.5rem;
-		overflow: hidden;
-	}
-
-	.multi-select-overlay {
-		pointer-events: none;
-		position: absolute;
-		inset: 0;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.75rem;
-		padding: 0.5rem 4.5rem 0.5rem 0.75rem;
-	}
-
-	.multi-select-selection-badge {
-		min-width: 0;
-		max-width: 100%;
-		flex-shrink: 1;
-		pointer-events: none;
-		overflow: hidden;
-	}
-
-	.multi-select-selection-badge .badge-remove-button {
-		pointer-events: auto;
-	}
-
-	.multi-select-count-badge {
-		flex-shrink: 0;
-		pointer-events: none;
-	}
-
-	.multi-select-placeholder {
-		color: var(--twc-muted);
-	}
-
-	.multi-select-option-row {
-		border-radius: var(--twc-radius-lg);
-		padding: 0.25rem 0.5rem;
-		transition: background-color var(--twc-duration-normal)
-			var(--twc-ease-standard);
-	}
-
-	.multi-select-option-row:hover {
-		background-color: var(--twc-surface-1);
 	}
 
 	.date-picker-shell {

@@ -25,6 +25,7 @@ import type { StaffRowActionsProps } from "@/types";
 export function StaffRowActions({
 	href,
 	onDelete,
+	onDuplicate,
 	onOpenEditor,
 	onSetActive,
 	staff,
@@ -44,15 +45,15 @@ export function StaffRowActions({
 			<DropdownMenuItem
 				icon={PenSquare}
 				label={t("partner.staffPage.table.actions.update")}
-				onClick={() => onOpenEditor(staff.accountId, "update")}
+				onClick={() => onOpenEditor(staff.account.id, "update")}
 			/>
 			<DropdownMenuItem
 				icon={CopyPlus}
 				label={t("partner.staffPage.table.actions.duplicate")}
-				onClick={() => onOpenEditor(staff.accountId, "duplicate")}
+				onClick={() => onDuplicate(staff)}
 			/>
 			<DropdownMenuSeparator />
-			{staff.accountActive ? (
+			{staff.account.active ? (
 				<DropdownMenuWarningItem
 					icon={ShieldX}
 					label={t("partner.staffPage.table.actions.deactivate")}

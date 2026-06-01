@@ -1,10 +1,11 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
+import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { EntitiesFiltersDrawer } from "@/features/partner/entities/EntitiesFiltersDrawer";
 import { EntitiesRowActions } from "@/features/partner/entities/EntitiesRowActions";
 import { EntityEditorDrawer } from "@/features/partner/entities/EntityEditorDrawer";
@@ -12,21 +13,26 @@ import { useRemoveEntityMutation } from "@/features/partner/entities/mutations";
 import {
 	useEntitiesQuery,
 	useEntityCitiesQuery,
+	useEntitiesSearchQuery,
 } from "@/features/partner/entities/queries";
 import {
 	buildEntityCityOptions,
 	createEntityColumns,
-	filterEntities,
+	filterEntitiesByBackendFilters,
+	filterEntitiesByFrontendQuery,
 	getEntitiesListErrorToastContent,
 	getEntityCitiesErrorToastContent,
 	getEntityDeleteErrorToastContent,
 	getEntityEmptyStateCopy,
 	getEntityFilterSummary,
+	mapEntitiesToTableRows,
+	mapEntitySearchResponsesToTableRows,
 } from "@/features/partner/entities/utils";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
 	ServicePageHeaderActions,
+	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
@@ -36,20 +42,19 @@ import {
 	useDraftFilters,
 	useQueryErrorToasts,
 	useServicePageEditorState,
+	useServicePagePagination,
 } from "@/hooks";
-import type { EntityResponse } from "@/types";
-import type { EntityEditorMode, EntitySecondaryFilters } from "@/types";
+import type { EntityEditorMode, EntityTableRow, UseEntitiesSearchQueryFilters } from "@/types";
 
 export function EntitiesPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
-	const initialSecondaryFilters = useMemo<EntitySecondaryFilters>(
+	const initialSecondaryFilters = useMemo<UseEntitiesSearchQueryFilters>(
 		() => ({
-			cityIdFilter: "",
-			dateField: "",
-			startDate: "",
-			endDate: "",
+			cityIdsFilter: [],
+			dateFrom: "",
+			dateTo: "",
 		}),
 		[],
 	);
@@ -60,17 +65,26 @@ export function EntitiesPage() {
 		draftFilters,
 		hasAppliedFilters,
 		setDraftFilter,
-	} = useDraftFilters<EntitySecondaryFilters>({
+	} = useDraftFilters<UseEntitiesSearchQueryFilters>({
 		initialFilters: initialSecondaryFilters,
+	});
+	const entitiesPagination = useServicePagePagination({
+		key: "partner.entities",
 	});
 	const editorState = useServicePageEditorState<EntityEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
 	});
 	const [pendingDeleteEntity, setPendingDeleteEntity] =
-		useState<EntityResponse | null>(null);
+		useState<Pick<EntityTableRow, "id" | "name"> | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
-	const entitiesQuery = useEntitiesQuery();
+	const entitiesQuery = useEntitiesQuery(entitiesPagination.isAll);
+	const entitiesSearchQuery = useEntitiesSearchQuery(
+		entitiesPagination.backendPage ?? 0,
+		entitiesPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
+		appliedFilters,
+		!entitiesPagination.isAll,
+	);
 	const citiesQuery = useEntityCitiesQuery();
 	const removeEntityMutation = useRemoveEntityMutation();
 	const { schedule } = useDeferredUndoAction();
@@ -83,34 +97,37 @@ export function EntitiesPage() {
 		() => buildEntityCityOptions(citiesQuery.data ?? []),
 		[citiesQuery.data],
 	);
-	const filteredEntities = useMemo(
+	const backendFilteredAllEntities = useMemo(
 		() =>
-			filterEntities(entitiesQuery.data ?? [], {
-				query: deferredQuerySearch,
-				cityIdFilter: appliedFilters.cityIdFilter,
-				dateField: appliedFilters.dateField,
-				startDate: appliedFilters.startDate,
-				endDate: appliedFilters.endDate,
-				cityById,
-			}),
-		[appliedFilters, cityById, deferredQuerySearch, entitiesQuery.data],
+			filterEntitiesByBackendFilters(
+				mapEntitiesToTableRows(entitiesQuery.data ?? [], cityById),
+				appliedFilters,
+			),
+		[appliedFilters, cityById, entitiesQuery.data],
 	);
-	const columns = useMemo(
-		() => createEntityColumns(t, cityById),
-		[cityById, t],
+	const tableSourceEntities = useMemo(
+		() =>
+			entitiesPagination.isAll
+				? backendFilteredAllEntities
+				: mapEntitySearchResponsesToTableRows(
+						entitiesSearchQuery.data?.content ?? [],
+					),
+		[backendFilteredAllEntities, entitiesPagination.isAll, entitiesSearchQuery.data],
 	);
+	const filteredEntities = useMemo(
+		() => filterEntitiesByFrontendQuery(tableSourceEntities, deferredQuerySearch),
+		[deferredQuerySearch, tableSourceEntities],
+	);
+	const columns = useMemo(() => createEntityColumns(t), [t]);
 	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
 		() =>
 			getEntityFilterSummary(t, {
 				query: deferredQuerySearch,
-				cityIdFilter: appliedFilters.cityIdFilter,
-				dateField: appliedFilters.dateField,
-				startDate: appliedFilters.startDate,
-				endDate: appliedFilters.endDate,
-				cityById,
+				dateFrom: appliedFilters.dateFrom,
+				dateTo: appliedFilters.dateTo,
 			}),
-		[appliedFilters, cityById, deferredQuerySearch, t],
+		[appliedFilters, deferredQuerySearch, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getEntityEmptyStateCopy(t, filterSummary),
@@ -123,7 +140,12 @@ export function EntitiesPage() {
 					title={t("partner.entityPage.table.error.title")}
 					description={t("partner.entityPage.table.error.description")}
 					onRefresh={() => {
-						void entitiesQuery.refetch();
+						if (entitiesPagination.isAll) {
+							void entitiesQuery.refetch();
+							return;
+						}
+
+						void entitiesSearchQuery.refetch();
 					}}
 				/>
 			);
@@ -135,15 +157,46 @@ export function EntitiesPage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [emptyStateCopy.description, emptyStateCopy.title, entitiesQuery, t]);
+	}, [
+		emptyStateCopy.description,
+		emptyStateCopy.title,
+		entitiesPagination.isAll,
+		entitiesQuery,
+		entitiesSearchQuery,
+		t,
+	]);
+
+	const activeQuery = entitiesPagination.isAll ? entitiesQuery : entitiesSearchQuery;
+	const totalElements = entitiesPagination.isAll
+		? backendFilteredAllEntities.length
+		: (entitiesSearchQuery.data?.totalElements ?? 0);
+	const totalPages = entitiesPagination.isAll
+		? 1
+		: Math.max(entitiesSearchQuery.data?.totalPages ?? 1, 1);
+
+	useEffect(() => {
+		if (
+			entitiesPagination.isAll ||
+			!entitiesSearchQuery.data ||
+			entitiesPagination.currentPage <= totalPages
+		) {
+			return;
+		}
+
+		entitiesPagination.setCurrentPage(totalPages);
+	}, [
+		entitiesPagination,
+		entitiesSearchQuery.data,
+		totalPages,
+	]);
 
 	useQueryErrorToasts([
 		{
 			key: "entities-list",
-			error: entitiesQuery.error,
-			errorUpdatedAt: entitiesQuery.errorUpdatedAt,
+			error: activeQuery.error,
+			errorUpdatedAt: activeQuery.errorUpdatedAt,
 			getContent: error => getEntitiesListErrorToastContent(t, error),
-			isError: entitiesQuery.isError,
+			isError: activeQuery.isError,
 		},
 		{
 			key: "entity-cities",
@@ -157,6 +210,7 @@ export function EntitiesPage() {
 	function clearAllFilters() {
 		setQuerySearch("");
 		clearDraftFilters();
+		entitiesPagination.resetPage();
 		setFiltersOpen(false);
 	}
 
@@ -239,31 +293,41 @@ export function EntitiesPage() {
 
 				<EntitiesFiltersDrawer
 					citiesError={citiesQuery.isError}
-					cityIdFilter={draftFilters.cityIdFilter}
+					cityIdsFilter={draftFilters.cityIdsFilter}
 					cityOptions={cityOptions}
-					dateField={draftFilters.dateField}
-					endDate={draftFilters.endDate}
+					endDate={draftFilters.dateTo}
 					hasActiveFilters={hasAppliedFilters}
 					isCitiesLoading={citiesQuery.isLoading}
 					onApply={() => {
+						entitiesPagination.resetPage();
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
-					onCityIdChange={value => setDraftFilter("cityIdFilter", value)}
+					onCityIdsChange={value => setDraftFilter("cityIdsFilter", value)}
 					onClear={clearAllFilters}
-					onDateFieldChange={value => setDraftFilter("dateField", value)}
-					onEndDateChange={value => setDraftFilter("endDate", value)}
+					onEndDateChange={value => setDraftFilter("dateTo", value)}
 					onOpenChange={setFiltersOpen}
 					onRefreshCities={() => {
 						void citiesQuery.refetch();
 					}}
-					onStartDateChange={value => setDraftFilter("startDate", value)}
+					onStartDateChange={value => setDraftFilter("dateFrom", value)}
 					open={filtersOpen}
-					startDate={draftFilters.startDate}
+					startDate={draftFilters.dateFrom}
 				/>
 			</ServicePageHeader>
 
-			<ServicePageTableSection<EntityResponse>
+			<ServicePageTableSection<EntityTableRow>
+				footer={
+					<ServicePagePagination
+						currentPage={entitiesPagination.currentPage}
+						pageSize={entitiesPagination.pageSize}
+						totalElements={totalElements}
+						totalPages={totalPages}
+						onPageChange={entitiesPagination.setCurrentPage}
+						onPageSizeChange={entitiesPagination.setPageSize}
+						disabled={activeQuery.isLoading}
+					/>
+				}
 				tableProps={{
 					className: "h-full",
 					columns,
@@ -277,7 +341,7 @@ export function EntitiesPage() {
 							onOpenEditor={editorState.openEditor}
 						/>
 					),
-					isLoading: entitiesQuery.isLoading,
+					isLoading: activeQuery.isLoading,
 					loadingLabel: t("partner.entityPage.loading.list"),
 				}}
 			/>

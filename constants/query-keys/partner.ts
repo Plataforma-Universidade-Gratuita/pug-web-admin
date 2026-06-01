@@ -1,6 +1,9 @@
 export const entityQueryKeys = {
 	all: ["partner", "entity"] as const,
 	list: () => [...entityQueryKeys.all, "list"] as const,
+	searchRoot: () => [...entityQueryKeys.all, "search"] as const,
+	search: (page: number, size: number, filtersKey: string) =>
+		[...entityQueryKeys.searchRoot(), page, size, filtersKey] as const,
 	cities: () => [...entityQueryKeys.all, "cities"] as const,
 	detail: (id: string) => [...entityQueryKeys.all, "detail", id] as const,
 	idleDetail: () => [...entityQueryKeys.all, "detail", "idle"] as const,
@@ -9,6 +12,9 @@ export const entityQueryKeys = {
 export const staffQueryKeys = {
 	all: ["partner", "staff"] as const,
 	list: () => [...staffQueryKeys.all, "list"] as const,
+	searchRoot: () => [...staffQueryKeys.all, "search"] as const,
+	search: (page: number, size: number, filtersKey: string) =>
+		[...staffQueryKeys.searchRoot(), page, size, filtersKey] as const,
 	detail: (id: string) => [...staffQueryKeys.all, "detail", id] as const,
 	idleDetail: () => [...staffQueryKeys.all, "detail", "idle"] as const,
 	linkedAccount: (id: string) =>

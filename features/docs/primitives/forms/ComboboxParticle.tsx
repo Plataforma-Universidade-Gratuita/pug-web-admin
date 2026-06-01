@@ -19,6 +19,7 @@ import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
 export default function ComboboxParticle() {
 	const { t } = useTranslation();
 	const [ownerValue, setOwnerValue] = useState("maria");
+	const [cityValues, setCityValues] = useState(["campinas", "santos"]);
 	const [creatableValue, setCreatableValue] = useState("onboarding");
 	const [creatableOptions, setCreatableOptions] = useState([
 		{
@@ -62,6 +63,8 @@ export default function ComboboxParticle() {
 				},
 			];
 		});
+
+		return nextValue;
 	}
 
 	return (
@@ -73,6 +76,7 @@ export default function ComboboxParticle() {
 			patternNotesItems={[
 				{ description: t("docs.combobox.patternNotes.items.search") },
 				{ description: t("docs.combobox.patternNotes.items.single") },
+				{ description: t("docs.combobox.patternNotes.items.multiple") },
 				{ description: t("docs.combobox.patternNotes.items.metadata") },
 				{ description: t("docs.combobox.patternNotes.items.scope") },
 			]}
@@ -172,6 +176,45 @@ export default function ComboboxParticle() {
 						</CardContent>
 					</Card>
 				</div>
+			</ParticleSection>
+
+			<ParticleSection
+				title={t("docs.combobox.sections.multiple.title")}
+				description={t("docs.combobox.sections.multiple.description")}
+			>
+				<Card className="p-4">
+					<CardHeader>
+						<CardTitle>{t("docs.combobox.cards.multiple.title")}</CardTitle>
+						<CardDescription>
+							{t("docs.combobox.cards.multiple.description")}
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-2">
+						<Label htmlFor="docs-combobox-multiple">
+							{t("docs.combobox.cards.multiple.label")}
+						</Label>
+						<Combobox
+							id="docs-combobox-multiple"
+							multiple
+							values={cityValues}
+							onValuesChange={setCityValues}
+							placeholder={t("docs.combobox.cards.multiple.placeholder")}
+							searchPlaceholder={t(
+								"docs.combobox.cards.multiple.searchPlaceholder",
+							)}
+							emptyMessage={t("docs.combobox.cards.multiple.empty")}
+							options={(["campinas", "osasco", "santos"] as const).map(
+								key => ({
+									value: key,
+									label: t(`docs.combobox.cards.city.options.${key}.label`),
+									description: t(
+										`docs.combobox.cards.city.options.${key}.description`,
+									),
+								}),
+							)}
+						/>
+					</CardContent>
+				</Card>
 			</ParticleSection>
 
 			<ParticleSection

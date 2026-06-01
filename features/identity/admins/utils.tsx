@@ -93,6 +93,18 @@ export function createAdminColumns(
 			header: t("identity.adminPage.table.columns.grantedAt"),
 			cell: ({ row }) => row.original.grantedAtFormatted,
 		},
+		{
+			accessorFn: row => row.account.auditInfo.createdAt,
+			id: "createdAt",
+			header: t("identity.adminPage.table.columns.createdAt"),
+			cell: ({ row }) => row.original.account.auditInfo.createdAtFormatted,
+		},
+		{
+			accessorFn: row => row.account.auditInfo.updatedAt,
+			id: "updatedAt",
+			header: t("identity.adminPage.table.columns.updatedAt"),
+			cell: ({ row }) => row.original.account.auditInfo.updatedAtFormatted,
+		},
 	];
 }
 

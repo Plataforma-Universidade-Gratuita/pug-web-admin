@@ -31,7 +31,7 @@ export function StaffActionDialogs({
 						? "partner.staffPage.reactivate.confirm.description"
 						: "partner.staffPage.deactivate.confirm.description",
 					{
-						name: pendingStatusStaff?.staff.userName ?? "",
+						name: pendingStatusStaff?.staff.account.user.name ?? "",
 					},
 				)}
 				cancelLabel={t("common.cancel")}
@@ -49,7 +49,7 @@ export function StaffActionDialogs({
 				variant="danger"
 				title={t("partner.staffPage.delete.confirm.title")}
 				description={t("partner.staffPage.delete.confirm.description", {
-					name: pendingDeleteStaff?.userName ?? "",
+					name: pendingDeleteStaff?.account.user.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("partner.staffPage.table.actions.delete")}

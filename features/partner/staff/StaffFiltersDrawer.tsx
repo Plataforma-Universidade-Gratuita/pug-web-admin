@@ -3,36 +3,29 @@
 import { useTranslation } from "react-i18next";
 
 import {
+	Checkbox,
 	Combobox,
+	DatePicker,
 	Label,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
 	SomeErrorState,
 } from "@/components";
-import { getStaffActiveOptionClassName } from "@/features/partner/staff/utils";
-import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
-import type { StaffActiveFilter, StaffFiltersDrawerProps } from "@/types";
+import {
+	NumberFieldFilter,
+	ServicePageFiltersDrawer,
+	TextFieldFilter,
+} from "@/features/shared/service-pages";
+import type { StaffFiltersDrawerProps } from "@/types";
 
 export function StaffFiltersDrawer({
-	activeFilter,
-	citiesError,
-	cityIdFilter,
-	cityOptions,
+	filters,
 	entitiesError,
-	entityIdFilter,
 	entityOptions,
 	hasActiveFilters,
-	isCitiesLoading,
 	isEntitiesLoading,
-	onActiveFilterChange,
 	onApply,
-	onCityIdChange,
 	onClear,
-	onEntityIdChange,
+	onFilterChange,
 	onOpenChange,
-	onRefreshCities,
 	onRefreshEntities,
 	open,
 }: StaffFiltersDrawerProps) {
@@ -59,6 +52,27 @@ export function StaffFiltersDrawer({
 			onClear={onClear}
 			onApply={onApply}
 		>
+			<TextFieldFilter
+				label={t("identity.accountPage.filters.name.label")}
+				value={filters.name}
+				onChange={value => onFilterChange("name", value)}
+				placeholder={t("identity.accountPage.filters.name.placeholder")}
+			/>
+
+			<NumberFieldFilter
+				label={t("identity.accountPage.filters.cpf.label")}
+				value={filters.cpf}
+				onChange={value => onFilterChange("cpf", value)}
+				placeholder={t("identity.accountPage.filters.cpf.placeholder")}
+			/>
+
+			<TextFieldFilter
+				label={t("identity.accountPage.filters.email.label")}
+				value={filters.email}
+				onChange={value => onFilterChange("email", value)}
+				placeholder={t("identity.accountPage.filters.email.placeholder")}
+			/>
+
 			{entitiesError ? (
 				<SomeErrorState
 					title={t("partner.staffPage.filters.entity.error.title")}
@@ -69,9 +83,10 @@ export function StaffFiltersDrawer({
 				<div className="grid gap-2">
 					<Label>{t("partner.staffPage.filters.entity.label")}</Label>
 					<Combobox
+						multiple
 						options={entityOptions}
-						value={entityIdFilter}
-						onValueChange={onEntityIdChange}
+						values={filters.entityIds}
+						onValuesChange={value => onFilterChange("entityIds", value)}
 						placeholder={t("partner.staffPage.filters.entity.placeholder")}
 						searchPlaceholder={t(
 							"partner.staffPage.filters.entity.searchPlaceholder",
@@ -82,62 +97,32 @@ export function StaffFiltersDrawer({
 				</div>
 			)}
 
-			{citiesError ? (
-				<SomeErrorState
-					title={t("partner.staffPage.filters.city.error.title")}
-					description={t("partner.staffPage.filters.city.error.description")}
-					onRefresh={onRefreshCities}
+			<div className="grid min-w-0 gap-2">
+				<Label>{t("identity.accountPage.filters.startDate.label")}</Label>
+				<DatePicker
+					value={filters.dateFrom}
+					onValueChange={value => onFilterChange("dateFrom", value)}
+					placeholder={t("identity.accountPage.filters.startDate.placeholder")}
 				/>
-			) : (
-				<div className="grid gap-2">
-					<Label>{t("partner.staffPage.filters.city.label")}</Label>
-					<Combobox
-						options={cityOptions}
-						value={cityIdFilter}
-						onValueChange={onCityIdChange}
-						placeholder={t("partner.staffPage.filters.city.placeholder")}
-						searchPlaceholder={t(
-							"partner.staffPage.filters.city.searchPlaceholder",
-						)}
-						emptyMessage={t("partner.staffPage.filters.city.emptyMessage")}
-						disabled={isCitiesLoading}
-					/>
-				</div>
-			)}
-
-			<div className="grid gap-2">
-				<Label>{t("partner.staffPage.filters.active.label")}</Label>
-				<Select
-					value={activeFilter || "ALL"}
-					onValueChange={value =>
-						onActiveFilterChange(
-							value === "ALL" ? "" : (value as StaffActiveFilter),
-						)
-					}
-				>
-					<SelectTrigger
-						className="w-full"
-						placeholder={t("partner.staffPage.filters.active.placeholder")}
-					/>
-					<SelectContent>
-						<SelectItem value="ALL">
-							{t("partner.staffPage.filters.active.options.all")}
-						</SelectItem>
-						<SelectItem
-							value="true"
-							className={getStaffActiveOptionClassName("true")}
-						>
-							{t("partner.staffPage.filters.active.options.active")}
-						</SelectItem>
-						<SelectItem
-							value="false"
-							className={getStaffActiveOptionClassName("false")}
-						>
-							{t("partner.staffPage.filters.active.options.inactive")}
-						</SelectItem>
-					</SelectContent>
-				</Select>
 			</div>
+
+			<div className="grid min-w-0 gap-2">
+				<Label>{t("identity.accountPage.filters.endDate.label")}</Label>
+				<DatePicker
+					value={filters.dateTo}
+					onValueChange={value => onFilterChange("dateTo", value)}
+					placeholder={t("identity.accountPage.filters.endDate.placeholder")}
+				/>
+			</div>
+
+			<Checkbox
+				checked={filters.activeOnly}
+				onCheckedChange={checked =>
+					onFilterChange("activeOnly", checked === true)
+				}
+				label={t("identity.accountPage.filters.activeOnly.label")}
+				description={t("identity.accountPage.filters.activeOnly.description")}
+			/>
 		</ServicePageFiltersDrawer>
 	);
 }

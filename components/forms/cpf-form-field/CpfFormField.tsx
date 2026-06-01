@@ -1,13 +1,17 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { CircleAlert } from "lucide-react";
 import { Controller, useWatch, type FieldValues, type Path } from "react-hook-form";
 
 import { Combobox, Icon, Label } from "@/components";
-import { isValidCpf, normalizeDigits } from "@/schemas";
-import type { ComboboxOption, CpfFormFieldProps } from "@/types";
+import { normalizeDigits } from "@/schemas";
+import type {
+	ComboboxOption,
+	CpfFormFieldExistingUser,
+	CpfFormFieldProps,
+} from "@/types";
 
 function formatCpfValue(value: string) {
 	const digits = normalizeDigits(value).slice(0, 11);
@@ -25,6 +29,17 @@ function formatCpfValue(value: string) {
 	}
 
 	return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6, 9)}-${digits.slice(9)}`;
+}
+
+function normalizeCpfFieldQuery(value: string) {
+	const trimmedValue = value.trimStart();
+	const firstCharacter = trimmedValue.charAt(0);
+
+	if (!firstCharacter) {
+		return "";
+	}
+
+	return /\d/.test(firstCharacter) ? formatCpfValue(trimmedValue) : value;
 }
 
 function findExistingUserByCpf<
@@ -58,16 +73,23 @@ export function CpfFormField<
 	createOptionLabel,
 	onExistingUserChange,
 }: CpfFormFieldProps<TValues>) {
+	const [createdUsers, setCreatedUsers] = useState<CpfFormFieldExistingUser[]>(
+		[],
+	);
 	const watchedCpf = useWatch({
 		control: form.control,
 		name: "cpf" as Path<TValues>,
 	}) as string | undefined;
+	const availableUsers = useMemo(
+		() => [...existingUsers, ...createdUsers],
+		[createdUsers, existingUsers],
+	);
 	const matchedExistingUser = useMemo(
-		() => findExistingUserByCpf(existingUsers, watchedCpf ?? ""),
-		[existingUsers, watchedCpf],
+		() => findExistingUserByCpf(availableUsers, watchedCpf ?? ""),
+		[availableUsers, watchedCpf],
 	);
 	const cpfOptions = useMemo(() => {
-		const options: ComboboxOption[] = existingUsers.map(user => ({
+		const options: ComboboxOption[] = availableUsers.map(user => ({
 			value: user.cpfFormatted,
 			label: user.cpfFormatted,
 			description: user.name,
@@ -78,8 +100,7 @@ export function CpfFormField<
 
 		if (
 			normalizedWatchedCpf.length === 11 &&
-			isValidCpf(normalizedWatchedCpf) &&
-			!existingUsers.some(user => user.cpf === normalizedWatchedCpf)
+			!availableUsers.some(user => user.cpf === normalizedWatchedCpf)
 		) {
 			const formattedCpf = formatCpfValue(normalizedWatchedCpf);
 
@@ -90,7 +111,7 @@ export function CpfFormField<
 		}
 
 		return options;
-	}, [existingUsers, watchedCpf]);
+	}, [availableUsers, watchedCpf]);
 	const lastAutoFilledNameRef = useRef<string | null>(null);
 
 	useEffect(() => {
@@ -146,7 +167,26 @@ export function CpfFormField<
 						value={field.value}
 						onValueChange={field.onChange}
 						onCreateValue={value => {
-							field.onChange(formatCpfValue(value));
+							const formattedValue = formatCpfValue(value);
+							const normalizedCpf = normalizeDigits(formattedValue);
+
+							setCreatedUsers(currentUsers => {
+								if (currentUsers.some(user => user.cpf === normalizedCpf)) {
+									return currentUsers;
+								}
+
+								return [
+									...currentUsers,
+									{
+										cpf: normalizedCpf,
+										cpfFormatted: formattedValue,
+										name: "",
+									},
+								];
+							});
+
+							field.onChange(formattedValue);
+							return formattedValue;
 						}}
 						creatable
 						createLabel={value =>
@@ -154,13 +194,18 @@ export function CpfFormField<
 								? createOptionLabel(formatCpfValue(value))
 								: formatCpfValue(value)
 						}
-						queryNormalizer={value => formatCpfValue(value)}
+						queryNormalizer={normalizeCpfFieldQuery}
 						canCreateValue={value => {
+							const trimmedValue = value.trimStart();
+
+							if (!trimmedValue || !/\d/.test(trimmedValue.charAt(0))) {
+								return false;
+							}
+
 							const digits = normalizeDigits(value);
 							return (
 								digits.length === 11 &&
-								isValidCpf(digits) &&
-								!existingUsers.some(user => user.cpf === digits)
+								!availableUsers.some(user => user.cpf === digits)
 							);
 						}}
 						placeholder={placeholder}

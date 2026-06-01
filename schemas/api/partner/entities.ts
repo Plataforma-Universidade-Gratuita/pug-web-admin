@@ -22,8 +22,8 @@ export const EntityComplexSearchRequestSchema = z.object({
 	cnpj: z.string().optional(),
 	address: z.string().optional(),
 	cityIds: z.array(z.string()).optional(),
-	dateFrom: z.string().optional(),
-	dateTo: z.string().optional(),
+	dateFrom: z.iso.datetime({ offset: true }).optional(),
+	dateTo: z.iso.datetime({ offset: true }).optional(),
 });
 
 export const EntityComplexSearchResponseSchema = z.object({

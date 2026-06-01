@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import {
 	createCnpjFieldSchema,
+	createOptionalTrimmedStringSchema,
 	createRequiredTrimmedStringSchema,
 } from "@/schemas";
 import type { EntityEditorMode } from "@/types";
@@ -28,8 +29,7 @@ export function createEntityEditorFormSchema(
 			.string()
 			.trim()
 			.min(1, t("partner.entityPage.editor.validation.city")),
-		address: createRequiredTrimmedStringSchema(
-			t("partner.entityPage.editor.validation.address.required"),
+		address: createOptionalTrimmedStringSchema(
 			254,
 			t("partner.entityPage.editor.validation.address.tooLong"),
 		),

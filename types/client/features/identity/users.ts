@@ -4,6 +4,7 @@ export interface UserPageProps {
 
 export interface UserDetailsContentProps {
 	userId: string;
+	columns?: 2 | 3;
 }
 
 export interface UserRoutePageProps {

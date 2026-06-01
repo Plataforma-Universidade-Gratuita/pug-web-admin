@@ -1,34 +1,41 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { get as getStaff } from "@/api/web/partner/staff";
+import { get as getUser } from "@/api/web/identity/users";
 import { NoContentState, SomeErrorState } from "@/components";
+import { toast } from "@/components";
+import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { StaffActionDialogs } from "@/features/partner/staff/StaffActionDialogs";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
 import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
+import { useCreateStaffMutation } from "@/features/partner/staff/mutations";
 import { StaffRowActions } from "@/features/partner/staff/StaffRowActions";
 import {
-	useStaffCitiesQuery,
 	useStaffEntitiesQuery,
+	useStaffSearchQuery,
 	useStaffQuery,
 } from "@/features/partner/staff/queries";
 import { useStaffPageActions } from "@/features/partner/staff/useStaffPageActions";
 import {
-	buildStaffCityOptions,
 	buildStaffEntityOptions,
 	createStaffColumns,
-	filterStaff,
-	getStaffCitiesErrorToastContent,
+	filterStaffByFrontendQuery,
+	filterStaffListByBackendFilters,
+	getStaffDuplicateErrorToastContent,
 	getStaffEmptyStateCopy,
+	getStaffListErrorToastContent,
 	getStaffEntitiesErrorToastContent,
 	getStaffFilterSummary,
-	getStaffListErrorToastContent,
+	appendCopyToEmail,
 } from "@/features/partner/staff/utils";
 import {
 	ServicePageHeader,
 	ServicePageHeaderActions,
+	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
@@ -37,19 +44,28 @@ import {
 	useDraftFilters,
 	useQueryErrorToasts,
 	useServicePageEditorState,
+	useServicePagePagination,
 } from "@/hooks";
-import type { StaffResponse } from "@/types";
-import type { StaffEditorMode, StaffSecondaryFilters } from "@/types";
+import { useUsersQuery } from "@/features/identity/users/queries";
+import type {
+	StaffComplexSearchFilters,
+	StaffEditorMode,
+	StaffSearchResponse,
+} from "@/types";
 
 export function StaffPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
-	const initialSecondaryFilters = useMemo<StaffSecondaryFilters>(
+	const initialFilters = useMemo<StaffComplexSearchFilters>(
 		() => ({
-			entityIdFilter: "",
-			cityIdFilter: "",
-			activeFilter: "",
+			name: "",
+			cpf: "",
+			email: "",
+			dateFrom: "",
+			dateTo: "",
+			activeOnly: true,
+			entityIds: [],
 		}),
 		[],
 	);
@@ -60,17 +76,27 @@ export function StaffPage() {
 		draftFilters,
 		hasAppliedFilters,
 		setDraftFilter,
-	} = useDraftFilters<StaffSecondaryFilters>({
-		initialFilters: initialSecondaryFilters,
+	} = useDraftFilters<StaffComplexSearchFilters>({
+		initialFilters,
+	});
+	const staffPagination = useServicePagePagination({
+		key: "partner.staff",
 	});
 	const editorState = useServicePageEditorState<StaffEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
 	});
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
-	const staffQuery = useStaffQuery();
-	const staffCitiesQuery = useStaffCitiesQuery();
+	const staffQuery = useStaffQuery(staffPagination.isAll);
+	const usersQuery = useUsersQuery(staffPagination.isAll);
+	const staffSearchQuery = useStaffSearchQuery(
+		staffPagination.backendPage ?? 0,
+		staffPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
+		appliedFilters,
+		!staffPagination.isAll,
+	);
 	const staffEntitiesQuery = useStaffEntitiesQuery();
+	const createStaffMutation = useCreateStaffMutation();
 	const {
 		confirmDelete,
 		confirmStatusChange,
@@ -84,10 +110,9 @@ export function StaffPage() {
 		onClearEditor: editorState.closeEditor,
 		onClearSelection: () => {},
 	});
-
-	const cityById = useMemo(
-		() => new Map((staffCitiesQuery.data ?? []).map(city => [city.id, city])),
-		[staffCitiesQuery.data],
+	const userById = useMemo(
+		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
+		[usersQuery.data],
 	);
 	const entityById = useMemo(
 		() =>
@@ -96,23 +121,30 @@ export function StaffPage() {
 			),
 		[staffEntitiesQuery.data],
 	);
-	const cityOptions = useMemo(
-		() => buildStaffCityOptions(staffCitiesQuery.data ?? []),
-		[staffCitiesQuery.data],
-	);
 	const entityOptions = useMemo(
 		() => buildStaffEntityOptions(staffEntitiesQuery.data ?? []),
 		[staffEntitiesQuery.data],
 	);
-	const filteredStaff = useMemo(
+	const backendFilteredAllStaff = useMemo(
 		() =>
-			filterStaff(staffQuery.data ?? [], {
-				query: deferredQuerySearch,
-				entityIdFilter: appliedFilters.entityIdFilter,
-				cityIdFilter: appliedFilters.cityIdFilter,
-				activeFilter: appliedFilters.activeFilter,
-			}),
-		[appliedFilters, deferredQuerySearch, staffQuery.data],
+			filterStaffListByBackendFilters(
+				staffQuery.data ?? [],
+				userById,
+				entityById,
+				appliedFilters,
+			),
+		[appliedFilters, entityById, staffQuery.data, userById],
+	);
+	const tableSourceStaff = useMemo(
+		() =>
+			staffPagination.isAll
+				? backendFilteredAllStaff
+				: (staffSearchQuery.data?.content ?? []),
+		[backendFilteredAllStaff, staffPagination.isAll, staffSearchQuery.data],
+	);
+	const filteredStaff = useMemo(
+		() => filterStaffByFrontendQuery(tableSourceStaff, deferredQuerySearch),
+		[deferredQuerySearch, tableSourceStaff],
 	);
 	const columns = useMemo(() => createStaffColumns(t), [t]);
 	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
@@ -120,26 +152,35 @@ export function StaffPage() {
 		() =>
 			getStaffFilterSummary(t, {
 				query: deferredQuerySearch,
-				entityIdFilter: appliedFilters.entityIdFilter,
-				cityIdFilter: appliedFilters.cityIdFilter,
-				activeFilter: appliedFilters.activeFilter,
 				entityById,
-				cityById,
+				entityIds: appliedFilters.entityIds,
+				dateFrom: appliedFilters.dateFrom,
+				dateTo: appliedFilters.dateTo,
+				activeOnly: appliedFilters.activeOnly,
 			}),
-		[appliedFilters, cityById, deferredQuerySearch, entityById, t],
+		[appliedFilters, deferredQuerySearch, entityById, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getStaffEmptyStateCopy(t, filterSummary),
 		[filterSummary, t],
 	);
 	const tableEmptyState = useMemo(() => {
-		if (staffQuery.isError) {
+		const activeQueryIsError = staffPagination.isAll
+			? staffQuery.isError || usersQuery.isError
+			: staffSearchQuery.isError;
+
+		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
 					title={t("partner.staffPage.table.error.title")}
 					description={t("partner.staffPage.table.error.description")}
 					onRefresh={() => {
-						void staffQuery.refetch();
+						if (staffPagination.isAll) {
+							void Promise.all([staffQuery.refetch(), usersQuery.refetch()]);
+							return;
+						}
+
+						void staffSearchQuery.refetch();
 					}}
 				/>
 			);
@@ -151,22 +192,54 @@ export function StaffPage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [emptyStateCopy.description, emptyStateCopy.title, staffQuery, t]);
+	}, [
+		emptyStateCopy.description,
+		emptyStateCopy.title,
+		staffPagination.isAll,
+		staffQuery,
+		staffSearchQuery,
+		t,
+		usersQuery,
+	]);
+
+	const activeQueryError = staffPagination.isAll
+		? (staffQuery.error ?? usersQuery.error)
+		: staffSearchQuery.error;
+	const activeQueryErrorUpdatedAt = staffPagination.isAll
+		? Math.max(staffQuery.errorUpdatedAt, usersQuery.errorUpdatedAt)
+		: staffSearchQuery.errorUpdatedAt;
+	const activeQueryIsError = staffPagination.isAll
+		? staffQuery.isError || usersQuery.isError
+		: staffSearchQuery.isError;
+	const activeQueryIsLoading = staffPagination.isAll
+		? staffQuery.isLoading || usersQuery.isLoading
+		: staffSearchQuery.isLoading;
+	const totalElements = staffPagination.isAll
+		? backendFilteredAllStaff.length
+		: (staffSearchQuery.data?.totalElements ?? 0);
+	const totalPages = staffPagination.isAll
+		? 1
+		: Math.max(staffSearchQuery.data?.totalPages ?? 1, 1);
+
+	useEffect(() => {
+		if (
+			staffPagination.isAll ||
+			!staffSearchQuery.data ||
+			staffPagination.currentPage <= totalPages
+		) {
+			return;
+		}
+
+		staffPagination.setCurrentPage(totalPages);
+	}, [staffPagination, staffSearchQuery.data, totalPages]);
 
 	useQueryErrorToasts([
 		{
 			key: "staff-list",
-			error: staffQuery.error,
-			errorUpdatedAt: staffQuery.errorUpdatedAt,
+			error: activeQueryError,
+			errorUpdatedAt: activeQueryErrorUpdatedAt,
 			getContent: error => getStaffListErrorToastContent(t, error),
-			isError: staffQuery.isError,
-		},
-		{
-			key: "staff-cities",
-			error: staffCitiesQuery.error,
-			errorUpdatedAt: staffCitiesQuery.errorUpdatedAt,
-			getContent: error => getStaffCitiesErrorToastContent(t, error),
-			isError: staffCitiesQuery.isError,
+			isError: activeQueryIsError,
 		},
 		{
 			key: "staff-entities",
@@ -180,7 +253,51 @@ export function StaffPage() {
 	function clearAllFilters() {
 		setQuerySearch("");
 		clearDraftFilters();
+		staffPagination.resetPage();
 		setFiltersOpen(false);
+	}
+
+	async function handleDuplicate(staff: StaffSearchResponse) {
+		try {
+			const staffDetail = await getStaff(staff.account.id);
+			const linkedUser = await getUser(staffDetail.account.userId);
+
+			createStaffMutation.mutate(
+				{
+					body: {
+						cpfString: linkedUser.cpf,
+						name: linkedUser.name,
+						emailString: appendCopyToEmail(staff.account.email),
+						entityId: staff.entity.id,
+					},
+				},
+				{
+					onSuccess: () => {
+						toast.success(
+							t("partner.staffPage.duplicate.feedback.success.title"),
+							{
+								description: t(
+									"partner.staffPage.duplicate.feedback.success.description",
+									{
+										name: linkedUser.name,
+									},
+								),
+							},
+						);
+					},
+					onError: error => {
+						const { title, description } = getStaffDuplicateErrorToastContent(
+							t,
+							error,
+						);
+						toast.danger(title, { description });
+					},
+				},
+			);
+		} catch (error) {
+			const { title, description } = getStaffDuplicateErrorToastContent(t, error);
+			toast.danger(title, { description });
+		}
 	}
 
 	return (
@@ -212,28 +329,19 @@ export function StaffPage() {
 				/>
 
 				<StaffFiltersDrawer
-					activeFilter={draftFilters.activeFilter}
-					citiesError={staffCitiesQuery.isError}
-					cityIdFilter={draftFilters.cityIdFilter}
-					cityOptions={cityOptions}
+					filters={draftFilters}
 					entitiesError={staffEntitiesQuery.isError}
-					entityIdFilter={draftFilters.entityIdFilter}
 					entityOptions={entityOptions}
 					hasActiveFilters={hasAppliedFilters}
-					isCitiesLoading={staffCitiesQuery.isLoading}
 					isEntitiesLoading={staffEntitiesQuery.isLoading}
-					onActiveFilterChange={value => setDraftFilter("activeFilter", value)}
 					onApply={() => {
+						staffPagination.resetPage();
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
-					onCityIdChange={value => setDraftFilter("cityIdFilter", value)}
 					onClear={clearAllFilters}
-					onEntityIdChange={value => setDraftFilter("entityIdFilter", value)}
+					onFilterChange={(key, value) => setDraftFilter(key, value)}
 					onOpenChange={setFiltersOpen}
-					onRefreshCities={() => {
-						void staffCitiesQuery.refetch();
-					}}
 					onRefreshEntities={() => {
 						void staffEntitiesQuery.refetch();
 					}}
@@ -241,7 +349,18 @@ export function StaffPage() {
 				/>
 			</ServicePageHeader>
 
-			<ServicePageTableSection<StaffResponse>
+			<ServicePageTableSection<StaffSearchResponse>
+				footer={
+					<ServicePagePagination
+						currentPage={staffPagination.currentPage}
+						pageSize={staffPagination.pageSize}
+						totalElements={totalElements}
+						totalPages={totalPages}
+						onPageChange={staffPagination.setCurrentPage}
+						onPageSizeChange={staffPagination.setPageSize}
+						disabled={activeQueryIsLoading}
+					/>
+				}
 				tableProps={{
 					className: "h-full",
 					columns,
@@ -249,8 +368,9 @@ export function StaffPage() {
 					emptyState: tableEmptyState,
 					getRowActions: row => (
 						<StaffRowActions
-							href={`/partner/staff/${row.accountId}`}
+							href={`/partner/staff/${row.account.id}`}
 							onDelete={setPendingDeleteStaff}
+							onDuplicate={handleDuplicate}
 							onOpenEditor={editorState.openEditor}
 							onSetActive={(staff, active) =>
 								setPendingStatusStaff({ active, staff })
@@ -258,7 +378,7 @@ export function StaffPage() {
 							staff={row}
 						/>
 					),
-					isLoading: staffQuery.isLoading,
+					isLoading: activeQueryIsLoading,
 					loadingLabel: t("partner.staffPage.loading.list"),
 				}}
 			/>

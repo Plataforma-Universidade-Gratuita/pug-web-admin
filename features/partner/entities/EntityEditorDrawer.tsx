@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -163,6 +163,14 @@ export function EntityEditorDrawer({
 		loadedValues: loadedFormValues,
 		open,
 	});
+
+	useEffect(() => {
+		if (!open || !isDuplicateMode || !loadedFormValues) {
+			return;
+		}
+
+		void form.trigger("cnpj");
+	}, [form, isDuplicateMode, loadedFormValues, open]);
 
 	function closeDrawer() {
 		onOpenChange(false);

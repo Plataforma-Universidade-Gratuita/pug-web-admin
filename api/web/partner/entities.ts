@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+export { list as listCities } from "@/api/web/geo/cities";
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	EntityComplexSearchRequestSchema,

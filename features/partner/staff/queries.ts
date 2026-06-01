@@ -5,15 +5,42 @@ import { useQuery } from "@tanstack/react-query";
 import { get as getAccount } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
 import { list as listEntities, listCities } from "@/api/web/partner/entities";
-import { get, list } from "@/api/web/partner/staff";
+import { get, list, search } from "@/api/web/partner/staff";
 import { staffQueryKeys } from "@/constants";
+import type { StaffComplexSearchFilters } from "@/types";
+
+import { buildStaffComplexSearchRequest } from "./utils";
 
 export { staffQueryKeys };
 
-export function useStaffQuery() {
+export function useStaffQuery(enabled = true) {
 	return useQuery({
 		queryKey: staffQueryKeys.list(),
 		queryFn: () => list(),
+		enabled,
+	});
+}
+
+export function useStaffSearchQuery(
+	page: number,
+	size: number,
+	filters: StaffComplexSearchFilters,
+	enabled = true,
+) {
+	const complexSearchRequest = buildStaffComplexSearchRequest(filters);
+	const filtersKey = JSON.stringify(complexSearchRequest);
+
+	return useQuery({
+		queryKey: staffQueryKeys.search(page, size, filtersKey),
+		queryFn: () =>
+			search(
+				{
+					page,
+					size,
+				},
+				complexSearchRequest,
+			),
+		enabled,
 	});
 }
 

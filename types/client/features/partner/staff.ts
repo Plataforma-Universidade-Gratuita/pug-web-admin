@@ -1,15 +1,16 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
-	CityResponse,
+	AccountResponse,
 	EntityResponse,
+	StaffSearchResponse,
 	StaffCreateRequest,
 	StaffResponse,
 	StaffUpdateRequest,
+	UserResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
-export type StaffActiveFilter = "" | "true" | "false";
 export type StaffEditorMode = "create" | "duplicate" | "update";
 
 export interface StaffPageProps {
@@ -22,10 +23,14 @@ export interface StaffRoutePageProps {
 	}>;
 }
 
-export interface StaffSecondaryFilters {
-	entityIdFilter: string;
-	cityIdFilter: string;
-	activeFilter: StaffActiveFilter;
+export interface StaffComplexSearchFilters {
+	name: string;
+	cpf: string;
+	email: string;
+	dateFrom: string;
+	dateTo: string;
+	activeOnly: boolean;
+	entityIds: string[];
 }
 
 export interface StaffEditorFormValues {
@@ -34,6 +39,11 @@ export interface StaffEditorFormValues {
 	email: string;
 	entityId: string;
 }
+
+export type StaffCreateExistingUser = Pick<
+	UserResponse,
+	"id" | "cpf" | "cpfFormatted" | "name"
+>;
 
 export interface StaffCreateMutationVariables {
 	body: StaffCreateRequest;
@@ -66,32 +76,31 @@ export interface StaffEditorFormProps {
 	entityById: Map<string, EntityResponse>;
 	entityOptions: ComboboxOption[];
 	entitiesError: unknown;
+	existingUsers: StaffCreateExistingUser[];
 	form: UseFormReturn<StaffEditorFormValues>;
+	linkedAccount: AccountResponse | undefined;
 	mode: StaffEditorMode;
 	onRefreshEntities: () => void;
 	onRefreshStaff: () => void;
+	onRefreshUser: () => void;
 	staff: StaffResponse | undefined;
 	staffError: unknown;
+	userError: unknown;
 }
 
 export interface StaffFiltersDrawerProps {
-	activeFilter: StaffActiveFilter;
-	citiesError: boolean;
-	cityIdFilter: string;
-	cityOptions: ComboboxOption[];
+	filters: StaffComplexSearchFilters;
 	entitiesError: boolean;
-	entityIdFilter: string;
 	entityOptions: ComboboxOption[];
 	hasActiveFilters: boolean;
-	isCitiesLoading: boolean;
 	isEntitiesLoading: boolean;
-	onActiveFilterChange: (value: StaffActiveFilter) => void;
 	onApply: () => void;
-	onCityIdChange: (value: string) => void;
 	onClear: () => void;
-	onEntityIdChange: (value: string) => void;
+	onFilterChange: <TKey extends keyof StaffComplexSearchFilters>(
+		key: TKey,
+		value: StaffComplexSearchFilters[TKey],
+	) => void;
 	onOpenChange: (open: boolean) => void;
-	onRefreshCities: () => void;
 	onRefreshEntities: () => void;
 	open: boolean;
 }
@@ -101,34 +110,35 @@ export interface StaffActionDialogsProps {
 	onConfirmStatusChange: () => void;
 	onDeleteOpenChange: (open: boolean) => void;
 	onStatusOpenChange: (open: boolean) => void;
-	pendingDeleteStaff: StaffResponse | null;
+	pendingDeleteStaff: StaffSearchResponse | null;
 	pendingStatusStaff: {
 		active: boolean;
-		staff: StaffResponse;
+		staff: StaffSearchResponse;
 	} | null;
 }
 
 export interface StaffRowActionsProps {
 	href: string;
-	onDelete: (staff: StaffResponse) => void;
+	onDelete: (staff: StaffSearchResponse) => void;
+	onDuplicate: (staff: StaffSearchResponse) => void;
 	onOpenEditor: (id: string, mode: StaffEditorMode) => void;
-	onSetActive: (staff: StaffResponse, active: boolean) => void;
-	staff: StaffResponse;
+	onSetActive: (staff: StaffSearchResponse, active: boolean) => void;
+	staff: StaffSearchResponse;
 }
 
 export interface StaffFilterArgs {
-	activeFilter: StaffActiveFilter;
-	cityIdFilter: string;
-	entityIdFilter: string;
+	dateFrom: string;
+	dateTo: string;
+	entityIds: string[];
 	query: string;
 }
 
 export interface StaffFilterSummaryArgs {
-	activeFilter: StaffActiveFilter;
-	cityById: Map<string, CityResponse>;
-	cityIdFilter: string;
 	entityById: Map<string, EntityResponse>;
-	entityIdFilter: string;
+	entityIds: string[];
+	activeOnly: boolean;
+	dateFrom: string;
+	dateTo: string;
 	query: string;
 }
 
@@ -148,7 +158,6 @@ export interface PatchStaffAccountCachesArgs {
 	accountId: string;
 	active?: boolean;
 	email?: string;
-	userName?: string;
 }
 
 export interface PatchStaffUserCachesArgs {

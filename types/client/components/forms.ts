@@ -56,16 +56,22 @@ export interface ComboboxProps {
 	value?: string;
 	defaultValue?: string;
 	onValueChange?: (value: string) => void;
+	values?: string[];
+	defaultValues?: string[];
+	onValuesChange?: (value: string[]) => void;
+	multiple?: boolean;
 	placeholder?: ReactNode;
 	searchPlaceholder?: string;
 	emptyMessage?: ReactNode;
 	creatable?: boolean;
 	createLabel?: (value: string) => ReactNode;
-	onCreateValue?: (value: string) => void;
+	onCreateValue?: (value: string) => string | void;
 	queryNormalizer?: (value: string) => string;
 	canCreateValue?: (value: string, options: ComboboxOption[]) => boolean;
 	disabled?: boolean;
 	className?: string;
+	maxVisibleValues?: number;
+	selectionTone?: MultiSelectSelectionTone;
 }
 
 export interface CpfFormFieldExistingUser {

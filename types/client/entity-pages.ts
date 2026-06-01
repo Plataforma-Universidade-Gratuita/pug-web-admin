@@ -9,11 +9,13 @@ export interface EntityPageField {
 export interface EntityPageFieldsGridProps {
 	fields: EntityPageField[];
 	className?: string;
+	columns?: 2 | 3;
 }
 
 export interface EntityPageFieldsGridSkeletonProps {
 	count?: number;
 	className?: string;
+	columns?: 2 | 3;
 }
 
 export interface EntityPageShellProps {

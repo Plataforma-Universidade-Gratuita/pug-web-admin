@@ -13,7 +13,6 @@ export { default as EmptyStateParticle } from "./primitives/display/EmptyStatePa
 export { default as IconParticle } from "./primitives/display/IconParticle";
 export { default as InputParticle } from "./primitives/forms/InputParticle";
 export { default as LabelParticle } from "./primitives/forms/LabelParticle";
-export { default as MultiSelectParticle } from "./primitives/forms/MultiSelectParticle";
 export { default as PopoverParticle } from "./primitives/overlays/PopoverParticle";
 export { default as RadioGroupParticle } from "./primitives/forms/RadioGroupParticle";
 export { default as SectionParticle } from "./primitives/display/SectionParticle";

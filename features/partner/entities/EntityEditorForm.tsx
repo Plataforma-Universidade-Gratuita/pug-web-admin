@@ -1,6 +1,6 @@
 "use client";
 
-import { Controller } from "react-hook-form";
+import { Controller, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -11,7 +11,30 @@ import {
 	SomeErrorState,
 } from "@/components";
 import type { EntityEditorFormProps } from "@/types";
+import { normalizeDigits } from "@/utils";
 import { WebApiError } from "@/utils";
+
+function formatCnpjValue(value: string) {
+	const digits = normalizeDigits(value).slice(0, 14);
+
+	if (digits.length <= 2) {
+		return digits;
+	}
+
+	if (digits.length <= 5) {
+		return `${digits.slice(0, 2)}.${digits.slice(2)}`;
+	}
+
+	if (digits.length <= 8) {
+		return `${digits.slice(0, 2)}.${digits.slice(2, 5)}.${digits.slice(5)}`;
+	}
+
+	if (digits.length <= 12) {
+		return `${digits.slice(0, 2)}.${digits.slice(2, 5)}.${digits.slice(5, 8)}/${digits.slice(8)}`;
+	}
+
+	return `${digits.slice(0, 2)}.${digits.slice(2, 5)}.${digits.slice(5, 8)}/${digits.slice(8, 12)}-${digits.slice(12)}`;
+}
 
 export function EntityEditorForm({
 	canRenderForm,
@@ -26,6 +49,13 @@ export function EntityEditorForm({
 }: EntityEditorFormProps) {
 	const { t } = useTranslation();
 	const isCreateMode = mode === "create";
+	const watchedCnpj = useWatch({
+		control: form.control,
+		name: "cnpj",
+	});
+	const shouldWarnMissingDuplicateCnpj =
+		mode === "duplicate" && !(watchedCnpj ?? "").trim();
+	const hasCnpjError = Boolean(form.formState.errors.cnpj);
 
 	if (!isCreateMode && entityError) {
 		if (entityError instanceof WebApiError && entityError.status === 404) {
@@ -101,15 +131,35 @@ export function EntityEditorForm({
 					<Label htmlFor="entity-cnpj">
 						{t("partner.entityPage.editor.fields.cnpj")}
 					</Label>
-					<Input
-						id="entity-cnpj"
-						inputMode="numeric"
-						{...form.register("cnpj")}
-						aria-describedby={
-							form.formState.errors.cnpj ? "entity-cnpj-error" : undefined
-						}
-						aria-invalid={form.formState.errors.cnpj ? "true" : "false"}
-						placeholder={t("partner.entityPage.editor.fields.cnpjPlaceholder")}
+					<Controller
+						control={form.control}
+						name="cnpj"
+						render={({ field }) => (
+							<Input
+								id="entity-cnpj"
+								inputMode="numeric"
+								maxLength={18}
+								className={
+									shouldWarnMissingDuplicateCnpj
+										? "border-[color:var(--twc-warning)] ring-1 ring-inset ring-[color:var(--twc-warning)]"
+										: undefined
+								}
+								value={field.value}
+								onBlur={field.onBlur}
+								name={field.name}
+								ref={field.ref}
+								onChange={event => {
+									field.onChange(formatCnpjValue(event.target.value));
+								}}
+								aria-describedby={
+									form.formState.errors.cnpj ? "entity-cnpj-error" : undefined
+								}
+								aria-invalid={
+									hasCnpjError || shouldWarnMissingDuplicateCnpj ? "true" : "false"
+								}
+								placeholder={t("partner.entityPage.editor.fields.cnpjPlaceholder")}
+							/>
+						)}
 					/>
 					{form.formState.errors.cnpj ? (
 						<p

@@ -2,25 +2,20 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Combobox, Label, SomeErrorState } from "@/components";
-import {
-	AuditInfoFilterFields,
-	ServicePageFiltersDrawer,
-} from "@/features/shared/service-pages";
-import type { EntitiesFiltersDrawerProps, EntityAuditDateField } from "@/types";
+import { Combobox, DatePicker, Label, SomeErrorState } from "@/components";
+import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
+import type { EntitiesFiltersDrawerProps } from "@/types";
 
 export function EntitiesFiltersDrawer({
 	citiesError,
-	cityIdFilter,
+	cityIdsFilter,
 	cityOptions,
-	dateField,
 	endDate,
 	hasActiveFilters,
 	isCitiesLoading,
 	onApply,
-	onCityIdChange,
+	onCityIdsChange,
 	onClear,
-	onDateFieldChange,
 	onEndDateChange,
 	onOpenChange,
 	onRefreshCities,
@@ -61,9 +56,10 @@ export function EntitiesFiltersDrawer({
 				<div className="grid gap-2">
 					<Label>{t("partner.entityPage.filters.city.label")}</Label>
 					<Combobox
+						multiple
 						options={cityOptions}
-						value={cityIdFilter}
-						onValueChange={onCityIdChange}
+						values={cityIdsFilter}
+						onValuesChange={onCityIdsChange}
 						placeholder={t("partner.entityPage.filters.city.placeholder")}
 						searchPlaceholder={t(
 							"partner.entityPage.filters.city.searchPlaceholder",
@@ -74,36 +70,23 @@ export function EntitiesFiltersDrawer({
 				</div>
 			)}
 
-			<AuditInfoFilterFields
-				dateFieldLabel={t("partner.entityPage.filters.dateField.label")}
-				dateFieldPlaceholder={t(
-					"partner.entityPage.filters.dateField.placeholder",
-				)}
-				dateField={dateField}
-				onDateFieldChange={value =>
-					onDateFieldChange(value as EntityAuditDateField)
-				}
-				dateFieldOptions={[
-					{
-						value: "createdAt",
-						label: t("partner.entityPage.filters.dateField.options.createdAt"),
-					},
-					{
-						value: "updatedAt",
-						label: t("partner.entityPage.filters.dateField.options.updatedAt"),
-					},
-				]}
-				startDateLabel={t("partner.entityPage.filters.startDate.label")}
-				startDatePlaceholder={t(
-					"partner.entityPage.filters.startDate.placeholder",
-				)}
-				startDate={startDate}
-				onStartDateChange={onStartDateChange}
-				endDateLabel={t("partner.entityPage.filters.endDate.label")}
-				endDatePlaceholder={t("partner.entityPage.filters.endDate.placeholder")}
-				endDate={endDate}
-				onEndDateChange={onEndDateChange}
-			/>
+			<div className="grid min-w-0 gap-2">
+				<Label>{t("partner.entityPage.filters.startDate.label")}</Label>
+				<DatePicker
+					value={startDate}
+					onValueChange={onStartDateChange}
+					placeholder={t("partner.entityPage.filters.startDate.placeholder")}
+				/>
+			</div>
+
+			<div className="grid min-w-0 gap-2">
+				<Label>{t("partner.entityPage.filters.endDate.label")}</Label>
+				<DatePicker
+					value={endDate}
+					onValueChange={onEndDateChange}
+					placeholder={t("partner.entityPage.filters.endDate.placeholder")}
+				/>
+			</div>
 		</ServicePageFiltersDrawer>
 	);
 }

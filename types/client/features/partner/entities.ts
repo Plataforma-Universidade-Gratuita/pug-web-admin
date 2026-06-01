@@ -1,14 +1,12 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
-	CityResponse,
 	EntityCreateRequest,
 	EntityResponse,
 	EntityUpdateRequest,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
-export type EntityAuditDateField = "" | "createdAt" | "updatedAt";
 export type EntityEditorMode = "create" | "duplicate" | "update";
 
 export interface EntityPageProps {
@@ -22,10 +20,26 @@ export interface EntityRoutePageProps {
 }
 
 export interface EntitySecondaryFilters {
-	cityIdFilter: string;
-	dateField: EntityAuditDateField;
-	startDate: string;
-	endDate: string;
+	cityIdsFilter: string[];
+	dateFrom: string;
+	dateTo: string;
+}
+
+export interface EntityComplexSearchFilters {
+	cityIdsFilter: string[];
+	dateFrom: string;
+	dateTo: string;
+}
+
+export interface EntityTableRow {
+	id: string;
+	cnpj: string;
+	cnpjFormatted: string;
+	name: string;
+	address: string;
+	cityId: string;
+	cityLabel: string;
+	auditInfo: EntityResponse["auditInfo"];
 }
 
 export interface EntityEditorFormValues {
@@ -65,16 +79,14 @@ export interface EntityEditorFormProps {
 
 export interface EntitiesFiltersDrawerProps {
 	citiesError: boolean;
-	cityIdFilter: string;
+	cityIdsFilter: string[];
 	cityOptions: ComboboxOption[];
-	dateField: EntityAuditDateField;
 	endDate: string;
 	hasActiveFilters: boolean;
 	isCitiesLoading: boolean;
 	onApply: () => void;
-	onCityIdChange: (value: string) => void;
+	onCityIdsChange: (value: string[]) => void;
 	onClear: () => void;
-	onDateFieldChange: (value: EntityAuditDateField) => void;
 	onEndDateChange: (value: string) => void;
 	onOpenChange: (open: boolean) => void;
 	onRefreshCities: () => void;
@@ -84,21 +96,31 @@ export interface EntitiesFiltersDrawerProps {
 }
 
 export interface EntitiesRowActionsProps {
-	entity: EntityResponse;
+	entity: Pick<EntityTableRow, "id" | "name">;
 	href: string;
-	onDelete: (entity: EntityResponse) => void;
+	onDelete: (entity: Pick<EntityTableRow, "id" | "name">) => void;
 	onOpenEditor: (id: string, mode: EntityEditorMode) => void;
 }
 
 export interface EntityFilterArgs {
 	query: string;
-	cityIdFilter: string;
-	dateField: EntityAuditDateField;
-	startDate: string;
-	endDate: string;
-	cityById: Map<string, CityResponse>;
+	dateFrom: string;
+	dateTo: string;
 }
 
 export interface RemoveEntityMutationVariables {
 	id: string;
+}
+
+export interface UseEntitiesSearchQueryFilters {
+	cityIdsFilter: string[];
+	dateFrom: string;
+	dateTo: string;
+}
+
+export interface EntitySearchQueryArgs {
+	page: number;
+	size: number;
+	filters: UseEntitiesSearchQueryFilters;
+	enabled?: boolean;
 }

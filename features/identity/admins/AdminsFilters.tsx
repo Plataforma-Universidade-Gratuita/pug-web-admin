@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Label, MultiSelect } from "@/components";
+import { Combobox, Label } from "@/components";
 import { getAdminCampusOptions } from "@/features/identity/admins/utils";
 import { TextFieldFilter } from "@/features/shared/service-pages";
 import type { AdminsFiltersProps } from "@/types";
@@ -37,10 +37,11 @@ export function AdminsFilters({
 			/>
 			<div className="grid gap-2">
 				<Label>{t("identity.adminPage.filters.campus.label")}</Label>
-				<MultiSelect
+				<Combobox
+					multiple
 					options={campusOptions}
-					value={frontendCampusFilters}
-					onValueChange={value =>
+					values={frontendCampusFilters}
+					onValuesChange={value =>
 						onFrontendCampusFiltersChange(value as typeof frontendCampusFilters)
 					}
 					placeholder={t("identity.adminPage.filters.campus.placeholder")}

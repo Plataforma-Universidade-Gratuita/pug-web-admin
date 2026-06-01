@@ -5,11 +5,12 @@ import { useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 import { ChevronDown, Search, X } from "lucide-react";
 
-import { Icon } from "@/components";
+import { Badge, Icon, Tooltip } from "@/components";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components";
 import {
 	getComboboxSelectedLabel,
 	getSearchableComboboxText,
+    buildVisibleSelections,
 } from "@/components/forms/combobox/utils";
 import type { ComboboxProps } from "@/types";
 import { normalizeTextForSearch } from "@/utils";
@@ -20,6 +21,10 @@ export function Combobox({
 	value,
 	defaultValue,
 	onValueChange,
+	values,
+	defaultValues,
+	onValuesChange,
+	multiple = false,
 	placeholder = "Select an option",
 	searchPlaceholder = "Search options",
 	emptyMessage = "No options found.",
@@ -30,15 +35,35 @@ export function Combobox({
 	canCreateValue,
 	disabled = false,
 	className,
+	maxVisibleValues = 2,
+	selectionTone = "brand",
 }: ComboboxProps) {
 	const [open, setOpen] = useState(false);
 	const [query, setQuery] = useState("");
 	const [internalValue, setInternalValue] = useState(defaultValue);
+	const [internalValues, setInternalValues] = useState(defaultValues ?? []);
 	const triggerButtonRef = useRef<HTMLButtonElement | null>(null);
 	const scrollRef = useRef<HTMLDivElement | null>(null);
 	const selectedValue = value ?? internalValue;
+	const selectedValues = values ?? internalValues;
 
 	const selectedOption = options.find(option => option.value === selectedValue);
+	const selectedOptions = useMemo(
+		() =>
+			options
+				.filter(option => selectedValues.includes(option.value))
+				.map(option => ({
+					value: option.value,
+					label:
+						typeof option.label === "string" ? option.label : option.value,
+				})),
+		[options, selectedValues],
+	);
+	const { visibleOptions, remainingCount } = buildVisibleSelections(
+		selectedOptions,
+		maxVisibleValues,
+	);
+	const hiddenOptions = selectedOptions.slice(maxVisibleValues);
 	const filteredOptions = useMemo(() => {
 		const normalizedQuery = normalizeTextForSearch(query.trim());
 		if (!normalizedQuery) return options;
@@ -67,8 +92,29 @@ export function Combobox({
 			return;
 		}
 
-		onCreateValue?.(creatableValue);
-		handleValueChange(creatableValue);
+		const createdValue = onCreateValue?.(creatableValue);
+		handleValueChange(createdValue ?? creatableValue);
+	}
+
+	function handleValuesChange(nextValues: string[]) {
+		if (values === undefined) {
+			setInternalValues(nextValues);
+		}
+
+		onValuesChange?.(nextValues);
+	}
+
+	function toggleValue(optionValue: string) {
+		if (!multiple) {
+			handleValueChange(optionValue);
+			return;
+		}
+
+		const nextValues = selectedValues.includes(optionValue)
+			? selectedValues.filter(valueItem => valueItem !== optionValue)
+			: [...selectedValues, optionValue];
+
+		handleValuesChange(nextValues);
 	}
 
 	function handleOptionsWheel(event: React.WheelEvent<HTMLDivElement>) {
@@ -126,32 +172,87 @@ export function Combobox({
 						disabled={disabled}
 						className={clsx("combobox-trigger", className)}
 					>
-						<span
-							className={clsx(
-								"min-w-0 flex-1 truncate",
-								selectedOption
-									? "text-[color:var(--twc-text)]"
-									: "text-[color:var(--twc-muted)]",
-							)}
-						>
-							{selectedOption
-								? getComboboxSelectedLabel(selectedOption)
-								: selectedValue || placeholder}
-						</span>
+						{multiple ? (
+							<div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden">
+								{selectedOptions.length > 0 ? (
+									<>
+										<div className="flex min-w-0 flex-wrap gap-1">
+											{visibleOptions.map(option => (
+												<Badge
+													key={option.value}
+													tone={selectionTone}
+													variant="primary"
+													className="min-h-5 max-w-full px-2 py-0.5"
+												>
+													<span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+														{option.label}
+													</span>
+												</Badge>
+											))}
+										</div>
+										{remainingCount > 0 ? (
+											<Tooltip
+												content={
+													<div className="grid gap-1">
+														{hiddenOptions.map(option => (
+															<span key={option.value}>{option.label}</span>
+														))}
+													</div>
+												}
+											>
+												<span className="shrink-0">
+													<Badge
+														tone="neutral"
+														variant="secondary"
+														className="min-h-5 px-2 py-0.5"
+													>
+														+{remainingCount}
+													</Badge>
+												</span>
+											</Tooltip>
+										) : null}
+									</>
+								) : (
+									<span className="text-[color:var(--twc-muted)]">
+										{placeholder}
+									</span>
+								)}
+							</div>
+						) : (
+							<span
+								className={clsx(
+									"min-w-0 flex-1 truncate",
+									selectedOption
+										? "text-[color:var(--twc-text)]"
+										: "text-[color:var(--twc-muted)]",
+								)}
+							>
+								{selectedOption
+									? getComboboxSelectedLabel(selectedOption)
+									: selectedValue || placeholder}
+							</span>
+						)}
 					</button>
 				</PopoverTrigger>
 				<div className="select-adornment">
-					{selectedOption ? (
+					{(multiple
+						? selectedOptions.length > 0
+						: Boolean(selectedOption)) ? (
 						<button
 							type="button"
 							disabled={disabled}
 							onClick={event => {
 								event.preventDefault();
 								event.stopPropagation();
+								if (multiple) {
+									handleValuesChange([]);
+									return;
+								}
+
 								handleValueChange("");
 							}}
 							className="field-icon-button select-clear-button"
-							aria-label="Clear selection"
+							aria-label={multiple ? "Clear selections" : "Clear selection"}
 						>
 							<Icon
 								icon={X}
@@ -241,13 +342,15 @@ export function Combobox({
 						) : (
 							<div className="combobox-options">
 								{filteredOptions.map(option => {
-									const isSelected = option.value === selectedValue;
+									const isSelected = multiple
+										? selectedValues.includes(option.value)
+										: option.value === selectedValue;
 
 									return (
 										<button
 											key={option.value}
 											type="button"
-											onClick={() => handleValueChange(option.value)}
+											onClick={() => toggleValue(option.value)}
 											disabled={disabled || option.disabled}
 											className={clsx(
 												"focus-ring combobox-option",

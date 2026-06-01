@@ -4,12 +4,9 @@ import { useTranslation } from "react-i18next";
 
 import {
 	Checkbox,
+	Combobox,
 	DatePicker,
 	Label,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
 } from "@/components";
 import { ACCOUNT_TYPE_VALUES } from "@/constants";
 import {
@@ -29,7 +26,6 @@ export function AccountsFiltersDrawer({
 	open,
 }: AccountsFiltersDrawerProps) {
 	const { t } = useTranslation();
-	const selectedAccountType = filters.accountTypes[0] ?? "ALL";
 
 	return (
 		<ServicePageFiltersDrawer
@@ -75,39 +71,31 @@ export function AccountsFiltersDrawer({
 
 			<div className="grid gap-2">
 				<Label>{t("identity.accountPage.filters.accountType.label")}</Label>
-				<Select
-					value={selectedAccountType}
-					onValueChange={value =>
+				<Combobox
+					multiple
+					values={filters.accountTypes}
+					onValuesChange={value =>
 						onFilterChange(
 							"accountTypes",
-							value === "ALL"
-								? []
-								: [value as (typeof filters.accountTypes)[number]],
+							value as (typeof filters.accountTypes),
 						)
 					}
-				>
-					<SelectTrigger
-						className="w-full"
-						placeholder={t(
-							"identity.accountPage.filters.accountType.placeholder",
-						)}
-					/>
-					<SelectContent>
-						<SelectItem value="ALL">
-							{t("identity.accountPage.filters.accountType.options.all")}
-						</SelectItem>
-						{ACCOUNT_TYPE_VALUES.map(accountType => (
-							<SelectItem
-								key={accountType}
-								value={accountType}
-							>
-								{t(
-									`identity.accountPage.filters.accountType.options.${accountType}`,
-								)}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
+					placeholder={t(
+						"identity.accountPage.filters.accountType.placeholder",
+					)}
+					searchPlaceholder={t(
+						"identity.accountPage.filters.accountType.placeholder",
+					)}
+					emptyMessage={t(
+						"identity.accountPage.filters.accountType.options.all",
+					)}
+					options={ACCOUNT_TYPE_VALUES.map(accountType => ({
+						value: accountType,
+						label: t(
+							`identity.accountPage.filters.accountType.options.${accountType}`,
+						),
+					}))}
+				/>
 			</div>
 
 			<div className="grid min-w-0 gap-2">

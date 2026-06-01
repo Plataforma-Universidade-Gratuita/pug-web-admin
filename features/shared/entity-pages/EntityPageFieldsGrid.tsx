@@ -9,9 +9,16 @@ import type {
 export function EntityPageFieldsGrid({
 	fields,
 	className,
+	columns = 3,
 }: EntityPageFieldsGridProps) {
 	return (
-		<div className={clsx("grid auto-rows-max gap-4 lg:grid-cols-3", className)}>
+		<div
+			className={clsx(
+				"grid auto-rows-max gap-4",
+				columns === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3",
+				className,
+			)}
+		>
 			{fields.map(field => (
 				<Card
 					key={field.id}
@@ -28,11 +35,16 @@ export function EntityPageFieldsGrid({
 export function EntityPageFieldsGridSkeleton({
 	count = 3,
 	className,
+	columns = 3,
 }: EntityPageFieldsGridSkeletonProps) {
 	return (
 		<div
 			aria-hidden="true"
-			className={clsx("grid auto-rows-max gap-4 lg:grid-cols-3", className)}
+			className={clsx(
+				"grid auto-rows-max gap-4",
+				columns === 2 ? "lg:grid-cols-2" : "lg:grid-cols-3",
+				className,
+			)}
 		>
 			{Array.from({ length: count }, (_, index) => (
 				<Skeleton

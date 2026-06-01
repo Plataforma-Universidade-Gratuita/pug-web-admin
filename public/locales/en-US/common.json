@@ -1448,15 +1448,24 @@
 					"placeholder": "Choose or create tag",
 					"searchPlaceholder": "Search or create tags",
 					"title": "Creatable combobox"
+				},
+				"multiple": {
+					"description": "Use multi-select combobox when the list is large enough that users need search before selecting several items.",
+					"empty": "No cities found.",
+					"label": "Cities",
+					"placeholder": "Choose cities",
+					"searchPlaceholder": "Search cities",
+					"title": "Searchable multi-select"
 				}
 			},
 			"description": "Combobox combines a trigger field with search and option picking. Use it when users must choose one value from a defined set but the list is long enough that search dramatically improves scanning.",
 			"patternNotes": {
 				"items": {
 					"metadata": "Options may carry a short description or other supporting metadata, but the list should still remain fast to scan.",
+					"multiple": "Multi-select mode works when users need several values from a large list and still benefit from search. Keep the trigger compact and rely on badges plus search rather than long inline text.",
 					"scope": "Use it for people, places, categories, and other datasets where the user benefits from narrowing the list before choosing while still landing on one selected value.",
 					"search": "Use combobox when search or filtering is part of the interaction. If the list is short and obvious, a normal select is usually enough.",
-					"single": "This primitive is for one chosen value at a time. If users need many selections, use a dedicated multi-select pattern instead of stretching combobox behavior."
+					"single": "Single-select remains the default mode. Use it when the workflow resolves to one chosen value."
 				},
 				"snippet": "<Combobox\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose owner\"\n  searchPlaceholder=\"Search owners\"\n  options={options}\n/>"
 			},
@@ -1468,6 +1477,10 @@
 				"creatable": {
 					"description": "Use the creatable mode when the existing list should remain searchable but the user also needs a direct path to register a new option.",
 					"title": "Creatable selection"
+				},
+				"multiple": {
+					"description": "Use multi-select mode when search is still necessary even though the user may choose several values from the same dataset.",
+					"title": "Searchable multi-select"
 				}
 			},
 			"title": "Combobox"
@@ -1873,63 +1886,6 @@
 				}
 			},
 			"title": "Input"
-		},
-		"multiSelect": {
-			"cards": {
-				"disabled": {
-					"label": "Tags",
-					"title": "Disabled multi-select"
-				},
-				"owners": {
-					"description": "Descriptions help when selected values represent people or roles, and the badge tone can reinforce the meaning of that selection set.",
-					"label": "Owners",
-					"options": {
-						"ana": {
-							"description": "Regional follow-up",
-							"label": "Ana"
-						},
-						"joao": {
-							"description": "Project operations",
-							"label": "JoÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£o"
-						},
-						"maria": {
-							"description": "Academic coordination",
-							"label": "Maria"
-						}
-					},
-					"placeholder": "Choose owners",
-					"title": "Owners and assignees"
-				},
-				"status": {
-					"description": "A common admin filter case where several statuses may remain active together.",
-					"label": "Statuses",
-					"options": {
-						"active": "Active",
-						"archived": "Archived",
-						"paused": "Paused"
-					},
-					"placeholder": "Choose statuses",
-					"title": "Status filters"
-				}
-			},
-			"description": "Multi select lets users choose several values from one compact field. Use it when multiple filters or assignments belong to the same category and should stay grouped under one trigger.",
-			"patternNotes": {
-				"items": {
-					"escalation": "If the option set becomes very large, searchable, or deeply grouped, evolve to a richer pattern instead of stretching the simple multi-select too far.",
-					"options": "Descriptions help when values represent people, roles, or less obvious states, but the list should still remain easy to scan and toggle.",
-					"scope": "Use multi-select when the user may choose several values from the same set without scattering checkboxes through the main layout.",
-					"summary": "The trigger should summarize the current selection compactly through badges instead of trying to render a long open list in the closed state.",
-					"tone": "Selection badges use the brand tone by default. Only switch to another tone when the set carries real semantics, such as danger, warning, info, or success."
-				},
-				"snippet": "<MultiSelect\n  value={value}\n  onValueChange={setValue}\n  placeholder=\"Choose statuses\"\n  selectionTone=\"brand\"\n  options={[\n    { value: \"active\", label: \"Active\" },\n    { value: \"paused\", label: \"Paused\" },\n  ]}\n/>"
-			},
-			"sections": {
-				"filters": {
-					"description": "Multi select is a good fit when several filters or assignments should stay available in one compact field.",
-					"title": "Grouped multi-value fields"
-				}
-			},
-			"title": "Multi Select"
 		},
 		"popover": {
 			"description": "Popover is the small contextual surface anchored to a trigger. Use it for quick filters, supporting metadata, and local choices that should stay inside the current flow.",
@@ -3354,10 +3310,12 @@
 				"columns": {
 					"active": "Status",
 					"campus": "Campus",
+					"createdAt": "$t(identity.accountPage.table.columns.createdAt)",
 					"email": "$t(identity.accountPage.table.columns.email)",
 					"grantedAt": "Granted at",
 					"id": "Identifier",
-					"name": "$t(identity.userPage.table.columns.name)"
+					"name": "$t(identity.userPage.table.columns.name)",
+					"updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
 				},
 				"error": {
 					"description": "The administrator directory could not be loaded right now.",
@@ -3881,9 +3839,11 @@
 					"viewDetails": "View entity details"
 				},
 				"columns": {
+					"address": "Address",
 					"city": "City",
 					"cnpj": "CNPJ",
 					"createdAt": "$t(identity.accountPage.table.columns.createdAt)",
+					"id": "$t(geo.cityPage.dialog.fields.id)",
 					"name": "Entity",
 					"updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
 				},
@@ -3987,10 +3947,15 @@
 					"title": "Unable to load staff member"
 				},
 				"fields": {
+					"cityId": "City ID",
 					"email": "Email",
 					"entity": "Entity",
+					"id": "Staff ID",
 					"name": "Name",
 					"userId": "User ID"
+				},
+				"entity": {
+					"overhead": "Linked entity"
 				},
 				"linkedAccount": {
 					"active": {
@@ -4068,7 +4033,10 @@
 				},
 				"fields": {
 					"cpf": "CPF",
+					"cpfCreateOption": "Create {{value}}",
+					"cpfEmpty": "No CPF found.",
 					"cpfPlaceholder": "Enter the CPF",
+					"cpfSearchPlaceholder": "Search or create a CPF",
 					"email": "Email",
 					"entity": "Entity",
 					"entityEmptyMessage": "No entities found.",
@@ -4076,6 +4044,10 @@
 					"entitySearchPlaceholder": "Search entities",
 					"name": "Name",
 					"password": "Password"
+				},
+				"sections": {
+					"linkedEntity": "Linked entity",
+					"organization": "Organization"
 				},
 				"loading": "Loading staff editor",
 				"resetConfirm": {
@@ -4178,9 +4150,33 @@
 					"placeholder": "Select an entity",
 					"searchPlaceholder": "Search entities"
 				},
+				"activeOnly": {
+					"description": "When disabled, inactive linked accounts are included in the results.",
+					"label": "Active only"
+				},
+				"cpf": {
+					"label": "CPF",
+					"placeholder": "Filter by CPF"
+				},
+				"email": {
+					"label": "Email",
+					"placeholder": "Filter by email"
+				},
+				"name": {
+					"label": "Name",
+					"placeholder": "Filter by staff member name"
+				},
 				"search": {
 					"label": "Name, email or entity",
 					"placeholder": "Filter by name, email or entity"
+				},
+				"startDate": {
+					"label": "Created or updated from",
+					"placeholder": "Select a start date"
+				},
+				"endDate": {
+					"label": "Created or updated until",
+					"placeholder": "Select an end date"
 				}
 			},
 			"loading": {
@@ -4225,9 +4221,13 @@
 				},
 				"columns": {
 					"active": "Status",
+					"accountType": "Account type",
+					"createdAt": "Created at",
 					"email": "Email",
 					"entity": "Entity",
-					"name": "Staff member"
+					"id": "ID",
+					"name": "Staff member",
+					"updatedAt": "Updated at"
 				},
 				"error": {
 					"description": "$t(partner.staffPage.feedback.listError.description)",

@@ -25,7 +25,7 @@ import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
-import { AdminUserTab } from "@/features/identity/admins/AdminUserTab";
+import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
 import type {
 	AdminEditorContentProps,
 	CpfFormFieldExistingUser,
@@ -41,7 +41,6 @@ export function AdminEditorContent({
 	form,
 	linkedAccount,
 	linkedAccountError,
-	linkedUser,
 	linkedUserError,
 	mode,
 	onRefreshAccount,
@@ -155,26 +154,28 @@ export function AdminEditorContent({
 						{t("identity.adminPage.update.tabs.profile")}
 					</p>
 				</div>
-				<div className="grid gap-2">
-					<CpfFormField
-						id="admin-cpf"
-						form={form}
-						existingUsers={existingUsers}
-						label={t("identity.adminPage.update.fields.cpf")}
-						tooltipContent={t("identity.adminPage.update.fields.cpfHelp")}
-						placeholder={t("identity.adminPage.update.fields.cpfPlaceholder")}
-						searchPlaceholder={t(
-							"identity.adminPage.update.fields.cpfSearchPlaceholder",
-						)}
-						emptyMessage={t("identity.adminPage.update.fields.cpfEmpty")}
-						createOptionLabel={value =>
-							t("identity.adminPage.update.fields.cpfCreateOption", {
-								value,
-							})
-						}
-						onExistingUserChange={user => setMatchedExistingUser(user)}
-					/>
-				</div>
+				{isCreateMode ? (
+					<div className="grid gap-2">
+						<CpfFormField
+							id="admin-cpf"
+							form={form}
+							existingUsers={existingUsers}
+							label={t("identity.adminPage.update.fields.cpf")}
+							tooltipContent={t("identity.adminPage.update.fields.cpfHelp")}
+							placeholder={t("identity.adminPage.update.fields.cpfPlaceholder")}
+							searchPlaceholder={t(
+								"identity.adminPage.update.fields.cpfSearchPlaceholder",
+							)}
+							emptyMessage={t("identity.adminPage.update.fields.cpfEmpty")}
+							createOptionLabel={value =>
+								t("identity.adminPage.update.fields.cpfCreateOption", {
+									value,
+								})
+							}
+							onExistingUserChange={user => setMatchedExistingUser(user)}
+						/>
+					</div>
+				) : null}
 
 				<div className="grid gap-2">
 					<Label htmlFor="admin-name">
@@ -319,11 +320,9 @@ export function AdminEditorContent({
 							{t("identity.adminPage.update.tabs.user")}
 						</AccordionTrigger>
 						<AccordionContent>
-							<AdminUserTab
-								admin={admin}
-								linkedUser={linkedUser}
-								linkedUserError={linkedUserError}
-								onRefreshUser={onRefreshUser}
+							<UserDetailsContent
+								userId={admin.accountResponse.userId}
+								columns={2}
 							/>
 						</AccordionContent>
 					</AccordionItem>
