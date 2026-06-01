@@ -1,5 +1,6 @@
 "use client";
 
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
@@ -10,18 +11,20 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
+import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
+import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
 import type { CourseEditorFormProps } from "@/types";
 import { WebApiError } from "@/utils";
 
 export function CourseEditorForm({
+	areaOfExpertiseOptions,
+	areasOfExpertiseError,
 	canRenderForm,
 	course,
 	courseError,
 	form,
+	onRefreshAreasOfExpertise,
 	onRefreshCourse,
-	onRefreshSchools,
-	schoolOptions,
-	schoolsError,
 }: CourseEditorFormProps) {
 	const { t } = useTranslation();
 
@@ -44,14 +47,14 @@ export function CourseEditorForm({
 		);
 	}
 
-	if (schoolsError) {
+	if (areasOfExpertiseError) {
 		return (
 			<SomeErrorState
 				title={t("academic.coursePage.editor.schoolLoadError.title")}
 				description={t(
 					"academic.coursePage.editor.schoolLoadError.description",
 				)}
-				onRefresh={onRefreshSchools}
+				onRefresh={onRefreshAreasOfExpertise}
 			/>
 		);
 	}
@@ -88,16 +91,16 @@ export function CourseEditorForm({
 			</div>
 
 			<div className="grid gap-2">
-				<Label htmlFor="course-school">
+				<Label htmlFor="course-area-of-expertise">
 					{t("academic.coursePage.editor.fields.school")}
 				</Label>
 				<Controller
 					control={form.control}
-					name="schoolId"
+					name="areaOfExpertiseId"
 					render={({ field }) => (
 						<Combobox
-							id="course-school"
-							options={schoolOptions}
+							id="course-area-of-expertise"
+							options={areaOfExpertiseOptions}
 							value={field.value}
 							onValueChange={field.onChange}
 							placeholder={t(
@@ -112,38 +115,39 @@ export function CourseEditorForm({
 						/>
 					)}
 				/>
-				{form.formState.errors.schoolId ? (
+				{form.formState.errors.areaOfExpertiseId ? (
 					<p className="field-error">
-						{form.formState.errors.schoolId.message}
+						{form.formState.errors.areaOfExpertiseId.message}
 					</p>
 				) : null}
 			</div>
 
 			{course ? (
-				<div className="grid gap-4 pt-2 sm:grid-cols-3">
-					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("academic.coursePage.dialog.fields.id")}
-						</p>
-						<p className="ty-sm-semibold">{course.id}</p>
-					</div>
-					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("academic.coursePage.dialog.fields.createdAt")}
-						</p>
-						<p className="ty-sm-semibold">
-							{course.auditInfo.createdAtFormatted}
-						</p>
-					</div>
-					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("academic.coursePage.dialog.fields.updatedAt")}
-						</p>
-						<p className="ty-sm-semibold">
-							{course.auditInfo.updatedAtFormatted}
-						</p>
-					</div>
-				</div>
+				<>
+					<CourseOwnDetailsContent
+						course={course}
+						columns={2}
+					/>
+					<Accordion
+						type="single"
+						collapsible
+						className="pt-2"
+						defaultValue="linked-area-of-expertise"
+					>
+						<AccordionItem value="linked-area-of-expertise">
+							<AccordionTrigger>
+								{t("academic.coursePage.dialog.linkedAreaOfExpertise.overhead")}
+							</AccordionTrigger>
+							<AccordionContent>
+								<AreaOfExpertiseDetailsContent
+									areaOfExpertise={course.areaOfExpertise}
+									columns={2}
+									includeName={false}
+								/>
+							</AccordionContent>
+						</AccordionItem>
+					</Accordion>
+				</>
 			) : null}
 		</div>
 	);

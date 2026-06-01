@@ -128,8 +128,8 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - `/`
 - `/academic`
 - `/academic/courses`
-- `/academic/schools`
-- `/academic/students`
+- `/academic/areas-of-expertise`
+- `/academic/former-students`
 - `/partner`
 - `/partner/entities`
 - `/partner/staff`
@@ -989,3 +989,4 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 - Do not move logic out of a `.tsx` file just to satisfy formality when it is tightly coupled to local state and would become harder to read.
 
 If there is any conflict between an existing file and this document, prefer the repo's currently working shared patterns, then update this context file when the architectural rule has clearly changed.
+

@@ -21,7 +21,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useSchoolsQuery } from "@/features/academic/schools/queries";
+import { useAreasOfExpertiseQuery } from "@/features/academic/areas-of-expertise/queries";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
@@ -33,8 +33,8 @@ import { CourseEditorForm } from "./CourseEditorForm";
 import { useCreateCourseMutation, useUpdateCourseMutation } from "./mutations";
 import { useCourseDetailQuery } from "./queries";
 import {
+	buildCourseAreaOfExpertiseOptions,
 	buildCourseDuplicateFormValues,
-	buildCourseSchoolOptions,
 	buildCourseUpdateFormValues,
 	createCourseEditorFormSchema,
 	getCourseCreateErrorToastContent,
@@ -58,12 +58,13 @@ export function CourseEditorDrawer({
 	const isCreateMode = mode === "create";
 	const isDuplicateMode = mode === "duplicate";
 	const courseDetailQuery = useCourseDetailQuery(courseId);
-	const schoolsQuery = useSchoolsQuery();
+	const areasOfExpertiseQuery = useAreasOfExpertiseQuery();
 	const createMutation = useCreateCourseMutation();
 	const updateMutation = useUpdateCourseMutation();
-	const schoolOptions = useMemo(
-		() => buildCourseSchoolOptions(schoolsQuery.data ?? []),
-		[schoolsQuery.data],
+	const areaOfExpertiseOptions = useMemo(
+		() =>
+			buildCourseAreaOfExpertiseOptions(areasOfExpertiseQuery.data ?? []),
+		[areasOfExpertiseQuery.data],
 	);
 	const emptyValues = useMemo(() => getEmptyCourseEditorFormValues(), []);
 	const form = useLocalizedZodForm<CourseEditorFormValues>({
@@ -97,13 +98,14 @@ export function CourseEditorDrawer({
 			mode,
 			courseDetailQuery.data.id,
 			loadedFormValues.name,
-			loadedFormValues.schoolId,
+			loadedFormValues.areaOfExpertiseId,
 		].join("|");
 	}, [courseDetailQuery.data, isCreateMode, loadedFormValues, mode]);
 	const canRenderForm = isCreateMode ? true : Boolean(courseDetailQuery.data);
 	const isDrawerLoading =
 		open &&
-		(schoolsQuery.isLoading || (!isCreateMode && courseDetailQuery.isLoading));
+		(areasOfExpertiseQuery.isLoading ||
+			(!isCreateMode && courseDetailQuery.isLoading));
 	const isSubmitPending = createMutation.isPending || updateMutation.isPending;
 	const drawerOverhead = t(
 		isCreateMode
@@ -143,11 +145,11 @@ export function CourseEditorDrawer({
 			isError: courseDetailQuery.isError,
 		},
 		{
-			key: "course-editor-schools",
-			error: schoolsQuery.error,
-			errorUpdatedAt: schoolsQuery.errorUpdatedAt,
+			key: "course-editor-areas-of-expertise",
+			error: areasOfExpertiseQuery.error,
+			errorUpdatedAt: areasOfExpertiseQuery.errorUpdatedAt,
 			getContent: error => getCourseSchoolsErrorToastContent(t, error),
-			isError: schoolsQuery.isError,
+			isError: areasOfExpertiseQuery.isError,
 		},
 	]);
 	useHydratedFormOnOpen({
@@ -265,6 +267,12 @@ export function CourseEditorDrawer({
 
 					<DrawerBody className="grid gap-6">
 						<CourseEditorForm
+							areaOfExpertiseOptions={areaOfExpertiseOptions}
+							areasOfExpertiseError={
+								areasOfExpertiseQuery.isError
+									? areasOfExpertiseQuery.error
+									: null
+							}
 							canRenderForm={canRenderForm}
 							course={courseDetailQuery.data}
 							courseError={
@@ -272,14 +280,12 @@ export function CourseEditorDrawer({
 							}
 							form={form}
 							mode={mode}
+							onRefreshAreasOfExpertise={() => {
+								void areasOfExpertiseQuery.refetch();
+							}}
 							onRefreshCourse={() => {
 								void courseDetailQuery.refetch();
 							}}
-							onRefreshSchools={() => {
-								void schoolsQuery.refetch();
-							}}
-							schoolOptions={schoolOptions}
-							schoolsError={schoolsQuery.isError ? schoolsQuery.error : null}
 						/>
 					</DrawerBody>
 

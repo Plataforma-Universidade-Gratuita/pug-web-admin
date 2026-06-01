@@ -7,7 +7,6 @@ import type {
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
-export type CourseAuditDateField = "" | "createdAt" | "updatedAt";
 export type CourseEditorMode = "create" | "duplicate" | "update";
 
 export interface CoursePageProps {
@@ -21,8 +20,7 @@ export interface CourseRoutePageProps {
 }
 
 export interface CourseSecondaryFilters {
-	areaOfExpertiseIdFilter: string;
-	dateField: CourseAuditDateField;
+	areaOfExpertiseIds: string[];
 	startDate: string;
 	endDate: string;
 }
@@ -65,20 +63,18 @@ export interface CourseEditorFormProps {
 }
 
 export interface CoursesFiltersDrawerProps {
-	dateField: CourseAuditDateField;
 	endDate: string;
 	hasActiveFilters: boolean;
 	isAreasOfExpertiseLoading: boolean;
 	onApply: () => void;
 	onClear: () => void;
-	onDateFieldChange: (value: CourseAuditDateField) => void;
 	onEndDateChange: (value: string) => void;
 	onOpenChange: (open: boolean) => void;
 	onRefreshAreasOfExpertise: () => void;
-	onAreaOfExpertiseIdChange: (value: string) => void;
+	onAreaOfExpertiseIdsChange: (value: string[]) => void;
 	onStartDateChange: (value: string) => void;
 	open: boolean;
-	areaOfExpertiseIdFilter: string;
+	areaOfExpertiseIds: string[];
 	areaOfExpertiseOptions: ComboboxOption[];
 	areasOfExpertiseError: boolean;
 	startDate: string;
@@ -88,13 +84,13 @@ export interface CoursesRowActionsProps {
 	course: CourseResponse;
 	href: string;
 	onDelete: (course: CourseResponse) => void;
+	onDuplicate: (course: CourseResponse) => void;
 	onOpenEditor: (id: string, mode: CourseEditorMode) => void;
 }
 
 export interface CourseFilterArgs {
-	dateField: CourseAuditDateField;
 	endDate: string;
 	query: string;
-	areaOfExpertiseIdFilter: string;
+	areaOfExpertiseIds: string[];
 	startDate: string;
 }

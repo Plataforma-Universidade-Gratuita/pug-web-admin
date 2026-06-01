@@ -11,15 +11,15 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 } from "@/components";
-import type { CoursesRowActionsProps } from "@/types";
+import type { AreasOfExpertiseRowActionsProps } from "@/types";
 
-export function CoursesRowActions({
-	course,
+export function AreasOfExpertiseRowActions({
 	href,
 	onDelete,
 	onDuplicate,
 	onOpenEditor,
-}: CoursesRowActionsProps) {
+	areaOfExpertise,
+}: AreasOfExpertiseRowActionsProps) {
 	const { t } = useTranslation();
 	const router = useRouter();
 
@@ -27,26 +27,26 @@ export function CoursesRowActions({
 		<>
 			<DropdownMenuInfoItem
 				icon={ArrowUpRight}
-				label={t("academic.coursePage.table.actions.viewDetails")}
+				label={t("academic.schoolPage.table.actions.viewDetails")}
 				onClick={() => {
 					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}
-				label={t("academic.coursePage.table.actions.update")}
-				onClick={() => onOpenEditor(course.id, "update")}
+				label={t("academic.schoolPage.table.actions.update")}
+				onClick={() => onOpenEditor(areaOfExpertise.id, "update")}
 			/>
 			<DropdownMenuItem
 				icon={CopyPlus}
-				label={t("academic.coursePage.table.actions.duplicate")}
-				onClick={() => onDuplicate(course)}
+				label={t("academic.schoolPage.table.actions.duplicate")}
+				onClick={() => onDuplicate(areaOfExpertise)}
 			/>
 			<DropdownMenuSeparator />
 			<DropdownMenuDangerItem
 				icon={Trash2}
-				label={t("academic.coursePage.table.actions.delete")}
-				onClick={() => onDelete(course)}
+				label={t("academic.schoolPage.table.actions.delete")}
+				onClick={() => onDelete(areaOfExpertise)}
 			/>
 		</>
 	);

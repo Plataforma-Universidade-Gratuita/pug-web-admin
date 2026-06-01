@@ -5,16 +5,20 @@ export const courseQueryKeys = {
 	idleDetail: () => [...courseQueryKeys.all, "detail", "idle"] as const,
 };
 
-export const schoolQueryKeys = {
-	all: ["academic", "school"] as const,
-	list: () => [...schoolQueryKeys.all, "list"] as const,
-	detail: (id: string) => [...schoolQueryKeys.all, "detail", id] as const,
-	idleDetail: () => [...schoolQueryKeys.all, "detail", "idle"] as const,
+export const areaOfExpertiseQueryKeys = {
+	all: ["academic", "area-of-expertise"] as const,
+	list: () => [...areaOfExpertiseQueryKeys.all, "list"] as const,
+	detail: (id: string) =>
+		[...areaOfExpertiseQueryKeys.all, "detail", id] as const,
+	idleDetail: () =>
+		[...areaOfExpertiseQueryKeys.all, "detail", "idle"] as const,
 };
 
-export const studentQueryKeys = {
-	all: ["academic", "student"] as const,
-	list: () => [...studentQueryKeys.all, "list"] as const,
-	detail: (id: string) => [...studentQueryKeys.all, "detail", id] as const,
-	idleDetail: () => [...studentQueryKeys.all, "detail", "idle"] as const,
+export const formerStudentQueryKeys = {
+	all: ["academic", "former-student"] as const,
+	list: () => [...formerStudentQueryKeys.all, "list"] as const,
+	detail: (id: string) =>
+		[...formerStudentQueryKeys.all, "detail", id] as const,
+	idleDetail: () =>
+		[...formerStudentQueryKeys.all, "detail", "idle"] as const,
 };

@@ -4,28 +4,26 @@ import { useTranslation } from "react-i18next";
 
 import { Combobox, Label, SomeErrorState } from "@/components";
 import {
-	AuditInfoFilterFields,
 	ServicePageFiltersDrawer,
 } from "@/features/shared/service-pages";
-import type { CourseAuditDateField, CoursesFiltersDrawerProps } from "@/types";
+import { DatePicker } from "@/components";
+import type { CoursesFiltersDrawerProps } from "@/types";
 
 export function CoursesFiltersDrawer({
-	dateField,
+	areaOfExpertiseIds,
+	areaOfExpertiseOptions,
+	areasOfExpertiseError,
 	endDate,
 	hasActiveFilters,
-	isSchoolsLoading,
+	isAreasOfExpertiseLoading,
 	onApply,
+	onAreaOfExpertiseIdsChange,
 	onClear,
-	onDateFieldChange,
 	onEndDateChange,
 	onOpenChange,
-	onRefreshSchools,
-	onSchoolIdChange,
+	onRefreshAreasOfExpertise,
 	onStartDateChange,
 	open,
-	schoolIdFilter,
-	schoolOptions,
-	schoolsError,
 	startDate,
 }: CoursesFiltersDrawerProps) {
 	const { t } = useTranslation();
@@ -51,63 +49,49 @@ export function CoursesFiltersDrawer({
 			onClear={onClear}
 			onApply={onApply}
 		>
-			{schoolsError ? (
+			{areasOfExpertiseError ? (
 				<SomeErrorState
 					title={t("academic.coursePage.filters.school.error.title")}
 					description={t(
 						"academic.coursePage.filters.school.error.description",
 					)}
-					onRefresh={onRefreshSchools}
+					onRefresh={onRefreshAreasOfExpertise}
 				/>
 			) : (
 				<div className="grid gap-2">
 					<Label>{t("academic.coursePage.filters.school.label")}</Label>
 					<Combobox
-						options={schoolOptions}
-						value={schoolIdFilter}
-						onValueChange={onSchoolIdChange}
+						multiple
+						options={areaOfExpertiseOptions}
+						values={areaOfExpertiseIds}
+						onValuesChange={onAreaOfExpertiseIdsChange}
 						placeholder={t("academic.coursePage.filters.school.placeholder")}
 						searchPlaceholder={t(
 							"academic.coursePage.filters.school.searchPlaceholder",
 						)}
 						emptyMessage={t("academic.coursePage.filters.school.emptyMessage")}
-						disabled={isSchoolsLoading}
+						disabled={isAreasOfExpertiseLoading}
 					/>
 				</div>
 			)}
 
-			<AuditInfoFilterFields
-				dateFieldLabel={t("academic.coursePage.filters.dateField.label")}
-				dateFieldPlaceholder={t(
-					"academic.coursePage.filters.dateField.placeholder",
-				)}
-				dateField={dateField}
-				onDateFieldChange={value =>
-					onDateFieldChange(value as CourseAuditDateField)
-				}
-				dateFieldOptions={[
-					{
-						value: "createdAt",
-						label: t("academic.coursePage.filters.dateField.options.createdAt"),
-					},
-					{
-						value: "updatedAt",
-						label: t("academic.coursePage.filters.dateField.options.updatedAt"),
-					},
-				]}
-				startDateLabel={t("academic.coursePage.filters.startDate.label")}
-				startDatePlaceholder={t(
-					"academic.coursePage.filters.startDate.placeholder",
-				)}
-				startDate={startDate}
-				onStartDateChange={onStartDateChange}
-				endDateLabel={t("academic.coursePage.filters.endDate.label")}
-				endDatePlaceholder={t(
-					"academic.coursePage.filters.endDate.placeholder",
-				)}
-				endDate={endDate}
-				onEndDateChange={onEndDateChange}
-			/>
+			<div className="grid min-w-0 gap-2">
+				<Label>{t("academic.coursePage.filters.startDate.label")}</Label>
+				<DatePicker
+					value={startDate}
+					onValueChange={onStartDateChange}
+					placeholder={t("academic.coursePage.filters.startDate.placeholder")}
+				/>
+			</div>
+
+			<div className="grid min-w-0 gap-2">
+				<Label>{t("academic.coursePage.filters.endDate.label")}</Label>
+				<DatePicker
+					value={endDate}
+					onValueChange={onEndDateChange}
+					placeholder={t("academic.coursePage.filters.endDate.placeholder")}
+				/>
+			</div>
 		</ServicePageFiltersDrawer>
 	);
 }

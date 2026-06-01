@@ -18,7 +18,7 @@ export function AcademicOverviewPage() {
 			<ModulePageComingSoon
 				paths={[
 					{
-						href: "/academic/schools",
+						href: "/academic/areas-of-expertise",
 						label: t("academic.schoolPage.title"),
 						description: t("academic.schoolPage.description"),
 					},
@@ -28,7 +28,7 @@ export function AcademicOverviewPage() {
 						description: t("academic.coursePage.description"),
 					},
 					{
-						href: "/academic/students",
+						href: "/academic/former-students",
 						label: t("academic.studentPage.title"),
 						description: t("academic.studentPage.description"),
 					},
@@ -37,3 +37,4 @@ export function AcademicOverviewPage() {
 		</ModulePageShell>
 	);
 }
+

@@ -32,7 +32,7 @@ export function AccountsFiltersDrawer({
 			open={open}
 			onOpenChange={onOpenChange}
 			hasActiveFilters={hasActiveFilters}
-			label={t("identity.accountPage.filters.drawer.label")}
+			label={t("identity.adminPage.filters.drawer.label")}
 			activeLabel={t("identity.accountPage.filters.drawer.active")}
 			triggerLabel={t("identity.accountPage.filters.drawer.trigger")}
 			overhead={t("identity.accountPage.filters.drawer.overhead")}

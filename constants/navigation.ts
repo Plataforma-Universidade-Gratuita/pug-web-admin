@@ -55,12 +55,12 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 				Icon: BookOpen,
 			},
 			{
-				href: "/academic/schools",
+				href: "/academic/areas-of-expertise",
 				label: "Navbar.paths.academic.school",
 				Icon: Building2,
 			},
 			{
-				href: "/academic/students",
+				href: "/academic/former-students",
 				label: "Navbar.paths.academic.student",
 				Icon: Users,
 			},
@@ -259,10 +259,11 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/academic": "Navbar.paths.academic.root",
 	"/academic/courses": "Navbar.paths.academic.course",
 	"/academic/courses/[courseId]": "academic.coursePage.dialog.titleFallback",
-	"/academic/schools": "Navbar.paths.academic.school",
-	"/academic/schools/[schoolId]": "academic.schoolPage.dialog.titleFallback",
-	"/academic/students": "Navbar.paths.academic.student",
-	"/academic/students/[studentId]": "academic.studentPage.dialog.titleFallback",
+	"/academic/areas-of-expertise": "Navbar.paths.academic.school",
+	"/academic/areas-of-expertise/[areaOfExpertiseId]":
+		"academic.schoolPage.dialog.titleFallback",
+	"/academic/former-students": "Navbar.paths.academic.student",
+	"/academic/former-students/[studentId]": "academic.studentPage.dialog.titleFallback",
 	"/geo": "Navbar.paths.geo.root",
 	"/geo/cities": "Navbar.paths.geo.city",
 	"/geo/cities/[cityId]": "geo.cityPage.dialog.titleFallback",
@@ -288,3 +289,4 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/project/projects": "Navbar.paths.project.project",
 	"/project/projects/[projectId]": "project.projectPage.dialog.titleFallback",
 };
+

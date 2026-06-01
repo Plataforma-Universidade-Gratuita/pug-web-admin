@@ -1,34 +1,45 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
+import { TableText } from "@/components";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type {
+	AreaOfExpertiseResponse,
 	CourseCreateRequest,
 	CourseResponse,
 	CourseUpdateRequest,
-	SchoolResponse,
 } from "@/types";
-import type { ComboboxOption } from "@/types";
-import type { CourseEditorFormValues, CourseFilterArgs } from "@/types";
-import { getApiErrorToastContent } from "@/utils";
-import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
+import type { ComboboxOption, CourseEditorFormValues, CourseFilterArgs } from "@/types";
+import {
+	compareNormalizedText,
+	getApiErrorToastContent,
+	matchesAnyDateRange,
+	normalizeTextForSearch,
+	toSearchDateOffsetDateTime,
+} from "@/utils";
 
 export { createCourseEditorFormSchema } from "@/schemas";
 
-function getStartOfDayTimestamp(value: string) {
-	const date = new Date(value);
-	date.setHours(0, 0, 0, 0);
-	return date.getTime();
-}
-
 export function createCourseColumns(t: TFunction): ColumnDef<CourseResponse>[] {
 	return [
+		{
+			accessorKey: "id",
+			header: t("academic.coursePage.table.columns.id"),
+			size: TABLE_TRUNCATED_COLUMN_WIDTH,
+			cell: ({ row }) =>
+				TableText({
+					text: row.original.id,
+					maxWidth: TABLE_TRUNCATED_COLUMN_WIDTH,
+					tooltiped: true,
+				}),
+		},
 		{
 			accessorKey: "name",
 			header: t("academic.coursePage.table.columns.name"),
 		},
 		{
-			accessorFn: row => row.school.name,
-			id: "school",
+			accessorFn: row => row.areaOfExpertise.name,
+			id: "areaOfExpertise",
 			header: t("academic.coursePage.table.columns.school"),
 		},
 		{
@@ -46,66 +57,73 @@ export function createCourseColumns(t: TFunction): ColumnDef<CourseResponse>[] {
 	];
 }
 
-export function buildCourseSchoolOptions(
-	schools: SchoolResponse[],
+export function buildCourseAreaOfExpertiseOptions(
+	areasOfExpertise: AreaOfExpertiseResponse[],
 ): ComboboxOption[] {
-	return [...schools]
+	return [...areasOfExpertise]
 		.sort((left, right) => compareNormalizedText(left.name, right.name))
-		.map(school => ({
-			value: school.id,
-			label: school.name,
+		.map(areaOfExpertise => ({
+			value: areaOfExpertise.id,
+			label: areaOfExpertise.name,
 		}));
 }
 
 export function filterCourses(
 	courses: CourseResponse[],
-	{ dateField, endDate, query, schoolIdFilter, startDate }: CourseFilterArgs,
+	{ areaOfExpertiseIds, endDate, query, startDate }: CourseFilterArgs,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const hasQuery = normalizedQuery.length > 0;
-	const hasSchoolFilter = schoolIdFilter.length > 0;
-	const startTimestamp = startDate ? getStartOfDayTimestamp(startDate) : null;
-	const endTimestamp = endDate ? getStartOfDayTimestamp(endDate) : null;
+	const hasAreaOfExpertiseFilter = areaOfExpertiseIds.length > 0;
+	const hasDateRange = Boolean(startDate || endDate);
 
-	if (
-		!hasQuery &&
-		!hasSchoolFilter &&
-		!dateField &&
-		startTimestamp === null &&
-		endTimestamp === null
-	) {
+	if (!hasQuery && !hasAreaOfExpertiseFilter && !hasDateRange) {
 		return courses;
 	}
 
 	return courses.filter(course => {
 		if (hasQuery) {
 			const normalizedName = normalizeTextForSearch(course.name);
-			const normalizedSchool = normalizeTextForSearch(course.school.name);
+			const normalizedAreaOfExpertise = normalizeTextForSearch(
+				course.areaOfExpertise.name,
+			);
 
 			if (
 				!normalizedName.includes(normalizedQuery) &&
-				!normalizedSchool.includes(normalizedQuery)
+				!normalizedAreaOfExpertise.includes(normalizedQuery)
 			) {
 				return false;
 			}
 		}
 
-		if (hasSchoolFilter && course.school.id !== schoolIdFilter) {
+		if (hasAreaOfExpertiseFilter && !areaOfExpertiseIds.includes(course.areaOfExpertise.id)) {
 			return false;
 		}
 
-		if (dateField && (startTimestamp !== null || endTimestamp !== null)) {
-			const auditTimestamp = getStartOfDayTimestamp(
-				course.auditInfo[dateField],
-			);
-
-			if (startTimestamp !== null && auditTimestamp < startTimestamp) {
-				return false;
-			}
-
-			if (endTimestamp !== null && auditTimestamp > endTimestamp) {
-				return false;
-			}
+		if (
+			hasDateRange &&
+			!matchesAnyDateRange(
+				[course.auditInfo.createdAt, course.auditInfo.updatedAt],
+				{
+					...(startDate
+						? (() => {
+								const dateFrom = toSearchDateOffsetDateTime(
+									startDate,
+									"start",
+								);
+								return dateFrom ? { dateFrom } : {};
+							})()
+						: {}),
+					...(endDate
+						? (() => {
+								const dateTo = toSearchDateOffsetDateTime(endDate, "end");
+								return dateTo ? { dateTo } : {};
+							})()
+						: {}),
+				},
+			)
+		) {
+			return false;
 		}
 
 		return true;
@@ -193,7 +211,7 @@ export function getCourseDeleteErrorToastContent(t: TFunction, error: unknown) {
 export function getEmptyCourseEditorFormValues(): CourseEditorFormValues {
 	return {
 		name: "",
-		schoolId: "",
+		areaOfExpertiseId: "",
 	};
 }
 
@@ -202,7 +220,7 @@ export function buildCourseUpdateFormValues(
 ): CourseEditorFormValues {
 	return {
 		name: course.name,
-		schoolId: course.school.id,
+		areaOfExpertiseId: course.areaOfExpertise.id,
 	};
 }
 
@@ -210,8 +228,8 @@ export function buildCourseDuplicateFormValues(
 	course: CourseResponse,
 ): CourseEditorFormValues {
 	return {
-		name: course.name,
-		schoolId: course.school.id,
+		name: appendCopyToCourseName(course.name),
+		areaOfExpertiseId: course.areaOfExpertise.id,
 	};
 }
 
@@ -220,7 +238,7 @@ export function toCourseCreateRequest(
 ): CourseCreateRequest {
 	return {
 		name: values.name.trim(),
-		schoolId: values.schoolId,
+		areaOfExpertiseId: values.areaOfExpertiseId,
 	};
 }
 
@@ -229,14 +247,19 @@ export function toCourseUpdateRequest(
 ): CourseUpdateRequest {
 	return {
 		name: values.name.trim(),
-		schoolId: values.schoolId,
+		areaOfExpertiseId: values.areaOfExpertiseId,
 	};
 }
 
 export function getCourseFilterSummary(
 	t: TFunction,
-	{ dateField, endDate, query, schoolIdFilter, startDate }: CourseFilterArgs,
-	schoolById: Map<string, SchoolResponse>,
+	{
+		areaOfExpertiseIds,
+		endDate,
+		query,
+		startDate,
+	}: CourseFilterArgs,
+	areaOfExpertiseById: Map<string, AreaOfExpertiseResponse>,
 ) {
 	const parts: string[] = [];
 
@@ -244,12 +267,16 @@ export function getCourseFilterSummary(
 		parts.push(query.trim());
 	}
 
-	if (schoolIdFilter) {
-		parts.push(schoolById.get(schoolIdFilter)?.name ?? schoolIdFilter);
-	}
-
-	if (dateField) {
-		parts.push(t(`academic.coursePage.filters.dateField.options.${dateField}`));
+	if (areaOfExpertiseIds.length > 0) {
+		parts.push(
+			areaOfExpertiseIds
+				.map(
+					areaOfExpertiseId =>
+						areaOfExpertiseById.get(areaOfExpertiseId)?.name ??
+						areaOfExpertiseId,
+				)
+				.join(", "),
+		);
 	}
 
 	if (startDate || endDate) {
@@ -257,4 +284,8 @@ export function getCourseFilterSummary(
 	}
 
 	return parts.join(" | ");
+}
+
+export function appendCopyToCourseName(name: string) {
+	return `${name.trim()} Copy`;
 }

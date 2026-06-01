@@ -5,22 +5,27 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
+import { useAreasOfExpertiseQuery } from "@/features/academic/areas-of-expertise/queries";
 import { CourseEditorDrawer } from "@/features/academic/courses/CourseEditorDrawer";
 import { CoursesFiltersDrawer } from "@/features/academic/courses/CoursesFiltersDrawer";
 import { CoursesRowActions } from "@/features/academic/courses/CoursesRowActions";
-import { useRemoveCourseMutation } from "@/features/academic/courses/mutations";
+import {
+	useCreateCourseMutation,
+	useRemoveCourseMutation,
+} from "@/features/academic/courses/mutations";
 import { useCoursesQuery } from "@/features/academic/courses/queries";
 import {
-	buildCourseSchoolOptions,
+	appendCopyToCourseName,
+	buildCourseAreaOfExpertiseOptions,
 	createCourseColumns,
 	filterCourses,
 	getCourseDeleteErrorToastContent,
 	getCourseEmptyStateCopy,
 	getCourseFilterSummary,
+	getCourseDuplicateErrorToastContent,
 	getCourseSchoolsErrorToastContent,
 	getCoursesListErrorToastContent,
 } from "@/features/academic/courses/utils";
-import { useSchoolsQuery } from "@/features/academic/schools/queries";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -35,7 +40,7 @@ import {
 	useQueryErrorToasts,
 	useServicePageEditorState,
 } from "@/hooks";
-import type { CourseResponse, SchoolResponse } from "@/types";
+import type { AreaOfExpertiseResponse, CourseResponse } from "@/types";
 import type { CourseEditorMode, CourseSecondaryFilters } from "@/types";
 
 export function CoursesPage() {
@@ -44,8 +49,7 @@ export function CoursesPage() {
 	const [filtersOpen, setFiltersOpen] = useState(false);
 	const initialSecondaryFilters = useMemo<CourseSecondaryFilters>(
 		() => ({
-			schoolIdFilter: "",
-			dateField: "",
+			areaOfExpertiseIds: [],
 			startDate: "",
 			endDate: "",
 		}),
@@ -69,24 +73,31 @@ export function CoursesPage() {
 		useState<CourseResponse | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const coursesQuery = useCoursesQuery();
-	const schoolsQuery = useSchoolsQuery();
+	const areasOfExpertiseQuery = useAreasOfExpertiseQuery();
+	const createCourseMutation = useCreateCourseMutation();
 	const removeCourseMutation = useRemoveCourseMutation();
 	const { schedule } = useDeferredUndoAction();
 
-	const schoolById = useMemo(
-		() => new Map((schoolsQuery.data ?? []).map(school => [school.id, school])),
-		[schoolsQuery.data],
+	const areaOfExpertiseById = useMemo(
+		() =>
+			new Map(
+				(areasOfExpertiseQuery.data ?? []).map(areaOfExpertise => [
+					areaOfExpertise.id,
+					areaOfExpertise,
+				]),
+			),
+		[areasOfExpertiseQuery.data],
 	);
-	const schoolOptions = useMemo(
-		() => buildCourseSchoolOptions(schoolsQuery.data ?? []),
-		[schoolsQuery.data],
+	const areaOfExpertiseOptions = useMemo(
+		() =>
+			buildCourseAreaOfExpertiseOptions(areasOfExpertiseQuery.data ?? []),
+		[areasOfExpertiseQuery.data],
 	);
 	const filteredCourses = useMemo(
 		() =>
 			filterCourses(coursesQuery.data ?? [], {
 				query: deferredQuerySearch,
-				schoolIdFilter: appliedFilters.schoolIdFilter,
-				dateField: appliedFilters.dateField,
+				areaOfExpertiseIds: appliedFilters.areaOfExpertiseIds,
 				startDate: appliedFilters.startDate,
 				endDate: appliedFilters.endDate,
 			}),
@@ -100,14 +111,13 @@ export function CoursesPage() {
 				t,
 				{
 					query: deferredQuerySearch,
-					schoolIdFilter: appliedFilters.schoolIdFilter,
-					dateField: appliedFilters.dateField,
+					areaOfExpertiseIds: appliedFilters.areaOfExpertiseIds,
 					startDate: appliedFilters.startDate,
 					endDate: appliedFilters.endDate,
 				},
-				schoolById as Map<string, SchoolResponse>,
+				areaOfExpertiseById as Map<string, AreaOfExpertiseResponse>,
 			),
-		[appliedFilters, deferredQuerySearch, schoolById, t],
+		[appliedFilters, areaOfExpertiseById, deferredQuerySearch, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getCourseEmptyStateCopy(t, filterSummary),
@@ -143,11 +153,11 @@ export function CoursesPage() {
 			isError: coursesQuery.isError,
 		},
 		{
-			key: "course-schools",
-			error: schoolsQuery.error,
-			errorUpdatedAt: schoolsQuery.errorUpdatedAt,
+			key: "course-areas-of-expertise",
+			error: areasOfExpertiseQuery.error,
+			errorUpdatedAt: areasOfExpertiseQuery.errorUpdatedAt,
 			getContent: error => getCourseSchoolsErrorToastContent(t, error),
-			isError: schoolsQuery.isError,
+			isError: areasOfExpertiseQuery.isError,
 		},
 	]);
 
@@ -155,6 +165,39 @@ export function CoursesPage() {
 		setQuerySearch("");
 		clearDraftFilters();
 		setFiltersOpen(false);
+	}
+
+	function handleDuplicate(course: CourseResponse) {
+		createCourseMutation.mutate(
+			{
+				body: {
+					name: appendCopyToCourseName(course.name),
+					areaOfExpertiseId: course.areaOfExpertise.id,
+				},
+			},
+			{
+				onSuccess: createdCourse => {
+					toast.success(
+						t("academic.coursePage.duplicate.feedback.success.title"),
+						{
+							description: t(
+								"academic.coursePage.duplicate.feedback.success.description",
+								{
+									name: createdCourse.name,
+								},
+							),
+						},
+					);
+				},
+				onError: error => {
+					const { title, description } = getCourseDuplicateErrorToastContent(
+						t,
+						error,
+					);
+					toast.danger(title, { description });
+				},
+			},
+		);
 	}
 
 	function handleDeleteConfirm() {
@@ -235,27 +278,27 @@ export function CoursesPage() {
 				/>
 
 				<CoursesFiltersDrawer
-					dateField={draftFilters.dateField}
+					areaOfExpertiseIds={draftFilters.areaOfExpertiseIds}
+					areaOfExpertiseOptions={areaOfExpertiseOptions}
+					areasOfExpertiseError={areasOfExpertiseQuery.isError}
 					endDate={draftFilters.endDate}
 					hasActiveFilters={hasAppliedFilters}
-					isSchoolsLoading={schoolsQuery.isLoading}
+					isAreasOfExpertiseLoading={areasOfExpertiseQuery.isLoading}
 					onApply={() => {
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
+					onAreaOfExpertiseIdsChange={value =>
+						setDraftFilter("areaOfExpertiseIds", value)
+					}
 					onClear={clearAllFilters}
-					onDateFieldChange={value => setDraftFilter("dateField", value)}
 					onEndDateChange={value => setDraftFilter("endDate", value)}
 					onOpenChange={setFiltersOpen}
-					onRefreshSchools={() => {
-						void schoolsQuery.refetch();
+					onRefreshAreasOfExpertise={() => {
+						void areasOfExpertiseQuery.refetch();
 					}}
-					onSchoolIdChange={value => setDraftFilter("schoolIdFilter", value)}
 					onStartDateChange={value => setDraftFilter("startDate", value)}
 					open={filtersOpen}
-					schoolIdFilter={draftFilters.schoolIdFilter}
-					schoolOptions={schoolOptions}
-					schoolsError={schoolsQuery.isError}
 					startDate={draftFilters.startDate}
 				/>
 			</ServicePageHeader>
@@ -271,6 +314,7 @@ export function CoursesPage() {
 							course={row}
 							href={`/academic/courses/${row.id}`}
 							onDelete={setPendingDeleteCourse}
+							onDuplicate={handleDuplicate}
 							onOpenEditor={editorState.openEditor}
 						/>
 					),

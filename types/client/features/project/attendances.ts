@@ -1,12 +1,13 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
-	AdminResponse,
+	AccountResponse,
 	AttendanceCreateRequest,
 	AttendanceResponse,
 	AttendanceStatus,
 	FormerStudentResponse,
 	ProjectResponse,
+	UserResponse,
 } from "@/types";
 import type { AttendanceValidateRequest } from "@/types";
 import type { ComboboxOption } from "@/types";
@@ -106,7 +107,7 @@ export interface AttendancesRowActionsProps {
 }
 
 export interface AttendanceFilterArgs {
-	adminById: Map<string, AdminResponse>;
+	accountById: Map<string, AccountResponse>;
 	dateField: AttendanceAuditDateField;
 	endDate: string;
 	projectById: Map<string, ProjectResponse>;
@@ -116,4 +117,5 @@ export interface AttendanceFilterArgs {
 	statusFilter: AttendanceStatusFilter;
 	formerStudentById: Map<string, FormerStudentResponse>;
 	formerStudentIdFilter: string;
+	userById: Map<string, UserResponse>;
 }

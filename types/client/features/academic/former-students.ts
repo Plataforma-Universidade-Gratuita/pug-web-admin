@@ -1,11 +1,13 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
+	AccountResponse,
 	Campi,
 	CourseResponse,
 	FormerStudentCreateRequest,
 	FormerStudentResponse,
 	FormerStudentUpdateRequest,
+	UserResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
@@ -41,6 +43,12 @@ export interface FormerStudentEditorFormValues {
 	requiredHours: string;
 	startDate: string;
 	dueDate: string;
+}
+
+export interface FormerStudentDirectoryItem extends FormerStudentResponse {
+	account: AccountResponse | null;
+	course: CourseResponse | null;
+	user: UserResponse | null;
 }
 
 export interface FormerStudentCreateMutationVariables {
@@ -107,10 +115,10 @@ export interface FormerStudentsFiltersDrawerProps {
 
 export interface FormerStudentsRowActionsProps {
 	href: string;
-	onDelete: (formerStudent: FormerStudentResponse) => void;
+	onDelete: (formerStudent: FormerStudentDirectoryItem) => void;
 	onOpenEditor: (id: string, mode: FormerStudentEditorMode) => void;
-	onSetActive: (formerStudent: FormerStudentResponse, active: boolean) => void;
-	formerStudent: FormerStudentResponse;
+	onSetActive: (formerStudent: FormerStudentDirectoryItem) => void;
+	formerStudent: FormerStudentDirectoryItem;
 }
 
 export interface FormerStudentFilterArgs {

@@ -45,12 +45,7 @@ export function createFormerStudentEditorFormSchema(
 					"academic.studentPage.editor.validation.academicRegistration.tooLong",
 				),
 			),
-			campus: z
-				.string()
-				.min(1, t("academic.studentPage.editor.validation.campus.required"))
-				.refine(value => CampiEnum.safeParse(value).success, {
-					message: t("academic.studentPage.editor.validation.campus.required"),
-				}),
+			campus: CampiEnum,
 			courseId: z
 				.string()
 				.trim()

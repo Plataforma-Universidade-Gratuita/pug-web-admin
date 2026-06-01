@@ -6,7 +6,6 @@ import type {
 	AreaOfExpertiseUpdateRequest,
 } from "@/types";
 
-export type AreaOfExpertiseAuditDateField = "" | "createdAt" | "updatedAt";
 export type AreaOfExpertiseEditorMode = "create" | "duplicate" | "update";
 
 export interface AreaOfExpertisePageProps {
@@ -20,7 +19,6 @@ export interface AreaOfExpertiseRoutePageProps {
 }
 
 export interface AreaOfExpertiseSecondaryFilters {
-	dateField: AreaOfExpertiseAuditDateField;
 	startDate: string;
 	endDate: string;
 }
@@ -59,12 +57,10 @@ export interface AreaOfExpertiseEditorFormProps {
 }
 
 export interface AreasOfExpertiseFiltersDrawerProps {
-	dateField: AreaOfExpertiseAuditDateField;
 	endDate: string;
 	hasActiveFilters: boolean;
 	onApply: () => void;
 	onClear: () => void;
-	onDateFieldChange: (value: AreaOfExpertiseAuditDateField) => void;
 	onEndDateChange: (value: string) => void;
 	onOpenChange: (open: boolean) => void;
 	onStartDateChange: (value: string) => void;
@@ -75,12 +71,12 @@ export interface AreasOfExpertiseFiltersDrawerProps {
 export interface AreasOfExpertiseRowActionsProps {
 	href: string;
 	onDelete: (areaOfExpertise: AreaOfExpertiseResponse) => void;
+	onDuplicate: (areaOfExpertise: AreaOfExpertiseResponse) => void;
 	onOpenEditor: (id: string, mode: AreaOfExpertiseEditorMode) => void;
 	areaOfExpertise: AreaOfExpertiseResponse;
 }
 
 export interface AreaOfExpertiseFilterArgs {
-	dateField: AreaOfExpertiseAuditDateField;
 	endDate: string;
 	query: string;
 	startDate: string;

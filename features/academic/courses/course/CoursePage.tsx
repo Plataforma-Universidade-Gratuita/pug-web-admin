@@ -1,14 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
-
 import { useTranslation } from "react-i18next";
 
 import { NotFoundState, SomeErrorState } from "@/components";
+import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { useCourseDetailQuery } from "@/features/academic/courses/queries";
+import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
 import { getCourseDetailErrorToastContent } from "@/features/academic/courses/utils";
 import {
-	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
 } from "@/features/shared/entity-pages";
@@ -31,39 +30,6 @@ export function CoursePage({ courseId }: CoursePageProps) {
 	]);
 
 	const course = courseDetailQuery.data;
-	const fields = useMemo(
-		() =>
-			course
-				? [
-						{
-							id: "name",
-							label: t("academic.coursePage.dialog.fields.name"),
-							value: course.name,
-						},
-						{
-							id: "school",
-							label: t("academic.coursePage.dialog.fields.school"),
-							value: course.school.name,
-						},
-						{
-							id: "id",
-							label: t("academic.coursePage.dialog.fields.id"),
-							value: course.id,
-						},
-						{
-							id: "createdAt",
-							label: t("academic.coursePage.dialog.fields.createdAt"),
-							value: course.auditInfo.createdAtFormatted,
-						},
-						{
-							id: "updatedAt",
-							label: t("academic.coursePage.dialog.fields.updatedAt"),
-							value: course.auditInfo.updatedAtFormatted,
-						},
-					]
-				: [],
-		[course, t],
-	);
 
 	return (
 		<EntityPageShell
@@ -87,7 +53,17 @@ export function CoursePage({ courseId }: CoursePageProps) {
 					/>
 				)
 			) : course ? (
-				<EntityPageFieldsGrid fields={fields} />
+				<div className="grid gap-6">
+					<CourseOwnDetailsContent course={course} />
+					<div className="grid gap-3">
+						<p className="ty-overhead">
+							{t("academic.coursePage.dialog.linkedAreaOfExpertise.overhead")}
+						</p>
+						<AreaOfExpertiseDetailsContent
+							areaOfExpertise={course.areaOfExpertise}
+						/>
+					</div>
+				</div>
 			) : courseDetailQuery.isLoading ? (
 				<EntityPageFieldsGridSkeleton />
 			) : (

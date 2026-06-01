@@ -1,8 +1,10 @@
 import type {
+	AccountResponse,
 	EnrollmentResponse,
 	EnrollmentStatus,
 	FormerStudentResponse,
 	ProjectResponse,
+	UserResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
 
@@ -91,4 +93,6 @@ export interface EnrollmentFilterArgs {
 	statusFilter: EnrollmentStatusFilter;
 	formerStudentById: Map<string, FormerStudentResponse>;
 	formerStudentIdFilter: string;
+	accountById: Map<string, AccountResponse>;
+	userById: Map<string, UserResponse>;
 }

@@ -58,6 +58,9 @@
 					"school": "$t(academic.coursePage.table.columns.school)",
 					"updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
 				},
+				"linkedAreaOfExpertise": {
+					"overhead": "Linked area of expertise"
+				},
 				"notFound": {
 					"description": "The requested course could not be found.",
 					"title": "Course not found"
@@ -194,6 +197,7 @@
 				},
 				"columns": {
 					"createdAt": "$t(identity.accountPage.table.columns.createdAt)",
+					"id": "$t(geo.cityPage.dialog.fields.id)",
 					"name": "Course",
 					"school": "Area of expertise",
 					"updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
@@ -397,6 +401,7 @@
 				},
 				"columns": {
 					"createdAt": "$t(identity.accountPage.table.columns.createdAt)",
+					"id": "$t(geo.cityPage.dialog.fields.id)",
 					"name": "Area",
 					"updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
 				},

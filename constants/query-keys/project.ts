@@ -8,8 +8,8 @@ export const attendanceQueryKeys = {
 export const enrollmentQueryKeys = {
 	all: ["project", "enrollment"] as const,
 	list: () => [...enrollmentQueryKeys.all, "list"] as const,
-	detail: (projectId: string, studentId: string) =>
-		[...enrollmentQueryKeys.all, "detail", projectId, studentId] as const,
+	detail: (projectId: string, formerStudentId: string) =>
+		[...enrollmentQueryKeys.all, "detail", projectId, formerStudentId] as const,
 	idleDetail: () =>
 		[...enrollmentQueryKeys.all, "detail", "idle", "idle"] as const,
 };
