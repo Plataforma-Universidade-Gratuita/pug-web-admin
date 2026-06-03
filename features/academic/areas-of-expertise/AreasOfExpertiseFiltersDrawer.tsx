@@ -3,9 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { DatePicker, Label } from "@/components";
-import {
-	ServicePageFiltersDrawer,
-} from "@/features/shared/service-pages";
+import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import type { AreasOfExpertiseFiltersDrawerProps } from "@/types";
 
 export function AreasOfExpertiseFiltersDrawer({
@@ -48,9 +46,7 @@ export function AreasOfExpertiseFiltersDrawer({
 					<DatePicker
 						value={startDate}
 						onValueChange={onStartDateChange}
-						placeholder={t(
-							"academic.schoolPage.filters.startDate.placeholder",
-						)}
+						placeholder={t("academic.schoolPage.filters.startDate.placeholder")}
 						panelSide="left"
 						panelAlign="start"
 						panelAvoidCollisions

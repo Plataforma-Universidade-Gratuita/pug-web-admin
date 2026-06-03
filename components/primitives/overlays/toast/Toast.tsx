@@ -18,7 +18,7 @@ import {
 	resolveToastOffset,
 	resolveToastValue,
 	withToastDefaults,
-} from "@/components/overlays/toast/utils";
+} from "@/components/primitives/overlays/toast/utils";
 import {
 	TOAST_DEFAULT_DURATION,
 	TOAST_UNDO_DURATION,

@@ -32,9 +32,14 @@ export async function getMe(token?: string): Promise<UserResponse> {
 	);
 }
 
-export async function list(token?: string): Promise<UserResponse[]> {
+export async function list(
+	token?: string,
+	ids?: string[],
+): Promise<UserResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.identity.users}`,
+		`${API_ROUTE_BASES.identity.users}${qs({
+			ids: ids?.join(","),
+		})}`,
 		{ method: "GET" },
 		z.array(UserResponseSchema),
 		token,

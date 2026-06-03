@@ -21,6 +21,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import { StaffEditorForm } from "@/features/partner/staff/StaffEditorForm";
 import {
 	useCreateStaffMutation,
@@ -47,7 +48,6 @@ import {
 	toStaffCreateRequest,
 	toStaffUpdateRequest,
 } from "@/features/partner/staff/utils";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,

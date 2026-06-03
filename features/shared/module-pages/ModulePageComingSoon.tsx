@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Icon, NoContentState } from "@/components";
+import { EmptyState, Icon } from "@/components";
 import type { ModulePageComingSoonProps } from "@/types";
 
 export function ModulePageComingSoon({
@@ -17,8 +17,9 @@ export function ModulePageComingSoon({
 	const { t } = useTranslation();
 
 	return (
-		<NoContentState
+		<EmptyState
 			className={className}
+			icon={undefined}
 			title={title ?? t("modulePages.comingSoon.title")}
 			description={description ?? t("modulePages.comingSoon.description")}
 		>
@@ -51,6 +52,6 @@ export function ModulePageComingSoon({
 					</div>
 				</div>
 			) : null}
-		</NoContentState>
+		</EmptyState>
 	);
 }

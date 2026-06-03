@@ -166,7 +166,9 @@ export function mapStaffToSearchResponses(
 	userById: Map<string, UserResponse>,
 	entityById: Map<string, EntityResponse>,
 ) {
-	return staff.map(item => buildStaffSearchResponse(item, userById, entityById));
+	return staff.map(item =>
+		buildStaffSearchResponse(item, userById, entityById),
+	);
 }
 
 export function buildStaffComplexSearchRequest(
@@ -221,10 +223,7 @@ export function filterStaffListByBackendFilters(
 				return false;
 			}
 
-			if (
-				request.cpf &&
-				!normalizeCpf(user?.cpf ?? "").includes(request.cpf)
-			) {
+			if (request.cpf && !normalizeCpf(user?.cpf ?? "").includes(request.cpf)) {
 				return false;
 			}
 

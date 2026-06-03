@@ -29,7 +29,7 @@ import {
 	normalizeDatePickerValue,
 	parseDateTimeValue,
 	setRefValue,
-} from "@/components/forms/date-picker/utils";
+} from "@/components/primitives/forms/date-picker/utils";
 import type { DatePickerProps } from "@/types";
 
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(

@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-export { list as listCities } from "@/api/web/geo/cities";
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	EntityComplexSearchRequestSchema,
@@ -19,6 +18,8 @@ import type {
 	PaginationRequest,
 } from "@/types";
 import { qs, webFetch, webVoid } from "@/utils";
+
+export { list as listCities } from "@/api/web/geo/cities";
 
 export async function get(id: string): Promise<EntityResponse> {
 	return webFetch(

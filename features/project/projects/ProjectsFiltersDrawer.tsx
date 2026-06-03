@@ -4,11 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import {
-	Combobox,
-	DatePicker,
-	SomeErrorState,
-} from "@/components";
+import { Combobox, DatePicker, SomeErrorState } from "@/components";
 import { getProjectStatusOptions } from "@/features/project/projects/utils";
 import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import type { ProjectsFiltersDrawerProps, ProjectStatus } from "@/types";

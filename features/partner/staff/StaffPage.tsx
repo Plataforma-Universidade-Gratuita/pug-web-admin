@@ -4,16 +4,17 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { get as getStaff } from "@/api/web/partner/staff";
 import { get as getUser } from "@/api/web/identity/users";
+import { get as getStaff } from "@/api/web/partner/staff";
 import { NoContentState, SomeErrorState } from "@/components";
 import { toast } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import { StaffActionDialogs } from "@/features/partner/staff/StaffActionDialogs";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
 import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
-import { useCreateStaffMutation } from "@/features/partner/staff/mutations";
 import { StaffRowActions } from "@/features/partner/staff/StaffRowActions";
+import { useCreateStaffMutation } from "@/features/partner/staff/mutations";
 import {
 	useStaffEntitiesQuery,
 	useStaffSearchQuery,
@@ -46,7 +47,6 @@ import {
 	useServicePageEditorState,
 	useServicePagePagination,
 } from "@/hooks";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import type {
 	StaffComplexSearchFilters,
 	StaffEditorMode,
@@ -295,7 +295,10 @@ export function StaffPage() {
 				},
 			);
 		} catch (error) {
-			const { title, description } = getStaffDuplicateErrorToastContent(t, error);
+			const { title, description } = getStaffDuplicateErrorToastContent(
+				t,
+				error,
+			);
 			toast.danger(title, { description });
 		}
 	}

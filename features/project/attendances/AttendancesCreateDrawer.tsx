@@ -63,7 +63,8 @@ export function AttendancesCreateDrawer({
 		[projectsQuery.data],
 	);
 	const accountById = useMemo(
-		() => new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		() =>
+			new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
 		[accountsQuery.data],
 	);
 	const userById = useMemo(

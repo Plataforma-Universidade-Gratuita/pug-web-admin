@@ -21,6 +21,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
+import { useCoursesQuery } from "@/features/academic/courses/queries";
 import { FormerStudentEditorForm } from "@/features/academic/former-students/FormerStudentEditorForm";
 import {
 	useCreateFormerStudentMutation,
@@ -40,7 +41,6 @@ import {
 	toFormerStudentCreateRequest,
 	toFormerStudentUpdateRequest,
 } from "@/features/academic/former-students/utils";
-import { useCoursesQuery } from "@/features/academic/courses/queries";
 import { useAccountDetailQuery } from "@/features/identity/accounts/queries";
 import { useUserDetailQuery } from "@/features/identity/users/queries";
 import {
@@ -77,7 +77,10 @@ export function FormerStudentEditorDrawer({
 		() => buildFormerStudentCourseOptions(coursesQuery.data ?? []),
 		[coursesQuery.data],
 	);
-	const emptyValues = useMemo(() => getEmptyFormerStudentEditorFormValues(), []);
+	const emptyValues = useMemo(
+		() => getEmptyFormerStudentEditorFormValues(),
+		[],
+	);
 	const form = useLocalizedZodForm<FormerStudentEditorFormValues>({
 		schemaFactory: translated =>
 			createFormerStudentEditorFormSchema(translated, mode),

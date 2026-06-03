@@ -1,9 +1,14 @@
 "use client";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components";
 import {
 	Combobox,
 	Input,

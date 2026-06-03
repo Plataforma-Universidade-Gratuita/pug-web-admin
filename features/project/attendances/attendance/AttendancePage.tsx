@@ -69,7 +69,8 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 	]);
 
 	const projectById = useMemo(
-		() => new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
+		() =>
+			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
 	);
 	const formerStudentById = useMemo(
@@ -83,7 +84,8 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 		[formerStudentsQuery.data],
 	);
 	const accountById = useMemo(
-		() => new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		() =>
+			new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
 		[accountsQuery.data],
 	);
 	const userById = useMemo(
@@ -98,8 +100,9 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 	const formerStudentAccount = formerStudent
 		? accountById.get(formerStudent.accountId)
 		: undefined;
-	const formerStudentUser =
-		formerStudentAccount ? userById.get(formerStudentAccount.userId) : undefined;
+	const formerStudentUser = formerStudentAccount
+		? userById.get(formerStudentAccount.userId)
+		: undefined;
 	const fields = useMemo(
 		() =>
 			attendance
@@ -218,7 +221,8 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 	return (
 		<EntityPageShell
 			title={
-				formerStudentUser?.name ?? t("project.attendancePage.dialog.titleFallback")
+				formerStudentUser?.name ??
+				t("project.attendancePage.dialog.titleFallback")
 			}
 			description={t("project.attendancePage.description")}
 		>

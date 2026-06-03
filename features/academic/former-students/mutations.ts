@@ -15,7 +15,11 @@ import {
 import { formerStudentQueryKeys } from "@/features/academic/former-students/queries";
 import { accountQueryKeys } from "@/features/identity/accounts/queries";
 import { userQueryKeys } from "@/features/identity/users/queries";
-import type { AccountResponse, FormerStudentResponse, UserResponse } from "@/types";
+import type {
+	AccountResponse,
+	FormerStudentResponse,
+	UserResponse,
+} from "@/types";
 import type {
 	FormerStudentCreateMutationVariables,
 	FormerStudentSetActiveMutationVariables,
@@ -100,9 +104,8 @@ function removeFormerStudentCaches(
 		current => removeListItem(current, accountId, item => item.id),
 	);
 	queryClient.removeQueries({ queryKey: accountQueryKeys.detail(accountId) });
-	queryClient.setQueryData<UserResponse[]>(
-		userQueryKeys.list(),
-		current => removeListItem(current, userId, item => item.id),
+	queryClient.setQueryData<UserResponse[]>(userQueryKeys.list(), current =>
+		removeListItem(current, userId, item => item.id),
 	);
 	queryClient.removeQueries({ queryKey: userQueryKeys.detail(userId) });
 }
@@ -111,7 +114,8 @@ export function useCreateFormerStudentMutation() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: ({ body }: FormerStudentCreateMutationVariables) => create(body),
+		mutationFn: ({ body }: FormerStudentCreateMutationVariables) =>
+			create(body),
 		onSuccess: formerStudent => {
 			writeFormerStudentCaches(queryClient, formerStudent);
 		},

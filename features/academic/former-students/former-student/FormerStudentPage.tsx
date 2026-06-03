@@ -23,9 +23,7 @@ import { useQueryErrorToasts } from "@/hooks";
 import type { FormerStudentPageProps } from "@/types";
 import { WebApiError } from "@/utils";
 
-export function FormerStudentPage({
-	formerStudentId,
-}: FormerStudentPageProps) {
+export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 	const { t } = useTranslation();
 	const formerStudentDetailQuery = useFormerStudentDetailQuery(formerStudentId);
 	const accountDetailQuery = useAccountDetailQuery(
@@ -161,7 +159,15 @@ export function FormerStudentPage({
 						},
 					]
 				: [],
-		[account?.active, account?.email, courseById, formerStudent, t, user?.cpfFormatted, user?.name],
+		[
+			account?.active,
+			account?.email,
+			courseById,
+			formerStudent,
+			t,
+			user?.cpfFormatted,
+			user?.name,
+		],
 	);
 
 	return (

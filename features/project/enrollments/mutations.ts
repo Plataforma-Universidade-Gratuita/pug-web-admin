@@ -6,10 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import {
-	deleteEnrollment,
-	updateStatus,
-} from "@/api/web/project/enrollments";
+import { deleteEnrollment, updateStatus } from "@/api/web/project/enrollments";
 import { enrollmentQueryKeys } from "@/features/project/enrollments/queries";
 import type { EnrollmentResponse } from "@/types";
 import type {
@@ -50,8 +47,7 @@ function isSameEnrollment(
 	formerStudentId: string,
 ) {
 	return (
-		item.projectId === projectId &&
-		item.formerStudentId === formerStudentId
+		item.projectId === projectId && item.formerStudentId === formerStudentId
 	);
 }
 
@@ -96,7 +92,9 @@ function removeEnrollmentCaches(
 	});
 }
 
-function resolveNextStatus(action: EnrollmentStatusMutationVariables["action"]) {
+function resolveNextStatus(
+	action: EnrollmentStatusMutationVariables["action"],
+) {
 	switch (action) {
 		case "accept":
 			return "APPROVED" as const;
@@ -117,11 +115,7 @@ async function runEnrollmentStatusAction({
 	projectId,
 	formerStudentId,
 }: EnrollmentStatusMutationVariables) {
-	return updateStatus(
-		projectId,
-		formerStudentId,
-		resolveNextStatus(action),
-	);
+	return updateStatus(projectId, formerStudentId, resolveNextStatus(action));
 }
 
 export function useEnrollmentStatusMutation() {

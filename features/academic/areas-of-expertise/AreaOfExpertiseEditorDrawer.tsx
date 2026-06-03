@@ -21,16 +21,12 @@ import {
 	Footer,
 	toast,
 } from "@/components";
+import { AreaOfExpertiseEditorForm } from "@/features/academic/areas-of-expertise/AreaOfExpertiseEditorForm";
 import {
 	useCreateAreaOfExpertiseMutation,
 	useUpdateAreaOfExpertiseMutation,
 } from "@/features/academic/areas-of-expertise/mutations";
-import {
-	useAreaOfExpertiseDetailQuery,
-} from "@/features/academic/areas-of-expertise/queries";
-import {
-	AreaOfExpertiseEditorForm,
-} from "@/features/academic/areas-of-expertise/AreaOfExpertiseEditorForm";
+import { useAreaOfExpertiseDetailQuery } from "@/features/academic/areas-of-expertise/queries";
 import {
 	buildAreaOfExpertiseDuplicateFormValues,
 	buildAreaOfExpertiseUpdateFormValues,
@@ -87,12 +83,8 @@ export function AreaOfExpertiseEditorDrawer({
 		}
 
 		return isDuplicateMode
-			? buildAreaOfExpertiseDuplicateFormValues(
-					areaOfExpertiseDetailQuery.data,
-				)
-			: buildAreaOfExpertiseUpdateFormValues(
-					areaOfExpertiseDetailQuery.data,
-				);
+			? buildAreaOfExpertiseDuplicateFormValues(areaOfExpertiseDetailQuery.data)
+			: buildAreaOfExpertiseUpdateFormValues(areaOfExpertiseDetailQuery.data);
 	}, [
 		areaOfExpertiseDetailQuery.data,
 		emptyValues,
@@ -154,8 +146,7 @@ export function AreaOfExpertiseEditorDrawer({
 			key: "area-of-expertise-editor-detail",
 			error: areaOfExpertiseDetailQuery.error,
 			errorUpdatedAt: areaOfExpertiseDetailQuery.errorUpdatedAt,
-			getContent: error =>
-				getAreaOfExpertiseDetailErrorToastContent(t, error),
+			getContent: error => getAreaOfExpertiseDetailErrorToastContent(t, error),
 			isError: areaOfExpertiseDetailQuery.isError,
 		},
 	]);

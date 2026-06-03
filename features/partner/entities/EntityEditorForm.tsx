@@ -141,7 +141,7 @@ export function EntityEditorForm({
 								maxLength={18}
 								className={
 									shouldWarnMissingDuplicateCnpj
-										? "border-[color:var(--twc-warning)] ring-1 ring-inset ring-[color:var(--twc-warning)]"
+										? "border-[color:var(--twc-warning)] ring-1 ring-[color:var(--twc-warning)] ring-inset"
 										: undefined
 								}
 								value={field.value}
@@ -155,9 +155,13 @@ export function EntityEditorForm({
 									form.formState.errors.cnpj ? "entity-cnpj-error" : undefined
 								}
 								aria-invalid={
-									hasCnpjError || shouldWarnMissingDuplicateCnpj ? "true" : "false"
+									hasCnpjError || shouldWarnMissingDuplicateCnpj
+										? "true"
+										: "false"
 								}
-								placeholder={t("partner.entityPage.editor.fields.cnpjPlaceholder")}
+								placeholder={t(
+									"partner.entityPage.editor.fields.cnpjPlaceholder",
+								)}
 							/>
 						)}
 					/>

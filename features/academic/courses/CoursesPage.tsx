@@ -89,8 +89,7 @@ export function CoursesPage() {
 		[areasOfExpertiseQuery.data],
 	);
 	const areaOfExpertiseOptions = useMemo(
-		() =>
-			buildCourseAreaOfExpertiseOptions(areasOfExpertiseQuery.data ?? []),
+		() => buildCourseAreaOfExpertiseOptions(areasOfExpertiseQuery.data ?? []),
 		[areasOfExpertiseQuery.data],
 	);
 	const filteredCourses = useMemo(

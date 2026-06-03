@@ -62,8 +62,7 @@ export function CourseEditorDrawer({
 	const createMutation = useCreateCourseMutation();
 	const updateMutation = useUpdateCourseMutation();
 	const areaOfExpertiseOptions = useMemo(
-		() =>
-			buildCourseAreaOfExpertiseOptions(areasOfExpertiseQuery.data ?? []),
+		() => buildCourseAreaOfExpertiseOptions(areasOfExpertiseQuery.data ?? []),
 		[areasOfExpertiseQuery.data],
 	);
 	const emptyValues = useMemo(() => getEmptyCourseEditorFormValues(), []);

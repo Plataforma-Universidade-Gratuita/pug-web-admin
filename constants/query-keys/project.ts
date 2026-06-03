@@ -25,7 +25,6 @@ export const projectQueryKeys = {
 		[...projectQueryKeys.all, "areas-of-expertise", id] as const,
 	idleAreasOfExpertise: () =>
 		[...projectQueryKeys.all, "areas-of-expertise", "idle"] as const,
-	schools: (id: string) =>
-		projectQueryKeys.areasOfExpertise(id),
+	schools: (id: string) => projectQueryKeys.areasOfExpertise(id),
 	idleSchools: () => projectQueryKeys.idleAreasOfExpertise(),
 };

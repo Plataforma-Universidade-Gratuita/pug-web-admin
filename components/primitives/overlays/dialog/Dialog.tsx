@@ -15,7 +15,7 @@ import { ScrollArea } from "@/components";
 import {
 	SkeletonPanelBlock,
 	SkeletonTextBlock,
-} from "@/components/display/skeleton/presets";
+} from "@/components/primitives/display/skeleton/presets";
 import { APP_TOPBAR_HEIGHT } from "@/constants";
 import { LoadingProvider, useLoading } from "@/contexts/loading";
 import type {

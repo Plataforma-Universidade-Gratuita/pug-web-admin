@@ -4,7 +4,7 @@ import { enrollments, projectAreasOfExpertise, projects } from "@/api";
 import {
 	AreaOfExpertiseResponseSchema,
 	EnrollmentResponseSchema,
-	EnrollmentStatusUpdateRequestSchema,
+	EnrollmentUpdateStatusRequestSchema,
 	PaginationRequestSchema,
 	ProjectAreaOfExpertiseRequestSchema,
 	ProjectComplexSearchRequestSchema,
@@ -143,7 +143,7 @@ export async function PATCH(request: Request, { params }: AppRouteSlugContext) {
 	if (slug.length === 3 && slug[1] === "enrollments" && slug[2] === "me") {
 		const body = await parseRouteBody(
 			request,
-			EnrollmentStatusUpdateRequestSchema,
+			EnrollmentUpdateStatusRequestSchema,
 		);
 		return routeWithAuthRetry(
 			token => enrollments.updateMyStatus(slug[0]!, body.status, token),
@@ -153,7 +153,7 @@ export async function PATCH(request: Request, { params }: AppRouteSlugContext) {
 	if (slug.length === 3 && slug[1] === "enrollments") {
 		const body = await parseRouteBody(
 			request,
-			EnrollmentStatusUpdateRequestSchema,
+			EnrollmentUpdateStatusRequestSchema,
 		);
 		return routeWithAuthRetry(
 			token => enrollments.updateStatus(slug[0]!, slug[2]!, body.status, token),

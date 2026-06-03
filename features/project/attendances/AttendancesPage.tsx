@@ -99,7 +99,8 @@ export function AttendancesPage() {
 	const { schedule } = useDeferredUndoAction();
 
 	const projectById = useMemo(
-		() => new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
+		() =>
+			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
 	);
 	const formerStudentById = useMemo(
@@ -113,7 +114,8 @@ export function AttendancesPage() {
 		[formerStudentsQuery.data],
 	);
 	const accountById = useMemo(
-		() => new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		() =>
+			new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
 		[accountsQuery.data],
 	);
 	const userById = useMemo(

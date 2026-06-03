@@ -22,12 +22,9 @@ import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
-import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
-import type {
-	CpfFormFieldExistingUser,
-	StaffEditorFormProps,
-} from "@/types";
+import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
+import type { CpfFormFieldExistingUser, StaffEditorFormProps } from "@/types";
 import { WebApiError } from "@/utils";
 
 export function StaffEditorForm({
@@ -82,7 +79,9 @@ export function StaffEditorForm({
 			return (
 				<NotFoundState
 					title={t("partner.staffPage.dialog.linkedUser.notFound.title")}
-					description={t("partner.staffPage.dialog.linkedUser.notFound.description")}
+					description={t(
+						"partner.staffPage.dialog.linkedUser.notFound.description",
+					)}
 				/>
 			);
 		}

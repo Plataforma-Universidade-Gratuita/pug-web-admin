@@ -203,15 +203,13 @@ export default function ComboboxParticle() {
 								"docs.combobox.cards.multiple.searchPlaceholder",
 							)}
 							emptyMessage={t("docs.combobox.cards.multiple.empty")}
-							options={(["campinas", "osasco", "santos"] as const).map(
-								key => ({
-									value: key,
-									label: t(`docs.combobox.cards.city.options.${key}.label`),
-									description: t(
-										`docs.combobox.cards.city.options.${key}.description`,
-									),
-								}),
-							)}
+							options={(["campinas", "osasco", "santos"] as const).map(key => ({
+								value: key,
+								label: t(`docs.combobox.cards.city.options.${key}.label`),
+								description: t(
+									`docs.combobox.cards.city.options.${key}.description`,
+								),
+							}))}
 						/>
 					</CardContent>
 				</Card>

@@ -144,9 +144,7 @@ export function ProjectsPage() {
 	);
 	const adminById = useMemo(
 		() =>
-			new Map(
-				(adminsQuery.data ?? []).map(admin => [admin.account.id, admin]),
-			),
+			new Map((adminsQuery.data ?? []).map(admin => [admin.account.id, admin])),
 		[adminsQuery.data],
 	);
 	const entityOptions = useMemo(
@@ -160,7 +158,10 @@ export function ProjectsPage() {
 	const backendFilteredAllProjects = useMemo(
 		() =>
 			projectsPagination.isAll
-				? filterProjectsByBackendFilters(projectsQuery.data ?? [], appliedFilters)
+				? filterProjectsByBackendFilters(
+						projectsQuery.data ?? [],
+						appliedFilters,
+					)
 				: [],
 		[appliedFilters, projectsPagination.isAll, projectsQuery.data],
 	);
@@ -183,7 +184,10 @@ export function ProjectsPage() {
 			}),
 		[adminById, deferredQuerySearch, tableSourceProjects],
 	);
-	const columns = useMemo(() => createProjectColumns(t, adminById), [adminById, t]);
+	const columns = useMemo(
+		() => createProjectColumns(t, adminById),
+		[adminById, t],
+	);
 	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
 		() =>
@@ -254,11 +258,7 @@ export function ProjectsPage() {
 		}
 
 		projectsPagination.setCurrentPage(totalPages);
-	}, [
-		projectsPagination,
-		projectsSearchQuery.data,
-		totalPages,
-	]);
+	}, [projectsPagination, projectsSearchQuery.data, totalPages]);
 
 	useQueryErrorToasts([
 		{
@@ -461,15 +461,11 @@ export function ProjectsPage() {
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
-					onCreatedByIdsChange={value =>
-						setDraftFilter("createdByIds", value)
-					}
+					onCreatedByIdsChange={value => setDraftFilter("createdByIds", value)}
 					onClear={clearAllFilters}
 					onDateFromChange={value => setDraftFilter("dateFrom", value)}
 					onDateToChange={value => setDraftFilter("dateTo", value)}
-					onEntityIdsChange={value =>
-						setDraftFilter("entityIds", value)
-					}
+					onEntityIdsChange={value => setDraftFilter("entityIds", value)}
 					onOpenChange={setFiltersOpen}
 					onRefreshAdmins={() => {
 						void adminsQuery.refetch();

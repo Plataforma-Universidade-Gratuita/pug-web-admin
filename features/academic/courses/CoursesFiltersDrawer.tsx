@@ -3,10 +3,8 @@
 import { useTranslation } from "react-i18next";
 
 import { Combobox, Label, SomeErrorState } from "@/components";
-import {
-	ServicePageFiltersDrawer,
-} from "@/features/shared/service-pages";
 import { DatePicker } from "@/components";
+import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import type { CoursesFiltersDrawerProps } from "@/types";
 
 export function CoursesFiltersDrawer({

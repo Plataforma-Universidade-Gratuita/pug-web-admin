@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 
-import { Tooltip } from "@/components/overlays";
+import { Tooltip } from "@/components";
 import type { TableTextProps } from "@/types";
 
 export function TableText({

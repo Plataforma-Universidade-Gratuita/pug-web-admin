@@ -66,9 +66,7 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 
 	const adminById = useMemo(
 		() =>
-			new Map(
-				(adminsQuery.data ?? []).map(admin => [admin.account.id, admin]),
-			),
+			new Map((adminsQuery.data ?? []).map(admin => [admin.account.id, admin])),
 		[adminsQuery.data],
 	);
 
@@ -156,11 +154,7 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 						},
 					]
 				: [],
-		[
-			adminById,
-			project,
-			t,
-		],
+		[adminById, project, t],
 	);
 
 	return (
@@ -212,14 +206,18 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 					) : projectAreasOfExpertiseQuery.isLoading ? (
 						<div className="grid gap-3">
 							<p className="ty-overhead">
-								{t("project.projectPage.dialog.linkedAreasOfExpertise.overhead")}
+								{t(
+									"project.projectPage.dialog.linkedAreasOfExpertise.overhead",
+								)}
 							</p>
 							<EntityPageFieldsGridSkeleton />
 						</div>
 					) : (
 						<div className="grid gap-3">
 							<p className="ty-overhead">
-								{t("project.projectPage.dialog.linkedAreasOfExpertise.overhead")}
+								{t(
+									"project.projectPage.dialog.linkedAreasOfExpertise.overhead",
+								)}
 							</p>
 							{projectAreasOfExpertiseQuery.data &&
 							projectAreasOfExpertiseQuery.data.length > 0 ? (

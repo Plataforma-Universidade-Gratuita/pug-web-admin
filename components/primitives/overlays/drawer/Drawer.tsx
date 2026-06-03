@@ -25,7 +25,7 @@ import {
 	SkeletonActionGroup,
 	SkeletonPanelBlock,
 	SkeletonTextBlock,
-} from "@/components/display/skeleton/presets";
+} from "@/components/primitives/display/skeleton/presets";
 import {
 	APP_TOPBAR_HEIGHT,
 	DRAWER_MOTION_STYLES,

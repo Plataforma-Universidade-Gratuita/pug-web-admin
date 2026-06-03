@@ -85,7 +85,8 @@ export function AdminPage({ adminId }: AdminPageProps) {
 	return (
 		<EntityPageShell
 			title={
-				linkedUserQuery.data?.name ?? t("identity.adminPage.dialog.titleFallback")
+				linkedUserQuery.data?.name ??
+				t("identity.adminPage.dialog.titleFallback")
 			}
 			description={t("identity.adminPage.description")}
 		>

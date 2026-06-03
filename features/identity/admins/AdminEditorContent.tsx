@@ -102,7 +102,10 @@ export function AdminEditorContent({
 	}
 
 	if (linkedUserError) {
-		if (linkedUserError instanceof WebApiError && linkedUserError.status === 404) {
+		if (
+			linkedUserError instanceof WebApiError &&
+			linkedUserError.status === 404
+		) {
 			return (
 				<NotFoundState
 					title={t("identity.adminPage.dialog.linkedUser.notFound.title")}
@@ -116,7 +119,9 @@ export function AdminEditorContent({
 		return (
 			<SomeErrorState
 				title={t("identity.adminPage.dialog.linkedUser.error.title")}
-				description={t("identity.adminPage.dialog.linkedUser.error.description")}
+				description={t(
+					"identity.adminPage.dialog.linkedUser.error.description",
+				)}
 				onRefresh={onRefreshUser}
 			/>
 		);

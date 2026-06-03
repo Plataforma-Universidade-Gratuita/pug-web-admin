@@ -124,11 +124,15 @@ function patchStaffCaches(
 	queryClient.invalidateQueries({ queryKey: staffQueryKeys.searchRoot() });
 }
 
-function writeAccountCaches(queryClient: QueryClient, account: AccountResponse) {
+function writeAccountCaches(
+	queryClient: QueryClient,
+	account: AccountResponse,
+) {
 	queryClient.setQueryData(accountQueryKeys.detail(account.id), account);
 	queryClient.setQueryData(staffQueryKeys.linkedAccount(account.id), account);
-	queryClient.setQueryData<AccountResponse[]>(accountQueryKeys.list(), current =>
-		upsertListItem(current, account, item => item.id),
+	queryClient.setQueryData<AccountResponse[]>(
+		accountQueryKeys.list(),
+		current => upsertListItem(current, account, item => item.id),
 	);
 	queryClient.setQueryData<AccountResponse | undefined>(
 		accountQueryKeys.me(),
@@ -183,8 +187,9 @@ function removeStaffCaches(
 	queryClient.removeQueries({ queryKey: staffQueryKeys.linkedUser(userId) });
 	queryClient.invalidateQueries({ queryKey: staffQueryKeys.searchRoot() });
 
-	queryClient.setQueryData<AccountResponse[]>(accountQueryKeys.list(), current =>
-		removeListItem(current, accountId, item => item.id),
+	queryClient.setQueryData<AccountResponse[]>(
+		accountQueryKeys.list(),
+		current => removeListItem(current, accountId, item => item.id),
 	);
 	queryClient.removeQueries({ queryKey: accountQueryKeys.detail(accountId) });
 	queryClient.setQueryData<AccountResponse | undefined>(

@@ -85,10 +85,7 @@ export function filterAreasOfExpertise(
 				{
 					...(startDate
 						? (() => {
-								const dateFrom = toSearchDateOffsetDateTime(
-									startDate,
-									"start",
-								);
+								const dateFrom = toSearchDateOffsetDateTime(startDate, "start");
 								return dateFrom ? { dateFrom } : {};
 							})()
 						: {}),
@@ -108,10 +105,7 @@ export function filterAreasOfExpertise(
 	});
 }
 
-export function getAreaOfExpertiseEmptyStateCopy(
-	t: TFunction,
-	query: string,
-) {
+export function getAreaOfExpertiseEmptyStateCopy(t: TFunction, query: string) {
 	return {
 		title: t("academic.schoolPage.empty.title"),
 		description: query

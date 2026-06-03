@@ -8,10 +8,10 @@ import { ChevronDown, Search, X } from "lucide-react";
 import { Badge, Icon, Tooltip } from "@/components";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components";
 import {
-	getComboboxSelectedLabel,
 	getSearchableComboboxText,
-    buildVisibleSelections,
-} from "@/components/forms/combobox/utils";
+	buildVisibleSelections,
+	getComboboxSelectedLabel,
+} from "@/components/primitives/forms/combobox/utils";
 import type { ComboboxProps } from "@/types";
 import { normalizeTextForSearch } from "@/utils";
 
@@ -54,8 +54,7 @@ export function Combobox({
 				.filter(option => selectedValues.includes(option.value))
 				.map(option => ({
 					value: option.value,
-					label:
-						typeof option.label === "string" ? option.label : option.value,
+					label: typeof option.label === "string" ? option.label : option.value,
 				})),
 		[options, selectedValues],
 	);
@@ -118,7 +117,9 @@ export function Combobox({
 	}
 
 	function handleOptionsWheel(event: React.WheelEvent<HTMLDivElement>) {
-		const isInsideDrawer = triggerButtonRef.current?.closest(".drawer-content-base");
+		const isInsideDrawer = triggerButtonRef.current?.closest(
+			".drawer-content-base",
+		);
 		if (!isInsideDrawer) {
 			return;
 		}
@@ -235,9 +236,7 @@ export function Combobox({
 					</button>
 				</PopoverTrigger>
 				<div className="select-adornment">
-					{(multiple
-						? selectedOptions.length > 0
-						: Boolean(selectedOption)) ? (
+					{(multiple ? selectedOptions.length > 0 : Boolean(selectedOption)) ? (
 						<button
 							type="button"
 							disabled={disabled}

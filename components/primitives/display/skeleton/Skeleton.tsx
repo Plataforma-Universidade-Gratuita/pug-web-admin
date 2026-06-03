@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { normalizeSize } from "@/components/display/skeleton/utils";
+import { normalizeSize } from "@/components/primitives/display/skeleton/utils";
 import type { SkeletonProps } from "@/types";
 
 export function Skeleton({
@@ -27,4 +27,4 @@ export function Skeleton({
 	);
 }
 
-export * from "@/components/display/skeleton/presets";
+export * from "@/components/primitives/display/skeleton/presets";

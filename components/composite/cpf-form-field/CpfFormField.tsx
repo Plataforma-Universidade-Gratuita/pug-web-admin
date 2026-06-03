@@ -3,7 +3,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { CircleAlert } from "lucide-react";
-import { Controller, useWatch, type FieldValues, type Path } from "react-hook-form";
+import {
+	Controller,
+	useWatch,
+	type FieldValues,
+	type Path,
+} from "react-hook-form";
 
 import { Combobox, Icon, Label } from "@/components";
 import { normalizeDigits } from "@/schemas";
@@ -120,11 +125,18 @@ export function CpfFormField<
 
 	useEffect(() => {
 		if (matchedExistingUser) {
-			if ((form.getValues("name" as Path<TValues>) as string) !== matchedExistingUser.name) {
-				form.setValue("name" as Path<TValues>, matchedExistingUser.name as TValues[Path<TValues>], {
-					shouldDirty: true,
-					shouldValidate: true,
-				});
+			if (
+				(form.getValues("name" as Path<TValues>) as string) !==
+				matchedExistingUser.name
+			) {
+				form.setValue(
+					"name" as Path<TValues>,
+					matchedExistingUser.name as TValues[Path<TValues>],
+					{
+						shouldDirty: true,
+						shouldValidate: true,
+					},
+				);
 			}
 
 			lastAutoFilledNameRef.current = matchedExistingUser.name;

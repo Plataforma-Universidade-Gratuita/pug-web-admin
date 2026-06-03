@@ -146,7 +146,10 @@ export function buildEnrollmentFormerStudentOptions(
 				value: formerStudent.accountId,
 				label: user?.name ?? formerStudent.academicRegistration,
 				description: account?.email ?? formerStudent.academicRegistration,
-				keywords: [formerStudent.academicRegistration, user?.cpfFormatted ?? ""],
+				keywords: [
+					formerStudent.academicRegistration,
+					user?.cpfFormatted ?? "",
+				],
 			};
 		});
 }

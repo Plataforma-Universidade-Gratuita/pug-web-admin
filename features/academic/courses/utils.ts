@@ -9,7 +9,11 @@ import type {
 	CourseResponse,
 	CourseUpdateRequest,
 } from "@/types";
-import type { ComboboxOption, CourseEditorFormValues, CourseFilterArgs } from "@/types";
+import type {
+	ComboboxOption,
+	CourseEditorFormValues,
+	CourseFilterArgs,
+} from "@/types";
 import {
 	compareNormalizedText,
 	getApiErrorToastContent,
@@ -96,7 +100,10 @@ export function filterCourses(
 			}
 		}
 
-		if (hasAreaOfExpertiseFilter && !areaOfExpertiseIds.includes(course.areaOfExpertise.id)) {
+		if (
+			hasAreaOfExpertiseFilter &&
+			!areaOfExpertiseIds.includes(course.areaOfExpertise.id)
+		) {
 			return false;
 		}
 
@@ -107,10 +114,7 @@ export function filterCourses(
 				{
 					...(startDate
 						? (() => {
-								const dateFrom = toSearchDateOffsetDateTime(
-									startDate,
-									"start",
-								);
+								const dateFrom = toSearchDateOffsetDateTime(startDate, "start");
 								return dateFrom ? { dateFrom } : {};
 							})()
 						: {}),
@@ -253,12 +257,7 @@ export function toCourseUpdateRequest(
 
 export function getCourseFilterSummary(
 	t: TFunction,
-	{
-		areaOfExpertiseIds,
-		endDate,
-		query,
-		startDate,
-	}: CourseFilterArgs,
+	{ areaOfExpertiseIds, endDate, query, startDate }: CourseFilterArgs,
 	areaOfExpertiseById: Map<string, AreaOfExpertiseResponse>,
 ) {
 	const parts: string[] = [];

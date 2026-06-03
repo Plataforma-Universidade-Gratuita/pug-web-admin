@@ -167,11 +167,16 @@ function buildNextUserRecord(
 }
 
 function writeAdminCaches(queryClient: QueryClient, admin: AdminResponse) {
-	queryClient.setQueryData(adminQueryKeys.detail(admin.accountResponse.id), admin);
+	queryClient.setQueryData(
+		adminQueryKeys.detail(admin.accountResponse.id),
+		admin,
+	);
 	queryClient.setQueryData<AdminResponse | undefined>(
 		adminQueryKeys.me(),
 		current =>
-			current?.accountResponse.id === admin.accountResponse.id ? admin : current,
+			current?.accountResponse.id === admin.accountResponse.id
+				? admin
+				: current,
 	);
 	queryClient.invalidateQueries({ queryKey: adminQueryKeys.directory() });
 	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });

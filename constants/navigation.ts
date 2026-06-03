@@ -263,7 +263,8 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/academic/areas-of-expertise/[areaOfExpertiseId]":
 		"academic.schoolPage.dialog.titleFallback",
 	"/academic/former-students": "Navbar.paths.academic.student",
-	"/academic/former-students/[studentId]": "academic.studentPage.dialog.titleFallback",
+	"/academic/former-students/[studentId]":
+		"academic.studentPage.dialog.titleFallback",
 	"/geo": "Navbar.paths.geo.root",
 	"/geo/cities": "Navbar.paths.geo.city",
 	"/geo/cities/[cityId]": "geo.cityPage.dialog.titleFallback",
@@ -289,4 +290,3 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/project/projects": "Navbar.paths.project.project",
 	"/project/projects/[projectId]": "project.projectPage.dialog.titleFallback",
 };
-

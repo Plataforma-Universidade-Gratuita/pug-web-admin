@@ -4,7 +4,13 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { DatePicker, Label, NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	DatePicker,
+	Label,
+	NoContentState,
+	SomeErrorState,
+	toast,
+} from "@/components";
 import { AreaOfExpertiseEditorDrawer } from "@/features/academic/areas-of-expertise/AreaOfExpertiseEditorDrawer";
 import { AreasOfExpertiseRowActions } from "@/features/academic/areas-of-expertise/AreasOfExpertiseRowActions";
 import {
@@ -62,7 +68,12 @@ export function AreasOfExpertisePage() {
 				startDate: startDateFilter,
 				endDate: endDateFilter,
 			}),
-		[areasOfExpertiseQuery.data, deferredQuerySearch, endDateFilter, startDateFilter],
+		[
+			areasOfExpertiseQuery.data,
+			deferredQuerySearch,
+			endDateFilter,
+			startDateFilter,
+		],
 	);
 	const columns = useMemo(() => createAreaOfExpertiseColumns(t), [t]);
 	const hasAnyFilters = Boolean(
@@ -100,15 +111,19 @@ export function AreasOfExpertisePage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [areasOfExpertiseQuery, emptyStateCopy.description, emptyStateCopy.title, t]);
+	}, [
+		areasOfExpertiseQuery,
+		emptyStateCopy.description,
+		emptyStateCopy.title,
+		t,
+	]);
 
 	useQueryErrorToasts([
 		{
 			key: "areas-of-expertise-list",
 			error: areasOfExpertiseQuery.error,
 			errorUpdatedAt: areasOfExpertiseQuery.errorUpdatedAt,
-			getContent: error =>
-				getAreasOfExpertiseListErrorToastContent(t, error),
+			getContent: error => getAreasOfExpertiseListErrorToastContent(t, error),
 			isError: areasOfExpertiseQuery.isError,
 		},
 	]);

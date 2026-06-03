@@ -19,34 +19,38 @@ export function AreaOfExpertiseDetailsContent({
 	includeName = true,
 }: AreaOfExpertiseDetailsContentProps) {
 	const { t } = useTranslation();
-	const fields = useMemo<EntityPageField[]>(
-		() =>
-			[
-				includeName
-					? {
-							id: "name",
-							label: t("academic.schoolPage.dialog.fields.name"),
-							value: areaOfExpertise.name,
-						}
-					: null,
-				{
-					id: "id",
-					label: t("academic.schoolPage.dialog.fields.id"),
-					value: areaOfExpertise.id,
-				},
-				{
-					id: "createdAt",
-					label: t("academic.schoolPage.dialog.fields.createdAt"),
-					value: areaOfExpertise.auditInfo.createdAtFormatted,
-				},
-				{
-					id: "updatedAt",
-					label: t("academic.schoolPage.dialog.fields.updatedAt"),
-					value: areaOfExpertise.auditInfo.updatedAtFormatted,
-				},
-			].filter((field): field is EntityPageField => field !== null),
-		[areaOfExpertise, includeName, t],
-	);
+	const fields = useMemo<EntityPageField[]>(() => {
+		const baseFields: EntityPageField[] = [
+			{
+				id: "id",
+				label: t("academic.schoolPage.dialog.fields.id"),
+				value: areaOfExpertise.id,
+			},
+			{
+				id: "createdAt",
+				label: t("academic.schoolPage.dialog.fields.createdAt"),
+				value: areaOfExpertise.auditInfo.createdAtFormatted,
+			},
+			{
+				id: "updatedAt",
+				label: t("academic.schoolPage.dialog.fields.updatedAt"),
+				value: areaOfExpertise.auditInfo.updatedAtFormatted,
+			},
+		];
+
+		if (!includeName) {
+			return baseFields;
+		}
+
+		return [
+			{
+				id: "name",
+				label: t("academic.schoolPage.dialog.fields.name"),
+				value: areaOfExpertise.name,
+			},
+			...baseFields,
+		];
+	}, [areaOfExpertise, includeName, t]);
 
 	return (
 		<EntityPageFieldsGrid

@@ -182,10 +182,7 @@ export function filterEntitiesByBackendFilters(
 	}
 
 	return entities.filter(entity => {
-		if (
-			cityIdsFilter.length > 0 &&
-			!cityIdsFilter.includes(entity.cityId)
-		) {
+		if (cityIdsFilter.length > 0 && !cityIdsFilter.includes(entity.cityId)) {
 			return false;
 		}
 
@@ -362,11 +359,7 @@ export function buildEntityComplexSearchRequest(
 
 export function getEntityFilterSummary(
 	t: TFunction,
-	{
-		query,
-		dateFrom,
-		dateTo,
-	}: EntityFilterArgs,
+	{ query, dateFrom, dateTo }: EntityFilterArgs,
 ) {
 	const parts: string[] = [];
 

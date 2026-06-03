@@ -250,10 +250,7 @@ export function filterProjectsByBackendFilters(
 
 export function filterProjectsByFrontendFilters(
 	projects: ProjectResponse[],
-	{
-		adminById,
-		query,
-	}: Pick<ProjectFilterArgs, "adminById" | "query">,
+	{ adminById, query }: Pick<ProjectFilterArgs, "adminById" | "query">,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	if (!normalizedQuery) {

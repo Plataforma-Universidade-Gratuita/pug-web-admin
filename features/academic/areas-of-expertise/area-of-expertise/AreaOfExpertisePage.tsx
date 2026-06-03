@@ -28,8 +28,7 @@ export function AreaOfExpertisePage({
 			key: `area-of-expertise-detail-${areaOfExpertiseId}`,
 			error: areaOfExpertiseDetailQuery.error,
 			errorUpdatedAt: areaOfExpertiseDetailQuery.errorUpdatedAt,
-			getContent: error =>
-				getAreaOfExpertiseDetailErrorToastContent(t, error),
+			getContent: error => getAreaOfExpertiseDetailErrorToastContent(t, error),
 			isError: areaOfExpertiseDetailQuery.isError,
 		},
 	]);

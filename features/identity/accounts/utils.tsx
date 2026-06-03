@@ -237,14 +237,16 @@ export function filterAccountListByBackendFilters(
 			return false;
 		}
 
-		return !((request.dateFrom || request.dateTo) &&
-            !matchesAnyDateRange(
-                [account.auditInfo.createdAt, account.auditInfo.updatedAt],
-                {
-                    ...(request.dateFrom ? {dateFrom: request.dateFrom} : {}),
-                    ...(request.dateTo ? {dateTo: request.dateTo} : {}),
-                },
-            ));
+		return !(
+			(request.dateFrom || request.dateTo) &&
+			!matchesAnyDateRange(
+				[account.auditInfo.createdAt, account.auditInfo.updatedAt],
+				{
+					...(request.dateFrom ? { dateFrom: request.dateFrom } : {}),
+					...(request.dateTo ? { dateTo: request.dateTo } : {}),
+				},
+			)
+		);
 	});
 }
 
@@ -325,14 +327,16 @@ function matchesBackendFilters(
 		return false;
 	}
 
-	return !((filters.dateFrom || filters.dateTo) &&
-        !matchesAnyDateRange(
-            [account.auditInfo.createdAt, account.auditInfo.updatedAt],
-            {
-                ...(filters.dateFrom ? {dateFrom: filters.dateFrom} : {}),
-                ...(filters.dateTo ? {dateTo: filters.dateTo} : {}),
-            },
-        ));
+	return !(
+		(filters.dateFrom || filters.dateTo) &&
+		!matchesAnyDateRange(
+			[account.auditInfo.createdAt, account.auditInfo.updatedAt],
+			{
+				...(filters.dateFrom ? { dateFrom: filters.dateFrom } : {}),
+				...(filters.dateTo ? { dateTo: filters.dateTo } : {}),
+			},
+		)
+	);
 }
 
 export function filterAccountsByBackendFilters(

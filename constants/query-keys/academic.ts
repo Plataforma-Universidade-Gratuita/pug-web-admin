@@ -19,6 +19,5 @@ export const formerStudentQueryKeys = {
 	list: () => [...formerStudentQueryKeys.all, "list"] as const,
 	detail: (id: string) =>
 		[...formerStudentQueryKeys.all, "detail", id] as const,
-	idleDetail: () =>
-		[...formerStudentQueryKeys.all, "detail", "idle"] as const,
+	idleDetail: () => [...formerStudentQueryKeys.all, "detail", "idle"] as const,
 };

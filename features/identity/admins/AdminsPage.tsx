@@ -253,7 +253,10 @@ export function AdminsPage() {
 				},
 			);
 		} catch (error) {
-			const { title, description } = getAdminDuplicateErrorToastContent(t, error);
+			const { title, description } = getAdminDuplicateErrorToastContent(
+				t,
+				error,
+			);
 			toast.danger(title, { description });
 		}
 	}

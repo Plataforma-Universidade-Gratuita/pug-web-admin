@@ -2,12 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import {
-	Checkbox,
-	Combobox,
-	DatePicker,
-	Label,
-} from "@/components";
+import { Checkbox, Combobox, DatePicker, Label } from "@/components";
 import { ACCOUNT_TYPE_VALUES } from "@/constants";
 import {
 	NumberFieldFilter,
@@ -75,10 +70,7 @@ export function AccountsFiltersDrawer({
 					multiple
 					values={filters.accountTypes}
 					onValuesChange={value =>
-						onFilterChange(
-							"accountTypes",
-							value as (typeof filters.accountTypes),
-						)
+						onFilterChange("accountTypes", value as typeof filters.accountTypes)
 					}
 					placeholder={t(
 						"identity.accountPage.filters.accountType.placeholder",

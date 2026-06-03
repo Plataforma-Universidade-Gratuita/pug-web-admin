@@ -169,7 +169,12 @@ export function FormerStudentsPage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [emptyStateCopy.description, emptyStateCopy.title, formerStudentsQuery, t]);
+	}, [
+		emptyStateCopy.description,
+		emptyStateCopy.title,
+		formerStudentsQuery,
+		t,
+	]);
 
 	useQueryErrorToasts([
 		{
@@ -365,7 +370,9 @@ export function FormerStudentsPage() {
 							formerStudent={row}
 							onDelete={setPendingDeleteStudent}
 							onOpenEditor={editorState.openEditor}
-							onSetActive={formerStudent => setPendingStatusStudent(formerStudent)}
+							onSetActive={formerStudent =>
+								setPendingStatusStudent(formerStudent)
+							}
 						/>
 					),
 					isLoading:

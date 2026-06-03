@@ -80,11 +80,18 @@ export function AdminsUpdateDrawer({
 			return emptyValues;
 		}
 
-		if (!adminDetailQuery.data || !linkedAccountQuery.data || !linkedUserQuery.data) {
+		if (
+			!adminDetailQuery.data ||
+			!linkedAccountQuery.data ||
+			!linkedUserQuery.data
+		) {
 			return null;
 		}
 
-		return buildAdminUpdateFormValues(adminDetailQuery.data, linkedUserQuery.data);
+		return buildAdminUpdateFormValues(
+			adminDetailQuery.data,
+			linkedUserQuery.data,
+		);
 	}, [
 		adminDetailQuery.data,
 		emptyValues,
@@ -125,7 +132,9 @@ export function AdminsUpdateDrawer({
 	const canRenderForm = isCreateMode
 		? true
 		: Boolean(
-				adminDetailQuery.data && linkedAccountQuery.data && linkedUserQuery.data,
+				adminDetailQuery.data &&
+				linkedAccountQuery.data &&
+				linkedUserQuery.data,
 			);
 	const isDrawerLoading =
 		!isCreateMode &&

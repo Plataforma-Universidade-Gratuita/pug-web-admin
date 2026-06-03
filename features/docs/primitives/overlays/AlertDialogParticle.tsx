@@ -22,11 +22,11 @@ import {
 } from "@/components";
 import { ParticleContainer } from "@/features/docs/primitives/ParticleContainer";
 import { ParticleSection } from "@/features/docs/primitives/ParticleSection";
-import type { AlertDialogAlertDialogVariantKey } from "@/types";
+import type { AlertDialogVariant } from "@/types";
 
 export default function AlertDialogParticle() {
 	const { t } = useTranslation();
-	const [openKey, setOpenKey] = useState<AlertDialogVariantKey | null>(null);
+	const [openKey, setOpenKey] = useState<AlertDialogVariant | null>(null);
 
 	return (
 		<>

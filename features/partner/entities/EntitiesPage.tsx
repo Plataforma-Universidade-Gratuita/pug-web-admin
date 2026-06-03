@@ -44,7 +44,11 @@ import {
 	useServicePageEditorState,
 	useServicePagePagination,
 } from "@/hooks";
-import type { EntityEditorMode, EntityTableRow, UseEntitiesSearchQueryFilters } from "@/types";
+import type {
+	EntityEditorMode,
+	EntityTableRow,
+	UseEntitiesSearchQueryFilters,
+} from "@/types";
 
 export function EntitiesPage() {
 	const { t } = useTranslation();
@@ -75,8 +79,10 @@ export function EntitiesPage() {
 		createMode: "create",
 		defaultMode: "update",
 	});
-	const [pendingDeleteEntity, setPendingDeleteEntity] =
-		useState<Pick<EntityTableRow, "id" | "name"> | null>(null);
+	const [pendingDeleteEntity, setPendingDeleteEntity] = useState<Pick<
+		EntityTableRow,
+		"id" | "name"
+	> | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const entitiesQuery = useEntitiesQuery(entitiesPagination.isAll);
 	const entitiesSearchQuery = useEntitiesSearchQuery(
@@ -112,10 +118,15 @@ export function EntitiesPage() {
 				: mapEntitySearchResponsesToTableRows(
 						entitiesSearchQuery.data?.content ?? [],
 					),
-		[backendFilteredAllEntities, entitiesPagination.isAll, entitiesSearchQuery.data],
+		[
+			backendFilteredAllEntities,
+			entitiesPagination.isAll,
+			entitiesSearchQuery.data,
+		],
 	);
 	const filteredEntities = useMemo(
-		() => filterEntitiesByFrontendQuery(tableSourceEntities, deferredQuerySearch),
+		() =>
+			filterEntitiesByFrontendQuery(tableSourceEntities, deferredQuerySearch),
 		[deferredQuerySearch, tableSourceEntities],
 	);
 	const columns = useMemo(() => createEntityColumns(t), [t]);
@@ -166,7 +177,9 @@ export function EntitiesPage() {
 		t,
 	]);
 
-	const activeQuery = entitiesPagination.isAll ? entitiesQuery : entitiesSearchQuery;
+	const activeQuery = entitiesPagination.isAll
+		? entitiesQuery
+		: entitiesSearchQuery;
 	const totalElements = entitiesPagination.isAll
 		? backendFilteredAllEntities.length
 		: (entitiesSearchQuery.data?.totalElements ?? 0);
@@ -184,11 +197,7 @@ export function EntitiesPage() {
 		}
 
 		entitiesPagination.setCurrentPage(totalPages);
-	}, [
-		entitiesPagination,
-		entitiesSearchQuery.data,
-		totalPages,
-	]);
+	}, [entitiesPagination, entitiesSearchQuery.data, totalPages]);
 
 	useQueryErrorToasts([
 		{

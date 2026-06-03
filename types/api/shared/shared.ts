@@ -17,4 +17,3 @@ export type AccountTypeResponse = z.infer<typeof AccountTypeResponseSchema>;
 export type AuditInfoResponse = z.infer<typeof AuditInfoResponseSchema>;
 export type AccountStatusRequest = z.infer<typeof AccountStatusRequestSchema>;
 export type CampusResponse = z.infer<typeof CampusResponseSchema>;
-export type CredentialsRequest = z.infer<typeof CredentialsRequestSchema>;

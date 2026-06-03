@@ -82,9 +82,7 @@ export function FormerStudentEditorForm({
 					<Input
 						id="former-student-cpf"
 						{...form.register("cpf")}
-						placeholder={t(
-							"academic.studentPage.editor.fields.cpfPlaceholder",
-						)}
+						placeholder={t("academic.studentPage.editor.fields.cpfPlaceholder")}
 					/>
 					{form.formState.errors.cpf ? (
 						<p className="field-error">{form.formState.errors.cpf.message}</p>
