@@ -10,8 +10,8 @@ import type {
 	UserResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
+import type { CpfFormFieldExistingUser } from "@/types";
 
-export type FormerStudentAuditDateField = "" | "createdAt" | "updatedAt";
 export type FormerStudentEditorMode = "create" | "duplicate" | "update";
 
 export interface FormerStudentPageProps {
@@ -25,12 +25,19 @@ export interface FormerStudentRoutePageProps {
 }
 
 export interface FormerStudentSecondaryFilters {
-	activeFilter: string;
-	campusFilter: string;
-	courseIdFilter: string;
-	dateField: FormerStudentAuditDateField;
-	startDate: string;
-	endDate: string;
+	name: string;
+	cpf: string;
+	email: string;
+	academicRegistration: string;
+	activeOnly: boolean;
+	campi: Campi[];
+	courseIds: string[];
+	areaOfExpertiseIds: string[];
+	includeConcluded: boolean;
+	periodFrom: string;
+	periodTo: string;
+	dateFrom: string;
+	dateTo: string;
 }
 
 export interface FormerStudentEditorFormValues {
@@ -79,55 +86,86 @@ export interface FormerStudentEditorDrawerProps {
 
 export interface FormerStudentEditorFormProps {
 	canRenderForm: boolean;
+	courseById: Map<string, CourseResponse>;
 	courseOptions: ComboboxOption[];
 	coursesError: unknown;
+	existingUsers: CpfFormFieldExistingUser[];
 	form: UseFormReturn<FormerStudentEditorFormValues>;
+	linkedAccount: AccountResponse | null;
+	linkedAccountError: unknown;
 	mode: FormerStudentEditorMode;
 	onRefreshCourses: () => void;
 	onRefreshFormerStudent: () => void;
+	onRefreshUser: () => void;
 	formerStudent: FormerStudentResponse | undefined;
 	formerStudentError: unknown;
+	userError: unknown;
 }
 
 export interface FormerStudentsFiltersDrawerProps {
-	activeFilter: string;
-	campusFilter: string;
-	courseIdFilter: string;
-	dateField: FormerStudentAuditDateField;
-	endDate: string;
+	name: string;
+	cpf: string;
+	email: string;
+	academicRegistration: string;
+	activeOnly: boolean;
+	campi: Campi[];
+	courseIds: string[];
+	areaOfExpertiseIds: string[];
+	includeConcluded: boolean;
+	periodFrom: string;
+	periodTo: string;
+	dateFrom: string;
+	dateTo: string;
 	hasActiveFilters: boolean;
 	isCoursesLoading: boolean;
-	onActiveFilterChange: (value: string) => void;
+	isAreasOfExpertiseLoading: boolean;
+	onNameChange: (value: string) => void;
+	onCpfChange: (value: string) => void;
+	onEmailChange: (value: string) => void;
+	onAcademicRegistrationChange: (value: string) => void;
+	onActiveOnlyChange: (value: boolean) => void;
 	onApply: () => void;
-	onCampusFilterChange: (value: string) => void;
+	onCampiChange: (value: Campi[]) => void;
 	onClear: () => void;
-	onCourseIdFilterChange: (value: string) => void;
-	onDateFieldChange: (value: FormerStudentAuditDateField) => void;
-	onEndDateChange: (value: string) => void;
+	onCourseIdsChange: (value: string[]) => void;
+	onAreaOfExpertiseIdsChange: (value: string[]) => void;
+	onIncludeConcludedChange: (value: boolean) => void;
+	onPeriodFromChange: (value: string) => void;
+	onPeriodToChange: (value: string) => void;
+	onDateFromChange: (value: string) => void;
+	onDateToChange: (value: string) => void;
 	onOpenChange: (open: boolean) => void;
 	onRefreshCourses: () => void;
-	onStartDateChange: (value: string) => void;
 	open: boolean;
 	courseOptions: ComboboxOption[];
+	areaOfExpertiseOptions: ComboboxOption[];
 	coursesError: boolean;
-	startDate: string;
 }
 
 export interface FormerStudentsRowActionsProps {
 	href: string;
 	onDelete: (formerStudent: FormerStudentDirectoryItem) => void;
+	onDuplicate: (formerStudent: FormerStudentDirectoryItem) => void;
 	onOpenEditor: (id: string, mode: FormerStudentEditorMode) => void;
 	onSetActive: (formerStudent: FormerStudentDirectoryItem) => void;
 	formerStudent: FormerStudentDirectoryItem;
 }
 
 export interface FormerStudentFilterArgs {
-	activeFilter: string;
-	campusFilter: string;
+	name: string;
+	cpf: string;
+	email: string;
+	academicRegistration: string;
+	activeOnly: boolean;
+	campi: Campi[];
 	courseById: Map<string, CourseResponse>;
-	courseIdFilter: string;
-	dateField: FormerStudentAuditDateField;
-	endDate: string;
+	courseIds: string[];
+	areaOfExpertiseIds: string[];
+	includeConcluded: boolean;
+	periodFrom: string;
+	periodTo: string;
+	dateFrom: string;
+	dateTo: string;
 	query: string;
-	startDate: string;
+	registrationQuery: string;
 }

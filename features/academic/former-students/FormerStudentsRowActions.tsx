@@ -25,6 +25,7 @@ import type { FormerStudentsRowActionsProps } from "@/types";
 export function FormerStudentsRowActions({
 	href,
 	onDelete,
+	onDuplicate,
 	onOpenEditor,
 	onSetActive,
 	formerStudent,
@@ -49,7 +50,7 @@ export function FormerStudentsRowActions({
 			<DropdownMenuItem
 				icon={CopyPlus}
 				label={t("academic.studentPage.table.actions.duplicate")}
-				onClick={() => onOpenEditor(formerStudent.accountId, "duplicate")}
+				onClick={() => onDuplicate(formerStudent)}
 			/>
 			<DropdownMenuSeparator />
 			{formerStudent.account?.active ? (

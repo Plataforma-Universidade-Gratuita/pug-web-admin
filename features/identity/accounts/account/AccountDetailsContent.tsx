@@ -22,6 +22,7 @@ import { WebApiError } from "@/utils";
 
 export function AccountDetailsContent({
 	accountId,
+	includeLinkedUser = true,
 }: AccountDetailsContentProps) {
 	const { t } = useTranslation();
 	const accountDetailQuery = useAccountDetailQuery(accountId);
@@ -116,12 +117,14 @@ export function AccountDetailsContent({
 		return (
 			<div className="grid gap-6">
 				<EntityPageFieldsGrid fields={fields} />
-				<div className="grid gap-3">
-					<p className="ty-overhead">
-						{t("identity.accountPage.dialog.linkedUser.overhead")}
-					</p>
-					<UserDetailsContent userId={account.userId} />
-				</div>
+				{includeLinkedUser ? (
+					<div className="grid gap-3">
+						<p className="ty-overhead">
+							{t("identity.accountPage.dialog.linkedUser.overhead")}
+						</p>
+						<UserDetailsContent userId={account.userId} />
+					</div>
+				) : null}
 			</div>
 		);
 	}

@@ -33,6 +33,7 @@ import {
 	getAdminSetActiveErrorToastContent,
 	getAdminsListErrorToastContent,
 } from "@/features/identity/admins/utils";
+import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import {
 	ServicePageHeader,
 	ServicePageHeaderActions,
@@ -103,6 +104,7 @@ export function AdminsPage() {
 			: (adminsPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE),
 		appliedFilters,
 	);
+	const accountsQuery = useAccountsQuery();
 	const currentAdminQuery = useCurrentAdminQuery();
 	const createAdminMutation = useCreateAdminMutation();
 	const setAdminActiveMutation = useSetAdminActiveMutation();
@@ -224,7 +226,10 @@ export function AdminsPage() {
 					body: {
 						cpfString: linkedUser.cpf,
 						name: linkedUser.name,
-						emailString: appendCopyToEmail(admin.account.email),
+						emailString: appendCopyToEmail(
+							admin.account.email,
+							(accountsQuery.data ?? []).map(account => account.email),
+						),
 						campus: admin.campus.campus,
 					},
 				},
@@ -237,7 +242,12 @@ export function AdminsPage() {
 									"identity.adminPage.duplicate.feedback.success.description",
 									{
 										name: linkedUser.name,
-										email: appendCopyToEmail(admin.account.email),
+										email: appendCopyToEmail(
+											admin.account.email,
+											(accountsQuery.data ?? []).map(
+												account => account.email,
+											),
+										),
 									},
 								),
 							},

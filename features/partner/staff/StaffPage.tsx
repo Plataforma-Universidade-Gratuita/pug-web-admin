@@ -10,6 +10,7 @@ import { NoContentState, SomeErrorState } from "@/components";
 import { toast } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { useUsersQuery } from "@/features/identity/users/queries";
+import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { StaffActionDialogs } from "@/features/partner/staff/StaffActionDialogs";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
 import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
@@ -88,6 +89,7 @@ export function StaffPage() {
 	});
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const staffQuery = useStaffQuery(staffPagination.isAll);
+	const accountsQuery = useAccountsQuery();
 	const usersQuery = useUsersQuery(staffPagination.isAll);
 	const staffSearchQuery = useStaffSearchQuery(
 		staffPagination.backendPage ?? 0,
@@ -267,7 +269,10 @@ export function StaffPage() {
 					body: {
 						cpfString: linkedUser.cpf,
 						name: linkedUser.name,
-						emailString: appendCopyToEmail(staff.account.email),
+						emailString: appendCopyToEmail(
+							staff.account.email,
+							(accountsQuery.data ?? []).map(account => account.email),
+						),
 						entityId: staff.entity.id,
 					},
 				},

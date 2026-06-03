@@ -4,21 +4,21 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, NotFoundState, SomeErrorState } from "@/components";
+import { NotFoundState, SomeErrorState } from "@/components";
+import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { useCoursesQuery } from "@/features/academic/courses/queries";
+import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
+import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { useFormerStudentDetailQuery } from "@/features/academic/former-students/queries";
 import {
 	getStudentCoursesErrorToastContent,
 	getStudentDetailErrorToastContent,
-	resolveFormerStudentCourseLabel,
 } from "@/features/academic/former-students/utils";
+import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import { useAccountDetailQuery } from "@/features/identity/accounts/queries";
 import { useUserDetailQuery } from "@/features/identity/users/queries";
-import {
-	EntityPageFieldsGrid,
-	EntityPageFieldsGridSkeleton,
-	EntityPageShell,
-} from "@/features/shared/entity-pages";
+import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
+import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { FormerStudentPageProps } from "@/types";
 import { WebApiError } from "@/utils";
@@ -56,123 +56,15 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 		[coursesQuery.data],
 	);
 	const formerStudent = formerStudentDetailQuery.data;
-	const account = accountDetailQuery.data;
-	const user = userDetailQuery.data;
-	const fields = useMemo(
+	const course = useMemo(
 		() =>
-			formerStudent
-				? [
-						{
-							id: "accountId",
-							label: t("academic.studentPage.dialog.fields.accountId"),
-							value: formerStudent.accountId,
-						},
-						{
-							id: "name",
-							label: t("academic.studentPage.dialog.fields.name"),
-							value: user?.name ?? "-",
-						},
-						{
-							id: "cpf",
-							label: t("academic.studentPage.dialog.fields.cpf"),
-							value: user?.cpfFormatted ?? "-",
-						},
-						{
-							id: "email",
-							label: t("academic.studentPage.dialog.fields.email"),
-							value: account?.email ?? "-",
-						},
-						{
-							id: "active",
-							label: t("academic.studentPage.dialog.fields.active"),
-							value: (
-								<Badge
-									className="min-h-5 px-2 py-0.5"
-									tone={account?.active ? "success" : "danger"}
-									variant="primary"
-								>
-									{account?.active
-										? t("academic.studentPage.dialog.active.yes")
-										: t("academic.studentPage.dialog.active.no")}
-								</Badge>
-							),
-						},
-						{
-							id: "academicRegistration",
-							label: t(
-								"academic.studentPage.dialog.fields.academicRegistration",
-							),
-							value: formerStudent.academicRegistration,
-						},
-						{
-							id: "campus",
-							label: t("academic.studentPage.dialog.fields.campus"),
-							value: formerStudent.campus.campusFormatted,
-						},
-						{
-							id: "course",
-							label: t("academic.studentPage.dialog.fields.course"),
-							value: resolveFormerStudentCourseLabel(
-								courseById,
-								formerStudent.courseId,
-							),
-						},
-						{
-							id: "requiredHours",
-							label: t("academic.studentPage.dialog.fields.requiredHours"),
-							value: formerStudent.counterpartHours.requiredHours,
-						},
-						{
-							id: "completedHours",
-							label: t("academic.studentPage.dialog.fields.completedHours"),
-							value: formerStudent.counterpartHours.completedHours,
-						},
-						{
-							id: "missingHours",
-							label: t("academic.studentPage.dialog.fields.missingHours"),
-							value: formerStudent.counterpartHours.missingHours,
-						},
-						{
-							id: "startDate",
-							label: t("academic.studentPage.dialog.fields.startDate"),
-							value: formerStudent.period.startDateFormatted,
-						},
-						{
-							id: "dueDate",
-							label: t("academic.studentPage.dialog.fields.dueDate"),
-							value: formerStudent.period.dueDateFormatted,
-						},
-						{
-							id: "remainingDays",
-							label: t("academic.studentPage.dialog.fields.remainingDays"),
-							value: formerStudent.period.remainingDaysFormatted,
-						},
-						{
-							id: "createdAt",
-							label: t("academic.studentPage.dialog.fields.createdAt"),
-							value: formerStudent.auditInfo.createdAtFormatted,
-						},
-						{
-							id: "updatedAt",
-							label: t("academic.studentPage.dialog.fields.updatedAt"),
-							value: formerStudent.auditInfo.updatedAtFormatted,
-						},
-					]
-				: [],
-		[
-			account?.active,
-			account?.email,
-			courseById,
-			formerStudent,
-			t,
-			user?.cpfFormatted,
-			user?.name,
-		],
+			formerStudent ? (courseById.get(formerStudent.courseId) ?? null) : null,
+		[courseById, formerStudent],
 	);
 
 	return (
 		<EntityPageShell
-			title={user?.name ?? t("academic.studentPage.dialog.titleFallback")}
+			title={userDetailQuery.data?.name ?? t("academic.studentPage.dialog.titleFallback")}
 			description={t("academic.studentPage.description")}
 		>
 			{formerStudentDetailQuery.isError ? (
@@ -192,9 +84,61 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 					/>
 				)
 			) : formerStudent ? (
-				<EntityPageFieldsGrid fields={fields} />
-			) : formerStudentDetailQuery.isLoading ? (
-				<EntityPageFieldsGridSkeleton />
+				<div className="grid gap-6">
+					<div className="grid gap-3">
+						<p className="ty-overhead">
+							{t("academic.studentPage.dialog.overhead")}
+						</p>
+						<FormerStudentOwnDetailsContent
+							formerStudent={formerStudent}
+							columns={3}
+						/>
+					</div>
+
+					<div className="grid gap-3">
+						<p className="ty-overhead">
+							{t("partner.staffPage.dialog.linkedAccount.overhead")}
+						</p>
+						<AccountDetailsContent
+							accountId={formerStudent.accountId}
+							includeLinkedUser={false}
+						/>
+					</div>
+
+					<div className="grid gap-3">
+						<p className="ty-overhead">
+							{t("partner.staffPage.dialog.linkedUser.overhead")}
+						</p>
+						{accountDetailQuery.data ? (
+							<UserDetailsContent userId={accountDetailQuery.data.userId} />
+						) : null}
+					</div>
+
+					{course ? (
+						<>
+							<div className="grid gap-3">
+								<p className="ty-overhead">
+									{t("academic.studentPage.editor.sections.linkedCourse")}
+								</p>
+								<CourseOwnDetailsContent
+									course={course}
+									columns={3}
+									includeName
+								/>
+							</div>
+
+							<div className="grid gap-3">
+								<p className="ty-overhead">
+									{t("academic.coursePage.dialog.linkedAreaOfExpertise.overhead")}
+								</p>
+								<AreaOfExpertiseDetailsContent
+									areaOfExpertise={course.areaOfExpertise}
+									columns={3}
+								/>
+							</div>
+						</>
+					) : null}
+				</div>
 			) : (
 				<NotFoundState
 					title={t("academic.studentPage.dialog.notFound.title")}

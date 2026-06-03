@@ -42,7 +42,7 @@ import {
 	toFormerStudentUpdateRequest,
 } from "@/features/academic/former-students/utils";
 import { useAccountDetailQuery } from "@/features/identity/accounts/queries";
-import { useUserDetailQuery } from "@/features/identity/users/queries";
+import { useUserDetailQuery, useUsersQuery } from "@/features/identity/users/queries";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
@@ -63,6 +63,7 @@ export function FormerStudentEditorDrawer({
 	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
 	const isDuplicateMode = mode === "duplicate";
+	const existingUsersQuery = useUsersQuery(open && mode !== "update");
 	const formerStudentDetailQuery = useFormerStudentDetailQuery(formerStudentId);
 	const accountDetailQuery = useAccountDetailQuery(
 		formerStudentDetailQuery.data?.accountId ?? null,
@@ -75,6 +76,10 @@ export function FormerStudentEditorDrawer({
 	const updateMutation = useUpdateFormerStudentMutation();
 	const courseOptions = useMemo(
 		() => buildFormerStudentCourseOptions(coursesQuery.data ?? []),
+		[coursesQuery.data],
+	);
+	const courseById = useMemo(
+		() => new Map((coursesQuery.data ?? []).map(course => [course.id, course])),
 		[coursesQuery.data],
 	);
 	const emptyValues = useMemo(
@@ -307,9 +312,15 @@ export function FormerStudentEditorDrawer({
 					<DrawerBody className="grid gap-6">
 						<FormerStudentEditorForm
 							canRenderForm={canRenderForm}
+							courseById={courseById}
 							courseOptions={courseOptions}
 							coursesError={coursesQuery.isError ? coursesQuery.error : null}
+							existingUsers={existingUsersQuery.data ?? []}
 							form={form}
+							linkedAccount={accountDetailQuery.data ?? null}
+							linkedAccountError={
+								accountDetailQuery.isError ? accountDetailQuery.error : null
+							}
 							mode={mode}
 							onRefreshCourses={() => {
 								void coursesQuery.refetch();
@@ -317,12 +328,16 @@ export function FormerStudentEditorDrawer({
 							onRefreshFormerStudent={() => {
 								void formerStudentDetailQuery.refetch();
 							}}
+							onRefreshUser={() => {
+								void userDetailQuery.refetch();
+							}}
 							formerStudent={formerStudentDetailQuery.data}
 							formerStudentError={
 								formerStudentDetailQuery.isError
 									? formerStudentDetailQuery.error
 									: null
 							}
+							userError={userDetailQuery.isError ? userDetailQuery.error : null}
 						/>
 					</DrawerBody>
 

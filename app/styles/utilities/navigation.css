@@ -319,6 +319,13 @@
 		outline: none;
 	}
 
+	.drawer-sticky-tabs .tabs-list-scroll {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+		background-color: var(--twc-surface-2);
+	}
+
 	.service-page-editor-tabs {
 		position: sticky;
 		top: 0;

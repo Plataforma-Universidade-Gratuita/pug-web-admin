@@ -4,23 +4,30 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { get as getFormerStudent } from "@/api/web/academic/former-students";
+import { get as getAccount } from "@/api/web/identity/accounts";
+import { get as getUser } from "@/api/web/identity/users";
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { useCoursesQuery } from "@/features/academic/courses/queries";
 import { FormerStudentEditorDrawer } from "@/features/academic/former-students/FormerStudentEditorDrawer";
 import { FormerStudentsFiltersDrawer } from "@/features/academic/former-students/FormerStudentsFiltersDrawer";
 import { FormerStudentsRowActions } from "@/features/academic/former-students/FormerStudentsRowActions";
 import {
+	useCreateFormerStudentMutation,
 	useRemoveFormerStudentMutation,
 	useSetFormerStudentActiveMutation,
 } from "@/features/academic/former-students/mutations";
 import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
 import {
+	buildFormerStudentAreaOfExpertiseOptions,
 	buildFormerStudentCourseOptions,
 	buildFormerStudentDirectoryItems,
+	appendCopyToEmail,
 	createFormerStudentColumns,
 	filterFormerStudents,
 	getStudentCoursesErrorToastContent,
 	getStudentDeleteErrorToastContent,
+	getStudentDuplicateErrorToastContent,
 	getStudentEmptyStateCopy,
 	getStudentFilterSummary,
 	getStudentSetActiveErrorToastContent,
@@ -51,15 +58,23 @@ import type {
 export function FormerStudentsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
+	const [registrationSearch, setRegistrationSearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
 	const initialSecondaryFilters = useMemo<FormerStudentSecondaryFilters>(
 		() => ({
-			activeFilter: "",
-			campusFilter: "",
-			courseIdFilter: "",
-			dateField: "",
-			startDate: "",
-			endDate: "",
+			name: "",
+			cpf: "",
+			email: "",
+			academicRegistration: "",
+			activeOnly: true,
+			campi: [],
+			courseIds: [],
+			areaOfExpertiseIds: [],
+			includeConcluded: false,
+			periodFrom: "",
+			periodTo: "",
+			dateFrom: "",
+			dateTo: "",
 		}),
 		[],
 	);
@@ -82,10 +97,12 @@ export function FormerStudentsPage() {
 	const [pendingDeleteStudent, setPendingDeleteStudent] =
 		useState<FormerStudentDirectoryItem | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
+	const deferredRegistrationSearch = useDeferredValue(registrationSearch.trim());
 	const formerStudentsQuery = useFormerStudentsQuery();
 	const coursesQuery = useCoursesQuery();
 	const accountsQuery = useAccountsQuery();
 	const usersQuery = useUsersQuery();
+	const createFormerStudentMutation = useCreateFormerStudentMutation();
 	const removeFormerStudentMutation = useRemoveFormerStudentMutation();
 	const setFormerStudentActiveMutation = useSetFormerStudentActiveMutation();
 	const { schedule } = useDeferredUndoAction();
@@ -96,6 +113,10 @@ export function FormerStudentsPage() {
 	);
 	const courseOptions = useMemo(
 		() => buildFormerStudentCourseOptions(coursesQuery.data ?? []),
+		[coursesQuery.data],
+	);
+	const areaOfExpertiseOptions = useMemo(
+		() => buildFormerStudentAreaOfExpertiseOptions(coursesQuery.data ?? []),
 		[coursesQuery.data],
 	);
 	const directoryItems = useMemo(
@@ -116,35 +137,62 @@ export function FormerStudentsPage() {
 	const filteredStudents = useMemo(
 		() =>
 			filterFormerStudents(directoryItems, {
-				activeFilter: appliedFilters.activeFilter,
-				campusFilter: appliedFilters.campusFilter,
+				academicRegistration: appliedFilters.academicRegistration,
+				activeOnly: appliedFilters.activeOnly,
+				areaOfExpertiseIds: appliedFilters.areaOfExpertiseIds,
+				campi: appliedFilters.campi,
+				cpf: appliedFilters.cpf,
 				courseById,
-				courseIdFilter: appliedFilters.courseIdFilter,
-				dateField: appliedFilters.dateField,
-				endDate: appliedFilters.endDate,
+				courseIds: appliedFilters.courseIds,
+				dateFrom: appliedFilters.dateFrom,
+				dateTo: appliedFilters.dateTo,
+				email: appliedFilters.email,
+				includeConcluded: appliedFilters.includeConcluded,
+				name: appliedFilters.name,
+				periodFrom: appliedFilters.periodFrom,
+				periodTo: appliedFilters.periodTo,
 				query: deferredQuerySearch,
-				startDate: appliedFilters.startDate,
+				registrationQuery: deferredRegistrationSearch,
 			}),
-		[appliedFilters, courseById, deferredQuerySearch, directoryItems],
+		[
+			appliedFilters,
+			courseById,
+			deferredQuerySearch,
+			deferredRegistrationSearch,
+			directoryItems,
+		],
 	);
-	const columns = useMemo(
-		() => createFormerStudentColumns(t, courseById),
-		[courseById, t],
+	const columns = useMemo(() => createFormerStudentColumns(t), [t]);
+	const hasAnyFilters = Boolean(
+		querySearch.trim() || registrationSearch.trim() || hasAppliedFilters,
 	);
-	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
 		() =>
 			getStudentFilterSummary(t, {
-				activeFilter: appliedFilters.activeFilter,
-				campusFilter: appliedFilters.campusFilter,
+				academicRegistration: appliedFilters.academicRegistration,
+				activeOnly: appliedFilters.activeOnly,
+				areaOfExpertiseIds: appliedFilters.areaOfExpertiseIds,
+				campi: appliedFilters.campi,
+				cpf: appliedFilters.cpf,
 				courseById,
-				courseIdFilter: appliedFilters.courseIdFilter,
-				dateField: appliedFilters.dateField,
-				endDate: appliedFilters.endDate,
+				courseIds: appliedFilters.courseIds,
+				dateFrom: appliedFilters.dateFrom,
+				dateTo: appliedFilters.dateTo,
+				email: appliedFilters.email,
+				includeConcluded: appliedFilters.includeConcluded,
+				name: appliedFilters.name,
+				periodFrom: appliedFilters.periodFrom,
+				periodTo: appliedFilters.periodTo,
 				query: deferredQuerySearch,
-				startDate: appliedFilters.startDate,
+				registrationQuery: deferredRegistrationSearch,
 			}),
-		[appliedFilters, courseById, deferredQuerySearch, t],
+		[
+			appliedFilters,
+			courseById,
+			deferredQuerySearch,
+			deferredRegistrationSearch,
+			t,
+		],
 	);
 	const emptyStateCopy = useMemo(
 		() => getStudentEmptyStateCopy(t, filterSummary),
@@ -195,8 +243,64 @@ export function FormerStudentsPage() {
 
 	function clearAllFilters() {
 		setQuerySearch("");
+		setRegistrationSearch("");
 		clearDraftFilters();
 		setFiltersOpen(false);
+	}
+
+	async function handleDuplicate(formerStudent: FormerStudentDirectoryItem) {
+		try {
+			const formerStudentDetail = await getFormerStudent(formerStudent.accountId);
+			const linkedAccount = await getAccount(formerStudent.accountId);
+			const linkedUser = await getUser(linkedAccount.userId);
+
+			createFormerStudentMutation.mutate(
+				{
+					body: {
+						cpf: linkedUser.cpf,
+						name: linkedUser.name,
+						email: appendCopyToEmail(
+							linkedAccount.email,
+							(accountsQuery.data ?? []).map(account => account.email),
+						),
+						academicRegistration: formerStudentDetail.academicRegistration,
+						campus: formerStudentDetail.campus.campus,
+						courseId: formerStudentDetail.courseId,
+						requiredHours: formerStudentDetail.counterpartHours.requiredHours,
+						startDate: formerStudentDetail.period.startDate,
+						dueDate: formerStudentDetail.period.dueDate,
+					},
+				},
+				{
+					onSuccess: () => {
+						toast.success(
+							t("academic.studentPage.duplicate.feedback.success.title"),
+							{
+								description: t(
+									"academic.studentPage.duplicate.feedback.success.description",
+									{
+										name: linkedUser.name,
+									},
+								),
+							},
+						);
+					},
+					onError: error => {
+						const { title, description } = getStudentDuplicateErrorToastContent(
+							t,
+							error,
+						);
+						toast.danger(title, { description });
+					},
+				},
+			);
+		} catch (error) {
+			const { title, description } = getStudentDuplicateErrorToastContent(
+				t,
+				error,
+			);
+			toast.danger(title, { description });
+		}
 	}
 
 	function handleStatusConfirm() {
@@ -317,7 +421,7 @@ export function FormerStudentsPage() {
 						onCreate={editorState.openCreate}
 					/>
 				}
-				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
+				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_auto]"
 			>
 				<TextFieldFilter
 					label={t("academic.studentPage.filters.search.label")}
@@ -326,35 +430,64 @@ export function FormerStudentsPage() {
 					placeholder={t("academic.studentPage.filters.search.placeholder")}
 				/>
 
+				<TextFieldFilter
+					label={t("academic.studentPage.filters.frontendAcademicRegistration.label")}
+					value={registrationSearch}
+					onChange={setRegistrationSearch}
+					placeholder={t(
+						"academic.studentPage.filters.frontendAcademicRegistration.placeholder",
+					)}
+				/>
+
 				<FormerStudentsFiltersDrawer
-					activeFilter={draftFilters.activeFilter}
-					campusFilter={draftFilters.campusFilter}
-					courseIdFilter={draftFilters.courseIdFilter}
+					name={draftFilters.name}
+					cpf={draftFilters.cpf}
+					email={draftFilters.email}
+					academicRegistration={draftFilters.academicRegistration}
+					activeOnly={draftFilters.activeOnly}
+					campi={draftFilters.campi}
+					courseIds={draftFilters.courseIds}
+					areaOfExpertiseIds={draftFilters.areaOfExpertiseIds}
+					includeConcluded={draftFilters.includeConcluded}
+					periodFrom={draftFilters.periodFrom}
+					periodTo={draftFilters.periodTo}
+					dateFrom={draftFilters.dateFrom}
+					dateTo={draftFilters.dateTo}
 					courseOptions={courseOptions}
+					areaOfExpertiseOptions={areaOfExpertiseOptions}
 					coursesError={coursesQuery.isError}
-					dateField={draftFilters.dateField}
-					endDate={draftFilters.endDate}
 					hasActiveFilters={hasAppliedFilters}
 					isCoursesLoading={coursesQuery.isLoading}
-					onActiveFilterChange={value => setDraftFilter("activeFilter", value)}
+					isAreasOfExpertiseLoading={coursesQuery.isLoading}
+					onNameChange={value => setDraftFilter("name", value)}
+					onCpfChange={value => setDraftFilter("cpf", value)}
+					onEmailChange={value => setDraftFilter("email", value)}
+					onAcademicRegistrationChange={value =>
+						setDraftFilter("academicRegistration", value)
+					}
+					onActiveOnlyChange={value => setDraftFilter("activeOnly", value)}
 					onApply={() => {
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
-					onCampusFilterChange={value => setDraftFilter("campusFilter", value)}
+					onCampiChange={value => setDraftFilter("campi", value)}
 					onClear={clearAllFilters}
-					onCourseIdFilterChange={value =>
-						setDraftFilter("courseIdFilter", value)
+					onCourseIdsChange={value => setDraftFilter("courseIds", value)}
+					onAreaOfExpertiseIdsChange={value =>
+						setDraftFilter("areaOfExpertiseIds", value)
 					}
-					onDateFieldChange={value => setDraftFilter("dateField", value)}
-					onEndDateChange={value => setDraftFilter("endDate", value)}
+					onIncludeConcludedChange={value =>
+						setDraftFilter("includeConcluded", value)
+					}
+					onPeriodFromChange={value => setDraftFilter("periodFrom", value)}
+					onPeriodToChange={value => setDraftFilter("periodTo", value)}
+					onDateFromChange={value => setDraftFilter("dateFrom", value)}
+					onDateToChange={value => setDraftFilter("dateTo", value)}
 					onOpenChange={setFiltersOpen}
 					onRefreshCourses={() => {
 						void coursesQuery.refetch();
 					}}
-					onStartDateChange={value => setDraftFilter("startDate", value)}
 					open={filtersOpen}
-					startDate={draftFilters.startDate}
 				/>
 			</ServicePageHeader>
 
@@ -369,6 +502,7 @@ export function FormerStudentsPage() {
 							href={`/academic/former-students/${row.accountId}`}
 							formerStudent={row}
 							onDelete={setPendingDeleteStudent}
+							onDuplicate={handleDuplicate}
 							onOpenEditor={editorState.openEditor}
 							onSetActive={formerStudent =>
 								setPendingStatusStudent(formerStudent)

@@ -4,6 +4,7 @@ export interface AccountPageProps {
 
 export interface AccountDetailsContentProps {
 	accountId: string;
+	includeLinkedUser?: boolean;
 }
 
 export interface AccountRoutePageProps {

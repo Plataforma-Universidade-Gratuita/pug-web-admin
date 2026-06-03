@@ -1,10 +1,18 @@
 "use client";
 
-import { Controller } from "react-hook-form";
+import { useState } from "react";
+
+import { Controller, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+	Badge,
 	Combobox,
+	CpfFormField,
 	DatePicker,
 	Input,
 	Label,
@@ -14,25 +22,59 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SomeErrorState,
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
 } from "@/components";
+import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
+import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { getFormerStudentCampusOptions } from "@/features/academic/former-students/utils";
-import type { FormerStudentEditorFormProps } from "@/types";
+import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
+import {
+	getAccountTypeLabel,
+	getAccountTypeTone,
+} from "@/features/identity/accounts/utils";
+import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
+import type {
+	CpfFormFieldExistingUser,
+	FormerStudentEditorFormProps,
+} from "@/types";
 import { WebApiError } from "@/utils";
 
 export function FormerStudentEditorForm({
 	canRenderForm,
+	courseById,
 	courseOptions,
 	coursesError,
+	existingUsers,
 	form,
+	linkedAccount,
+	linkedAccountError,
+	mode,
 	onRefreshCourses,
 	onRefreshFormerStudent,
+	onRefreshUser,
 	formerStudent,
 	formerStudentError,
+	userError,
 }: FormerStudentEditorFormProps) {
 	const { t } = useTranslation();
 	const campusOptions = getFormerStudentCampusOptions(t);
+	const isUpdateMode = mode === "update";
+	const isCreateLikeMode = mode !== "update";
+	const watchedCpf = useWatch({
+		control: form.control,
+		name: "cpf",
+	});
+	const watchedCourseId = useWatch({
+		control: form.control,
+		name: "courseId",
+	});
+	const [matchedExistingUser, setMatchedExistingUser] =
+		useState<CpfFormFieldExistingUser | null>(null);
 
-	if (formerStudentError) {
+	if (mode !== "create" && formerStudentError) {
 		if (
 			formerStudentError instanceof WebApiError &&
 			formerStudentError.status === 404
@@ -54,6 +96,49 @@ export function FormerStudentEditorForm({
 		);
 	}
 
+	if (userError) {
+		if (userError instanceof WebApiError && userError.status === 404) {
+			return (
+				<NotFoundState
+					title={t("identity.adminPage.dialog.linkedUser.notFound.title")}
+					description={t(
+						"identity.adminPage.dialog.linkedUser.notFound.description",
+					)}
+				/>
+			);
+		}
+
+		return (
+			<SomeErrorState
+				title={t("identity.adminPage.dialog.linkedUser.error.title")}
+				description={t("identity.adminPage.dialog.linkedUser.error.description")}
+				onRefresh={onRefreshUser}
+			/>
+		);
+	}
+
+	if (linkedAccountError) {
+		if (
+			linkedAccountError instanceof WebApiError &&
+			linkedAccountError.status === 404
+		) {
+			return (
+				<NotFoundState
+					title={t("identity.accountPage.dialog.notFound.title")}
+					description={t("identity.accountPage.dialog.notFound.description")}
+				/>
+			);
+		}
+
+		return (
+			<SomeErrorState
+				title={t("identity.accountPage.dialog.error.title")}
+				description={t("identity.accountPage.dialog.error.description")}
+				onRefresh={onRefreshFormerStudent}
+			/>
+		);
+	}
+
 	if (coursesError) {
 		return (
 			<SomeErrorState
@@ -66,169 +151,249 @@ export function FormerStudentEditorForm({
 		);
 	}
 
-	if (!canRenderForm) {
+	if (!canRenderForm || (!isUpdateMode && !formerStudent && mode !== "create")) {
 		return (
 			<NotFoundState title={t("academic.studentPage.update.notFound.title")} />
 		);
 	}
 
-	return (
-		<div className="grid gap-6">
-			<div className="grid gap-4 lg:grid-cols-2">
-				<div className="grid gap-2">
-					<Label htmlFor="former-student-cpf">
-						{t("academic.studentPage.editor.fields.cpf")}
-					</Label>
-					<Input
-						id="former-student-cpf"
-						{...form.register("cpf")}
-						placeholder={t("academic.studentPage.editor.fields.cpfPlaceholder")}
-					/>
-					{form.formState.errors.cpf ? (
-						<p className="field-error">{form.formState.errors.cpf.message}</p>
-					) : null}
-				</div>
+	const hasCpfValue = (watchedCpf ?? "").trim().length > 0;
+	const isNameDisabled =
+		isCreateLikeMode && (!hasCpfValue || matchedExistingUser != null);
+	const accountIsActive = linkedAccount?.active ?? true;
+	const accountStatusLabel = accountIsActive
+		? t("identity.accountPage.dialog.active.yes")
+		: t("identity.accountPage.dialog.active.no");
+	const accountStatusTone = accountIsActive ? "success" : "danger";
+	const accountTypeLabel = getAccountTypeLabel(t, "FORMER_STUDENT");
+	const accountTypeTone = linkedAccount
+		? getAccountTypeTone(linkedAccount.accountType)
+		: "warning";
+	const linkedCourse = formerStudent
+		? (courseById.get(formerStudent.courseId) ?? null)
+		: (courseById.get(watchedCourseId ?? "") ?? null);
 
-				<div className="grid gap-2">
-					<Label htmlFor="former-student-name">
-						{t("academic.studentPage.editor.fields.name")}
-					</Label>
-					<Input
-						id="former-student-name"
-						{...form.register("name")}
-						placeholder={t(
-							"academic.studentPage.editor.fields.namePlaceholder",
-						)}
-					/>
-					{form.formState.errors.name ? (
-						<p className="field-error">{form.formState.errors.name.message}</p>
-					) : null}
-				</div>
+	const profileSection = (
+		<section className="grid gap-4">
+			<div className="grid gap-1">
+				<p className="ty-overhead">
+					{t("identity.adminPage.update.tabs.profile")}
+				</p>
+			</div>
+			{isCreateLikeMode ? (
+				<CpfFormField
+					id="former-student-cpf"
+					form={form}
+					existingUsers={existingUsers}
+					label={t("academic.studentPage.editor.fields.cpf")}
+					placeholder={t("academic.studentPage.editor.fields.cpfPlaceholder")}
+					searchPlaceholder={t(
+						"academic.studentPage.editor.fields.cpfSearchPlaceholder",
+					)}
+					emptyMessage={t("academic.studentPage.editor.fields.cpfEmpty")}
+					createOptionLabel={value =>
+						t("academic.studentPage.editor.fields.cpfCreateOption", {
+							value,
+						})
+					}
+					onExistingUserChange={user => setMatchedExistingUser(user)}
+				/>
+			) : null}
 
-				<div className="grid gap-2">
-					<Label htmlFor="former-student-email">
-						{t("academic.studentPage.editor.fields.email")}
-					</Label>
-					<Input
-						id="former-student-email"
-						type="email"
-						{...form.register("email")}
-						placeholder={t(
-							"academic.studentPage.editor.fields.emailPlaceholder",
-						)}
-					/>
-					{form.formState.errors.email ? (
-						<p className="field-error">{form.formState.errors.email.message}</p>
-					) : null}
-				</div>
-
-				<div className="grid gap-2">
-					<Label htmlFor="former-student-registration">
-						{t("academic.studentPage.editor.fields.academicRegistration")}
-					</Label>
-					<Input
-						id="former-student-registration"
-						{...form.register("academicRegistration")}
-						placeholder={t(
-							"academic.studentPage.editor.fields.academicRegistrationPlaceholder",
-						)}
-					/>
-					{form.formState.errors.academicRegistration ? (
-						<p className="field-error">
-							{form.formState.errors.academicRegistration.message}
-						</p>
-					) : null}
-				</div>
+			<div className="grid gap-2">
+				<Label htmlFor="former-student-name">
+					{t("academic.studentPage.editor.fields.name")}
+				</Label>
+				<Input
+					id="former-student-name"
+					{...form.register("name")}
+					disabled={isNameDisabled}
+					aria-describedby={
+						form.formState.errors.name
+							? "former-student-name-error"
+							: undefined
+					}
+					aria-invalid={form.formState.errors.name ? "true" : "false"}
+					placeholder={t("academic.studentPage.editor.fields.namePlaceholder")}
+				/>
+				{form.formState.errors.name ? (
+					<p
+						id="former-student-name-error"
+						className="field-error"
+					>
+						{form.formState.errors.name.message}
+					</p>
+				) : null}
 			</div>
 
-			<div className="grid gap-4 lg:grid-cols-3">
-				<div className="grid gap-2">
-					<Label>{t("academic.studentPage.editor.fields.campus")}</Label>
-					<Controller
-						control={form.control}
-						name="campus"
-						render={({ field }) => (
-							<Select
-								value={field.value}
-								onValueChange={field.onChange}
-							>
-								<SelectTrigger
-									className="w-full"
-									placeholder={t(
-										"academic.studentPage.editor.fields.campusPlaceholder",
-									)}
-								/>
-								<SelectContent>
-									{campusOptions.map(option => (
-										<SelectItem
-											key={option.value}
-											value={option.value}
-										>
-											{option.label}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
-						)}
-					/>
-					{form.formState.errors.campus ? (
-						<p className="field-error">
-							{form.formState.errors.campus.message}
-						</p>
-					) : null}
-				</div>
+			<div className="grid gap-2">
+				<Label htmlFor="former-student-email">
+					{t("academic.studentPage.editor.fields.email")}
+				</Label>
+				<Input
+					id="former-student-email"
+					type="email"
+					{...form.register("email")}
+					aria-describedby={
+						form.formState.errors.email
+							? "former-student-email-error"
+							: undefined
+					}
+					aria-invalid={form.formState.errors.email ? "true" : "false"}
+					placeholder={t("academic.studentPage.editor.fields.emailPlaceholder")}
+				/>
+				{form.formState.errors.email ? (
+					<p
+						id="former-student-email-error"
+						className="field-error"
+					>
+						{form.formState.errors.email.message}
+					</p>
+				) : null}
+			</div>
 
-				<div className="grid gap-2 lg:col-span-2">
-					<Label>{t("academic.studentPage.editor.fields.course")}</Label>
-					<Controller
-						control={form.control}
-						name="courseId"
-						render={({ field }) => (
-							<Combobox
-								options={courseOptions}
-								value={field.value}
-								onValueChange={field.onChange}
+			<div className="grid gap-2">
+				<Label htmlFor="former-student-registration">
+					{t("academic.studentPage.editor.fields.academicRegistration")}
+				</Label>
+				<Input
+					id="former-student-registration"
+					{...form.register("academicRegistration")}
+					placeholder={t(
+						"academic.studentPage.editor.fields.academicRegistrationPlaceholder",
+					)}
+				/>
+				{form.formState.errors.academicRegistration ? (
+					<p className="field-error">
+						{form.formState.errors.academicRegistration.message}
+					</p>
+				) : null}
+			</div>
+		</section>
+	);
+
+	const academicSection = (
+		<section className="grid gap-4">
+			<div className="grid gap-1">
+				<p className="ty-overhead">
+					{t("academic.studentPage.editor.sections.academic")}
+				</p>
+			</div>
+
+			<div className="grid gap-2">
+				<Label>{t("academic.studentPage.editor.fields.campus")}</Label>
+				<Controller
+					control={form.control}
+					name="campus"
+					render={({ field }) => (
+						<Select
+							value={field.value}
+							onValueChange={field.onChange}
+						>
+							<SelectTrigger
+								className="w-full"
 								placeholder={t(
-									"academic.studentPage.editor.fields.coursePlaceholder",
-								)}
-								searchPlaceholder={t(
-									"academic.studentPage.editor.fields.courseSearchPlaceholder",
-								)}
-								emptyMessage={t(
-									"academic.studentPage.editor.fields.courseEmptyMessage",
+									"academic.studentPage.editor.fields.campusPlaceholder",
 								)}
 							/>
-						)}
-					/>
-					{form.formState.errors.courseId ? (
-						<p className="field-error">
-							{form.formState.errors.courseId.message}
-						</p>
-					) : null}
+							<SelectContent>
+								{campusOptions.map(option => (
+									<SelectItem
+										key={option.value}
+										value={option.value}
+									>
+										{option.label}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					)}
+				/>
+				{form.formState.errors.campus ? (
+					<p className="field-error">
+						{form.formState.errors.campus.message}
+					</p>
+				) : null}
+			</div>
+
+			<div className="grid gap-2">
+				<Label>{t("academic.studentPage.editor.fields.course")}</Label>
+				<Controller
+					control={form.control}
+					name="courseId"
+					render={({ field }) => (
+						<Combobox
+							options={courseOptions}
+							value={field.value}
+							onValueChange={field.onChange}
+							placeholder={t(
+								"academic.studentPage.editor.fields.coursePlaceholder",
+							)}
+							searchPlaceholder={t(
+								"academic.studentPage.editor.fields.courseSearchPlaceholder",
+							)}
+							emptyMessage={t(
+								"academic.studentPage.editor.fields.courseEmptyMessage",
+							)}
+						/>
+					)}
+				/>
+				{form.formState.errors.courseId ? (
+					<p className="field-error">
+						{form.formState.errors.courseId.message}
+					</p>
+				) : null}
+			</div>
+
+			<div className="grid gap-2">
+				<Label htmlFor="former-student-required-hours">
+					{t("academic.studentPage.editor.fields.requiredHours")}
+				</Label>
+				<Input
+					id="former-student-required-hours"
+					type="number"
+					min="0"
+					{...form.register("requiredHours")}
+					placeholder={t(
+						"academic.studentPage.editor.fields.requiredHoursPlaceholder",
+					)}
+				/>
+				{form.formState.errors.requiredHours ? (
+					<p className="field-error">
+						{form.formState.errors.requiredHours.message}
+					</p>
+				) : null}
+			</div>
+
+			<div className="grid gap-4 md:grid-cols-2">
+				<div className="grid gap-2">
+					<Label>{t("identity.adminPage.update.fields.accountType")}</Label>
+					<div>
+						<Badge
+							className="min-h-5 px-2 py-0.5"
+							tone={accountTypeTone}
+							variant="primary"
+						>
+							{accountTypeLabel}
+						</Badge>
+					</div>
+				</div>
+
+				<div className="grid gap-2">
+					<Label>{t("identity.adminPage.update.fields.active")}</Label>
+					<div>
+						<Badge
+							className="min-h-5 px-2 py-0.5"
+							tone={accountStatusTone}
+							variant="primary"
+						>
+							{accountStatusLabel}
+						</Badge>
+					</div>
 				</div>
 			</div>
 
-			<div className="grid gap-4 lg:grid-cols-3">
-				<div className="grid gap-2">
-					<Label htmlFor="former-student-required-hours">
-						{t("academic.studentPage.editor.fields.requiredHours")}
-					</Label>
-					<Input
-						id="former-student-required-hours"
-						type="number"
-						min="0"
-						{...form.register("requiredHours")}
-						placeholder={t(
-							"academic.studentPage.editor.fields.requiredHoursPlaceholder",
-						)}
-					/>
-					{form.formState.errors.requiredHours ? (
-						<p className="field-error">
-							{form.formState.errors.requiredHours.message}
-						</p>
-					) : null}
-				</div>
-
+			<div className="grid gap-4 md:grid-cols-2">
 				<div className="grid gap-2">
 					<Label>{t("academic.studentPage.editor.fields.startDate")}</Label>
 					<Controller
@@ -273,33 +438,88 @@ export function FormerStudentEditorForm({
 					) : null}
 				</div>
 			</div>
+		</section>
+	);
 
-			{formerStudent ? (
-				<div className="grid gap-4 pt-2 sm:grid-cols-3">
-					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("academic.studentPage.dialog.fields.accountId")}
-						</p>
-						<p className="ty-sm-semibold">{formerStudent.accountId}</p>
-					</div>
-					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("academic.studentPage.dialog.fields.createdAt")}
-						</p>
-						<p className="ty-sm-semibold">
-							{formerStudent.auditInfo.createdAtFormatted}
-						</p>
-					</div>
-					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("academic.studentPage.dialog.fields.updatedAt")}
-						</p>
-						<p className="ty-sm-semibold">
-							{formerStudent.auditInfo.updatedAtFormatted}
-						</p>
-					</div>
-				</div>
-			) : null}
-		</div>
+	if (!isUpdateMode || !formerStudent || !linkedAccount) {
+		return (
+			<>
+				{profileSection}
+				{academicSection}
+			</>
+		);
+	}
+
+	return (
+		<Tabs
+			defaultValue="academic"
+			className="grid gap-4"
+		>
+			<TabsList className="w-full">
+				<TabsTrigger value="academic">
+					{t("academic.studentPage.editor.tabs.academic")}
+				</TabsTrigger>
+				<TabsTrigger value="linked">
+					{t("academic.studentPage.editor.tabs.linked")}
+				</TabsTrigger>
+			</TabsList>
+
+			<TabsContent
+				value="academic"
+				className="grid gap-6"
+			>
+				{profileSection}
+				{academicSection}
+			</TabsContent>
+
+			<TabsContent
+				value="linked"
+				className="grid gap-6"
+			>
+				<FormerStudentOwnDetailsContent
+					formerStudent={formerStudent}
+					includeEditableFields={false}
+				/>
+				<Accordion
+					type="single"
+					collapsible
+					defaultValue="linked-user"
+				>
+					<AccordionItem value="linked-user">
+						<AccordionTrigger>
+							{t("identity.adminPage.update.tabs.user")}
+						</AccordionTrigger>
+						<AccordionContent>
+							<UserDetailsContent
+								userId={linkedAccount.userId}
+								columns={2}
+							/>
+						</AccordionContent>
+					</AccordionItem>
+
+					{linkedCourse ? (
+						<AccordionItem value="linked-course">
+							<AccordionTrigger>
+								{t("academic.studentPage.editor.sections.linkedCourse")}
+							</AccordionTrigger>
+							<AccordionContent>
+								<div className="grid gap-6">
+									<CourseOwnDetailsContent
+										course={linkedCourse}
+										columns={2}
+										includeName
+									/>
+									<AreaOfExpertiseDetailsContent
+										areaOfExpertise={linkedCourse.areaOfExpertise}
+										columns={2}
+									/>
+								</div>
+							</AccordionContent>
+						</AccordionItem>
+					) : null}
+				</Accordion>
+			</TabsContent>
+		</Tabs>
 	);
 }
+

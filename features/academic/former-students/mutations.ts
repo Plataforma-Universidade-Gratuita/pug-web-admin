@@ -70,6 +70,18 @@ function writeFormerStudentCaches(
 	);
 }
 
+function refreshFormerStudentDirectoryCaches(queryClient: QueryClient) {
+	void queryClient.invalidateQueries({
+		queryKey: formerStudentQueryKeys.list(),
+	});
+	void queryClient.invalidateQueries({
+		queryKey: accountQueryKeys.list(),
+	});
+	void queryClient.invalidateQueries({
+		queryKey: userQueryKeys.list(),
+	});
+}
+
 function patchAccountCaches(
 	queryClient: QueryClient,
 	accountId: string,
@@ -118,6 +130,7 @@ export function useCreateFormerStudentMutation() {
 			create(body),
 		onSuccess: formerStudent => {
 			writeFormerStudentCaches(queryClient, formerStudent);
+			refreshFormerStudentDirectoryCaches(queryClient);
 		},
 	});
 }
@@ -130,6 +143,7 @@ export function useUpdateFormerStudentMutation() {
 			update(id, body),
 		onSuccess: formerStudent => {
 			writeFormerStudentCaches(queryClient, formerStudent);
+			refreshFormerStudentDirectoryCaches(queryClient);
 		},
 	});
 }

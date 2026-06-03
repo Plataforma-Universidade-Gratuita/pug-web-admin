@@ -232,7 +232,7 @@
             }
         },
         "modulePage": {
-            "description": "Academic reference and workflow services for areas of expertise, courses, and formerStudents.",
+            "description": "Academic reference and workflow services for areas of expertise, courses, and former students.",
             "title": "Academic services"
         },
         "schoolPage": {
@@ -441,72 +441,72 @@
         "studentPage": {
             "create": {
                 "actions": {
-                    "save": "Create student",
-                    "savePending": "Creating student..."
+                    "save": "Create former student",
+                    "savePending": "Creating former student..."
                 },
                 "feedback": {
                     "error": {
-                        "description": "The student could not be created right now.",
-                        "title": "Unable to create student"
+                        "description": "The former student could not be created right now.",
+                        "title": "Unable to create former student"
                     },
                     "success": {
                         "description": "{{name}} was created successfully.",
-                        "title": "Student created"
+                        "title": "Former student created"
                     }
                 },
                 "fields": {
                     "passwordPlaceholder": "Create a temporary password"
                 },
-                "open": "Add student",
-                "overhead": "Create student",
-                "titleFallback": "New student"
+                "open": "Add former student",
+                "overhead": "Create former student",
+                "titleFallback": "New former student"
             },
             "deactivate": {
                 "confirm": {
                     "description": "{{name}} will lose access until the account is reactivated.",
-                    "title": "Deactivate this student?"
+                    "title": "Deactivate this former student?"
                 },
                 "feedback": {
                     "error": {
-                        "description": "The student could not be deactivated right now.",
-                        "title": "Unable to deactivate student"
+                        "description": "The former student could not be deactivated right now.",
+                        "title": "Unable to deactivate former student"
                     },
                     "success": {
                         "description": "{{name}} was deactivated successfully.",
-                        "title": "Student deactivated"
+                        "title": "Former student deactivated"
                     }
                 }
             },
             "delete": {
                 "confirm": {
                     "description": "{{name}} will be removed after the undo window expires.",
-                    "title": "Delete this student?"
+                    "title": "Delete this former student?"
                 },
                 "feedback": {
                     "error": {
-                        "description": "The student could not be deleted right now.",
-                        "title": "Unable to delete student"
+                        "description": "The former student could not be deleted right now.",
+                        "title": "Unable to delete former student"
                     },
                     "success": {
                         "description": "{{name}} was removed from the directory.",
-                        "title": "Student deleted"
+                        "title": "Former student deleted"
                     }
                 },
                 "undo": {
                     "action": "Undo",
                     "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Student deletion scheduled"
+                    "title": "Former student deletion scheduled"
                 }
             },
-            "description": "Service directory for students linked to academic courses and campus assignments.",
+            "description": "Service directory for former students linked to academic courses and campus assignments.",
             "dialog": {
                 "active": {
                     "no": "$t(identity.accountPage.dialog.active.no)",
                     "yes": "$t(identity.accountPage.dialog.active.yes)"
                 },
                 "error": {
-                    "description": "The student record could not be loaded right now.",
-                    "title": "Unable to load student"
+                    "description": "The former student record could not be loaded right now.",
+                    "title": "Unable to load former student"
                 },
                 "fields": {
                     "academicRegistration": "Academic registration",
@@ -527,11 +527,11 @@
                     "userId": "User ID"
                 },
                 "notFound": {
-                    "description": "The requested student record could not be found.",
-                    "title": "Student not found"
+                    "description": "The requested former student record could not be found.",
+                    "title": "Former student not found"
                 },
-                "overhead": "Student record",
-                "titleFallback": "Student details"
+                "overhead": "Former student record",
+                "titleFallback": "Former student details"
             },
             "duplicate": {
                 "actions": {
@@ -540,19 +540,19 @@
                 },
                 "feedback": {
                     "error": {
-                        "description": "The student duplicate could not be created right now.",
-                        "title": "Unable to duplicate student"
+                        "description": "The former student duplicate could not be created right now.",
+                        "title": "Unable to duplicate former student"
                     },
                     "success": {
                         "description": "{{name}} was duplicated successfully.",
-                        "title": "Student duplicated"
+                        "title": "Former student duplicated"
                     }
                 },
                 "fields": {
                     "passwordPlaceholder": "Set a password for the duplicate"
                 },
-                "overhead": "Duplicate student",
-                "titleFallback": "Duplicate student"
+                "overhead": "Duplicate former student",
+                "titleFallback": "Duplicate former student"
             },
             "editor": {
                 "actions": {
@@ -568,11 +568,14 @@
                     "campus": "Campus",
                     "campusPlaceholder": "Select a campus",
                     "course": "Course",
+                    "cpfCreateOption": "Create {{value}}",
+                    "cpfEmpty": "No CPF found.",
                     "courseEmptyMessage": "No course found.",
                     "coursePlaceholder": "Select a course",
                     "courseSearchPlaceholder": "Search courses",
                     "cpf": "CPF",
                     "cpfPlaceholder": "Enter the CPF",
+                    "cpfSearchPlaceholder": "Search or create a CPF",
                     "dueDate": "Due date",
                     "dueDatePlaceholder": "Due date",
                     "email": "Email",
@@ -585,10 +588,18 @@
                     "startDate": "Start date",
                     "startDatePlaceholder": "Start date"
                 },
-                "loading": "Loading student editor",
+                "loading": "Loading former-student editor",
                 "resetConfirm": {
-                    "description": "This will discard the unsaved student changes in the current drawer.",
-                    "title": "Reset student changes?"
+                    "description": "This will discard the unsaved former-student changes in the current drawer.",
+                    "title": "Reset former-student changes?"
+                },
+                "sections": {
+                    "academic": "Academic",
+                    "linkedCourse": "Linked course"
+                },
+                "tabs": {
+                    "academic": "Academic",
+                    "linked": "Linked"
                 },
                 "validation": {
                     "academicRegistration": {
@@ -631,9 +642,9 @@
                 }
             },
             "empty": {
-                "defaultDescription": "The student directory is currently empty.",
-                "filteredDescription": "No student matches \"{{value}}\".",
-                "title": "No students found"
+                "defaultDescription": "The former-student directory is currently empty.",
+                "filteredDescription": "No former student matches \"{{value}}\".",
+                "title": "No former students found"
             },
             "feedback": {
                 "coursesError": {
@@ -642,31 +653,33 @@
                 },
                 "detailError": {
                     "description": "$t(academic.studentPage.dialog.error.description)",
-                    "title": "Unable to load student details"
+                    "title": "Unable to load former-student details"
                 },
                 "listError": {
-                    "description": "The student directory could not be loaded right now.",
-                    "title": "Unable to load students"
+                    "description": "The former-student directory could not be loaded right now.",
+                    "title": "Unable to load former students"
                 }
             },
             "filters": {
-                "active": {
-                    "label": "Status",
-                    "options": {
-                        "active": "$t(identity.accountPage.filters.active.options.active)",
-                        "all": "$t(identity.accountPage.filters.active.options.all)",
-                        "inactive": "$t(identity.accountPage.filters.active.options.inactive)"
-                    },
-                    "placeholder": "$t(identity.accountPage.filters.active.placeholder)"
+                "academicRegistration": {
+                    "placeholder": "Filter by academic registration"
+                },
+                "areaOfExpertise": {
+                    "emptyMessage": "No area found.",
+                    "label": "Area of expertise",
+                    "placeholder": "Select areas",
+                    "searchPlaceholder": "Search areas"
                 },
                 "campus": {
+                    "emptyMessage": "No campus found.",
                     "label": "Campus",
                     "options": {
                         "all": "All campuses",
                         "JARAGUA_DO_SUL": "$t(identity.adminPage.filters.campus.options.JARAGUA_DO_SUL)",
                         "JOINVILLE": "$t(identity.adminPage.filters.campus.options.JOINVILLE)"
                     },
-                    "placeholder": "Select a campus"
+                    "placeholder": "Select campuses",
+                    "searchPlaceholder": "Search campuses"
                 },
                 "clear": "$t(identity.accountPage.filters.clear)",
                 "course": {
@@ -676,36 +689,50 @@
                         "title": "$t(academic.studentPage.feedback.coursesError.title)"
                     },
                     "label": "Course",
-                    "placeholder": "Select a course",
+                    "placeholder": "Select courses",
                     "searchPlaceholder": "Search courses"
-                },
-                "dateField": {
-                    "label": "$t(identity.accountPage.filters.dateField.label)",
-                    "options": {
-                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
-                    },
-                    "placeholder": "$t(identity.accountPage.filters.dateField.placeholder)"
                 },
                 "drawer": {
                     "active": "Filters active",
                     "apply": "Apply filters",
                     "clearConfirm": {
-                        "description": "This will clear the current student filters.",
-                        "title": "Clear student filters?"
+                        "description": "This will clear the current former-student filters.",
+                        "title": "Clear former-student filters?"
                     },
                     "label": "More filters",
-                    "overhead": "Student filters",
-                    "title": "Filter students",
+                    "overhead": "Former-student filters",
+                    "title": "Filter former students",
                     "trigger": "More filters"
+                },
+                "tabs": {
+                    "academic": "Academic",
+                    "identity": "Identity",
+                    "status": "Status"
                 },
                 "endDate": {
                     "label": "$t(identity.accountPage.filters.endDate.label)",
                     "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
                 },
+                "frontendAcademicRegistration": {
+                    "label": "Academic registration",
+                    "placeholder": "Filter by academic registration"
+                },
+                "includeConcluded": {
+                    "description": "Keep concluded counterpart periods in the result.",
+                    "label": "Include concluded periods",
+                    "off": "Only ongoing periods"
+                },
+                "periodFrom": {
+                    "label": "Period start from",
+                    "placeholder": "Select a start date"
+                },
+                "periodTo": {
+                    "label": "Period due to",
+                    "placeholder": "Select a due date"
+                },
                 "search": {
-                    "label": "Name, email or registration",
-                    "placeholder": "Filter by name, email, registration or course"
+                    "label": "Name or email",
+                    "placeholder": "Filter by name or email"
                 },
                 "startDate": {
                     "label": "$t(identity.accountPage.filters.startDate.label)",
@@ -713,8 +740,8 @@
                 }
             },
             "loading": {
-                "detail": "Loading student details",
-                "list": "Loading students"
+                "detail": "Loading former-student details",
+                "list": "Loading former students"
             },
             "metadata": {
                 "empty": {
@@ -726,46 +753,53 @@
             "reactivate": {
                 "confirm": {
                     "description": "{{name}} will regain access immediately.",
-                    "title": "Reactivate this student?"
+                    "title": "Reactivate this former student?"
                 },
                 "feedback": {
                     "error": {
-                        "description": "The student could not be reactivated right now.",
-                        "title": "Unable to reactivate student"
+                        "description": "The former student could not be reactivated right now.",
+                        "title": "Unable to reactivate former student"
                     },
                     "success": {
                         "description": "{{name}} was reactivated successfully.",
-                        "title": "Student reactivated"
+                        "title": "Former student reactivated"
                     }
                 }
             },
             "table": {
                 "actions": {
-                    "deactivate": "Deactivate student",
-                    "delete": "Delete student",
-                    "duplicate": "Duplicate student",
-                    "reactivate": "Reactivate student",
-                    "update": "Update student",
+                    "deactivate": "Deactivate former student",
+                    "delete": "Delete former student",
+                    "duplicate": "Duplicate former student",
+                    "reactivate": "Reactivate former student",
+                    "update": "Update former student",
                     "viewDetails": "$t(docs.table.actions.view)"
                 },
-                "active": {
-                    "no": "$t(identity.accountPage.table.active.no)",
-                    "yes": "$t(identity.accountPage.table.active.yes)"
-                },
-                "columns": {
-                    "academicRegistration": "Academic registration",
-                    "active": "$t(identity.accountPage.table.columns.active)",
-                    "campus": "$t(identity.adminPage.table.columns.campus)",
-                    "course": "Course",
-                    "email": "$t(identity.accountPage.table.columns.email)",
-                    "name": "Student"
-                },
+				"active": {
+					"no": "$t(identity.accountPage.table.active.no)",
+					"yes": "$t(identity.accountPage.table.active.yes)"
+				},
+				"concluded": {
+					"no": "No",
+					"yes": "Yes"
+				},
+				"columns": {
+					"academicRegistration": "Academic registration",
+					"active": "$t(identity.accountPage.table.columns.active)",
+					"areaOfExpertise": "Area of expertise",
+					"campus": "$t(identity.adminPage.table.columns.campus)",
+					"concluded": "Concluded",
+					"course": "Course",
+					"email": "$t(identity.accountPage.table.columns.email)",
+					"name": "Former student",
+					"progress": "Progress"
+				},
                 "error": {
                     "description": "$t(academic.studentPage.feedback.listError.description)",
                     "title": "$t(academic.studentPage.feedback.listError.title)"
                 }
             },
-            "title": "Students",
+            "title": "Former students",
             "update": {
                 "actions": {
                     "save": "Save changes",
@@ -773,27 +807,27 @@
                 },
                 "feedback": {
                     "error": {
-                        "description": "The student could not be updated right now.",
-                        "title": "Unable to save student changes"
+                        "description": "The former student could not be updated right now.",
+                        "title": "Unable to save former-student changes"
                     },
                     "success": {
                         "description": "{{name}} was updated successfully.",
-                        "title": "Student updated"
+                        "title": "Former student updated"
                     }
                 },
                 "fields": {
                     "passwordPlaceholder": "Leave blank to keep the current password"
                 },
                 "loadError": {
-                    "description": "The student record could not be loaded right now.",
-                    "title": "Unable to load student editor"
+                    "description": "The former student record could not be loaded right now.",
+                    "title": "Unable to load former-student editor"
                 },
                 "notFound": {
-                    "description": "The requested student record could not be found.",
-                    "title": "Student not found"
+                    "description": "The requested former student record could not be found.",
+                    "title": "Former student not found"
                 },
-                "overhead": "Edit student",
-                "titleFallback": "Edit student"
+                "overhead": "Edit former student",
+                "titleFallback": "Edit former student"
             }
         }
     },
@@ -842,7 +876,7 @@
                         "title": "Track projects and participation"
                     },
                     "session": {
-                        "description": "Update admins, students, staff, schools, courses, and linked accounts in one place.",
+                        "description": "Update admins, former students, staff, schools, courses, and linked accounts in one place.",
                         "title": "Maintain service records"
                     }
                 },
@@ -3586,7 +3620,7 @@
                 "course": "Courses",
                 "root": "Academic",
                 "school": "Areas of expertise",
-                "student": "Students"
+                "student": "Former students"
             },
             "docs": {
                 "overview": "$t(docs.card.layoutCards.list.items.overview.title)",
@@ -4381,8 +4415,8 @@
                     "title": "Reset attendance form"
                 },
                 "studentLoadError": {
-                    "description": "The student directory could not be loaded right now.",
-                    "title": "Unable to load students"
+                    "description": "The former-student directory could not be loaded right now.",
+                    "title": "Unable to load former students"
                 },
                 "validation": {
                     "duration": {
@@ -4420,8 +4454,8 @@
                     "title": "Unable to load projects"
                 },
                 "studentsError": {
-                    "description": "The student directory could not be loaded right now.",
-                    "title": "Unable to load students"
+                    "description": "The former-student directory could not be loaded right now.",
+                    "title": "Unable to load former students"
                 }
             },
             "filters": {
@@ -4475,8 +4509,8 @@
                 "student": {
                     "emptyMessage": "No students found.",
                     "error": {
-                        "description": "The student directory could not be loaded right now.",
-                        "title": "Unable to load students"
+                        "description": "The former-student directory could not be loaded right now.",
+                        "title": "Unable to load former students"
                     },
                     "label": "Student",
                     "placeholder": "Select a student",
@@ -4678,8 +4712,8 @@
                     "title": "Unable to load projects"
                 },
                 "studentsError": {
-                    "description": "The student directory could not be loaded right now.",
-                    "title": "Unable to load students"
+                    "description": "The former-student directory could not be loaded right now.",
+                    "title": "Unable to load former students"
                 }
             },
             "filters": {
@@ -4733,8 +4767,8 @@
                 "student": {
                     "emptyMessage": "No students found.",
                     "error": {
-                        "description": "The student directory could not be loaded right now.",
-                        "title": "Unable to load students"
+                        "description": "The former-student directory could not be loaded right now.",
+                        "title": "Unable to load former students"
                     },
                     "label": "Student",
                     "placeholder": "Select a student",
@@ -5226,3 +5260,8 @@
         }
     }
 }
+
+
+
+
+

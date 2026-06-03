@@ -10,15 +10,17 @@ import type { CourseResponse, EntityPageField } from "@/types";
 interface CourseOwnDetailsContentProps {
 	course: CourseResponse;
 	columns?: 2 | 3;
+	includeName?: boolean;
 }
 
 export function CourseOwnDetailsContent({
 	course,
 	columns = 3,
+	includeName = false,
 }: CourseOwnDetailsContentProps) {
 	const { t } = useTranslation();
-	const fields = useMemo<EntityPageField[]>(
-		() => [
+	const fields = useMemo<EntityPageField[]>(() => {
+		const baseFields: EntityPageField[] = [
 			{
 				id: "id",
 				label: t("academic.coursePage.dialog.fields.id"),
@@ -34,9 +36,21 @@ export function CourseOwnDetailsContent({
 				label: t("academic.coursePage.dialog.fields.updatedAt"),
 				value: course.auditInfo.updatedAtFormatted,
 			},
-		],
-		[course, t],
-	);
+		];
+
+		if (!includeName) {
+			return baseFields;
+		}
+
+		return [
+			{
+				id: "name",
+				label: t("academic.coursePage.dialog.fields.name"),
+				value: course.name,
+			},
+			...baseFields,
+		];
+	}, [course, includeName, t]);
 
 	return (
 		<EntityPageFieldsGrid
