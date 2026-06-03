@@ -6,47 +6,35 @@ import { useTranslation } from "react-i18next";
 
 import {
 	Combobox,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
+	DatePicker,
 	SomeErrorState,
 } from "@/components";
 import { getProjectStatusOptions } from "@/features/project/projects/utils";
-import {
-	AuditInfoFilterFields,
-	ServicePageFiltersDrawer,
-} from "@/features/shared/service-pages";
-import type {
-	ProjectAuditDateField,
-	ProjectsFiltersDrawerProps,
-	ProjectStatusFilter,
-} from "@/types";
+import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
+import type { ProjectsFiltersDrawerProps, ProjectStatus } from "@/types";
 
 export function ProjectsFiltersDrawer({
 	adminsError,
-	createdByFilter,
+	createdByIds,
 	creatorOptions,
-	dateField,
-	endDate,
+	dateFrom,
+	dateTo,
 	entitiesError,
-	entityIdFilter,
+	entityIds,
 	entityOptions,
 	hasActiveFilters,
 	onApply,
-	onCreatedByFilterChange,
+	onCreatedByIdsChange,
 	onClear,
-	onDateFieldChange,
-	onEndDateChange,
-	onEntityIdFilterChange,
+	onDateFromChange,
+	onDateToChange,
+	onEntityIdsChange,
 	onOpenChange,
 	onRefreshAdmins,
 	onRefreshEntities,
-	onStartDateChange,
-	onStatusFilterChange,
+	onStatusesChange,
 	open,
-	startDate,
-	statusFilter,
+	statuses,
 }: ProjectsFiltersDrawerProps) {
 	const { t } = useTranslation();
 	const statusOptions = useMemo(() => getProjectStatusOptions(t), [t]);
@@ -87,9 +75,10 @@ export function ProjectsFiltersDrawer({
 							{t("project.projectPage.filters.entity.label")}
 						</p>
 						<Combobox
+							multiple
 							options={entityOptions}
-							value={entityIdFilter}
-							onValueChange={onEntityIdFilterChange}
+							values={entityIds}
+							onValuesChange={value => onEntityIdsChange(value)}
 							placeholder={t("project.projectPage.filters.entity.placeholder")}
 							searchPlaceholder={t(
 								"project.projectPage.filters.entity.searchPlaceholder",
@@ -115,9 +104,10 @@ export function ProjectsFiltersDrawer({
 							{t("project.projectPage.filters.createdBy.label")}
 						</p>
 						<Combobox
+							multiple
 							options={creatorOptions}
-							value={createdByFilter}
-							onValueChange={onCreatedByFilterChange}
+							values={createdByIds}
+							onValuesChange={value => onCreatedByIdsChange(value)}
 							placeholder={t(
 								"project.projectPage.filters.createdBy.placeholder",
 							)}
@@ -136,61 +126,38 @@ export function ProjectsFiltersDrawer({
 				<p className="field-label">
 					{t("project.projectPage.filters.status.label")}
 				</p>
-				<Select
-					value={statusFilter}
-					onValueChange={value =>
-						onStatusFilterChange(value as ProjectStatusFilter)
-					}
-				>
-					<SelectTrigger
-						className="w-full"
-						placeholder={t("project.projectPage.filters.status.placeholder")}
-					/>
-					<SelectContent>
-						{statusOptions.map(option => (
-							<SelectItem
-								key={option.value}
-								value={option.value}
-							>
-								{option.label}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
+				<Combobox
+					multiple
+					options={statusOptions}
+					values={statuses}
+					onValuesChange={value => onStatusesChange(value as ProjectStatus[])}
+					placeholder={t("project.projectPage.filters.status.placeholder")}
+				/>
 			</div>
 
-			<AuditInfoFilterFields
-				dateFieldLabel={t("project.projectPage.filters.dateField.label")}
-				dateFieldPlaceholder={t(
-					"project.projectPage.filters.dateField.placeholder",
-				)}
-				dateField={dateField}
-				onDateFieldChange={value =>
-					onDateFieldChange(value as ProjectAuditDateField)
-				}
-				dateFieldOptions={[
-					{
-						value: "createdAt",
-						label: t("project.projectPage.filters.dateField.options.createdAt"),
-					},
-					{
-						value: "updatedAt",
-						label: t("project.projectPage.filters.dateField.options.updatedAt"),
-					},
-				]}
-				startDateLabel={t("project.projectPage.filters.startDate.label")}
-				startDatePlaceholder={t(
-					"project.projectPage.filters.startDate.placeholder",
-				)}
-				startDate={startDate}
-				onStartDateChange={onStartDateChange}
-				endDateLabel={t("project.projectPage.filters.endDate.label")}
-				endDatePlaceholder={t(
-					"project.projectPage.filters.endDate.placeholder",
-				)}
-				endDate={endDate}
-				onEndDateChange={onEndDateChange}
-			/>
+			<div className="grid gap-4 sm:grid-cols-2">
+				<div className="grid gap-2">
+					<p className="field-label">
+						{t("project.projectPage.filters.startDate.label")}
+					</p>
+					<DatePicker
+						value={dateFrom}
+						onValueChange={onDateFromChange}
+						placeholder={t("project.projectPage.filters.startDate.placeholder")}
+					/>
+				</div>
+
+				<div className="grid gap-2">
+					<p className="field-label">
+						{t("project.projectPage.filters.endDate.label")}
+					</p>
+					<DatePicker
+						value={dateTo}
+						onValueChange={onDateToChange}
+						placeholder={t("project.projectPage.filters.endDate.placeholder")}
+					/>
+				</div>
+			</div>
 		</ServicePageFiltersDrawer>
 	);
 }

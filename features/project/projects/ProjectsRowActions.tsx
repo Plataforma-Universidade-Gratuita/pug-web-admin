@@ -28,6 +28,7 @@ import type { ProjectsRowActionsProps } from "@/types";
 export function ProjectsRowActions({
 	href,
 	onDelete,
+	onDuplicate,
 	onOpenEditor,
 	onStatusAction,
 	project,
@@ -52,10 +53,10 @@ export function ProjectsRowActions({
 			<DropdownMenuItem
 				icon={CopyPlus}
 				label={t("project.projectPage.table.actions.duplicate")}
-				onClick={() => onOpenEditor(project.id, "duplicate")}
+				onClick={() => onDuplicate(project)}
 			/>
 
-			{project.status === "PLANNED" ? (
+			{project.status.status === "PLANNED" ? (
 				<>
 					<DropdownMenuSeparator />
 					<DropdownMenuSuccessItem
@@ -71,7 +72,7 @@ export function ProjectsRowActions({
 				</>
 			) : null}
 
-			{project.status === "IN_PROGRESS" ? (
+			{project.status.status === "IN_PROGRESS" ? (
 				<>
 					<DropdownMenuSeparator />
 					<DropdownMenuWarningItem
@@ -92,7 +93,7 @@ export function ProjectsRowActions({
 				</>
 			) : null}
 
-			{project.status === "ON_HOLD" ? (
+			{project.status.status === "ON_HOLD" ? (
 				<>
 					<DropdownMenuSeparator />
 					<DropdownMenuSuccessItem
@@ -108,7 +109,8 @@ export function ProjectsRowActions({
 				</>
 			) : null}
 
-			{project.status === "COMPLETED" || project.status === "CANCELED" ? (
+			{project.status.status === "COMPLETED" ||
+			project.status.status === "CANCELED" ? (
 				<>
 					<DropdownMenuSeparator />
 					<DropdownMenuInfoItem

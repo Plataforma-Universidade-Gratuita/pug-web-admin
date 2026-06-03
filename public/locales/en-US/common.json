@@ -4366,7 +4366,7 @@
 					"maxParticipants": "Max participants",
 					"name": "Name",
 					"offeredHours": "Offered hours",
-					"schools": "Schools",
+					"schools": "Areas of expertise",
 					"status": "Status",
 					"updatedAt": "Updated"
 				},
@@ -4375,14 +4375,21 @@
 					"title": "Project not found"
 				},
 				"overhead": "Project details",
-				"schoolsError": {
-					"description": "The linked schools could not be loaded right now.",
-					"title": "Unable to load schools"
+				"areasOfExpertiseError": {
+					"description": "The linked areas of expertise could not be loaded right now.",
+					"title": "Unable to load areas of expertise"
+				},
+				"linkedAreasOfExpertise": {
+					"empty": {
+						"description": "No areas of expertise are linked to this project.",
+						"title": "No linked areas"
+					},
+					"overhead": "Linked areas of expertise"
 				},
 				"titleFallback": "Project details",
 				"values": {
 					"noDescription": "No description recorded.",
-					"noSchools": "No schools linked.",
+					"noSchools": "No areas of expertise linked.",
 					"open": "Open",
 					"unlimited": "Unlimited"
 				}
@@ -4474,9 +4481,9 @@
 					"description": "The project directory could not be loaded right now.",
 					"title": "Unable to load projects"
 				},
-				"schoolsError": {
-					"description": "The linked schools could not be loaded right now.",
-					"title": "Unable to load project schools"
+				"areasOfExpertiseError": {
+					"description": "The linked areas of expertise could not be loaded right now.",
+					"title": "Unable to load project areas of expertise"
 				}
 			},
 			"filters": {
@@ -4557,11 +4564,11 @@
 			"loading": {
 				"detail": "Loading project details",
 				"list": "Loading projects",
-				"schools": "Loading linked schools"
+				"schools": "Loading linked areas of expertise"
 			},
 			"metadata": {
 				"empty": {
-					"description": "Projects connect partner entities, schools, enrollments, and attendance records.",
+					"description": "Projects connect partner entities, areas of expertise, enrollments, and attendance records.",
 					"title": "Operational scope"
 				},
 				"trigger": "About this page"
@@ -4620,12 +4627,18 @@
 					"viewDetails": "View details"
 				},
 				"columns": {
+					"closedAt": "Closed",
 					"completedHours": "Completed",
+					"createdAt": "Created",
 					"createdBy": "Created by",
+					"description": "Description",
 					"entity": "Entity",
+					"id": "Project id",
+					"maxParticipants": "Max participants",
 					"name": "Name",
 					"offeredHours": "Offered",
-					"status": "Status"
+					"status": "Status",
+					"updatedAt": "Updated"
 				},
 				"error": {
 					"description": "The project directory could not be loaded right now.",

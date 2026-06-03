@@ -7,14 +7,10 @@ import {
 } from "@tanstack/react-query";
 
 import {
-	cancel,
-	complete,
 	create,
-	hold,
 	remove,
-	retake,
-	start,
 	update,
+	updateStatus,
 } from "@/api/web/project/projects";
 import { projectQueryKeys } from "@/features/project/projects/queries";
 import type { ProjectResponse } from "@/types";
@@ -71,7 +67,9 @@ function removeProjectCaches(queryClient: QueryClient, projectId: string) {
 		current => removeListItem(current, projectId, item => item.id),
 	);
 	queryClient.removeQueries({ queryKey: projectQueryKeys.detail(projectId) });
-	queryClient.removeQueries({ queryKey: projectQueryKeys.schools(projectId) });
+	queryClient.removeQueries({
+		queryKey: projectQueryKeys.areasOfExpertise(projectId),
+	});
 }
 
 async function runProjectStatusAction({
@@ -80,16 +78,16 @@ async function runProjectStatusAction({
 }: ProjectStatusMutationVariables) {
 	switch (action) {
 		case "cancel":
-			return cancel(id);
+			return updateStatus(id, "CANCELED");
 		case "complete":
-			return complete(id);
+			return updateStatus(id, "COMPLETED");
 		case "hold":
-			return hold(id);
+			return updateStatus(id, "ON_HOLD");
 		case "retake":
-			return retake(id);
+			return updateStatus(id, "IN_PROGRESS");
 		case "start":
 		default:
-			return start(id);
+			return updateStatus(id, "IN_PROGRESS");
 	}
 }
 

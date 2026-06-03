@@ -4,26 +4,27 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, NotFoundState, SomeErrorState } from "@/components";
+import {
+	Badge,
+	NoContentState,
+	NotFoundState,
+	SomeErrorState,
+} from "@/components";
+import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { useAdminsQuery } from "@/features/identity/admins/queries";
-import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import {
 	useProjectDetailQuery,
 	useProjectAreasOfExpertiseQuery,
 } from "@/features/project/projects/queries";
 import {
-	formatProjectAreaOfExpertiseNames,
 	getProjectAdminsErrorToastContent,
 	getProjectAreasOfExpertiseErrorToastContent,
 	getProjectDetailErrorToastContent,
-	getProjectEntitiesErrorToastContent,
 	getProjectStatusLabel,
 	getProjectStatusTone,
 	resolveProjectCreatorLabel,
-	resolveProjectEntityLabel,
 } from "@/features/project/projects/utils";
 import {
-	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
 } from "@/features/shared/entity-pages";
@@ -36,7 +37,6 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 	const projectDetailQuery = useProjectDetailQuery(projectId);
 	const projectAreasOfExpertiseQuery =
 		useProjectAreasOfExpertiseQuery(projectId);
-	const entitiesQuery = useEntitiesQuery();
 	const adminsQuery = useAdminsQuery();
 
 	useQueryErrorToasts([
@@ -56,13 +56,6 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 			isError: projectAreasOfExpertiseQuery.isError,
 		},
 		{
-			key: `project-entities-${projectId}`,
-			error: entitiesQuery.error,
-			errorUpdatedAt: entitiesQuery.errorUpdatedAt,
-			getContent: error => getProjectEntitiesErrorToastContent(t, error),
-			isError: entitiesQuery.isError,
-		},
-		{
 			key: `project-admins-${projectId}`,
 			error: adminsQuery.error,
 			errorUpdatedAt: adminsQuery.errorUpdatedAt,
@@ -71,21 +64,15 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 		},
 	]);
 
-	const entityById = useMemo(
-		() =>
-			new Map((entitiesQuery.data ?? []).map(entity => [entity.id, entity])),
-		[entitiesQuery.data],
-	);
 	const adminById = useMemo(
 		() =>
-			new Map((adminsQuery.data ?? []).map(admin => [admin.accountId, admin])),
+			new Map(
+				(adminsQuery.data ?? []).map(admin => [admin.account.id, admin]),
+			),
 		[adminsQuery.data],
 	);
 
 	const project = projectDetailQuery.data;
-	const areaOfExpertiseNames = formatProjectAreaOfExpertiseNames(
-		projectAreasOfExpertiseQuery.data,
-	);
 	const fields = useMemo(
 		() =>
 			project
@@ -103,12 +90,15 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 						{
 							id: "entity",
 							label: t("project.projectPage.dialog.fields.entity"),
-							value: resolveProjectEntityLabel(entityById, project.entityId),
+							value: project.entity.name,
 						},
 						{
 							id: "createdBy",
 							label: t("project.projectPage.dialog.fields.createdBy"),
-							value: resolveProjectCreatorLabel(adminById, project.createdBy),
+							value: resolveProjectCreatorLabel(
+								adminById,
+								project.projectInfo.createdBy,
+							),
 						},
 						{
 							id: "description",
@@ -123,63 +113,52 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 							value: (
 								<Badge
 									className="min-h-5 px-2 py-0.5"
-									tone={getProjectStatusTone(project.status)}
+									tone={getProjectStatusTone(project.status.status)}
 									variant="primary"
 								>
-									{getProjectStatusLabel(t, project.status)}
+									{getProjectStatusLabel(t, project.status.status)}
 								</Badge>
 							),
 						},
 						{
 							id: "offeredHours",
 							label: t("project.projectPage.dialog.fields.offeredHours"),
-							value: project.offeredHours,
+							value: project.projectInfo.offeredHours ?? "-",
 						},
 						{
 							id: "completedHours",
 							label: t("project.projectPage.dialog.fields.completedHours"),
-							value: project.completedHours,
+							value: project.projectInfo.completedHours ?? "-",
 						},
 						{
 							id: "maxParticipants",
 							label: t("project.projectPage.dialog.fields.maxParticipants"),
 							value:
-								project.maxParticipants ??
+								project.projectInfo.maxParticipants ??
 								t("project.projectPage.dialog.values.unlimited"),
 						},
 						{
 							id: "closedAt",
 							label: t("project.projectPage.dialog.fields.closedAt"),
-							value: project.closedAt
-								? project.closedAtFormatted
+							value: project.projectInfo.closedAt
+								? project.projectInfo.closedAtFormatted
 								: t("project.projectPage.dialog.values.open"),
-						},
-						{
-							id: "schools",
-							label: t("project.projectPage.dialog.fields.schools"),
-							value: projectAreasOfExpertiseQuery.isLoading
-								? t("project.projectPage.loading.schools")
-								: (areaOfExpertiseNames ??
-									t("project.projectPage.dialog.values.noSchools")),
 						},
 						{
 							id: "createdAt",
 							label: t("project.projectPage.dialog.fields.createdAt"),
-							value: project.auditInfo.createdAtFormatted,
+							value: project.projectInfo.auditInfo.createdAtFormatted,
 						},
 						{
 							id: "updatedAt",
 							label: t("project.projectPage.dialog.fields.updatedAt"),
-							value: project.auditInfo.updatedAtFormatted,
+							value: project.projectInfo.auditInfo.updatedAtFormatted,
 						},
 					]
 				: [],
 		[
 			adminById,
-			entityById,
 			project,
-			projectAreasOfExpertiseQuery.isLoading,
-			areaOfExpertiseNames,
 			t,
 		],
 	);
@@ -207,18 +186,63 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 				)
 			) : project ? (
 				<div className="grid gap-6">
-					<EntityPageFieldsGrid fields={fields} />
+					<div className="grid gap-4 lg:grid-cols-3">
+						{fields.map(field => (
+							<div
+								key={field.id}
+								className="grid gap-1"
+							>
+								<p className="ty-helper">{field.label}</p>
+								<div className="ty-sm-semibold">{field.value}</div>
+							</div>
+						))}
+					</div>
 					{projectAreasOfExpertiseQuery.isError ? (
 						<SomeErrorState
-							title={t("project.projectPage.dialog.schoolsError.title")}
+							title={t(
+								"project.projectPage.dialog.areasOfExpertiseError.title",
+							)}
 							description={t(
-								"project.projectPage.dialog.schoolsError.description",
+								"project.projectPage.dialog.areasOfExpertiseError.description",
 							)}
 							onRefresh={() => {
 								void projectAreasOfExpertiseQuery.refetch();
 							}}
 						/>
-					) : null}
+					) : projectAreasOfExpertiseQuery.isLoading ? (
+						<div className="grid gap-3">
+							<p className="ty-overhead">
+								{t("project.projectPage.dialog.linkedAreasOfExpertise.overhead")}
+							</p>
+							<EntityPageFieldsGridSkeleton />
+						</div>
+					) : (
+						<div className="grid gap-3">
+							<p className="ty-overhead">
+								{t("project.projectPage.dialog.linkedAreasOfExpertise.overhead")}
+							</p>
+							{projectAreasOfExpertiseQuery.data &&
+							projectAreasOfExpertiseQuery.data.length > 0 ? (
+								<div className="grid gap-4">
+									{projectAreasOfExpertiseQuery.data.map(areaOfExpertise => (
+										<AreaOfExpertiseDetailsContent
+											key={areaOfExpertise.id}
+											areaOfExpertise={areaOfExpertise}
+										/>
+									))}
+								</div>
+							) : (
+								<NoContentState
+									title={t(
+										"project.projectPage.dialog.linkedAreasOfExpertise.empty.title",
+									)}
+									description={t(
+										"project.projectPage.dialog.linkedAreasOfExpertise.empty.description",
+									)}
+								/>
+							)}
+						</div>
+					)}
 				</div>
 			) : projectDetailQuery.isLoading ? (
 				<EntityPageFieldsGridSkeleton count={12} />

@@ -3,9 +3,10 @@ import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
 import type {
-	AdminResponse,
-	AreaOfExpertiseResponse,
+	AdminComplexSearchItemResponse,
 	EntityResponse,
+	ProjectComplexSearchFilters,
+	ProjectComplexSearchRequest,
 	ProjectCreateRequest,
 	ProjectResponse,
 	ProjectStatus,
@@ -18,15 +19,14 @@ import type {
 	ProjectStatusAction,
 } from "@/types";
 import { getApiErrorToastContent } from "@/utils";
-import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
+import {
+	compareNormalizedText,
+	matchesAnyDateRange,
+	normalizeTextForSearch,
+	toSearchDateOffsetDateTime,
+} from "@/utils";
 
 export { createProjectEditorFormSchema } from "@/schemas";
-
-function getStartOfDayTimestamp(value: string) {
-	const date = new Date(value);
-	date.setHours(0, 0, 0, 0);
-	return date.getTime();
-}
 
 function parsePositiveInteger(value: string) {
 	const trimmed = value.trim();
@@ -40,6 +40,10 @@ function parsePositiveInteger(value: string) {
 	}
 
 	return parsed;
+}
+
+export function appendCopyToProjectName(name: string) {
+	return `${name} Copy`;
 }
 
 export function getProjectStatusLabel(t: TFunction, status: ProjectStatus) {
@@ -70,10 +74,10 @@ export function resolveProjectEntityLabel(
 }
 
 export function resolveProjectCreatorLabel(
-	adminById: Map<string, AdminResponse>,
+	adminById: Map<string, AdminComplexSearchItemResponse>,
 	accountId: string,
 ) {
-	return adminById.get(accountId)?.userName ?? accountId;
+	return adminById.get(accountId)?.account.user.name ?? accountId;
 }
 
 export function buildProjectEntityOptions(
@@ -89,146 +93,191 @@ export function buildProjectEntityOptions(
 }
 
 export function buildProjectCreatorOptions(
-	admins: AdminResponse[],
+	admins: AdminComplexSearchItemResponse[],
 ): ComboboxOption[] {
 	return [...admins]
-		.sort((left, right) => compareNormalizedText(left.userName, right.userName))
+		.sort((left, right) =>
+			compareNormalizedText(left.account.user.name, right.account.user.name),
+		)
 		.map(admin => ({
-			value: admin.accountId,
-			label: admin.userName,
-			description: admin.accountEmail,
+			value: admin.account.id,
+			label: admin.account.user.name,
+			description: admin.account.email,
 		}));
 }
 
 export function createProjectColumns(
 	t: TFunction,
-	entityById: Map<string, EntityResponse>,
-	adminById: Map<string, AdminResponse>,
+	adminById: Map<string, AdminComplexSearchItemResponse>,
 ): ColumnDef<ProjectResponse>[] {
 	return [
 		{
-			accessorFn: row => row.status,
+			accessorFn: row => row.status.status,
 			id: "status",
 			header: t("project.projectPage.table.columns.status"),
 			cell: ({ row }) => (
 				<Badge
-					tone={getProjectStatusTone(row.original.status)}
+					tone={getProjectStatusTone(row.original.status.status)}
 					variant="primary"
 					className="min-h-5 px-2 py-0.5"
 				>
-					{getProjectStatusLabel(t, row.original.status)}
+					{getProjectStatusLabel(t, row.original.status.status)}
 				</Badge>
 			),
+		},
+		{
+			accessorKey: "id",
+			header: t("project.projectPage.table.columns.id"),
 		},
 		{
 			accessorKey: "name",
 			header: t("project.projectPage.table.columns.name"),
 		},
 		{
-			accessorFn: row => resolveProjectEntityLabel(entityById, row.entityId),
+			accessorKey: "description",
+			header: t("project.projectPage.table.columns.description"),
+		},
+		{
+			accessorFn: row => row.entity.name,
 			id: "entity",
 			header: t("project.projectPage.table.columns.entity"),
 		},
 		{
-			accessorFn: row => resolveProjectCreatorLabel(adminById, row.createdBy),
+			accessorFn: row =>
+				resolveProjectCreatorLabel(adminById, row.projectInfo.createdBy),
 			id: "createdBy",
 			header: t("project.projectPage.table.columns.createdBy"),
 		},
 		{
-			accessorKey: "offeredHours",
+			accessorFn: row => row.projectInfo.offeredHours ?? "-",
+			id: "offeredHours",
 			header: t("project.projectPage.table.columns.offeredHours"),
 		},
 		{
-			accessorKey: "completedHours",
+			accessorFn: row => row.projectInfo.completedHours ?? "-",
+			id: "completedHours",
 			header: t("project.projectPage.table.columns.completedHours"),
+		},
+		{
+			accessorFn: row =>
+				row.projectInfo.maxParticipants ??
+				t("project.projectPage.dialog.values.unlimited"),
+			id: "maxParticipants",
+			header: t("project.projectPage.table.columns.maxParticipants"),
+		},
+		{
+			accessorFn: row =>
+				row.projectInfo.closedAt
+					? row.projectInfo.closedAtFormatted
+					: t("project.projectPage.dialog.values.open"),
+			id: "closedAt",
+			header: t("project.projectPage.table.columns.closedAt"),
+		},
+		{
+			accessorFn: row => row.projectInfo.auditInfo.createdAtFormatted,
+			id: "createdAt",
+			header: t("project.projectPage.table.columns.createdAt"),
+		},
+		{
+			accessorFn: row => row.projectInfo.auditInfo.updatedAtFormatted,
+			id: "updatedAt",
+			header: t("project.projectPage.table.columns.updatedAt"),
 		},
 	];
 }
 
-export function filterProjects(
-	projects: ProjectResponse[],
-	{
-		adminById,
-		createdByFilter,
-		dateField,
-		endDate,
-		entityById,
-		entityIdFilter,
-		query,
-		startDate,
-		statusFilter,
-	}: ProjectFilterArgs,
-) {
-	const normalizedQuery = normalizeTextForSearch(query.trim());
-	const hasQuery = normalizedQuery.length > 0;
-	const hasCreatorFilter = createdByFilter.length > 0;
-	const hasEntityFilter = entityIdFilter.length > 0;
-	const hasStatusFilter = statusFilter.length > 0;
-	const startTimestamp = startDate ? getStartOfDayTimestamp(startDate) : null;
-	const endTimestamp = endDate ? getStartOfDayTimestamp(endDate) : null;
+export function buildProjectComplexSearchRequest(
+	filters: ProjectComplexSearchFilters,
+): ProjectComplexSearchRequest {
+	return {
+		createdByIds:
+			filters.createdByIds.length > 0 ? filters.createdByIds : undefined,
+		dateFrom: toSearchDateOffsetDateTime(filters.dateFrom, "start"),
+		dateTo: toSearchDateOffsetDateTime(filters.dateTo, "end"),
+		entityIds: filters.entityIds.length > 0 ? filters.entityIds : undefined,
+		statuses: filters.statuses.length > 0 ? filters.statuses : undefined,
+	};
+}
 
-	if (
-		!hasQuery &&
-		!hasCreatorFilter &&
-		!hasEntityFilter &&
-		!hasStatusFilter &&
-		!dateField &&
-		startTimestamp === null &&
-		endTimestamp === null
-	) {
+export function filterProjectsByBackendFilters(
+	projects: ProjectResponse[],
+	filters: ProjectComplexSearchFilters,
+) {
+	const hasCreatedByIds = filters.createdByIds.length > 0;
+	const hasEntityIds = filters.entityIds.length > 0;
+	const hasStatuses = filters.statuses.length > 0;
+	const hasDateRange = Boolean(filters.dateFrom || filters.dateTo);
+
+	if (!hasCreatedByIds && !hasEntityIds && !hasStatuses && !hasDateRange) {
 		return projects;
 	}
 
 	return projects.filter(project => {
-		if (hasQuery) {
-			const normalizedName = normalizeTextForSearch(project.name);
-			const normalizedDescription = normalizeTextForSearch(project.description);
-			const normalizedEntity = normalizeTextForSearch(
-				resolveProjectEntityLabel(entityById, project.entityId),
-			);
-			const normalizedCreator = normalizeTextForSearch(
-				resolveProjectCreatorLabel(adminById, project.createdBy),
-			);
-			const normalizedStatus = normalizeTextForSearch(project.statusFormatted);
-
-			if (
-				!normalizedName.includes(normalizedQuery) &&
-				!normalizedDescription.includes(normalizedQuery) &&
-				!normalizedEntity.includes(normalizedQuery) &&
-				!normalizedCreator.includes(normalizedQuery) &&
-				!normalizedStatus.includes(normalizedQuery)
-			) {
-				return false;
-			}
-		}
-
-		if (hasCreatorFilter && project.createdBy !== createdByFilter) {
+		if (
+			hasCreatedByIds &&
+			!filters.createdByIds.includes(project.projectInfo.createdBy)
+		) {
 			return false;
 		}
 
-		if (hasEntityFilter && project.entityId !== entityIdFilter) {
+		if (hasEntityIds && !filters.entityIds.includes(project.entity.id)) {
 			return false;
 		}
 
-		if (hasStatusFilter && project.status !== statusFilter) {
+		if (hasStatuses && !filters.statuses.includes(project.status.status)) {
 			return false;
 		}
 
-		if (dateField && (startTimestamp !== null || endTimestamp !== null)) {
-			const auditTimestamp = getStartOfDayTimestamp(
-				project.auditInfo[dateField],
-			);
-
-			if (startTimestamp !== null && auditTimestamp < startTimestamp) {
-				return false;
-			}
-
-			if (endTimestamp !== null && auditTimestamp > endTimestamp) {
-				return false;
-			}
+		if (
+			hasDateRange &&
+			!matchesAnyDateRange(
+				[
+					project.projectInfo.auditInfo.createdAt,
+					project.projectInfo.auditInfo.updatedAt,
+				],
+				{
+					...(filters.dateFrom ? { dateFrom: filters.dateFrom } : {}),
+					...(filters.dateTo ? { dateTo: filters.dateTo } : {}),
+				},
+			)
+		) {
+			return false;
 		}
 
 		return true;
+	});
+}
+
+export function filterProjectsByFrontendFilters(
+	projects: ProjectResponse[],
+	{
+		adminById,
+		query,
+	}: Pick<ProjectFilterArgs, "adminById" | "query">,
+) {
+	const normalizedQuery = normalizeTextForSearch(query.trim());
+	if (!normalizedQuery) {
+		return projects;
+	}
+
+	return projects.filter(project => {
+		const normalizedName = normalizeTextForSearch(project.name);
+		const normalizedDescription = normalizeTextForSearch(project.description);
+		const normalizedEntity = normalizeTextForSearch(project.entity.name);
+		const normalizedCreator = normalizeTextForSearch(
+			resolveProjectCreatorLabel(adminById, project.projectInfo.createdBy),
+		);
+		const normalizedStatus = normalizeTextForSearch(
+			project.status.statusFormatted,
+		);
+
+		return (
+			normalizedName.includes(normalizedQuery) ||
+			normalizedDescription.includes(normalizedQuery) ||
+			normalizedEntity.includes(normalizedQuery) ||
+			normalizedCreator.includes(normalizedQuery) ||
+			normalizedStatus.includes(normalizedQuery)
+		);
 	});
 }
 
@@ -291,9 +340,11 @@ export function getProjectAreasOfExpertiseErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.projectPage.feedback.schoolsError.title"),
+		fallbackTitle: t(
+			"project.projectPage.feedback.areasOfExpertiseError.title",
+		),
 		fallbackDescription: t(
-			"project.projectPage.feedback.schoolsError.description",
+			"project.projectPage.feedback.areasOfExpertiseError.description",
 		),
 	});
 }
@@ -374,27 +425,30 @@ export function buildProjectUpdateFormValues(
 ): ProjectEditorFormValues {
 	return {
 		description: project.description,
-		entityId: project.entityId,
+		entityId: project.entity.id,
 		maxParticipants:
-			project.maxParticipants === null ? "" : String(project.maxParticipants),
+			project.projectInfo.maxParticipants === null
+				? ""
+				: String(project.projectInfo.maxParticipants),
 		name: project.name,
-		offeredHours: String(project.offeredHours),
+		offeredHours: String(project.projectInfo.offeredHours ?? ""),
 	};
 }
 
 export function buildProjectDuplicateFormValues(
 	project: ProjectResponse,
 ): ProjectEditorFormValues {
-	return buildProjectUpdateFormValues(project);
+	return {
+		...buildProjectUpdateFormValues(project),
+		name: appendCopyToProjectName(project.name),
+	};
 }
 
 export function toProjectCreateRequest(
 	values: ProjectEditorFormValues,
 ): ProjectCreateRequest {
-	const description = values.description.trim();
-
 	return {
-		description: description.length > 0 ? description : null,
+		description: values.description.trim(),
 		entityId: values.entityId,
 		maxParticipants: parsePositiveInteger(values.maxParticipants),
 		name: values.name.trim(),
@@ -405,10 +459,8 @@ export function toProjectCreateRequest(
 export function toProjectUpdateRequest(
 	values: ProjectEditorFormValues,
 ): ProjectUpdateRequest {
-	const description = values.description.trim();
-
 	return {
-		description: description.length > 0 ? description : null,
+		description: values.description.trim(),
 		maxParticipants: parsePositiveInteger(values.maxParticipants),
 		name: values.name.trim(),
 		offeredHours: Number(values.offeredHours),
@@ -419,14 +471,13 @@ export function getProjectFilterSummary(
 	t: TFunction,
 	{
 		adminById,
-		createdByFilter,
-		dateField,
-		endDate,
+		createdByIds,
+		dateFrom,
+		dateTo,
 		entityById,
-		entityIdFilter,
+		entityIds,
 		query,
-		startDate,
-		statusFilter,
+		statuses,
 	}: ProjectFilterArgs,
 ) {
 	const parts: string[] = [];
@@ -435,24 +486,30 @@ export function getProjectFilterSummary(
 		parts.push(query.trim());
 	}
 
-	if (entityIdFilter) {
-		parts.push(resolveProjectEntityLabel(entityById, entityIdFilter));
+	if (entityIds.length > 0) {
+		parts.push(
+			entityIds
+				.map(entityId => resolveProjectEntityLabel(entityById, entityId))
+				.join(", "),
+		);
 	}
 
-	if (createdByFilter) {
-		parts.push(resolveProjectCreatorLabel(adminById, createdByFilter));
+	if (createdByIds.length > 0) {
+		parts.push(
+			createdByIds
+				.map(createdById => resolveProjectCreatorLabel(adminById, createdById))
+				.join(", "),
+		);
 	}
 
-	if (statusFilter) {
-		parts.push(getProjectStatusLabel(t, statusFilter));
+	if (statuses.length > 0) {
+		parts.push(
+			statuses.map(status => getProjectStatusLabel(t, status)).join(", "),
+		);
 	}
 
-	if (dateField) {
-		parts.push(t(`project.projectPage.filters.dateField.options.${dateField}`));
-	}
-
-	if (startDate || endDate) {
-		parts.push([startDate || "...", endDate || "..."].join(" - "));
+	if (dateFrom || dateTo) {
+		parts.push([dateFrom || "...", dateTo || "..."].join(" - "));
 	}
 
 	return parts.join(" | ");
@@ -465,17 +522,4 @@ export function getProjectStatusOptions(t: TFunction) {
 			label: getProjectStatusLabel(t, status as ProjectStatus),
 		}),
 	);
-}
-
-export function formatProjectAreaOfExpertiseNames(
-	areasOfExpertise: AreaOfExpertiseResponse[] | undefined,
-) {
-	if (!areasOfExpertise || areasOfExpertise.length === 0) {
-		return null;
-	}
-
-	return areasOfExpertise
-		.map(areaOfExpertise => areaOfExpertise.name)
-		.sort(compareNormalizedText)
-		.join(", ");
 }

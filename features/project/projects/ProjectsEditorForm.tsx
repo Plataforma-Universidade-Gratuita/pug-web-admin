@@ -11,14 +11,12 @@ import {
 	SomeErrorState,
 	TextArea,
 } from "@/components";
-import { resolveProjectEntityLabel } from "@/features/project/projects/utils";
 import type { ProjectsEditorFormProps } from "@/types";
 import { WebApiError } from "@/utils";
 
 export function ProjectsEditorForm({
 	canRenderForm,
 	entitiesError,
-	entityById,
 	entityOptions,
 	form,
 	mode,
@@ -99,9 +97,7 @@ export function ProjectsEditorForm({
 						{t("project.projectPage.editor.fields.entity")}
 					</p>
 					<p className="ty-sm-semibold">
-						{project
-							? resolveProjectEntityLabel(entityById, project.entityId)
-							: form.getValues("entityId")}
+						{project ? project.entity.name : form.getValues("entityId")}
 					</p>
 				</div>
 			) : (
@@ -225,7 +221,7 @@ export function ProjectsEditorForm({
 							{t("project.projectPage.dialog.fields.createdAt")}
 						</p>
 						<p className="ty-sm-semibold">
-							{project.auditInfo.createdAtFormatted}
+							{project.projectInfo.auditInfo.createdAtFormatted}
 						</p>
 					</div>
 					<div className="grid gap-1">
@@ -233,7 +229,7 @@ export function ProjectsEditorForm({
 							{t("project.projectPage.dialog.fields.updatedAt")}
 						</p>
 						<p className="ty-sm-semibold">
-							{project.auditInfo.updatedAtFormatted}
+							{project.projectInfo.auditInfo.updatedAtFormatted}
 						</p>
 					</div>
 				</div>

@@ -1,8 +1,7 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
-	AdminResponse,
-	AreaOfExpertiseResponse,
+	AdminComplexSearchItemResponse,
 	EntityResponse,
 	ProjectCreateRequest,
 	ProjectResponse,
@@ -23,7 +22,6 @@ export interface ProjectRoutePageProps {
 
 export type ProjectAuditDateField = "" | "createdAt" | "updatedAt";
 export type ProjectEditorMode = "create" | "duplicate" | "update";
-export type ProjectStatusFilter = "" | ProjectStatus;
 export type ProjectStatusAction =
 	| "cancel"
 	| "complete"
@@ -31,13 +29,12 @@ export type ProjectStatusAction =
 	| "retake"
 	| "start";
 
-export interface ProjectSecondaryFilters {
-	createdByFilter: string;
-	dateField: ProjectAuditDateField;
-	endDate: string;
-	entityIdFilter: string;
-	startDate: string;
-	statusFilter: ProjectStatusFilter;
+export interface ProjectComplexSearchFilters {
+	createdByIds: string[];
+	dateFrom: string;
+	dateTo: string;
+	entityIds: string[];
+	statuses: ProjectStatus[];
 }
 
 export interface ProjectEditorFormValues {
@@ -76,7 +73,6 @@ export interface ProjectsEditorDrawerProps {
 export interface ProjectsEditorFormProps {
 	canRenderForm: boolean;
 	entitiesError: unknown;
-	entityById: Map<string, EntityResponse>;
 	entityOptions: ComboboxOption[];
 	form: UseFormReturn<ProjectEditorFormValues>;
 	mode: ProjectEditorMode;
@@ -88,33 +84,32 @@ export interface ProjectsEditorFormProps {
 
 export interface ProjectsFiltersDrawerProps {
 	adminsError: boolean;
-	createdByFilter: string;
+	createdByIds: string[];
 	creatorOptions: ComboboxOption[];
-	dateField: ProjectAuditDateField;
-	endDate: string;
+	dateFrom: string;
+	dateTo: string;
 	entitiesError: boolean;
-	entityIdFilter: string;
+	entityIds: string[];
 	entityOptions: ComboboxOption[];
 	hasActiveFilters: boolean;
 	onApply: () => void;
-	onCreatedByFilterChange: (value: string) => void;
+	onCreatedByIdsChange: (value: string[]) => void;
 	onClear: () => void;
-	onDateFieldChange: (value: ProjectAuditDateField) => void;
-	onEndDateChange: (value: string) => void;
-	onEntityIdFilterChange: (value: string) => void;
+	onDateFromChange: (value: string) => void;
+	onDateToChange: (value: string) => void;
+	onEntityIdsChange: (value: string[]) => void;
 	onOpenChange: (open: boolean) => void;
 	onRefreshAdmins: () => void;
 	onRefreshEntities: () => void;
-	onStartDateChange: (value: string) => void;
-	onStatusFilterChange: (value: ProjectStatusFilter) => void;
+	onStatusesChange: (value: ProjectStatus[]) => void;
 	open: boolean;
-	startDate: string;
-	statusFilter: ProjectStatusFilter;
+	statuses: ProjectStatus[];
 }
 
 export interface ProjectsRowActionsProps {
 	href: string;
 	onDelete: (project: ProjectResponse) => void;
+	onDuplicate: (project: ProjectResponse) => void;
 	onOpenEditor: (id: string, mode: ProjectEditorMode) => void;
 	onStatusAction: (
 		project: ProjectResponse,
@@ -124,20 +119,12 @@ export interface ProjectsRowActionsProps {
 }
 
 export interface ProjectFilterArgs {
-	adminById: Map<string, AdminResponse>;
-	createdByFilter: string;
-	dateField: ProjectAuditDateField;
-	endDate: string;
+	adminById: Map<string, AdminComplexSearchItemResponse>;
+	createdByIds: string[];
+	dateFrom: string;
+	dateTo: string;
 	entityById: Map<string, EntityResponse>;
-	entityIdFilter: string;
+	entityIds: string[];
 	query: string;
-	startDate: string;
-	statusFilter: ProjectStatusFilter;
-}
-
-export interface ProjectDetailFieldsArgs {
-	adminById: Map<string, AdminResponse>;
-	entityById: Map<string, EntityResponse>;
-	project: ProjectResponse;
-	areasOfExpertise: AreaOfExpertiseResponse[] | undefined;
+	statuses: ProjectStatus[];
 }

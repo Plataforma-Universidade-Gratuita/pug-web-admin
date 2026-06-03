@@ -1,30 +1,38 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
+import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { useAdminsQuery } from "@/features/identity/admins/queries";
 import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import { ProjectsEditorDrawer } from "@/features/project/projects/ProjectsEditorDrawer";
 import { ProjectsFiltersDrawer } from "@/features/project/projects/ProjectsFiltersDrawer";
 import { ProjectsRowActions } from "@/features/project/projects/ProjectsRowActions";
 import {
+	useCreateProjectMutation,
 	useProjectStatusMutation,
 	useRemoveProjectMutation,
 } from "@/features/project/projects/mutations";
-import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
+	useProjectsQuery,
+	useProjectsSearchQuery,
+} from "@/features/project/projects/queries";
+import {
+	appendCopyToProjectName,
 	buildProjectCreatorOptions,
 	buildProjectEntityOptions,
+	filterProjectsByBackendFilters,
+	filterProjectsByFrontendFilters,
 	createProjectColumns,
-	filterProjects,
 	getProjectAdminsErrorToastContent,
 	getProjectDeleteErrorToastContent,
 	getProjectEmptyStateCopy,
 	getProjectEntitiesErrorToastContent,
 	getProjectFilterSummary,
+	getProjectDuplicateErrorToastContent,
 	getProjectsListErrorToastContent,
 	getProjectStatusActionErrorToastContent,
 } from "@/features/project/projects/utils";
@@ -32,6 +40,7 @@ import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
 	ServicePageHeaderActions,
+	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
@@ -41,11 +50,12 @@ import {
 	useDraftFilters,
 	useQueryErrorToasts,
 	useServicePageEditorState,
+	useServicePagePagination,
 } from "@/hooks";
 import type { ProjectResponse } from "@/types";
 import type {
+	ProjectComplexSearchFilters,
 	ProjectEditorMode,
-	ProjectSecondaryFilters,
 	ProjectStatusAction,
 } from "@/types";
 
@@ -67,14 +77,13 @@ export function ProjectsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
-	const initialSecondaryFilters = useMemo<ProjectSecondaryFilters>(
+	const initialBackendFilters = useMemo<ProjectComplexSearchFilters>(
 		() => ({
-			createdByFilter: "",
-			dateField: "",
-			endDate: "",
-			entityIdFilter: "",
-			startDate: "",
-			statusFilter: "",
+			createdByIds: [],
+			dateFrom: "",
+			dateTo: "",
+			entityIds: [],
+			statuses: [],
 		}),
 		[],
 	);
@@ -85,12 +94,15 @@ export function ProjectsPage() {
 		draftFilters,
 		hasAppliedFilters,
 		setDraftFilter,
-	} = useDraftFilters<ProjectSecondaryFilters>({
-		initialFilters: initialSecondaryFilters,
+	} = useDraftFilters<ProjectComplexSearchFilters>({
+		initialFilters: initialBackendFilters,
 	});
 	const editorState = useServicePageEditorState<ProjectEditorMode>({
 		createMode: "create",
 		defaultMode: "update",
+	});
+	const projectsPagination = useServicePagePagination({
+		key: "project.projects",
 	});
 	const [pendingDeleteProject, setPendingDeleteProject] =
 		useState<ProjectResponse | null>(null);
@@ -99,12 +111,31 @@ export function ProjectsPage() {
 		project: ProjectResponse;
 	} | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
-	const projectsQuery = useProjectsQuery();
+	const projectsQuery = useProjectsQuery(projectsPagination.isAll);
+	const projectsSearchQuery = useProjectsSearchQuery(
+		projectsPagination.backendPage ?? 0,
+		projectsPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
+		appliedFilters,
+		!projectsPagination.isAll,
+	);
 	const entitiesQuery = useEntitiesQuery();
 	const adminsQuery = useAdminsQuery();
+	const createProjectMutation = useCreateProjectMutation();
 	const removeProjectMutation = useRemoveProjectMutation();
 	const projectStatusMutation = useProjectStatusMutation();
 	const { schedule } = useDeferredUndoAction();
+	const activeQueryError = projectsPagination.isAll
+		? projectsQuery.error
+		: projectsSearchQuery.error;
+	const activeQueryErrorUpdatedAt = projectsPagination.isAll
+		? projectsQuery.errorUpdatedAt
+		: projectsSearchQuery.errorUpdatedAt;
+	const activeQueryIsError = projectsPagination.isAll
+		? projectsQuery.isError
+		: projectsSearchQuery.isError;
+	const activeQueryIsLoading = projectsPagination.isAll
+		? projectsQuery.isLoading
+		: projectsSearchQuery.isLoading;
 
 	const entityById = useMemo(
 		() =>
@@ -113,7 +144,9 @@ export function ProjectsPage() {
 	);
 	const adminById = useMemo(
 		() =>
-			new Map((adminsQuery.data ?? []).map(admin => [admin.accountId, admin])),
+			new Map(
+				(adminsQuery.data ?? []).map(admin => [admin.account.id, admin]),
+			),
 		[adminsQuery.data],
 	);
 	const entityOptions = useMemo(
@@ -124,44 +157,45 @@ export function ProjectsPage() {
 		() => buildProjectCreatorOptions(adminsQuery.data ?? []),
 		[adminsQuery.data],
 	);
-	const filteredProjects = useMemo(
+	const backendFilteredAllProjects = useMemo(
 		() =>
-			filterProjects(projectsQuery.data ?? [], {
-				adminById,
-				createdByFilter: appliedFilters.createdByFilter,
-				dateField: appliedFilters.dateField,
-				endDate: appliedFilters.endDate,
-				entityById,
-				entityIdFilter: appliedFilters.entityIdFilter,
-				query: deferredQuerySearch,
-				startDate: appliedFilters.startDate,
-				statusFilter: appliedFilters.statusFilter,
-			}),
+			projectsPagination.isAll
+				? filterProjectsByBackendFilters(projectsQuery.data ?? [], appliedFilters)
+				: [],
+		[appliedFilters, projectsPagination.isAll, projectsQuery.data],
+	);
+	const tableSourceProjects = useMemo(
+		() =>
+			projectsPagination.isAll
+				? backendFilteredAllProjects
+				: (projectsSearchQuery.data?.content ?? []),
 		[
-			adminById,
-			appliedFilters,
-			deferredQuerySearch,
-			entityById,
-			projectsQuery.data,
+			backendFilteredAllProjects,
+			projectsPagination.isAll,
+			projectsSearchQuery.data,
 		],
 	);
-	const columns = useMemo(
-		() => createProjectColumns(t, entityById, adminById),
-		[adminById, entityById, t],
+	const filteredProjects = useMemo(
+		() =>
+			filterProjectsByFrontendFilters(tableSourceProjects, {
+				adminById,
+				query: deferredQuerySearch,
+			}),
+		[adminById, deferredQuerySearch, tableSourceProjects],
 	);
+	const columns = useMemo(() => createProjectColumns(t, adminById), [adminById, t]);
 	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
 		() =>
 			getProjectFilterSummary(t, {
 				adminById,
-				createdByFilter: appliedFilters.createdByFilter,
-				dateField: appliedFilters.dateField,
-				endDate: appliedFilters.endDate,
+				createdByIds: appliedFilters.createdByIds,
+				dateFrom: appliedFilters.dateFrom,
+				dateTo: appliedFilters.dateTo,
 				entityById,
-				entityIdFilter: appliedFilters.entityIdFilter,
+				entityIds: appliedFilters.entityIds,
 				query: deferredQuerySearch,
-				startDate: appliedFilters.startDate,
-				statusFilter: appliedFilters.statusFilter,
+				statuses: appliedFilters.statuses,
 			}),
 		[adminById, appliedFilters, deferredQuerySearch, entityById, t],
 	);
@@ -170,13 +204,18 @@ export function ProjectsPage() {
 		[filterSummary, t],
 	);
 	const tableEmptyState = useMemo(() => {
-		if (projectsQuery.isError) {
+		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
 					title={t("project.projectPage.table.error.title")}
 					description={t("project.projectPage.table.error.description")}
 					onRefresh={() => {
-						void projectsQuery.refetch();
+						if (projectsPagination.isAll) {
+							void projectsQuery.refetch();
+							return;
+						}
+
+						void projectsSearchQuery.refetch();
 					}}
 				/>
 			);
@@ -188,15 +227,46 @@ export function ProjectsPage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [emptyStateCopy.description, emptyStateCopy.title, projectsQuery, t]);
+	}, [
+		activeQueryIsError,
+		emptyStateCopy.description,
+		emptyStateCopy.title,
+		projectsPagination.isAll,
+		projectsQuery,
+		projectsSearchQuery,
+		t,
+	]);
+
+	const totalElements = projectsPagination.isAll
+		? backendFilteredAllProjects.length
+		: (projectsSearchQuery.data?.totalElements ?? 0);
+	const totalPages = projectsPagination.isAll
+		? 1
+		: Math.max(projectsSearchQuery.data?.totalPages ?? 1, 1);
+
+	useEffect(() => {
+		if (
+			projectsPagination.isAll ||
+			!projectsSearchQuery.data ||
+			projectsPagination.currentPage <= totalPages
+		) {
+			return;
+		}
+
+		projectsPagination.setCurrentPage(totalPages);
+	}, [
+		projectsPagination,
+		projectsSearchQuery.data,
+		totalPages,
+	]);
 
 	useQueryErrorToasts([
 		{
 			key: "projects-list",
-			error: projectsQuery.error,
-			errorUpdatedAt: projectsQuery.errorUpdatedAt,
+			error: activeQueryError,
+			errorUpdatedAt: activeQueryErrorUpdatedAt,
 			getContent: error => getProjectsListErrorToastContent(t, error),
-			isError: projectsQuery.isError,
+			isError: activeQueryIsError,
 		},
 		{
 			key: "projects-entities",
@@ -217,7 +287,44 @@ export function ProjectsPage() {
 	function clearAllFilters() {
 		setQuerySearch("");
 		clearDraftFilters();
+		projectsPagination.resetPage();
 		setFiltersOpen(false);
+	}
+
+	function handleDuplicate(project: ProjectResponse) {
+		createProjectMutation.mutate(
+			{
+				body: {
+					description: project.description,
+					entityId: project.entity.id,
+					maxParticipants: project.projectInfo.maxParticipants,
+					name: appendCopyToProjectName(project.name),
+					offeredHours: project.projectInfo.offeredHours ?? 0,
+				},
+			},
+			{
+				onSuccess: createdProject => {
+					toast.success(
+						t("project.projectPage.duplicate.feedback.success.title"),
+						{
+							description: t(
+								"project.projectPage.duplicate.feedback.success.description",
+								{
+									name: createdProject.name,
+								},
+							),
+						},
+					);
+				},
+				onError: error => {
+					const { title, description } = getProjectDuplicateErrorToastContent(
+						t,
+						error,
+					);
+					toast.danger(title, { description });
+				},
+			},
+		);
 	}
 
 	function handleDeleteConfirm() {
@@ -341,26 +448,27 @@ export function ProjectsPage() {
 
 				<ProjectsFiltersDrawer
 					adminsError={adminsQuery.isError}
-					createdByFilter={draftFilters.createdByFilter}
+					createdByIds={draftFilters.createdByIds}
 					creatorOptions={creatorOptions}
-					dateField={draftFilters.dateField}
-					endDate={draftFilters.endDate}
+					dateFrom={draftFilters.dateFrom}
+					dateTo={draftFilters.dateTo}
 					entitiesError={entitiesQuery.isError}
-					entityIdFilter={draftFilters.entityIdFilter}
+					entityIds={draftFilters.entityIds}
 					entityOptions={entityOptions}
 					hasActiveFilters={hasAppliedFilters}
 					onApply={() => {
+						projectsPagination.resetPage();
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
-					onCreatedByFilterChange={value =>
-						setDraftFilter("createdByFilter", value)
+					onCreatedByIdsChange={value =>
+						setDraftFilter("createdByIds", value)
 					}
 					onClear={clearAllFilters}
-					onDateFieldChange={value => setDraftFilter("dateField", value)}
-					onEndDateChange={value => setDraftFilter("endDate", value)}
-					onEntityIdFilterChange={value =>
-						setDraftFilter("entityIdFilter", value)
+					onDateFromChange={value => setDraftFilter("dateFrom", value)}
+					onDateToChange={value => setDraftFilter("dateTo", value)}
+					onEntityIdsChange={value =>
+						setDraftFilter("entityIds", value)
 					}
 					onOpenChange={setFiltersOpen}
 					onRefreshAdmins={() => {
@@ -369,15 +477,24 @@ export function ProjectsPage() {
 					onRefreshEntities={() => {
 						void entitiesQuery.refetch();
 					}}
-					onStartDateChange={value => setDraftFilter("startDate", value)}
-					onStatusFilterChange={value => setDraftFilter("statusFilter", value)}
+					onStatusesChange={value => setDraftFilter("statuses", value)}
 					open={filtersOpen}
-					startDate={draftFilters.startDate}
-					statusFilter={draftFilters.statusFilter}
+					statuses={draftFilters.statuses}
 				/>
 			</ServicePageHeader>
 
 			<ServicePageTableSection<ProjectResponse>
+				footer={
+					<ServicePagePagination
+						currentPage={projectsPagination.currentPage}
+						pageSize={projectsPagination.pageSize}
+						totalElements={totalElements}
+						totalPages={totalPages}
+						onPageChange={projectsPagination.setCurrentPage}
+						onPageSizeChange={projectsPagination.setPageSize}
+						disabled={activeQueryIsLoading}
+					/>
+				}
 				tableProps={{
 					className: "h-full",
 					columns,
@@ -387,6 +504,7 @@ export function ProjectsPage() {
 						<ProjectsRowActions
 							href={`/project/projects/${row.id}`}
 							onDelete={setPendingDeleteProject}
+							onDuplicate={handleDuplicate}
 							onOpenEditor={editorState.openEditor}
 							onStatusAction={(project, action) =>
 								setPendingStatusAction({ action, project })
@@ -394,7 +512,7 @@ export function ProjectsPage() {
 							project={row}
 						/>
 					),
-					isLoading: projectsQuery.isLoading,
+					isLoading: activeQueryIsLoading,
 					loadingLabel: t("project.projectPage.loading.list"),
 				}}
 			/>

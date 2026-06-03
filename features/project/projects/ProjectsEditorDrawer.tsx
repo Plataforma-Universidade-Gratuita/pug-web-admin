@@ -67,11 +67,6 @@ export function ProjectsEditorDrawer({
 	const projectDetailQuery = useProjectDetailQuery(projectId);
 	const createMutation = useCreateProjectMutation();
 	const updateMutation = useUpdateProjectMutation();
-	const entityById = useMemo(
-		() =>
-			new Map((entitiesQuery.data ?? []).map(entity => [entity.id, entity])),
-		[entitiesQuery.data],
-	);
 	const entityOptions = useMemo(
 		() => buildProjectEntityOptions(entitiesQuery.data ?? []),
 		[entitiesQuery.data],
@@ -284,7 +279,6 @@ export function ProjectsEditorDrawer({
 						<ProjectsEditorForm
 							canRenderForm={canRenderForm}
 							entitiesError={entitiesQuery.isError ? entitiesQuery.error : null}
-							entityById={entityById}
 							entityOptions={entityOptions}
 							form={form}
 							mode={mode}
