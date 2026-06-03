@@ -16,14 +16,14 @@ export function useEnrollmentsQuery() {
 
 export function useEnrollmentDetailQuery(
 	projectId: string | null,
-	studentId: string | null,
+	formerStudentId: string | null,
 ) {
 	return useQuery({
 		queryKey:
-			projectId === null || studentId === null
+			projectId === null || formerStudentId === null
 				? enrollmentQueryKeys.idleDetail()
-				: enrollmentQueryKeys.detail(projectId, studentId),
-		queryFn: () => get(projectId!, studentId!),
-		enabled: projectId !== null && studentId !== null,
+				: enrollmentQueryKeys.detail(projectId, formerStudentId),
+		queryFn: () => get(projectId!, formerStudentId!),
+		enabled: projectId !== null && formerStudentId !== null,
 	});
 }

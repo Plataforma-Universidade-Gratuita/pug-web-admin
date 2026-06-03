@@ -21,12 +21,14 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useStudentsQuery } from "@/features/academic/students/queries";
+import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
+import { useAccountsQuery } from "@/features/identity/accounts/queries";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import { AttendancesCreateForm } from "@/features/project/attendances/AttendancesCreateForm";
 import { useCreateAttendanceMutation } from "@/features/project/attendances/mutations";
 import {
+	buildAttendanceFormerStudentOptions,
 	buildAttendanceProjectOptions,
-	buildAttendanceStudentOptions,
 	createAttendanceFormSchema,
 	getAttendanceCreateErrorToastContent,
 	getAttendanceProjectsErrorToastContent,
@@ -52,15 +54,30 @@ export function AttendancesCreateDrawer({
 	const { t } = useTranslation();
 	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const projectsQuery = useProjectsQuery();
-	const studentsQuery = useStudentsQuery();
+	const formerStudentsQuery = useFormerStudentsQuery();
+	const accountsQuery = useAccountsQuery();
+	const usersQuery = useUsersQuery();
 	const createMutation = useCreateAttendanceMutation();
 	const projectOptions = useMemo(
 		() => buildAttendanceProjectOptions(projectsQuery.data ?? []),
 		[projectsQuery.data],
 	);
-	const studentOptions = useMemo(
-		() => buildAttendanceStudentOptions(studentsQuery.data ?? []),
-		[studentsQuery.data],
+	const accountById = useMemo(
+		() => new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		[accountsQuery.data],
+	);
+	const userById = useMemo(
+		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
+		[usersQuery.data],
+	);
+	const formerStudentOptions = useMemo(
+		() =>
+			buildAttendanceFormerStudentOptions(
+				formerStudentsQuery.data ?? [],
+				accountById,
+				userById,
+			),
+		[accountById, formerStudentsQuery.data, userById],
 	);
 	const emptyValues = useMemo(() => getEmptyAttendanceCreateFormValues(), []);
 	const form = useLocalizedZodForm<AttendanceCreateFormValues>({
@@ -69,11 +86,15 @@ export function AttendancesCreateDrawer({
 		mode: "onChange",
 	});
 	const isDrawerLoading =
-		open && (projectsQuery.isLoading || studentsQuery.isLoading);
+		open &&
+		(projectsQuery.isLoading ||
+			formerStudentsQuery.isLoading ||
+			accountsQuery.isLoading ||
+			usersQuery.isLoading);
 	const isSubmitPending = createMutation.isPending;
 	const canRenderForm =
 		(projectsQuery.data?.length ?? 0) > 0 &&
-		(studentsQuery.data?.length ?? 0) > 0;
+		(formerStudentsQuery.data?.length ?? 0) > 0;
 
 	useQueryErrorToasts([
 		{
@@ -85,10 +106,10 @@ export function AttendancesCreateDrawer({
 		},
 		{
 			key: "attendance-create-students",
-			error: studentsQuery.error,
-			errorUpdatedAt: studentsQuery.errorUpdatedAt,
+			error: formerStudentsQuery.error,
+			errorUpdatedAt: formerStudentsQuery.errorUpdatedAt,
 			getContent: error => getAttendanceStudentsErrorToastContent(t, error),
-			isError: studentsQuery.isError,
+			isError: formerStudentsQuery.isError,
 		},
 	]);
 
@@ -166,13 +187,15 @@ export function AttendancesCreateDrawer({
 							onRefreshProjects={() => {
 								void projectsQuery.refetch();
 							}}
-							onRefreshStudents={() => {
-								void studentsQuery.refetch();
+							onRefreshFormerStudents={() => {
+								void formerStudentsQuery.refetch();
 							}}
 							projectOptions={projectOptions}
 							projectsError={projectsQuery.isError ? projectsQuery.error : null}
-							studentOptions={studentOptions}
-							studentsError={studentsQuery.isError ? studentsQuery.error : null}
+							formerStudentOptions={formerStudentOptions}
+							formerStudentsError={
+								formerStudentsQuery.isError ? formerStudentsQuery.error : null
+							}
 						/>
 					</DrawerBody>
 

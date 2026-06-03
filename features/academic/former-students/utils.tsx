@@ -6,7 +6,6 @@ import { ADMIN_CAMPI_VALUES } from "@/constants";
 import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
 import type {
 	AccountResponse,
-	Campi,
 	CourseResponse,
 	FormerStudentCreateRequest,
 	FormerStudentDirectoryItem,

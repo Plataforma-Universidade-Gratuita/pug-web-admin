@@ -4,13 +4,16 @@ import type { TFunction } from "i18next";
 import { Badge } from "@/components";
 import { ENROLLMENT_KEY_SEPARATOR } from "@/constants";
 import type {
+	AccountResponse,
+	EnrollmentFilterArgs,
 	EnrollmentResponse,
 	EnrollmentStatus,
+	EnrollmentStatusAction,
+	FormerStudentResponse,
 	ProjectResponse,
-	StudentResponse,
+	UserResponse,
 } from "@/types";
 import type { BadgeTone, ComboboxOption } from "@/types";
-import type { EnrollmentFilterArgs, EnrollmentStatusAction } from "@/types";
 import { getApiErrorToastContent } from "@/utils";
 import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
 
@@ -20,11 +23,28 @@ function getStartOfDayTimestamp(value: string) {
 	return date.getTime();
 }
 
+function getFormerStudentUser(
+	formerStudent: FormerStudentResponse | undefined,
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
+) {
+	if (!formerStudent) {
+		return null;
+	}
+
+	const account = accountById.get(formerStudent.accountId);
+	if (!account) {
+		return null;
+	}
+
+	return userById.get(account.userId) ?? null;
+}
+
 export function createEnrollmentCompositeKey(
 	projectId: string,
-	studentId: string,
+	formerStudentId: string,
 ) {
-	return `${projectId}${ENROLLMENT_KEY_SEPARATOR}${studentId}`;
+	return `${projectId}${ENROLLMENT_KEY_SEPARATOR}${formerStudentId}`;
 }
 
 export function parseEnrollmentCompositeKey(value: string | null) {
@@ -32,12 +52,12 @@ export function parseEnrollmentCompositeKey(value: string | null) {
 		return null;
 	}
 
-	const [projectId, studentId] = value.split(ENROLLMENT_KEY_SEPARATOR);
-	if (!projectId || !studentId) {
+	const [projectId, formerStudentId] = value.split(ENROLLMENT_KEY_SEPARATOR);
+	if (!projectId || !formerStudentId) {
 		return null;
 	}
 
-	return { projectId, studentId };
+	return { projectId, formerStudentId };
 }
 
 export function resolveEnrollmentProjectLabel(
@@ -47,11 +67,16 @@ export function resolveEnrollmentProjectLabel(
 	return projectById.get(projectId)?.name ?? projectId;
 }
 
-export function resolveEnrollmentStudentLabel(
-	studentById: Map<string, StudentResponse>,
-	studentId: string,
+export function resolveEnrollmentFormerStudentLabel(
+	formerStudentById: Map<string, FormerStudentResponse>,
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
+	formerStudentId: string,
 ) {
-	return studentById.get(studentId)?.userName ?? studentId;
+	const formerStudent = formerStudentById.get(formerStudentId);
+	const user = getFormerStudentUser(formerStudent, accountById, userById);
+
+	return user?.name ?? formerStudent?.academicRegistration ?? formerStudentId;
 }
 
 export function getEnrollmentStatusLabel(
@@ -87,32 +112,61 @@ export function buildEnrollmentProjectOptions(
 		.map(project => ({
 			value: project.id,
 			label: project.name,
-			description: project.statusFormatted,
+			description: project.status.statusFormatted,
 		}));
 }
 
-export function buildEnrollmentStudentOptions(
-	students: StudentResponse[],
+export function buildEnrollmentFormerStudentOptions(
+	formerStudents: FormerStudentResponse[],
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
 ): ComboboxOption[] {
-	return [...students]
-		.sort((left, right) => compareNormalizedText(left.userName, right.userName))
-		.map(student => ({
-			value: student.accountId,
-			label: student.userName,
-			description: student.accountEmail,
-			keywords: [student.academicRegistration],
-		}));
+	return [...formerStudents]
+		.sort((left, right) =>
+			compareNormalizedText(
+				resolveEnrollmentFormerStudentLabel(
+					new Map([[left.accountId, left]]),
+					accountById,
+					userById,
+					left.accountId,
+				),
+				resolveEnrollmentFormerStudentLabel(
+					new Map([[right.accountId, right]]),
+					accountById,
+					userById,
+					right.accountId,
+				),
+			),
+		)
+		.map(formerStudent => {
+			const user = getFormerStudentUser(formerStudent, accountById, userById);
+			const account = accountById.get(formerStudent.accountId);
+
+			return {
+				value: formerStudent.accountId,
+				label: user?.name ?? formerStudent.academicRegistration,
+				description: account?.email ?? formerStudent.academicRegistration,
+				keywords: [formerStudent.academicRegistration, user?.cpfFormatted ?? ""],
+			};
+		});
 }
 
 export function createEnrollmentColumns(
 	t: TFunction,
 	projectById: Map<string, ProjectResponse>,
-	studentById: Map<string, StudentResponse>,
+	formerStudentById: Map<string, FormerStudentResponse>,
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
 ): ColumnDef<EnrollmentResponse>[] {
 	return [
 		{
 			accessorFn: row =>
-				resolveEnrollmentStudentLabel(studentById, row.studentId),
+				resolveEnrollmentFormerStudentLabel(
+					formerStudentById,
+					accountById,
+					userById,
+					row.formerStudentId,
+				),
 			id: "student",
 			header: t("project.enrollmentPage.table.columns.student"),
 		},
@@ -123,35 +177,35 @@ export function createEnrollmentColumns(
 			header: t("project.enrollmentPage.table.columns.project"),
 		},
 		{
-			accessorFn: row => row.status,
+			accessorFn: row => row.status.status,
 			id: "status",
 			header: t("project.enrollmentPage.table.columns.status"),
 			cell: ({ row }) => (
 				<Badge
-					tone={getEnrollmentStatusTone(row.original.status)}
+					tone={getEnrollmentStatusTone(row.original.status.status)}
 					variant="primary"
 					className="min-h-5 px-2 py-0.5"
 				>
-					{getEnrollmentStatusLabel(t, row.original.status)}
+					{row.original.status.statusFormatted}
 				</Badge>
 			),
 		},
 		{
-			accessorFn: row => row.acceptedAt ?? "",
+			accessorFn: row => row.enrollmentInfo.acceptedAt ?? "",
 			id: "acceptedAt",
 			header: t("project.enrollmentPage.table.columns.acceptedAt"),
 			cell: ({ row }) =>
-				row.original.acceptedAt
-					? row.original.acceptedAtFormatted
+				row.original.enrollmentInfo.acceptedAt
+					? row.original.enrollmentInfo.acceptedAtFormatted
 					: t("project.enrollmentPage.table.values.notAccepted"),
 		},
 		{
-			accessorFn: row => row.closingStatusAt ?? "",
+			accessorFn: row => row.enrollmentInfo.closingStatusAt ?? "",
 			id: "closingStatusAt",
 			header: t("project.enrollmentPage.table.columns.closingStatusAt"),
 			cell: ({ row }) =>
-				row.original.closingStatusAt
-					? row.original.closingStatusAtFormatted
+				row.original.enrollmentInfo.closingStatusAt
+					? row.original.enrollmentInfo.closingStatusAtFormatted
 					: t("project.enrollmentPage.table.values.open"),
 		},
 	];
@@ -167,14 +221,16 @@ export function filterEnrollments(
 		query,
 		startDate,
 		statusFilter,
-		studentById,
-		studentIdFilter,
+		formerStudentById,
+		formerStudentIdFilter,
+		accountById,
+		userById,
 	}: EnrollmentFilterArgs,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const hasQuery = normalizedQuery.length > 0;
 	const hasProjectFilter = projectIdFilter.length > 0;
-	const hasStudentFilter = studentIdFilter.length > 0;
+	const hasFormerStudentFilter = formerStudentIdFilter.length > 0;
 	const hasStatusFilter = statusFilter.length > 0;
 	const startTimestamp = startDate ? getStartOfDayTimestamp(startDate) : null;
 	const endTimestamp = endDate ? getStartOfDayTimestamp(endDate) : null;
@@ -182,7 +238,7 @@ export function filterEnrollments(
 	if (
 		!hasQuery &&
 		!hasProjectFilter &&
-		!hasStudentFilter &&
+		!hasFormerStudentFilter &&
 		!hasStatusFilter &&
 		!dateField &&
 		startTimestamp === null &&
@@ -193,27 +249,38 @@ export function filterEnrollments(
 
 	return enrollments.filter(enrollment => {
 		if (hasQuery) {
-			const student = studentById.get(enrollment.studentId);
+			const formerStudent = formerStudentById.get(enrollment.formerStudentId);
+			const user = getFormerStudentUser(formerStudent, accountById, userById);
+			const account = formerStudent
+				? accountById.get(formerStudent.accountId)
+				: null;
 			const normalizedStudent = normalizeTextForSearch(
-				resolveEnrollmentStudentLabel(studentById, enrollment.studentId),
+				resolveEnrollmentFormerStudentLabel(
+					formerStudentById,
+					accountById,
+					userById,
+					enrollment.formerStudentId,
+				),
 			);
-			const normalizedEmail = normalizeTextForSearch(
-				student?.accountEmail ?? "",
-			);
+			const normalizedEmail = normalizeTextForSearch(account?.email ?? "");
 			const normalizedRegistration = normalizeTextForSearch(
-				student?.academicRegistration ?? "",
+				formerStudent?.academicRegistration ?? "",
+			);
+			const normalizedCpf = normalizeTextForSearch(
+				user?.cpfFormatted ?? user?.cpf ?? "",
 			);
 			const normalizedProject = normalizeTextForSearch(
 				resolveEnrollmentProjectLabel(projectById, enrollment.projectId),
 			);
 			const normalizedStatus = normalizeTextForSearch(
-				enrollment.statusFormatted,
+				enrollment.status.statusFormatted,
 			);
 
 			if (
 				!normalizedStudent.includes(normalizedQuery) &&
 				!normalizedEmail.includes(normalizedQuery) &&
 				!normalizedRegistration.includes(normalizedQuery) &&
+				!normalizedCpf.includes(normalizedQuery) &&
 				!normalizedProject.includes(normalizedQuery) &&
 				!normalizedStatus.includes(normalizedQuery)
 			) {
@@ -225,17 +292,20 @@ export function filterEnrollments(
 			return false;
 		}
 
-		if (hasStudentFilter && enrollment.studentId !== studentIdFilter) {
+		if (
+			hasFormerStudentFilter &&
+			enrollment.formerStudentId !== formerStudentIdFilter
+		) {
 			return false;
 		}
 
-		if (hasStatusFilter && enrollment.status !== statusFilter) {
+		if (hasStatusFilter && enrollment.status.status !== statusFilter) {
 			return false;
 		}
 
 		if (dateField && (startTimestamp !== null || endTimestamp !== null)) {
 			const auditTimestamp = getStartOfDayTimestamp(
-				enrollment.auditInfo[dateField],
+				enrollment.enrollmentInfo.auditInfo[dateField],
 			);
 
 			if (startTimestamp !== null && auditTimestamp < startTimestamp) {
@@ -345,8 +415,10 @@ export function getEnrollmentFilterSummary(
 		query,
 		startDate,
 		statusFilter,
-		studentById,
-		studentIdFilter,
+		formerStudentById,
+		formerStudentIdFilter,
+		accountById,
+		userById,
 	}: EnrollmentFilterArgs,
 ) {
 	const parts: string[] = [];
@@ -359,8 +431,15 @@ export function getEnrollmentFilterSummary(
 		parts.push(resolveEnrollmentProjectLabel(projectById, projectIdFilter));
 	}
 
-	if (studentIdFilter) {
-		parts.push(resolveEnrollmentStudentLabel(studentById, studentIdFilter));
+	if (formerStudentIdFilter) {
+		parts.push(
+			resolveEnrollmentFormerStudentLabel(
+				formerStudentById,
+				accountById,
+				userById,
+				formerStudentIdFilter,
+			),
+		);
 	}
 
 	if (statusFilter) {

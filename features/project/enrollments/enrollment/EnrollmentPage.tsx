@@ -5,17 +5,18 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Badge, NotFoundState, SomeErrorState } from "@/components";
-import { useStudentsQuery } from "@/features/academic/students/queries";
+import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
+import { useAccountsQuery } from "@/features/identity/accounts/queries";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import { useEnrollmentDetailQuery } from "@/features/project/enrollments/queries";
 import {
 	getEnrollmentDetailErrorToastContent,
 	getEnrollmentProjectsErrorToastContent,
-	getEnrollmentStatusLabel,
 	getEnrollmentStatusTone,
 	getEnrollmentStudentsErrorToastContent,
 	parseEnrollmentCompositeKey,
+	resolveEnrollmentFormerStudentLabel,
 	resolveEnrollmentProjectLabel,
-	resolveEnrollmentStudentLabel,
 } from "@/features/project/enrollments/utils";
 import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
@@ -34,10 +35,12 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 		[enrollmentId],
 	);
 	const projectsQuery = useProjectsQuery();
-	const studentsQuery = useStudentsQuery();
+	const formerStudentsQuery = useFormerStudentsQuery();
+	const accountsQuery = useAccountsQuery();
+	const usersQuery = useUsersQuery();
 	const enrollmentDetailQuery = useEnrollmentDetailQuery(
 		enrollmentIdentifier?.projectId ?? null,
-		enrollmentIdentifier?.studentId ?? null,
+		enrollmentIdentifier?.formerStudentId ?? null,
 	);
 
 	useQueryErrorToasts([
@@ -57,30 +60,45 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 		},
 		{
 			key: `enrollment-students-${enrollmentId}`,
-			error: studentsQuery.error,
-			errorUpdatedAt: studentsQuery.errorUpdatedAt,
+			error: formerStudentsQuery.error,
+			errorUpdatedAt: formerStudentsQuery.errorUpdatedAt,
 			getContent: error => getEnrollmentStudentsErrorToastContent(t, error),
-			isError: studentsQuery.isError,
+			isError: formerStudentsQuery.isError,
 		},
 	]);
 
 	const projectById = useMemo(
-		() =>
-			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
+		() => new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
 	);
-	const studentById = useMemo(
+	const formerStudentById = useMemo(
 		() =>
 			new Map(
-				(studentsQuery.data ?? []).map(student => [student.accountId, student]),
+				(formerStudentsQuery.data ?? []).map(formerStudent => [
+					formerStudent.accountId,
+					formerStudent,
+				]),
 			),
-		[studentsQuery.data],
+		[formerStudentsQuery.data],
+	);
+	const accountById = useMemo(
+		() => new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		[accountsQuery.data],
+	);
+	const userById = useMemo(
+		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
+		[usersQuery.data],
 	);
 
 	const enrollment = enrollmentDetailQuery.data;
-	const student = enrollment
-		? studentById.get(enrollment.studentId)
+	const formerStudent = enrollment
+		? formerStudentById.get(enrollment.formerStudentId)
 		: undefined;
+	const formerStudentAccount = formerStudent
+		? accountById.get(formerStudent.accountId)
+		: undefined;
+	const formerStudentUser =
+		formerStudentAccount ? userById.get(formerStudentAccount.userId) : undefined;
 	const fields = useMemo(
 		() =>
 			enrollment
@@ -88,28 +106,30 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 						{
 							id: "student",
 							label: t("project.enrollmentPage.dialog.fields.student"),
-							value: resolveEnrollmentStudentLabel(
-								studentById,
-								enrollment.studentId,
+							value: resolveEnrollmentFormerStudentLabel(
+								formerStudentById,
+								accountById,
+								userById,
+								enrollment.formerStudentId,
 							),
 						},
 						{
 							id: "studentId",
 							label: t("project.enrollmentPage.dialog.fields.studentId"),
-							value: enrollment.studentId,
+							value: enrollment.formerStudentId,
 						},
 						{
 							id: "email",
 							label: t("project.enrollmentPage.dialog.fields.email"),
 							value:
-								student?.accountEmail ??
+								formerStudentAccount?.email ??
 								t("project.enrollmentPage.dialog.values.unknownStudent"),
 						},
 						{
 							id: "registration",
 							label: t("project.enrollmentPage.dialog.fields.registration"),
 							value:
-								student?.academicRegistration ??
+								formerStudent?.academicRegistration ??
 								t("project.enrollmentPage.dialog.values.unknownStudent"),
 						},
 						{
@@ -131,40 +151,49 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 							value: (
 								<Badge
 									className="min-h-5 px-2 py-0.5"
-									tone={getEnrollmentStatusTone(enrollment.status)}
+									tone={getEnrollmentStatusTone(enrollment.status.status)}
 									variant="primary"
 								>
-									{getEnrollmentStatusLabel(t, enrollment.status)}
+									{enrollment.status.statusFormatted}
 								</Badge>
 							),
 						},
 						{
 							id: "acceptedAt",
 							label: t("project.enrollmentPage.dialog.fields.acceptedAt"),
-							value: enrollment.acceptedAt
-								? enrollment.acceptedAtFormatted
+							value: enrollment.enrollmentInfo.acceptedAt
+								? enrollment.enrollmentInfo.acceptedAtFormatted
 								: t("project.enrollmentPage.dialog.values.notAccepted"),
 						},
 						{
 							id: "closingStatusAt",
 							label: t("project.enrollmentPage.dialog.fields.closingStatusAt"),
-							value: enrollment.closingStatusAt
-								? enrollment.closingStatusAtFormatted
+							value: enrollment.enrollmentInfo.closingStatusAt
+								? enrollment.enrollmentInfo.closingStatusAtFormatted
 								: t("project.enrollmentPage.dialog.values.open"),
 						},
 						{
 							id: "createdAt",
 							label: t("project.enrollmentPage.dialog.fields.createdAt"),
-							value: enrollment.auditInfo.createdAtFormatted,
+							value: enrollment.enrollmentInfo.auditInfo.createdAtFormatted,
 						},
 						{
 							id: "updatedAt",
 							label: t("project.enrollmentPage.dialog.fields.updatedAt"),
-							value: enrollment.auditInfo.updatedAtFormatted,
+							value: enrollment.enrollmentInfo.auditInfo.updatedAtFormatted,
 						},
 					]
 				: [],
-		[enrollment, projectById, student, studentById, t],
+		[
+			accountById,
+			enrollment,
+			formerStudent?.academicRegistration,
+			formerStudentAccount?.email,
+			formerStudentById,
+			projectById,
+			t,
+			userById,
+		],
 	);
 
 	if (!enrollmentIdentifier) {
@@ -183,9 +212,7 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 	return (
 		<EntityPageShell
 			title={
-				enrollment
-					? resolveEnrollmentStudentLabel(studentById, enrollment.studentId)
-					: t("project.enrollmentPage.dialog.titleFallback")
+				formerStudentUser?.name ?? t("project.enrollmentPage.dialog.titleFallback")
 			}
 			description={t("project.enrollmentPage.description")}
 		>

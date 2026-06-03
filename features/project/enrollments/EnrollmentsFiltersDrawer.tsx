@@ -34,19 +34,19 @@ export function EnrollmentsFiltersDrawer({
 	onOpenChange,
 	onProjectIdFilterChange,
 	onRefreshProjects,
-	onRefreshStudents,
+	onRefreshFormerStudents,
 	onStartDateChange,
 	onStatusFilterChange,
-	onStudentIdFilterChange,
+	onFormerStudentIdFilterChange,
 	open,
 	projectIdFilter,
 	projectOptions,
 	projectsError,
 	startDate,
 	statusFilter,
-	studentIdFilter,
-	studentOptions,
-	studentsError,
+	formerStudentIdFilter,
+	formerStudentOptions,
+	formerStudentsError,
 }: EnrollmentsFiltersDrawerProps) {
 	const { t } = useTranslation();
 	const statusOptions = useMemo(() => getEnrollmentStatusOptions(t), [t]);
@@ -103,13 +103,13 @@ export function EnrollmentsFiltersDrawer({
 					</div>
 				)}
 
-				{studentsError ? (
+				{formerStudentsError ? (
 					<SomeErrorState
 						title={t("project.enrollmentPage.filters.student.error.title")}
 						description={t(
 							"project.enrollmentPage.filters.student.error.description",
 						)}
-						onRefresh={onRefreshStudents}
+						onRefresh={onRefreshFormerStudents}
 					/>
 				) : (
 					<div className="grid gap-2">
@@ -117,9 +117,9 @@ export function EnrollmentsFiltersDrawer({
 							{t("project.enrollmentPage.filters.student.label")}
 						</p>
 						<Combobox
-							options={studentOptions}
-							value={studentIdFilter}
-							onValueChange={onStudentIdFilterChange}
+							options={formerStudentOptions}
+							value={formerStudentIdFilter}
+							onValueChange={onFormerStudentIdFilterChange}
 							placeholder={t(
 								"project.enrollmentPage.filters.student.placeholder",
 							)}

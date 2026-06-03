@@ -3,19 +3,18 @@ import type { TFunction } from "i18next";
 
 import { Badge } from "@/components";
 import type {
-	AdminResponse,
+	AccountResponse,
 	AttendanceCreateRequest,
-	AttendanceResponse,
-	AttendanceStatus,
-	ProjectResponse,
-	StudentResponse,
-} from "@/types";
-import type { BadgeTone, ComboboxOption } from "@/types";
-import type {
 	AttendanceCreateFormValues,
 	AttendanceFilterArgs,
+	AttendanceResponse,
+	AttendanceStatus,
 	AttendanceValidationAction,
+	FormerStudentResponse,
+	ProjectResponse,
+	UserResponse,
 } from "@/types";
+import type { BadgeTone, ComboboxOption } from "@/types";
 import { getApiErrorToastContent } from "@/utils";
 import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
 
@@ -27,18 +26,21 @@ function getStartOfDayTimestamp(value: string) {
 	return date.getTime();
 }
 
-function parseDuration(value: string) {
-	const trimmed = value.trim();
-	if (!trimmed) {
+function getFormerStudentUser(
+	formerStudent: FormerStudentResponse | undefined,
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
+) {
+	if (!formerStudent) {
 		return null;
 	}
 
-	const parsed = Number(trimmed);
-	if (Number.isNaN(parsed) || parsed <= 0) {
+	const account = accountById.get(formerStudent.accountId);
+	if (!account) {
 		return null;
 	}
 
-	return parsed;
+	return userById.get(account.userId) ?? null;
 }
 
 export function resolveAttendanceProjectLabel(
@@ -48,22 +50,33 @@ export function resolveAttendanceProjectLabel(
 	return projectById.get(projectId)?.name ?? projectId;
 }
 
-export function resolveAttendanceStudentLabel(
-	studentById: Map<string, StudentResponse>,
-	studentId: string,
+export function resolveAttendanceFormerStudentLabel(
+	formerStudentById: Map<string, FormerStudentResponse>,
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
+	formerStudentId: string,
 ) {
-	return studentById.get(studentId)?.userName ?? studentId;
+	const formerStudent = formerStudentById.get(formerStudentId);
+	const user = getFormerStudentUser(formerStudent, accountById, userById);
+
+	return user?.name ?? formerStudent?.academicRegistration ?? formerStudentId;
 }
 
 export function resolveAttendanceValidatorLabel(
-	adminById: Map<string, AdminResponse>,
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
 	validatedById: string | null,
 ) {
 	if (!validatedById) {
 		return null;
 	}
 
-	return adminById.get(validatedById)?.userName ?? validatedById;
+	const account = accountById.get(validatedById);
+	if (!account) {
+		return validatedById;
+	}
+
+	return userById.get(account.userId)?.name ?? account.email;
 }
 
 export function getAttendanceStatusLabel(
@@ -93,33 +106,61 @@ export function buildAttendanceProjectOptions(
 		.map(project => ({
 			value: project.id,
 			label: project.name,
-			description: project.statusFormatted,
+			description: project.status.statusFormatted,
 		}));
 }
 
-export function buildAttendanceStudentOptions(
-	students: StudentResponse[],
+export function buildAttendanceFormerStudentOptions(
+	formerStudents: FormerStudentResponse[],
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
 ): ComboboxOption[] {
-	return [...students]
-		.sort((left, right) => compareNormalizedText(left.userName, right.userName))
-		.map(student => ({
-			value: student.accountId,
-			label: student.userName,
-			description: student.accountEmail,
-			keywords: [student.academicRegistration],
-		}));
+	return [...formerStudents]
+		.sort((left, right) =>
+			compareNormalizedText(
+				resolveAttendanceFormerStudentLabel(
+					new Map([[left.accountId, left]]),
+					accountById,
+					userById,
+					left.accountId,
+				),
+				resolveAttendanceFormerStudentLabel(
+					new Map([[right.accountId, right]]),
+					accountById,
+					userById,
+					right.accountId,
+				),
+			),
+		)
+		.map(formerStudent => {
+			const user = getFormerStudentUser(formerStudent, accountById, userById);
+			const account = accountById.get(formerStudent.accountId);
+
+			return {
+				value: formerStudent.accountId,
+				label: user?.name ?? formerStudent.academicRegistration,
+				description: account?.email ?? formerStudent.academicRegistration,
+				keywords: [formerStudent.academicRegistration, user?.cpfFormatted ?? ""],
+			};
+		});
 }
 
 export function createAttendanceColumns(
 	t: TFunction,
 	projectById: Map<string, ProjectResponse>,
-	studentById: Map<string, StudentResponse>,
-	adminById: Map<string, AdminResponse>,
+	formerStudentById: Map<string, FormerStudentResponse>,
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
 ): ColumnDef<AttendanceResponse>[] {
 	return [
 		{
 			accessorFn: row =>
-				resolveAttendanceStudentLabel(studentById, row.studentId),
+				resolveAttendanceFormerStudentLabel(
+					formerStudentById,
+					accountById,
+					userById,
+					row.formerStudentId,
+				),
 			id: "student",
 			header: t("project.attendancePage.table.columns.student"),
 		},
@@ -130,41 +171,47 @@ export function createAttendanceColumns(
 			header: t("project.attendancePage.table.columns.project"),
 		},
 		{
-			accessorKey: "duration",
+			accessorFn: row => row.qrValidationInfo.duration,
+			id: "duration",
 			header: t("project.attendancePage.table.columns.duration"),
 		},
 		{
-			accessorFn: row => row.status,
+			accessorFn: row => row.status.status,
 			id: "status",
 			header: t("project.attendancePage.table.columns.status"),
 			cell: ({ row }) => (
 				<Badge
-					tone={getAttendanceStatusTone(row.original.status)}
+					tone={getAttendanceStatusTone(row.original.status.status)}
 					variant="primary"
 					className="min-h-5 px-2 py-0.5"
 				>
-					{getAttendanceStatusLabel(t, row.original.status)}
+					{row.original.status.statusFormatted}
 				</Badge>
 			),
 		},
 		{
 			accessorFn: row =>
-				resolveAttendanceValidatorLabel(adminById, row.validatedById) ?? "",
+				resolveAttendanceValidatorLabel(
+					accountById,
+					userById,
+					row.attendanceInfo.validatedBy,
+				) ?? "",
 			id: "validatedBy",
 			header: t("project.attendancePage.table.columns.validatedBy"),
 			cell: ({ row }) =>
 				resolveAttendanceValidatorLabel(
-					adminById,
-					row.original.validatedById,
+					accountById,
+					userById,
+					row.original.attendanceInfo.validatedBy,
 				) ?? t("project.attendancePage.table.values.notValidated"),
 		},
 		{
-			accessorFn: row => row.validatedAt ?? "",
+			accessorFn: row => row.attendanceInfo.validatedAt ?? "",
 			id: "validatedAt",
 			header: t("project.attendancePage.table.columns.validatedAt"),
 			cell: ({ row }) =>
-				row.original.validatedAt
-					? row.original.validatedAtFormatted
+				row.original.attendanceInfo.validatedAt
+					? row.original.attendanceInfo.validatedAtFormatted
 					: t("project.attendancePage.table.values.notValidated"),
 		},
 	];
@@ -173,7 +220,7 @@ export function createAttendanceColumns(
 export function filterAttendances(
 	attendances: AttendanceResponse[],
 	{
-		adminById,
+		accountById,
 		dateField,
 		endDate,
 		projectById,
@@ -181,14 +228,15 @@ export function filterAttendances(
 		query,
 		startDate,
 		statusFilter,
-		studentById,
-		studentIdFilter,
+		formerStudentById,
+		formerStudentIdFilter,
+		userById,
 	}: AttendanceFilterArgs,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const hasQuery = normalizedQuery.length > 0;
 	const hasProjectFilter = projectIdFilter.length > 0;
-	const hasStudentFilter = studentIdFilter.length > 0;
+	const hasFormerStudentFilter = formerStudentIdFilter.length > 0;
 	const hasStatusFilter = statusFilter.length > 0;
 	const startTimestamp = startDate ? getStartOfDayTimestamp(startDate) : null;
 	const endTimestamp = endDate ? getStartOfDayTimestamp(endDate) : null;
@@ -196,7 +244,7 @@ export function filterAttendances(
 	if (
 		!hasQuery &&
 		!hasProjectFilter &&
-		!hasStudentFilter &&
+		!hasFormerStudentFilter &&
 		!hasStatusFilter &&
 		!dateField &&
 		startTimestamp === null &&
@@ -207,34 +255,48 @@ export function filterAttendances(
 
 	return attendances.filter(attendance => {
 		if (hasQuery) {
-			const student = studentById.get(attendance.studentId);
+			const formerStudent = formerStudentById.get(attendance.formerStudentId);
+			const user = getFormerStudentUser(formerStudent, accountById, userById);
+			const account = formerStudent
+				? accountById.get(formerStudent.accountId)
+				: null;
 			const normalizedStudent = normalizeTextForSearch(
-				resolveAttendanceStudentLabel(studentById, attendance.studentId),
+				resolveAttendanceFormerStudentLabel(
+					formerStudentById,
+					accountById,
+					userById,
+					attendance.formerStudentId,
+				),
 			);
-			const normalizedEmail = normalizeTextForSearch(
-				student?.accountEmail ?? "",
-			);
+			const normalizedEmail = normalizeTextForSearch(account?.email ?? "");
 			const normalizedRegistration = normalizeTextForSearch(
-				student?.academicRegistration ?? "",
+				formerStudent?.academicRegistration ?? "",
+			);
+			const normalizedCpf = normalizeTextForSearch(
+				user?.cpfFormatted ?? user?.cpf ?? "",
 			);
 			const normalizedProject = normalizeTextForSearch(
 				resolveAttendanceProjectLabel(projectById, attendance.projectId),
 			);
 			const normalizedStatus = normalizeTextForSearch(
-				attendance.statusFormatted,
+				attendance.status.statusFormatted,
 			);
 			const normalizedValidator = normalizeTextForSearch(
-				resolveAttendanceValidatorLabel(adminById, attendance.validatedById) ??
-					"",
+				resolveAttendanceValidatorLabel(
+					accountById,
+					userById,
+					attendance.attendanceInfo.validatedBy,
+				) ?? "",
 			);
 			const normalizedHash = normalizeTextForSearch(
-				attendance.qrValidationHash,
+				attendance.qrValidationInfo.qrValidationHash,
 			);
 
 			if (
 				!normalizedStudent.includes(normalizedQuery) &&
 				!normalizedEmail.includes(normalizedQuery) &&
 				!normalizedRegistration.includes(normalizedQuery) &&
+				!normalizedCpf.includes(normalizedQuery) &&
 				!normalizedProject.includes(normalizedQuery) &&
 				!normalizedStatus.includes(normalizedQuery) &&
 				!normalizedValidator.includes(normalizedQuery) &&
@@ -248,17 +310,20 @@ export function filterAttendances(
 			return false;
 		}
 
-		if (hasStudentFilter && attendance.studentId !== studentIdFilter) {
+		if (
+			hasFormerStudentFilter &&
+			attendance.formerStudentId !== formerStudentIdFilter
+		) {
 			return false;
 		}
 
-		if (hasStatusFilter && attendance.status !== statusFilter) {
+		if (hasStatusFilter && attendance.status.status !== statusFilter) {
 			return false;
 		}
 
 		if (dateField && (startTimestamp !== null || endTimestamp !== null)) {
 			const auditTimestamp = getStartOfDayTimestamp(
-				attendance.auditInfo[dateField],
+				attendance.attendanceInfo.auditInfo[dateField],
 			);
 
 			if (startTimestamp !== null && auditTimestamp < startTimestamp) {
@@ -384,7 +449,7 @@ export function getEmptyAttendanceCreateFormValues(): AttendanceCreateFormValues
 	return {
 		duration: "",
 		projectId: "",
-		studentId: "",
+		formerStudentId: "",
 	};
 }
 
@@ -394,7 +459,7 @@ export function toAttendanceCreateRequest(
 	return {
 		duration: Number(values.duration),
 		projectId: values.projectId,
-		studentId: values.studentId,
+		formerStudentId: values.formerStudentId,
 	};
 }
 
@@ -408,8 +473,10 @@ export function getAttendanceFilterSummary(
 		query,
 		startDate,
 		statusFilter,
-		studentById,
-		studentIdFilter,
+		formerStudentById,
+		formerStudentIdFilter,
+		accountById,
+		userById,
 	}: AttendanceFilterArgs,
 ) {
 	const parts: string[] = [];
@@ -422,8 +489,15 @@ export function getAttendanceFilterSummary(
 		parts.push(resolveAttendanceProjectLabel(projectById, projectIdFilter));
 	}
 
-	if (studentIdFilter) {
-		parts.push(resolveAttendanceStudentLabel(studentById, studentIdFilter));
+	if (formerStudentIdFilter) {
+		parts.push(
+			resolveAttendanceFormerStudentLabel(
+				formerStudentById,
+				accountById,
+				userById,
+				formerStudentIdFilter,
+			),
+		);
 	}
 
 	if (statusFilter) {

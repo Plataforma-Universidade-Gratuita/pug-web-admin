@@ -5,8 +5,9 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
-import { useStudentsQuery } from "@/features/academic/students/queries";
-import { useAdminsQuery } from "@/features/identity/admins/queries";
+import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
+import { useAccountsQuery } from "@/features/identity/accounts/queries";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import { AttendancesCreateDrawer } from "@/features/project/attendances/AttendancesCreateDrawer";
 import { AttendancesFiltersDrawer } from "@/features/project/attendances/AttendancesFiltersDrawer";
 import { AttendancesRowActions } from "@/features/project/attendances/AttendancesRowActions";
@@ -16,8 +17,8 @@ import {
 } from "@/features/project/attendances/mutations";
 import { useAttendancesQuery } from "@/features/project/attendances/queries";
 import {
+	buildAttendanceFormerStudentOptions,
 	buildAttendanceProjectOptions,
-	buildAttendanceStudentOptions,
 	createAttendanceColumns,
 	filterAttendances,
 	getAttendanceAdminsErrorToastContent,
@@ -28,8 +29,8 @@ import {
 	getAttendancesListErrorToastContent,
 	getAttendanceStudentsErrorToastContent,
 	getAttendanceValidateErrorToastContent,
+	resolveAttendanceFormerStudentLabel,
 	resolveAttendanceProjectLabel,
-	resolveAttendanceStudentLabel,
 } from "@/features/project/attendances/utils";
 import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
@@ -67,7 +68,7 @@ export function AttendancesPage() {
 			projectIdFilter: "",
 			startDate: "",
 			statusFilter: "",
-			studentIdFilter: "",
+			formerStudentIdFilter: "",
 		}),
 		[],
 	);
@@ -90,41 +91,52 @@ export function AttendancesPage() {
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const attendancesQuery = useAttendancesQuery();
 	const projectsQuery = useProjectsQuery();
-	const studentsQuery = useStudentsQuery();
-	const adminsQuery = useAdminsQuery();
+	const formerStudentsQuery = useFormerStudentsQuery();
+	const accountsQuery = useAccountsQuery();
+	const usersQuery = useUsersQuery();
 	const removeAttendanceMutation = useRemoveAttendanceMutation();
 	const validateAttendanceMutation = useValidateAttendanceMutation();
 	const { schedule } = useDeferredUndoAction();
 
 	const projectById = useMemo(
-		() =>
-			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
+		() => new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
 	);
-	const studentById = useMemo(
+	const formerStudentById = useMemo(
 		() =>
 			new Map(
-				(studentsQuery.data ?? []).map(student => [student.accountId, student]),
+				(formerStudentsQuery.data ?? []).map(formerStudent => [
+					formerStudent.accountId,
+					formerStudent,
+				]),
 			),
-		[studentsQuery.data],
+		[formerStudentsQuery.data],
 	);
-	const adminById = useMemo(
-		() =>
-			new Map((adminsQuery.data ?? []).map(admin => [admin.accountId, admin])),
-		[adminsQuery.data],
+	const accountById = useMemo(
+		() => new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		[accountsQuery.data],
+	);
+	const userById = useMemo(
+		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
+		[usersQuery.data],
 	);
 	const projectOptions = useMemo(
 		() => buildAttendanceProjectOptions(projectsQuery.data ?? []),
 		[projectsQuery.data],
 	);
-	const studentOptions = useMemo(
-		() => buildAttendanceStudentOptions(studentsQuery.data ?? []),
-		[studentsQuery.data],
+	const formerStudentOptions = useMemo(
+		() =>
+			buildAttendanceFormerStudentOptions(
+				formerStudentsQuery.data ?? [],
+				accountById,
+				userById,
+			),
+		[accountById, formerStudentsQuery.data, userById],
 	);
 	const filteredAttendances = useMemo(
 		() =>
 			filterAttendances(attendancesQuery.data ?? [], {
-				adminById,
+				accountById,
 				dateField: appliedFilters.dateField,
 				endDate: appliedFilters.endDate,
 				projectById,
@@ -132,27 +144,36 @@ export function AttendancesPage() {
 				query: deferredQuerySearch,
 				startDate: appliedFilters.startDate,
 				statusFilter: appliedFilters.statusFilter,
-				studentById,
-				studentIdFilter: appliedFilters.studentIdFilter,
+				formerStudentById,
+				formerStudentIdFilter: appliedFilters.formerStudentIdFilter,
+				userById,
 			}),
 		[
-			adminById,
+			accountById,
 			appliedFilters,
 			attendancesQuery.data,
 			deferredQuerySearch,
+			formerStudentById,
 			projectById,
-			studentById,
+			userById,
 		],
 	);
 	const columns = useMemo(
-		() => createAttendanceColumns(t, projectById, studentById, adminById),
-		[adminById, projectById, studentById, t],
+		() =>
+			createAttendanceColumns(
+				t,
+				projectById,
+				formerStudentById,
+				accountById,
+				userById,
+			),
+		[accountById, formerStudentById, projectById, t, userById],
 	);
 	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
 		() =>
 			getAttendanceFilterSummary(t, {
-				adminById,
+				accountById,
 				dateField: appliedFilters.dateField,
 				endDate: appliedFilters.endDate,
 				projectById,
@@ -160,16 +181,18 @@ export function AttendancesPage() {
 				query: deferredQuerySearch,
 				startDate: appliedFilters.startDate,
 				statusFilter: appliedFilters.statusFilter,
-				studentById,
-				studentIdFilter: appliedFilters.studentIdFilter,
+				formerStudentById,
+				formerStudentIdFilter: appliedFilters.formerStudentIdFilter,
+				userById,
 			}),
 		[
-			adminById,
+			accountById,
 			appliedFilters,
 			deferredQuerySearch,
+			formerStudentById,
 			projectById,
-			studentById,
 			t,
+			userById,
 		],
 	);
 	const emptyStateCopy = useMemo(
@@ -214,17 +237,17 @@ export function AttendancesPage() {
 		},
 		{
 			key: "attendance-students",
-			error: studentsQuery.error,
-			errorUpdatedAt: studentsQuery.errorUpdatedAt,
+			error: formerStudentsQuery.error,
+			errorUpdatedAt: formerStudentsQuery.errorUpdatedAt,
 			getContent: error => getAttendanceStudentsErrorToastContent(t, error),
-			isError: studentsQuery.isError,
+			isError: formerStudentsQuery.isError,
 		},
 		{
 			key: "attendance-admins",
-			error: adminsQuery.error,
-			errorUpdatedAt: adminsQuery.errorUpdatedAt,
+			error: accountsQuery.error,
+			errorUpdatedAt: accountsQuery.errorUpdatedAt,
 			getContent: error => getAttendanceAdminsErrorToastContent(t, error),
-			isError: adminsQuery.isError,
+			isError: accountsQuery.isError,
 		},
 	]);
 
@@ -237,7 +260,12 @@ export function AttendancesPage() {
 	function getAttendanceLabels(attendance: AttendanceResponse) {
 		return {
 			project: resolveAttendanceProjectLabel(projectById, attendance.projectId),
-			student: resolveAttendanceStudentLabel(studentById, attendance.studentId),
+			student: resolveAttendanceFormerStudentLabel(
+				formerStudentById,
+				accountById,
+				userById,
+				attendance.formerStudentId,
+			),
 		};
 	}
 
@@ -260,9 +288,7 @@ export function AttendancesPage() {
 			undoLabel: t("project.attendancePage.delete.undo.action"),
 			onCommit: () => {
 				removeAttendanceMutation.mutate(
-					{
-						id: attendance.id,
-					},
+					{ id: attendance.id },
 					{
 						onSuccess: () => {
 							toast.success(
@@ -270,10 +296,7 @@ export function AttendancesPage() {
 								{
 									description: t(
 										"project.attendancePage.delete.feedback.success.description",
-										{
-											...labels,
-											id: attendance.id,
-										},
+										{ ...labels, id: attendance.id },
 									),
 								},
 							);
@@ -302,7 +325,8 @@ export function AttendancesPage() {
 			{
 				id: currentAction.attendance.id,
 				body: {
-					qrValidationHash: currentAction.attendance.qrValidationHash,
+					qrValidationHash:
+						currentAction.attendance.qrValidationInfo.qrValidationHash,
 					status: currentAction.action === "markPresent" ? "PRESENT" : "ABSENT",
 				},
 			},
@@ -380,13 +404,13 @@ export function AttendancesPage() {
 					onRefreshProjects={() => {
 						void projectsQuery.refetch();
 					}}
-					onRefreshStudents={() => {
-						void studentsQuery.refetch();
+					onRefreshFormerStudents={() => {
+						void formerStudentsQuery.refetch();
 					}}
 					onStartDateChange={value => setDraftFilter("startDate", value)}
 					onStatusFilterChange={value => setDraftFilter("statusFilter", value)}
-					onStudentIdFilterChange={value =>
-						setDraftFilter("studentIdFilter", value)
+					onFormerStudentIdFilterChange={value =>
+						setDraftFilter("formerStudentIdFilter", value)
 					}
 					open={filtersOpen}
 					projectIdFilter={draftFilters.projectIdFilter}
@@ -394,9 +418,9 @@ export function AttendancesPage() {
 					projectsError={projectsQuery.isError}
 					startDate={draftFilters.startDate}
 					statusFilter={draftFilters.statusFilter}
-					studentIdFilter={draftFilters.studentIdFilter}
-					studentOptions={studentOptions}
-					studentsError={studentsQuery.isError}
+					formerStudentIdFilter={draftFilters.formerStudentIdFilter}
+					formerStudentOptions={formerStudentOptions}
+					formerStudentsError={formerStudentsQuery.isError}
 				/>
 			</ServicePageHeader>
 
@@ -416,7 +440,12 @@ export function AttendancesPage() {
 							}
 						/>
 					),
-					isLoading: attendancesQuery.isLoading,
+					isLoading:
+						attendancesQuery.isLoading ||
+						projectsQuery.isLoading ||
+						formerStudentsQuery.isLoading ||
+						accountsQuery.isLoading ||
+						usersQuery.isLoading,
 					loadingLabel: t("project.attendancePage.loading.list"),
 				}}
 			/>
@@ -444,9 +473,11 @@ export function AttendancesPage() {
 							)
 						: "",
 					student: pendingDeleteAttendance
-						? resolveAttendanceStudentLabel(
-								studentById,
-								pendingDeleteAttendance.studentId,
+						? resolveAttendanceFormerStudentLabel(
+								formerStudentById,
+								accountById,
+								userById,
+								pendingDeleteAttendance.formerStudentId,
 							)
 						: "",
 				})}

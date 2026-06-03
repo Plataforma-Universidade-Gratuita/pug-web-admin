@@ -34,19 +34,19 @@ export function AttendancesFiltersDrawer({
 	onOpenChange,
 	onProjectIdFilterChange,
 	onRefreshProjects,
-	onRefreshStudents,
+	onRefreshFormerStudents,
 	onStartDateChange,
 	onStatusFilterChange,
-	onStudentIdFilterChange,
+	onFormerStudentIdFilterChange,
 	open,
 	projectIdFilter,
 	projectOptions,
 	projectsError,
 	startDate,
 	statusFilter,
-	studentIdFilter,
-	studentOptions,
-	studentsError,
+	formerStudentIdFilter,
+	formerStudentOptions,
+	formerStudentsError,
 }: AttendancesFiltersDrawerProps) {
 	const { t } = useTranslation();
 	const statusOptions = useMemo(() => getAttendanceStatusOptions(t), [t]);
@@ -103,13 +103,13 @@ export function AttendancesFiltersDrawer({
 					</div>
 				)}
 
-				{studentsError ? (
+				{formerStudentsError ? (
 					<SomeErrorState
 						title={t("project.attendancePage.filters.student.error.title")}
 						description={t(
 							"project.attendancePage.filters.student.error.description",
 						)}
-						onRefresh={onRefreshStudents}
+						onRefresh={onRefreshFormerStudents}
 					/>
 				) : (
 					<div className="grid gap-2">
@@ -117,9 +117,9 @@ export function AttendancesFiltersDrawer({
 							{t("project.attendancePage.filters.student.label")}
 						</p>
 						<Combobox
-							options={studentOptions}
-							value={studentIdFilter}
-							onValueChange={onStudentIdFilterChange}
+							options={formerStudentOptions}
+							value={formerStudentIdFilter}
+							onValueChange={onFormerStudentIdFilterChange}
 							placeholder={t(
 								"project.attendancePage.filters.student.placeholder",
 							)}

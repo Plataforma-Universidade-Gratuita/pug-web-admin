@@ -16,11 +16,11 @@ export function AttendancesCreateForm({
 	canRenderForm,
 	form,
 	onRefreshProjects,
-	onRefreshStudents,
+	onRefreshFormerStudents,
 	projectOptions,
 	projectsError,
-	studentOptions,
-	studentsError,
+	formerStudentOptions,
+	formerStudentsError,
 }: AttendancesCreateFormProps) {
 	const { t } = useTranslation();
 
@@ -36,14 +36,14 @@ export function AttendancesCreateForm({
 		);
 	}
 
-	if (studentsError) {
+	if (formerStudentsError) {
 		return (
 			<SomeErrorState
 				title={t("project.attendancePage.editor.studentLoadError.title")}
 				description={t(
 					"project.attendancePage.editor.studentLoadError.description",
 				)}
-				onRefresh={onRefreshStudents}
+				onRefresh={onRefreshFormerStudents}
 			/>
 		);
 	}
@@ -96,11 +96,11 @@ export function AttendancesCreateForm({
 				</Label>
 				<Controller
 					control={form.control}
-					name="studentId"
+					name="formerStudentId"
 					render={({ field }) => (
 						<Combobox
 							id="attendance-student"
-							options={studentOptions}
+							options={formerStudentOptions}
 							value={field.value}
 							onValueChange={field.onChange}
 							placeholder={t(
@@ -115,9 +115,9 @@ export function AttendancesCreateForm({
 						/>
 					)}
 				/>
-				{form.formState.errors.studentId ? (
+				{form.formState.errors.formerStudentId ? (
 					<p className="field-error">
-						{form.formState.errors.studentId.message}
+						{form.formState.errors.formerStudentId.message}
 					</p>
 				) : null}
 			</div>

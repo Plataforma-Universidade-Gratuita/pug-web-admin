@@ -41,7 +41,7 @@ export function EnrollmentsRowActions({
 				}}
 			/>
 
-			{enrollment.status === "PENDING" ? (
+			{enrollment.status.status === "PENDING" ? (
 				<>
 					<DropdownMenuSeparator />
 					<DropdownMenuSuccessItem
@@ -67,7 +67,7 @@ export function EnrollmentsRowActions({
 				</>
 			) : null}
 
-			{enrollment.status === "APPROVED" ? (
+			{enrollment.status.status === "APPROVED" ? (
 				<>
 					<DropdownMenuSeparator />
 					<DropdownMenuSuccessItem

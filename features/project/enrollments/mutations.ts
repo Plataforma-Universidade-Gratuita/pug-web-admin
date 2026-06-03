@@ -7,12 +7,8 @@ import {
 } from "@tanstack/react-query";
 
 import {
-	accept,
-	cancel,
-	complete,
 	deleteEnrollment,
-	reject,
-	remove as markRemoved,
+	updateStatus,
 } from "@/api/web/project/enrollments";
 import { enrollmentQueryKeys } from "@/features/project/enrollments/queries";
 import type { EnrollmentResponse } from "@/types";
@@ -49,11 +45,14 @@ function removeListItem<TItem>(
 }
 
 function isSameEnrollment(
-	item: Pick<EnrollmentResponse, "projectId" | "studentId">,
+	item: Pick<EnrollmentResponse, "projectId" | "formerStudentId">,
 	projectId: string,
-	studentId: string,
+	formerStudentId: string,
 ) {
-	return item.projectId === projectId && item.studentId === studentId;
+	return (
+		item.projectId === projectId &&
+		item.formerStudentId === formerStudentId
+	);
 }
 
 function writeEnrollmentCaches(
@@ -61,14 +60,21 @@ function writeEnrollmentCaches(
 	enrollment: EnrollmentResponse,
 ) {
 	queryClient.setQueryData(
-		enrollmentQueryKeys.detail(enrollment.projectId, enrollment.studentId),
+		enrollmentQueryKeys.detail(
+			enrollment.projectId,
+			enrollment.formerStudentId,
+		),
 		enrollment,
 	);
 	queryClient.setQueryData<EnrollmentResponse[]>(
 		enrollmentQueryKeys.list(),
 		current =>
 			upsertListItem(current, enrollment, item =>
-				isSameEnrollment(item, enrollment.projectId, enrollment.studentId),
+				isSameEnrollment(
+					item,
+					enrollment.projectId,
+					enrollment.formerStudentId,
+				),
 			),
 	);
 }
@@ -76,38 +82,46 @@ function writeEnrollmentCaches(
 function removeEnrollmentCaches(
 	queryClient: QueryClient,
 	projectId: string,
-	studentId: string,
+	formerStudentId: string,
 ) {
 	queryClient.setQueryData<EnrollmentResponse[]>(
 		enrollmentQueryKeys.list(),
 		current =>
 			removeListItem(current, item =>
-				isSameEnrollment(item, projectId, studentId),
+				isSameEnrollment(item, projectId, formerStudentId),
 			),
 	);
 	queryClient.removeQueries({
-		queryKey: enrollmentQueryKeys.detail(projectId, studentId),
+		queryKey: enrollmentQueryKeys.detail(projectId, formerStudentId),
 	});
+}
+
+function resolveNextStatus(action: EnrollmentStatusMutationVariables["action"]) {
+	switch (action) {
+		case "accept":
+			return "APPROVED" as const;
+		case "cancel":
+			return "CANCELED" as const;
+		case "complete":
+			return "COMPLETED" as const;
+		case "reject":
+			return "REJECTED" as const;
+		case "remove":
+		default:
+			return "REMOVED" as const;
+	}
 }
 
 async function runEnrollmentStatusAction({
 	action,
 	projectId,
-	studentId,
+	formerStudentId,
 }: EnrollmentStatusMutationVariables) {
-	switch (action) {
-		case "accept":
-			return accept(projectId, studentId);
-		case "cancel":
-			return cancel(projectId, studentId);
-		case "complete":
-			return complete(projectId, studentId);
-		case "reject":
-			return reject(projectId, studentId);
-		case "remove":
-		default:
-			return markRemoved(projectId, studentId);
-	}
+	return updateStatus(
+		projectId,
+		formerStudentId,
+		resolveNextStatus(action),
+	);
 }
 
 export function useEnrollmentStatusMutation() {
@@ -125,13 +139,16 @@ export function useDeleteEnrollmentMutation() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: ({ projectId, studentId }: EnrollmentDeleteMutationVariables) =>
-			deleteEnrollment(projectId, studentId),
+		mutationFn: ({
+			projectId,
+			formerStudentId,
+		}: EnrollmentDeleteMutationVariables) =>
+			deleteEnrollment(projectId, formerStudentId),
 		onSuccess: (_data, variables) => {
 			removeEnrollmentCaches(
 				queryClient,
 				variables.projectId,
-				variables.studentId,
+				variables.formerStudentId,
 			);
 		},
 	});

@@ -5,18 +5,18 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Badge, NotFoundState, SomeErrorState } from "@/components";
-import { useStudentsQuery } from "@/features/academic/students/queries";
-import { useAdminsQuery } from "@/features/identity/admins/queries";
+import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
+import { useAccountsQuery } from "@/features/identity/accounts/queries";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import { useAttendanceDetailQuery } from "@/features/project/attendances/queries";
 import {
 	getAttendanceAdminsErrorToastContent,
 	getAttendanceDetailErrorToastContent,
 	getAttendanceProjectsErrorToastContent,
-	getAttendanceStatusLabel,
 	getAttendanceStatusTone,
 	getAttendanceStudentsErrorToastContent,
+	resolveAttendanceFormerStudentLabel,
 	resolveAttendanceProjectLabel,
-	resolveAttendanceStudentLabel,
 	resolveAttendanceValidatorLabel,
 } from "@/features/project/attendances/utils";
 import { useProjectsQuery } from "@/features/project/projects/queries";
@@ -33,8 +33,9 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 	const { t } = useTranslation();
 	const attendanceDetailQuery = useAttendanceDetailQuery(attendanceId);
 	const projectsQuery = useProjectsQuery();
-	const studentsQuery = useStudentsQuery();
-	const adminsQuery = useAdminsQuery();
+	const formerStudentsQuery = useFormerStudentsQuery();
+	const accountsQuery = useAccountsQuery();
+	const usersQuery = useUsersQuery();
 
 	useQueryErrorToasts([
 		{
@@ -53,42 +54,52 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 		},
 		{
 			key: `attendance-students-${attendanceId}`,
-			error: studentsQuery.error,
-			errorUpdatedAt: studentsQuery.errorUpdatedAt,
+			error: formerStudentsQuery.error,
+			errorUpdatedAt: formerStudentsQuery.errorUpdatedAt,
 			getContent: error => getAttendanceStudentsErrorToastContent(t, error),
-			isError: studentsQuery.isError,
+			isError: formerStudentsQuery.isError,
 		},
 		{
 			key: `attendance-admins-${attendanceId}`,
-			error: adminsQuery.error,
-			errorUpdatedAt: adminsQuery.errorUpdatedAt,
+			error: accountsQuery.error,
+			errorUpdatedAt: accountsQuery.errorUpdatedAt,
 			getContent: error => getAttendanceAdminsErrorToastContent(t, error),
-			isError: adminsQuery.isError,
+			isError: accountsQuery.isError,
 		},
 	]);
 
 	const projectById = useMemo(
-		() =>
-			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
+		() => new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
 	);
-	const studentById = useMemo(
+	const formerStudentById = useMemo(
 		() =>
 			new Map(
-				(studentsQuery.data ?? []).map(student => [student.accountId, student]),
+				(formerStudentsQuery.data ?? []).map(formerStudent => [
+					formerStudent.accountId,
+					formerStudent,
+				]),
 			),
-		[studentsQuery.data],
+		[formerStudentsQuery.data],
 	);
-	const adminById = useMemo(
-		() =>
-			new Map((adminsQuery.data ?? []).map(admin => [admin.accountId, admin])),
-		[adminsQuery.data],
+	const accountById = useMemo(
+		() => new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		[accountsQuery.data],
+	);
+	const userById = useMemo(
+		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
+		[usersQuery.data],
 	);
 
 	const attendance = attendanceDetailQuery.data;
-	const student = attendance
-		? studentById.get(attendance.studentId)
+	const formerStudent = attendance
+		? formerStudentById.get(attendance.formerStudentId)
 		: undefined;
+	const formerStudentAccount = formerStudent
+		? accountById.get(formerStudent.accountId)
+		: undefined;
+	const formerStudentUser =
+		formerStudentAccount ? userById.get(formerStudentAccount.userId) : undefined;
 	const fields = useMemo(
 		() =>
 			attendance
@@ -101,28 +112,30 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 						{
 							id: "student",
 							label: t("project.attendancePage.dialog.fields.student"),
-							value: resolveAttendanceStudentLabel(
-								studentById,
-								attendance.studentId,
+							value: resolveAttendanceFormerStudentLabel(
+								formerStudentById,
+								accountById,
+								userById,
+								attendance.formerStudentId,
 							),
 						},
 						{
 							id: "studentId",
 							label: t("project.attendancePage.dialog.fields.studentId"),
-							value: attendance.studentId,
+							value: attendance.formerStudentId,
 						},
 						{
 							id: "email",
 							label: t("project.attendancePage.dialog.fields.email"),
 							value:
-								student?.accountEmail ??
+								formerStudentAccount?.email ??
 								t("project.attendancePage.dialog.values.unknownStudent"),
 						},
 						{
 							id: "registration",
 							label: t("project.attendancePage.dialog.fields.registration"),
 							value:
-								student?.academicRegistration ??
+								formerStudent?.academicRegistration ??
 								t("project.attendancePage.dialog.values.unknownStudent"),
 						},
 						{
@@ -141,7 +154,7 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 						{
 							id: "duration",
 							label: t("project.attendancePage.dialog.fields.duration"),
-							value: attendance.duration,
+							value: attendance.qrValidationInfo.duration,
 						},
 						{
 							id: "status",
@@ -149,55 +162,63 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 							value: (
 								<Badge
 									className="min-h-5 px-2 py-0.5"
-									tone={getAttendanceStatusTone(attendance.status)}
+									tone={getAttendanceStatusTone(attendance.status.status)}
 									variant="primary"
 								>
-									{getAttendanceStatusLabel(t, attendance.status)}
+									{attendance.status.statusFormatted}
 								</Badge>
 							),
 						},
 						{
 							id: "qrValidationHash",
 							label: t("project.attendancePage.dialog.fields.qrValidationHash"),
-							value: attendance.qrValidationHash,
+							value: attendance.qrValidationInfo.qrValidationHash,
 						},
 						{
 							id: "validatedBy",
 							label: t("project.attendancePage.dialog.fields.validatedBy"),
 							value:
 								resolveAttendanceValidatorLabel(
-									adminById,
-									attendance.validatedById,
+									accountById,
+									userById,
+									attendance.attendanceInfo.validatedBy,
 								) ?? t("project.attendancePage.dialog.values.notValidated"),
 						},
 						{
 							id: "validatedAt",
 							label: t("project.attendancePage.dialog.fields.validatedAt"),
-							value: attendance.validatedAt
-								? attendance.validatedAtFormatted
+							value: attendance.attendanceInfo.validatedAt
+								? attendance.attendanceInfo.validatedAtFormatted
 								: t("project.attendancePage.dialog.values.notValidated"),
 						},
 						{
 							id: "createdAt",
 							label: t("project.attendancePage.dialog.fields.createdAt"),
-							value: attendance.auditInfo.createdAtFormatted,
+							value: attendance.attendanceInfo.auditInfo.createdAtFormatted,
 						},
 						{
 							id: "updatedAt",
 							label: t("project.attendancePage.dialog.fields.updatedAt"),
-							value: attendance.auditInfo.updatedAtFormatted,
+							value: attendance.attendanceInfo.auditInfo.updatedAtFormatted,
 						},
 					]
 				: [],
-		[adminById, attendance, projectById, student, studentById, t],
+		[
+			accountById,
+			attendance,
+			formerStudent?.academicRegistration,
+			formerStudentAccount?.email,
+			formerStudentById,
+			projectById,
+			t,
+			userById,
+		],
 	);
 
 	return (
 		<EntityPageShell
 			title={
-				attendance
-					? resolveAttendanceStudentLabel(studentById, attendance.studentId)
-					: t("project.attendancePage.dialog.titleFallback")
+				formerStudentUser?.name ?? t("project.attendancePage.dialog.titleFallback")
 			}
 			description={t("project.attendancePage.description")}
 		>

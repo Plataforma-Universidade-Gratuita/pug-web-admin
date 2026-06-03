@@ -33,14 +33,14 @@ export function AttendancesRowActions({
 				}}
 			/>
 			<DropdownMenuSeparator />
-			{attendance.status !== "PRESENT" ? (
+			{attendance.status.status !== "PRESENT" ? (
 				<DropdownMenuSuccessItem
 					icon={Check}
 					label={t("project.attendancePage.table.actions.markPresent")}
 					onClick={() => onValidate(attendance, "markPresent")}
 				/>
 			) : null}
-			{attendance.status !== "ABSENT" ? (
+			{attendance.status.status !== "ABSENT" ? (
 				<DropdownMenuWarningItem
 					icon={UserRoundX}
 					label={t("project.attendancePage.table.actions.markAbsent")}

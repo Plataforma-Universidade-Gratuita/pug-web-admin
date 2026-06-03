@@ -5,7 +5,9 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button, NoContentState, SomeErrorState, toast } from "@/components";
-import { useStudentsQuery } from "@/features/academic/students/queries";
+import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
+import { useAccountsQuery } from "@/features/identity/accounts/queries";
+import { useUsersQuery } from "@/features/identity/users/queries";
 import { EnrollmentsFiltersDrawer } from "@/features/project/enrollments/EnrollmentsFiltersDrawer";
 import { EnrollmentsRowActions } from "@/features/project/enrollments/EnrollmentsRowActions";
 import {
@@ -14,8 +16,8 @@ import {
 } from "@/features/project/enrollments/mutations";
 import { useEnrollmentsQuery } from "@/features/project/enrollments/queries";
 import {
+	buildEnrollmentFormerStudentOptions,
 	buildEnrollmentProjectOptions,
-	buildEnrollmentStudentOptions,
 	createEnrollmentColumns,
 	createEnrollmentCompositeKey,
 	filterEnrollments,
@@ -26,8 +28,8 @@ import {
 	getEnrollmentsListErrorToastContent,
 	getEnrollmentStatusActionErrorToastContent,
 	getEnrollmentStudentsErrorToastContent,
+	resolveEnrollmentFormerStudentLabel,
 	resolveEnrollmentProjectLabel,
-	resolveEnrollmentStudentLabel,
 } from "@/features/project/enrollments/utils";
 import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
@@ -73,7 +75,7 @@ export function EnrollmentsPage() {
 			projectIdFilter: "",
 			startDate: "",
 			statusFilter: "",
-			studentIdFilter: "",
+			formerStudentIdFilter: "",
 		}),
 		[],
 	);
@@ -96,30 +98,47 @@ export function EnrollmentsPage() {
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const enrollmentsQuery = useEnrollmentsQuery();
 	const projectsQuery = useProjectsQuery();
-	const studentsQuery = useStudentsQuery();
+	const formerStudentsQuery = useFormerStudentsQuery();
+	const accountsQuery = useAccountsQuery();
+	const usersQuery = useUsersQuery();
 	const deleteEnrollmentMutation = useDeleteEnrollmentMutation();
 	const enrollmentStatusMutation = useEnrollmentStatusMutation();
 	const { schedule } = useDeferredUndoAction();
 
 	const projectById = useMemo(
-		() =>
-			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
+		() => new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
 	);
-	const studentById = useMemo(
+	const formerStudentById = useMemo(
 		() =>
 			new Map(
-				(studentsQuery.data ?? []).map(student => [student.accountId, student]),
+				(formerStudentsQuery.data ?? []).map(formerStudent => [
+					formerStudent.accountId,
+					formerStudent,
+				]),
 			),
-		[studentsQuery.data],
+		[formerStudentsQuery.data],
+	);
+	const accountById = useMemo(
+		() => new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		[accountsQuery.data],
+	);
+	const userById = useMemo(
+		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
+		[usersQuery.data],
 	);
 	const projectOptions = useMemo(
 		() => buildEnrollmentProjectOptions(projectsQuery.data ?? []),
 		[projectsQuery.data],
 	);
-	const studentOptions = useMemo(
-		() => buildEnrollmentStudentOptions(studentsQuery.data ?? []),
-		[studentsQuery.data],
+	const formerStudentOptions = useMemo(
+		() =>
+			buildEnrollmentFormerStudentOptions(
+				formerStudentsQuery.data ?? [],
+				accountById,
+				userById,
+			),
+		[accountById, formerStudentsQuery.data, userById],
 	);
 	const filteredEnrollments = useMemo(
 		() =>
@@ -131,20 +150,31 @@ export function EnrollmentsPage() {
 				query: deferredQuerySearch,
 				startDate: appliedFilters.startDate,
 				statusFilter: appliedFilters.statusFilter,
-				studentById,
-				studentIdFilter: appliedFilters.studentIdFilter,
+				formerStudentById,
+				formerStudentIdFilter: appliedFilters.formerStudentIdFilter,
+				accountById,
+				userById,
 			}),
 		[
+			accountById,
 			appliedFilters,
 			deferredQuerySearch,
 			enrollmentsQuery.data,
+			formerStudentById,
 			projectById,
-			studentById,
+			userById,
 		],
 	);
 	const columns = useMemo(
-		() => createEnrollmentColumns(t, projectById, studentById),
-		[projectById, studentById, t],
+		() =>
+			createEnrollmentColumns(
+				t,
+				projectById,
+				formerStudentById,
+				accountById,
+				userById,
+			),
+		[accountById, formerStudentById, projectById, t, userById],
 	);
 	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
@@ -157,10 +187,20 @@ export function EnrollmentsPage() {
 				query: deferredQuerySearch,
 				startDate: appliedFilters.startDate,
 				statusFilter: appliedFilters.statusFilter,
-				studentById,
-				studentIdFilter: appliedFilters.studentIdFilter,
+				formerStudentById,
+				formerStudentIdFilter: appliedFilters.formerStudentIdFilter,
+				accountById,
+				userById,
 			}),
-		[appliedFilters, deferredQuerySearch, projectById, studentById, t],
+		[
+			accountById,
+			appliedFilters,
+			deferredQuerySearch,
+			formerStudentById,
+			projectById,
+			t,
+			userById,
+		],
 	);
 	const emptyStateCopy = useMemo(
 		() => getEnrollmentEmptyStateCopy(t, filterSummary),
@@ -204,10 +244,10 @@ export function EnrollmentsPage() {
 		},
 		{
 			key: "enrollment-students",
-			error: studentsQuery.error,
-			errorUpdatedAt: studentsQuery.errorUpdatedAt,
+			error: formerStudentsQuery.error,
+			errorUpdatedAt: formerStudentsQuery.errorUpdatedAt,
 			getContent: error => getEnrollmentStudentsErrorToastContent(t, error),
-			isError: studentsQuery.isError,
+			isError: formerStudentsQuery.isError,
 		},
 	]);
 
@@ -220,7 +260,12 @@ export function EnrollmentsPage() {
 	function getEnrollmentLabel(enrollment: EnrollmentResponse) {
 		return {
 			project: resolveEnrollmentProjectLabel(projectById, enrollment.projectId),
-			student: resolveEnrollmentStudentLabel(studentById, enrollment.studentId),
+			student: resolveEnrollmentFormerStudentLabel(
+				formerStudentById,
+				accountById,
+				userById,
+				enrollment.formerStudentId,
+			),
 		};
 	}
 
@@ -236,7 +281,7 @@ export function EnrollmentsPage() {
 		schedule({
 			key: createEnrollmentCompositeKey(
 				enrollment.projectId,
-				enrollment.studentId,
+				enrollment.formerStudentId,
 			),
 			title: t("project.enrollmentPage.delete.undo.title"),
 			description: t("project.enrollmentPage.delete.undo.description", labels),
@@ -245,7 +290,7 @@ export function EnrollmentsPage() {
 				deleteEnrollmentMutation.mutate(
 					{
 						projectId: enrollment.projectId,
-						studentId: enrollment.studentId,
+						formerStudentId: enrollment.formerStudentId,
 					},
 					{
 						onSuccess: () => {
@@ -283,7 +328,7 @@ export function EnrollmentsPage() {
 			{
 				action: currentAction.action,
 				projectId: currentAction.enrollment.projectId,
-				studentId: currentAction.enrollment.studentId,
+				formerStudentId: currentAction.enrollment.formerStudentId,
 			},
 			{
 				onSuccess: () => {
@@ -361,13 +406,13 @@ export function EnrollmentsPage() {
 					onRefreshProjects={() => {
 						void projectsQuery.refetch();
 					}}
-					onRefreshStudents={() => {
-						void studentsQuery.refetch();
+					onRefreshFormerStudents={() => {
+						void formerStudentsQuery.refetch();
 					}}
 					onStartDateChange={value => setDraftFilter("startDate", value)}
 					onStatusFilterChange={value => setDraftFilter("statusFilter", value)}
-					onStudentIdFilterChange={value =>
-						setDraftFilter("studentIdFilter", value)
+					onFormerStudentIdFilterChange={value =>
+						setDraftFilter("formerStudentIdFilter", value)
 					}
 					open={filtersOpen}
 					projectIdFilter={draftFilters.projectIdFilter}
@@ -375,9 +420,9 @@ export function EnrollmentsPage() {
 					projectsError={projectsQuery.isError}
 					startDate={draftFilters.startDate}
 					statusFilter={draftFilters.statusFilter}
-					studentIdFilter={draftFilters.studentIdFilter}
-					studentOptions={studentOptions}
-					studentsError={studentsQuery.isError}
+					formerStudentIdFilter={draftFilters.formerStudentIdFilter}
+					formerStudentOptions={formerStudentOptions}
+					formerStudentsError={formerStudentsQuery.isError}
 				/>
 			</ServicePageHeader>
 
@@ -390,14 +435,19 @@ export function EnrollmentsPage() {
 					getRowActions: row => (
 						<EnrollmentsRowActions
 							enrollment={row}
-							href={`/project/enrollments/${createEnrollmentCompositeKey(row.projectId, row.studentId)}`}
+							href={`/project/enrollments/${createEnrollmentCompositeKey(row.projectId, row.formerStudentId)}`}
 							onDelete={setPendingDeleteEnrollment}
 							onStatusAction={(enrollment, action) =>
 								setPendingStatusAction({ action, enrollment })
 							}
 						/>
 					),
-					isLoading: enrollmentsQuery.isLoading,
+					isLoading:
+						enrollmentsQuery.isLoading ||
+						projectsQuery.isLoading ||
+						formerStudentsQuery.isLoading ||
+						accountsQuery.isLoading ||
+						usersQuery.isLoading,
 					loadingLabel: t("project.enrollmentPage.loading.list"),
 				}}
 			/>
@@ -419,9 +469,11 @@ export function EnrollmentsPage() {
 							)
 						: "",
 					student: pendingDeleteEnrollment
-						? resolveEnrollmentStudentLabel(
-								studentById,
-								pendingDeleteEnrollment.studentId,
+						? resolveEnrollmentFormerStudentLabel(
+								formerStudentById,
+								accountById,
+								userById,
+								pendingDeleteEnrollment.formerStudentId,
 							)
 						: "",
 				})}
