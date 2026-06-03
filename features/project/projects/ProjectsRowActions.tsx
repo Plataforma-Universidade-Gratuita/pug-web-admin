@@ -96,27 +96,15 @@ export function ProjectsRowActions({
 			{project.status.status === "ON_HOLD" ? (
 				<>
 					<DropdownMenuSeparator />
-					<DropdownMenuSuccessItem
-						icon={Play}
-						label={t("project.projectPage.table.actions.start")}
-						onClick={() => onStatusAction(project, "start")}
+					<DropdownMenuInfoItem
+						icon={RotateCcw}
+						label={t("project.projectPage.table.actions.retake")}
+						onClick={() => onStatusAction(project, "retake")}
 					/>
 					<DropdownMenuDangerItem
 						icon={Ban}
 						label={t("project.projectPage.table.actions.cancel")}
 						onClick={() => onStatusAction(project, "cancel")}
-					/>
-				</>
-			) : null}
-
-			{project.status.status === "COMPLETED" ||
-			project.status.status === "CANCELED" ? (
-				<>
-					<DropdownMenuSeparator />
-					<DropdownMenuInfoItem
-						icon={RotateCcw}
-						label={t("project.projectPage.table.actions.retake")}
-						onClick={() => onStatusAction(project, "retake")}
 					/>
 				</>
 			) : null}

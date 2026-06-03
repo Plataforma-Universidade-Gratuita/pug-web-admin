@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import {
+	AccountSimpleComplexSearchResponseSchema,
 	AuditInfoResponseSchema,
 	EntitySimpleComplexSearchResponseSchema,
 } from "@/schemas";
@@ -43,7 +44,7 @@ export const ProjectUpdateRequestSchema = z.object({
 });
 
 export const ProjectInfoResponseSchema = z.object({
-	createdBy: z.string(),
+	createdBy: AccountSimpleComplexSearchResponseSchema,
 	maxParticipants: z.number().nullable(),
 	offeredHours: z.number().nullable(),
 	completedHours: z.number().nullable(),

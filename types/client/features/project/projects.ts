@@ -1,7 +1,6 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
-	AdminComplexSearchItemResponse,
 	EntityResponse,
 	ProjectCreateRequest,
 	ProjectResponse,
@@ -83,7 +82,7 @@ export interface ProjectsEditorFormProps {
 }
 
 export interface ProjectsFiltersDrawerProps {
-	adminsError: boolean;
+	creatorsError: boolean;
 	createdByIds: string[];
 	creatorOptions: ComboboxOption[];
 	dateFrom: string;
@@ -99,7 +98,7 @@ export interface ProjectsFiltersDrawerProps {
 	onDateToChange: (value: string) => void;
 	onEntityIdsChange: (value: string[]) => void;
 	onOpenChange: (open: boolean) => void;
-	onRefreshAdmins: () => void;
+	onRefreshCreators: () => void;
 	onRefreshEntities: () => void;
 	onStatusesChange: (value: ProjectStatus[]) => void;
 	open: boolean;
@@ -119,7 +118,6 @@ export interface ProjectsRowActionsProps {
 }
 
 export interface ProjectFilterArgs {
-	adminById: Map<string, AdminComplexSearchItemResponse>;
 	createdByIds: string[];
 	dateFrom: string;
 	dateTo: string;

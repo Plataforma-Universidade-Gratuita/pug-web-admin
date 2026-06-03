@@ -12,28 +12,38 @@ import { buildAdminComplexSearchRequest } from "./utils";
 
 export { adminQueryKeys };
 
-const ADMIN_DIRECTORY_SEARCH_SIZE = 2147483647;
+const ADMIN_DIRECTORY_SEARCH_PAGE_SIZE = 100;
 
 export function useAdminsQuery(enabled = true) {
 	return useQuery({
 		queryKey: adminQueryKeys.directory(),
 		queryFn: async () => {
-			const response = await search(
-				{
-					page: 0,
-					size: ADMIN_DIRECTORY_SEARCH_SIZE,
-				},
-				{
-					name: "",
-					cpf: "",
-					email: "",
-					dateFrom: "",
-					dateTo: "",
-					activeOnly: false,
-				},
-			);
+			const admins = [];
+			let page = 0;
+			let totalPages = 1;
 
-			return response.content;
+			while (page < totalPages) {
+				const response = await search(
+					{
+						page,
+						size: ADMIN_DIRECTORY_SEARCH_PAGE_SIZE,
+					},
+					{
+						name: "",
+						cpf: "",
+						email: "",
+						dateFrom: "",
+						dateTo: "",
+						activeOnly: false,
+					},
+				);
+
+				admins.push(...response.content);
+				totalPages = Math.max(response.totalPages, 1);
+				page += 1;
+			}
+
+			return admins;
 		},
 		enabled,
 	});

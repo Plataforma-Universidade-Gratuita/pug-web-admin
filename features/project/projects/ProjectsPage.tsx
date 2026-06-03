@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
-import { useAdminsQuery } from "@/features/identity/admins/queries";
 import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import { ProjectsEditorDrawer } from "@/features/project/projects/ProjectsEditorDrawer";
 import { ProjectsFiltersDrawer } from "@/features/project/projects/ProjectsFiltersDrawer";
@@ -22,12 +21,10 @@ import {
 } from "@/features/project/projects/queries";
 import {
 	appendCopyToProjectName,
-	buildProjectCreatorOptions,
 	buildProjectEntityOptions,
 	filterProjectsByBackendFilters,
 	filterProjectsByFrontendFilters,
 	createProjectColumns,
-	getProjectAdminsErrorToastContent,
 	getProjectDeleteErrorToastContent,
 	getProjectEmptyStateCopy,
 	getProjectEntitiesErrorToastContent,
@@ -111,7 +108,7 @@ export function ProjectsPage() {
 		project: ProjectResponse;
 	} | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
-	const projectsQuery = useProjectsQuery(projectsPagination.isAll);
+	const projectsQuery = useProjectsQuery();
 	const projectsSearchQuery = useProjectsSearchQuery(
 		projectsPagination.backendPage ?? 0,
 		projectsPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
@@ -119,7 +116,6 @@ export function ProjectsPage() {
 		!projectsPagination.isAll,
 	);
 	const entitiesQuery = useEntitiesQuery();
-	const adminsQuery = useAdminsQuery();
 	const createProjectMutation = useCreateProjectMutation();
 	const removeProjectMutation = useRemoveProjectMutation();
 	const projectStatusMutation = useProjectStatusMutation();
@@ -142,18 +138,27 @@ export function ProjectsPage() {
 			new Map((entitiesQuery.data ?? []).map(entity => [entity.id, entity])),
 		[entitiesQuery.data],
 	);
-	const adminById = useMemo(
-		() =>
-			new Map((adminsQuery.data ?? []).map(admin => [admin.account.id, admin])),
-		[adminsQuery.data],
-	);
 	const entityOptions = useMemo(
 		() => buildProjectEntityOptions(entitiesQuery.data ?? []),
 		[entitiesQuery.data],
 	);
 	const creatorOptions = useMemo(
-		() => buildProjectCreatorOptions(adminsQuery.data ?? []),
-		[adminsQuery.data],
+		() =>
+			projectsQuery.data
+				? Array.from(
+						new Map(
+							projectsQuery.data.map(project => [
+								project.projectInfo.createdBy.id,
+								{
+									value: project.projectInfo.createdBy.id,
+									label: project.projectInfo.createdBy.name,
+									description: project.projectInfo.createdBy.email,
+								},
+							]),
+						).values(),
+					)
+				: [],
+		[projectsQuery.data],
 	);
 	const backendFilteredAllProjects = useMemo(
 		() =>
@@ -179,20 +184,18 @@ export function ProjectsPage() {
 	const filteredProjects = useMemo(
 		() =>
 			filterProjectsByFrontendFilters(tableSourceProjects, {
-				adminById,
 				query: deferredQuerySearch,
 			}),
-		[adminById, deferredQuerySearch, tableSourceProjects],
+		[deferredQuerySearch, tableSourceProjects],
 	);
 	const columns = useMemo(
-		() => createProjectColumns(t, adminById),
-		[adminById, t],
+		() => createProjectColumns(t),
+		[t],
 	);
 	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
 		() =>
 			getProjectFilterSummary(t, {
-				adminById,
 				createdByIds: appliedFilters.createdByIds,
 				dateFrom: appliedFilters.dateFrom,
 				dateTo: appliedFilters.dateTo,
@@ -201,7 +204,7 @@ export function ProjectsPage() {
 				query: deferredQuerySearch,
 				statuses: appliedFilters.statuses,
 			}),
-		[adminById, appliedFilters, deferredQuerySearch, entityById, t],
+		[appliedFilters, deferredQuerySearch, entityById, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getProjectEmptyStateCopy(t, filterSummary),
@@ -274,13 +277,6 @@ export function ProjectsPage() {
 			errorUpdatedAt: entitiesQuery.errorUpdatedAt,
 			getContent: error => getProjectEntitiesErrorToastContent(t, error),
 			isError: entitiesQuery.isError,
-		},
-		{
-			key: "projects-admins",
-			error: adminsQuery.error,
-			errorUpdatedAt: adminsQuery.errorUpdatedAt,
-			getContent: error => getProjectAdminsErrorToastContent(t, error),
-			isError: adminsQuery.isError,
 		},
 	]);
 
@@ -447,7 +443,7 @@ export function ProjectsPage() {
 				/>
 
 				<ProjectsFiltersDrawer
-					adminsError={adminsQuery.isError}
+					creatorsError={projectsQuery.isError}
 					createdByIds={draftFilters.createdByIds}
 					creatorOptions={creatorOptions}
 					dateFrom={draftFilters.dateFrom}
@@ -467,8 +463,8 @@ export function ProjectsPage() {
 					onDateToChange={value => setDraftFilter("dateTo", value)}
 					onEntityIdsChange={value => setDraftFilter("entityIds", value)}
 					onOpenChange={setFiltersOpen}
-					onRefreshAdmins={() => {
-						void adminsQuery.refetch();
+					onRefreshCreators={() => {
+						void projectsQuery.refetch();
 					}}
 					onRefreshEntities={() => {
 						void entitiesQuery.refetch();

@@ -660,7 +660,17 @@ function RowActionsCell<TData extends object>({
 					/>
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent>{getRowActions(row)}</DropdownMenuContent>
+			<DropdownMenuContent
+				collisionPadding={{
+					top: 76,
+					right: 12,
+					bottom: 12,
+					left: 12,
+				}}
+				className="max-h-[min(24rem,calc(100dvh-var(--app-topbar-height)-1.5rem))] overflow-y-auto"
+			>
+				{getRowActions(row)}
+			</DropdownMenuContent>
 		</DropdownMenu>
 	);
 }

@@ -4,13 +4,13 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Combobox, DatePicker, SomeErrorState } from "@/components";
+import { Combobox, DatePicker, Label, SomeErrorState } from "@/components";
 import { getProjectStatusOptions } from "@/features/project/projects/utils";
 import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import type { ProjectsFiltersDrawerProps, ProjectStatus } from "@/types";
 
 export function ProjectsFiltersDrawer({
-	adminsError,
+	creatorsError,
 	createdByIds,
 	creatorOptions,
 	dateFrom,
@@ -26,7 +26,7 @@ export function ProjectsFiltersDrawer({
 	onDateToChange,
 	onEntityIdsChange,
 	onOpenChange,
-	onRefreshAdmins,
+	onRefreshCreators,
 	onRefreshEntities,
 	onStatusesChange,
 	open,
@@ -56,72 +56,58 @@ export function ProjectsFiltersDrawer({
 			title={t("project.projectPage.filters.drawer.title")}
 			triggerLabel={t("project.projectPage.filters.drawer.trigger")}
 		>
-			<div className="grid gap-4 sm:grid-cols-2">
-				{entitiesError ? (
-					<SomeErrorState
-						title={t("project.projectPage.filters.entity.error.title")}
-						description={t(
-							"project.projectPage.filters.entity.error.description",
+			{entitiesError ? (
+				<SomeErrorState
+					title={t("project.projectPage.filters.entity.error.title")}
+					description={t("project.projectPage.filters.entity.error.description")}
+					onRefresh={onRefreshEntities}
+				/>
+			) : (
+				<div className="grid gap-2">
+					<Label>{t("project.projectPage.filters.entity.label")}</Label>
+					<Combobox
+						multiple
+						options={entityOptions}
+						values={entityIds}
+						onValuesChange={value => onEntityIdsChange(value)}
+						placeholder={t("project.projectPage.filters.entity.placeholder")}
+						searchPlaceholder={t(
+							"project.projectPage.filters.entity.searchPlaceholder",
 						)}
-						onRefresh={onRefreshEntities}
+						emptyMessage={t("project.projectPage.filters.entity.emptyMessage")}
 					/>
-				) : (
-					<div className="grid gap-2">
-						<p className="field-label">
-							{t("project.projectPage.filters.entity.label")}
-						</p>
-						<Combobox
-							multiple
-							options={entityOptions}
-							values={entityIds}
-							onValuesChange={value => onEntityIdsChange(value)}
-							placeholder={t("project.projectPage.filters.entity.placeholder")}
-							searchPlaceholder={t(
-								"project.projectPage.filters.entity.searchPlaceholder",
-							)}
-							emptyMessage={t(
-								"project.projectPage.filters.entity.emptyMessage",
-							)}
-						/>
-					</div>
-				)}
+				</div>
+			)}
 
-				{adminsError ? (
-					<SomeErrorState
-						title={t("project.projectPage.filters.createdBy.error.title")}
-						description={t(
-							"project.projectPage.filters.createdBy.error.description",
+			{creatorsError ? (
+				<SomeErrorState
+					title={t("project.projectPage.filters.createdBy.error.title")}
+					description={t(
+						"project.projectPage.filters.createdBy.error.description",
+					)}
+					onRefresh={onRefreshCreators}
+				/>
+			) : (
+				<div className="grid gap-2">
+					<Label>{t("project.projectPage.filters.createdBy.label")}</Label>
+					<Combobox
+						multiple
+						options={creatorOptions}
+						values={createdByIds}
+						onValuesChange={value => onCreatedByIdsChange(value)}
+						placeholder={t("project.projectPage.filters.createdBy.placeholder")}
+						searchPlaceholder={t(
+							"project.projectPage.filters.createdBy.searchPlaceholder",
 						)}
-						onRefresh={onRefreshAdmins}
+						emptyMessage={t(
+							"project.projectPage.filters.createdBy.emptyMessage",
+						)}
 					/>
-				) : (
-					<div className="grid gap-2">
-						<p className="field-label">
-							{t("project.projectPage.filters.createdBy.label")}
-						</p>
-						<Combobox
-							multiple
-							options={creatorOptions}
-							values={createdByIds}
-							onValuesChange={value => onCreatedByIdsChange(value)}
-							placeholder={t(
-								"project.projectPage.filters.createdBy.placeholder",
-							)}
-							searchPlaceholder={t(
-								"project.projectPage.filters.createdBy.searchPlaceholder",
-							)}
-							emptyMessage={t(
-								"project.projectPage.filters.createdBy.emptyMessage",
-							)}
-						/>
-					</div>
-				)}
-			</div>
+				</div>
+			)}
 
 			<div className="grid gap-2">
-				<p className="field-label">
-					{t("project.projectPage.filters.status.label")}
-				</p>
+				<Label>{t("project.projectPage.filters.status.label")}</Label>
 				<Combobox
 					multiple
 					options={statusOptions}
@@ -131,28 +117,22 @@ export function ProjectsFiltersDrawer({
 				/>
 			</div>
 
-			<div className="grid gap-4 sm:grid-cols-2">
-				<div className="grid gap-2">
-					<p className="field-label">
-						{t("project.projectPage.filters.startDate.label")}
-					</p>
-					<DatePicker
-						value={dateFrom}
-						onValueChange={onDateFromChange}
-						placeholder={t("project.projectPage.filters.startDate.placeholder")}
-					/>
-				</div>
+			<div className="grid min-w-0 gap-2">
+				<Label>{t("project.projectPage.filters.startDate.label")}</Label>
+				<DatePicker
+					value={dateFrom}
+					onValueChange={onDateFromChange}
+					placeholder={t("project.projectPage.filters.startDate.placeholder")}
+				/>
+			</div>
 
-				<div className="grid gap-2">
-					<p className="field-label">
-						{t("project.projectPage.filters.endDate.label")}
-					</p>
-					<DatePicker
-						value={dateTo}
-						onValueChange={onDateToChange}
-						placeholder={t("project.projectPage.filters.endDate.placeholder")}
-					/>
-				</div>
+			<div className="grid min-w-0 gap-2">
+				<Label>{t("project.projectPage.filters.endDate.label")}</Label>
+				<DatePicker
+					value={dateTo}
+					onValueChange={onDateToChange}
+					placeholder={t("project.projectPage.filters.endDate.placeholder")}
+				/>
 			</div>
 		</ServicePageFiltersDrawer>
 	);

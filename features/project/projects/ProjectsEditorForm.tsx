@@ -4,13 +4,26 @@ import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
 	Combobox,
 	Input,
 	Label,
+	NoContentState,
 	NotFoundState,
 	SomeErrorState,
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
 	TextArea,
 } from "@/components";
+import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
+import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
+import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
+import { useProjectAreasOfExpertiseQuery } from "@/features/project/projects/queries";
 import type { ProjectsEditorFormProps } from "@/types";
 import { WebApiError } from "@/utils";
 
@@ -28,6 +41,12 @@ export function ProjectsEditorForm({
 	const { t } = useTranslation();
 	const isCreateMode = mode === "create";
 	const isUpdateMode = mode === "update";
+	const linkedAreasOfExpertiseQuery = useProjectAreasOfExpertiseQuery(
+		isUpdateMode && project ? project.id : null,
+	);
+	const createdByLabel = project
+		? project.projectInfo.createdBy.name
+		: "";
 
 	if (!isCreateMode && projectError) {
 		if (projectError instanceof WebApiError && projectError.status === 404) {
@@ -66,7 +85,7 @@ export function ProjectsEditorForm({
 		);
 	}
 
-	return (
+	const projectSection = (
 		<div className="grid gap-4">
 			<div className="grid gap-2">
 				<Label htmlFor="project-name">
@@ -91,16 +110,7 @@ export function ProjectsEditorForm({
 				) : null}
 			</div>
 
-			{isUpdateMode ? (
-				<div className="grid gap-1">
-					<p className="ty-helper">
-						{t("project.projectPage.editor.fields.entity")}
-					</p>
-					<p className="ty-sm-semibold">
-						{project ? project.entity.name : form.getValues("entityId")}
-					</p>
-				</div>
-			) : (
+			{isUpdateMode ? null : (
 				<div className="grid gap-2">
 					<Label htmlFor="project-entity">
 						{t("project.projectPage.editor.fields.entity")}
@@ -207,33 +217,104 @@ export function ProjectsEditorForm({
 					)}
 				/>
 			</div>
-
-			{!isCreateMode && project ? (
-				<div className="grid gap-4 pt-2 sm:grid-cols-3">
-					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("project.projectPage.dialog.fields.id")}
-						</p>
-						<p className="ty-sm-semibold">{project.id}</p>
-					</div>
-					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("project.projectPage.dialog.fields.createdAt")}
-						</p>
-						<p className="ty-sm-semibold">
-							{project.projectInfo.auditInfo.createdAtFormatted}
-						</p>
-					</div>
-					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("project.projectPage.dialog.fields.updatedAt")}
-						</p>
-						<p className="ty-sm-semibold">
-							{project.projectInfo.auditInfo.updatedAtFormatted}
-						</p>
-					</div>
-				</div>
-			) : null}
 		</div>
+	);
+
+	if (!isUpdateMode || !project) {
+		return projectSection;
+	}
+
+	return (
+		<Tabs
+			defaultValue="project"
+			className="grid gap-4"
+		>
+			<TabsList className="w-full">
+				<TabsTrigger value="project">
+					{t("project.projectPage.editor.tabs.project")}
+				</TabsTrigger>
+				<TabsTrigger value="linked">
+					{t("project.projectPage.editor.tabs.linked")}
+				</TabsTrigger>
+			</TabsList>
+
+			<TabsContent
+				value="project"
+				className="grid gap-6"
+			>
+				{projectSection}
+			</TabsContent>
+
+			<TabsContent
+				value="linked"
+				className="grid gap-6"
+			>
+				<ProjectOwnDetailsContent
+					project={project}
+					createdByLabel={createdByLabel}
+					columns={2}
+					includeEditableFields={false}
+				/>
+
+				<Accordion
+					type="single"
+					collapsible
+					defaultValue="linked-entity"
+				>
+					<AccordionItem value="linked-entity">
+						<AccordionTrigger>
+							{t("project.projectPage.dialog.linkedEntity.overhead")}
+						</AccordionTrigger>
+						<AccordionContent>
+							<EntityDetailsContent
+								entityId={project.entity.id}
+								columns={2}
+							/>
+						</AccordionContent>
+					</AccordionItem>
+
+					<AccordionItem value="linked-areas-of-expertise">
+						<AccordionTrigger>
+							{t("project.projectPage.dialog.linkedAreasOfExpertise.overhead")}
+						</AccordionTrigger>
+						<AccordionContent>
+							{linkedAreasOfExpertiseQuery.isError ? (
+								<SomeErrorState
+									title={t(
+										"project.projectPage.dialog.areasOfExpertiseError.title",
+									)}
+									description={t(
+										"project.projectPage.dialog.areasOfExpertiseError.description",
+									)}
+									onRefresh={() => {
+										void linkedAreasOfExpertiseQuery.refetch();
+									}}
+								/>
+							) : linkedAreasOfExpertiseQuery.data &&
+							  linkedAreasOfExpertiseQuery.data.length > 0 ? (
+								<div className="grid gap-4">
+									{linkedAreasOfExpertiseQuery.data.map(areaOfExpertise => (
+										<AreaOfExpertiseDetailsContent
+											key={areaOfExpertise.id}
+											areaOfExpertise={areaOfExpertise}
+											columns={2}
+										/>
+									))}
+								</div>
+							) : linkedAreasOfExpertiseQuery.isLoading ? null : (
+								<NoContentState
+									title={t(
+										"project.projectPage.dialog.linkedAreasOfExpertise.empty.title",
+									)}
+									description={t(
+										"project.projectPage.dialog.linkedAreasOfExpertise.empty.description",
+									)}
+								/>
+							)}
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
+			</TabsContent>
+		</Tabs>
 	);
 }

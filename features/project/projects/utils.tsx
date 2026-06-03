@@ -1,9 +1,9 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge } from "@/components";
+import { Badge, TableText } from "@/components";
 import type {
-	AdminComplexSearchItemResponse,
+	AccountSimpleComplexSearchResponse,
 	EntityResponse,
 	ProjectComplexSearchFilters,
 	ProjectComplexSearchRequest,
@@ -27,6 +27,9 @@ import {
 } from "@/utils";
 
 export { createProjectEditorFormSchema } from "@/schemas";
+
+const TABLE_IDENTIFIER_TEXT_WIDTH = 70;
+const TABLE_DESCRIPTION_TEXT_WIDTH = 220;
 
 function parsePositiveInteger(value: string) {
 	const trimmed = value.trim();
@@ -57,12 +60,12 @@ export function getProjectStatusTone(status: ProjectStatus): BadgeTone {
 		case "COMPLETED":
 			return "success";
 		case "IN_PROGRESS":
-			return "brand";
+			return "info";
 		case "ON_HOLD":
 			return "warning";
 		case "PLANNED":
 		default:
-			return "info";
+			return "brand";
 	}
 }
 
@@ -74,10 +77,9 @@ export function resolveProjectEntityLabel(
 }
 
 export function resolveProjectCreatorLabel(
-	adminById: Map<string, AdminComplexSearchItemResponse>,
-	accountId: string,
+	createdBy: string | AccountSimpleComplexSearchResponse,
 ) {
-	return adminById.get(accountId)?.account.user.name ?? accountId;
+	return typeof createdBy === "string" ? createdBy : createdBy.name;
 }
 
 export function buildProjectEntityOptions(
@@ -93,22 +95,21 @@ export function buildProjectEntityOptions(
 }
 
 export function buildProjectCreatorOptions(
-	admins: AdminComplexSearchItemResponse[],
+	creators: AccountSimpleComplexSearchResponse[],
 ): ComboboxOption[] {
-	return [...admins]
+	return [...creators]
 		.sort((left, right) =>
-			compareNormalizedText(left.account.user.name, right.account.user.name),
+			compareNormalizedText(left.name, right.name),
 		)
-		.map(admin => ({
-			value: admin.account.id,
-			label: admin.account.user.name,
-			description: admin.account.email,
+		.map(createdBy => ({
+			value: createdBy.id,
+			label: createdBy.name,
+			description: createdBy.email,
 		}));
 }
 
 export function createProjectColumns(
 	t: TFunction,
-	adminById: Map<string, AdminComplexSearchItemResponse>,
 ): ColumnDef<ProjectResponse>[] {
 	return [
 		{
@@ -128,6 +129,14 @@ export function createProjectColumns(
 		{
 			accessorKey: "id",
 			header: t("project.projectPage.table.columns.id"),
+			size: TABLE_IDENTIFIER_TEXT_WIDTH,
+			cell: ({ row }) => (
+				<TableText
+					text={row.original.id}
+					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
+					tooltiped
+				/>
+			),
 		},
 		{
 			accessorKey: "name",
@@ -136,6 +145,13 @@ export function createProjectColumns(
 		{
 			accessorKey: "description",
 			header: t("project.projectPage.table.columns.description"),
+			cell: ({ row }) => (
+				<TableText
+					text={row.original.description}
+					maxWidth={TABLE_DESCRIPTION_TEXT_WIDTH}
+					tooltiped
+				/>
+			),
 		},
 		{
 			accessorFn: row => row.entity.name,
@@ -143,8 +159,7 @@ export function createProjectColumns(
 			header: t("project.projectPage.table.columns.entity"),
 		},
 		{
-			accessorFn: row =>
-				resolveProjectCreatorLabel(adminById, row.projectInfo.createdBy),
+			accessorFn: row => row.projectInfo.createdBy.name,
 			id: "createdBy",
 			header: t("project.projectPage.table.columns.createdBy"),
 		},
@@ -215,7 +230,7 @@ export function filterProjectsByBackendFilters(
 	return projects.filter(project => {
 		if (
 			hasCreatedByIds &&
-			!filters.createdByIds.includes(project.projectInfo.createdBy)
+			!filters.createdByIds.includes(project.projectInfo.createdBy.id)
 		) {
 			return false;
 		}
@@ -250,7 +265,7 @@ export function filterProjectsByBackendFilters(
 
 export function filterProjectsByFrontendFilters(
 	projects: ProjectResponse[],
-	{ adminById, query }: Pick<ProjectFilterArgs, "adminById" | "query">,
+	{ query }: Pick<ProjectFilterArgs, "query">,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	if (!normalizedQuery) {
@@ -262,7 +277,7 @@ export function filterProjectsByFrontendFilters(
 		const normalizedDescription = normalizeTextForSearch(project.description);
 		const normalizedEntity = normalizeTextForSearch(project.entity.name);
 		const normalizedCreator = normalizeTextForSearch(
-			resolveProjectCreatorLabel(adminById, project.projectInfo.createdBy),
+			project.projectInfo.createdBy.name,
 		);
 		const normalizedStatus = normalizeTextForSearch(
 			project.status.statusFormatted,
@@ -467,7 +482,6 @@ export function toProjectUpdateRequest(
 export function getProjectFilterSummary(
 	t: TFunction,
 	{
-		adminById,
 		createdByIds,
 		dateFrom,
 		dateTo,
@@ -494,7 +508,6 @@ export function getProjectFilterSummary(
 	if (createdByIds.length > 0) {
 		parts.push(
 			createdByIds
-				.map(createdById => resolveProjectCreatorLabel(adminById, createdById))
 				.join(", "),
 		);
 	}

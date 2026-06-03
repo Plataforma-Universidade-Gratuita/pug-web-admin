@@ -1,28 +1,22 @@
 "use client";
 
-import { useMemo } from "react";
-
 import { useTranslation } from "react-i18next";
 
 import {
-	Badge,
 	NoContentState,
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
-import { useAdminsQuery } from "@/features/identity/admins/queries";
+import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
+import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import {
 	useProjectDetailQuery,
 	useProjectAreasOfExpertiseQuery,
 } from "@/features/project/projects/queries";
 import {
-	getProjectAdminsErrorToastContent,
 	getProjectAreasOfExpertiseErrorToastContent,
 	getProjectDetailErrorToastContent,
-	getProjectStatusLabel,
-	getProjectStatusTone,
-	resolveProjectCreatorLabel,
 } from "@/features/project/projects/utils";
 import {
 	EntityPageFieldsGridSkeleton,
@@ -37,7 +31,6 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 	const projectDetailQuery = useProjectDetailQuery(projectId);
 	const projectAreasOfExpertiseQuery =
 		useProjectAreasOfExpertiseQuery(projectId);
-	const adminsQuery = useAdminsQuery();
 
 	useQueryErrorToasts([
 		{
@@ -55,107 +48,10 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 				getProjectAreasOfExpertiseErrorToastContent(t, error),
 			isError: projectAreasOfExpertiseQuery.isError,
 		},
-		{
-			key: `project-admins-${projectId}`,
-			error: adminsQuery.error,
-			errorUpdatedAt: adminsQuery.errorUpdatedAt,
-			getContent: error => getProjectAdminsErrorToastContent(t, error),
-			isError: adminsQuery.isError,
-		},
 	]);
 
-	const adminById = useMemo(
-		() =>
-			new Map((adminsQuery.data ?? []).map(admin => [admin.account.id, admin])),
-		[adminsQuery.data],
-	);
-
 	const project = projectDetailQuery.data;
-	const fields = useMemo(
-		() =>
-			project
-				? [
-						{
-							id: "id",
-							label: t("project.projectPage.dialog.fields.id"),
-							value: project.id,
-						},
-						{
-							id: "name",
-							label: t("project.projectPage.dialog.fields.name"),
-							value: project.name,
-						},
-						{
-							id: "entity",
-							label: t("project.projectPage.dialog.fields.entity"),
-							value: project.entity.name,
-						},
-						{
-							id: "createdBy",
-							label: t("project.projectPage.dialog.fields.createdBy"),
-							value: resolveProjectCreatorLabel(
-								adminById,
-								project.projectInfo.createdBy,
-							),
-						},
-						{
-							id: "description",
-							label: t("project.projectPage.dialog.fields.description"),
-							value:
-								project.description ||
-								t("project.projectPage.dialog.values.noDescription"),
-						},
-						{
-							id: "status",
-							label: t("project.projectPage.dialog.fields.status"),
-							value: (
-								<Badge
-									className="min-h-5 px-2 py-0.5"
-									tone={getProjectStatusTone(project.status.status)}
-									variant="primary"
-								>
-									{getProjectStatusLabel(t, project.status.status)}
-								</Badge>
-							),
-						},
-						{
-							id: "offeredHours",
-							label: t("project.projectPage.dialog.fields.offeredHours"),
-							value: project.projectInfo.offeredHours ?? "-",
-						},
-						{
-							id: "completedHours",
-							label: t("project.projectPage.dialog.fields.completedHours"),
-							value: project.projectInfo.completedHours ?? "-",
-						},
-						{
-							id: "maxParticipants",
-							label: t("project.projectPage.dialog.fields.maxParticipants"),
-							value:
-								project.projectInfo.maxParticipants ??
-								t("project.projectPage.dialog.values.unlimited"),
-						},
-						{
-							id: "closedAt",
-							label: t("project.projectPage.dialog.fields.closedAt"),
-							value: project.projectInfo.closedAt
-								? project.projectInfo.closedAtFormatted
-								: t("project.projectPage.dialog.values.open"),
-						},
-						{
-							id: "createdAt",
-							label: t("project.projectPage.dialog.fields.createdAt"),
-							value: project.projectInfo.auditInfo.createdAtFormatted,
-						},
-						{
-							id: "updatedAt",
-							label: t("project.projectPage.dialog.fields.updatedAt"),
-							value: project.projectInfo.auditInfo.updatedAtFormatted,
-						},
-					]
-				: [],
-		[adminById, project, t],
-	);
+	const createdByLabel = project ? project.projectInfo.createdBy.name : "";
 
 	return (
 		<EntityPageShell
@@ -180,16 +76,15 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 				)
 			) : project ? (
 				<div className="grid gap-6">
-					<div className="grid gap-4 lg:grid-cols-3">
-						{fields.map(field => (
-							<div
-								key={field.id}
-								className="grid gap-1"
-							>
-								<p className="ty-helper">{field.label}</p>
-								<div className="ty-sm-semibold">{field.value}</div>
-							</div>
-						))}
+					<ProjectOwnDetailsContent
+						project={project}
+						createdByLabel={createdByLabel}
+					/>
+					<div className="grid gap-3">
+						<p className="ty-overhead">
+							{t("project.projectPage.dialog.linkedEntity.overhead")}
+						</p>
+						<EntityDetailsContent entityId={project.entity.id} />
 					</div>
 					{projectAreasOfExpertiseQuery.isError ? (
 						<SomeErrorState

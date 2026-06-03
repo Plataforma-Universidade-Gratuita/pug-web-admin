@@ -4966,6 +4966,9 @@
                     },
                     "overhead": "Linked areas of expertise"
                 },
+                "linkedEntity": {
+                    "overhead": "Linked entity"
+                },
                 "notFound": {
                     "description": "The requested project record could not be found.",
                     "title": "Project not found"
@@ -5023,6 +5026,10 @@
                 "resetConfirm": {
                     "description": "Discard the current changes and reload the last saved values.",
                     "title": "Reset project form"
+                },
+                "tabs": {
+                    "linked": "Linked",
+                    "project": "Project"
                 },
                 "validation": {
                     "description": {
@@ -5213,7 +5220,7 @@
                 },
                 "columns": {
                     "closedAt": "Closed",
-                    "completedHours": "Completed",
+                    "completedHours": "Completed hours",
                     "createdAt": "Created",
                     "createdBy": "Created by",
                     "description": "Description",
@@ -5221,7 +5228,7 @@
                     "id": "Project id",
                     "maxParticipants": "Max participants",
                     "name": "Name",
-                    "offeredHours": "Offered",
+                    "offeredHours": "Offered hours",
                     "status": "Status",
                     "updatedAt": "Updated"
                 },
