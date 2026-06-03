@@ -29,6 +29,7 @@ import {
 	mapEntitySearchResponsesToTableRows,
 } from "@/features/partner/entities/utils";
 import {
+	NumberFieldFilter,
 	ServicePageConfirmDialog,
 	ServicePageHeader,
 	ServicePageHeaderActions,
@@ -53,6 +54,7 @@ import type {
 export function EntitiesPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
+	const [cnpjSearch, setCnpjSearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
 	const initialSecondaryFilters = useMemo<UseEntitiesSearchQueryFilters>(
 		() => ({
@@ -84,6 +86,7 @@ export function EntitiesPage() {
 		"id" | "name"
 	> | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
+	const deferredCnpjSearch = useDeferredValue(cnpjSearch.trim());
 	const entitiesQuery = useEntitiesQuery(entitiesPagination.isAll);
 	const entitiesSearchQuery = useEntitiesSearchQuery(
 		entitiesPagination.backendPage ?? 0,
@@ -126,19 +129,25 @@ export function EntitiesPage() {
 	);
 	const filteredEntities = useMemo(
 		() =>
-			filterEntitiesByFrontendQuery(tableSourceEntities, deferredQuerySearch),
-		[deferredQuerySearch, tableSourceEntities],
+			filterEntitiesByFrontendQuery(tableSourceEntities, {
+				cnpjQuery: deferredCnpjSearch,
+				query: deferredQuerySearch,
+			}),
+		[deferredCnpjSearch, deferredQuerySearch, tableSourceEntities],
 	);
 	const columns = useMemo(() => createEntityColumns(t), [t]);
-	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
+	const hasAnyFilters = Boolean(
+		querySearch.trim() || cnpjSearch.trim() || hasAppliedFilters,
+	);
 	const filterSummary = useMemo(
 		() =>
 			getEntityFilterSummary(t, {
+				cnpjQuery: deferredCnpjSearch,
 				query: deferredQuerySearch,
 				dateFrom: appliedFilters.dateFrom,
 				dateTo: appliedFilters.dateTo,
 			}),
-		[appliedFilters, deferredQuerySearch, t],
+		[appliedFilters, deferredCnpjSearch, deferredQuerySearch, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getEntityEmptyStateCopy(t, filterSummary),
@@ -218,6 +227,7 @@ export function EntitiesPage() {
 
 	function clearAllFilters() {
 		setQuerySearch("");
+		setCnpjSearch("");
 		clearDraftFilters();
 		entitiesPagination.resetPage();
 		setFiltersOpen(false);
@@ -291,13 +301,19 @@ export function EntitiesPage() {
 						onCreate={editorState.openCreate}
 					/>
 				}
-				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
+				filtersClassName="grid gap-2 lg:grid-cols-[minmax(0,1.6fr)_minmax(16rem,1fr)_auto] lg:items-end"
 			>
 				<TextFieldFilter
 					label={t("partner.entityPage.filters.search.label")}
 					value={querySearch}
 					onChange={setQuerySearch}
 					placeholder={t("partner.entityPage.filters.search.placeholder")}
+				/>
+				<NumberFieldFilter
+					label={t("partner.entityPage.filters.frontend.cnpj.label")}
+					value={cnpjSearch}
+					onChange={setCnpjSearch}
+					placeholder={t("partner.entityPage.filters.frontend.cnpj.placeholder")}
 				/>
 
 				<EntitiesFiltersDrawer

@@ -103,6 +103,7 @@ export interface EntitiesRowActionsProps {
 }
 
 export interface EntityFilterArgs {
+	cnpjQuery: string;
 	query: string;
 	dateFrom: string;
 	dateTo: string;

@@ -3808,14 +3808,20 @@
                     "title": "Filter entities",
                     "trigger": "More filters"
                 },
-                "endDate": {
-                    "label": "$t(identity.accountPage.filters.endDate.label)",
-                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
-                },
-                "search": {
-                    "label": "Name, CNPJ or address",
-                    "placeholder": "Filter by name, CNPJ, city or address"
-                },
+				"endDate": {
+					"label": "$t(identity.accountPage.filters.endDate.label)",
+					"placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+				},
+				"frontend": {
+					"cnpj": {
+						"label": "CNPJ",
+						"placeholder": "Filter by CNPJ"
+					}
+				},
+				"search": {
+					"label": "Name, city or address",
+					"placeholder": "Filter by name, city or address"
+				},
                 "startDate": {
                     "label": "$t(identity.accountPage.filters.startDate.label)",
                     "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"

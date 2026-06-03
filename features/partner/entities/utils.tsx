@@ -143,13 +143,17 @@ export function resolveEntityCityLabel(
 
 export function filterEntitiesByFrontendQuery(
 	entities: EntityTableRow[],
-	query: string,
+	{
+		cnpjQuery,
+		query,
+	}: Pick<EntityFilterArgs, "cnpjQuery" | "query">,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
-	const normalizedDigitsQuery = normalizeDigits(query);
+	const normalizedDigitsQuery = normalizeDigits(cnpjQuery);
 	const hasQuery = normalizedQuery.length > 0;
+	const hasCnpjQuery = normalizedDigitsQuery.length > 0;
 
-	if (!hasQuery) {
+	if (!hasQuery && !hasCnpjQuery) {
 		return entities;
 	}
 
@@ -164,10 +168,9 @@ export function filterEntitiesByFrontendQuery(
 			normalizedAddress.includes(normalizedQuery) ||
 			normalizedCity.includes(normalizedQuery);
 		const matchesCnpj =
-			normalizedDigitsQuery.length > 0 &&
-			normalizedCnpj.includes(normalizedDigitsQuery);
+			hasCnpjQuery && normalizedCnpj.includes(normalizedDigitsQuery);
 
-		return matchesText || matchesCnpj;
+		return (hasQuery && matchesText) || matchesCnpj;
 	});
 }
 
@@ -359,12 +362,16 @@ export function buildEntityComplexSearchRequest(
 
 export function getEntityFilterSummary(
 	t: TFunction,
-	{ query, dateFrom, dateTo }: EntityFilterArgs,
+	{ cnpjQuery, query, dateFrom, dateTo }: EntityFilterArgs,
 ) {
 	const parts: string[] = [];
 
 	if (query.trim()) {
 		parts.push(query.trim());
+	}
+
+	if (cnpjQuery.trim()) {
+		parts.push(cnpjQuery.trim());
 	}
 
 	if (dateFrom || dateTo) {

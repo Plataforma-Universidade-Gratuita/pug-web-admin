@@ -359,7 +359,6 @@ export function filterAccountsByFrontendFilters(
 
 	return accounts.filter(account => {
 		return (
-			normalizeTextForSearch(account.id).includes(normalizedQuery) ||
 			normalizeTextForSearch(account.user.name).includes(normalizedQuery) ||
 			normalizeTextForSearch(account.email).includes(normalizedQuery)
 		);
