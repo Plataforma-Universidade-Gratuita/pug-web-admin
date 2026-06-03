@@ -439,6 +439,22 @@
 			var(--twc-ease-standard);
 	}
 
+	.table-body-row:nth-child(even) {
+		background-color: color-mix(
+			in oklab,
+			var(--twc-surface-1) 30%,
+			transparent
+		);
+	}
+
+	.table-body-row:nth-child(even) .table-body-cell-actions {
+		background-color: color-mix(
+			in oklab,
+			var(--twc-surface-1) 30%,
+			var(--twc-surface-2)
+		);
+	}
+
 	.table-body-row:hover {
 		background-color: color-mix(
 			in oklab,

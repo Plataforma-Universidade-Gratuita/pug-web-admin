@@ -227,7 +227,7 @@ export function ProjectsEditorForm({
 	return (
 		<Tabs
 			defaultValue="project"
-			className="grid gap-4"
+			className="drawer-sticky-tabs grid gap-4"
 		>
 			<TabsList className="w-full">
 				<TabsTrigger value="project">

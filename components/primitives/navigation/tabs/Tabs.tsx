@@ -36,21 +36,23 @@ export function TabsList({
 }: TabsListProps) {
 	return (
 		<TabsVariantContext.Provider value={variant}>
-			<ScrollArea
-				className="tabs-list-scroll"
-				viewportClassName="tabs-list-scroll-viewport"
-			>
-				<RadixTabs.List
-					className={clsx(
-						"tabs-list",
-						variant === "icon" && "tabs-list-icon",
-						className,
-					)}
-					{...props}
+			<div className="tabs-list-shell">
+				<ScrollArea
+					className="tabs-list-scroll"
+					viewportClassName="tabs-list-scroll-viewport"
 				>
-					{children}
-				</RadixTabs.List>
-			</ScrollArea>
+					<RadixTabs.List
+						className={clsx(
+							"tabs-list",
+							variant === "icon" && "tabs-list-icon",
+							className,
+						)}
+						{...props}
+					>
+						{children}
+					</RadixTabs.List>
+				</ScrollArea>
+			</div>
 		</TabsVariantContext.Provider>
 	);
 }

@@ -453,7 +453,7 @@ export function FormerStudentEditorForm({
 	return (
 		<Tabs
 			defaultValue="academic"
-			className="grid gap-4"
+			className="drawer-sticky-tabs grid gap-4"
 		>
 			<TabsList className="w-full">
 				<TabsTrigger value="academic">
