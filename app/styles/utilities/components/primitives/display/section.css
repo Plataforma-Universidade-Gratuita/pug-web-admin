@@ -1,0 +1,92 @@
+@layer components {
+	.section-root {
+		display: grid;
+		gap: 1.5rem;
+		min-width: 0;
+	}
+
+	.section-loading-shell {
+		min-height: 16rem;
+	}
+
+	.section-loading-block {
+		height: 100%;
+		min-height: inherit;
+		border-radius: var(--twc-radius-xl);
+	}
+
+	.section-header {
+		display: grid;
+		min-width: 0;
+		gap: 1rem;
+	}
+
+	@media (min-width: 64rem) {
+		.section-header {
+			grid-template-columns: minmax(0, 1fr) auto;
+			align-items: start;
+		}
+	}
+
+	.section-title {
+		font-family: var(--twc-font-display), sans-serif;
+		font-size: var(--twc-text-lg);
+		font-weight: var(--twc-weight-semibold);
+		letter-spacing: var(--twc-tracking-tight);
+		line-height: var(--twc-leading-snug);
+		color: var(--twc-text);
+	}
+
+	.section-description {
+		max-width: 72ch;
+		font-family: var(--twc-font-sans), sans-serif;
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-regular);
+		letter-spacing: var(--twc-tracking-normal);
+		line-height: var(--twc-leading-normal);
+		color: var(--twc-muted);
+	}
+
+	.section-content {
+		min-width: 0;
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.service-page-pagination-page-size {
+		width: 100%;
+	}
+
+	@media (min-width: 48rem) {
+		.service-page-pagination-page-size {
+			width: max-content;
+		}
+
+		.service-page-pagination-page-size .select-trigger-shell {
+			width: max-content;
+		}
+
+		.service-page-pagination-page-size .select-trigger {
+			width: auto;
+			min-width: 100%;
+		}
+	}
+
+	.service-page-pagination-page-size-trigger {
+		white-space: nowrap;
+	}
+
+	.section-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 0.75rem;
+	}
+
+	@media (min-width: 64rem) {
+		.section-actions {
+			margin-left: auto;
+		}
+	}
+}

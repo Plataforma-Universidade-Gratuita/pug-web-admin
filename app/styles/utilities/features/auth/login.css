@@ -1,0 +1,287 @@
+@layer components {
+	.login-page {
+		position: relative;
+		isolation: isolate;
+		min-height: 100dvh;
+		overflow: auto;
+		background-color: var(--twc-surface-1);
+	}
+
+	.login-page::before {
+		content: "";
+		pointer-events: none;
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(
+				circle at top left,
+				color-mix(in oklab, var(--color-brand) 18%, transparent),
+				transparent 28%
+			),
+			radial-gradient(
+				circle at bottom right,
+				color-mix(in oklab, var(--color-brand) 12%, transparent),
+				transparent 24%
+			);
+	}
+
+	.login-page-content {
+		position: relative;
+		margin-inline: auto;
+		display: grid;
+		min-height: 100dvh;
+		width: 100%;
+		max-width: 68rem;
+		align-content: center;
+		align-items: center;
+		gap: 1.5rem;
+		padding: 1.25rem 1rem;
+	}
+
+	@media (min-width: 40rem) {
+		.login-page-content {
+			padding-inline: 1.5rem;
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.login-page-content {
+			grid-template-columns: repeat(2, minmax(0, 30rem));
+			justify-content: center;
+			align-items: stretch;
+			padding-inline: 2rem;
+			padding-block: 2rem;
+		}
+	}
+
+	.login-page-panel {
+		min-width: 0;
+	}
+
+	.login-page-panel-hero {
+		display: none;
+	}
+
+	.login-page-panel-form {
+		display: flex;
+		justify-content: center;
+	}
+
+	@media (min-width: 64rem) {
+		.login-page-panel-hero {
+			display: block;
+		}
+	}
+
+	.login-form-shell {
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		order: 1;
+	}
+
+	.login-card {
+		width: 100%;
+		max-width: 30rem;
+		border: 1px solid var(--twc-border-2);
+		border-radius: calc(var(--twc-radius-xl) + 0.125rem);
+		background-color: var(--twc-surface-2);
+		box-shadow: var(--twc-shadow-lg);
+	}
+
+	.login-card-copy {
+		display: grid;
+		gap: 1rem;
+		padding: 1.5rem 1.5rem 0;
+	}
+
+	.login-card-content {
+		padding: 1.5rem;
+	}
+
+	.login-card-brand {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.login-card-badge {
+		width: fit-content;
+	}
+
+	.login-card-brand-mark {
+		display: flex;
+		height: 2.75rem;
+		width: 2.75rem;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--twc-radius-lg);
+		background-color: color-mix(in oklab, var(--color-brand) 11%, transparent);
+		color: var(--color-brand);
+	}
+
+	.login-card-title {
+		font-size: var(--twc-text-3xl);
+		font-weight: var(--twc-weight-semibold);
+		line-height: var(--twc-leading-tight);
+		color: var(--twc-text);
+	}
+
+	.login-card-description {
+		font-size: var(--twc-text-sm);
+		line-height: 1.5rem;
+		color: var(--twc-muted);
+	}
+
+	.login-form-grid {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.login-field {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.login-field-error {
+		font-size: var(--twc-text-sm);
+		color: var(--color-danger-700);
+	}
+
+	.login-form-error {
+		border: 1px solid color-mix(in oklab, var(--color-danger) 22%, transparent);
+		border-radius: var(--twc-radius-lg);
+		background-color: color-mix(in oklab, var(--color-danger) 8%, transparent);
+		padding: 0.75rem 1rem;
+		font-size: var(--twc-text-sm);
+		color: var(--color-danger-700, var(--color-danger));
+	}
+
+	.login-hero {
+		position: relative;
+		display: grid;
+		width: 100%;
+		height: 100%;
+		max-width: none;
+		gap: 1rem;
+		border: 1px solid var(--twc-border-2);
+		border-radius: calc(var(--twc-radius-xl) + 0.125rem);
+		background: linear-gradient(
+			145deg,
+			color-mix(in oklab, var(--color-brand) 9%, var(--twc-surface-2)),
+			var(--twc-surface-2) 48%,
+			color-mix(in oklab, var(--color-brand) 5%, var(--twc-surface-3))
+		);
+		padding: 1.25rem;
+		box-shadow: var(--twc-shadow-lg);
+	}
+
+	@media (min-width: 64rem) {
+		.login-hero {
+			align-content: start;
+			padding: 1.5rem;
+		}
+	}
+
+	.login-hero-copy {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.login-hero-header {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.login-hero-badge {
+		width: fit-content;
+		gap: 0.375rem;
+	}
+
+	.login-hero-kicker {
+		font-size: var(--twc-text-xs);
+		font-weight: var(--twc-weight-medium);
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--twc-muted);
+	}
+
+	.login-hero-title {
+		max-width: 24rem;
+		font-size: clamp(1.4rem, 1.8vw, 1.75rem);
+		font-weight: var(--twc-weight-semibold);
+		line-height: 1.1;
+		text-wrap: balance;
+		color: var(--twc-text);
+	}
+
+	.login-hero-list {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	@media (min-width: 40rem) {
+		.login-hero-list {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.login-hero-list {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.login-hero-item {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.625rem;
+		border: 1px solid color-mix(in oklab, var(--twc-border-2) 72%, transparent);
+		border-radius: var(--twc-radius-lg);
+		background-color: color-mix(
+			in oklab,
+			var(--twc-surface-3) 88%,
+			transparent
+		);
+		padding: 0.625rem 0.75rem;
+	}
+
+	.login-hero-item-icon {
+		display: inline-flex;
+		height: 1.75rem;
+		width: 1.75rem;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--twc-radius-lg);
+		background-color: color-mix(in oklab, var(--color-brand) 12%, transparent);
+		color: var(--color-brand);
+	}
+
+	.login-hero-item-title {
+		font-size: var(--twc-text-xs);
+		font-weight: var(--twc-weight-semibold);
+		line-height: 1.4;
+		color: var(--twc-text);
+	}
+
+	.login-hero-item-description {
+		font-size: var(--twc-text-xs);
+		line-height: 1.35;
+		color: var(--twc-muted);
+	}
+
+	@media (min-width: 40rem) {
+		.login-card-copy,
+		.login-card-content {
+			padding-inline: 2rem;
+		}
+
+		.login-card-copy {
+			padding-top: 2rem;
+		}
+
+		.login-card-content {
+			padding-bottom: 2rem;
+		}
+	}
+}

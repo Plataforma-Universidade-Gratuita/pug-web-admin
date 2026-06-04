@@ -1,0 +1,19 @@
+@layer components {
+	.popover-panel {
+		z-index: 60;
+		overflow: hidden;
+		border: 1px solid var(--twc-border-2);
+		border-radius: var(--twc-radius-xl);
+		background-color: var(--twc-surface-2);
+		box-shadow: var(--twc-shadow-lg);
+	}
+	.popover-content {
+		z-index: 60;
+		width: min(24rem, calc(100vw - 2rem));
+		padding: 1rem;
+	}
+
+	.popover-arrow {
+		fill: var(--twc-surface-2);
+	}
+}

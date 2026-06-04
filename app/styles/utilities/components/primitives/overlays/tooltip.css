@@ -1,0 +1,16 @@
+@layer components {
+	.tooltip-content {
+		z-index: var(--twc-z-tooltip);
+		border-radius: var(--twc-radius-md);
+		background-color: var(--twc-surface-3);
+		padding: 0.25rem 0.5rem;
+		font-size: var(--twc-text-xs);
+		font-weight: var(--twc-weight-medium);
+		color: var(--twc-text);
+		box-shadow: var(--twc-shadow-lg);
+	}
+
+	.tooltip-arrow {
+		fill: var(--twc-surface-3);
+	}
+}

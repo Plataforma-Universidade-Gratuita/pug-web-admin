@@ -1,0 +1,43 @@
+@layer components {
+	.checkbox-box {
+		display: inline-flex;
+		height: 1.25rem;
+		width: 1.25rem;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--twc-border-2);
+		border-radius: 0.375rem;
+		background-color: var(--twc-surface-2);
+		transition:
+			border-color var(--twc-duration-normal) var(--twc-ease-standard),
+			background-color var(--twc-duration-normal) var(--twc-ease-standard),
+			transform var(--twc-duration-fast) var(--twc-ease-standard);
+	}
+
+	.checkbox-box:enabled:hover {
+		border-color: color-mix(
+			in srgb,
+			var(--color-brand) 45%,
+			var(--twc-border-2)
+		);
+		background-color: var(--twc-surface-1);
+	}
+
+	.checkbox-box:enabled:active {
+		transform: scale(0.95);
+	}
+
+	.checkbox-box[data-state="checked"] {
+		border-color: var(--color-brand);
+		background-color: var(--color-brand);
+	}
+
+	.checkbox-box[data-state="checked"]:enabled:hover {
+		background-color: color-mix(in srgb, var(--color-brand) 88%, black);
+	}
+
+	.checkbox-indicator {
+		color: var(--white-a12);
+	}
+}

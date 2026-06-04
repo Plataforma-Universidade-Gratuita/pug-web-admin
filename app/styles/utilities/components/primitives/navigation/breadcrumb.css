@@ -1,0 +1,46 @@
+@layer components {
+	.breadcrumb-list {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: var(--twc-text-sm);
+		color: var(--twc-muted);
+	}
+
+	.breadcrumb-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.breadcrumb-link {
+		transition: color var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.breadcrumb-link:hover {
+		color: var(--twc-text);
+	}
+
+	.breadcrumb-link:focus-visible {
+		outline: none;
+		box-shadow:
+			0 0 0 1px var(--twc-focus-ring),
+			0 0 0 4px var(--twc-focus-halo);
+	}
+
+	.breadcrumb-current {
+		font-family: var(--twc-font-sans), sans-serif;
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-semibold);
+		letter-spacing: var(--twc-tracking-normal);
+		line-height: var(--twc-leading-normal);
+		color: var(--twc-text);
+	}
+
+	.breadcrumb-separator {
+		display: inline-flex;
+		align-items: center;
+		color: var(--twc-muted);
+	}
+}

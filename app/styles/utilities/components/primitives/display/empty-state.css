@@ -1,0 +1,24 @@
+@layer components {
+	.empty-state-root {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1.5rem;
+		border-radius: var(--twc-radius-xl);
+	}
+
+	.empty-state-icon {
+		display: flex;
+		height: 3rem;
+		width: 3rem;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--twc-radius-lg);
+		background-color: var(--twc-surface-2);
+	}
+
+	.empty-state-copy {
+		display: grid;
+		gap: 0.25rem;
+	}
+}

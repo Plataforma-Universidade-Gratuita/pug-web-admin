@@ -1,0 +1,121 @@
+@layer components {
+	.field-shell {
+		display: flex;
+		min-height: 2.5rem;
+		align-items: center;
+		border: 1px solid var(--twc-border-2);
+		border-radius: var(--twc-radius-lg);
+		background-color: var(--twc-surface-2);
+		transition:
+			border-color var(--twc-duration-normal) var(--twc-ease-standard),
+			box-shadow var(--twc-duration-normal) var(--twc-ease-standard),
+			background-color var(--twc-duration-normal) var(--twc-ease-standard),
+			opacity var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.field-shell:focus-within {
+		box-shadow:
+			0 0 0 1px var(--twc-focus-ring),
+			0 0 0 4px var(--twc-focus-halo);
+	}
+
+	.field-shell[data-disabled="true"] {
+		opacity: 0.6;
+	}
+
+	.field-leading-icon,
+	.field-trailing-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--twc-muted);
+	}
+
+	.field-leading-icon {
+		padding-left: 0.75rem;
+	}
+
+	.field-trailing-icon {
+		padding-right: 0.75rem;
+	}
+
+	.field-input {
+		width: 100%;
+		border: none;
+		background: transparent;
+		padding: 0.5rem 0.75rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		color: var(--twc-text);
+		outline: none;
+	}
+
+	.field-input::placeholder {
+		color: var(--twc-muted);
+	}
+
+	.field-input:disabled {
+		cursor: not-allowed;
+	}
+
+	.field-input[type="search"] {
+		appearance: none;
+		-webkit-appearance: none;
+	}
+
+	.field-input[type="search"]::-webkit-search-decoration,
+	.field-input[type="search"]::-webkit-search-cancel-button,
+	.field-input[type="search"]::-webkit-search-results-button,
+	.field-input[type="search"]::-webkit-search-results-decoration {
+		display: none;
+		-webkit-appearance: none;
+	}
+
+	.field-input[type="search"]::-ms-clear,
+	.field-input[type="search"]::-ms-reveal {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	.field-input-leading {
+		padding-left: 0.5rem;
+	}
+
+	.field-input-trailing {
+		padding-right: 0.5rem;
+	}
+
+	.field-icon-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--twc-radius-circle);
+		color: var(--twc-muted);
+		transition:
+			background-color var(--twc-duration-normal) var(--twc-ease-standard),
+			color var(--twc-duration-normal) var(--twc-ease-standard),
+			opacity var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.field-icon-button:hover {
+		background-color: var(--twc-surface-1);
+		color: var(--twc-text);
+	}
+
+	.field-icon-button:disabled {
+		pointer-events: none;
+	}
+
+	.field-clear-button {
+		margin-right: 0.25rem;
+		height: 2rem;
+		width: 2rem;
+	}
+
+	.field-toggle-button {
+		margin-right: 0.5rem;
+		height: 2.25rem;
+		width: 2.25rem;
+	}
+}

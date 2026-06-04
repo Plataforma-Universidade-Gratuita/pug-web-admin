@@ -1,0 +1,47 @@
+@layer components {
+	.switch-track {
+		position: relative;
+		display: inline-flex;
+		height: 1.5rem;
+		width: 2.75rem;
+		flex-shrink: 0;
+		border: 1px solid var(--twc-border-2);
+		border-radius: var(--twc-radius-circle);
+		background-color: var(--twc-surface-1);
+		transition:
+			background-color var(--twc-duration-normal) var(--twc-ease-standard),
+			border-color var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.switch-track:hover {
+		background-color: var(--twc-surface-2);
+	}
+
+	.switch-track[data-state="checked"] {
+		background-color: var(--color-brand);
+	}
+
+	.switch-track[data-state="checked"]:hover {
+		background-color: color-mix(in srgb, var(--color-brand) 88%, black);
+	}
+
+	.switch-track:disabled {
+		pointer-events: none;
+	}
+
+	.switch-thumb {
+		pointer-events: none;
+		display: block;
+		height: 1.25rem;
+		width: 1.25rem;
+		transform: translateX(0.125rem);
+		border-radius: var(--twc-radius-circle);
+		background-color: var(--twc-surface-2);
+		box-shadow: var(--twc-shadow-md);
+		transition: transform var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.switch-thumb[data-state="checked"] {
+		transform: translateX(1.3rem);
+	}
+}

@@ -1,0 +1,33 @@
+@layer components {
+	.text-area-root {
+		min-height: 7rem;
+		width: 100%;
+		border: 1px solid var(--twc-border-2);
+		border-radius: var(--twc-radius-lg);
+		background-color: var(--twc-surface-2);
+		padding: 0.625rem 0.75rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		color: var(--twc-text);
+		outline: none;
+		transition:
+			border-color var(--twc-duration-normal) var(--twc-ease-standard),
+			box-shadow var(--twc-duration-normal) var(--twc-ease-standard),
+			opacity var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.text-area-root::placeholder {
+		color: var(--twc-muted);
+	}
+
+	.text-area-root:focus-visible {
+		box-shadow:
+			0 0 0 1px var(--twc-focus-ring),
+			0 0 0 4px var(--twc-focus-halo);
+	}
+
+	.text-area-root:disabled {
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
+}

@@ -1,0 +1,43 @@
+@layer components {
+	.floating-page-controls {
+		position: fixed;
+		top: 0.875rem;
+		right: 0.875rem;
+		z-index: 90;
+		pointer-events: none;
+	}
+
+	.floating-page-controls-inner {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		pointer-events: auto;
+		padding: 0.375rem 0.5rem;
+	}
+
+	.floating-page-controls-picker {
+		display: flex;
+		min-width: 0;
+		align-items: center;
+		gap: 0.5rem;
+		background: transparent;
+	}
+
+	html.light .floating-page-controls-inner,
+	html.light-theme .floating-page-controls-inner,
+	html[data-theme="light"] .floating-page-controls-inner {
+		box-shadow: none;
+	}
+
+	@media (max-width: 48rem) {
+		.floating-page-controls {
+			top: 0.75rem;
+			right: 0.75rem;
+			left: 0.75rem;
+		}
+
+		.floating-page-controls-inner {
+			justify-content: flex-end;
+		}
+	}
+}

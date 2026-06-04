@@ -1,0 +1,93 @@
+@layer components {
+	.tabs-root {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.tabs-list-scroll {
+		width: 100%;
+	}
+
+	.tabs-list-shell {
+		width: 100%;
+	}
+
+	.tabs-list-scroll-viewport {
+		width: 100%;
+	}
+
+	.tabs-list-scroll-viewport > div {
+		display: block !important;
+		width: max-content;
+		min-width: 100%;
+	}
+
+	.tabs-list {
+		display: inline-flex;
+		flex-wrap: nowrap;
+		gap: 0.5rem;
+		border-radius: var(--twc-radius-lg);
+		background-color: var(--twc-surface-1);
+		padding: 0.25rem;
+	}
+
+	.tabs-list-icon {
+		gap: 0.25rem;
+		padding: 0.25rem;
+	}
+
+	.tabs-trigger {
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		border-radius: calc(var(--twc-radius-lg) - 0.25rem);
+		padding: 0.5rem 0.75rem;
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-medium);
+		transition:
+			background-color var(--twc-duration-normal) var(--twc-ease-standard),
+			box-shadow var(--twc-duration-normal) var(--twc-ease-standard),
+			opacity var(--twc-duration-normal) var(--twc-ease-standard),
+			color var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.tabs-trigger-icon {
+		height: 2.25rem;
+		width: 2.25rem;
+		padding: 0;
+	}
+
+	.tabs-trigger:hover {
+		background-color: var(--twc-surface-2);
+	}
+
+	.tabs-trigger[data-state="active"] {
+		background-color: var(--twc-surface-2);
+		box-shadow: var(--twc-shadow-sm);
+	}
+
+	.tabs-trigger:disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+
+	.tabs-content {
+		outline: none;
+	}
+
+	.drawer-sticky-tabs .tabs-list-shell {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+		background-color: var(--twc-surface-2);
+	}
+
+	.service-page-editor-tabs {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+		background-color: var(--twc-surface-2);
+	}
+}

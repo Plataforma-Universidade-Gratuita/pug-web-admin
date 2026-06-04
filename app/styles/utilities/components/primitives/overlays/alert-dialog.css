@@ -1,0 +1,36 @@
+@layer components {
+	.alert-dialog-content {
+		max-width: 32rem;
+	}
+
+	.alert-dialog-loading-shell {
+		min-height: 10rem;
+		padding: 1.5rem;
+	}
+
+	.alert-dialog-loading-block {
+		height: 100%;
+		min-height: inherit;
+		border-radius: calc(var(--twc-radius-xl) - 0.125rem);
+	}
+
+	.alert-dialog-header {
+		padding: 1.5rem;
+	}
+
+	.alert-dialog-header-main {
+		display: grid;
+		min-width: 0;
+		gap: 0.5rem;
+	}
+
+	.alert-dialog-overhead {
+		font-family: var(--twc-font-sans), sans-serif;
+		font-size: var(--twc-text-xs);
+		font-weight: var(--twc-weight-semibold);
+		letter-spacing: 0.12em;
+		line-height: 1;
+		text-transform: uppercase;
+		color: var(--twc-muted);
+	}
+}

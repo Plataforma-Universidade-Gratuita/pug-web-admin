@@ -1,0 +1,103 @@
+@layer components {
+	.control-root {
+		display: flex;
+		gap: 0.75rem;
+	}
+
+	.control-root-inline {
+		align-items: center;
+	}
+
+	.control-root-between {
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+
+	.control-enabled {
+		cursor: pointer;
+	}
+
+	.control-disabled {
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
+
+	.control-copy {
+		min-width: 0;
+		display: grid;
+		gap: 0.25rem;
+	}
+
+	.control-label {
+		display: block;
+		font-family: var(--twc-font-sans), sans-serif;
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-semibold);
+		letter-spacing: var(--twc-tracking-normal);
+		line-height: var(--twc-leading-normal);
+		color: var(--twc-text);
+	}
+
+	.control-description {
+		display: block;
+		font-family: var(--twc-font-sans), sans-serif;
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-regular);
+		letter-spacing: var(--twc-tracking-normal);
+		line-height: var(--twc-leading-relaxed);
+		color: var(--twc-muted);
+	}
+
+	.field-error {
+		font-family: var(--twc-font-sans), sans-serif;
+		font-size: var(--twc-text-sm);
+		font-weight: var(--twc-weight-medium);
+		letter-spacing: var(--twc-tracking-normal);
+		line-height: var(--twc-leading-normal);
+		color: var(--color-danger);
+	}
+
+	.select-trigger-shell,
+	.combobox-trigger-shell {
+		position: relative;
+		width: 100%;
+	}
+
+	.select-trigger,
+	.combobox-trigger {
+		display: inline-flex;
+		width: 100%;
+		align-items: center;
+		border: 1px solid var(--twc-border-2);
+		border-radius: var(--twc-radius-lg);
+		background-color: var(--twc-surface-2);
+		padding: 0.5rem 0.75rem;
+		padding-right: 4.5rem;
+		text-align: left;
+		outline: none;
+		transition:
+			border-color var(--twc-duration-normal) var(--twc-ease-standard),
+			box-shadow var(--twc-duration-normal) var(--twc-ease-standard),
+			opacity var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.select-trigger:focus-visible,
+	.combobox-trigger:focus-visible {
+		box-shadow:
+			0 0 0 1px var(--twc-focus-ring),
+			0 0 0 4px var(--twc-focus-halo);
+	}
+
+	.select-trigger,
+	.combobox-trigger {
+		height: 2.5rem;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.select-trigger:disabled,
+	.combobox-trigger:disabled {
+		pointer-events: none;
+		opacity: 0.6;
+	}
+}

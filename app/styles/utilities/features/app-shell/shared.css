@@ -1,0 +1,53 @@
+@layer components {
+	.navbar-shell {
+		position: relative;
+		display: flex;
+		height: 100dvh;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	.navbar-main {
+		display: flex;
+		min-height: 0;
+		flex: 1;
+		overflow: hidden;
+	}
+
+	.navbar-content {
+		min-width: 0;
+		flex: 1;
+		min-height: 0;
+	}
+
+	.navbar-content-scroll {
+		height: 100%;
+	}
+
+	.navbar-content-scroll-viewport {
+		height: 100%;
+		overflow-x: hidden !important;
+	}
+
+	.navbar-content-scroll .scroll-area-scrollbar-horizontal,
+	.navbar-content-scroll .scroll-area-corner {
+		display: none;
+	}
+
+	.navbar-content-inner {
+		width: 100%;
+		padding: 1.5rem 1rem;
+	}
+
+	@media (min-width: 40rem) {
+		.navbar-content-inner {
+			padding-inline: 1.5rem;
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.navbar-content-inner {
+			padding-inline: 1.75rem;
+		}
+	}
+}

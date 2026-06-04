@@ -1,41 +1,4 @@
 @layer components {
-	.layout-loading-copy {
-		display: grid;
-		gap: 0.5rem;
-	}
-
-	.layout-content-loading {
-		display: flex;
-		min-height: 2.5rem;
-		align-items: center;
-	}
-
-	.layout-footer-loading {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-	}
-
-	.page-shell {
-		width: 100%;
-		margin-inline: auto;
-		max-width: 84rem;
-	}
-
-	.page-shell-wide {
-		max-width: 88rem;
-	}
-
-	@media (min-width: 96rem) {
-		.page-shell {
-			max-width: 88rem;
-		}
-
-		.page-shell-wide {
-			max-width: 100rem;
-		}
-	}
-
 	.scroll-area-root {
 		position: relative;
 		overflow: hidden;
