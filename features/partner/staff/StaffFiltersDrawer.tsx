@@ -53,24 +53,24 @@ export function StaffFiltersDrawer({
 			onApply={onApply}
 		>
 			<TextFieldFilter
-				label={t("identity.accountPage.filters.name.label")}
+				label={t("common.filters.name.label")}
 				value={filters.name}
 				onChange={value => onFilterChange("name", value)}
-				placeholder={t("identity.accountPage.filters.name.placeholder")}
+				placeholder={t("common.filters.name.placeholder")}
 			/>
 
 			<NumberFieldFilter
-				label={t("identity.accountPage.filters.cpf.label")}
+				label={t("common.filters.cpf.label")}
 				value={filters.cpf}
 				onChange={value => onFilterChange("cpf", value)}
-				placeholder={t("identity.accountPage.filters.cpf.placeholder")}
+				placeholder={t("common.filters.cpf.placeholder")}
 			/>
 
 			<TextFieldFilter
-				label={t("identity.accountPage.filters.email.label")}
+				label={t("common.filters.email.label")}
 				value={filters.email}
 				onChange={value => onFilterChange("email", value)}
-				placeholder={t("identity.accountPage.filters.email.placeholder")}
+				placeholder={t("common.filters.email.placeholder")}
 			/>
 
 			{entitiesError ? (
@@ -98,20 +98,20 @@ export function StaffFiltersDrawer({
 			)}
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("identity.accountPage.filters.startDate.label")}</Label>
+				<Label>{t("common.filters.startDate.label")}</Label>
 				<DatePicker
 					value={filters.dateFrom}
 					onValueChange={value => onFilterChange("dateFrom", value)}
-					placeholder={t("identity.accountPage.filters.startDate.placeholder")}
+					placeholder={t("common.filters.startDate.placeholder")}
 				/>
 			</div>
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("identity.accountPage.filters.endDate.label")}</Label>
+				<Label>{t("common.filters.endDate.label")}</Label>
 				<DatePicker
 					value={filters.dateTo}
 					onValueChange={value => onFilterChange("dateTo", value)}
-					placeholder={t("identity.accountPage.filters.endDate.placeholder")}
+					placeholder={t("common.filters.endDate.placeholder")}
 				/>
 			</div>
 
@@ -120,8 +120,8 @@ export function StaffFiltersDrawer({
 				onCheckedChange={checked =>
 					onFilterChange("activeOnly", checked === true)
 				}
-				label={t("identity.accountPage.filters.activeOnly.label")}
-				description={t("identity.accountPage.filters.activeOnly.description")}
+				label={t("common.filters.activeOnly.label")}
+				description={t("common.filters.activeOnly.description")}
 			/>
 		</ServicePageFiltersDrawer>
 	);

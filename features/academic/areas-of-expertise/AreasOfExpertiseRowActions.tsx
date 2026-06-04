@@ -27,25 +27,25 @@ export function AreasOfExpertiseRowActions({
 		<>
 			<DropdownMenuInfoItem
 				icon={ArrowUpRight}
-				label={t("academic.schoolPage.table.actions.viewDetails")}
+				label={t("common.table.actions.viewDetails")}
 				onClick={() => {
 					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}
-				label={t("academic.schoolPage.table.actions.update")}
+				label={t("common.table.actions.update")}
 				onClick={() => onOpenEditor(areaOfExpertise.id, "update")}
 			/>
 			<DropdownMenuItem
 				icon={CopyPlus}
-				label={t("academic.schoolPage.table.actions.duplicate")}
+				label={t("common.table.actions.duplicate")}
 				onClick={() => onDuplicate(areaOfExpertise)}
 			/>
 			<DropdownMenuSeparator />
 			<DropdownMenuDangerItem
 				icon={Trash2}
-				label={t("academic.schoolPage.table.actions.delete")}
+				label={t("common.table.actions.delete")}
 				onClick={() => onDelete(areaOfExpertise)}
 			/>
 		</>

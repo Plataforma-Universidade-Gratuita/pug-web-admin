@@ -28,7 +28,7 @@ export function AttendancesRowActions({
 		<>
 			<DropdownMenuInfoItem
 				icon={ArrowUpRight}
-				label={t("project.attendancePage.table.actions.viewDetails")}
+				label={t("common.table.actions.viewDetails")}
 				onClick={() => {
 					router.push(href);
 				}}
@@ -56,7 +56,7 @@ export function AttendancesRowActions({
 			<DropdownMenuSeparator />
 			<DropdownMenuDangerItem
 				icon={Trash2}
-				label={t("project.attendancePage.table.actions.delete")}
+				label={t("common.table.actions.delete")}
 				onClick={() => onDelete(attendance)}
 			/>
 		</>

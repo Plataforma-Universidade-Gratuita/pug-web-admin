@@ -934,7 +934,43 @@
         }
     },
     "common": {
-        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)"
+        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
+        "filters": {
+            "activeOnly": {
+                "description": "Hide inactive records from the directory results.",
+                "label": "Show only active records"
+            },
+            "cpf": {
+                "label": "CPF",
+                "placeholder": "Enter a CPF"
+            },
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter an email"
+            },
+            "endDate": {
+                "label": "End date",
+                "placeholder": "Select date"
+            },
+            "name": {
+                "label": "Name",
+                "placeholder": "Enter a name"
+            },
+            "startDate": {
+                "label": "Start date",
+                "placeholder": "Select date"
+            }
+        },
+        "table": {
+            "actions": {
+                "deactivate": "Deactivate",
+                "delete": "Delete",
+                "duplicate": "Duplicate",
+                "reactivate": "Reactivate",
+                "update": "Update",
+                "viewDetails": "View details"
+            }
+        }
     },
     "components": {
         "datePicker": {

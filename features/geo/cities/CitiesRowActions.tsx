@@ -15,7 +15,7 @@ export function CitiesRowActions({ href }: CitiesRowActionsProps) {
 	return (
 		<DropdownMenuInfoItem
 			icon={ArrowUpRight}
-			label={t("geo.cityPage.table.actions.viewDetails")}
+			label={t("common.table.actions.viewDetails")}
 			onClick={() => {
 				router.push(href);
 			}}

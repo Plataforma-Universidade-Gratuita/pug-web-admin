@@ -40,19 +40,19 @@ export function ProjectsRowActions({
 		<>
 			<DropdownMenuInfoItem
 				icon={ArrowUpRight}
-				label={t("project.projectPage.table.actions.viewDetails")}
+				label={t("common.table.actions.viewDetails")}
 				onClick={() => {
 					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}
-				label={t("project.projectPage.table.actions.update")}
+				label={t("common.table.actions.update")}
 				onClick={() => onOpenEditor(project.id, "update")}
 			/>
 			<DropdownMenuItem
 				icon={CopyPlus}
-				label={t("project.projectPage.table.actions.duplicate")}
+				label={t("common.table.actions.duplicate")}
 				onClick={() => onDuplicate(project)}
 			/>
 
@@ -112,7 +112,7 @@ export function ProjectsRowActions({
 			<DropdownMenuSeparator />
 			<DropdownMenuDangerItem
 				icon={Trash2}
-				label={t("project.projectPage.table.actions.delete")}
+				label={t("common.table.actions.delete")}
 				onClick={() => onDelete(project)}
 			/>
 		</>

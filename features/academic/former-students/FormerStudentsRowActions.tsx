@@ -37,38 +37,38 @@ export function FormerStudentsRowActions({
 		<>
 			<DropdownMenuInfoItem
 				icon={ArrowUpRight}
-				label={t("academic.studentPage.table.actions.viewDetails")}
+				label={t("common.table.actions.viewDetails")}
 				onClick={() => {
 					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}
-				label={t("academic.studentPage.table.actions.update")}
+				label={t("common.table.actions.update")}
 				onClick={() => onOpenEditor(formerStudent.accountId, "update")}
 			/>
 			<DropdownMenuItem
 				icon={CopyPlus}
-				label={t("academic.studentPage.table.actions.duplicate")}
+				label={t("common.table.actions.duplicate")}
 				onClick={() => onDuplicate(formerStudent)}
 			/>
 			<DropdownMenuSeparator />
 			{formerStudent.account?.active ? (
 				<DropdownMenuWarningItem
 					icon={ShieldX}
-					label={t("academic.studentPage.table.actions.deactivate")}
+					label={t("common.table.actions.deactivate")}
 					onClick={() => onSetActive(formerStudent)}
 				/>
 			) : (
 				<DropdownMenuSuccessItem
 					icon={ShieldCheck}
-					label={t("academic.studentPage.table.actions.reactivate")}
+					label={t("common.table.actions.reactivate")}
 					onClick={() => onSetActive(formerStudent)}
 				/>
 			)}
 			<DropdownMenuDangerItem
 				icon={Trash2}
-				label={t("academic.studentPage.table.actions.delete")}
+				label={t("common.table.actions.delete")}
 				onClick={() => onDelete(formerStudent)}
 			/>
 		</>

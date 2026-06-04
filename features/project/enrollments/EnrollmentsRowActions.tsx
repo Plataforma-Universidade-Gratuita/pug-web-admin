@@ -35,7 +35,7 @@ export function EnrollmentsRowActions({
 		<>
 			<DropdownMenuInfoItem
 				icon={ArrowUpRight}
-				label={t("project.enrollmentPage.table.actions.viewDetails")}
+				label={t("common.table.actions.viewDetails")}
 				onClick={() => {
 					router.push(href);
 				}}
@@ -91,7 +91,7 @@ export function EnrollmentsRowActions({
 			<DropdownMenuSeparator />
 			<DropdownMenuDangerItem
 				icon={Trash2}
-				label={t("project.enrollmentPage.table.actions.delete")}
+				label={t("common.table.actions.delete")}
 				onClick={() => onDelete(enrollment)}
 			/>
 		</>

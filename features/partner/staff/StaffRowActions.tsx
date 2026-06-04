@@ -37,38 +37,38 @@ export function StaffRowActions({
 		<>
 			<DropdownMenuInfoItem
 				icon={ArrowUpRight}
-				label={t("partner.staffPage.table.actions.viewDetails")}
+				label={t("common.table.actions.viewDetails")}
 				onClick={() => {
 					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}
-				label={t("partner.staffPage.table.actions.update")}
+				label={t("common.table.actions.update")}
 				onClick={() => onOpenEditor(staff.account.id, "update")}
 			/>
 			<DropdownMenuItem
 				icon={CopyPlus}
-				label={t("partner.staffPage.table.actions.duplicate")}
+				label={t("common.table.actions.duplicate")}
 				onClick={() => onDuplicate(staff)}
 			/>
 			<DropdownMenuSeparator />
 			{staff.account.active ? (
 				<DropdownMenuWarningItem
 					icon={ShieldX}
-					label={t("partner.staffPage.table.actions.deactivate")}
+					label={t("common.table.actions.deactivate")}
 					onClick={() => onSetActive(staff, false)}
 				/>
 			) : (
 				<DropdownMenuSuccessItem
 					icon={ShieldCheck}
-					label={t("partner.staffPage.table.actions.reactivate")}
+					label={t("common.table.actions.reactivate")}
 					onClick={() => onSetActive(staff, true)}
 				/>
 			)}
 			<DropdownMenuDangerItem
 				icon={Trash2}
-				label={t("partner.staffPage.table.actions.delete")}
+				label={t("common.table.actions.delete")}
 				onClick={() => onDelete(staff)}
 			/>
 		</>

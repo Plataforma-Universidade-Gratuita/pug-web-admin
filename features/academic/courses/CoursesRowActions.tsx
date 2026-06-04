@@ -27,25 +27,25 @@ export function CoursesRowActions({
 		<>
 			<DropdownMenuInfoItem
 				icon={ArrowUpRight}
-				label={t("academic.coursePage.table.actions.viewDetails")}
+				label={t("common.table.actions.viewDetails")}
 				onClick={() => {
 					router.push(href);
 				}}
 			/>
 			<DropdownMenuItem
 				icon={PenSquare}
-				label={t("academic.coursePage.table.actions.update")}
+				label={t("common.table.actions.update")}
 				onClick={() => onOpenEditor(course.id, "update")}
 			/>
 			<DropdownMenuItem
 				icon={CopyPlus}
-				label={t("academic.coursePage.table.actions.duplicate")}
+				label={t("common.table.actions.duplicate")}
 				onClick={() => onDuplicate(course)}
 			/>
 			<DropdownMenuSeparator />
 			<DropdownMenuDangerItem
 				icon={Trash2}
-				label={t("academic.coursePage.table.actions.delete")}
+				label={t("common.table.actions.delete")}
 				onClick={() => onDelete(course)}
 			/>
 		</>

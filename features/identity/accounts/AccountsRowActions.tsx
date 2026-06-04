@@ -15,7 +15,7 @@ export function AccountsRowActions({ href }: AccountsRowActionsProps) {
 	return (
 		<DropdownMenuInfoItem
 			icon={ArrowUpRight}
-			label={t("identity.accountPage.table.actions.viewDetails")}
+			label={t("common.table.actions.viewDetails")}
 			onClick={() => {
 				router.push(href);
 			}}
