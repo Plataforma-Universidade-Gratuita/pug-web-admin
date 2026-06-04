@@ -74,7 +74,7 @@ This plan is intentionally detailed because there are now many service-page impl
 
 - [x] Generic row actions are repeated across many modules.
 - [ ] Generic action copy is repeated or borrowed from unrelated namespaces.
-- [ ] Filter drawers repeatedly rebuild the same labeled fields and async combobox blocks.
+- [x] Filter drawers repeatedly rebuild the same labeled fields and async combobox blocks.
 - [ ] Activatable/delete flows are implemented multiple times with mostly the same shape.
 - [ ] Account-backed duplicate flows repeat the same fetch/copy/toast logic.
 - [ ] Editor forms repeat the same account-summary and linked-detail sections.
@@ -280,46 +280,46 @@ Reduce repeated filter drawer markup while keeping drawers readable.
 
 Proposed component:
 
-- [ ] `AsyncComboboxFilterField`
+- [x] `AsyncComboboxFilterField`
 
 Responsibilities:
 
-- [ ] label
-- [ ] combobox rendering
-- [ ] optional `multiple`
-- [ ] loading/disabled state
-- [ ] error-state fallback with refresh action
-- [ ] placeholder/search/empty message props
+- [x] label
+- [x] combobox rendering
+- [x] optional `multiple`
+- [x] loading/disabled state
+- [x] error-state fallback with refresh action
+- [x] placeholder/search/empty message props
 
 Primary migration candidates:
 
-- [ ] `StaffFiltersDrawer`
-- [ ] `ProjectsFiltersDrawer`
-- [ ] `FormerStudentsFiltersDrawer`
+- [x] `StaffFiltersDrawer`
+- [x] `ProjectsFiltersDrawer`
+- [x] `FormerStudentsFiltersDrawer`
 - [ ] any other drawer using `SomeErrorState + Label + Combobox`
 
 ### 3.2 Introduce date range filter field block
 
 Proposed component:
 
-- [ ] `DateRangeFilterFields`
+- [x] `DateRangeFilterFields`
 
 Responsibilities:
 
-- [ ] `start` label + date picker
-- [ ] `end` label + date picker
-- [ ] layout
+- [x] `start` label + date picker
+- [x] `end` label + date picker
+- [x] layout
 
 Use for:
 
-- [ ] staff audit date range
-- [ ] project audit date range
-- [ ] former-student audit date range
-- [ ] any other plain dateFrom/dateTo pair
+- [x] staff audit date range
+- [x] project audit date range
+- [x] former-student audit date range
+- [x] any other plain dateFrom/dateTo pair
 
 Do **not** replace:
 
-- [ ] `AuditInfoFilter`
+- [x] `AuditInfoFilter`
 
 Reason:
 
@@ -342,18 +342,18 @@ Current state is mixed:
 
 Decision to make:
 
-- [ ] Choose one convention for header filters:
+- [x] Choose one convention for header filters:
   - always wrap in `*Filters.tsx`
   - or allow inline only when <=2 simple fields
 
 Recommended convention:
 
-- [ ] keep a dedicated `*Filters.tsx` when there is any drawer interaction or more than one frontend control
-- [ ] inline only for the most trivial single-field pages
+- [x] keep a dedicated `*Filters.tsx` when there is any drawer interaction or more than one frontend control
+- [x] inline only for the most trivial single-field pages
 
 ### 3.5 Validation
 
-- [ ] `npm run format`
+- [x] `npm run format`
 - [ ] manual visual check of drawers:
   - staff
   - projects
