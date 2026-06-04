@@ -4,12 +4,13 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import { Combobox, Label, NoContentState, SomeErrorState, toast } from "@/components";
 import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
 import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { useUsersQuery } from "@/features/identity/users/queries";
 import { AttendanceEditorDrawer } from "@/features/project/attendances/AttendanceEditorDrawer";
 import { AttendancesFiltersDrawer } from "@/features/project/attendances/AttendancesFiltersDrawer";
+import { AttendanceQrCodeDialog } from "@/features/project/attendances/AttendanceQrCodeDialog";
 import { AttendancesRowActions } from "@/features/project/attendances/AttendancesRowActions";
 import {
 	useRemoveAttendanceMutation,
@@ -22,6 +23,7 @@ import {
 import {
 	buildAttendanceFormerStudentOptions,
 	buildAttendanceProjectOptions,
+	getAttendanceStatusOptions,
 	buildAttendanceValidatorOptions,
 	createAttendanceColumns,
 	filterAttendanceListByBackendFilters,
@@ -48,6 +50,7 @@ import {
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
 import {
+	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
 	useServicePageEditorState,
@@ -67,10 +70,11 @@ function getValidationVariant(action: AttendanceValidationAction) {
 export function AttendancesPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
+	const [frontendStatuses, setFrontendStatuses] = useState<AttendanceDirectoryItem["status"]["status"][]>([]);
 	const [filtersOpen, setFiltersOpen] = useState(false);
 	const editorState = useServicePageEditorState<AttendanceEditorMode>({
 		createMode: "create",
-		defaultMode: "update",
+		defaultMode: "create",
 	});
 	const {
 		appliedFilters,
@@ -100,6 +104,8 @@ export function AttendancesPage() {
 		action: AttendanceValidationAction;
 		attendance: AttendanceDirectoryItem;
 	} | null>(null);
+	const [qrDialogAttendance, setQrDialogAttendance] =
+		useState<AttendanceDirectoryItem | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const attendancesQuery = useAttendancesQuery(attendancesPagination.isAll);
 	const attendancesSearchQuery = useAttendancesSearchQuery(
@@ -114,6 +120,7 @@ export function AttendancesPage() {
 	const usersQuery = useUsersQuery();
 	const removeAttendanceMutation = useRemoveAttendanceMutation();
 	const validateAttendanceMutation = useValidateAttendanceMutation();
+	const { schedule } = useDeferredUndoAction();
 
 	const activeQueryError = attendancesPagination.isAll
 		? attendancesQuery.error
@@ -169,6 +176,7 @@ export function AttendancesPage() {
 		() => buildAttendanceValidatorOptions(accountsQuery.data ?? [], userById),
 		[accountsQuery.data, userById],
 	);
+	const statusOptions = useMemo(() => getAttendanceStatusOptions(t), [t]);
 	const backendFilteredAllAttendances = useMemo(() => {
 		if (!attendancesPagination.isAll) {
 			return [];
@@ -218,11 +226,14 @@ export function AttendancesPage() {
 		() =>
 			filterAttendancesByFrontendFilters(tableSourceAttendances, {
 				query: deferredQuerySearch,
+				statuses: frontendStatuses,
 			}),
-		[deferredQuerySearch, tableSourceAttendances],
+		[deferredQuerySearch, frontendStatuses, tableSourceAttendances],
 	);
 	const columns = useMemo(() => createAttendanceColumns(t), [t]);
-	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
+	const hasAnyFilters = Boolean(
+		querySearch.trim() || hasAppliedFilters || frontendStatuses.length > 0,
+	);
 	const filterSummary = useMemo(
 		() => getAttendanceFilterSummary(t, appliedFilters, deferredQuerySearch),
 		[appliedFilters, deferredQuerySearch, t],
@@ -317,6 +328,7 @@ export function AttendancesPage() {
 
 	function clearAllFilters() {
 		setQuerySearch("");
+		setFrontendStatuses([]);
 		clearFilters();
 		attendancesPagination.resetPage();
 		setFiltersOpen(false);
@@ -330,31 +342,43 @@ export function AttendancesPage() {
 		const attendance = pendingDeleteAttendance;
 		setPendingDeleteAttendance(null);
 
-		removeAttendanceMutation.mutate(
-			{ id: attendance.id },
-			{
-				onSuccess: () => {
-					toast.success(
-						t("project.attendancePage.delete.feedback.success.title"),
-						{
-							description: t(
-								"project.attendancePage.delete.feedback.success.description",
+		schedule({
+			key: attendance.id,
+			title: t("project.attendancePage.delete.undo.title"),
+			description: t("project.attendancePage.delete.undo.description", {
+				id: attendance.id,
+				project: attendance.project.name,
+				student: attendance.student.account.name,
+			}),
+			undoLabel: t("project.attendancePage.delete.undo.action"),
+			onCommit: () => {
+				removeAttendanceMutation.mutate(
+					{ id: attendance.id },
+					{
+						onSuccess: () => {
+							toast.success(
+								t("project.attendancePage.delete.feedback.success.title"),
 								{
-									id: attendance.id,
-									project: attendance.project.name,
-									student: attendance.student.account.name,
+									description: t(
+										"project.attendancePage.delete.feedback.success.description",
+										{
+											id: attendance.id,
+											project: attendance.project.name,
+											student: attendance.student.account.name,
+										},
+									),
 								},
-							),
+							);
 						},
-					);
-				},
-				onError: error => {
-					const { title, description } =
-						getAttendanceDeleteErrorToastContent(t, error);
-					toast.danger(title, { description });
-				},
+						onError: error => {
+							const { title, description } =
+								getAttendanceDeleteErrorToastContent(t, error);
+							toast.danger(title, { description });
+						},
+					},
+				);
 			},
-		);
+		});
 	}
 
 	function handleValidationConfirm() {
@@ -425,12 +449,34 @@ export function AttendancesPage() {
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
 			>
-				<TextFieldFilter
-					label={t("project.attendancePage.filters.search.label")}
-					value={querySearch}
-					onChange={setQuerySearch}
-					placeholder={t("project.attendancePage.filters.search.placeholder")}
-				/>
+				<div className="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_minmax(220px,0.8fr)]">
+					<TextFieldFilter
+						label={t("project.attendancePage.filters.search.label")}
+						value={querySearch}
+						onChange={setQuerySearch}
+						placeholder={t("project.attendancePage.filters.search.placeholder")}
+					/>
+
+					<div className="grid gap-2">
+						<Label>{t("project.attendancePage.filters.status.label")}</Label>
+						<Combobox
+							multiple
+							options={statusOptions}
+							values={frontendStatuses}
+							onValuesChange={value =>
+								setFrontendStatuses(
+									value as AttendanceDirectoryItem["status"]["status"][],
+								)
+							}
+							placeholder={t("project.attendancePage.filters.status.placeholder")}
+							searchPlaceholder={t(
+								"project.attendancePage.filters.status.searchPlaceholder",
+							)}
+							emptyMessage={t("project.attendancePage.filters.status.emptyMessage")}
+							maxVisibleValues={1}
+						/>
+					</div>
+				</div>
 
 				<AttendancesFiltersDrawer
 					filters={draftFilters}
@@ -484,10 +530,10 @@ export function AttendancesPage() {
 							attendance={row}
 							href={`/project/attendances/${row.id}`}
 							onDelete={setPendingDeleteAttendance}
-							onOpenEditor={editorState.openEditor}
 							onValidate={(attendance, action) =>
 								setPendingValidation({ action, attendance })
 							}
+							onViewQrCode={setQrDialogAttendance}
 						/>
 					),
 					isLoading:
@@ -501,10 +547,20 @@ export function AttendancesPage() {
 			/>
 
 			<AttendanceEditorDrawer
-				mode={editorState.editorMode}
+				mode="create"
 				onOpenChange={editorState.handleOpenChange}
 				open={editorState.isOpen}
-				attendanceId={editorState.editorId}
+				attendanceId={null}
+			/>
+
+			<AttendanceQrCodeDialog
+				hash={qrDialogAttendance?.qrValidationInfo.qrValidationHash ?? null}
+				onOpenChange={open => {
+					if (!open) {
+						setQrDialogAttendance(null);
+					}
+				}}
+				open={qrDialogAttendance !== null}
 			/>
 
 			<ServicePageConfirmDialog

@@ -9,6 +9,7 @@ import {
 	AlertDialog,
 	AlertDialogContent,
 	AlertDialogDescription,
+	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
 	Button,
@@ -287,6 +288,7 @@ export function AttendanceEditorDrawer({
 					<Footer className="drawer-footer">
 						<Button
 							variant="secondary"
+							usage="danger"
 							onClick={() => setIsResetConfirmOpen(true)}
 							disabled={isSubmitPending}
 						>
@@ -350,22 +352,18 @@ export function AttendanceEditorDrawer({
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
 			>
-				<AlertDialogContent>
+				<AlertDialogContent variant="danger">
 					<AlertDialogHeader>
 						<AlertDialogTitle>{t("common.resetConfirm.title")}</AlertDialogTitle>
 						<AlertDialogDescription>
 							{t("common.resetConfirm.description")}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
-					<div className="flex justify-end gap-3">
-						<Button
-							variant="secondary"
-							onClick={() => setIsResetConfirmOpen(false)}
-						>
-							{t("common.cancel")}
-						</Button>
-						<Button onClick={resetForm}>{t("common.reset")}</Button>
-					</div>
+					<AlertDialogFooter
+						cancelLabel={t("common.cancel")}
+						actionLabel={t("project.attendancePage.editor.actions.reset")}
+						onAction={resetForm}
+					/>
 				</AlertDialogContent>
 			</AlertDialog>
 		</>

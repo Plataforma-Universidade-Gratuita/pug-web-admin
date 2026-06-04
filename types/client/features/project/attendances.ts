@@ -108,13 +108,14 @@ export interface AttendancesRowActionsProps {
 	attendance: AttendanceDirectoryItem;
 	href: string;
 	onDelete: (attendance: AttendanceDirectoryItem) => void;
-	onOpenEditor: (id: string, mode: AttendanceEditorMode) => void;
 	onValidate: (
 		attendance: AttendanceDirectoryItem,
 		action: AttendanceValidationAction,
 	) => void;
+	onViewQrCode: (attendance: AttendanceDirectoryItem) => void;
 }
 
 export interface AttendanceFilterArgs {
 	query: string;
+	statuses: AttendanceStatus[];
 }

@@ -113,6 +113,10 @@ export function buildAttendanceValidatorOptions(
 	userById: Map<string, UserResponse>,
 ): ComboboxOption[] {
 	return [...accounts]
+		.filter(account => {
+			const accountType = account.accountType.accountType;
+			return accountType === "ADMIN" || accountType === "PARTNER";
+		})
 		.sort((left, right) =>
 			compareNormalizedText(
 				userById.get(left.userId)?.name ?? left.email,
@@ -419,21 +423,28 @@ export function filterAttendanceListByBackendFilters(
 
 export function filterAttendancesByFrontendFilters(
 	items: AttendanceDirectoryItem[],
-	{ query }: AttendanceFilterArgs,
+	{ query, statuses }: AttendanceFilterArgs,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
-	if (!normalizedQuery) return items;
+	const hasStatuses = statuses.length > 0;
+	if (!normalizedQuery && !hasStatuses) return items;
 
 	return items.filter(item => {
+		if (hasStatuses && !statuses.includes(item.status.status)) {
+			return false;
+		}
+
 		const fields = [
 			item.project.name,
 			item.student.account.name,
 			item.student.account.email,
 			item.student.academicRegistration,
-			item.status.statusFormatted,
 			item.validator?.name ?? "",
-			item.qrValidationInfo.qrValidationHash,
 		].map(value => normalizeTextForSearch(String(value)));
+
+		if (!normalizedQuery) {
+			return true;
+		}
 
 		return fields.some(value => value.includes(normalizedQuery));
 	});

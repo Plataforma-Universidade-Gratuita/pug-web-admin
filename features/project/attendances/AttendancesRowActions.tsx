@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import {
 	ArrowUpRight,
 	Check,
-	PenSquare,
+	QrCode,
 	Trash2,
 	UserRoundX,
 } from "lucide-react";
@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
 import {
 	DropdownMenuDangerItem,
 	DropdownMenuInfoItem,
-	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
@@ -25,8 +24,8 @@ export function AttendancesRowActions({
 	attendance,
 	href,
 	onDelete,
-	onOpenEditor,
 	onValidate,
+	onViewQrCode,
 }: AttendancesRowActionsProps) {
 	const { t } = useTranslation();
 	const router = useRouter();
@@ -40,10 +39,10 @@ export function AttendancesRowActions({
 					router.push(href);
 				}}
 			/>
-			<DropdownMenuItem
-				icon={PenSquare}
-				label={t("project.attendancePage.table.actions.update")}
-				onClick={() => onOpenEditor(attendance.id, "update")}
+			<DropdownMenuInfoItem
+				icon={QrCode}
+				label={t("project.attendancePage.table.actions.viewQrCode")}
+				onClick={() => onViewQrCode(attendance)}
 			/>
 			<DropdownMenuSeparator />
 			{attendance.status.status !== "PRESENT" ? (

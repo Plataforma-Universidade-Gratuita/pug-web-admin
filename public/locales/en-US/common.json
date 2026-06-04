@@ -4381,6 +4381,24 @@
                 "linkedStudent": {
                     "overhead": "Linked former student"
                 },
+                "qrCodeDialog": {
+                    "copy": {
+                        "action": "Copy hash",
+                        "feedback": {
+                            "error": {
+                                "description": "The QR validation hash could not be copied right now.",
+                                "title": "Unable to copy QR hash"
+                            },
+                            "success": {
+                                "description": "The QR validation hash is ready to paste.",
+                                "title": "QR hash copied"
+                            }
+                        }
+                    },
+                    "hashLabel": "QR validation hash",
+                    "overhead": "Attendance QR code",
+                    "title": "Attendance QR code"
+                },
                 "notFound": {
                     "description": "The requested attendance record could not be found.",
                     "title": "Attendance not found"
@@ -4613,7 +4631,8 @@
                     "markAbsent": "Mark absent",
                     "markPresent": "Mark present",
                     "update": "Update",
-                    "viewDetails": "View details"
+                    "viewDetails": "View details",
+                    "viewQrCode": "View QR code"
                 },
                 "columns": {
                     "createdAt": "Created",
