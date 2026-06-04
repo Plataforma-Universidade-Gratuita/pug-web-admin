@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-import { FloatingPageControls } from "@/features/floating-page-controls";
+import { FloatingPageSelectors } from "@/components";
 
 export default function NotFoundPage() {
 	return (
 		<>
-			<FloatingPageControls />
+			<FloatingPageSelectors />
 			<div className="surface-1 flex min-h-dvh items-center justify-center px-6 py-12">
 				<div className="surface-2 border-border flex w-full max-w-xl flex-col gap-4 rounded-lg border p-6 shadow-sm">
 					<p className="field-label">Not found</p>

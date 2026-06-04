@@ -2,8 +2,7 @@
 
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
-import { Button } from "@/components";
-import { FloatingPageControls } from "@/features/floating-page-controls";
+import { Button, FloatingPageSelectors } from "@/components";
 import type { RouteBoundaryPageProps } from "@/types";
 
 export default function GlobalErrorPage(props: RouteBoundaryPageProps) {
@@ -14,7 +13,7 @@ export default function GlobalErrorPage(props: RouteBoundaryPageProps) {
 					initialLangCookieValue={undefined}
 					initialThemeCookieValue={undefined}
 				>
-					<FloatingPageControls />
+					<FloatingPageSelectors />
 					<div className="surface-1 flex min-h-dvh items-center justify-center px-6 py-12">
 						<div className="surface-2 border-border flex w-full max-w-xl flex-col gap-4 rounded-lg border p-6 shadow-sm">
 							<p className="field-label">Application error</p>

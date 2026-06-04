@@ -7,7 +7,7 @@ import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants";
 import { useLocale } from "@/contexts/locale";
 import { useTheme } from "@/contexts/theme";
 
-export function FloatingPageControls() {
+export function FloatingPageSelectors() {
 	const { t } = useTranslation();
 	const { lang, setLang } = useLocale();
 	const { mode, setMode } = useTheme();

@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { FloatingPageSelectors } from "@/components";
 import { LoginForm } from "@/features/auth/login/LoginForm";
 import { LoginHero } from "@/features/auth/login/LoginHero";
-import { FloatingPageControls } from "@/features/floating-page-controls";
 
 export default function Page() {
 	const formCardRef = useRef<HTMLDivElement | null>(null);
@@ -37,7 +37,7 @@ export default function Page() {
 
 	return (
 		<main className="login-page">
-			<FloatingPageControls />
+			<FloatingPageSelectors />
 			<section className="login-page-content">
 				<div
 					className="login-page-panel login-page-panel-hero"

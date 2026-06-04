@@ -8,7 +8,7 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { ServicePageMetadataPopover } from "@/features/shared/service-pages/ServicePageMetadataPopover";
+import { MetadataPopover } from "@/components";
 import type { ServicePageHeaderProps } from "@/types";
 
 export function ServicePageHeader({
@@ -30,7 +30,7 @@ export function ServicePageHeader({
 				</div>
 				<SectionActions>
 					{actions}
-					<ServicePageMetadataPopover {...metadata} />
+					<MetadataPopover {...metadata} />
 				</SectionActions>
 			</SectionHeader>
 			<SectionContent className={clsx("grid gap-4", filtersClassName)}>

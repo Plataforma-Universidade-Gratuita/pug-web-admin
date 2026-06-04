@@ -9,7 +9,7 @@ import {
 } from "@/components";
 import type { ServicePageMetadataPopoverProps } from "@/types";
 
-export function ServicePageMetadataPopover({
+export function MetadataPopover({
 	triggerLabel,
 	emptyTitle,
 	emptyDescription,

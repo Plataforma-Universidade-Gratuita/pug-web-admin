@@ -1,2 +1,0 @@
-/* --- Root --- */
-export * from "./LanguageSelector";
