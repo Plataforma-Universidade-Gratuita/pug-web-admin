@@ -342,7 +342,7 @@ export function EnrollmentsPage() {
 				project: enrollment.project.name,
 				student: enrollment.student.account.name,
 			}),
-			undoLabel: t("project.enrollmentPage.delete.undo.action"),
+			undoLabel: t("common.actions.undo"),
 			onCommit: () => {
 				deleteEnrollmentMutation.mutate(
 					{
@@ -425,15 +425,15 @@ export function EnrollmentsPage() {
 				title={t("project.enrollmentPage.title")}
 				description={t("project.enrollmentPage.description")}
 				metadata={{
-					triggerLabel: t("project.enrollmentPage.metadata.trigger"),
-					emptyTitle: t("project.enrollmentPage.metadata.empty.title"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
 					emptyDescription: t(
 						"project.enrollmentPage.metadata.empty.description",
 					),
 				}}
 				actions={
 					<ServicePageHeaderActions
-						clearLabel={t("project.enrollmentPage.filters.clear")}
+						clearLabel={t("common.filters.clear")}
 						createLabel={t("project.enrollmentPage.create.trigger")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}
@@ -444,16 +444,14 @@ export function EnrollmentsPage() {
 			>
 				<div className="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_minmax(220px,0.8fr)]">
 					<TextFieldFilter
-						label={t("project.enrollmentPage.filters.search.label")}
+						label={t("common.filters.search.label")}
 						value={querySearch}
 						onChange={setQuerySearch}
 						placeholder={t("project.enrollmentPage.filters.search.placeholder")}
 					/>
 
 					<div className="grid gap-2">
-						<Label>
-							{t("project.enrollmentPage.filters.frontStatus.label")}
-						</Label>
+						<Label>{t("common.fields.status")}</Label>
 						<Combobox
 							multiple
 							options={statusOptions}
@@ -461,9 +459,7 @@ export function EnrollmentsPage() {
 							onValuesChange={value =>
 								setFrontendStatuses(value as EnrollmentStatus[])
 							}
-							placeholder={t(
-								"project.enrollmentPage.filters.frontStatus.placeholder",
-							)}
+							placeholder={t("common.placeholders.select")}
 							searchPlaceholder={t(
 								"project.enrollmentPage.filters.frontStatus.searchPlaceholder",
 							)}

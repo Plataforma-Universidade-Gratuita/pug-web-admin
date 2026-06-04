@@ -173,15 +173,15 @@ export function ProjectsEditorDrawer({
 		isCreateMode
 			? "project.projectPage.create.actions.save"
 			: isDuplicateMode
-				? "project.projectPage.duplicate.actions.save"
-				: "project.projectPage.update.actions.save",
+				? "common.actions.createDuplicate"
+				: "common.actions.saveChanges",
 	);
 	const savePendingLabel = t(
 		isCreateMode
 			? "project.projectPage.create.actions.savePending"
 			: isDuplicateMode
-				? "project.projectPage.duplicate.actions.savePending"
-				: "project.projectPage.update.actions.savePending",
+				? "common.actions.createDuplicatePending"
+				: "common.actions.saveChangesPending",
 	);
 
 	useQueryErrorToasts([

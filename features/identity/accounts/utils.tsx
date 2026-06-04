@@ -111,7 +111,7 @@ export function createAccountColumns(
 		},
 		{
 			accessorKey: "id",
-			header: t("identity.accountPage.table.columns.id"),
+			header: t("common.fields.id"),
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			cell: ({ row }) => (
 				<TableText
@@ -129,7 +129,7 @@ export function createAccountColumns(
 		},
 		{
 			accessorKey: "email",
-			header: t("identity.accountPage.table.columns.email"),
+			header: t("common.fields.email"),
 			cell: ({ row }) => row.original.email,
 		},
 		{
@@ -157,13 +157,13 @@ export function createAccountColumns(
 		{
 			accessorFn: row => row.auditInfo.createdAt,
 			id: "createdAt",
-			header: t("identity.accountPage.table.columns.createdAt"),
+			header: t("common.fields.createdAt"),
 			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
 		},
 		{
 			accessorFn: row => row.auditInfo.updatedAt,
 			id: "updatedAt",
-			header: t("identity.accountPage.table.columns.updatedAt"),
+			header: t("common.fields.updatedAt"),
 			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
 		},
 	];

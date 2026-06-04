@@ -11,7 +11,7 @@ export function createCityColumns(t: TFunction): ColumnDef<CityResponse>[] {
 	return [
 		{
 			accessorKey: "id",
-			header: t("geo.cityPage.table.columns.identifier"),
+			header: t("common.fields.id"),
 			cell: ({ row }) => (
 				<TableText
 					text={row.original.id}

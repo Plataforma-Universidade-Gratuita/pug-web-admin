@@ -220,23 +220,17 @@ export function EntityEditorForm({
 			{!isCreateMode && entity ? (
 				<div className="grid gap-4 pt-2 sm:grid-cols-3">
 					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("partner.entityPage.dialog.fields.id")}
-						</p>
+						<p className="ty-helper">{t("common.fields.id")}</p>
 						<p className="ty-sm-semibold">{entity.id}</p>
 					</div>
 					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("partner.entityPage.dialog.fields.createdAt")}
-						</p>
+						<p className="ty-helper">{t("common.fields.createdAt")}</p>
 						<p className="ty-sm-semibold">
 							{entity.auditInfo.createdAtFormatted}
 						</p>
 					</div>
 					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("partner.entityPage.dialog.fields.updatedAt")}
-						</p>
+						<p className="ty-helper">{t("common.fields.updatedAt")}</p>
 						<p className="ty-sm-semibold">
 							{entity.auditInfo.updatedAtFormatted}
 						</p>

@@ -314,13 +314,13 @@ export function StaffPage() {
 				title={t("partner.staffPage.title")}
 				description={t("partner.staffPage.description")}
 				metadata={{
-					triggerLabel: t("partner.staffPage.metadata.trigger"),
-					emptyTitle: t("partner.staffPage.metadata.empty.title"),
-					emptyDescription: t("partner.staffPage.metadata.empty.description"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
+					emptyDescription: t("common.metadata.empty.description"),
 				}}
 				actions={
 					<ServicePageHeaderActions
-						clearLabel={t("partner.staffPage.filters.clear")}
+						clearLabel={t("common.filters.clear")}
 						createLabel={t("partner.staffPage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}

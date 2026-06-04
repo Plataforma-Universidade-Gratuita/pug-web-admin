@@ -358,7 +358,7 @@ export function AttendancesPage() {
 				project: attendance.project.name,
 				student: attendance.student.account.name,
 			}),
-			undoLabel: t("project.attendancePage.delete.undo.action"),
+			undoLabel: t("common.actions.undo"),
 			onCommit: () => {
 				removeAttendanceMutation.mutate(
 					{ id: attendance.id },
@@ -441,15 +441,15 @@ export function AttendancesPage() {
 				title={t("project.attendancePage.title")}
 				description={t("project.attendancePage.description")}
 				metadata={{
-					triggerLabel: t("project.attendancePage.metadata.trigger"),
-					emptyTitle: t("project.attendancePage.metadata.empty.title"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
 					emptyDescription: t(
 						"project.attendancePage.metadata.empty.description",
 					),
 				}}
 				actions={
 					<ServicePageHeaderActions
-						clearLabel={t("project.attendancePage.filters.clear")}
+						clearLabel={t("common.filters.clear")}
 						createLabel={t("project.attendancePage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}
@@ -460,14 +460,14 @@ export function AttendancesPage() {
 			>
 				<div className="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_minmax(220px,0.8fr)]">
 					<TextFieldFilter
-						label={t("project.attendancePage.filters.search.label")}
+						label={t("common.filters.search.label")}
 						value={querySearch}
 						onChange={setQuerySearch}
 						placeholder={t("project.attendancePage.filters.search.placeholder")}
 					/>
 
 					<div className="grid gap-2">
-						<Label>{t("project.attendancePage.filters.status.label")}</Label>
+						<Label>{t("common.fields.status")}</Label>
 						<Combobox
 							multiple
 							options={statusOptions}
@@ -477,9 +477,7 @@ export function AttendancesPage() {
 									value as AttendanceDirectoryItem["status"]["status"][],
 								)
 							}
-							placeholder={t(
-								"project.attendancePage.filters.status.placeholder",
-							)}
+							placeholder={t("common.placeholders.select")}
 							searchPlaceholder={t(
 								"project.attendancePage.filters.status.searchPlaceholder",
 							)}

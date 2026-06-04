@@ -158,10 +158,10 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/academic/courses/[courseId]": "academic.coursePage.dialog.titleFallback",
 	"/academic/areas-of-expertise": "Navbar.paths.academic.school",
 	"/academic/areas-of-expertise/[areaOfExpertiseId]":
-		"academic.schoolPage.dialog.titleFallback",
+		"academic.areaOfExpertisePage.dialog.titleFallback",
 	"/academic/former-students": "Navbar.paths.academic.student",
 	"/academic/former-students/[studentId]":
-		"academic.studentPage.dialog.titleFallback",
+		"academic.formerStudentPage.dialog.titleFallback",
 	"/geo": "Navbar.paths.geo.root",
 	"/geo/cities": "Navbar.paths.geo.city",
 	"/geo/cities/[cityId]": "geo.cityPage.dialog.titleFallback",

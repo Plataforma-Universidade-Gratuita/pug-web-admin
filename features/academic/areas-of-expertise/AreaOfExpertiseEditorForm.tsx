@@ -25,16 +25,20 @@ export function AreaOfExpertiseEditorForm({
 		) {
 			return (
 				<NotFoundState
-					title={t("academic.schoolPage.update.notFound.title")}
-					description={t("academic.schoolPage.update.notFound.description")}
+					title={t("academic.areaOfExpertisePage.update.notFound.title")}
+					description={t(
+						"academic.areaOfExpertisePage.update.notFound.description",
+					)}
 				/>
 			);
 		}
 
 		return (
 			<SomeErrorState
-				title={t("academic.schoolPage.update.loadError.title")}
-				description={t("academic.schoolPage.update.loadError.description")}
+				title={t("academic.areaOfExpertisePage.update.loadError.title")}
+				description={t(
+					"academic.areaOfExpertisePage.update.loadError.description",
+				)}
 				onRefresh={onRefreshAreaOfExpertise}
 			/>
 		);
@@ -42,7 +46,9 @@ export function AreaOfExpertiseEditorForm({
 
 	if (!canRenderForm) {
 		return (
-			<NotFoundState title={t("academic.schoolPage.update.notFound.title")} />
+			<NotFoundState
+				title={t("academic.areaOfExpertisePage.update.notFound.title")}
+			/>
 		);
 	}
 
@@ -50,7 +56,7 @@ export function AreaOfExpertiseEditorForm({
 		<div className="grid gap-4">
 			<div className="grid gap-2">
 				<Label htmlFor="school-name">
-					{t("academic.schoolPage.editor.fields.name")}
+					{t("academic.areaOfExpertisePage.editor.fields.name")}
 				</Label>
 				<Input
 					id="school-name"
@@ -59,7 +65,9 @@ export function AreaOfExpertiseEditorForm({
 						form.formState.errors.name ? "school-name-error" : undefined
 					}
 					aria-invalid={form.formState.errors.name ? "true" : "false"}
-					placeholder={t("academic.schoolPage.editor.fields.namePlaceholder")}
+					placeholder={t(
+						"academic.areaOfExpertisePage.editor.fields.namePlaceholder",
+					)}
 				/>
 				{form.formState.errors.name ? (
 					<p

@@ -22,17 +22,17 @@ export function CitiesFiltersDrawer({
 			open={open}
 			onOpenChange={onOpenChange}
 			hasActiveFilters={hasActiveFilters}
-			label={t("geo.cityPage.filters.backend.label")}
-			activeLabel={t("geo.cityPage.filters.backend.active")}
-			triggerLabel={t("geo.cityPage.filters.backend.trigger")}
-			overhead={t("geo.cityPage.filters.backend.overhead")}
-			title={t("geo.cityPage.filters.backend.title")}
-			clearConfirmTitle={t("geo.cityPage.filters.backend.clearConfirm.title")}
+			label={t("common.filters.label")}
+			activeLabel={t("common.filters.active")}
+			triggerLabel={t("common.filters.more")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
+			clearConfirmTitle={t("common.filters.clearConfirm.title")}
 			clearConfirmDescription={t(
 				"geo.cityPage.filters.backend.clearConfirm.description",
 			)}
 			clearLabel={t("geo.cityPage.filters.backend.clear")}
-			applyLabel={t("geo.cityPage.filters.backend.apply")}
+			applyLabel={t("common.filters.apply")}
 			onClear={onClear}
 			onApply={onApply}
 		>

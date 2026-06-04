@@ -96,8 +96,10 @@ export function AreasOfExpertisePage() {
 		if (areasOfExpertiseQuery.isError) {
 			return (
 				<SomeErrorState
-					title={t("academic.schoolPage.table.error.title")}
-					description={t("academic.schoolPage.table.error.description")}
+					title={t("academic.areaOfExpertisePage.table.error.title")}
+					description={t(
+						"academic.areaOfExpertisePage.table.error.description",
+					)}
 					onRefresh={() => {
 						void areasOfExpertiseQuery.refetch();
 					}}
@@ -146,10 +148,10 @@ export function AreasOfExpertisePage() {
 			{
 				onSuccess: createdAreaOfExpertise => {
 					toast.success(
-						t("academic.schoolPage.duplicate.feedback.success.title"),
+						t("academic.areaOfExpertisePage.duplicate.feedback.success.title"),
 						{
 							description: t(
-								"academic.schoolPage.duplicate.feedback.success.description",
+								"academic.areaOfExpertisePage.duplicate.feedback.success.description",
 								{
 									name: createdAreaOfExpertise.name,
 								},
@@ -176,11 +178,11 @@ export function AreasOfExpertisePage() {
 
 		schedule({
 			key: areaOfExpertise.id,
-			title: t("academic.schoolPage.delete.undo.title"),
-			description: t("academic.schoolPage.delete.undo.description", {
+			title: t("academic.areaOfExpertisePage.delete.undo.title"),
+			description: t("academic.areaOfExpertisePage.delete.undo.description", {
 				name: areaOfExpertise.name,
 			}),
-			undoLabel: t("academic.schoolPage.delete.undo.action"),
+			undoLabel: t("academic.areaOfExpertisePage.delete.undo.action"),
 			onCommit: () => {
 				removeAreaOfExpertiseMutation.mutate(
 					{
@@ -189,10 +191,10 @@ export function AreasOfExpertisePage() {
 					{
 						onSuccess: () => {
 							toast.success(
-								t("academic.schoolPage.delete.feedback.success.title"),
+								t("academic.areaOfExpertisePage.delete.feedback.success.title"),
 								{
 									description: t(
-										"academic.schoolPage.delete.feedback.success.description",
+										"academic.areaOfExpertisePage.delete.feedback.success.description",
 										{
 											name: areaOfExpertise.name,
 										},
@@ -216,17 +218,17 @@ export function AreasOfExpertisePage() {
 	return (
 		<ServicePageShell>
 			<ServicePageHeader
-				title={t("academic.schoolPage.title")}
-				description={t("academic.schoolPage.description")}
+				title={t("academic.areaOfExpertisePage.title")}
+				description={t("academic.areaOfExpertisePage.description")}
 				metadata={{
-					triggerLabel: t("academic.schoolPage.metadata.trigger"),
-					emptyTitle: t("academic.schoolPage.metadata.empty.title"),
-					emptyDescription: t("academic.schoolPage.metadata.empty.description"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
+					emptyDescription: t("common.metadata.empty.description"),
 				}}
 				actions={
 					<ServicePageHeaderActions
-						clearLabel={t("academic.schoolPage.filters.clear")}
-						createLabel={t("academic.schoolPage.create.open")}
+						clearLabel={t("common.filters.clear")}
+						createLabel={t("academic.areaOfExpertisePage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}
 						onCreate={editorState.openCreate}
@@ -235,18 +237,24 @@ export function AreasOfExpertisePage() {
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,0.8fr)_minmax(0,0.8fr)]"
 			>
 				<TextFieldFilter
-					label={t("academic.schoolPage.filters.search.label")}
+					label={t("academic.areaOfExpertisePage.filters.search.label")}
 					value={querySearch}
 					onChange={setQuerySearch}
-					placeholder={t("academic.schoolPage.filters.search.placeholder")}
+					placeholder={t(
+						"academic.areaOfExpertisePage.filters.search.placeholder",
+					)}
 				/>
 
 				<div className="grid gap-2">
-					<Label>{t("academic.schoolPage.filters.startDate.label")}</Label>
+					<Label>
+						{t("academic.areaOfExpertisePage.filters.startDate.label")}
+					</Label>
 					<DatePicker
 						value={startDateFilter}
 						onValueChange={setStartDateFilter}
-						placeholder={t("academic.schoolPage.filters.startDate.placeholder")}
+						placeholder={t(
+							"academic.areaOfExpertisePage.filters.startDate.placeholder",
+						)}
 						panelSide="bottom"
 						panelAlign="start"
 						panelAvoidCollisions
@@ -255,11 +263,15 @@ export function AreasOfExpertisePage() {
 				</div>
 
 				<div className="grid gap-2">
-					<Label>{t("academic.schoolPage.filters.endDate.label")}</Label>
+					<Label>
+						{t("academic.areaOfExpertisePage.filters.endDate.label")}
+					</Label>
 					<DatePicker
 						value={endDateFilter}
 						onValueChange={setEndDateFilter}
-						placeholder={t("academic.schoolPage.filters.endDate.placeholder")}
+						placeholder={t(
+							"academic.areaOfExpertisePage.filters.endDate.placeholder",
+						)}
 						panelSide="bottom"
 						panelAlign="start"
 						panelAvoidCollisions
@@ -284,7 +296,7 @@ export function AreasOfExpertisePage() {
 						/>
 					),
 					isLoading: areasOfExpertiseQuery.isLoading,
-					loadingLabel: t("academic.schoolPage.loading.list"),
+					loadingLabel: t("academic.areaOfExpertisePage.loading.list"),
 				}}
 			/>
 
@@ -303,10 +315,13 @@ export function AreasOfExpertisePage() {
 					}
 				}}
 				variant="danger"
-				title={t("academic.schoolPage.delete.confirm.title")}
-				description={t("academic.schoolPage.delete.confirm.description", {
-					name: pendingDeleteAreaOfExpertise?.name ?? "",
-				})}
+				title={t("academic.areaOfExpertisePage.delete.confirm.title")}
+				description={t(
+					"academic.areaOfExpertisePage.delete.confirm.description",
+					{
+						name: pendingDeleteAreaOfExpertise?.name ?? "",
+					},
+				)}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("common.table.actions.delete")}
 				onAction={handleDeleteConfirm}

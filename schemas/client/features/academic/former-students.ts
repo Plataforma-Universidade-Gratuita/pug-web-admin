@@ -22,51 +22,58 @@ export function createFormerStudentEditorFormSchema(
 		.object({
 			cpf: createCpfFieldSchema(
 				requiresIdentityFields,
-				t("academic.studentPage.editor.validation.cpf.required"),
-				t("academic.studentPage.editor.validation.cpf.invalid"),
+				t("academic.formerStudentPage.editor.validation.cpf.required"),
+				t("academic.formerStudentPage.editor.validation.cpf.invalid"),
 			),
 			name: createRequiredTrimmedStringSchema(
-				t("academic.studentPage.editor.validation.name.required"),
+				t("academic.formerStudentPage.editor.validation.name.required"),
 				255,
-				t("academic.studentPage.editor.validation.name.tooLong"),
+				t("academic.formerStudentPage.editor.validation.name.tooLong"),
 			),
 			email: createEmailFieldSchema(
 				true,
-				t("academic.studentPage.editor.validation.email.required"),
-				t("academic.studentPage.editor.validation.email.invalid"),
-				t("academic.studentPage.editor.validation.email.tooLong"),
+				t("academic.formerStudentPage.editor.validation.email.required"),
+				t("academic.formerStudentPage.editor.validation.email.invalid"),
+				t("academic.formerStudentPage.editor.validation.email.tooLong"),
 			),
 			academicRegistration: createRequiredTrimmedStringSchema(
 				t(
-					"academic.studentPage.editor.validation.academicRegistration.required",
+					"academic.formerStudentPage.editor.validation.academicRegistration.required",
 				),
 				15,
 				t(
-					"academic.studentPage.editor.validation.academicRegistration.tooLong",
+					"academic.formerStudentPage.editor.validation.academicRegistration.tooLong",
 				),
 			),
 			campus: CampiEnum,
 			courseId: z
 				.string()
 				.trim()
-				.min(1, t("academic.studentPage.editor.validation.course.required")),
+				.min(
+					1,
+					t("academic.formerStudentPage.editor.validation.course.required"),
+				),
 			requiredHours: createRequiredNumericStringSchema(
-				t("academic.studentPage.editor.validation.requiredHours.required"),
-				t("academic.studentPage.editor.validation.requiredHours.invalid"),
+				t(
+					"academic.formerStudentPage.editor.validation.requiredHours.required",
+				),
+				t("academic.formerStudentPage.editor.validation.requiredHours.invalid"),
 				false,
 			),
 			startDate: createRequiredDateStringSchema(
-				t("academic.studentPage.editor.validation.startDate.required"),
+				t("academic.formerStudentPage.editor.validation.startDate.required"),
 			),
 			dueDate: createRequiredDateStringSchema(
-				t("academic.studentPage.editor.validation.dueDate.required"),
+				t("academic.formerStudentPage.editor.validation.dueDate.required"),
 			),
 		})
 		.superRefine((value, ctx) => {
 			if (isDateRangeInvalid(value.startDate, value.dueDate)) {
 				ctx.addIssue({
 					code: "custom",
-					message: t("academic.studentPage.editor.validation.dueDate.range"),
+					message: t(
+						"academic.formerStudentPage.editor.validation.dueDate.range",
+					),
 					path: ["dueDate"],
 				});
 			}

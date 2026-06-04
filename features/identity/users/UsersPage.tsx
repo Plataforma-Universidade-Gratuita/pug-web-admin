@@ -186,9 +186,9 @@ export function UsersPage() {
 				title={t("identity.userPage.title")}
 				description={t("identity.userPage.description")}
 				metadata={{
-					triggerLabel: t("identity.userPage.metadata.trigger"),
-					emptyTitle: t("identity.userPage.metadata.empty.title"),
-					emptyDescription: t("identity.userPage.metadata.empty.description"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
+					emptyDescription: t("common.metadata.empty.description"),
 				}}
 				actions={
 					hasAnyFilters ? (
@@ -196,7 +196,7 @@ export function UsersPage() {
 							variant="secondary"
 							onClick={clearAllFilters}
 						>
-							{t("identity.userPage.filters.clear")}
+							{t("common.filters.clear")}
 						</Button>
 					) : undefined
 				}

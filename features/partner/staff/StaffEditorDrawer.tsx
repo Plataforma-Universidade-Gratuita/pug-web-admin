@@ -158,15 +158,15 @@ export function StaffEditorDrawer({
 		isCreateMode
 			? "partner.staffPage.create.actions.save"
 			: isDuplicateMode
-				? "partner.staffPage.duplicate.actions.save"
-				: "partner.staffPage.update.actions.save",
+				? "common.actions.createDuplicate"
+				: "common.actions.saveChanges",
 	);
 	const savePendingLabel = t(
 		isCreateMode
 			? "partner.staffPage.create.actions.savePending"
 			: isDuplicateMode
-				? "partner.staffPage.duplicate.actions.savePending"
-				: "partner.staffPage.update.actions.savePending",
+				? "common.actions.createDuplicatePending"
+				: "common.actions.saveChangesPending",
 	);
 
 	useQueryErrorToasts([
@@ -341,7 +341,7 @@ export function StaffEditorDrawer({
 							disabled={!form.formState.isDirty || isSubmitPending}
 							onClick={() => setIsResetConfirmOpen(true)}
 						>
-							{t("partner.staffPage.editor.actions.reset")}
+							{t("common.actions.resetChanges")}
 						</Button>
 						<Button
 							usage="success"
@@ -374,7 +374,7 @@ export function StaffEditorDrawer({
 					</AlertDialogHeader>
 					<AlertDialogFooter
 						cancelLabel={t("common.cancel")}
-						actionLabel={t("partner.staffPage.editor.actions.reset")}
+						actionLabel={t("common.actions.resetChanges")}
 						onAction={resetForm}
 					/>
 				</AlertDialogContent>

@@ -146,10 +146,17 @@ Stop using module-specific copy for generic actions and stop borrowing unrelated
   - `common.filters.activeOnly.description`
   - `common.filters.search`
   - `common.filters.selectPlaceholder`
-- [ ] Add generic drawer labels:
-  - `common.drawer.apply`
-  - `common.drawer.clearFilters`
-  - `common.drawer.filtersActive`
+- [x] Add generic drawer labels:
+  - `common.filters.apply`
+  - `common.filters.clear`
+  - `common.filters.active`
+  - `common.filters.more`
+  - `common.filters.overhead`
+  - `common.filters.title`
+  - `common.filters.clearConfirm.*`
+- [x] Replace generic row-action usages in source with `common.table.actions.*`.
+- [x] Remove redundant page-level generic action keys once no source file references them.
+- [x] Run the unused-translation checker and prune dead `en-US` keys before Phase 2.
 
 ### 1.2 Replace identity-copy leakage
 
@@ -163,21 +170,21 @@ Tasks:
 - [x] Replace borrowed identity filter labels in:
   - `features/partner/staff/StaffFiltersDrawer.tsx`
   - `features/academic/former-students/FormerStudentsFiltersDrawer.tsx`
-- [ ] Audit and replace any remaining borrowed identity filter labels in other project/partner/academic drawers
-- [ ] Replace borrowed docs copy that still resolves generic actions indirectly.
+- [x] Audit and replace remaining borrowed identity filter labels in other project/partner/academic drawers where the labels were generic enough to live under `common.filters.*`
+- [x] Replace borrowed docs copy that still resolves generic row actions indirectly.
 
 ### 1.3 Normalize academic legacy naming
 
-- [ ] Audit `academic.schoolPage.*` and migrate to `academic.areaOfExpertisePage.*` where still appropriate.
-- [ ] Audit `academic.studentPage.*` and decide whether to:
-  - fully rename to `academic.formerStudentPage.*`
-  - or intentionally keep `studentPage` as a legacy internal namespace
-- [ ] If renaming copy keys, do it in one batch to avoid mixed namespaces.
+- [x] Audit `academic.schoolPage.*` and migrate to `academic.areaOfExpertisePage.*` where still appropriate.
+- [x] Rename `academic.studentPage.*` to `academic.formerStudentPage.*` in one batch.
+- [x] Complete the academic copy-key rename in one batch to avoid mixed namespaces.
 
 ### 1.4 Validation
 
 - [x] `npm run format`
 - [x] Confirm only `pt-BR` translation failures remain
+- [x] Resolve remaining `$t(...)` indirections inside `en-US` and keep `Traducoes faltantes em EN: []`
+- [x] Re-run the unused-key checker and confirm `en-US` has no dead keys left
 
 ---
 

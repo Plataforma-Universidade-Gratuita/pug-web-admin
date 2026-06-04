@@ -36,19 +36,19 @@ export function StaffFiltersDrawer({
 			open={open}
 			onOpenChange={onOpenChange}
 			hasActiveFilters={hasActiveFilters}
-			label={t("partner.staffPage.filters.drawer.label")}
-			activeLabel={t("partner.staffPage.filters.drawer.active")}
-			triggerLabel={t("partner.staffPage.filters.drawer.trigger")}
-			overhead={t("partner.staffPage.filters.drawer.overhead")}
-			title={t("partner.staffPage.filters.drawer.title")}
+			label={t("common.filters.label")}
+			activeLabel={t("common.filters.active")}
+			triggerLabel={t("common.filters.more")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
 			clearConfirmTitle={t(
 				"partner.staffPage.filters.drawer.clearConfirm.title",
 			)}
 			clearConfirmDescription={t(
 				"partner.staffPage.filters.drawer.clearConfirm.description",
 			)}
-			clearLabel={t("partner.staffPage.filters.clear")}
-			applyLabel={t("partner.staffPage.filters.drawer.apply")}
+			clearLabel={t("common.filters.clear")}
+			applyLabel={t("common.filters.apply")}
 			onClear={onClear}
 			onApply={onApply}
 		>
@@ -75,23 +75,21 @@ export function StaffFiltersDrawer({
 
 			{entitiesError ? (
 				<SomeErrorState
-					title={t("partner.staffPage.filters.entity.error.title")}
-					description={t("partner.staffPage.filters.entity.error.description")}
+					title={t("common.loadErrors.entities.title")}
+					description={t("common.loadErrors.entities.description")}
 					onRefresh={onRefreshEntities}
 				/>
 			) : (
 				<div className="grid gap-2">
-					<Label>{t("partner.staffPage.filters.entity.label")}</Label>
+					<Label>{t("common.fields.entity")}</Label>
 					<Combobox
 						multiple
 						options={entityOptions}
 						values={filters.entityIds}
 						onValuesChange={value => onFilterChange("entityIds", value)}
-						placeholder={t("partner.staffPage.filters.entity.placeholder")}
-						searchPlaceholder={t(
-							"partner.staffPage.filters.entity.searchPlaceholder",
-						)}
-						emptyMessage={t("partner.staffPage.filters.entity.emptyMessage")}
+						placeholder={t("common.placeholders.select")}
+						searchPlaceholder={t("common.placeholders.search")}
+						emptyMessage={t("common.placeholders.noResults")}
 						disabled={isEntitiesLoading}
 					/>
 				</div>

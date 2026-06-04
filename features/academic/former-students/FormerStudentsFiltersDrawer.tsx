@@ -67,24 +67,24 @@ export function FormerStudentsFiltersDrawer({
 
 	return (
 		<ServicePageFiltersDrawer
-			activeLabel={t("academic.studentPage.filters.drawer.active")}
-			applyLabel={t("academic.studentPage.filters.drawer.apply")}
+			activeLabel={t("common.filters.active")}
+			applyLabel={t("common.filters.apply")}
 			clearConfirmDescription={t(
-				"academic.studentPage.filters.drawer.clearConfirm.description",
+				"academic.formerStudentPage.filters.drawer.clearConfirm.description",
 			)}
 			clearConfirmTitle={t(
-				"academic.studentPage.filters.drawer.clearConfirm.title",
+				"academic.formerStudentPage.filters.drawer.clearConfirm.title",
 			)}
-			clearLabel={t("academic.studentPage.filters.clear")}
+			clearLabel={t("common.filters.clear")}
 			hasActiveFilters={hasActiveFilters}
-			label={t("academic.studentPage.filters.drawer.label")}
+			label={t("common.filters.label")}
 			onApply={onApply}
 			onClear={onClear}
 			onOpenChange={onOpenChange}
 			open={open}
-			overhead={t("academic.studentPage.filters.drawer.overhead")}
-			title={t("academic.studentPage.filters.drawer.title")}
-			triggerLabel={t("academic.studentPage.filters.drawer.trigger")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
+			triggerLabel={t("common.filters.more")}
 		>
 			<Tabs
 				defaultValue="identity"
@@ -92,13 +92,13 @@ export function FormerStudentsFiltersDrawer({
 			>
 				<TabsList className="w-full">
 					<TabsTrigger value="identity">
-						{t("academic.studentPage.filters.tabs.identity")}
+						{t("academic.formerStudentPage.filters.tabs.identity")}
 					</TabsTrigger>
 					<TabsTrigger value="academic">
-						{t("academic.studentPage.filters.tabs.academic")}
+						{t("academic.formerStudentPage.filters.tabs.academic")}
 					</TabsTrigger>
 					<TabsTrigger value="status">
-						{t("academic.studentPage.filters.tabs.status")}
+						{t("academic.formerStudentPage.filters.tabs.status")}
 					</TabsTrigger>
 				</TabsList>
 
@@ -128,11 +128,13 @@ export function FormerStudentsFiltersDrawer({
 					/>
 
 					<TextFieldFilter
-						label={t("academic.studentPage.table.columns.academicRegistration")}
+						label={t(
+							"academic.formerStudentPage.table.columns.academicRegistration",
+						)}
 						value={academicRegistration}
 						onChange={onAcademicRegistrationChange}
 						placeholder={t(
-							"academic.studentPage.filters.academicRegistration.placeholder",
+							"academic.formerStudentPage.filters.academicRegistration.placeholder",
 						)}
 					/>
 				</TabsContent>
@@ -142,47 +144,53 @@ export function FormerStudentsFiltersDrawer({
 					className="grid gap-4"
 				>
 					<div className="grid gap-2">
-						<Label>{t("academic.studentPage.filters.campus.label")}</Label>
+						<Label>
+							{t("academic.formerStudentPage.filters.campus.label")}
+						</Label>
 						<Combobox
 							multiple
 							options={campusOptions}
 							values={campi}
 							onValuesChange={value => onCampiChange(value as typeof campi)}
-							placeholder={t("academic.studentPage.filters.campus.placeholder")}
+							placeholder={t(
+								"academic.formerStudentPage.filters.campus.placeholder",
+							)}
 							searchPlaceholder={t(
-								"academic.studentPage.filters.campus.searchPlaceholder",
+								"academic.formerStudentPage.filters.campus.searchPlaceholder",
 							)}
 							emptyMessage={t(
-								"academic.studentPage.filters.campus.emptyMessage",
+								"academic.formerStudentPage.filters.campus.emptyMessage",
 							)}
 						/>
 					</div>
 
 					{coursesError ? (
 						<SomeErrorState
-							title={t("academic.studentPage.filters.course.error.title")}
+							title={t("academic.formerStudentPage.filters.course.error.title")}
 							description={t(
-								"academic.studentPage.filters.course.error.description",
+								"academic.formerStudentPage.filters.course.error.description",
 							)}
 							onRefresh={onRefreshCourses}
 						/>
 					) : (
 						<>
 							<div className="grid gap-2">
-								<Label>{t("academic.studentPage.filters.course.label")}</Label>
+								<Label>
+									{t("academic.formerStudentPage.filters.course.label")}
+								</Label>
 								<Combobox
 									multiple
 									options={courseOptions}
 									values={courseIds}
 									onValuesChange={onCourseIdsChange}
 									placeholder={t(
-										"academic.studentPage.filters.course.placeholder",
+										"academic.formerStudentPage.filters.course.placeholder",
 									)}
 									searchPlaceholder={t(
-										"academic.studentPage.filters.course.searchPlaceholder",
+										"academic.formerStudentPage.filters.course.searchPlaceholder",
 									)}
 									emptyMessage={t(
-										"academic.studentPage.filters.course.emptyMessage",
+										"academic.formerStudentPage.filters.course.emptyMessage",
 									)}
 									disabled={isCoursesLoading}
 								/>
@@ -190,7 +198,9 @@ export function FormerStudentsFiltersDrawer({
 
 							<div className="grid gap-2">
 								<Label>
-									{t("academic.studentPage.filters.areaOfExpertise.label")}
+									{t(
+										"academic.formerStudentPage.filters.areaOfExpertise.label",
+									)}
 								</Label>
 								<Combobox
 									multiple
@@ -198,13 +208,13 @@ export function FormerStudentsFiltersDrawer({
 									values={areaOfExpertiseIds}
 									onValuesChange={onAreaOfExpertiseIdsChange}
 									placeholder={t(
-										"academic.studentPage.filters.areaOfExpertise.placeholder",
+										"academic.formerStudentPage.filters.areaOfExpertise.placeholder",
 									)}
 									searchPlaceholder={t(
-										"academic.studentPage.filters.areaOfExpertise.searchPlaceholder",
+										"academic.formerStudentPage.filters.areaOfExpertise.searchPlaceholder",
 									)}
 									emptyMessage={t(
-										"academic.studentPage.filters.areaOfExpertise.emptyMessage",
+										"academic.formerStudentPage.filters.areaOfExpertise.emptyMessage",
 									)}
 									disabled={isAreasOfExpertiseLoading}
 								/>
@@ -213,23 +223,27 @@ export function FormerStudentsFiltersDrawer({
 					)}
 
 					<div className="grid min-w-0 gap-2">
-						<Label>{t("academic.studentPage.filters.periodFrom.label")}</Label>
+						<Label>
+							{t("academic.formerStudentPage.filters.periodFrom.label")}
+						</Label>
 						<DatePicker
 							value={periodFrom}
 							onValueChange={onPeriodFromChange}
 							placeholder={t(
-								"academic.studentPage.filters.periodFrom.placeholder",
+								"academic.formerStudentPage.filters.periodFrom.placeholder",
 							)}
 						/>
 					</div>
 
 					<div className="grid min-w-0 gap-2">
-						<Label>{t("academic.studentPage.filters.periodTo.label")}</Label>
+						<Label>
+							{t("academic.formerStudentPage.filters.periodTo.label")}
+						</Label>
 						<DatePicker
 							value={periodTo}
 							onValueChange={onPeriodToChange}
 							placeholder={t(
-								"academic.studentPage.filters.periodTo.placeholder",
+								"academic.formerStudentPage.filters.periodTo.placeholder",
 							)}
 						/>
 					</div>
@@ -239,9 +253,11 @@ export function FormerStudentsFiltersDrawer({
 						onCheckedChange={checked =>
 							onIncludeConcludedChange(checked === true)
 						}
-						label={t("academic.studentPage.filters.includeConcluded.label")}
+						label={t(
+							"academic.formerStudentPage.filters.includeConcluded.label",
+						)}
 						description={t(
-							"academic.studentPage.filters.includeConcluded.description",
+							"academic.formerStudentPage.filters.includeConcluded.description",
 						)}
 					/>
 				</TabsContent>

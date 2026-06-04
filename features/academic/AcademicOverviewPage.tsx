@@ -19,8 +19,8 @@ export function AcademicOverviewPage() {
 				paths={[
 					{
 						href: "/academic/areas-of-expertise",
-						label: t("academic.schoolPage.title"),
-						description: t("academic.schoolPage.description"),
+						label: t("academic.areaOfExpertisePage.title"),
+						description: t("academic.areaOfExpertisePage.description"),
 					},
 					{
 						href: "/academic/courses",
@@ -29,8 +29,8 @@ export function AcademicOverviewPage() {
 					},
 					{
 						href: "/academic/former-students",
-						label: t("academic.studentPage.title"),
-						description: t("academic.studentPage.description"),
+						label: t("academic.formerStudentPage.title"),
+						description: t("academic.formerStudentPage.description"),
 					},
 				]}
 			/>

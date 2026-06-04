@@ -336,7 +336,7 @@ export function AdminsPage() {
 			description: t("identity.adminPage.delete.undo.description", {
 				name: admin.account.user.name,
 			}),
-			undoLabel: t("identity.adminPage.delete.undo.action"),
+			undoLabel: t("common.actions.undo"),
 			onCommit: () => {
 				removeAdminMutation.mutate(
 					{
@@ -378,13 +378,13 @@ export function AdminsPage() {
 				title={t("identity.adminPage.title")}
 				description={t("identity.adminPage.description")}
 				metadata={{
-					triggerLabel: t("identity.adminPage.metadata.trigger"),
-					emptyTitle: t("identity.adminPage.metadata.empty.title"),
-					emptyDescription: t("identity.adminPage.metadata.empty.description"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
+					emptyDescription: t("common.metadata.empty.description"),
 				}}
 				actions={
 					<ServicePageHeaderActions
-						clearLabel={t("identity.adminPage.filters.clear")}
+						clearLabel={t("common.filters.clear")}
 						createLabel={t("identity.adminPage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}

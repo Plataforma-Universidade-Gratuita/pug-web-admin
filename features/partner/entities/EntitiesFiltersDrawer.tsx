@@ -30,19 +30,19 @@ export function EntitiesFiltersDrawer({
 			open={open}
 			onOpenChange={onOpenChange}
 			hasActiveFilters={hasActiveFilters}
-			label={t("partner.entityPage.filters.drawer.label")}
-			activeLabel={t("partner.entityPage.filters.drawer.active")}
-			triggerLabel={t("partner.entityPage.filters.drawer.trigger")}
-			overhead={t("partner.entityPage.filters.drawer.overhead")}
-			title={t("partner.entityPage.filters.drawer.title")}
+			label={t("common.filters.label")}
+			activeLabel={t("common.filters.active")}
+			triggerLabel={t("common.filters.more")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
 			clearConfirmTitle={t(
 				"partner.entityPage.filters.drawer.clearConfirm.title",
 			)}
 			clearConfirmDescription={t(
 				"partner.entityPage.filters.drawer.clearConfirm.description",
 			)}
-			clearLabel={t("partner.entityPage.filters.clear")}
-			applyLabel={t("partner.entityPage.filters.drawer.apply")}
+			clearLabel={t("common.filters.clear")}
+			applyLabel={t("common.filters.apply")}
 			onClear={onClear}
 			onApply={onApply}
 		>
@@ -71,20 +71,20 @@ export function EntitiesFiltersDrawer({
 			)}
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("partner.entityPage.filters.startDate.label")}</Label>
+				<Label>{t("common.filters.startDate.label")}</Label>
 				<DatePicker
 					value={startDate}
 					onValueChange={onStartDateChange}
-					placeholder={t("partner.entityPage.filters.startDate.placeholder")}
+					placeholder={t("common.filters.startDate.placeholder")}
 				/>
 			</div>
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("partner.entityPage.filters.endDate.label")}</Label>
+				<Label>{t("common.filters.endDate.label")}</Label>
 				<DatePicker
 					value={endDate}
 					onValueChange={onEndDateChange}
-					placeholder={t("partner.entityPage.filters.endDate.placeholder")}
+					placeholder={t("common.filters.endDate.placeholder")}
 				/>
 			</div>
 		</ServicePageFiltersDrawer>

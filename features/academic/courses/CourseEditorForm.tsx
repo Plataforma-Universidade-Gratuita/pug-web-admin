@@ -108,15 +108,9 @@ export function CourseEditorForm({
 							options={areaOfExpertiseOptions}
 							value={field.value}
 							onValueChange={field.onChange}
-							placeholder={t(
-								"academic.coursePage.editor.fields.schoolPlaceholder",
-							)}
-							searchPlaceholder={t(
-								"academic.coursePage.editor.fields.schoolSearchPlaceholder",
-							)}
-							emptyMessage={t(
-								"academic.coursePage.editor.fields.schoolEmptyMessage",
-							)}
+							placeholder={t("common.placeholders.select")}
+							searchPlaceholder={t("common.placeholders.search")}
+							emptyMessage={t("common.placeholders.noResults")}
 						/>
 					)}
 				/>

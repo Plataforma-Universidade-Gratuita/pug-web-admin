@@ -44,12 +44,12 @@ export function AccountDetailsContent({
 				? [
 						{
 							id: "id",
-							label: t("identity.accountPage.dialog.fields.id"),
+							label: t("common.fields.id"),
 							value: account.id,
 						},
 						{
 							id: "email",
-							label: t("identity.accountPage.dialog.fields.email"),
+							label: t("common.fields.email"),
 							value: account.email,
 						},
 						{
@@ -82,12 +82,12 @@ export function AccountDetailsContent({
 						},
 						{
 							id: "createdAt",
-							label: t("identity.accountPage.dialog.fields.createdAt"),
+							label: t("common.fields.createdAt"),
 							value: account.auditInfo.createdAtFormatted,
 						},
 						{
 							id: "updatedAt",
-							label: t("identity.accountPage.dialog.fields.updatedAt"),
+							label: t("common.fields.updatedAt"),
 							value: account.auditInfo.updatedAtFormatted,
 						},
 					]

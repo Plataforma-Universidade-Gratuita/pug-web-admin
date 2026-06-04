@@ -31,19 +31,19 @@ export function CoursesFiltersDrawer({
 			open={open}
 			onOpenChange={onOpenChange}
 			hasActiveFilters={hasActiveFilters}
-			label={t("academic.coursePage.filters.drawer.label")}
-			activeLabel={t("academic.coursePage.filters.drawer.active")}
-			triggerLabel={t("academic.coursePage.filters.drawer.trigger")}
-			overhead={t("academic.coursePage.filters.drawer.overhead")}
-			title={t("academic.coursePage.filters.drawer.title")}
+			label={t("common.filters.label")}
+			activeLabel={t("common.filters.active")}
+			triggerLabel={t("common.filters.more")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
 			clearConfirmTitle={t(
 				"academic.coursePage.filters.drawer.clearConfirm.title",
 			)}
 			clearConfirmDescription={t(
 				"academic.coursePage.filters.drawer.clearConfirm.description",
 			)}
-			clearLabel={t("academic.coursePage.filters.clear")}
-			applyLabel={t("academic.coursePage.filters.drawer.apply")}
+			clearLabel={t("common.filters.clear")}
+			applyLabel={t("common.filters.apply")}
 			onClear={onClear}
 			onApply={onApply}
 		>
@@ -63,31 +63,29 @@ export function CoursesFiltersDrawer({
 						options={areaOfExpertiseOptions}
 						values={areaOfExpertiseIds}
 						onValuesChange={onAreaOfExpertiseIdsChange}
-						placeholder={t("academic.coursePage.filters.school.placeholder")}
-						searchPlaceholder={t(
-							"academic.coursePage.filters.school.searchPlaceholder",
-						)}
-						emptyMessage={t("academic.coursePage.filters.school.emptyMessage")}
+						placeholder={t("common.placeholders.select")}
+						searchPlaceholder={t("common.placeholders.search")}
+						emptyMessage={t("common.placeholders.noResults")}
 						disabled={isAreasOfExpertiseLoading}
 					/>
 				</div>
 			)}
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("academic.coursePage.filters.startDate.label")}</Label>
+				<Label>{t("common.filters.startDate.label")}</Label>
 				<DatePicker
 					value={startDate}
 					onValueChange={onStartDateChange}
-					placeholder={t("academic.coursePage.filters.startDate.placeholder")}
+					placeholder={t("common.filters.startDate.placeholder")}
 				/>
 			</div>
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("academic.coursePage.filters.endDate.label")}</Label>
+				<Label>{t("common.filters.endDate.label")}</Label>
 				<DatePicker
 					value={endDate}
 					onValueChange={onEndDateChange}
-					placeholder={t("academic.coursePage.filters.endDate.placeholder")}
+					placeholder={t("common.filters.endDate.placeholder")}
 				/>
 			</div>
 		</ServicePageFiltersDrawer>

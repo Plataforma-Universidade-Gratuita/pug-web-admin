@@ -74,10 +74,8 @@ export function EnrollmentEditorForm({
 	if (projectsError) {
 		return (
 			<SomeErrorState
-				title={t("project.enrollmentPage.editor.projectLoadError.title")}
-				description={t(
-					"project.enrollmentPage.editor.projectLoadError.description",
-				)}
+				title={t("common.loadErrors.projects.title")}
+				description={t("common.loadErrors.projects.description")}
 				onRefresh={onRefreshProjects}
 			/>
 		);
@@ -86,10 +84,8 @@ export function EnrollmentEditorForm({
 	if (!isCreateMode && projectError) {
 		return (
 			<SomeErrorState
-				title={t("project.enrollmentPage.editor.projectLoadError.title")}
-				description={t(
-					"project.enrollmentPage.editor.projectLoadError.description",
-				)}
+				title={t("common.loadErrors.projects.title")}
+				description={t("common.loadErrors.projects.description")}
 				onRefresh={onRefreshProject}
 			/>
 		);
@@ -98,10 +94,8 @@ export function EnrollmentEditorForm({
 	if (!isCreateMode && formerStudentError) {
 		return (
 			<SomeErrorState
-				title={t("project.enrollmentPage.editor.studentLoadError.title")}
-				description={t(
-					"project.enrollmentPage.editor.studentLoadError.description",
-				)}
+				title={t("common.loadErrors.formerStudents.title")}
+				description={t("common.loadErrors.formerStudents.description")}
 				onRefresh={onRefreshFormerStudent}
 			/>
 		);
@@ -124,7 +118,7 @@ export function EnrollmentEditorForm({
 			{isCreateMode ? (
 				<>
 					<div className="grid gap-2">
-						<Label>{t("project.enrollmentPage.editor.fields.project")}</Label>
+						<Label>{t("common.fields.project")}</Label>
 						<Controller
 							control={form.control}
 							name="projectId"
@@ -133,15 +127,11 @@ export function EnrollmentEditorForm({
 									options={projectOptions}
 									value={field.value}
 									onValueChange={field.onChange}
-									placeholder={t(
-										"project.enrollmentPage.editor.fields.projectPlaceholder",
-									)}
+									placeholder={t("common.fields.projectPlaceholder")}
 									searchPlaceholder={t(
-										"project.enrollmentPage.editor.fields.projectSearchPlaceholder",
+										"common.fields.projectSearchPlaceholder",
 									)}
-									emptyMessage={t(
-										"project.enrollmentPage.editor.fields.projectEmptyMessage",
-									)}
+									emptyMessage={t("common.fields.projectEmptyMessage")}
 								/>
 							)}
 						/>
@@ -183,7 +173,7 @@ export function EnrollmentEditorForm({
 				</>
 			) : (
 				<div className="grid gap-2">
-					<Label>{t("project.enrollmentPage.editor.fields.status")}</Label>
+					<Label>{t("common.fields.status")}</Label>
 					<Controller
 						control={form.control}
 						name="status"
@@ -194,9 +184,7 @@ export function EnrollmentEditorForm({
 							>
 								<SelectTrigger
 									className="w-full"
-									placeholder={t(
-										"project.enrollmentPage.editor.fields.statusPlaceholder",
-									)}
+									placeholder={t("common.fields.statusPlaceholder")}
 								/>
 								<SelectContent>
 									{options.map(option => (

@@ -26,11 +26,11 @@ export function UsersFiltersDrawer({
 			open={open}
 			onOpenChange={onOpenChange}
 			hasActiveFilters={hasActiveFilters}
-			label={t("identity.userPage.filters.backend.label")}
-			activeLabel={t("identity.userPage.filters.backend.active")}
-			triggerLabel={t("identity.userPage.filters.backend.trigger")}
-			overhead={t("identity.userPage.filters.backend.overhead")}
-			title={t("identity.userPage.filters.backend.title")}
+			label={t("common.filters.label")}
+			activeLabel={t("common.filters.active")}
+			triggerLabel={t("common.filters.more")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
 			clearConfirmTitle={t(
 				"identity.userPage.filters.backend.clearConfirm.title",
 			)}
@@ -38,7 +38,7 @@ export function UsersFiltersDrawer({
 				"identity.userPage.filters.backend.clearConfirm.description",
 			)}
 			clearLabel={t("identity.userPage.filters.backend.clear")}
-			applyLabel={t("identity.userPage.filters.backend.apply")}
+			applyLabel={t("common.filters.apply")}
 			onClear={onClear}
 			onApply={onApply}
 		>
@@ -62,26 +62,22 @@ export function UsersFiltersDrawer({
 
 			<div className="grid gap-3">
 				<div className="grid min-w-0 gap-2">
-					<Label>{t("identity.userPage.filters.backend.dateFrom.label")}</Label>
+					<Label>{t("common.filters.startDate.label")}</Label>
 					<DatePicker
 						value={filters.dateFrom}
 						onValueChange={value => onFilterChange("dateFrom", value)}
-						placeholder={t(
-							"identity.userPage.filters.backend.dateFrom.placeholder",
-						)}
+						placeholder={t("common.filters.startDate.placeholder")}
 					/>
 				</div>
 			</div>
 
 			<div className="grid gap-3">
 				<div className="grid min-w-0 gap-2">
-					<Label>{t("identity.userPage.filters.backend.dateTo.label")}</Label>
+					<Label>{t("common.filters.endDate.label")}</Label>
 					<DatePicker
 						value={filters.dateTo}
 						onValueChange={value => onFilterChange("dateTo", value)}
-						placeholder={t(
-							"identity.userPage.filters.backend.dateTo.placeholder",
-						)}
+						placeholder={t("common.filters.endDate.placeholder")}
 					/>
 				</div>
 			</div>

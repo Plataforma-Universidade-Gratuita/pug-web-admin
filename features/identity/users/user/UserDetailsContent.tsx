@@ -41,7 +41,7 @@ export function UserDetailsContent({
 				? [
 						{
 							id: "id",
-							label: t("identity.userPage.dialog.fields.id"),
+							label: t("common.fields.id"),
 							value: user.id,
 						},
 						{
@@ -56,12 +56,12 @@ export function UserDetailsContent({
 						},
 						{
 							id: "createdAt",
-							label: t("identity.userPage.dialog.fields.createdAt"),
+							label: t("common.fields.createdAt"),
 							value: user.auditInfo.createdAtFormatted,
 						},
 						{
 							id: "updatedAt",
-							label: t("identity.userPage.dialog.fields.updatedAt"),
+							label: t("common.fields.updatedAt"),
 							value: user.auditInfo.updatedAtFormatted,
 						},
 					]

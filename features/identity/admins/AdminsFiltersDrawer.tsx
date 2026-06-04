@@ -26,19 +26,19 @@ export function AdminsFiltersDrawer({
 			open={open}
 			onOpenChange={onOpenChange}
 			hasActiveFilters={hasActiveFilters}
-			label={t("identity.adminPage.filters.drawer.label")}
-			activeLabel={t("identity.adminPage.filters.drawer.active")}
-			triggerLabel={t("identity.adminPage.filters.drawer.trigger")}
-			overhead={t("identity.adminPage.filters.drawer.overhead")}
-			title={t("identity.adminPage.filters.drawer.title")}
+			label={t("common.filters.label")}
+			activeLabel={t("common.filters.active")}
+			triggerLabel={t("common.filters.more")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
 			clearConfirmTitle={t(
 				"identity.adminPage.filters.drawer.clearConfirm.title",
 			)}
 			clearConfirmDescription={t(
 				"identity.adminPage.filters.drawer.clearConfirm.description",
 			)}
-			clearLabel={t("identity.adminPage.filters.clear")}
-			applyLabel={t("identity.adminPage.filters.drawer.apply")}
+			clearLabel={t("common.filters.clear")}
+			applyLabel={t("common.filters.apply")}
 			onClear={onClear}
 			onApply={onApply}
 		>
@@ -64,20 +64,20 @@ export function AdminsFiltersDrawer({
 			/>
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("identity.accountPage.filters.startDate.label")}</Label>
+				<Label>{t("common.filters.startDate.label")}</Label>
 				<DatePicker
 					value={filters.dateFrom}
 					onValueChange={value => onFilterChange("dateFrom", value)}
-					placeholder={t("identity.accountPage.filters.startDate.placeholder")}
+					placeholder={t("common.filters.startDate.placeholder")}
 				/>
 			</div>
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("identity.accountPage.filters.endDate.label")}</Label>
+				<Label>{t("common.filters.endDate.label")}</Label>
 				<DatePicker
 					value={filters.dateTo}
 					onValueChange={value => onFilterChange("dateTo", value)}
-					placeholder={t("identity.accountPage.filters.endDate.placeholder")}
+					placeholder={t("common.filters.endDate.placeholder")}
 				/>
 			</div>
 

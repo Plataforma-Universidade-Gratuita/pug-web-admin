@@ -40,7 +40,7 @@ export function createAdminColumns(
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 			header: () => (
 				<div className="flex w-full justify-center">
-					{t("identity.adminPage.table.columns.active")}
+					{t("common.fields.status")}
 				</div>
 			),
 			cell: ({ row }) => (
@@ -60,7 +60,7 @@ export function createAdminColumns(
 		{
 			accessorFn: row => row.account.id,
 			id: "id",
-			header: t("identity.adminPage.table.columns.id"),
+			header: t("common.fields.id"),
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			cell: ({ row }) => (
 				<TableText
@@ -79,13 +79,13 @@ export function createAdminColumns(
 		{
 			accessorFn: row => row.account.email,
 			id: "email",
-			header: t("identity.adminPage.table.columns.email"),
+			header: t("common.fields.email"),
 			cell: ({ row }) => row.original.account.email,
 		},
 		{
 			accessorFn: row => row.campus.campus,
 			id: "campus",
-			header: t("identity.adminPage.table.columns.campus"),
+			header: t("common.fields.campus"),
 			cell: ({ row }) => row.original.campus.campusFormatted,
 		},
 		{
@@ -96,13 +96,13 @@ export function createAdminColumns(
 		{
 			accessorFn: row => row.account.auditInfo.createdAt,
 			id: "createdAt",
-			header: t("identity.adminPage.table.columns.createdAt"),
+			header: t("common.fields.createdAt"),
 			cell: ({ row }) => row.original.account.auditInfo.createdAtFormatted,
 		},
 		{
 			accessorFn: row => row.account.auditInfo.updatedAt,
 			id: "updatedAt",
-			header: t("identity.adminPage.table.columns.updatedAt"),
+			header: t("common.fields.updatedAt"),
 			cell: ({ row }) => row.original.account.auditInfo.updatedAtFormatted,
 		},
 	];

@@ -114,31 +114,31 @@ export function AreaOfExpertiseEditorDrawer({
 	const isSubmitPending = createMutation.isPending || updateMutation.isPending;
 	const drawerOverhead = t(
 		isCreateMode
-			? "academic.schoolPage.create.overhead"
+			? "academic.areaOfExpertisePage.create.overhead"
 			: isDuplicateMode
-				? "academic.schoolPage.duplicate.overhead"
-				: "academic.schoolPage.update.overhead",
+				? "academic.areaOfExpertisePage.duplicate.overhead"
+				: "academic.areaOfExpertisePage.update.overhead",
 	);
 	const drawerTitleFallback = t(
 		isCreateMode
-			? "academic.schoolPage.create.titleFallback"
+			? "academic.areaOfExpertisePage.create.titleFallback"
 			: isDuplicateMode
-				? "academic.schoolPage.duplicate.titleFallback"
-				: "academic.schoolPage.update.titleFallback",
+				? "academic.areaOfExpertisePage.duplicate.titleFallback"
+				: "academic.areaOfExpertisePage.update.titleFallback",
 	);
 	const saveLabel = t(
 		isCreateMode
-			? "academic.schoolPage.create.actions.save"
+			? "academic.areaOfExpertisePage.create.actions.save"
 			: isDuplicateMode
-				? "academic.schoolPage.duplicate.actions.save"
-				: "academic.schoolPage.update.actions.save",
+				? "academic.areaOfExpertisePage.duplicate.actions.save"
+				: "academic.areaOfExpertisePage.update.actions.save",
 	);
 	const savePendingLabel = t(
 		isCreateMode
-			? "academic.schoolPage.create.actions.savePending"
+			? "academic.areaOfExpertisePage.create.actions.savePending"
 			: isDuplicateMode
-				? "academic.schoolPage.duplicate.actions.savePending"
-				: "academic.schoolPage.update.actions.savePending",
+				? "academic.areaOfExpertisePage.duplicate.actions.savePending"
+				: "academic.areaOfExpertisePage.update.actions.savePending",
 	);
 
 	useQueryErrorToasts([
@@ -186,14 +186,14 @@ export function AreaOfExpertiseEditorDrawer({
 						toast.success(
 							t(
 								isCreateMode
-									? "academic.schoolPage.create.feedback.success.title"
-									: "academic.schoolPage.duplicate.feedback.success.title",
+									? "academic.areaOfExpertisePage.create.feedback.success.title"
+									: "academic.areaOfExpertisePage.duplicate.feedback.success.title",
 							),
 							{
 								description: t(
 									isCreateMode
-										? "academic.schoolPage.create.feedback.success.description"
-										: "academic.schoolPage.duplicate.feedback.success.description",
+										? "academic.areaOfExpertisePage.create.feedback.success.description"
+										: "academic.areaOfExpertisePage.duplicate.feedback.success.description",
 									{
 										name: areaOfExpertise.name,
 									},
@@ -225,10 +225,10 @@ export function AreaOfExpertiseEditorDrawer({
 			{
 				onSuccess: areaOfExpertise => {
 					toast.success(
-						t("academic.schoolPage.update.feedback.success.title"),
+						t("academic.areaOfExpertisePage.update.feedback.success.title"),
 						{
 							description: t(
-								"academic.schoolPage.update.feedback.success.description",
+								"academic.areaOfExpertisePage.update.feedback.success.description",
 								{
 									name: areaOfExpertise.name,
 								},
@@ -252,7 +252,7 @@ export function AreaOfExpertiseEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("academic.schoolPage.editor.loading")}
+				loadingLabel={t("academic.areaOfExpertisePage.editor.loading")}
 			>
 				<DrawerContent>
 					<DrawerHeader overhead={drawerOverhead}>
@@ -285,7 +285,7 @@ export function AreaOfExpertiseEditorDrawer({
 							disabled={!form.formState.isDirty || isSubmitPending}
 							onClick={() => setIsResetConfirmOpen(true)}
 						>
-							{t("academic.schoolPage.editor.actions.reset")}
+							{t("academic.areaOfExpertisePage.editor.actions.reset")}
 						</Button>
 						<Button
 							usage="success"
@@ -310,15 +310,17 @@ export function AreaOfExpertiseEditorDrawer({
 				<AlertDialogContent variant="danger">
 					<AlertDialogHeader>
 						<AlertDialogTitle>
-							{t("academic.schoolPage.editor.resetConfirm.title")}
+							{t("academic.areaOfExpertisePage.editor.resetConfirm.title")}
 						</AlertDialogTitle>
 						<AlertDialogDescription>
-							{t("academic.schoolPage.editor.resetConfirm.description")}
+							{t(
+								"academic.areaOfExpertisePage.editor.resetConfirm.description",
+							)}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter
 						cancelLabel={t("common.cancel")}
-						actionLabel={t("academic.schoolPage.editor.actions.reset")}
+						actionLabel={t("academic.areaOfExpertisePage.editor.actions.reset")}
 						onAction={resetForm}
 					/>
 				</AlertDialogContent>

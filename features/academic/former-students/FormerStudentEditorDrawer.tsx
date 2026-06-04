@@ -156,31 +156,31 @@ export function FormerStudentEditorDrawer({
 	const isSubmitPending = createMutation.isPending || updateMutation.isPending;
 	const drawerOverhead = t(
 		isCreateMode
-			? "academic.studentPage.create.overhead"
+			? "academic.formerStudentPage.create.overhead"
 			: isDuplicateMode
-				? "academic.studentPage.duplicate.overhead"
-				: "academic.studentPage.update.overhead",
+				? "academic.formerStudentPage.duplicate.overhead"
+				: "academic.formerStudentPage.update.overhead",
 	);
 	const drawerTitleFallback = t(
 		isCreateMode
-			? "academic.studentPage.create.titleFallback"
+			? "academic.formerStudentPage.create.titleFallback"
 			: isDuplicateMode
-				? "academic.studentPage.duplicate.titleFallback"
-				: "academic.studentPage.update.titleFallback",
+				? "academic.formerStudentPage.duplicate.titleFallback"
+				: "academic.formerStudentPage.update.titleFallback",
 	);
 	const saveLabel = t(
 		isCreateMode
-			? "academic.studentPage.create.actions.save"
+			? "academic.formerStudentPage.create.actions.save"
 			: isDuplicateMode
-				? "academic.studentPage.duplicate.actions.save"
-				: "academic.studentPage.update.actions.save",
+				? "academic.formerStudentPage.duplicate.actions.save"
+				: "academic.formerStudentPage.update.actions.save",
 	);
 	const savePendingLabel = t(
 		isCreateMode
-			? "academic.studentPage.create.actions.savePending"
+			? "academic.formerStudentPage.create.actions.savePending"
 			: isDuplicateMode
-				? "academic.studentPage.duplicate.actions.savePending"
-				: "academic.studentPage.update.actions.savePending",
+				? "academic.formerStudentPage.duplicate.actions.savePending"
+				: "academic.formerStudentPage.update.actions.savePending",
 	);
 
 	useQueryErrorToasts([
@@ -235,14 +235,14 @@ export function FormerStudentEditorDrawer({
 						toast.success(
 							t(
 								isCreateMode
-									? "academic.studentPage.create.feedback.success.title"
-									: "academic.studentPage.duplicate.feedback.success.title",
+									? "academic.formerStudentPage.create.feedback.success.title"
+									: "academic.formerStudentPage.duplicate.feedback.success.title",
 							),
 							{
 								description: t(
 									isCreateMode
-										? "academic.studentPage.create.feedback.success.description"
-										: "academic.studentPage.duplicate.feedback.success.description",
+										? "academic.formerStudentPage.create.feedback.success.description"
+										: "academic.formerStudentPage.duplicate.feedback.success.description",
 									{
 										name: values.name,
 									},
@@ -274,10 +274,10 @@ export function FormerStudentEditorDrawer({
 			{
 				onSuccess: () => {
 					toast.success(
-						t("academic.studentPage.update.feedback.success.title"),
+						t("academic.formerStudentPage.update.feedback.success.title"),
 						{
 							description: t(
-								"academic.studentPage.update.feedback.success.description",
+								"academic.formerStudentPage.update.feedback.success.description",
 								{
 									name: values.name,
 								},
@@ -303,7 +303,7 @@ export function FormerStudentEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("academic.studentPage.editor.loading")}
+				loadingLabel={t("academic.formerStudentPage.editor.loading")}
 			>
 				<DrawerContent>
 					<DrawerHeader overhead={drawerOverhead}>
@@ -351,7 +351,7 @@ export function FormerStudentEditorDrawer({
 							disabled={!form.formState.isDirty || isSubmitPending}
 							onClick={() => setIsResetConfirmOpen(true)}
 						>
-							{t("academic.studentPage.editor.actions.reset")}
+							{t("academic.formerStudentPage.editor.actions.reset")}
 						</Button>
 						<Button
 							usage="success"
@@ -376,15 +376,15 @@ export function FormerStudentEditorDrawer({
 				<AlertDialogContent variant="danger">
 					<AlertDialogHeader>
 						<AlertDialogTitle>
-							{t("academic.studentPage.editor.resetConfirm.title")}
+							{t("academic.formerStudentPage.editor.resetConfirm.title")}
 						</AlertDialogTitle>
 						<AlertDialogDescription>
-							{t("academic.studentPage.editor.resetConfirm.description")}
+							{t("academic.formerStudentPage.editor.resetConfirm.description")}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter
 						cancelLabel={t("common.cancel")}
-						actionLabel={t("academic.studentPage.editor.actions.reset")}
+						actionLabel={t("academic.formerStudentPage.editor.actions.reset")}
 						onAction={resetForm}
 					/>
 				</AlertDialogContent>

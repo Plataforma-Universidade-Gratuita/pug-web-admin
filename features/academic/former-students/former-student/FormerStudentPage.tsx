@@ -66,21 +66,25 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 		<EntityPageShell
 			title={
 				userDetailQuery.data?.name ??
-				t("academic.studentPage.dialog.titleFallback")
+				t("academic.formerStudentPage.dialog.titleFallback")
 			}
-			description={t("academic.studentPage.description")}
+			description={t("academic.formerStudentPage.description")}
 		>
 			{formerStudentDetailQuery.isError ? (
 				formerStudentDetailQuery.error instanceof WebApiError &&
 				formerStudentDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("academic.studentPage.dialog.notFound.title")}
-						description={t("academic.studentPage.dialog.notFound.description")}
+						title={t("academic.formerStudentPage.dialog.notFound.title")}
+						description={t(
+							"academic.formerStudentPage.dialog.notFound.description",
+						)}
 					/>
 				) : (
 					<SomeErrorState
-						title={t("academic.studentPage.dialog.error.title")}
-						description={t("academic.studentPage.dialog.error.description")}
+						title={t("academic.formerStudentPage.dialog.error.title")}
+						description={t(
+							"academic.formerStudentPage.dialog.error.description",
+						)}
 						onRefresh={() => {
 							void formerStudentDetailQuery.refetch();
 						}}
@@ -90,7 +94,7 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 				<div className="grid gap-6">
 					<div className="grid gap-3">
 						<p className="ty-overhead">
-							{t("academic.studentPage.dialog.overhead")}
+							{t("academic.formerStudentPage.dialog.overhead")}
 						</p>
 						<FormerStudentOwnDetailsContent
 							formerStudent={formerStudent}
@@ -121,7 +125,7 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 						<>
 							<div className="grid gap-3">
 								<p className="ty-overhead">
-									{t("academic.studentPage.editor.sections.linkedCourse")}
+									{t("academic.formerStudentPage.editor.sections.linkedCourse")}
 								</p>
 								<CourseOwnDetailsContent
 									course={course}
@@ -146,7 +150,7 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 				</div>
 			) : (
 				<NotFoundState
-					title={t("academic.studentPage.dialog.notFound.title")}
+					title={t("academic.formerStudentPage.dialog.notFound.title")}
 				/>
 			)}
 		</EntityPageShell>

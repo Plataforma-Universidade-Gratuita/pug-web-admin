@@ -226,8 +226,8 @@ export function AccountsPage() {
 				title={t("identity.accountPage.title")}
 				description={t("identity.accountPage.description")}
 				metadata={{
-					triggerLabel: t("identity.accountPage.metadata.trigger"),
-					emptyTitle: t("identity.accountPage.metadata.empty.title"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
 					emptyDescription: t(
 						"identity.accountPage.metadata.empty.description",
 					),
@@ -238,14 +238,14 @@ export function AccountsPage() {
 							variant="secondary"
 							onClick={clearAllFilters}
 						>
-							{t("identity.accountPage.filters.clear")}
+							{t("common.filters.clear")}
 						</Button>
 					) : undefined
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
 			>
 				<TextFieldFilter
-					label={t("identity.accountPage.filters.search.label")}
+					label={t("common.filters.search.label")}
 					value={querySearch}
 					onChange={setQuerySearch}
 					placeholder={t("identity.accountPage.filters.search.placeholder")}

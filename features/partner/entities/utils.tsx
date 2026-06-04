@@ -39,7 +39,7 @@ export function createEntityColumns(t: TFunction): ColumnDef<EntityTableRow>[] {
 	return [
 		{
 			accessorKey: "id",
-			header: t("partner.entityPage.table.columns.id"),
+			header: t("common.fields.id"),
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			cell: ({ row }) => (
 				<TableText
@@ -78,13 +78,13 @@ export function createEntityColumns(t: TFunction): ColumnDef<EntityTableRow>[] {
 		{
 			accessorFn: row => row.auditInfo.createdAt,
 			id: "createdAt",
-			header: t("partner.entityPage.table.columns.createdAt"),
+			header: t("common.fields.createdAt"),
 			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
 		},
 		{
 			accessorFn: row => row.auditInfo.updatedAt,
 			id: "updatedAt",
-			header: t("partner.entityPage.table.columns.updatedAt"),
+			header: t("common.fields.updatedAt"),
 			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
 		},
 	];
@@ -227,8 +227,8 @@ export function getEntityEmptyStateCopy(t: TFunction, query: string) {
 
 export function getEntitiesListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.entityPage.feedback.listError.title"),
-		fallbackDescription: t("partner.entityPage.feedback.listError.description"),
+		fallbackTitle: t("common.loadErrors.entities.title"),
+		fallbackDescription: t("common.loadErrors.entities.description"),
 	});
 }
 

@@ -27,7 +27,7 @@ export function createAreaOfExpertiseColumns(
 	return [
 		{
 			accessorKey: "id",
-			header: t("academic.schoolPage.table.columns.id"),
+			header: t("academic.areaOfExpertisePage.table.columns.id"),
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 			cell: ({ row }) =>
 				TableText({
@@ -38,18 +38,18 @@ export function createAreaOfExpertiseColumns(
 		},
 		{
 			accessorKey: "name",
-			header: t("academic.schoolPage.table.columns.name"),
+			header: t("academic.areaOfExpertisePage.table.columns.name"),
 		},
 		{
 			accessorFn: row => row.auditInfo.createdAt,
 			id: "createdAt",
-			header: t("academic.schoolPage.table.columns.createdAt"),
+			header: t("academic.areaOfExpertisePage.table.columns.createdAt"),
 			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
 		},
 		{
 			accessorFn: row => row.auditInfo.updatedAt,
 			id: "updatedAt",
-			header: t("academic.schoolPage.table.columns.updatedAt"),
+			header: t("academic.areaOfExpertisePage.table.columns.updatedAt"),
 			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
 		},
 	];
@@ -107,10 +107,12 @@ export function filterAreasOfExpertise(
 
 export function getAreaOfExpertiseEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("academic.schoolPage.empty.title"),
+		title: t("academic.areaOfExpertisePage.empty.title"),
 		description: query
-			? t("academic.schoolPage.empty.filteredDescription", { value: query })
-			: t("academic.schoolPage.empty.defaultDescription"),
+			? t("academic.areaOfExpertisePage.empty.filteredDescription", {
+					value: query,
+				})
+			: t("academic.areaOfExpertisePage.empty.defaultDescription"),
 	};
 }
 
@@ -119,9 +121,9 @@ export function getAreasOfExpertiseListErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.schoolPage.feedback.listError.title"),
+		fallbackTitle: t("academic.areaOfExpertisePage.feedback.listError.title"),
 		fallbackDescription: t(
-			"academic.schoolPage.feedback.listError.description",
+			"academic.areaOfExpertisePage.feedback.listError.description",
 		),
 	});
 }
@@ -131,9 +133,9 @@ export function getAreaOfExpertiseDetailErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.schoolPage.feedback.detailError.title"),
+		fallbackTitle: t("academic.areaOfExpertisePage.feedback.detailError.title"),
 		fallbackDescription: t(
-			"academic.schoolPage.feedback.detailError.description",
+			"academic.areaOfExpertisePage.feedback.detailError.description",
 		),
 	});
 }
@@ -143,9 +145,11 @@ export function getAreaOfExpertiseCreateErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.schoolPage.create.feedback.error.title"),
+		fallbackTitle: t(
+			"academic.areaOfExpertisePage.create.feedback.error.title",
+		),
 		fallbackDescription: t(
-			"academic.schoolPage.create.feedback.error.description",
+			"academic.areaOfExpertisePage.create.feedback.error.description",
 		),
 	});
 }
@@ -155,9 +159,11 @@ export function getAreaOfExpertiseDuplicateErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.schoolPage.duplicate.feedback.error.title"),
+		fallbackTitle: t(
+			"academic.areaOfExpertisePage.duplicate.feedback.error.title",
+		),
 		fallbackDescription: t(
-			"academic.schoolPage.duplicate.feedback.error.description",
+			"academic.areaOfExpertisePage.duplicate.feedback.error.description",
 		),
 	});
 }
@@ -167,9 +173,11 @@ export function getAreaOfExpertiseUpdateErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.schoolPage.update.feedback.error.title"),
+		fallbackTitle: t(
+			"academic.areaOfExpertisePage.update.feedback.error.title",
+		),
 		fallbackDescription: t(
-			"academic.schoolPage.update.feedback.error.description",
+			"academic.areaOfExpertisePage.update.feedback.error.description",
 		),
 	});
 }
@@ -179,9 +187,11 @@ export function getAreaOfExpertiseDeleteErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.schoolPage.delete.feedback.error.title"),
+		fallbackTitle: t(
+			"academic.areaOfExpertisePage.delete.feedback.error.title",
+		),
 		fallbackDescription: t(
-			"academic.schoolPage.delete.feedback.error.description",
+			"academic.areaOfExpertisePage.delete.feedback.error.description",
 		),
 	});
 }

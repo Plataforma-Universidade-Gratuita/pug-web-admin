@@ -204,8 +204,8 @@ export function FormerStudentsPage() {
 		if (formerStudentsQuery.isError) {
 			return (
 				<SomeErrorState
-					title={t("academic.studentPage.table.error.title")}
-					description={t("academic.studentPage.table.error.description")}
+					title={t("academic.formerStudentPage.table.error.title")}
+					description={t("academic.formerStudentPage.table.error.description")}
 					onRefresh={() => {
 						void formerStudentsQuery.refetch();
 					}}
@@ -278,10 +278,10 @@ export function FormerStudentsPage() {
 				{
 					onSuccess: () => {
 						toast.success(
-							t("academic.studentPage.duplicate.feedback.success.title"),
+							t("academic.formerStudentPage.duplicate.feedback.success.title"),
 							{
 								description: t(
-									"academic.studentPage.duplicate.feedback.success.description",
+									"academic.formerStudentPage.duplicate.feedback.success.description",
 									{
 										name: linkedUser.name,
 									},
@@ -325,14 +325,14 @@ export function FormerStudentsPage() {
 					toast.success(
 						t(
 							nextActive
-								? "academic.studentPage.reactivate.feedback.success.title"
-								: "academic.studentPage.deactivate.feedback.success.title",
+								? "academic.formerStudentPage.reactivate.feedback.success.title"
+								: "academic.formerStudentPage.deactivate.feedback.success.title",
 						),
 						{
 							description: t(
 								nextActive
-									? "academic.studentPage.reactivate.feedback.success.description"
-									: "academic.studentPage.deactivate.feedback.success.description",
+									? "academic.formerStudentPage.reactivate.feedback.success.description"
+									: "academic.formerStudentPage.deactivate.feedback.success.description",
 								{
 									name: formerStudent.user?.name ?? formerStudent.accountId,
 								},
@@ -364,11 +364,11 @@ export function FormerStudentsPage() {
 
 		schedule({
 			key: formerStudent.accountId,
-			title: t("academic.studentPage.delete.undo.title"),
-			description: t("academic.studentPage.delete.undo.description", {
+			title: t("academic.formerStudentPage.delete.undo.title"),
+			description: t("academic.formerStudentPage.delete.undo.description", {
 				name: formerStudent.user?.name ?? formerStudent.accountId,
 			}),
-			undoLabel: t("academic.studentPage.delete.undo.action"),
+			undoLabel: t("academic.formerStudentPage.delete.undo.action"),
 			onCommit: () => {
 				removeFormerStudentMutation.mutate(
 					{
@@ -378,10 +378,10 @@ export function FormerStudentsPage() {
 					{
 						onSuccess: () => {
 							toast.success(
-								t("academic.studentPage.delete.feedback.success.title"),
+								t("academic.formerStudentPage.delete.feedback.success.title"),
 								{
 									description: t(
-										"academic.studentPage.delete.feedback.success.description",
+										"academic.formerStudentPage.delete.feedback.success.description",
 										{
 											name: formerStudent.user?.name ?? formerStudent.accountId,
 										},
@@ -407,19 +407,19 @@ export function FormerStudentsPage() {
 	return (
 		<ServicePageShell>
 			<ServicePageHeader
-				title={t("academic.studentPage.title")}
-				description={t("academic.studentPage.description")}
+				title={t("academic.formerStudentPage.title")}
+				description={t("academic.formerStudentPage.description")}
 				metadata={{
-					triggerLabel: t("academic.studentPage.metadata.trigger"),
-					emptyTitle: t("academic.studentPage.metadata.empty.title"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
 					emptyDescription: t(
-						"academic.studentPage.metadata.empty.description",
+						"academic.formerStudentPage.metadata.empty.description",
 					),
 				}}
 				actions={
 					<ServicePageHeaderActions
-						clearLabel={t("academic.studentPage.filters.clear")}
-						createLabel={t("academic.studentPage.create.open")}
+						clearLabel={t("common.filters.clear")}
+						createLabel={t("academic.formerStudentPage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}
 						onCreate={editorState.openCreate}
@@ -428,20 +428,22 @@ export function FormerStudentsPage() {
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_auto]"
 			>
 				<TextFieldFilter
-					label={t("academic.studentPage.filters.search.label")}
+					label={t("academic.formerStudentPage.filters.search.label")}
 					value={querySearch}
 					onChange={setQuerySearch}
-					placeholder={t("academic.studentPage.filters.search.placeholder")}
+					placeholder={t(
+						"academic.formerStudentPage.filters.search.placeholder",
+					)}
 				/>
 
 				<TextFieldFilter
 					label={t(
-						"academic.studentPage.filters.frontendAcademicRegistration.label",
+						"academic.formerStudentPage.filters.frontendAcademicRegistration.label",
 					)}
 					value={registrationSearch}
 					onChange={setRegistrationSearch}
 					placeholder={t(
-						"academic.studentPage.filters.frontendAcademicRegistration.placeholder",
+						"academic.formerStudentPage.filters.frontendAcademicRegistration.placeholder",
 					)}
 				/>
 
@@ -520,7 +522,7 @@ export function FormerStudentsPage() {
 						coursesQuery.isLoading ||
 						accountsQuery.isLoading ||
 						usersQuery.isLoading,
-					loadingLabel: t("academic.studentPage.loading.list"),
+					loadingLabel: t("academic.formerStudentPage.loading.list"),
 				}}
 			/>
 
@@ -541,13 +543,13 @@ export function FormerStudentsPage() {
 				variant={pendingStatusStudent?.account?.active ? "warning" : "success"}
 				title={t(
 					pendingStatusStudent?.account?.active
-						? "academic.studentPage.deactivate.confirm.title"
-						: "academic.studentPage.reactivate.confirm.title",
+						? "academic.formerStudentPage.deactivate.confirm.title"
+						: "academic.formerStudentPage.reactivate.confirm.title",
 				)}
 				description={t(
 					pendingStatusStudent?.account?.active
-						? "academic.studentPage.deactivate.confirm.description"
-						: "academic.studentPage.reactivate.confirm.description",
+						? "academic.formerStudentPage.deactivate.confirm.description"
+						: "academic.formerStudentPage.reactivate.confirm.description",
 					{
 						name: pendingStatusStudent?.user?.name ?? "",
 					},
@@ -569,10 +571,13 @@ export function FormerStudentsPage() {
 					}
 				}}
 				variant="danger"
-				title={t("academic.studentPage.delete.confirm.title")}
-				description={t("academic.studentPage.delete.confirm.description", {
-					name: pendingDeleteStudent?.user?.name ?? "",
-				})}
+				title={t("academic.formerStudentPage.delete.confirm.title")}
+				description={t(
+					"academic.formerStudentPage.delete.confirm.description",
+					{
+						name: pendingDeleteStudent?.user?.name ?? "",
+					},
+				)}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("common.table.actions.delete")}
 				onAction={handleDeleteConfirm}

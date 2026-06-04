@@ -81,16 +81,20 @@ export function FormerStudentEditorForm({
 		) {
 			return (
 				<NotFoundState
-					title={t("academic.studentPage.update.notFound.title")}
-					description={t("academic.studentPage.update.notFound.description")}
+					title={t("academic.formerStudentPage.update.notFound.title")}
+					description={t(
+						"academic.formerStudentPage.update.notFound.description",
+					)}
 				/>
 			);
 		}
 
 		return (
 			<SomeErrorState
-				title={t("academic.studentPage.update.loadError.title")}
-				description={t("academic.studentPage.update.loadError.description")}
+				title={t("academic.formerStudentPage.update.loadError.title")}
+				description={t(
+					"academic.formerStudentPage.update.loadError.description",
+				)}
 				onRefresh={onRefreshFormerStudent}
 			/>
 		);
@@ -144,9 +148,9 @@ export function FormerStudentEditorForm({
 	if (coursesError) {
 		return (
 			<SomeErrorState
-				title={t("academic.studentPage.editor.courseLoadError.title")}
+				title={t("academic.formerStudentPage.editor.courseLoadError.title")}
 				description={t(
-					"academic.studentPage.editor.courseLoadError.description",
+					"academic.formerStudentPage.editor.courseLoadError.description",
 				)}
 				onRefresh={onRefreshCourses}
 			/>
@@ -158,7 +162,9 @@ export function FormerStudentEditorForm({
 		(!isUpdateMode && !formerStudent && mode !== "create")
 	) {
 		return (
-			<NotFoundState title={t("academic.studentPage.update.notFound.title")} />
+			<NotFoundState
+				title={t("academic.formerStudentPage.update.notFound.title")}
+			/>
 		);
 	}
 
@@ -190,14 +196,16 @@ export function FormerStudentEditorForm({
 					id="former-student-cpf"
 					form={form}
 					existingUsers={existingUsers}
-					label={t("academic.studentPage.editor.fields.cpf")}
-					placeholder={t("academic.studentPage.editor.fields.cpfPlaceholder")}
-					searchPlaceholder={t(
-						"academic.studentPage.editor.fields.cpfSearchPlaceholder",
+					label={t("academic.formerStudentPage.editor.fields.cpf")}
+					placeholder={t(
+						"academic.formerStudentPage.editor.fields.cpfPlaceholder",
 					)}
-					emptyMessage={t("academic.studentPage.editor.fields.cpfEmpty")}
+					searchPlaceholder={t(
+						"academic.formerStudentPage.editor.fields.cpfSearchPlaceholder",
+					)}
+					emptyMessage={t("academic.formerStudentPage.editor.fields.cpfEmpty")}
 					createOptionLabel={value =>
-						t("academic.studentPage.editor.fields.cpfCreateOption", {
+						t("academic.formerStudentPage.editor.fields.cpfCreateOption", {
 							value,
 						})
 					}
@@ -207,7 +215,7 @@ export function FormerStudentEditorForm({
 
 			<div className="grid gap-2">
 				<Label htmlFor="former-student-name">
-					{t("academic.studentPage.editor.fields.name")}
+					{t("academic.formerStudentPage.editor.fields.name")}
 				</Label>
 				<Input
 					id="former-student-name"
@@ -217,7 +225,9 @@ export function FormerStudentEditorForm({
 						form.formState.errors.name ? "former-student-name-error" : undefined
 					}
 					aria-invalid={form.formState.errors.name ? "true" : "false"}
-					placeholder={t("academic.studentPage.editor.fields.namePlaceholder")}
+					placeholder={t(
+						"academic.formerStudentPage.editor.fields.namePlaceholder",
+					)}
 				/>
 				{form.formState.errors.name ? (
 					<p
@@ -231,7 +241,7 @@ export function FormerStudentEditorForm({
 
 			<div className="grid gap-2">
 				<Label htmlFor="former-student-email">
-					{t("academic.studentPage.editor.fields.email")}
+					{t("academic.formerStudentPage.editor.fields.email")}
 				</Label>
 				<Input
 					id="former-student-email"
@@ -243,7 +253,9 @@ export function FormerStudentEditorForm({
 							: undefined
 					}
 					aria-invalid={form.formState.errors.email ? "true" : "false"}
-					placeholder={t("academic.studentPage.editor.fields.emailPlaceholder")}
+					placeholder={t(
+						"academic.formerStudentPage.editor.fields.emailPlaceholder",
+					)}
 				/>
 				{form.formState.errors.email ? (
 					<p
@@ -257,13 +269,13 @@ export function FormerStudentEditorForm({
 
 			<div className="grid gap-2">
 				<Label htmlFor="former-student-registration">
-					{t("academic.studentPage.editor.fields.academicRegistration")}
+					{t("academic.formerStudentPage.editor.fields.academicRegistration")}
 				</Label>
 				<Input
 					id="former-student-registration"
 					{...form.register("academicRegistration")}
 					placeholder={t(
-						"academic.studentPage.editor.fields.academicRegistrationPlaceholder",
+						"academic.formerStudentPage.editor.fields.academicRegistrationPlaceholder",
 					)}
 				/>
 				{form.formState.errors.academicRegistration ? (
@@ -279,12 +291,12 @@ export function FormerStudentEditorForm({
 		<section className="grid gap-4">
 			<div className="grid gap-1">
 				<p className="ty-overhead">
-					{t("academic.studentPage.editor.sections.academic")}
+					{t("academic.formerStudentPage.editor.sections.academic")}
 				</p>
 			</div>
 
 			<div className="grid gap-2">
-				<Label>{t("academic.studentPage.editor.fields.campus")}</Label>
+				<Label>{t("academic.formerStudentPage.editor.fields.campus")}</Label>
 				<Controller
 					control={form.control}
 					name="campus"
@@ -296,7 +308,7 @@ export function FormerStudentEditorForm({
 							<SelectTrigger
 								className="w-full"
 								placeholder={t(
-									"academic.studentPage.editor.fields.campusPlaceholder",
+									"academic.formerStudentPage.editor.fields.campusPlaceholder",
 								)}
 							/>
 							<SelectContent>
@@ -318,7 +330,7 @@ export function FormerStudentEditorForm({
 			</div>
 
 			<div className="grid gap-2">
-				<Label>{t("academic.studentPage.editor.fields.course")}</Label>
+				<Label>{t("academic.formerStudentPage.editor.fields.course")}</Label>
 				<Controller
 					control={form.control}
 					name="courseId"
@@ -328,13 +340,13 @@ export function FormerStudentEditorForm({
 							value={field.value}
 							onValueChange={field.onChange}
 							placeholder={t(
-								"academic.studentPage.editor.fields.coursePlaceholder",
+								"academic.formerStudentPage.editor.fields.coursePlaceholder",
 							)}
 							searchPlaceholder={t(
-								"academic.studentPage.editor.fields.courseSearchPlaceholder",
+								"academic.formerStudentPage.editor.fields.courseSearchPlaceholder",
 							)}
 							emptyMessage={t(
-								"academic.studentPage.editor.fields.courseEmptyMessage",
+								"academic.formerStudentPage.editor.fields.courseEmptyMessage",
 							)}
 						/>
 					)}
@@ -348,7 +360,7 @@ export function FormerStudentEditorForm({
 
 			<div className="grid gap-2">
 				<Label htmlFor="former-student-required-hours">
-					{t("academic.studentPage.editor.fields.requiredHours")}
+					{t("academic.formerStudentPage.editor.fields.requiredHours")}
 				</Label>
 				<Input
 					id="former-student-required-hours"
@@ -356,7 +368,7 @@ export function FormerStudentEditorForm({
 					min="0"
 					{...form.register("requiredHours")}
 					placeholder={t(
-						"academic.studentPage.editor.fields.requiredHoursPlaceholder",
+						"academic.formerStudentPage.editor.fields.requiredHoursPlaceholder",
 					)}
 				/>
 				{form.formState.errors.requiredHours ? (
@@ -396,7 +408,9 @@ export function FormerStudentEditorForm({
 
 			<div className="grid gap-4 md:grid-cols-2">
 				<div className="grid gap-2">
-					<Label>{t("academic.studentPage.editor.fields.startDate")}</Label>
+					<Label>
+						{t("academic.formerStudentPage.editor.fields.startDate")}
+					</Label>
 					<Controller
 						control={form.control}
 						name="startDate"
@@ -405,7 +419,7 @@ export function FormerStudentEditorForm({
 								value={field.value}
 								onValueChange={field.onChange}
 								placeholder={t(
-									"academic.studentPage.editor.fields.startDatePlaceholder",
+									"academic.formerStudentPage.editor.fields.startDatePlaceholder",
 								)}
 							/>
 						)}
@@ -418,7 +432,7 @@ export function FormerStudentEditorForm({
 				</div>
 
 				<div className="grid gap-2">
-					<Label>{t("academic.studentPage.editor.fields.dueDate")}</Label>
+					<Label>{t("academic.formerStudentPage.editor.fields.dueDate")}</Label>
 					<Controller
 						control={form.control}
 						name="dueDate"
@@ -427,7 +441,7 @@ export function FormerStudentEditorForm({
 								value={field.value}
 								onValueChange={field.onChange}
 								placeholder={t(
-									"academic.studentPage.editor.fields.dueDatePlaceholder",
+									"academic.formerStudentPage.editor.fields.dueDatePlaceholder",
 								)}
 							/>
 						)}
@@ -458,10 +472,10 @@ export function FormerStudentEditorForm({
 		>
 			<TabsList className="w-full">
 				<TabsTrigger value="academic">
-					{t("academic.studentPage.editor.tabs.academic")}
+					{t("academic.formerStudentPage.editor.tabs.academic")}
 				</TabsTrigger>
 				<TabsTrigger value="linked">
-					{t("academic.studentPage.editor.tabs.linked")}
+					{t("academic.formerStudentPage.editor.tabs.linked")}
 				</TabsTrigger>
 			</TabsList>
 
@@ -501,7 +515,7 @@ export function FormerStudentEditorForm({
 					{linkedCourse ? (
 						<AccordionItem value="linked-course">
 							<AccordionTrigger>
-								{t("academic.studentPage.editor.sections.linkedCourse")}
+								{t("academic.formerStudentPage.editor.sections.linkedCourse")}
 							</AccordionTrigger>
 							<AccordionContent>
 								<div className="grid gap-6">

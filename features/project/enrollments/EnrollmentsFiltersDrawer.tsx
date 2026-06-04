@@ -29,60 +29,50 @@ export function EnrollmentsFiltersDrawer({
 
 	return (
 		<ServicePageFiltersDrawer
-			activeLabel={t("project.enrollmentPage.filters.drawer.active")}
-			applyLabel={t("project.enrollmentPage.filters.drawer.apply")}
+			activeLabel={t("common.filters.active")}
+			applyLabel={t("common.filters.apply")}
 			clearConfirmDescription={t(
 				"project.enrollmentPage.filters.drawer.clearConfirm.description",
 			)}
 			clearConfirmTitle={t(
 				"project.enrollmentPage.filters.drawer.clearConfirm.title",
 			)}
-			clearLabel={t("project.enrollmentPage.filters.clear")}
+			clearLabel={t("common.filters.clear")}
 			hasActiveFilters={hasActiveFilters}
-			label={t("project.enrollmentPage.filters.drawer.label")}
+			label={t("common.filters.label")}
 			onApply={onApply}
 			onClear={onClear}
 			onOpenChange={onOpenChange}
 			open={open}
-			overhead={t("project.enrollmentPage.filters.drawer.overhead")}
-			title={t("project.enrollmentPage.filters.drawer.title")}
-			triggerLabel={t("project.enrollmentPage.filters.drawer.trigger")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
+			triggerLabel={t("common.filters.more")}
 		>
 			{projectsError ? (
 				<SomeErrorState
-					title={t("project.enrollmentPage.filters.project.error.title")}
-					description={t(
-						"project.enrollmentPage.filters.project.error.description",
-					)}
+					title={t("common.loadErrors.projects.title")}
+					description={t("common.loadErrors.projects.description")}
 					onRefresh={onRefreshProjects}
 				/>
 			) : (
 				<div className="grid gap-2">
-					<Label>{t("project.enrollmentPage.filters.project.label")}</Label>
+					<Label>{t("common.fields.project")}</Label>
 					<Combobox
 						multiple
 						options={projectOptions}
 						values={filters.projectIds}
 						onValuesChange={value => onFilterChange("projectIds", value)}
-						placeholder={t(
-							"project.enrollmentPage.filters.project.placeholder",
-						)}
-						searchPlaceholder={t(
-							"project.enrollmentPage.filters.project.searchPlaceholder",
-						)}
-						emptyMessage={t(
-							"project.enrollmentPage.filters.project.emptyMessage",
-						)}
+						placeholder={t("common.placeholders.select")}
+						searchPlaceholder={t("common.placeholders.search")}
+						emptyMessage={t("common.placeholders.noResults")}
 					/>
 				</div>
 			)}
 
 			{formerStudentsError ? (
 				<SomeErrorState
-					title={t("project.enrollmentPage.filters.student.error.title")}
-					description={t(
-						"project.enrollmentPage.filters.student.error.description",
-					)}
+					title={t("common.loadErrors.formerStudents.title")}
+					description={t("common.loadErrors.formerStudents.description")}
 					onRefresh={onRefreshFormerStudents}
 				/>
 			) : (
@@ -107,7 +97,7 @@ export function EnrollmentsFiltersDrawer({
 			)}
 
 			<div className="grid gap-2">
-				<Label>{t("project.enrollmentPage.filters.status.label")}</Label>
+				<Label>{t("common.fields.status")}</Label>
 				<Combobox
 					multiple
 					options={statusOptions}
@@ -115,7 +105,7 @@ export function EnrollmentsFiltersDrawer({
 					onValuesChange={value =>
 						onFilterChange("statuses", value as EnrollmentStatus[])
 					}
-					placeholder={t("project.enrollmentPage.filters.status.placeholder")}
+					placeholder={t("common.placeholders.select")}
 					searchPlaceholder={t(
 						"project.enrollmentPage.filters.status.searchPlaceholder",
 					)}
@@ -144,22 +134,20 @@ export function EnrollmentsFiltersDrawer({
 			</div>
 
 			<div className="grid gap-2">
-				<Label>{t("project.enrollmentPage.filters.startDate.label")}</Label>
+				<Label>{t("common.filters.startDate.label")}</Label>
 				<DatePicker
 					value={filters.dateFrom}
 					onValueChange={value => onFilterChange("dateFrom", value)}
-					placeholder={t(
-						"project.enrollmentPage.filters.startDate.placeholder",
-					)}
+					placeholder={t("common.filters.startDate.placeholder")}
 				/>
 			</div>
 
 			<div className="grid gap-2">
-				<Label>{t("project.enrollmentPage.filters.endDate.label")}</Label>
+				<Label>{t("common.filters.endDate.label")}</Label>
 				<DatePicker
 					value={filters.dateTo}
 					onValueChange={value => onFilterChange("dateTo", value)}
-					placeholder={t("project.enrollmentPage.filters.endDate.placeholder")}
+					placeholder={t("common.filters.endDate.placeholder")}
 				/>
 			</div>
 		</ServicePageFiltersDrawer>

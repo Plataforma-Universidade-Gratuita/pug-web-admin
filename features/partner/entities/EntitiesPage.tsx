@@ -157,8 +157,8 @@ export function EntitiesPage() {
 		if (entitiesQuery.isError) {
 			return (
 				<SomeErrorState
-					title={t("partner.entityPage.table.error.title")}
-					description={t("partner.entityPage.table.error.description")}
+					title={t("common.loadErrors.entities.title")}
+					description={t("common.loadErrors.entities.description")}
 					onRefresh={() => {
 						if (entitiesPagination.isAll) {
 							void entitiesQuery.refetch();
@@ -247,7 +247,7 @@ export function EntitiesPage() {
 			description: t("partner.entityPage.delete.undo.description", {
 				name: entity.name,
 			}),
-			undoLabel: t("partner.entityPage.delete.undo.action"),
+			undoLabel: t("common.actions.undo"),
 			onCommit: () => {
 				removeEntityMutation.mutate(
 					{
@@ -288,13 +288,13 @@ export function EntitiesPage() {
 				title={t("partner.entityPage.title")}
 				description={t("partner.entityPage.description")}
 				metadata={{
-					triggerLabel: t("partner.entityPage.metadata.trigger"),
-					emptyTitle: t("partner.entityPage.metadata.empty.title"),
-					emptyDescription: t("partner.entityPage.metadata.empty.description"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
+					emptyDescription: t("common.metadata.empty.description"),
 				}}
 				actions={
 					<ServicePageHeaderActions
-						clearLabel={t("partner.entityPage.filters.clear")}
+						clearLabel={t("common.filters.clear")}
 						createLabel={t("partner.entityPage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}

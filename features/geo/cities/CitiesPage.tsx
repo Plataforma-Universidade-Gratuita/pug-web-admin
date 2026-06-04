@@ -143,9 +143,9 @@ export function CitiesPage() {
 				title={t("geo.cityPage.title")}
 				description={t("geo.cityPage.description")}
 				metadata={{
-					triggerLabel: t("geo.cityPage.metadata.trigger"),
-					emptyTitle: t("geo.cityPage.metadata.empty.title"),
-					emptyDescription: t("geo.cityPage.metadata.empty.description"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
+					emptyDescription: t("common.metadata.empty.description"),
 				}}
 				filtersClassName="grid gap-2"
 			>

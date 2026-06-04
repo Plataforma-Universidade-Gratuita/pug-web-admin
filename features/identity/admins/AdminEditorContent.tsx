@@ -207,9 +207,7 @@ export function AdminEditorContent({
 				</div>
 
 				<div className="grid gap-2">
-					<Label htmlFor="admin-email">
-						{t("identity.adminPage.update.fields.email")}
-					</Label>
+					<Label htmlFor="admin-email">{t("common.fields.email")}</Label>
 					<Input
 						id="admin-email"
 						type="email"
@@ -218,7 +216,7 @@ export function AdminEditorContent({
 							form.formState.errors.email ? "admin-email-error" : undefined
 						}
 						aria-invalid={form.formState.errors.email ? "true" : "false"}
-						placeholder={t("identity.adminPage.update.fields.email")}
+						placeholder={t("common.fields.email")}
 					/>
 					{form.formState.errors.email ? (
 						<p
@@ -238,9 +236,7 @@ export function AdminEditorContent({
 					</p>
 				</div>
 				<div className="grid gap-2">
-					<Label htmlFor="admin-campus">
-						{t("identity.adminPage.update.fields.campus")}
-					</Label>
+					<Label htmlFor="admin-campus">{t("common.fields.campus")}</Label>
 					<Controller
 						control={form.control}
 						name="campus"
@@ -251,9 +247,7 @@ export function AdminEditorContent({
 							>
 								<SelectTrigger
 									className="w-full"
-									placeholder={t(
-										"identity.adminPage.filters.campus.placeholder",
-									)}
+									placeholder={t("common.placeholders.select")}
 								/>
 								<SelectContent>
 									{campusOptions.map(option => (

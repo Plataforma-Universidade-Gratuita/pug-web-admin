@@ -49,24 +49,24 @@ export function ProjectsFiltersDrawer({
 
 	return (
 		<ServicePageFiltersDrawer
-			activeLabel={t("project.projectPage.filters.drawer.active")}
-			applyLabel={t("project.projectPage.filters.drawer.apply")}
+			activeLabel={t("common.filters.active")}
+			applyLabel={t("common.filters.apply")}
 			clearConfirmDescription={t(
 				"project.projectPage.filters.drawer.clearConfirm.description",
 			)}
 			clearConfirmTitle={t(
 				"project.projectPage.filters.drawer.clearConfirm.title",
 			)}
-			clearLabel={t("project.projectPage.filters.clear")}
+			clearLabel={t("common.filters.clear")}
 			hasActiveFilters={hasActiveFilters}
-			label={t("project.projectPage.filters.drawer.label")}
+			label={t("common.filters.label")}
 			onApply={onApply}
 			onClear={onClear}
 			onOpenChange={onOpenChange}
 			open={open}
-			overhead={t("project.projectPage.filters.drawer.overhead")}
-			title={t("project.projectPage.filters.drawer.title")}
-			triggerLabel={t("project.projectPage.filters.drawer.trigger")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
+			triggerLabel={t("common.filters.more")}
 		>
 			<TextFieldFilter
 				label={t("project.projectPage.filters.name.label")}
@@ -77,25 +77,21 @@ export function ProjectsFiltersDrawer({
 
 			{entitiesError ? (
 				<SomeErrorState
-					title={t("project.projectPage.filters.entity.error.title")}
-					description={t(
-						"project.projectPage.filters.entity.error.description",
-					)}
+					title={t("common.loadErrors.entities.title")}
+					description={t("common.loadErrors.entities.description")}
 					onRefresh={onRefreshEntities}
 				/>
 			) : (
 				<div className="grid gap-2">
-					<Label>{t("project.projectPage.filters.entity.label")}</Label>
+					<Label>{t("common.fields.entity")}</Label>
 					<Combobox
 						multiple
 						options={entityOptions}
 						values={entityIds}
 						onValuesChange={value => onEntityIdsChange(value)}
-						placeholder={t("project.projectPage.filters.entity.placeholder")}
-						searchPlaceholder={t(
-							"project.projectPage.filters.entity.searchPlaceholder",
-						)}
-						emptyMessage={t("project.projectPage.filters.entity.emptyMessage")}
+						placeholder={t("common.placeholders.select")}
+						searchPlaceholder={t("common.placeholders.search")}
+						emptyMessage={t("common.placeholders.noResults")}
 					/>
 				</div>
 			)}
@@ -135,13 +131,13 @@ export function ProjectsFiltersDrawer({
 			)}
 
 			<div className="grid gap-2">
-				<Label>{t("project.projectPage.filters.status.label")}</Label>
+				<Label>{t("common.fields.status")}</Label>
 				<Combobox
 					multiple
 					options={statusOptions}
 					values={statuses}
 					onValuesChange={value => onStatusesChange(value as ProjectStatus[])}
-					placeholder={t("project.projectPage.filters.status.placeholder")}
+					placeholder={t("common.placeholders.select")}
 				/>
 			</div>
 
@@ -164,20 +160,20 @@ export function ProjectsFiltersDrawer({
 			/>
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("project.projectPage.filters.startDate.label")}</Label>
+				<Label>{t("common.filters.startDate.label")}</Label>
 				<DatePicker
 					value={dateFrom}
 					onValueChange={onDateFromChange}
-					placeholder={t("project.projectPage.filters.startDate.placeholder")}
+					placeholder={t("common.filters.startDate.placeholder")}
 				/>
 			</div>
 
 			<div className="grid min-w-0 gap-2">
-				<Label>{t("project.projectPage.filters.endDate.label")}</Label>
+				<Label>{t("common.filters.endDate.label")}</Label>
 				<DatePicker
 					value={dateTo}
 					onValueChange={onDateToChange}
-					placeholder={t("project.projectPage.filters.endDate.placeholder")}
+					placeholder={t("common.filters.endDate.placeholder")}
 				/>
 			</div>
 		</ServicePageFiltersDrawer>

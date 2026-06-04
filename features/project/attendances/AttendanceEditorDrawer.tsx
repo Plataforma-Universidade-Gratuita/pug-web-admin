@@ -304,12 +304,12 @@ export function AttendanceEditorDrawer({
 								? t(
 										isCreateMode
 											? "project.attendancePage.create.actions.savePending"
-											: "project.attendancePage.update.actions.savePending",
+											: "common.actions.saveChangesPending",
 									)
 								: t(
 										isCreateMode
 											? "project.attendancePage.create.actions.save"
-											: "project.attendancePage.update.actions.save",
+											: "common.actions.saveChanges",
 									)}
 						</Button>
 					</Footer>

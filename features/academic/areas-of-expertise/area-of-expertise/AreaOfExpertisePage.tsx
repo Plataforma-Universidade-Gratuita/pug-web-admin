@@ -40,22 +40,22 @@ export function AreaOfExpertisePage({
 				? [
 						{
 							id: "name",
-							label: t("academic.schoolPage.dialog.fields.name"),
+							label: t("academic.areaOfExpertisePage.dialog.fields.name"),
 							value: areaOfExpertise.name,
 						},
 						{
 							id: "id",
-							label: t("academic.schoolPage.dialog.fields.id"),
+							label: t("academic.areaOfExpertisePage.dialog.fields.id"),
 							value: areaOfExpertise.id,
 						},
 						{
 							id: "createdAt",
-							label: t("academic.schoolPage.dialog.fields.createdAt"),
+							label: t("academic.areaOfExpertisePage.dialog.fields.createdAt"),
 							value: areaOfExpertise.auditInfo.createdAtFormatted,
 						},
 						{
 							id: "updatedAt",
-							label: t("academic.schoolPage.dialog.fields.updatedAt"),
+							label: t("academic.areaOfExpertisePage.dialog.fields.updatedAt"),
 							value: areaOfExpertise.auditInfo.updatedAtFormatted,
 						},
 					]
@@ -66,21 +66,26 @@ export function AreaOfExpertisePage({
 	return (
 		<EntityPageShell
 			title={
-				areaOfExpertise?.name ?? t("academic.schoolPage.dialog.titleFallback")
+				areaOfExpertise?.name ??
+				t("academic.areaOfExpertisePage.dialog.titleFallback")
 			}
-			description={t("academic.schoolPage.description")}
+			description={t("academic.areaOfExpertisePage.description")}
 		>
 			{areaOfExpertiseDetailQuery.isError ? (
 				areaOfExpertiseDetailQuery.error instanceof WebApiError &&
 				areaOfExpertiseDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("academic.schoolPage.dialog.notFound.title")}
-						description={t("academic.schoolPage.dialog.notFound.description")}
+						title={t("academic.areaOfExpertisePage.dialog.notFound.title")}
+						description={t(
+							"academic.areaOfExpertisePage.dialog.notFound.description",
+						)}
 					/>
 				) : (
 					<SomeErrorState
-						title={t("academic.schoolPage.dialog.error.title")}
-						description={t("academic.schoolPage.dialog.error.description")}
+						title={t("academic.areaOfExpertisePage.dialog.error.title")}
+						description={t(
+							"academic.areaOfExpertisePage.dialog.error.description",
+						)}
 						onRefresh={() => {
 							void areaOfExpertiseDetailQuery.refetch();
 						}}
@@ -91,7 +96,9 @@ export function AreaOfExpertisePage({
 			) : areaOfExpertiseDetailQuery.isLoading ? (
 				<EntityPageFieldsGridSkeleton />
 			) : (
-				<NotFoundState title={t("academic.schoolPage.dialog.notFound.title")} />
+				<NotFoundState
+					title={t("academic.areaOfExpertisePage.dialog.notFound.title")}
+				/>
 			)}
 		</EntityPageShell>
 	);

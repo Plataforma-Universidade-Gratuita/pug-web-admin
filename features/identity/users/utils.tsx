@@ -20,7 +20,7 @@ export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 	return [
 		{
 			accessorKey: "id",
-			header: t("identity.userPage.table.columns.id"),
+			header: t("common.fields.id"),
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 			cell: ({ row }) => (
 				<TableText
@@ -43,13 +43,13 @@ export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 		{
 			accessorFn: row => row.auditInfo.createdAt,
 			id: "createdAt",
-			header: t("identity.userPage.table.columns.createdAt"),
+			header: t("common.fields.createdAt"),
 			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
 		},
 		{
 			accessorFn: row => row.auditInfo.updatedAt,
 			id: "updatedAt",
-			header: t("identity.userPage.table.columns.updatedAt"),
+			header: t("common.fields.updatedAt"),
 			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
 		},
 	];

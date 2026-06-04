@@ -139,7 +139,7 @@ export function createProjectColumns(
 		{
 			accessorFn: row => row.status.status,
 			id: "status",
-			header: t("project.projectPage.table.columns.status"),
+			header: t("common.fields.status"),
 			cell: ({ row }) => (
 				<Badge
 					tone={getProjectStatusTone(row.original.status.status)}
@@ -180,12 +180,12 @@ export function createProjectColumns(
 		{
 			accessorFn: row => row.entity.name,
 			id: "entity",
-			header: t("project.projectPage.table.columns.entity"),
+			header: t("common.fields.entity"),
 		},
 		{
 			accessorFn: row => row.projectInfo.createdBy.name,
 			id: "createdBy",
-			header: t("project.projectPage.table.columns.createdBy"),
+			header: t("common.fields.email"),
 		},
 		{
 			accessorFn: row => row.projectInfo.offeredHours ?? "-",
@@ -215,12 +215,12 @@ export function createProjectColumns(
 		{
 			accessorFn: row => row.projectInfo.auditInfo.createdAtFormatted,
 			id: "createdAt",
-			header: t("project.projectPage.table.columns.createdAt"),
+			header: t("common.fields.createdAt"),
 		},
 		{
 			accessorFn: row => row.projectInfo.auditInfo.updatedAtFormatted,
 			id: "updatedAt",
-			header: t("project.projectPage.table.columns.updatedAt"),
+			header: t("common.fields.updatedAt"),
 		},
 	];
 }
@@ -389,10 +389,8 @@ export function getProjectEmptyStateCopy(t: TFunction, query: string) {
 
 export function getProjectsListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.projectPage.feedback.listError.title"),
-		fallbackDescription: t(
-			"project.projectPage.feedback.listError.description",
-		),
+		fallbackTitle: t("common.loadErrors.projects.title"),
+		fallbackDescription: t("common.loadErrors.projects.description"),
 	});
 }
 
@@ -413,10 +411,8 @@ export function getProjectEntitiesErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.projectPage.feedback.entitiesError.title"),
-		fallbackDescription: t(
-			"project.projectPage.feedback.entitiesError.description",
-		),
+		fallbackTitle: t("common.loadErrors.entities.title"),
+		fallbackDescription: t("common.loadErrors.entities.description"),
 	});
 }
 

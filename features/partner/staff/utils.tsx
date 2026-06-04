@@ -94,7 +94,7 @@ export function createStaffColumns(
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 			header: () => (
 				<div className="flex w-full justify-center">
-					{t("partner.staffPage.table.columns.active")}
+					{t("common.fields.status")}
 				</div>
 			),
 			cell: ({ row }) => {
@@ -143,7 +143,7 @@ export function createStaffColumns(
 		{
 			accessorFn: row => row.entity.name,
 			id: "entity",
-			header: t("partner.staffPage.table.columns.entity"),
+			header: t("common.fields.entity"),
 			cell: ({ row }) => row.original.entity.name,
 		},
 		{
@@ -516,10 +516,8 @@ export function getStaffEntitiesErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.staffPage.feedback.entitiesError.title"),
-		fallbackDescription: t(
-			"partner.staffPage.feedback.entitiesError.description",
-		),
+		fallbackTitle: t("common.loadErrors.entities.title"),
+		fallbackDescription: t("common.loadErrors.entities.description"),
 	});
 }
 

@@ -6,9 +6,9 @@ import { createRequiredTrimmedStringSchema } from "@/schemas";
 export function createAreaOfExpertiseEditorFormSchema(t: TFunction) {
 	return z.object({
 		name: createRequiredTrimmedStringSchema(
-			t("academic.schoolPage.editor.validation.name"),
+			t("academic.areaOfExpertisePage.editor.validation.name"),
 			150,
-			t("academic.schoolPage.editor.validation.nameTooLong"),
+			t("academic.areaOfExpertisePage.editor.validation.nameTooLong"),
 		),
 	});
 }

@@ -71,10 +71,8 @@ export function ProjectsEditorForm({
 	if (entitiesError && !isUpdateMode) {
 		return (
 			<SomeErrorState
-				title={t("project.projectPage.editor.entityLoadError.title")}
-				description={t(
-					"project.projectPage.editor.entityLoadError.description",
-				)}
+				title={t("common.loadErrors.entities.title")}
+				description={t("common.loadErrors.entities.description")}
 				onRefresh={onRefreshEntities}
 			/>
 		);
@@ -125,9 +123,7 @@ export function ProjectsEditorForm({
 
 			{isUpdateMode ? null : (
 				<div className="grid gap-2">
-					<Label htmlFor="project-entity">
-						{t("project.projectPage.editor.fields.entity")}
-					</Label>
+					<Label htmlFor="project-entity">{t("common.fields.entity")}</Label>
 					<Controller
 						control={form.control}
 						name="entityId"
@@ -137,15 +133,9 @@ export function ProjectsEditorForm({
 								options={entityOptions}
 								value={field.value}
 								onValueChange={field.onChange}
-								placeholder={t(
-									"project.projectPage.editor.fields.entityPlaceholder",
-								)}
-								searchPlaceholder={t(
-									"project.projectPage.editor.fields.entitySearchPlaceholder",
-								)}
-								emptyMessage={t(
-									"project.projectPage.editor.fields.entityEmptyMessage",
-								)}
+								placeholder={t("common.fields.entityPlaceholder")}
+								searchPlaceholder={t("common.fields.entitySearchPlaceholder")}
+								emptyMessage={t("common.fields.entityEmptyMessage")}
 							/>
 						)}
 					/>
@@ -268,9 +258,7 @@ export function ProjectsEditorForm({
 			className="drawer-sticky-tabs grid gap-4"
 		>
 			<TabsList className="w-full">
-				<TabsTrigger value="project">
-					{t("project.projectPage.editor.tabs.project")}
-				</TabsTrigger>
+				<TabsTrigger value="project">{t("common.fields.project")}</TabsTrigger>
 				<TabsTrigger value="linked">
 					{t("project.projectPage.editor.tabs.linked")}
 				</TabsTrigger>

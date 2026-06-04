@@ -76,10 +76,8 @@ export function AttendanceEditorForm({
 	if (projectsError) {
 		return (
 			<SomeErrorState
-				title={t("project.attendancePage.editor.projectLoadError.title")}
-				description={t(
-					"project.attendancePage.editor.projectLoadError.description",
-				)}
+				title={t("common.loadErrors.projects.title")}
+				description={t("common.loadErrors.projects.description")}
 				onRefresh={onRefreshProjects}
 			/>
 		);
@@ -88,10 +86,8 @@ export function AttendanceEditorForm({
 	if (!isCreateMode && projectError) {
 		return (
 			<SomeErrorState
-				title={t("project.attendancePage.editor.projectLoadError.title")}
-				description={t(
-					"project.attendancePage.editor.projectLoadError.description",
-				)}
+				title={t("common.loadErrors.projects.title")}
+				description={t("common.loadErrors.projects.description")}
 				onRefresh={onRefreshProjects}
 			/>
 		);
@@ -100,10 +96,8 @@ export function AttendanceEditorForm({
 	if (!isCreateMode && formerStudentError) {
 		return (
 			<SomeErrorState
-				title={t("project.attendancePage.editor.studentLoadError.title")}
-				description={t(
-					"project.attendancePage.editor.studentLoadError.description",
-				)}
+				title={t("common.loadErrors.formerStudents.title")}
+				description={t("common.loadErrors.formerStudents.description")}
 				onRefresh={onRefreshFormerStudent}
 			/>
 		);
@@ -122,7 +116,7 @@ export function AttendanceEditorForm({
 			{isCreateMode ? (
 				<>
 					<div className="grid gap-2">
-						<Label>{t("project.attendancePage.editor.fields.project")}</Label>
+						<Label>{t("common.fields.project")}</Label>
 						<Controller
 							control={form.control}
 							name="projectId"
@@ -131,15 +125,11 @@ export function AttendanceEditorForm({
 									options={projectOptions}
 									value={field.value}
 									onValueChange={field.onChange}
-									placeholder={t(
-										"project.attendancePage.editor.fields.projectPlaceholder",
-									)}
+									placeholder={t("common.fields.projectPlaceholder")}
 									searchPlaceholder={t(
-										"project.attendancePage.editor.fields.projectSearchPlaceholder",
+										"common.fields.projectSearchPlaceholder",
 									)}
-									emptyMessage={t(
-										"project.attendancePage.editor.fields.projectEmptyMessage",
-									)}
+									emptyMessage={t("common.fields.projectEmptyMessage")}
 								/>
 							)}
 						/>
@@ -200,7 +190,7 @@ export function AttendanceEditorForm({
 				</>
 			) : (
 				<div className="grid gap-2">
-					<Label>{t("project.attendancePage.editor.fields.status")}</Label>
+					<Label>{t("common.fields.status")}</Label>
 					<Controller
 						control={form.control}
 						name="status"
@@ -211,9 +201,7 @@ export function AttendanceEditorForm({
 							>
 								<SelectTrigger
 									className="w-full"
-									placeholder={t(
-										"project.attendancePage.editor.fields.statusPlaceholder",
-									)}
+									placeholder={t("common.fields.statusPlaceholder")}
 								/>
 								<SelectContent>
 									{statusOptions.map(option => (

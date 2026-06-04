@@ -238,8 +238,8 @@ export function ProjectsPage() {
 		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
-					title={t("project.projectPage.table.error.title")}
-					description={t("project.projectPage.table.error.description")}
+					title={t("common.loadErrors.projects.title")}
+					description={t("common.loadErrors.projects.description")}
 					onRefresh={() => {
 						if (projectsPagination.isAll) {
 							void projectsQuery.refetch();
@@ -362,7 +362,7 @@ export function ProjectsPage() {
 			description: t("project.projectPage.delete.undo.description", {
 				name: project.name,
 			}),
-			undoLabel: t("project.projectPage.delete.undo.action"),
+			undoLabel: t("common.actions.undo"),
 			onCommit: () => {
 				removeProjectMutation.mutate(
 					{
@@ -445,13 +445,13 @@ export function ProjectsPage() {
 				title={t("project.projectPage.title")}
 				description={t("project.projectPage.description")}
 				metadata={{
-					triggerLabel: t("project.projectPage.metadata.trigger"),
-					emptyTitle: t("project.projectPage.metadata.empty.title"),
-					emptyDescription: t("project.projectPage.metadata.empty.description"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
+					emptyDescription: t("common.metadata.empty.description"),
 				}}
 				actions={
 					<ServicePageHeaderActions
-						clearLabel={t("project.projectPage.filters.clear")}
+						clearLabel={t("common.filters.clear")}
 						createLabel={t("project.projectPage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}
@@ -468,7 +468,7 @@ export function ProjectsPage() {
 				/>
 
 				<div className="grid gap-2">
-					<Label>{t("project.projectPage.filters.status.label")}</Label>
+					<Label>{t("common.fields.status")}</Label>
 					<Combobox
 						multiple
 						options={statusOptions}

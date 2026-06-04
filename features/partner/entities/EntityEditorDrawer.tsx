@@ -129,15 +129,15 @@ export function EntityEditorDrawer({
 		isCreateMode
 			? "partner.entityPage.create.actions.save"
 			: isDuplicateMode
-				? "partner.entityPage.duplicate.actions.save"
-				: "partner.entityPage.update.actions.save",
+				? "common.actions.createDuplicate"
+				: "common.actions.saveChanges",
 	);
 	const savePendingLabel = t(
 		isCreateMode
 			? "partner.entityPage.create.actions.savePending"
 			: isDuplicateMode
-				? "partner.entityPage.duplicate.actions.savePending"
-				: "partner.entityPage.update.actions.savePending",
+				? "common.actions.createDuplicatePending"
+				: "common.actions.saveChangesPending",
 	);
 
 	useQueryErrorToasts([
@@ -301,7 +301,7 @@ export function EntityEditorDrawer({
 							disabled={!form.formState.isDirty || isSubmitPending}
 							onClick={() => setIsResetConfirmOpen(true)}
 						>
-							{t("partner.entityPage.editor.actions.reset")}
+							{t("common.actions.resetChanges")}
 						</Button>
 						<Button
 							usage="success"
@@ -334,7 +334,7 @@ export function EntityEditorDrawer({
 					</AlertDialogHeader>
 					<AlertDialogFooter
 						cancelLabel={t("common.cancel")}
-						actionLabel={t("partner.entityPage.editor.actions.reset")}
+						actionLabel={t("common.actions.resetChanges")}
 						onAction={resetForm}
 					/>
 				</AlertDialogContent>

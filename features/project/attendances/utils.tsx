@@ -196,7 +196,7 @@ export function createAttendanceColumns(
 		{
 			accessorFn: row => row.status.status,
 			id: "status",
-			header: t("project.attendancePage.table.columns.status"),
+			header: t("common.fields.status"),
 			cell: ({ row }) => (
 				<Badge
 					tone={getAttendanceStatusTone(row.original.status.status)}
@@ -222,7 +222,7 @@ export function createAttendanceColumns(
 		{
 			accessorFn: row => row.project.name,
 			id: "project",
-			header: t("project.attendancePage.table.columns.project"),
+			header: t("common.fields.project"),
 		},
 		{
 			accessorFn: row => row.student.account.name,
@@ -265,12 +265,12 @@ export function createAttendanceColumns(
 		{
 			accessorFn: row => row.attendanceInfo.auditInfo.createdAtFormatted,
 			id: "createdAt",
-			header: t("project.attendancePage.table.columns.createdAt"),
+			header: t("common.fields.createdAt"),
 		},
 		{
 			accessorFn: row => row.attendanceInfo.auditInfo.updatedAtFormatted,
 			id: "updatedAt",
-			header: t("project.attendancePage.table.columns.updatedAt"),
+			header: t("common.fields.updatedAt"),
 		},
 	];
 }
@@ -535,10 +535,8 @@ export function getAttendanceProjectsErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.attendancePage.feedback.projectsError.title"),
-		fallbackDescription: t(
-			"project.attendancePage.feedback.projectsError.description",
-		),
+		fallbackTitle: t("common.loadErrors.projects.title"),
+		fallbackDescription: t("common.loadErrors.projects.description"),
 	});
 }
 
@@ -547,10 +545,8 @@ export function getAttendanceStudentsErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.attendancePage.feedback.studentsError.title"),
-		fallbackDescription: t(
-			"project.attendancePage.feedback.studentsError.description",
-		),
+		fallbackTitle: t("common.loadErrors.formerStudents.title"),
+		fallbackDescription: t("common.loadErrors.formerStudents.description"),
 	});
 }
 

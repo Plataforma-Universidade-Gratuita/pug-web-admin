@@ -31,7 +31,7 @@ export function EnrollmentOwnDetailsContent({
 			},
 			{
 				id: "status",
-				label: t("project.enrollmentPage.dialog.fields.status"),
+				label: t("common.fields.status"),
 				value: (
 					<Badge
 						className="min-h-5 px-2 py-0.5"
@@ -58,12 +58,12 @@ export function EnrollmentOwnDetailsContent({
 			},
 			{
 				id: "createdAt",
-				label: t("project.enrollmentPage.dialog.fields.createdAt"),
+				label: t("common.fields.createdAt"),
 				value: enrollment.enrollmentInfo.auditInfo.createdAtFormatted,
 			},
 			{
 				id: "updatedAt",
-				label: t("project.enrollmentPage.dialog.fields.updatedAt"),
+				label: t("common.fields.updatedAt"),
 				value: enrollment.enrollmentInfo.auditInfo.updatedAtFormatted,
 			},
 		],

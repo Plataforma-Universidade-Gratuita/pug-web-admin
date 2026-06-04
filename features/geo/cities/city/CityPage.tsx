@@ -38,7 +38,7 @@ export function CityPage({ cityId }: CityPageProps) {
 				? [
 						{
 							id: "identifier",
-							label: t("geo.cityPage.dialog.fields.id"),
+							label: t("common.fields.id"),
 							value: city.id,
 						},
 						{

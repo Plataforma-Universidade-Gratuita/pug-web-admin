@@ -28,7 +28,7 @@ export function createCourseColumns(t: TFunction): ColumnDef<CourseResponse>[] {
 	return [
 		{
 			accessorKey: "id",
-			header: t("academic.coursePage.table.columns.id"),
+			header: t("common.fields.id"),
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 			cell: ({ row }) =>
 				TableText({
@@ -49,13 +49,13 @@ export function createCourseColumns(t: TFunction): ColumnDef<CourseResponse>[] {
 		{
 			accessorFn: row => row.auditInfo.createdAt,
 			id: "createdAt",
-			header: t("academic.coursePage.table.columns.createdAt"),
+			header: t("common.fields.createdAt"),
 			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
 		},
 		{
 			accessorFn: row => row.auditInfo.updatedAt,
 			id: "updatedAt",
-			header: t("academic.coursePage.table.columns.updatedAt"),
+			header: t("common.fields.updatedAt"),
 			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
 		},
 	];

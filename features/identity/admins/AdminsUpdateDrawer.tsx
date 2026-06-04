@@ -155,12 +155,12 @@ export function AdminsUpdateDrawer({
 	const saveLabel = t(
 		isCreateMode
 			? "identity.adminPage.create.actions.save"
-			: "identity.adminPage.update.actions.save",
+			: "common.actions.saveChanges",
 	);
 	const savePendingLabel = t(
 		isCreateMode
 			? "identity.adminPage.create.actions.savePending"
-			: "identity.adminPage.update.actions.savePending",
+			: "common.actions.saveChangesPending",
 	);
 
 	useQueryErrorToasts([
@@ -299,7 +299,7 @@ export function AdminsUpdateDrawer({
 							disabled={!form.formState.isDirty || isSubmitPending}
 							onClick={() => setIsResetConfirmOpen(true)}
 						>
-							{t("identity.adminPage.update.actions.reset")}
+							{t("common.actions.resetChanges")}
 						</Button>
 						<Button
 							usage="success"
@@ -359,7 +359,7 @@ export function AdminsUpdateDrawer({
 					</AlertDialogHeader>
 					<AlertDialogFooter
 						cancelLabel={t("common.cancel")}
-						actionLabel={t("identity.adminPage.update.actions.reset")}
+						actionLabel={t("common.actions.resetChanges")}
 						onAction={resetForm}
 					/>
 				</AlertDialogContent>

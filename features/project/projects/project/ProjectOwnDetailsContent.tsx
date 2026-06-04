@@ -30,7 +30,7 @@ export function ProjectOwnDetailsContent({
 		const baseFields: EntityPageField[] = [
 			{
 				id: "status",
-				label: t("project.projectPage.dialog.fields.status"),
+				label: t("common.fields.status"),
 				value: (
 					<Badge
 						className="min-h-5 px-2 py-0.5"
@@ -65,12 +65,12 @@ export function ProjectOwnDetailsContent({
 			},
 			{
 				id: "createdAt",
-				label: t("project.projectPage.dialog.fields.createdAt"),
+				label: t("common.fields.createdAt"),
 				value: project.projectInfo.auditInfo.createdAtFormatted,
 			},
 			{
 				id: "updatedAt",
-				label: t("project.projectPage.dialog.fields.updatedAt"),
+				label: t("common.fields.updatedAt"),
 				value: project.projectInfo.auditInfo.updatedAtFormatted,
 			},
 		];

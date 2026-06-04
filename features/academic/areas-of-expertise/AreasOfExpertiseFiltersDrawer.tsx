@@ -24,29 +24,33 @@ export function AreasOfExpertiseFiltersDrawer({
 			open={open}
 			onOpenChange={onOpenChange}
 			hasActiveFilters={hasActiveFilters}
-			label={t("academic.schoolPage.filters.drawer.label")}
-			activeLabel={t("academic.schoolPage.filters.drawer.active")}
-			triggerLabel={t("academic.schoolPage.filters.drawer.trigger")}
-			overhead={t("academic.schoolPage.filters.drawer.overhead")}
-			title={t("academic.schoolPage.filters.drawer.title")}
+			label={t("common.filters.label")}
+			activeLabel={t("common.filters.active")}
+			triggerLabel={t("common.filters.more")}
+			overhead={t("common.filters.overhead")}
+			title={t("common.filters.title")}
 			clearConfirmTitle={t(
-				"academic.schoolPage.filters.drawer.clearConfirm.title",
+				"academic.areaOfExpertisePage.filters.drawer.clearConfirm.title",
 			)}
 			clearConfirmDescription={t(
-				"academic.schoolPage.filters.drawer.clearConfirm.description",
+				"academic.areaOfExpertisePage.filters.drawer.clearConfirm.description",
 			)}
-			clearLabel={t("academic.schoolPage.filters.clear")}
-			applyLabel={t("academic.schoolPage.filters.drawer.apply")}
+			clearLabel={t("common.filters.clear")}
+			applyLabel={t("common.filters.apply")}
 			onClear={onClear}
 			onApply={onApply}
 		>
 			<div className="grid gap-4 sm:grid-cols-2">
 				<div className="grid gap-2">
-					<Label>{t("academic.schoolPage.filters.startDate.label")}</Label>
+					<Label>
+						{t("academic.areaOfExpertisePage.filters.startDate.label")}
+					</Label>
 					<DatePicker
 						value={startDate}
 						onValueChange={onStartDateChange}
-						placeholder={t("academic.schoolPage.filters.startDate.placeholder")}
+						placeholder={t(
+							"academic.areaOfExpertisePage.filters.startDate.placeholder",
+						)}
 						panelSide="left"
 						panelAlign="start"
 						panelAvoidCollisions
@@ -54,11 +58,15 @@ export function AreasOfExpertiseFiltersDrawer({
 					/>
 				</div>
 				<div className="grid gap-2">
-					<Label>{t("academic.schoolPage.filters.endDate.label")}</Label>
+					<Label>
+						{t("academic.areaOfExpertisePage.filters.endDate.label")}
+					</Label>
 					<DatePicker
 						value={endDate}
 						onValueChange={onEndDateChange}
-						placeholder={t("academic.schoolPage.filters.endDate.placeholder")}
+						placeholder={t(
+							"academic.areaOfExpertisePage.filters.endDate.placeholder",
+						)}
 						panelSide="left"
 						panelAlign="start"
 						panelAvoidCollisions

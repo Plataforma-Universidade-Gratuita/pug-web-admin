@@ -98,8 +98,8 @@ export function StaffEditorForm({
 	if (entitiesError) {
 		return (
 			<SomeErrorState
-				title={t("partner.staffPage.editor.entityLoadError.title")}
-				description={t("partner.staffPage.editor.entityLoadError.description")}
+				title={t("common.loadErrors.entities.title")}
+				description={t("common.loadErrors.entities.description")}
 				onRefresh={onRefreshEntities}
 			/>
 		);
@@ -181,9 +181,7 @@ export function StaffEditorForm({
 				</div>
 
 				<div className="grid gap-2">
-					<Label htmlFor="staff-email">
-						{t("partner.staffPage.editor.fields.email")}
-					</Label>
+					<Label htmlFor="staff-email">{t("common.fields.email")}</Label>
 					<Input
 						id="staff-email"
 						type="email"
@@ -192,7 +190,7 @@ export function StaffEditorForm({
 							form.formState.errors.email ? "staff-email-error" : undefined
 						}
 						aria-invalid={form.formState.errors.email ? "true" : "false"}
-						placeholder={t("partner.staffPage.editor.fields.email")}
+						placeholder={t("common.fields.email")}
 					/>
 					{form.formState.errors.email ? (
 						<p
@@ -212,9 +210,7 @@ export function StaffEditorForm({
 					</p>
 				</div>
 				<div className="grid gap-2">
-					<Label htmlFor="staff-entity">
-						{t("partner.staffPage.editor.fields.entity")}
-					</Label>
+					<Label htmlFor="staff-entity">{t("common.fields.entity")}</Label>
 					<Controller
 						control={form.control}
 						name="entityId"
@@ -224,15 +220,9 @@ export function StaffEditorForm({
 								options={entityOptions}
 								value={field.value}
 								onValueChange={field.onChange}
-								placeholder={t(
-									"partner.staffPage.editor.fields.entityPlaceholder",
-								)}
-								searchPlaceholder={t(
-									"partner.staffPage.editor.fields.entitySearchPlaceholder",
-								)}
-								emptyMessage={t(
-									"partner.staffPage.editor.fields.entityEmptyMessage",
-								)}
+								placeholder={t("common.fields.entityPlaceholder")}
+								searchPlaceholder={t("common.fields.entitySearchPlaceholder")}
+								emptyMessage={t("common.fields.entityEmptyMessage")}
 							/>
 						)}
 					/>

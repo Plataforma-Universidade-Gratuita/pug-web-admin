@@ -94,7 +94,7 @@ export function useStaffPageActions({
 			description: t("partner.staffPage.delete.undo.description", {
 				name: staff.account.user.name,
 			}),
-			undoLabel: t("partner.staffPage.delete.undo.action"),
+			undoLabel: t("common.actions.undo"),
 			onCommit: () => {
 				removeStaffMutation.mutate(
 					{

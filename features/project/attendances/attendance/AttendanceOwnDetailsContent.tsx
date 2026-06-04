@@ -41,7 +41,7 @@ export function AttendanceOwnDetailsContent({
 			},
 			{
 				id: "status",
-				label: t("project.attendancePage.dialog.fields.status"),
+				label: t("common.fields.status"),
 				value: (
 					<Badge
 						className="min-h-5 px-2 py-0.5"
@@ -66,12 +66,12 @@ export function AttendanceOwnDetailsContent({
 			},
 			{
 				id: "createdAt",
-				label: t("project.attendancePage.dialog.fields.createdAt"),
+				label: t("common.fields.createdAt"),
 				value: attendance.attendanceInfo.auditInfo.createdAtFormatted,
 			},
 			{
 				id: "updatedAt",
-				label: t("project.attendancePage.dialog.fields.updatedAt"),
+				label: t("common.fields.updatedAt"),
 				value: attendance.attendanceInfo.auditInfo.updatedAtFormatted,
 			},
 		],

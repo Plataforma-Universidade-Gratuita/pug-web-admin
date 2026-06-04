@@ -64,12 +64,12 @@ export function AdminPage({ adminId }: AdminPageProps) {
 						},
 						{
 							id: "email",
-							label: t("identity.adminPage.dialog.fields.email"),
+							label: t("common.fields.email"),
 							value: admin.accountResponse.email,
 						},
 						{
 							id: "campus",
-							label: t("identity.adminPage.dialog.fields.campus"),
+							label: t("common.fields.campus"),
 							value: admin.campus.campusFormatted,
 						},
 						{

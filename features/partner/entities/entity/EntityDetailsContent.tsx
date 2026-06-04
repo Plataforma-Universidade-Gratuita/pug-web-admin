@@ -62,7 +62,7 @@ export function EntityDetailsContent({
 				? [
 						{
 							id: "id",
-							label: t("partner.entityPage.dialog.fields.id"),
+							label: t("common.fields.id"),
 							value: entity.id,
 						},
 						{
@@ -89,12 +89,12 @@ export function EntityDetailsContent({
 						},
 						{
 							id: "createdAt",
-							label: t("partner.entityPage.dialog.fields.createdAt"),
+							label: t("common.fields.createdAt"),
 							value: entity.auditInfo.createdAtFormatted,
 						},
 						{
 							id: "updatedAt",
-							label: t("partner.entityPage.dialog.fields.updatedAt"),
+							label: t("common.fields.updatedAt"),
 							value: entity.auditInfo.updatedAtFormatted,
 						},
 					]

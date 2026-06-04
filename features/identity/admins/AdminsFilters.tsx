@@ -36,7 +36,7 @@ export function AdminsFilters({
 				placeholder={t("identity.adminPage.filters.search.placeholder")}
 			/>
 			<div className="grid gap-2">
-				<Label>{t("identity.adminPage.filters.campus.label")}</Label>
+				<Label>{t("common.fields.campus")}</Label>
 				<Combobox
 					multiple
 					options={campusOptions}
@@ -44,7 +44,7 @@ export function AdminsFilters({
 					onValuesChange={value =>
 						onFrontendCampusFiltersChange(value as typeof frontendCampusFilters)
 					}
-					placeholder={t("identity.adminPage.filters.campus.placeholder")}
+					placeholder={t("common.placeholders.select")}
 					className="min-h-11"
 				/>
 			</div>

@@ -36,7 +36,6 @@
                     }
                 },
                 "undo": {
-                    "action": "Undo",
                     "description": "{{name}} will be deleted unless you undo this action.",
                     "title": "Course deletion scheduled"
                 }
@@ -48,10 +47,7 @@
                     "title": "Unable to load course"
                 },
                 "fields": {
-                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                    "id": "$t(geo.cityPage.dialog.fields.id)",
-                    "name": "$t(academic.coursePage.table.columns.name)",
-                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    "name": "Course"
                 },
                 "linkedAreaOfExpertise": {
                     "overhead": "Linked area of expertise"
@@ -63,10 +59,6 @@
                 "titleFallback": "Course details"
             },
             "duplicate": {
-                "actions": {
-                    "save": "Create duplicate",
-                    "savePending": "Creating duplicate..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The course duplicate could not be created right now.",
@@ -81,16 +73,10 @@
                 "titleFallback": "Duplicate course"
             },
             "editor": {
-                "actions": {
-                    "reset": "Reset changes"
-                },
                 "fields": {
-                    "name": "$t(academic.coursePage.table.columns.name)",
+                    "name": "Course",
                     "namePlaceholder": "Enter the course name",
-                    "school": "$t(academic.coursePage.table.columns.school)",
-                    "schoolEmptyMessage": "No area found.",
-                    "schoolPlaceholder": "Select...",
-                    "schoolSearchPlaceholder": "Search area"
+                    "school": "Area of expertise"
                 },
                 "loading": "Loading course editor",
                 "resetConfirm": {
@@ -114,7 +100,7 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "$t(academic.coursePage.dialog.error.description)",
+                    "description": "The course could not be loaded right now.",
                     "title": "Unable to load course details"
                 },
                 "listError": {
@@ -127,71 +113,38 @@
                 }
             },
             "filters": {
-                "clear": "$t(docs.drawer.examples.filters.clear.action)",
                 "drawer": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
                     "clearConfirm": {
                         "description": "This will clear the current course filters.",
                         "title": "Clear these filters?"
-                    },
-                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
-                    "overhead": "Course filters",
-                    "title": "Refine directory",
-                    "trigger": "More filters"
-                },
-                "endDate": {
-                    "label": "$t(identity.accountPage.filters.endDate.label)",
-                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                    }
                 },
                 "school": {
-                    "emptyMessage": "No area found.",
                     "error": {
                         "description": "The areas directory could not be loaded right now.",
                         "title": "Unable to load areas"
                     },
-                    "label": "Area of expertise",
-                    "placeholder": "Select...",
-                    "searchPlaceholder": "Search area"
+                    "label": "Area of expertise"
                 },
                 "search": {
-                    "label": "Course name",
                     "placeholder": "Filter by course or area"
-                },
-                "startDate": {
-                    "label": "$t(identity.accountPage.filters.startDate.label)",
-                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
                 }
             },
             "loading": {
                 "list": "Loading courses"
             },
-            "metadata": {
-                "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
-            },
             "table": {
                 "columns": {
-                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
-                    "id": "$t(geo.cityPage.dialog.fields.id)",
                     "name": "Course",
-                    "school": "Area of expertise",
-                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
+                    "school": "Area of expertise"
                 },
                 "error": {
-                    "description": "$t(academic.coursePage.feedback.listError.description)",
-                    "title": "$t(academic.coursePage.feedback.listError.title)"
+                    "description": "The course directory could not be loaded right now.",
+                    "title": "Unable to load courses"
                 }
             },
             "title": "Courses",
             "update": {
-                "actions": {
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The course could not be updated right now.",
@@ -217,543 +170,6 @@
         "modulePage": {
             "description": "Academic reference and workflow services for areas of expertise, courses, and former students.",
             "title": "Academic services"
-        },
-        "schoolPage": {
-            "create": {
-                "actions": {
-                    "save": "Create area",
-                    "savePending": "Creating area..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The area of expertise could not be created right now.",
-                        "title": "Unable to create area"
-                    },
-                    "success": {
-                        "description": "{{name}} was created successfully.",
-                        "title": "Area created"
-                    }
-                },
-                "open": "Add area",
-                "overhead": "New area",
-                "titleFallback": "Add area"
-            },
-            "delete": {
-                "confirm": {
-                    "description": "{{name}} will be removed after the undo window expires.",
-                    "title": "Delete this area?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The area of expertise could not be deleted right now.",
-                        "title": "Unable to delete area"
-                    },
-                    "success": {
-                        "description": "{{name}} was removed from the directory.",
-                        "title": "Area deleted"
-                    }
-                },
-                "undo": {
-                    "action": "Undo",
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Area deletion scheduled"
-                }
-            },
-            "description": "Service directory for academic areas of expertise managed by the platform.",
-            "dialog": {
-                "error": {
-                    "description": "The area of expertise could not be loaded right now.",
-                    "title": "Unable to load area"
-                },
-                "fields": {
-                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                    "id": "$t(geo.cityPage.dialog.fields.id)",
-                    "name": "$t(academic.schoolPage.table.columns.name)",
-                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
-                },
-                "notFound": {
-                    "description": "The requested area of expertise could not be found.",
-                    "title": "Area not found"
-                },
-                "titleFallback": "Area details"
-            },
-            "duplicate": {
-                "actions": {
-                    "save": "Create duplicate",
-                    "savePending": "Creating duplicate..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The area duplicate could not be created right now.",
-                        "title": "Unable to duplicate area"
-                    },
-                    "success": {
-                        "description": "{{name}} was duplicated successfully.",
-                        "title": "Area duplicated"
-                    }
-                },
-                "overhead": "Duplicate area",
-                "titleFallback": "Duplicate area"
-            },
-            "editor": {
-                "actions": {
-                    "reset": "Reset changes"
-                },
-                "fields": {
-                    "name": "$t(academic.schoolPage.table.columns.name)",
-                    "namePlaceholder": "Enter the area name"
-                },
-                "loading": "Loading area editor",
-                "resetConfirm": {
-                    "description": "This will discard the unsaved changes in the current drawer.",
-                    "title": "Reset area changes?"
-                },
-                "validation": {
-                    "name": "Enter a name.",
-                    "nameTooLong": "Name must be 150 characters or fewer."
-                }
-            },
-            "empty": {
-                "defaultDescription": "The areas of expertise directory is currently empty.",
-                "filteredDescription": "No area matches \"{{value}}\".",
-                "title": "No areas found"
-            },
-            "feedback": {
-                "detailError": {
-                    "description": "$t(academic.schoolPage.dialog.error.description)",
-                    "title": "Unable to load area details"
-                },
-                "listError": {
-                    "description": "The areas of expertise directory could not be loaded right now.",
-                    "title": "Unable to load areas"
-                }
-            },
-            "filters": {
-                "clear": "$t(docs.drawer.examples.filters.clear.action)",
-                "drawer": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
-                    "clearConfirm": {
-                        "description": "This will clear the current area filters.",
-                        "title": "Clear these filters?"
-                    },
-                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
-                    "overhead": "Area filters",
-                    "title": "Refine directory",
-                    "trigger": "More filters"
-                },
-                "endDate": {
-                    "label": "$t(identity.accountPage.filters.endDate.label)",
-                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
-                },
-                "search": {
-                    "label": "Area name",
-                    "placeholder": "Filter by area name"
-                },
-                "startDate": {
-                    "label": "$t(identity.accountPage.filters.startDate.label)",
-                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
-                }
-            },
-            "loading": {
-                "list": "Loading areas"
-            },
-            "metadata": {
-                "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
-            },
-            "table": {
-                "columns": {
-                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
-                    "id": "$t(geo.cityPage.dialog.fields.id)",
-                    "name": "Area",
-                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
-                },
-                "error": {
-                    "description": "$t(academic.schoolPage.feedback.listError.description)",
-                    "title": "$t(academic.schoolPage.feedback.listError.title)"
-                }
-            },
-            "title": "Areas of expertise",
-            "update": {
-                "actions": {
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The area of expertise could not be updated right now.",
-                        "title": "Unable to save area changes"
-                    },
-                    "success": {
-                        "description": "{{name}} was updated successfully.",
-                        "title": "Area updated"
-                    }
-                },
-                "loadError": {
-                    "description": "The area of expertise could not be loaded right now.",
-                    "title": "Unable to load area editor"
-                },
-                "notFound": {
-                    "description": "The requested area of expertise could not be found.",
-                    "title": "Area not found"
-                },
-                "overhead": "Edit area",
-                "titleFallback": "Edit area"
-            }
-        },
-        "studentPage": {
-            "create": {
-                "actions": {
-                    "save": "Create former student",
-                    "savePending": "Creating former student..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former student could not be created right now.",
-                        "title": "Unable to create former student"
-                    },
-                    "success": {
-                        "description": "{{name}} was created successfully.",
-                        "title": "Former student created"
-                    }
-                },
-                "fields": {},
-                "open": "Add former student",
-                "overhead": "Create former student",
-                "titleFallback": "New former student"
-            },
-            "deactivate": {
-                "confirm": {
-                    "description": "{{name}} will lose access until the account is reactivated.",
-                    "title": "Deactivate this former student?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former student could not be deactivated right now.",
-                        "title": "Unable to deactivate former student"
-                    },
-                    "success": {
-                        "description": "{{name}} was deactivated successfully.",
-                        "title": "Former student deactivated"
-                    }
-                }
-            },
-            "delete": {
-                "confirm": {
-                    "description": "{{name}} will be removed after the undo window expires.",
-                    "title": "Delete this former student?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former student could not be deleted right now.",
-                        "title": "Unable to delete former student"
-                    },
-                    "success": {
-                        "description": "{{name}} was removed from the directory.",
-                        "title": "Former student deleted"
-                    }
-                },
-                "undo": {
-                    "action": "Undo",
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Former student deletion scheduled"
-                }
-            },
-            "description": "Service directory for former students linked to academic courses and campus assignments.",
-            "dialog": {
-                "error": {
-                    "description": "The former student record could not be loaded right now.",
-                    "title": "Unable to load former student"
-                },
-                "fields": {
-                    "academicRegistration": "Academic registration",
-                    "accountId": "Account ID",
-                    "campus": "Campus",
-                    "completedHours": "Completed hours",
-                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                    "dueDate": "Due date",
-                    "missingHours": "Missing hours",
-                    "remainingDays": "Remaining days",
-                    "requiredHours": "Required hours",
-                    "startDate": "Start date",
-                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
-                },
-                "notFound": {
-                    "description": "The requested former student record could not be found.",
-                    "title": "Former student not found"
-                },
-                "overhead": "Former student record",
-                "titleFallback": "Former student details"
-            },
-            "duplicate": {
-                "actions": {
-                    "save": "Create duplicate",
-                    "savePending": "Creating duplicate..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former student duplicate could not be created right now.",
-                        "title": "Unable to duplicate former student"
-                    },
-                    "success": {
-                        "description": "{{name}} was duplicated successfully.",
-                        "title": "Former student duplicated"
-                    }
-                },
-                "fields": {},
-                "overhead": "Duplicate former student",
-                "titleFallback": "Duplicate former student"
-            },
-            "editor": {
-                "actions": {
-                    "reset": "Reset changes"
-                },
-                "courseLoadError": {
-                    "description": "$t(academic.studentPage.feedback.coursesError.description)",
-                    "title": "$t(academic.studentPage.feedback.coursesError.title)"
-                },
-                "fields": {
-                    "academicRegistration": "Academic registration",
-                    "academicRegistrationPlaceholder": "Enter the registration number",
-                    "campus": "Campus",
-                    "campusPlaceholder": "Select a campus",
-                    "course": "Course",
-                    "courseEmptyMessage": "No course found.",
-                    "coursePlaceholder": "Select a course",
-                    "courseSearchPlaceholder": "Search courses",
-                    "cpf": "CPF",
-                    "cpfCreateOption": "Create {{value}}",
-                    "cpfEmpty": "No CPF found.",
-                    "cpfPlaceholder": "Enter the CPF",
-                    "cpfSearchPlaceholder": "Search or create a CPF",
-                    "dueDate": "Due date",
-                    "dueDatePlaceholder": "Due date",
-                    "email": "Email",
-                    "emailPlaceholder": "Enter the email address",
-                    "name": "Name",
-                    "namePlaceholder": "Enter the name",
-                    "requiredHours": "Required hours",
-                    "requiredHoursPlaceholder": "Enter the required hours",
-                    "startDate": "Start date",
-                    "startDatePlaceholder": "Start date"
-                },
-                "loading": "Loading former-student editor",
-                "resetConfirm": {
-                    "description": "This will discard the unsaved former-student changes in the current drawer.",
-                    "title": "Reset former-student changes?"
-                },
-                "sections": {
-                    "academic": "Academic",
-                    "linkedCourse": "Linked course"
-                },
-                "tabs": {
-                    "academic": "Academic",
-                    "linked": "Linked"
-                },
-                "validation": {
-                    "academicRegistration": {
-                        "required": "Enter an academic registration.",
-                        "tooLong": "Academic registration must be 15 characters or fewer."
-                    },
-                    "campus": {},
-                    "course": {
-                        "required": "Select a course."
-                    },
-                    "cpf": {
-                        "invalid": "Enter a valid CPF.",
-                        "required": "Enter a CPF."
-                    },
-                    "dueDate": {
-                        "range": "Due date must be the same as or after the start date.",
-                        "required": "Select a due date."
-                    },
-                    "email": {
-                        "invalid": "Enter a valid email address.",
-                        "required": "Enter an email address.",
-                        "tooLong": "Email must be 254 characters or fewer."
-                    },
-                    "name": {
-                        "required": "Enter a name.",
-                        "tooLong": "Name must be 255 characters or fewer."
-                    },
-                    "password": {},
-                    "requiredHours": {
-                        "invalid": "Enter a number greater than zero.",
-                        "required": "Enter the required hours."
-                    },
-                    "startDate": {
-                        "required": "Select a start date."
-                    }
-                }
-            },
-            "empty": {
-                "defaultDescription": "The former-student directory is currently empty.",
-                "filteredDescription": "No former student matches \"{{value}}\".",
-                "title": "No former students found"
-            },
-            "feedback": {
-                "coursesError": {
-                    "description": "The courses directory could not be loaded right now.",
-                    "title": "Unable to load courses"
-                },
-                "detailError": {
-                    "description": "$t(academic.studentPage.dialog.error.description)",
-                    "title": "Unable to load former-student details"
-                },
-                "listError": {
-                    "description": "The former-student directory could not be loaded right now.",
-                    "title": "Unable to load former students"
-                }
-            },
-            "filters": {
-                "academicRegistration": {
-                    "placeholder": "Filter by academic registration"
-                },
-                "areaOfExpertise": {
-                    "emptyMessage": "No area found.",
-                    "label": "Area of expertise",
-                    "placeholder": "Select areas",
-                    "searchPlaceholder": "Search areas"
-                },
-                "campus": {
-                    "emptyMessage": "No campus found.",
-                    "label": "Campus",
-                    "placeholder": "Select campuses",
-                    "searchPlaceholder": "Search campuses"
-                },
-                "clear": "$t(identity.accountPage.filters.clear)",
-                "course": {
-                    "emptyMessage": "No course found.",
-                    "error": {
-                        "description": "$t(academic.studentPage.feedback.coursesError.description)",
-                        "title": "$t(academic.studentPage.feedback.coursesError.title)"
-                    },
-                    "label": "Course",
-                    "placeholder": "Select courses",
-                    "searchPlaceholder": "Search courses"
-                },
-                "drawer": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
-                    "clearConfirm": {
-                        "description": "This will clear the current former-student filters.",
-                        "title": "Clear former-student filters?"
-                    },
-                    "label": "More filters",
-                    "overhead": "Former-student filters",
-                    "title": "Filter former students",
-                    "trigger": "More filters"
-                },
-                "frontendAcademicRegistration": {
-                    "label": "Academic registration",
-                    "placeholder": "Filter by academic registration"
-                },
-                "includeConcluded": {
-                    "description": "Keep concluded counterpart periods in the result.",
-                    "label": "Include concluded periods",
-                    "off": "Only ongoing periods"
-                },
-                "periodFrom": {
-                    "label": "Period start from",
-                    "placeholder": "Select a start date"
-                },
-                "periodTo": {
-                    "label": "Period due to",
-                    "placeholder": "Select a due date"
-                },
-                "search": {
-                    "label": "Name or email",
-                    "placeholder": "Filter by name or email"
-                },
-                "tabs": {
-                    "academic": "Academic",
-                    "identity": "Identity",
-                    "status": "Status"
-                }
-            },
-            "loading": {
-                "list": "Loading former students"
-            },
-            "metadata": {
-                "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
-            },
-            "reactivate": {
-                "confirm": {
-                    "description": "{{name}} will regain access immediately.",
-                    "title": "Reactivate this former student?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former student could not be reactivated right now.",
-                        "title": "Unable to reactivate former student"
-                    },
-                    "success": {
-                        "description": "{{name}} was reactivated successfully.",
-                        "title": "Former student reactivated"
-                    }
-                }
-            },
-            "table": {
-                "active": {
-                    "no": "$t(identity.accountPage.table.active.no)",
-                    "yes": "$t(identity.accountPage.table.active.yes)"
-                },
-                "columns": {
-                    "academicRegistration": "Academic registration",
-                    "active": "$t(identity.accountPage.table.columns.active)",
-                    "areaOfExpertise": "Area of expertise",
-                    "campus": "$t(identity.adminPage.table.columns.campus)",
-                    "concluded": "Concluded",
-                    "course": "Course",
-                    "email": "$t(identity.accountPage.table.columns.email)",
-                    "name": "Former student",
-                    "progress": "Progress"
-                },
-                "concluded": {
-                    "no": "No",
-                    "yes": "Yes"
-                },
-                "error": {
-                    "description": "$t(academic.studentPage.feedback.listError.description)",
-                    "title": "$t(academic.studentPage.feedback.listError.title)"
-                }
-            },
-            "title": "Former students",
-            "update": {
-                "actions": {
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former student could not be updated right now.",
-                        "title": "Unable to save former-student changes"
-                    },
-                    "success": {
-                        "description": "{{name}} was updated successfully.",
-                        "title": "Former student updated"
-                    }
-                },
-                "fields": {},
-                "loadError": {
-                    "description": "The former student record could not be loaded right now.",
-                    "title": "Unable to load former-student editor"
-                },
-                "notFound": {
-                    "description": "The requested former student record could not be found.",
-                    "title": "Former student not found"
-                },
-                "overhead": "Edit former student",
-                "titleFallback": "Edit former student"
-            }
         }
     },
     "AlertDialog": {
@@ -859,11 +275,33 @@
         }
     },
     "common": {
+        "actions": {
+            "createDuplicate": "Create duplicate",
+            "resetChanges": "Reset changes",
+            "saveChanges": "Save changes",
+            "undo": "Undo"
+        },
         "cancel": "Cancel",
+        "fields": {
+            "campus": "Campus",
+            "createdAt": "Created at",
+            "email": "Email",
+            "entity": "Entity",
+            "id": "Identifier",
+            "project": "Project",
+            "status": "Status",
+            "updatedAt": "Updated at"
+        },
         "filters": {
+            "active": "Filters active",
             "activeOnly": {
                 "description": "Hide inactive records from the directory results.",
                 "label": "Show only active records"
+            },
+            "apply": "Apply filters",
+            "clear": "Clear filters",
+            "clearConfirm": {
+                "title": "Clear filters?"
             },
             "cpf": {
                 "label": "CPF",
@@ -875,16 +313,49 @@
             },
             "endDate": {
                 "label": "End date",
-                "placeholder": "Select date"
+                "placeholder": "Select an end date"
             },
+            "label": "Filters",
+            "more": "More filters",
             "name": {
                 "label": "Name",
                 "placeholder": "Enter a name"
             },
+            "overhead": "Filters",
+            "search": {
+                "label": "Search"
+            },
             "startDate": {
                 "label": "Start date",
-                "placeholder": "Select date"
+                "placeholder": "Select a start date"
+            },
+            "title": "Refine directory"
+        },
+        "loadErrors": {
+            "entities": {
+                "description": "The entity directory could not be loaded right now.",
+                "title": "Unable to load entities"
+            },
+            "formerStudents": {
+                "description": "The former-student directory could not be loaded right now.",
+                "title": "Unable to load former students"
+            },
+            "projects": {
+                "description": "The project directory could not be loaded right now.",
+                "title": "Unable to load projects"
             }
+        },
+        "metadata": {
+            "empty": {
+                "description": "Service provenance, freshness, and request metadata will live here.",
+                "title": "Metadata coming soon"
+            },
+            "trigger": "Metadata"
+        },
+        "placeholders": {
+            "noResults": "No results found.",
+            "search": "Search...",
+            "select": "Select..."
         },
         "table": {
             "actions": {
@@ -964,7 +435,6 @@
                 },
                 "fields": {
                     "ibgeCode": "IBGE code",
-                    "id": "Identifier",
                     "name": "City name"
                 },
                 "notFound": {
@@ -980,7 +450,7 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "$t(geo.cityPage.dialog.error.description)",
+                    "description": "The city record could not be loaded right now.",
                     "title": "Unable to load city details"
                 },
                 "listError": {
@@ -990,21 +460,14 @@
             },
             "filters": {
                 "backend": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
                     "clear": "Clear filters",
                     "clearConfirm": {
-                        "description": "This will remove the applied filters from the city table.",
-                        "title": "Clear filters?"
+                        "description": "This will remove the applied filters from the city table."
                     },
-                    "label": "Filters",
                     "name": {
                         "label": "Name pattern",
                         "placeholder": "Filter by city name on the server"
-                    },
-                    "overhead": "Refinement",
-                    "title": "Filters",
-                    "trigger": "Open filters"
+                    }
                 },
                 "frontend": {
                     "searchPlaceholder": "Filter the current results by city name or IBGE code"
@@ -1013,23 +476,14 @@
             "loading": {
                 "list": "Loading city catalog"
             },
-            "metadata": {
-                "empty": {
-                    "description": "Service provenance, freshness, and request metadata will live here.",
-                    "title": "Metadata coming soon"
-                },
-                "trigger": "Metadata"
-            },
             "table": {
-                "actions": {},
                 "columns": {
-                    "ibgeCode": "$t(geo.cityPage.dialog.fields.ibgeCode)",
-                    "identifier": "$t(geo.cityPage.dialog.fields.id)",
+                    "ibgeCode": "IBGE code",
                     "name": "$t(docs.combobox.cards.city.label)"
                 },
                 "error": {
-                    "description": "$t(geo.cityPage.feedback.listError.description)",
-                    "title": "$t(geo.cityPage.feedback.listError.title)"
+                    "description": "The city catalog could not be loaded right now.",
+                    "title": "Unable to load cities"
                 }
             },
             "title": "Cities"
@@ -1150,11 +604,7 @@
                 },
                 "fields": {
                     "accountType": "$t(home.currentAccount.fields.type)",
-                    "active": "$t(docs.drawer.examples.filters.groups.status.title)",
-                    "createdAt": "Created at",
-                    "email": "$t(auth.login.form.fields.email.label)",
-                    "id": "$t(geo.cityPage.dialog.fields.id)",
-                    "updatedAt": "Updated at"
+                    "active": "$t(docs.drawer.examples.filters.groups.status.title)"
                 },
                 "notFound": {
                     "description": "The requested account record could not be found.",
@@ -1169,7 +619,7 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "$t(identity.accountPage.dialog.error.description)",
+                    "description": "The account record could not be loaded right now.",
                     "title": "Unable to load account details"
                 },
                 "listError": {
@@ -1186,49 +636,33 @@
                         "FORMER_STUDENT": "Former Student",
                         "PARTNER": "Partner",
                         "STUDENT": "Student"
-                    },
-                    "placeholder": "Select..."
+                    }
                 },
                 "activeOnly": {
                     "description": "Keep only active accounts in the search result.",
                     "label": "Active accounts only",
                     "off": "Including inactive accounts"
                 },
-                "clear": "$t(docs.drawer.examples.filters.clear.action)",
                 "cpf": {
                     "label": "CPF pattern",
                     "placeholder": "Filter accounts by CPF pattern"
                 },
                 "drawer": {
-                    "active": "Filters active",
-                    "apply": "$t(docs.drawer.examples.filters.footer.action)",
                     "clearConfirm": {
                         "description": "This will remove the active account filters from the current table view.",
                         "title": "Clear account filters?"
-                    },
-                    "overhead": "Account filters",
-                    "title": "Refine account catalog",
-                    "trigger": "$t(docs.drawer.examples.filters.groups.advanced.title)"
+                    }
                 },
                 "email": {
                     "label": "Email pattern",
                     "placeholder": "Filter accounts by email pattern"
-                },
-                "endDate": {
-                    "label": "End date",
-                    "placeholder": "Select an end date"
                 },
                 "name": {
                     "label": "Name pattern",
                     "placeholder": "Filter accounts by user name pattern"
                 },
                 "search": {
-                    "label": "Search",
                     "placeholder": "Filter current results by ID, name, or email"
-                },
-                "startDate": {
-                    "label": "Start date",
-                    "placeholder": "Select a start date"
                 }
             },
             "loading": {
@@ -1236,13 +670,10 @@
             },
             "metadata": {
                 "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
+                    "description": "Service provenance, freshness, and request metadata will live here."
+                }
             },
             "table": {
-                "actions": {},
                 "active": {
                     "no": "$t(home.currentAccount.values.inactive)",
                     "yes": "$t(docs.multiSelect.cards.status.options.active)"
@@ -1250,15 +681,11 @@
                 "columns": {
                     "accountType": "$t(home.currentAccount.fields.type)",
                     "active": "$t(docs.drawer.examples.filters.groups.status.title)",
-                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                    "email": "$t(auth.login.form.fields.email.label)",
-                    "id": "$t(geo.cityPage.table.columns.identifier)",
-                    "name": "Name",
-                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    "name": "Name"
                 },
                 "error": {
-                    "description": "$t(identity.accountPage.feedback.listError.description)",
-                    "title": "$t(identity.accountPage.feedback.listError.title)"
+                    "description": "The account catalog could not be loaded right now.",
+                    "title": "Unable to load accounts"
                 }
             },
             "title": "Accounts"
@@ -1279,7 +706,6 @@
                         "title": "Administrator created"
                     }
                 },
-                "fields": {},
                 "open": "Add admin",
                 "overhead": "New administrator",
                 "titleFallback": "Add administrator"
@@ -1316,7 +742,6 @@
                     }
                 },
                 "undo": {
-                    "action": "Undo",
                     "description": "{{name}} will be deleted unless you undo this action.",
                     "title": "Administrator deletion scheduled"
                 }
@@ -1328,8 +753,6 @@
                     "title": "Unable to load administrator details"
                 },
                 "fields": {
-                    "campus": "Campus",
-                    "email": "$t(identity.accountPage.dialog.fields.email)",
                     "grantedAt": "Granted at",
                     "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
                     "userId": "User identifier"
@@ -1351,7 +774,6 @@
                 "titleFallback": "Administrator details"
             },
             "duplicate": {
-                "actions": {},
                 "feedback": {
                     "error": {
                         "description": "The administrator duplicate could not be created right now.",
@@ -1361,8 +783,7 @@
                         "description": "{{name}} was duplicated successfully.",
                         "title": "Administrator duplicated"
                     }
-                },
-                "fields": {}
+                }
             },
             "empty": {
                 "defaultDescription": "The administrator directory is currently empty.",
@@ -1389,26 +810,17 @@
             },
             "filters": {
                 "campus": {
-                    "label": "Campus",
                     "options": {
                         "all": "All campuses",
                         "JARAGUA_DO_SUL": "JaraguÃ¡ do Sul",
                         "JOINVILLE": "Joinville"
-                    },
-                    "placeholder": "Select..."
+                    }
                 },
-                "clear": "$t(identity.accountPage.filters.clear)",
                 "drawer": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
                     "clearConfirm": {
                         "description": "This will clear the current administrator filters.",
                         "title": "Clear these filters?"
-                    },
-                    "label": "Filters",
-                    "overhead": "Administrator filters",
-                    "title": "Refine directory",
-                    "trigger": "Open filters"
+                    }
                 },
                 "search": {
                     "label": "Name or email",
@@ -1417,13 +829,6 @@
             },
             "loading": {
                 "list": "Loading administrators"
-            },
-            "metadata": {
-                "empty": {
-                    "description": "$t(identity.accountPage.metadata.empty.description)",
-                    "title": "$t(identity.accountPage.metadata.empty.title)"
-                },
-                "trigger": "$t(identity.accountPage.metadata.trigger)"
             },
             "reactivate": {
                 "confirm": {
@@ -1447,14 +852,8 @@
                     "yes": "Active"
                 },
                 "columns": {
-                    "active": "Status",
-                    "campus": "Campus",
-                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
-                    "email": "$t(identity.accountPage.table.columns.email)",
                     "grantedAt": "Granted at",
-                    "id": "Identifier",
-                    "name": "$t(identity.userPage.table.columns.name)",
-                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
+                    "name": "User"
                 },
                 "error": {
                     "description": "The administrator directory could not be loaded right now.",
@@ -1471,11 +870,6 @@
                     "description": "The linked account record could not be found.",
                     "title": "Linked account not found"
                 },
-                "actions": {
-                    "reset": "Reset changes",
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The administrator could not be updated right now.",
@@ -1487,18 +881,15 @@
                     }
                 },
                 "fields": {
-                    "accountId": "$t(identity.accountPage.dialog.fields.id)",
-                    "accountType": "$t(identity.accountPage.dialog.fields.accountType)",
-                    "active": "$t(identity.accountPage.dialog.fields.active)",
-                    "activeValues": {},
-                    "campus": "Campus",
+                    "accountId": "Identifier",
+                    "accountType": "$t(home.currentAccount.fields.type)",
+                    "active": "$t(docs.drawer.examples.filters.groups.status.title)",
                     "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
                     "cpfCreateOption": "Use {{value}}",
                     "cpfEmpty": "No CPF found.",
                     "cpfHelp": "Selecting an existing CPF links this administrator to that existing user. Entering a new CPF creates a new linked user.",
                     "cpfPlaceholder": "Select an existing CPF or enter a new one",
                     "cpfSearchPlaceholder": "Search or create a CPF",
-                    "email": "$t(identity.accountPage.dialog.fields.email)",
                     "grantedAt": "Granted at",
                     "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
                     "namePlaceholder": "Enter the user's name",
@@ -1536,8 +927,7 @@
                         "tooLong": "Email must be 254 characters or fewer."
                     },
                     "name": "Enter a name.",
-                    "nameTooLong": "Name must be 255 characters or fewer.",
-                    "password": {}
+                    "nameTooLong": "Name must be 255 characters or fewer."
                 }
             }
         },
@@ -1554,10 +944,7 @@
                 },
                 "fields": {
                     "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
-                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                    "id": "$t(geo.cityPage.dialog.fields.id)",
-                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
-                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)"
                 },
                 "notFound": {
                     "description": "The requested user record could not be found.",
@@ -1572,7 +959,7 @@
             },
             "feedback": {
                 "detailError": {
-                    "description": "$t(identity.userPage.dialog.error.description)",
+                    "description": "The user record could not be loaded right now.",
                     "title": "Unable to load user details"
                 },
                 "listError": {
@@ -1582,8 +969,6 @@
             },
             "filters": {
                 "backend": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
                     "clear": "Clear filters",
                     "clearConfirm": {
                         "description": "This will remove the applied filters from the users table.",
@@ -1593,31 +978,18 @@
                         "label": "CPF pattern",
                         "placeholder": "Filter users by CPF pattern"
                     },
-                    "dateFrom": {
-                        "label": "Date from",
-                        "placeholder": "Select a start date"
-                    },
-                    "dateTo": {
-                        "label": "Date to",
-                        "placeholder": "Select an end date"
-                    },
-                    "label": "Filters",
                     "name": {
                         "label": "Name pattern",
                         "placeholder": "Filter users by name pattern"
-                    },
-                    "overhead": "Refinement",
-                    "title": "Filters",
-                    "trigger": "Open filters"
+                    }
                 },
-                "clear": "$t(docs.drawer.examples.filters.clear.action)",
                 "frontend": {
                     "cpf": {
                         "label": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
                         "placeholder": "Filter the current results by CPF"
                     },
                     "name": {
-                        "label": "$t(identity.accountPage.table.columns.name)",
+                        "label": "Name",
                         "placeholder": "Filter the current results by user name"
                     }
                 }
@@ -1625,25 +997,14 @@
             "loading": {
                 "list": "Loading user catalog"
             },
-            "metadata": {
-                "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
-            },
             "table": {
-                "actions": {},
                 "columns": {
                     "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
-                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                    "id": "$t(geo.cityPage.table.columns.identifier)",
-                    "name": "User",
-                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    "name": "User"
                 },
                 "error": {
-                    "description": "$t(identity.userPage.feedback.listError.description)",
-                    "title": "$t(identity.userPage.feedback.listError.title)"
+                    "description": "The user catalog could not be loaded right now.",
+                    "title": "Unable to load users"
                 }
             },
             "title": "Users"
@@ -1702,19 +1063,19 @@
                 "student": "Former students"
             },
             "geo": {
-                "city": "$t(geo.cityPage.title)",
+                "city": "Cities",
                 "root": "Geo"
             },
             "home": "Home",
             "identity": {
-                "account": "$t(identity.accountPage.title)",
+                "account": "Accounts",
                 "admin": "Admins",
                 "root": "Identity",
-                "user": "$t(identity.userPage.title)"
+                "user": "Users"
             },
             "partner": {
                 "entity": "Entities",
-                "root": "$t(identity.accountPage.filters.accountType.options.PARTNER)",
+                "root": "Partner",
                 "staff": "Staff"
             },
             "project": {
@@ -1765,7 +1126,6 @@
                     }
                 },
                 "undo": {
-                    "action": "Undo",
                     "description": "{{name}} will be deleted unless you undo this action.",
                     "title": "Entity deletion scheduled"
                 }
@@ -1778,12 +1138,9 @@
                 },
                 "fields": {
                     "address": "Address",
-                    "city": "$t(geo.cityPage.dialog.fields.name)",
+                    "city": "City name",
                     "cnpj": "CNPJ",
-                    "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                    "id": "$t(geo.cityPage.dialog.fields.id)",
-                    "name": "Entity name",
-                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
+                    "name": "Entity name"
                 },
                 "notFound": {
                     "description": "The requested entity record could not be found.",
@@ -1795,10 +1152,6 @@
                 }
             },
             "duplicate": {
-                "actions": {
-                    "save": "Create duplicate",
-                    "savePending": "Creating duplicate..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The entity duplicate could not be created right now.",
@@ -1813,9 +1166,6 @@
                 "titleFallback": "Duplicate entity"
             },
             "editor": {
-                "actions": {
-                    "reset": "Reset changes"
-                },
                 "cityLoadError": {
                     "description": "The city catalog for this form could not be loaded right now.",
                     "title": "Unable to load cities"
@@ -1860,41 +1210,26 @@
                     "title": "Unable to load cities"
                 },
                 "detailError": {
-                    "description": "$t(partner.entityPage.dialog.error.description)",
+                    "description": "The entity record could not be loaded right now.",
                     "title": "Unable to load entity details"
-                },
-                "listError": {
-                    "description": "The entity directory could not be loaded right now.",
-                    "title": "Unable to load entities"
                 }
             },
             "filters": {
                 "city": {
-                    "emptyMessage": "$t(partner.entityPage.editor.fields.cityEmptyMessage)",
+                    "emptyMessage": "No cities found.",
                     "error": {
-                        "description": "$t(partner.entityPage.feedback.citiesError.description)",
-                        "title": "$t(partner.entityPage.feedback.citiesError.title)"
+                        "description": "The city catalog could not be loaded right now.",
+                        "title": "Unable to load cities"
                     },
                     "label": "City",
                     "placeholder": "Select a city",
                     "searchPlaceholder": "Search cities"
                 },
-                "clear": "$t(identity.accountPage.filters.clear)",
                 "drawer": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
                     "clearConfirm": {
                         "description": "This will clear the current entity filters.",
                         "title": "Clear entity filters?"
-                    },
-                    "label": "More filters",
-                    "overhead": "Entity filters",
-                    "title": "Filter entities",
-                    "trigger": "More filters"
-                },
-                "endDate": {
-                    "label": "$t(identity.accountPage.filters.endDate.label)",
-                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
+                    }
                 },
                 "frontend": {
                     "cnpj": {
@@ -1905,43 +1240,21 @@
                 "search": {
                     "label": "Name, city or address",
                     "placeholder": "Filter by name, city or address"
-                },
-                "startDate": {
-                    "label": "$t(identity.accountPage.filters.startDate.label)",
-                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
                 }
             },
             "loading": {
                 "list": "Loading entities"
-            },
-            "metadata": {
-                "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
                 "columns": {
                     "address": "Address",
                     "city": "City",
                     "cnpj": "CNPJ",
-                    "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
-                    "id": "$t(geo.cityPage.dialog.fields.id)",
-                    "name": "Entity",
-                    "updatedAt": "$t(identity.accountPage.table.columns.updatedAt)"
-                },
-                "error": {
-                    "description": "$t(partner.entityPage.feedback.listError.description)",
-                    "title": "$t(partner.entityPage.feedback.listError.title)"
+                    "name": "Entity"
                 }
             },
             "title": "Entities",
             "update": {
-                "actions": {
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The entity could not be updated right now.",
@@ -1984,7 +1297,6 @@
                         "title": "Staff member created"
                     }
                 },
-                "fields": {},
                 "open": "Add staff member",
                 "overhead": "Create staff member",
                 "titleFallback": "New staff member"
@@ -2021,7 +1333,6 @@
                     }
                 },
                 "undo": {
-                    "action": "Undo",
                     "description": "{{name}} will be deleted unless you undo this action.",
                     "title": "Staff deletion scheduled"
                 }
@@ -2035,7 +1346,6 @@
                     "description": "The staff record could not be loaded right now.",
                     "title": "Unable to load staff member"
                 },
-                "fields": {},
                 "linkedUser": {
                     "error": {
                         "description": "The linked user could not be loaded right now.",
@@ -2054,10 +1364,6 @@
                 "titleFallback": "Staff details"
             },
             "duplicate": {
-                "actions": {
-                    "save": "Create duplicate",
-                    "savePending": "Creating duplicate..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The staff duplicate could not be created right now.",
@@ -2068,29 +1374,16 @@
                         "title": "Staff member duplicated"
                     }
                 },
-                "fields": {},
                 "overhead": "Duplicate staff member",
                 "titleFallback": "Duplicate staff member"
             },
             "editor": {
-                "actions": {
-                    "reset": "Reset changes"
-                },
-                "entityLoadError": {
-                    "description": "The entity catalog for this form could not be loaded right now.",
-                    "title": "Unable to load entities"
-                },
                 "fields": {
                     "cpf": "CPF",
                     "cpfCreateOption": "Create {{value}}",
                     "cpfEmpty": "No CPF found.",
                     "cpfPlaceholder": "Enter the CPF",
                     "cpfSearchPlaceholder": "Search or create a CPF",
-                    "email": "Email",
-                    "entity": "Entity",
-                    "entityEmptyMessage": "No entities found.",
-                    "entityPlaceholder": "Select an entity",
-                    "entitySearchPlaceholder": "Search entities",
                     "name": "Name"
                 },
                 "loading": "Loading staff editor",
@@ -2118,8 +1411,7 @@
                     "name": {
                         "required": "Enter a name.",
                         "tooLong": "Name must be 255 characters or fewer."
-                    },
-                    "password": {}
+                    }
                 }
             },
             "empty": {
@@ -2133,20 +1425,16 @@
                     "title": "Unable to load cities"
                 },
                 "detailError": {
-                    "description": "$t(partner.staffPage.dialog.error.description)",
+                    "description": "The staff record could not be loaded right now.",
                     "title": "Unable to load staff details"
-                },
-                "entitiesError": {
-                    "description": "The entity catalog could not be loaded right now.",
-                    "title": "Unable to load entities"
                 },
                 "linkedAccountError": {
                     "description": "$t(partner.staffPage.dialog.linkedAccount.error.description)",
                     "title": "$t(partner.staffPage.dialog.linkedAccount.error.title)"
                 },
                 "linkedUserError": {
-                    "description": "$t(partner.staffPage.dialog.linkedUser.error.description)",
-                    "title": "$t(partner.staffPage.dialog.linkedUser.error.title)"
+                    "description": "The linked user could not be loaded right now.",
+                    "title": "Unable to load linked user"
                 },
                 "listError": {
                     "description": "The staff directory could not be loaded right now.",
@@ -2154,28 +1442,11 @@
                 }
             },
             "filters": {
-                "clear": "$t(identity.accountPage.filters.clear)",
                 "drawer": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
                     "clearConfirm": {
                         "description": "This will clear the current staff filters.",
                         "title": "Clear staff filters?"
-                    },
-                    "label": "More filters",
-                    "overhead": "Staff filters",
-                    "title": "Filter staff",
-                    "trigger": "More filters"
-                },
-                "entity": {
-                    "emptyMessage": "$t(partner.staffPage.editor.fields.entityEmptyMessage)",
-                    "error": {
-                        "description": "$t(partner.staffPage.feedback.entitiesError.description)",
-                        "title": "$t(partner.staffPage.feedback.entitiesError.title)"
-                    },
-                    "label": "Entity",
-                    "placeholder": "Select an entity",
-                    "searchPlaceholder": "Search entities"
+                    }
                 },
                 "search": {
                     "label": "Name, email or entity",
@@ -2184,13 +1455,6 @@
             },
             "loading": {
                 "list": "Loading staff"
-            },
-            "metadata": {
-                "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "reactivate": {
                 "confirm": {
@@ -2214,25 +1478,19 @@
                     "yes": "Active"
                 },
                 "columns": {
-                    "active": "Status",
                     "createdAt": "Created at",
                     "email": "Email",
-                    "entity": "Entity",
                     "id": "ID",
                     "name": "Staff member",
                     "updatedAt": "Updated at"
                 },
                 "error": {
-                    "description": "$t(partner.staffPage.feedback.listError.description)",
-                    "title": "$t(partner.staffPage.feedback.listError.title)"
+                    "description": "The staff directory could not be loaded right now.",
+                    "title": "Unable to load staff"
                 }
             },
             "title": "Staff",
             "update": {
-                "actions": {
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The staff member could not be updated right now.",
@@ -2243,7 +1501,6 @@
                         "title": "Staff member updated"
                     }
                 },
-                "fields": {},
                 "loadError": {
                     "description": "The staff record could not be loaded right now.",
                     "title": "Unable to load staff editor"
@@ -2294,7 +1551,6 @@
                     }
                 },
                 "undo": {
-                    "action": "Undo",
                     "description": "Attendance {{id}} for {{student}} in {{project}} will be deleted unless you undo this action.",
                     "title": "Attendance scheduled for deletion"
                 }
@@ -2306,14 +1562,11 @@
                     "title": "Unable to load attendance details"
                 },
                 "fields": {
-                    "createdAt": "Created",
                     "duration": "Duration",
                     "id": "Attendance id",
                     "projectId": "Project id",
                     "qrValidationHash": "QR validation hash",
-                    "status": "Status",
                     "studentId": "Student id",
-                    "updatedAt": "Updated",
                     "validatedAt": "Validated at"
                 },
                 "linkedProject": {
@@ -2357,27 +1610,12 @@
                 "fields": {
                     "duration": "Duration",
                     "durationPlaceholder": "Enter the recorded duration",
-                    "project": "Project",
-                    "projectEmptyMessage": "No projects found.",
-                    "projectPlaceholder": "Select a project",
-                    "projectSearchPlaceholder": "Search projects...",
-                    "status": "Status",
-                    "statusPlaceholder": "Select a status",
                     "student": "Student",
                     "studentEmptyMessage": "No students found.",
                     "studentPlaceholder": "Select a student",
                     "studentSearchPlaceholder": "Search students..."
                 },
                 "loading": "Loading attendance editor",
-                "notReady": {},
-                "projectLoadError": {
-                    "description": "The project directory could not be loaded right now.",
-                    "title": "Unable to load projects"
-                },
-                "studentLoadError": {
-                    "description": "The former-student directory could not be loaded right now.",
-                    "title": "Unable to load former students"
-                },
                 "tabs": {
                     "attendance": "Attendance",
                     "linked": "Linked"
@@ -2412,29 +1650,14 @@
                 "listError": {
                     "description": "The attendance directory could not be loaded right now.",
                     "title": "Unable to load attendances"
-                },
-                "projectsError": {
-                    "description": "The project directory could not be loaded right now.",
-                    "title": "Unable to load projects"
-                },
-                "studentsError": {
-                    "description": "The former-student directory could not be loaded right now.",
-                    "title": "Unable to load former students"
                 }
             },
             "filters": {
-                "clear": "Clear filters",
                 "drawer": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
                     "clearConfirm": {
                         "description": "Remove every applied attendance filter.",
                         "title": "Clear attendance filters"
-                    },
-                    "label": "Attendance filters",
-                    "overhead": "Refine attendance results",
-                    "title": "More filters",
-                    "trigger": "More filters"
+                    }
                 },
                 "durationFrom": {
                     "label": "Min duration",
@@ -2444,40 +1667,15 @@
                     "label": "Max duration",
                     "placeholder": "Filter by maximum duration"
                 },
-                "endDate": {
-                    "label": "End date",
-                    "placeholder": "Select an end date"
-                },
-                "project": {
-                    "emptyMessage": "No projects found.",
-                    "error": {
-                        "description": "The project directory could not be loaded right now.",
-                        "title": "Unable to load projects"
-                    },
-                    "label": "Project",
-                    "placeholder": "Select a project",
-                    "searchPlaceholder": "Search projects..."
-                },
                 "search": {
-                    "label": "Search",
                     "placeholder": "Search by student, email, registration, project, status, validator, or QR hash"
-                },
-                "startDate": {
-                    "label": "Start date",
-                    "placeholder": "Select a start date"
                 },
                 "status": {
                     "emptyMessage": "No statuses found.",
-                    "label": "Status",
-                    "placeholder": "Select...",
                     "searchPlaceholder": "Search statuses..."
                 },
                 "student": {
                     "emptyMessage": "No students found.",
-                    "error": {
-                        "description": "The former-student directory could not be loaded right now.",
-                        "title": "Unable to load former students"
-                    },
                     "label": "Student",
                     "placeholder": "Select a student",
                     "searchPlaceholder": "Search students..."
@@ -2497,7 +1695,6 @@
                         "title": "Unable to load validators"
                     },
                     "label": "Validated by",
-                    "placeholder": "Select...",
                     "searchPlaceholder": "Search validators..."
                 }
             },
@@ -2538,10 +1735,8 @@
             },
             "metadata": {
                 "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
+                    "description": "Service provenance, freshness, and request metadata will live here."
+                }
             },
             "status": {
                 "options": {
@@ -2560,15 +1755,11 @@
                     "viewQrCode": "View QR code"
                 },
                 "columns": {
-                    "createdAt": "Created",
                     "duration": "Duration",
                     "email": "Email",
                     "id": "Attendance id",
-                    "project": "Project",
                     "registration": "Registration",
-                    "status": "Status",
                     "student": "Student",
-                    "updatedAt": "Updated",
                     "validatedAt": "Validated",
                     "validatedBy": "Validated by"
                 },
@@ -2582,10 +1773,6 @@
             },
             "title": "Attendances",
             "update": {
-                "actions": {
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The attendance record could not be updated right now.",
@@ -2688,7 +1875,6 @@
                     }
                 },
                 "undo": {
-                    "action": "Undo",
                     "description": "The enrollment record for {{student}} in {{project}} will be deleted unless you undo this action.",
                     "title": "Enrollment scheduled for deletion"
                 }
@@ -2702,11 +1888,8 @@
                 "fields": {
                     "acceptedAt": "Accepted at",
                     "closingStatusAt": "Closed at",
-                    "createdAt": "Created",
                     "projectId": "Project id",
-                    "status": "Status",
-                    "studentId": "Student id",
-                    "updatedAt": "Updated"
+                    "studentId": "Student id"
                 },
                 "linkedProject": {
                     "overhead": "Linked project"
@@ -2727,24 +1910,10 @@
             },
             "editor": {
                 "fields": {
-                    "project": "Project",
-                    "projectEmptyMessage": "No projects found.",
-                    "projectPlaceholder": "Select a project",
-                    "projectSearchPlaceholder": "Search projects...",
-                    "status": "Status",
-                    "statusPlaceholder": "Select a status",
                     "student": "Former student",
                     "studentEmptyMessage": "No former students found.",
                     "studentPlaceholder": "Select a former student",
                     "studentSearchPlaceholder": "Search former students..."
-                },
-                "projectLoadError": {
-                    "description": "The project directory could not be loaded right now.",
-                    "title": "Unable to load projects"
-                },
-                "studentLoadError": {
-                    "description": "The former-student directory could not be loaded right now.",
-                    "title": "Unable to load former students"
                 },
                 "tabs": {
                     "enrollment": "Enrollment",
@@ -2756,8 +1925,7 @@
                     },
                     "project": {
                         "required": "Select a project."
-                    },
-                    "status": {}
+                    }
                 }
             },
             "empty": {
@@ -2782,41 +1950,20 @@
                     "description": "The enrollment directory could not be loaded right now.",
                     "title": "Unable to load enrollments"
                 },
-                "projectsError": {
-                    "description": "The project directory could not be loaded right now.",
-                    "title": "Unable to load projects"
-                },
-                "studentsError": {
-                    "description": "The former-student directory could not be loaded right now.",
-                    "title": "Unable to load former students"
-                },
                 "updateError": {
                     "description": "The enrollment could not be updated right now.",
                     "title": "Unable to update enrollment"
                 }
             },
             "filters": {
-                "clear": "Clear filters",
                 "drawer": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
                     "clearConfirm": {
                         "description": "Remove every applied enrollment filter.",
                         "title": "Clear enrollment filters"
-                    },
-                    "label": "Enrollment filters",
-                    "overhead": "Refine enrollment results",
-                    "title": "More filters",
-                    "trigger": "More filters"
-                },
-                "endDate": {
-                    "label": "End date",
-                    "placeholder": "Select an end date"
+                    }
                 },
                 "frontStatus": {
                     "emptyMessage": "No statuses found.",
-                    "label": "Status",
-                    "placeholder": "Select...",
                     "searchPlaceholder": "Search statuses..."
                 },
                 "periodFrom": {
@@ -2827,36 +1974,15 @@
                     "label": "Period end",
                     "placeholder": "Select a period end date"
                 },
-                "project": {
-                    "emptyMessage": "No projects found.",
-                    "error": {
-                        "description": "The project directory could not be loaded right now.",
-                        "title": "Unable to load projects"
-                    },
-                    "label": "Project",
-                    "placeholder": "Select a project",
-                    "searchPlaceholder": "Search projects..."
-                },
                 "search": {
-                    "label": "Search",
                     "placeholder": "Search by project, student, email, registration, campus, or status"
-                },
-                "startDate": {
-                    "label": "Start date",
-                    "placeholder": "Select a start date"
                 },
                 "status": {
                     "emptyMessage": "No statuses found.",
-                    "label": "Status",
-                    "placeholder": "Select a status",
                     "searchPlaceholder": "Search statuses..."
                 },
                 "student": {
                     "emptyMessage": "No students found.",
-                    "error": {
-                        "description": "The former-student directory could not be loaded right now.",
-                        "title": "Unable to load former students"
-                    },
                     "label": "Student",
                     "placeholder": "Select a student",
                     "searchPlaceholder": "Search students..."
@@ -2874,10 +2000,8 @@
             },
             "metadata": {
                 "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
+                    "description": "Service provenance, freshness, and request metadata will live here."
+                }
             },
             "reject": {
                 "confirm": {
@@ -2936,17 +2060,11 @@
                 },
                 "columns": {
                     "acceptedAt": "Accepted",
-                    "campus": "Campus",
                     "closingStatusAt": "Closed",
-                    "createdAt": "Created",
                     "email": "Email",
-                    "project": "Project",
-                    "projectId": "Project id",
                     "registration": "Registration",
-                    "status": "Status",
                     "student": "Student",
-                    "studentId": "Student id",
-                    "updatedAt": "Updated"
+                    "studentId": "Student id"
                 },
                 "error": {
                     "description": "The enrollment directory could not be loaded right now.",
@@ -3053,7 +2171,6 @@
                     }
                 },
                 "undo": {
-                    "action": "Undo",
                     "description": "{{name}} will be deleted unless you undo this action.",
                     "title": "Project scheduled for deletion"
                 }
@@ -3071,15 +2188,12 @@
                 "fields": {
                     "closedAt": "Closed at",
                     "completedHours": "Completed hours",
-                    "createdAt": "Created",
                     "createdBy": "Created by",
                     "description": "Description",
                     "id": "Project id",
                     "maxParticipants": "Max participants",
                     "name": "Name",
-                    "offeredHours": "Offered hours",
-                    "status": "Status",
-                    "updatedAt": "Updated"
+                    "offeredHours": "Offered hours"
                 },
                 "linkedAreasOfExpertise": {
                     "empty": {
@@ -3103,10 +2217,6 @@
                 }
             },
             "duplicate": {
-                "actions": {
-                    "save": "Create copy",
-                    "savePending": "Creating copy..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The project copy could not be created right now.",
@@ -3128,10 +2238,6 @@
                     "description": "The areas of expertise directory could not be loaded right now.",
                     "title": "Unable to load areas of expertise"
                 },
-                "entityLoadError": {
-                    "description": "The entity directory could not be loaded right now.",
-                    "title": "Unable to load entities"
-                },
                 "fields": {
                     "areasOfExpertise": "Areas of expertise",
                     "areasOfExpertiseEmptyMessage": "No areas of expertise found.",
@@ -3139,10 +2245,6 @@
                     "areasOfExpertiseSearchPlaceholder": "Search areas...",
                     "description": "Description",
                     "descriptionPlaceholder": "Outline the project's scope and expected delivery.",
-                    "entity": "Entity",
-                    "entityEmptyMessage": "No entities found.",
-                    "entityPlaceholder": "Select an entity",
-                    "entitySearchPlaceholder": "Search entities...",
                     "maxParticipants": "Max participants",
                     "maxParticipantsPlaceholder": "Leave blank for unlimited capacity",
                     "name": "Name",
@@ -3156,8 +2258,7 @@
                     "title": "Reset project form"
                 },
                 "tabs": {
-                    "linked": "Linked",
-                    "project": "Project"
+                    "linked": "Linked"
                 },
                 "validation": {
                     "description": {
@@ -3196,18 +2297,9 @@
                 "detailError": {
                     "description": "The selected project could not be loaded right now.",
                     "title": "Unable to load project"
-                },
-                "entitiesError": {
-                    "description": "The entity directory could not be loaded right now.",
-                    "title": "Unable to load entities"
-                },
-                "listError": {
-                    "description": "The project directory could not be loaded right now.",
-                    "title": "Unable to load projects"
                 }
             },
             "filters": {
-                "clear": "Clear filters",
                 "createdBy": {
                     "emptyMessage": "No admins found.",
                     "error": {
@@ -3223,30 +2315,10 @@
                     "placeholder": "Filter by project description on the server"
                 },
                 "drawer": {
-                    "active": "Filters active",
-                    "apply": "Apply filters",
                     "clearConfirm": {
                         "description": "Remove every applied project filter.",
                         "title": "Clear project filters"
-                    },
-                    "label": "Project filters",
-                    "overhead": "Refine project results",
-                    "title": "More filters",
-                    "trigger": "More filters"
-                },
-                "endDate": {
-                    "label": "End date",
-                    "placeholder": "Select an end date"
-                },
-                "entity": {
-                    "emptyMessage": "No entities found.",
-                    "error": {
-                        "description": "The entity directory could not be loaded right now.",
-                        "title": "Unable to load entities"
-                    },
-                    "label": "Entity",
-                    "placeholder": "Select an entity",
-                    "searchPlaceholder": "Search entities..."
+                    }
                 },
                 "maxOfferedHours": {
                     "label": "Max offered hours",
@@ -3263,14 +2335,6 @@
                 "search": {
                     "label": "Search",
                     "placeholder": "Search by name, description, entity, or creator"
-                },
-                "startDate": {
-                    "label": "Start date",
-                    "placeholder": "Select a start date"
-                },
-                "status": {
-                    "label": "Status",
-                    "placeholder": "Select a status"
                 }
             },
             "hold": {
@@ -3291,13 +2355,6 @@
             },
             "loading": {
                 "list": "Loading projects"
-            },
-            "metadata": {
-                "empty": {
-                    "description": "$t(geo.cityPage.metadata.empty.description)",
-                    "title": "$t(geo.cityPage.metadata.empty.title)"
-                },
-                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "retake": {
                 "confirm": {
@@ -3355,28 +2412,15 @@
                 "columns": {
                     "closedAt": "Closed",
                     "completedHours": "Completed hours",
-                    "createdAt": "Created",
-                    "createdBy": "Created by",
                     "description": "Description",
-                    "entity": "Entity",
                     "id": "Project id",
                     "maxParticipants": "Max participants",
                     "name": "Name",
-                    "offeredHours": "Offered hours",
-                    "status": "Status",
-                    "updatedAt": "Updated"
-                },
-                "error": {
-                    "description": "The project directory could not be loaded right now.",
-                    "title": "Unable to load projects"
+                    "offeredHours": "Offered hours"
                 }
             },
             "title": "Projects",
             "update": {
-                "actions": {
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
                 "feedback": {
                     "error": {
                         "description": "The project could not be updated right now.",

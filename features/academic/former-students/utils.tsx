@@ -113,7 +113,7 @@ export function createFormerStudentColumns(
 			size: 96,
 			header: () => (
 				<div className="flex w-full justify-center">
-					{t("academic.studentPage.table.columns.active")}
+					{t("academic.formerStudentPage.table.columns.active")}
 				</div>
 			),
 			cell: ({ row }) => (
@@ -124,8 +124,8 @@ export function createFormerStudentColumns(
 						variant="primary"
 					>
 						{row.original.account?.active
-							? t("academic.studentPage.table.active.yes")
-							: t("academic.studentPage.table.active.no")}
+							? t("academic.formerStudentPage.table.active.yes")
+							: t("academic.formerStudentPage.table.active.no")}
 					</Badge>
 				</div>
 			),
@@ -133,7 +133,7 @@ export function createFormerStudentColumns(
 		{
 			accessorFn: row => row.account?.id ?? row.accountId,
 			id: "accountId",
-			header: t("academic.studentPage.dialog.fields.accountId"),
+			header: t("academic.formerStudentPage.dialog.fields.accountId"),
 			cell: ({ row }) => (
 				<TableText
 					text={row.original.account?.id ?? row.original.accountId}
@@ -145,49 +145,51 @@ export function createFormerStudentColumns(
 		{
 			accessorFn: row => row.user?.name ?? row.accountId,
 			id: "name",
-			header: t("academic.studentPage.table.columns.name"),
+			header: t("academic.formerStudentPage.table.columns.name"),
 		},
 		{
 			accessorFn: row => row.account?.email ?? "",
 			id: "email",
-			header: t("academic.studentPage.table.columns.email"),
+			header: t("academic.formerStudentPage.table.columns.email"),
 		},
 		{
 			accessorKey: "academicRegistration",
-			header: t("academic.studentPage.table.columns.academicRegistration"),
+			header: t(
+				"academic.formerStudentPage.table.columns.academicRegistration",
+			),
 		},
 		{
 			accessorFn: row => row.campus.campus,
 			id: "campus",
-			header: t("academic.studentPage.table.columns.campus"),
+			header: t("academic.formerStudentPage.table.columns.campus"),
 			cell: ({ row }) => row.original.campus.campusFormatted,
 		},
 		{
 			accessorFn: row => row.counterpartHours.requiredHours,
 			id: "requiredHours",
-			header: t("academic.studentPage.dialog.fields.requiredHours"),
+			header: t("academic.formerStudentPage.dialog.fields.requiredHours"),
 		},
 		{
 			accessorFn: row => row.counterpartHours.completedHours,
 			id: "completedHours",
-			header: t("academic.studentPage.dialog.fields.completedHours"),
+			header: t("academic.formerStudentPage.dialog.fields.completedHours"),
 		},
 		{
 			accessorFn: row => row.counterpartHours.missingHours,
 			id: "missingHours",
-			header: t("academic.studentPage.dialog.fields.missingHours"),
+			header: t("academic.formerStudentPage.dialog.fields.missingHours"),
 		},
 		{
 			accessorFn: row => row.counterpartHours.progress,
 			id: "progress",
-			header: t("academic.studentPage.table.columns.progress"),
+			header: t("academic.formerStudentPage.table.columns.progress"),
 			cell: ({ row }) =>
 				`${row.original.counterpartHours.progress.toFixed(2)}%`,
 		},
 		{
 			accessorFn: row => row.counterpartHours.concluded,
 			id: "concluded",
-			header: t("academic.studentPage.table.columns.concluded"),
+			header: t("academic.formerStudentPage.table.columns.concluded"),
 			cell: ({ row }) => (
 				<div className="flex w-full justify-center">
 					<Badge
@@ -198,8 +200,8 @@ export function createFormerStudentColumns(
 						variant="primary"
 					>
 						{row.original.counterpartHours.concluded
-							? t("academic.studentPage.table.concluded.yes")
-							: t("academic.studentPage.table.concluded.no")}
+							? t("academic.formerStudentPage.table.concluded.yes")
+							: t("academic.formerStudentPage.table.concluded.no")}
 					</Badge>
 				</div>
 			),
@@ -207,41 +209,41 @@ export function createFormerStudentColumns(
 		{
 			accessorFn: row => row.period.startDate,
 			id: "startDate",
-			header: t("academic.studentPage.dialog.fields.startDate"),
+			header: t("academic.formerStudentPage.dialog.fields.startDate"),
 			cell: ({ row }) => row.original.period.startDateFormatted,
 		},
 		{
 			accessorFn: row => row.period.dueDate,
 			id: "dueDate",
-			header: t("academic.studentPage.dialog.fields.dueDate"),
+			header: t("academic.formerStudentPage.dialog.fields.dueDate"),
 			cell: ({ row }) => row.original.period.dueDateFormatted,
 		},
 		{
 			accessorFn: row => row.period.remainingDays,
 			id: "remainingDays",
-			header: t("academic.studentPage.dialog.fields.remainingDays"),
+			header: t("academic.formerStudentPage.dialog.fields.remainingDays"),
 			cell: ({ row }) => row.original.period.remainingDaysFormatted,
 		},
 		{
 			accessorFn: row => row.course?.name ?? row.courseId,
 			id: "course",
-			header: t("academic.studentPage.table.columns.course"),
+			header: t("academic.formerStudentPage.table.columns.course"),
 		},
 		{
 			accessorFn: row => row.course?.areaOfExpertise.name ?? "",
 			id: "areaOfExpertise",
-			header: t("academic.studentPage.table.columns.areaOfExpertise"),
+			header: t("academic.formerStudentPage.table.columns.areaOfExpertise"),
 		},
 		{
 			accessorFn: row => row.auditInfo.createdAt,
 			id: "createdAt",
-			header: t("academic.studentPage.dialog.fields.createdAt"),
+			header: t("academic.formerStudentPage.dialog.fields.createdAt"),
 			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
 		},
 		{
 			accessorFn: row => row.auditInfo.updatedAt,
 			id: "updatedAt",
-			header: t("academic.studentPage.dialog.fields.updatedAt"),
+			header: t("academic.formerStudentPage.dialog.fields.updatedAt"),
 			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
 		},
 	];
@@ -439,18 +441,20 @@ export function filterFormerStudents(
 
 export function getStudentEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("academic.studentPage.empty.title"),
+		title: t("academic.formerStudentPage.empty.title"),
 		description: query
-			? t("academic.studentPage.empty.filteredDescription", { value: query })
-			: t("academic.studentPage.empty.defaultDescription"),
+			? t("academic.formerStudentPage.empty.filteredDescription", {
+					value: query,
+				})
+			: t("academic.formerStudentPage.empty.defaultDescription"),
 	};
 }
 
 export function getStudentsListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.studentPage.feedback.listError.title"),
+		fallbackTitle: t("academic.formerStudentPage.feedback.listError.title"),
 		fallbackDescription: t(
-			"academic.studentPage.feedback.listError.description",
+			"academic.formerStudentPage.feedback.listError.description",
 		),
 	});
 }
@@ -460,9 +464,9 @@ export function getStudentDetailErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.studentPage.feedback.detailError.title"),
+		fallbackTitle: t("academic.formerStudentPage.feedback.detailError.title"),
 		fallbackDescription: t(
-			"academic.studentPage.feedback.detailError.description",
+			"academic.formerStudentPage.feedback.detailError.description",
 		),
 	});
 }
@@ -472,9 +476,9 @@ export function getStudentCoursesErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.studentPage.feedback.coursesError.title"),
+		fallbackTitle: t("academic.formerStudentPage.feedback.coursesError.title"),
 		fallbackDescription: t(
-			"academic.studentPage.feedback.coursesError.description",
+			"academic.formerStudentPage.feedback.coursesError.description",
 		),
 	});
 }
@@ -484,9 +488,9 @@ export function getStudentCreateErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.studentPage.create.feedback.error.title"),
+		fallbackTitle: t("academic.formerStudentPage.create.feedback.error.title"),
 		fallbackDescription: t(
-			"academic.studentPage.create.feedback.error.description",
+			"academic.formerStudentPage.create.feedback.error.description",
 		),
 	});
 }
@@ -496,9 +500,11 @@ export function getStudentDuplicateErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.studentPage.duplicate.feedback.error.title"),
+		fallbackTitle: t(
+			"academic.formerStudentPage.duplicate.feedback.error.title",
+		),
 		fallbackDescription: t(
-			"academic.studentPage.duplicate.feedback.error.description",
+			"academic.formerStudentPage.duplicate.feedback.error.description",
 		),
 	});
 }
@@ -508,9 +514,9 @@ export function getStudentUpdateErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.studentPage.update.feedback.error.title"),
+		fallbackTitle: t("academic.formerStudentPage.update.feedback.error.title"),
 		fallbackDescription: t(
-			"academic.studentPage.update.feedback.error.description",
+			"academic.formerStudentPage.update.feedback.error.description",
 		),
 	});
 }
@@ -520,9 +526,9 @@ export function getStudentDeleteErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.studentPage.delete.feedback.error.title"),
+		fallbackTitle: t("academic.formerStudentPage.delete.feedback.error.title"),
 		fallbackDescription: t(
-			"academic.studentPage.delete.feedback.error.description",
+			"academic.formerStudentPage.delete.feedback.error.description",
 		),
 	});
 }
@@ -535,13 +541,13 @@ export function getStudentSetActiveErrorToastContent(
 	return getApiErrorToastContent(error, {
 		fallbackTitle: t(
 			active
-				? "academic.studentPage.reactivate.feedback.error.title"
-				: "academic.studentPage.deactivate.feedback.error.title",
+				? "academic.formerStudentPage.reactivate.feedback.error.title"
+				: "academic.formerStudentPage.deactivate.feedback.error.title",
 		),
 		fallbackDescription: t(
 			active
-				? "academic.studentPage.reactivate.feedback.error.description"
-				: "academic.studentPage.deactivate.feedback.error.description",
+				? "academic.formerStudentPage.reactivate.feedback.error.description"
+				: "academic.formerStudentPage.deactivate.feedback.error.description",
 		),
 	});
 }
@@ -707,7 +713,7 @@ export function getStudentFilterSummary(
 	}
 
 	if (!includeConcluded) {
-		parts.push(t("academic.studentPage.filters.includeConcluded.off"));
+		parts.push(t("academic.formerStudentPage.filters.includeConcluded.off"));
 	}
 
 	if (campi.length > 0) {
@@ -727,7 +733,7 @@ export function getStudentFilterSummary(
 	}
 
 	if (areaOfExpertiseIds.length > 0) {
-		parts.push(t("academic.studentPage.filters.areaOfExpertise.label"));
+		parts.push(t("academic.formerStudentPage.filters.areaOfExpertise.label"));
 	}
 
 	if (periodFrom || periodTo) {

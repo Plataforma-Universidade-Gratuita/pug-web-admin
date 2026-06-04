@@ -231,7 +231,7 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.status.status,
 			id: "status",
-			header: t("project.enrollmentPage.table.columns.status"),
+			header: t("common.fields.status"),
 			cell: ({ row }) => (
 				<Badge
 					tone={getEnrollmentStatusTone(row.original.status.status)}
@@ -245,7 +245,7 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.project.id,
 			id: "projectId",
-			header: t("project.enrollmentPage.table.columns.projectId"),
+			header: t("common.fields.projectId"),
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			cell: ({ row }) => (
 				<TableText
@@ -258,7 +258,7 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.project.name,
 			id: "project",
-			header: t("project.enrollmentPage.table.columns.project"),
+			header: t("common.fields.project"),
 		},
 		{
 			accessorFn: row => row.student.account.id,
@@ -291,7 +291,7 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.student.campus.campusFormatted,
 			id: "campus",
-			header: t("project.enrollmentPage.table.columns.campus"),
+			header: t("common.fields.campus"),
 		},
 		{
 			accessorFn: row => row.enrollmentInfo.acceptedAtFormatted,
@@ -314,12 +314,12 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.enrollmentInfo.auditInfo.createdAtFormatted,
 			id: "createdAt",
-			header: t("project.enrollmentPage.table.columns.createdAt"),
+			header: t("common.fields.createdAt"),
 		},
 		{
 			accessorFn: row => row.enrollmentInfo.auditInfo.updatedAtFormatted,
 			id: "updatedAt",
-			header: t("project.enrollmentPage.table.columns.updatedAt"),
+			header: t("common.fields.updatedAt"),
 		},
 	];
 }
@@ -579,10 +579,8 @@ export function getEnrollmentProjectsErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.enrollmentPage.feedback.projectsError.title"),
-		fallbackDescription: t(
-			"project.enrollmentPage.feedback.projectsError.description",
-		),
+		fallbackTitle: t("common.loadErrors.projects.title"),
+		fallbackDescription: t("common.loadErrors.projects.description"),
 	});
 }
 
@@ -591,10 +589,8 @@ export function getEnrollmentStudentsErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.enrollmentPage.feedback.studentsError.title"),
-		fallbackDescription: t(
-			"project.enrollmentPage.feedback.studentsError.description",
-		),
+		fallbackTitle: t("common.loadErrors.formerStudents.title"),
+		fallbackDescription: t("common.loadErrors.formerStudents.description"),
 	});
 }
 

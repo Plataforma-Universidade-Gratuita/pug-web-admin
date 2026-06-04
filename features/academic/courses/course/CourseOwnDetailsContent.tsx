@@ -23,17 +23,17 @@ export function CourseOwnDetailsContent({
 		const baseFields: EntityPageField[] = [
 			{
 				id: "id",
-				label: t("academic.coursePage.dialog.fields.id"),
+				label: t("common.fields.id"),
 				value: course.id,
 			},
 			{
 				id: "createdAt",
-				label: t("academic.coursePage.dialog.fields.createdAt"),
+				label: t("common.fields.createdAt"),
 				value: course.auditInfo.createdAtFormatted,
 			},
 			{
 				id: "updatedAt",
-				label: t("academic.coursePage.dialog.fields.updatedAt"),
+				label: t("common.fields.updatedAt"),
 				value: course.auditInfo.updatedAtFormatted,
 			},
 		];

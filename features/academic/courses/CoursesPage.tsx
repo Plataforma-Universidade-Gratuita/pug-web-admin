@@ -213,7 +213,7 @@ export function CoursesPage() {
 			description: t("academic.coursePage.delete.undo.description", {
 				name: course.name,
 			}),
-			undoLabel: t("academic.coursePage.delete.undo.action"),
+			undoLabel: t("common.actions.undo"),
 			onCommit: () => {
 				removeCourseMutation.mutate(
 					{
@@ -254,13 +254,13 @@ export function CoursesPage() {
 				title={t("academic.coursePage.title")}
 				description={t("academic.coursePage.description")}
 				metadata={{
-					triggerLabel: t("academic.coursePage.metadata.trigger"),
-					emptyTitle: t("academic.coursePage.metadata.empty.title"),
-					emptyDescription: t("academic.coursePage.metadata.empty.description"),
+					triggerLabel: t("common.metadata.trigger"),
+					emptyTitle: t("common.metadata.empty.title"),
+					emptyDescription: t("common.metadata.empty.description"),
 				}}
 				actions={
 					<ServicePageHeaderActions
-						clearLabel={t("academic.coursePage.filters.clear")}
+						clearLabel={t("common.filters.clear")}
 						createLabel={t("academic.coursePage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}
@@ -270,7 +270,7 @@ export function CoursesPage() {
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
 			>
 				<TextFieldFilter
-					label={t("academic.coursePage.filters.search.label")}
+					label={t("common.filters.search.label")}
 					value={querySearch}
 					onChange={setQuerySearch}
 					placeholder={t("academic.coursePage.filters.search.placeholder")}
