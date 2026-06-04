@@ -605,7 +605,7 @@ export function HomeCommandCenterPage() {
 							<Card isLoading={isOperationalLoading}>
 								<CardHeader
 									icon={ClipboardList}
-									className="mb-4 px-5 pb-0 pt-5"
+									className="mb-4 px-5 pt-5 pb-0"
 								>
 									<CardTitle>
 										{t("home.dashboard.sections.priority.title")}
@@ -614,7 +614,7 @@ export function HomeCommandCenterPage() {
 										{t("home.dashboard.sections.priority.description")}
 									</CardDescription>
 								</CardHeader>
-								<CardContent className="grid gap-3 px-5 pb-5 pt-0">
+								<CardContent className="grid gap-3 px-5 pt-0 pb-5">
 									{hasOperationalError ? (
 										<p className="ty-helper">
 											{t("home.dashboard.sections.sharedError")}
@@ -648,7 +648,7 @@ export function HomeCommandCenterPage() {
 							<Card isLoading={isOperationalLoading}>
 								<CardHeader
 									icon={ClipboardCheck}
-									className="mb-4 px-5 pb-0 pt-5"
+									className="mb-4 px-5 pt-5 pb-0"
 								>
 									<CardTitle>
 										{t("home.dashboard.sections.pulse.title")}
@@ -657,7 +657,7 @@ export function HomeCommandCenterPage() {
 										{t("home.dashboard.sections.pulse.description")}
 									</CardDescription>
 								</CardHeader>
-								<CardContent className="grid gap-4 px-5 pb-5 pt-0 md:grid-cols-2">
+								<CardContent className="grid gap-4 px-5 pt-0 pb-5 md:grid-cols-2">
 									{hasOperationalError ? (
 										<p className="ty-helper">
 											{t("home.dashboard.sections.sharedError")}
@@ -687,7 +687,7 @@ export function HomeCommandCenterPage() {
 							<Card isLoading={isOperationalLoading}>
 								<CardHeader
 									icon={FolderKanban}
-									className="mb-4 px-5 pb-0 pt-5"
+									className="mb-4 px-5 pt-5 pb-0"
 								>
 									<CardTitle>
 										{t("home.dashboard.sections.recent.title")}
@@ -696,7 +696,7 @@ export function HomeCommandCenterPage() {
 										{t("home.dashboard.sections.recent.description")}
 									</CardDescription>
 								</CardHeader>
-								<CardContent className="px-5 pb-5 pt-0">
+								<CardContent className="px-5 pt-0 pb-5">
 									{hasOperationalError ? (
 										<p className="ty-helper">
 											{t("home.dashboard.sections.sharedError")}
@@ -758,7 +758,7 @@ export function HomeCommandCenterPage() {
 							<Card>
 								<CardHeader
 									icon={BriefcaseBusiness}
-									className="mb-4 px-5 pb-0 pt-5"
+									className="mb-4 px-5 pt-5 pb-0"
 								>
 									<CardTitle>
 										{t("home.dashboard.sections.shortcuts.title")}
@@ -767,7 +767,7 @@ export function HomeCommandCenterPage() {
 										{t("home.dashboard.sections.shortcuts.description")}
 									</CardDescription>
 								</CardHeader>
-								<CardContent className="grid gap-3 px-5 pb-5 pt-0">
+								<CardContent className="grid gap-3 px-5 pt-0 pb-5">
 									<Button
 										variant="secondary"
 										usage="secondary"
@@ -802,7 +802,7 @@ export function HomeCommandCenterPage() {
 							<Card isLoading={isOperationalLoading}>
 								<CardHeader
 									icon={AlertTriangle}
-									className="mb-4 px-5 pb-0 pt-5"
+									className="mb-4 px-5 pt-5 pb-0"
 								>
 									<CardTitle>
 										{t("home.dashboard.sections.exceptions.title")}
@@ -811,7 +811,7 @@ export function HomeCommandCenterPage() {
 										{t("home.dashboard.sections.exceptions.description")}
 									</CardDescription>
 								</CardHeader>
-								<CardContent className="grid gap-3 px-5 pb-5 pt-0">
+								<CardContent className="grid gap-3 px-5 pt-0 pb-5">
 									{hasOperationalError ? (
 										<p className="ty-helper">
 											{t("home.dashboard.sections.sharedError")}
@@ -858,7 +858,7 @@ export function HomeCommandCenterPage() {
 							<Card isLoading={isOperationalLoading}>
 								<CardHeader
 									icon={Users}
-									className="mb-4 px-5 pb-0 pt-5"
+									className="mb-4 px-5 pt-5 pb-0"
 								>
 									<CardTitle>
 										{t("home.dashboard.sections.upcoming.title")}
@@ -867,7 +867,7 @@ export function HomeCommandCenterPage() {
 										{t("home.dashboard.sections.upcoming.description")}
 									</CardDescription>
 								</CardHeader>
-								<CardContent className="grid gap-3 px-5 pb-5 pt-0">
+								<CardContent className="grid gap-3 px-5 pt-0 pb-5">
 									{hasOperationalError ? (
 										<p className="ty-helper">
 											{t("home.dashboard.sections.sharedError")}

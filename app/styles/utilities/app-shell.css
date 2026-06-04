@@ -40,6 +40,26 @@
 		text-decoration: none;
 	}
 
+	.app-topbar-brand {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		transform: translate(-50%, -50%);
+		text-decoration: none;
+	}
+
+	html.dark .app-topbar-brand-image,
+	html.dark-theme .app-topbar-brand-image,
+	html[data-theme="dark"] .app-topbar-brand-image,
+	html.dark .login-card-brand-mark img,
+	html.dark-theme .login-card-brand-mark img,
+	html[data-theme="dark"] .login-card-brand-mark img {
+		opacity: 0.86;
+	}
+
 	.app-topbar-subtitle {
 		color: var(--twc-chrome-muted) !important;
 	}
@@ -659,7 +679,7 @@
 		align-items: center;
 		justify-content: center;
 		border-radius: var(--twc-radius-lg);
-		background-color: color-mix(in oklab, var(--color-brand) 16%, transparent);
+		background-color: color-mix(in oklab, var(--color-brand) 11%, transparent);
 		color: var(--color-brand);
 	}
 

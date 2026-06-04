@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useSyncExternalStore, useTransition } from "react";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { login } from "@/api/web/identity/auth";
@@ -21,15 +22,33 @@ import {
 	toast,
 } from "@/components";
 import { HOME_ROUTE } from "@/constants";
+import { useTheme } from "@/contexts/theme";
 import { useLocalizedZodForm } from "@/hooks";
 import { createLoginFormSchema } from "@/schemas";
 import type { LoginFormProps, LoginFormValues } from "@/types";
 import { WebApiError } from "@/utils";
 
+function subscribeToSystemTheme(callback: () => void) {
+	const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+	mediaQuery.addEventListener("change", callback);
+	return () => mediaQuery.removeEventListener("change", callback);
+}
+
+function getSystemThemeSnapshot() {
+	return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
 export function LoginForm({ panelRef }: LoginFormProps) {
 	const { t } = useTranslation();
 	const router = useRouter();
+	const { mode } = useTheme();
 	const [isPending, startTransition] = useTransition();
+	const isSystemDark = useSyncExternalStore(
+		subscribeToSystemTheme,
+		getSystemThemeSnapshot,
+		() => false,
+	);
+	const isDark = mode === "dark" || (mode === "system" && isSystemDark);
 	const [error, setError] = useState<string | null>(null);
 	const {
 		register,
@@ -75,9 +94,16 @@ export function LoginForm({ panelRef }: LoginFormProps) {
 					<CardHeader className="login-card-copy">
 						<div className="login-card-brand">
 							<div className="login-card-brand-mark">
-								<Icon
-									icon={ShieldCheck}
-									className="h-5 w-5 text-[color:var(--color-brand)]"
+								<Image
+									src={
+										isDark
+											? "/assets/brand/pug-logo-inverted.svg"
+											: "/assets/brand/pug-logo.svg"
+									}
+									alt={t("auth.login.brand.name")}
+									width={28}
+									height={28}
+									priority
 								/>
 							</div>
 							<div>

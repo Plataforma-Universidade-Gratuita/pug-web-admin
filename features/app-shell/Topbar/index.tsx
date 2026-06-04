@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { KeyRound, PanelLeftClose, PanelLeftOpen } from "lucide-react";
@@ -35,7 +36,7 @@ export function TopBar({
 	return (
 		<header className="app-topbar">
 			<div className="mx-auto px-3">
-				<div className="flex h-[3.75rem] items-center justify-between gap-4">
+				<div className="relative flex h-[3.75rem] items-center justify-between gap-4">
 					<Button
 						size="icon"
 						usage="secondary"
@@ -62,6 +63,20 @@ export function TopBar({
 							{t("Navbar.subtitle")}
 						</p>
 					</div>
+					<Link
+						href={NAVBAR_TITLE_ROUTE}
+						className="app-topbar-brand"
+						aria-label={t("Navbar.title")}
+					>
+						<Image
+							src="/assets/brand/pug-logo-inverted.svg"
+							alt={t("Navbar.title")}
+							width={75}
+							height={75}
+							className="app-topbar-brand-image"
+							priority
+						/>
+					</Link>
 					<div className="app-topbar-controls">
 						{showWireCredentialsAction ? (
 							<Button
