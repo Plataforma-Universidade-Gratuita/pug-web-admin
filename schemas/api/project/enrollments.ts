@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 import {
-	AccountSimpleComplexSearchResponseSchema,
 	AuditInfoResponseSchema,
 	FormerStudentSimpleComplexSearchResponseSchema,
 	ProjectSimpleComplexSearchResponseSchema,
@@ -63,6 +62,3 @@ export const EnrollmentCreateRequestSchema = z.object({
 	projectId: z.string(),
 	formerStudentId: z.string().optional(),
 });
-
-export const EnrollmentValidatorResponseSchema =
-	AccountSimpleComplexSearchResponseSchema;

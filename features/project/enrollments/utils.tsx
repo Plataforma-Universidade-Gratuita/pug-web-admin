@@ -1,10 +1,13 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge } from "@/components";
+import { Badge, TableText } from "@/components";
 import { ENROLLMENT_KEY_SEPARATOR } from "@/constants";
 import type {
 	AccountResponse,
+	EnrollmentComplexSearchRequest,
+	EnrollmentDirectoryItem,
+	EnrollmentEditorFormValues,
 	EnrollmentFilterArgs,
 	EnrollmentResponse,
 	EnrollmentStatus,
@@ -15,13 +18,16 @@ import type {
 } from "@/types";
 import type { BadgeTone, ComboboxOption } from "@/types";
 import { getApiErrorToastContent } from "@/utils";
-import { compareNormalizedText, normalizeTextForSearch } from "@/utils";
+import {
+	compareNormalizedText,
+	matchesAnyDateRange,
+	normalizeTextForSearch,
+	toSearchDateOffsetDateTime,
+} from "@/utils";
 
-function getStartOfDayTimestamp(value: string) {
-	const date = new Date(value);
-	date.setHours(0, 0, 0, 0);
-	return date.getTime();
-}
+export { createEnrollmentEditorFormSchema } from "@/schemas";
+
+const TABLE_IDENTIFIER_TEXT_WIDTH = 70;
 
 function getFormerStudentUser(
 	formerStudent: FormerStudentResponse | undefined,
@@ -33,11 +39,11 @@ function getFormerStudentUser(
 	}
 
 	const account = accountById.get(formerStudent.accountId);
-	if (!account) {
-		return null;
-	}
+	return account ? (userById.get(account.userId) ?? null) : null;
+}
 
-	return userById.get(account.userId) ?? null;
+function getProjectLabel(project: ProjectResponse | null | undefined) {
+	return project?.name ?? "";
 }
 
 export function createEnrollmentCompositeKey(
@@ -52,31 +58,21 @@ export function parseEnrollmentCompositeKey(value: string | null) {
 		return null;
 	}
 
-	const [projectId, formerStudentId] = value.split(ENROLLMENT_KEY_SEPARATOR);
+	const normalizedValue = (() => {
+		try {
+			return decodeURIComponent(value);
+		} catch {
+			return value;
+		}
+	})();
+
+	const [projectId, formerStudentId] =
+		normalizedValue.split(ENROLLMENT_KEY_SEPARATOR);
 	if (!projectId || !formerStudentId) {
 		return null;
 	}
 
 	return { projectId, formerStudentId };
-}
-
-export function resolveEnrollmentProjectLabel(
-	projectById: Map<string, ProjectResponse>,
-	projectId: string,
-) {
-	return projectById.get(projectId)?.name ?? projectId;
-}
-
-export function resolveEnrollmentFormerStudentLabel(
-	formerStudentById: Map<string, FormerStudentResponse>,
-	accountById: Map<string, AccountResponse>,
-	userById: Map<string, UserResponse>,
-	formerStudentId: string,
-) {
-	const formerStudent = formerStudentById.get(formerStudentId);
-	const user = getFormerStudentUser(formerStudent, accountById, userById);
-
-	return user?.name ?? formerStudent?.academicRegistration ?? formerStudentId;
 }
 
 export function getEnrollmentStatusLabel(
@@ -89,19 +85,60 @@ export function getEnrollmentStatusLabel(
 export function getEnrollmentStatusTone(status: EnrollmentStatus): BadgeTone {
 	switch (status) {
 		case "APPROVED":
-			return "success";
+			return "info";
 		case "CANCELED":
+			return "warning";
 		case "REJECTED":
 		case "REMOVED":
 			return "danger";
 		case "COMPLETED":
-			return "brand";
+			return "success";
 		case "EXITED":
+			return "danger";
+		case "ON_HOLD":
 			return "warning";
 		case "PENDING":
+			return "brand";
 		default:
 			return "info";
 	}
+}
+
+export function getEnrollmentStatusOptions(t: TFunction): ComboboxOption[] {
+	return [
+		"PENDING",
+		"APPROVED",
+		"REJECTED",
+		"CANCELED",
+		"COMPLETED",
+		"EXITED",
+		"ON_HOLD",
+		"REMOVED",
+	].map(status => ({
+		value: status,
+		label: getEnrollmentStatusLabel(t, status as EnrollmentStatus),
+	}));
+}
+
+export function getEditableEnrollmentStatusOptions(
+	t: TFunction,
+	currentStatus: EnrollmentStatus,
+): ComboboxOption[] {
+	const nextStatuses = (() => {
+		switch (currentStatus) {
+			case "PENDING":
+				return ["PENDING", "APPROVED", "REJECTED", "CANCELED", "REMOVED"];
+			case "APPROVED":
+				return ["APPROVED", "COMPLETED", "CANCELED", "REMOVED"];
+			default:
+				return [currentStatus];
+		}
+	})();
+
+	return nextStatuses.map(status => ({
+		value: status,
+		label: getEnrollmentStatusLabel(t, status as EnrollmentStatus),
+	}));
 }
 
 export function buildEnrollmentProjectOptions(
@@ -124,61 +161,72 @@ export function buildEnrollmentFormerStudentOptions(
 	return [...formerStudents]
 		.sort((left, right) =>
 			compareNormalizedText(
-				resolveEnrollmentFormerStudentLabel(
-					new Map([[left.accountId, left]]),
-					accountById,
-					userById,
-					left.accountId,
-				),
-				resolveEnrollmentFormerStudentLabel(
-					new Map([[right.accountId, right]]),
-					accountById,
-					userById,
-					right.accountId,
-				),
+				getFormerStudentUser(left, accountById, userById)?.name ??
+					left.academicRegistration,
+				getFormerStudentUser(right, accountById, userById)?.name ??
+					right.academicRegistration,
 			),
 		)
 		.map(formerStudent => {
-			const user = getFormerStudentUser(formerStudent, accountById, userById);
 			const account = accountById.get(formerStudent.accountId);
+			const user = getFormerStudentUser(formerStudent, accountById, userById);
 
 			return {
 				value: formerStudent.accountId,
 				label: user?.name ?? formerStudent.academicRegistration,
 				description: account?.email ?? formerStudent.academicRegistration,
-				keywords: [
-					formerStudent.academicRegistration,
-					user?.cpfFormatted ?? "",
-				],
+				keywords: [formerStudent.academicRegistration],
 			};
 		});
 }
 
-export function createEnrollmentColumns(
-	t: TFunction,
+export function mapEnrollmentsToDirectoryItems(
+	enrollments: EnrollmentResponse[],
 	projectById: Map<string, ProjectResponse>,
 	formerStudentById: Map<string, FormerStudentResponse>,
 	accountById: Map<string, AccountResponse>,
 	userById: Map<string, UserResponse>,
-): ColumnDef<EnrollmentResponse>[] {
+): EnrollmentDirectoryItem[] {
+	return enrollments.flatMap(enrollment => {
+		const project = projectById.get(enrollment.projectId);
+		const formerStudent = formerStudentById.get(enrollment.formerStudentId);
+		const account = formerStudent
+			? accountById.get(formerStudent.accountId)
+			: undefined;
+		const user = formerStudent
+			? getFormerStudentUser(formerStudent, accountById, userById)
+			: undefined;
+
+		if (!project || !formerStudent || !account || !user) {
+			return [];
+		}
+
+		return [
+			{
+				project: {
+					id: project.id,
+					name: project.name,
+				},
+				student: {
+					account: {
+						id: account.id,
+						name: user.name,
+						email: account.email,
+					},
+					academicRegistration: formerStudent.academicRegistration,
+					campus: formerStudent.campus,
+				},
+				status: enrollment.status,
+				enrollmentInfo: enrollment.enrollmentInfo,
+			},
+		];
+	});
+}
+
+export function createEnrollmentColumns(
+	t: TFunction,
+): ColumnDef<EnrollmentDirectoryItem>[] {
 	return [
-		{
-			accessorFn: row =>
-				resolveEnrollmentFormerStudentLabel(
-					formerStudentById,
-					accountById,
-					userById,
-					row.formerStudentId,
-				),
-			id: "student",
-			header: t("project.enrollmentPage.table.columns.student"),
-		},
-		{
-			accessorFn: row =>
-				resolveEnrollmentProjectLabel(projectById, row.projectId),
-			id: "project",
-			header: t("project.enrollmentPage.table.columns.project"),
-		},
 		{
 			accessorFn: row => row.status.status,
 			id: "status",
@@ -194,7 +242,58 @@ export function createEnrollmentColumns(
 			),
 		},
 		{
-			accessorFn: row => row.enrollmentInfo.acceptedAt ?? "",
+			accessorFn: row => row.project.id,
+			id: "projectId",
+			header: t("project.enrollmentPage.table.columns.projectId"),
+			size: TABLE_IDENTIFIER_TEXT_WIDTH,
+			cell: ({ row }) => (
+				<TableText
+					text={row.original.project.id}
+					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
+					tooltiped
+				/>
+			),
+		},
+		{
+			accessorFn: row => row.project.name,
+			id: "project",
+			header: t("project.enrollmentPage.table.columns.project"),
+		},
+		{
+			accessorFn: row => row.student.account.id,
+			id: "formerStudentId",
+			header: t("project.enrollmentPage.table.columns.studentId"),
+			size: TABLE_IDENTIFIER_TEXT_WIDTH,
+			cell: ({ row }) => (
+				<TableText
+					text={row.original.student.account.id}
+					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
+					tooltiped
+				/>
+			),
+		},
+		{
+			accessorFn: row => row.student.account.name,
+			id: "formerStudent",
+			header: t("project.enrollmentPage.table.columns.student"),
+		},
+		{
+			accessorFn: row => row.student.account.email,
+			id: "email",
+			header: t("project.enrollmentPage.table.columns.email"),
+		},
+		{
+			accessorFn: row => row.student.academicRegistration,
+			id: "academicRegistration",
+			header: t("project.enrollmentPage.table.columns.registration"),
+		},
+		{
+			accessorFn: row => row.student.campus.campusFormatted,
+			id: "campus",
+			header: t("project.enrollmentPage.table.columns.campus"),
+		},
+		{
+			accessorFn: row => row.enrollmentInfo.acceptedAtFormatted,
 			id: "acceptedAt",
 			header: t("project.enrollmentPage.table.columns.acceptedAt"),
 			cell: ({ row }) =>
@@ -203,7 +302,7 @@ export function createEnrollmentColumns(
 					: t("project.enrollmentPage.table.values.notAccepted"),
 		},
 		{
-			accessorFn: row => row.enrollmentInfo.closingStatusAt ?? "",
+			accessorFn: row => row.enrollmentInfo.closingStatusAtFormatted,
 			id: "closingStatusAt",
 			header: t("project.enrollmentPage.table.columns.closingStatusAt"),
 			cell: ({ row }) =>
@@ -211,116 +310,194 @@ export function createEnrollmentColumns(
 					? row.original.enrollmentInfo.closingStatusAtFormatted
 					: t("project.enrollmentPage.table.values.open"),
 		},
+		{
+			accessorFn: row => row.enrollmentInfo.auditInfo.createdAtFormatted,
+			id: "createdAt",
+			header: t("project.enrollmentPage.table.columns.createdAt"),
+		},
+		{
+			accessorFn: row => row.enrollmentInfo.auditInfo.updatedAtFormatted,
+			id: "updatedAt",
+			header: t("project.enrollmentPage.table.columns.updatedAt"),
+		},
 	];
 }
 
-export function filterEnrollments(
-	enrollments: EnrollmentResponse[],
-	{
-		dateField,
-		endDate,
-		projectById,
-		projectIdFilter,
-		query,
-		startDate,
-		statusFilter,
-		formerStudentById,
-		formerStudentIdFilter,
-		accountById,
-		userById,
-	}: EnrollmentFilterArgs,
-) {
-	const normalizedQuery = normalizeTextForSearch(query.trim());
-	const hasQuery = normalizedQuery.length > 0;
-	const hasProjectFilter = projectIdFilter.length > 0;
-	const hasFormerStudentFilter = formerStudentIdFilter.length > 0;
-	const hasStatusFilter = statusFilter.length > 0;
-	const startTimestamp = startDate ? getStartOfDayTimestamp(startDate) : null;
-	const endTimestamp = endDate ? getStartOfDayTimestamp(endDate) : null;
+export function buildEnrollmentComplexSearchRequest(filters: {
+	projectIds: string[];
+	formerStudentIds: string[];
+	statuses: EnrollmentStatus[];
+	dateFrom: string;
+	dateTo: string;
+	periodFrom: string;
+	periodTo: string;
+}): EnrollmentComplexSearchRequest {
+	return {
+		projectIds: filters.projectIds.length > 0 ? filters.projectIds : undefined,
+		formerStudentIds:
+			filters.formerStudentIds.length > 0
+				? filters.formerStudentIds
+				: undefined,
+		statuses: filters.statuses.length > 0 ? filters.statuses : undefined,
+		dateFrom: toSearchDateOffsetDateTime(filters.dateFrom, "start"),
+		dateTo: toSearchDateOffsetDateTime(filters.dateTo, "end"),
+		periodFrom: filters.periodFrom || undefined,
+		periodTo: filters.periodTo || undefined,
+	};
+}
 
-	if (
-		!hasQuery &&
-		!hasProjectFilter &&
-		!hasFormerStudentFilter &&
-		!hasStatusFilter &&
-		!dateField &&
-		startTimestamp === null &&
-		endTimestamp === null
-	) {
-		return enrollments;
-	}
+export function filterEnrollmentsByBackendFilters(
+	items: EnrollmentDirectoryItem[],
+	filters: {
+		projectIds: string[];
+		formerStudentIds: string[];
+		statuses: EnrollmentStatus[];
+		dateFrom: string;
+		dateTo: string;
+	},
+) {
+	const hasProjects = filters.projectIds.length > 0;
+	const hasStudents = filters.formerStudentIds.length > 0;
+	const hasStatuses = filters.statuses.length > 0;
+	const hasDateRange = Boolean(filters.dateFrom || filters.dateTo);
+
+	return items.filter(item => {
+		if (hasProjects && !filters.projectIds.includes(item.project.id)) {
+			return false;
+		}
+
+		if (
+			hasStudents &&
+			!filters.formerStudentIds.includes(item.student.account.id)
+		) {
+			return false;
+		}
+
+		if (hasStatuses && !filters.statuses.includes(item.status.status)) {
+			return false;
+		}
+
+		if (
+			hasDateRange &&
+			!matchesAnyDateRange(
+				[
+					item.enrollmentInfo.auditInfo.createdAt,
+					item.enrollmentInfo.auditInfo.updatedAt,
+				],
+				{
+					...(filters.dateFrom ? { dateFrom: filters.dateFrom } : {}),
+					...(filters.dateTo ? { dateTo: filters.dateTo } : {}),
+				},
+			)
+		) {
+			return false;
+		}
+
+		return true;
+	});
+}
+
+export function filterEnrollmentListByBackendFilters(
+	enrollments: EnrollmentResponse[],
+	filters: {
+		projectIds: string[];
+		formerStudentIds: string[];
+		statuses: EnrollmentStatus[];
+		dateFrom: string;
+		dateTo: string;
+		periodFrom: string;
+		periodTo: string;
+	},
+	formerStudentById: Map<string, FormerStudentResponse>,
+) {
+	const hasProjects = filters.projectIds.length > 0;
+	const hasStudents = filters.formerStudentIds.length > 0;
+	const hasStatuses = filters.statuses.length > 0;
+	const hasDateRange = Boolean(filters.dateFrom || filters.dateTo);
+	const hasPeriodRange = Boolean(filters.periodFrom || filters.periodTo);
 
 	return enrollments.filter(enrollment => {
-		if (hasQuery) {
-			const formerStudent = formerStudentById.get(enrollment.formerStudentId);
-			const user = getFormerStudentUser(formerStudent, accountById, userById);
-			const account = formerStudent
-				? accountById.get(formerStudent.accountId)
-				: null;
-			const normalizedStudent = normalizeTextForSearch(
-				resolveEnrollmentFormerStudentLabel(
-					formerStudentById,
-					accountById,
-					userById,
-					enrollment.formerStudentId,
-				),
-			);
-			const normalizedEmail = normalizeTextForSearch(account?.email ?? "");
-			const normalizedRegistration = normalizeTextForSearch(
-				formerStudent?.academicRegistration ?? "",
-			);
-			const normalizedCpf = normalizeTextForSearch(
-				user?.cpfFormatted ?? user?.cpf ?? "",
-			);
-			const normalizedProject = normalizeTextForSearch(
-				resolveEnrollmentProjectLabel(projectById, enrollment.projectId),
-			);
-			const normalizedStatus = normalizeTextForSearch(
-				enrollment.status.statusFormatted,
-			);
+		if (hasProjects && !filters.projectIds.includes(enrollment.projectId)) {
+			return false;
+		}
 
+		if (
+			hasStudents &&
+			!filters.formerStudentIds.includes(enrollment.formerStudentId)
+		) {
+			return false;
+		}
+
+		if (hasStatuses && !filters.statuses.includes(enrollment.status.status)) {
+			return false;
+		}
+
+		if (
+			hasDateRange &&
+			!matchesAnyDateRange(
+				[
+					enrollment.enrollmentInfo.auditInfo.createdAt,
+					enrollment.enrollmentInfo.auditInfo.updatedAt,
+				],
+				{
+					...(filters.dateFrom ? { dateFrom: filters.dateFrom } : {}),
+					...(filters.dateTo ? { dateTo: filters.dateTo } : {}),
+				},
+			)
+		) {
+			return false;
+		}
+
+		if (hasPeriodRange) {
+			const formerStudent = formerStudentById.get(enrollment.formerStudentId);
 			if (
-				!normalizedStudent.includes(normalizedQuery) &&
-				!normalizedEmail.includes(normalizedQuery) &&
-				!normalizedRegistration.includes(normalizedQuery) &&
-				!normalizedCpf.includes(normalizedQuery) &&
-				!normalizedProject.includes(normalizedQuery) &&
-				!normalizedStatus.includes(normalizedQuery)
+				!formerStudent ||
+				!matchesAnyDateRange(
+					[formerStudent.period.startDate, formerStudent.period.dueDate],
+					{
+						...(filters.periodFrom ? { dateFrom: filters.periodFrom } : {}),
+						...(filters.periodTo ? { dateTo: filters.periodTo } : {}),
+					},
+				)
 			) {
 				return false;
 			}
 		}
 
-		if (hasProjectFilter && enrollment.projectId !== projectIdFilter) {
-			return false;
-		}
-
-		if (
-			hasFormerStudentFilter &&
-			enrollment.formerStudentId !== formerStudentIdFilter
-		) {
-			return false;
-		}
-
-		if (hasStatusFilter && enrollment.status.status !== statusFilter) {
-			return false;
-		}
-
-		if (dateField && (startTimestamp !== null || endTimestamp !== null)) {
-			const auditTimestamp = getStartOfDayTimestamp(
-				enrollment.enrollmentInfo.auditInfo[dateField],
-			);
-
-			if (startTimestamp !== null && auditTimestamp < startTimestamp) {
-				return false;
-			}
-
-			if (endTimestamp !== null && auditTimestamp > endTimestamp) {
-				return false;
-			}
-		}
-
 		return true;
+	});
+}
+
+export function filterEnrollmentsByFrontendFilters(
+	items: EnrollmentDirectoryItem[],
+	{ query, statuses }: EnrollmentFilterArgs,
+) {
+	const normalizedQuery = normalizeTextForSearch(query.trim());
+	const hasStatuses = statuses.length > 0;
+
+	if (!normalizedQuery && !hasStatuses) {
+		return items;
+	}
+
+	return items.filter(item => {
+		if (hasStatuses && !statuses.includes(item.status.status)) {
+			return false;
+		}
+
+		const fields = [
+			item.project.name,
+			item.student.account.name,
+			item.student.account.email,
+			item.student.academicRegistration,
+			item.student.campus.campusFormatted,
+			item.status.statusFormatted,
+		].map(value => normalizeTextForSearch(value));
+
+		if (!normalizedQuery) {
+			return true;
+		}
+
+		return fields.some(value => value.includes(normalizedQuery));
 	});
 }
 
@@ -333,6 +510,43 @@ export function getEnrollmentEmptyStateCopy(t: TFunction, query: string) {
 				})
 			: t("project.enrollmentPage.empty.defaultDescription"),
 	};
+}
+
+export function getEnrollmentFilterSummary(
+	t: TFunction,
+	filters: {
+		projectIds: string[];
+		formerStudentIds: string[];
+		statuses: EnrollmentStatus[];
+		dateFrom: string;
+		dateTo: string;
+		periodFrom: string;
+		periodTo: string;
+	},
+	query: string,
+) {
+	const parts: string[] = [];
+
+	if (query.trim()) {
+		parts.push(query.trim());
+	}
+	if (filters.projectIds.length > 0) {
+		parts.push(t("project.enrollmentPage.filters.summary.projects"));
+	}
+	if (filters.formerStudentIds.length > 0) {
+		parts.push(t("project.enrollmentPage.filters.summary.formerStudents"));
+	}
+	if (filters.statuses.length > 0) {
+		parts.push(t("project.enrollmentPage.filters.summary.statuses"));
+	}
+	if (filters.dateFrom || filters.dateTo) {
+		parts.push(t("project.enrollmentPage.filters.summary.auditDate"));
+	}
+	if (filters.periodFrom || filters.periodTo) {
+		parts.push(t("project.enrollmentPage.filters.summary.period"));
+	}
+
+	return parts.join(" | ");
 }
 
 export function getEnrollmentsListErrorToastContent(
@@ -388,10 +602,37 @@ export function getEnrollmentDeleteErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.enrollmentPage.delete.feedback.error.title"),
+		fallbackTitle: t("project.enrollmentPage.feedback.deleteError.title"),
 		fallbackDescription: t(
-			"project.enrollmentPage.delete.feedback.error.description",
+			"project.enrollmentPage.feedback.deleteError.description",
 		),
+	});
+}
+
+export function getEnrollmentCreateErrorToastContent(
+	t: TFunction,
+	error: unknown,
+) {
+	return getApiErrorToastContent(error, {
+		fallbackTitle: t("project.enrollmentPage.feedback.createError.title"),
+		fallbackDescription: t(
+			"project.enrollmentPage.feedback.createError.description",
+		),
+	});
+}
+
+export function getEnrollmentUpdateErrorToastContent(
+	t: TFunction,
+	error: unknown,
+	action?: EnrollmentStatusAction,
+) {
+	return getApiErrorToastContent(error, {
+		fallbackTitle: action
+			? t(`project.enrollmentPage.${action}.feedback.error.title`)
+			: t("project.enrollmentPage.feedback.updateError.title"),
+		fallbackDescription: action
+			? t(`project.enrollmentPage.${action}.feedback.error.description`)
+			: t("project.enrollmentPage.feedback.updateError.description"),
 	});
 }
 
@@ -400,79 +641,35 @@ export function getEnrollmentStatusActionErrorToastContent(
 	error: unknown,
 	action: EnrollmentStatusAction,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t(`project.enrollmentPage.${action}.feedback.error.title`),
-		fallbackDescription: t(
-			`project.enrollmentPage.${action}.feedback.error.description`,
-		),
-	});
+	return getEnrollmentUpdateErrorToastContent(t, error, action);
 }
 
-export function getEnrollmentFilterSummary(
-	t: TFunction,
-	{
-		dateField,
-		endDate,
-		projectById,
-		projectIdFilter,
-		query,
-		startDate,
-		statusFilter,
-		formerStudentById,
-		formerStudentIdFilter,
-		accountById,
-		userById,
-	}: EnrollmentFilterArgs,
+export function getEmptyEnrollmentEditorFormValues(): EnrollmentEditorFormValues {
+	return {
+		projectId: "",
+		formerStudentId: "",
+		status: "PENDING",
+	};
+}
+
+export function buildEnrollmentUpdateFormValues(
+	enrollment: EnrollmentResponse,
+): EnrollmentEditorFormValues {
+	return {
+		projectId: enrollment.projectId,
+		formerStudentId: enrollment.formerStudentId,
+		status: enrollment.status.status,
+	};
+}
+
+export function getEnrollmentDialogTitle(
+	project: ProjectResponse | null,
+	formerStudent: FormerStudentResponse | null,
+	accountById: Map<string, AccountResponse>,
 ) {
-	const parts: string[] = [];
+	const studentLabel = formerStudent
+		? accountById.get(formerStudent.accountId)?.email
+		: "";
 
-	if (query.trim()) {
-		parts.push(query.trim());
-	}
-
-	if (projectIdFilter) {
-		parts.push(resolveEnrollmentProjectLabel(projectById, projectIdFilter));
-	}
-
-	if (formerStudentIdFilter) {
-		parts.push(
-			resolveEnrollmentFormerStudentLabel(
-				formerStudentById,
-				accountById,
-				userById,
-				formerStudentIdFilter,
-			),
-		);
-	}
-
-	if (statusFilter) {
-		parts.push(getEnrollmentStatusLabel(t, statusFilter));
-	}
-
-	if (dateField) {
-		parts.push(
-			t(`project.enrollmentPage.filters.dateField.options.${dateField}`),
-		);
-	}
-
-	if (startDate || endDate) {
-		parts.push([startDate || "...", endDate || "..."].join(" - "));
-	}
-
-	return parts.join(" | ");
-}
-
-export function getEnrollmentStatusOptions(t: TFunction) {
-	return [
-		"PENDING",
-		"APPROVED",
-		"COMPLETED",
-		"REJECTED",
-		"CANCELED",
-		"EXITED",
-		"REMOVED",
-	].map(status => ({
-		value: status as EnrollmentStatus,
-		label: getEnrollmentStatusLabel(t, status as EnrollmentStatus),
-	}));
+	return [studentLabel, getProjectLabel(project)].filter(Boolean).join(" | ");
 }

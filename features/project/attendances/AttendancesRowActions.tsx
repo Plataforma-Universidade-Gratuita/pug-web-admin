@@ -2,12 +2,19 @@
 
 import { useRouter } from "next/navigation";
 
-import { ArrowUpRight, Check, Trash2, UserRoundX } from "lucide-react";
+import {
+	ArrowUpRight,
+	Check,
+	PenSquare,
+	Trash2,
+	UserRoundX,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
 	DropdownMenuDangerItem,
 	DropdownMenuInfoItem,
+	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuSuccessItem,
 	DropdownMenuWarningItem,
@@ -18,6 +25,7 @@ export function AttendancesRowActions({
 	attendance,
 	href,
 	onDelete,
+	onOpenEditor,
 	onValidate,
 }: AttendancesRowActionsProps) {
 	const { t } = useTranslation();
@@ -31,6 +39,11 @@ export function AttendancesRowActions({
 				onClick={() => {
 					router.push(href);
 				}}
+			/>
+			<DropdownMenuItem
+				icon={PenSquare}
+				label={t("project.attendancePage.table.actions.update")}
+				onClick={() => onOpenEditor(attendance.id, "update")}
 			/>
 			<DropdownMenuSeparator />
 			{attendance.status.status !== "PRESENT" ? (

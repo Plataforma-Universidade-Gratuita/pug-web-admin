@@ -16,8 +16,8 @@ export const BUTTON_VARIANTS = {
 
 export const BUTTON_SIZES = {
 	sm: "min-h-8 px-3 py-1.5 text-xs",
-	md: "min-h-9 px-4 py-2 text-sm",
-	lg: "min-h-10 px-5 py-2.5 text-sm",
+	md: "min-h-9 px-4 py-2.25 text-sm",
+	lg: "min-h-10 px-5 py-3 text-sm",
 	icon: "h-10 w-10 p-0",
 } as const;
 

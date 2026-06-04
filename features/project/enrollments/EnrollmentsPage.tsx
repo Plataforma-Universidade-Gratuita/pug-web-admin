@@ -1,40 +1,48 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Button, NoContentState, SomeErrorState, toast } from "@/components";
+import { Combobox, Label, NoContentState, SomeErrorState, toast } from "@/components";
 import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
 import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { useUsersQuery } from "@/features/identity/users/queries";
+import { EnrollmentEditorDrawer } from "@/features/project/enrollments/EnrollmentEditorDrawer";
 import { EnrollmentsFiltersDrawer } from "@/features/project/enrollments/EnrollmentsFiltersDrawer";
 import { EnrollmentsRowActions } from "@/features/project/enrollments/EnrollmentsRowActions";
 import {
 	useDeleteEnrollmentMutation,
 	useEnrollmentStatusMutation,
 } from "@/features/project/enrollments/mutations";
-import { useEnrollmentsQuery } from "@/features/project/enrollments/queries";
+import {
+	useEnrollmentsQuery,
+	useEnrollmentsSearchQuery,
+} from "@/features/project/enrollments/queries";
 import {
 	buildEnrollmentFormerStudentOptions,
 	buildEnrollmentProjectOptions,
 	createEnrollmentColumns,
 	createEnrollmentCompositeKey,
-	filterEnrollments,
+	filterEnrollmentListByBackendFilters,
+	filterEnrollmentsByBackendFilters,
+	filterEnrollmentsByFrontendFilters,
 	getEnrollmentDeleteErrorToastContent,
 	getEnrollmentEmptyStateCopy,
 	getEnrollmentFilterSummary,
 	getEnrollmentProjectsErrorToastContent,
 	getEnrollmentsListErrorToastContent,
+	getEnrollmentStatusOptions,
 	getEnrollmentStatusActionErrorToastContent,
 	getEnrollmentStudentsErrorToastContent,
-	resolveEnrollmentFormerStudentLabel,
-	resolveEnrollmentProjectLabel,
+	mapEnrollmentsToDirectoryItems,
 } from "@/features/project/enrollments/utils";
 import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
@@ -43,72 +51,95 @@ import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
+	useServicePageEditorState,
+	useServicePagePagination,
 } from "@/hooks";
-import type { EnrollmentResponse } from "@/types";
 import type {
-	EnrollmentSecondaryFilters,
+	EnrollmentComplexSearchFilters,
+	EnrollmentDirectoryItem,
+	EnrollmentEditorMode,
+	EnrollmentStatus,
 	EnrollmentStatusAction,
 } from "@/types";
-
-function getStatusDialogVariant(action: EnrollmentStatusAction) {
-	switch (action) {
-		case "accept":
-		case "complete":
-			return "success" as const;
-		case "cancel":
-		case "reject":
-			return "warning" as const;
-		case "remove":
-		default:
-			return "danger" as const;
-	}
-}
 
 export function EnrollmentsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
+	const [frontendStatuses, setFrontendStatuses] = useState<EnrollmentStatus[]>([]);
 	const [filtersOpen, setFiltersOpen] = useState(false);
-	const initialSecondaryFilters = useMemo<EnrollmentSecondaryFilters>(
-		() => ({
-			dateField: "",
-			endDate: "",
-			projectIdFilter: "",
-			startDate: "",
-			statusFilter: "",
-			formerStudentIdFilter: "",
-		}),
-		[],
-	);
+	const editorState = useServicePageEditorState<EnrollmentEditorMode>({
+		createMode: "create",
+		defaultMode: "create",
+	});
 	const {
 		appliedFilters,
 		applyDraftFilters,
-		clearFilters: clearDraftFilters,
+		clearFilters,
 		draftFilters,
 		hasAppliedFilters,
 		setDraftFilter,
-	} = useDraftFilters<EnrollmentSecondaryFilters>({
-		initialFilters: initialSecondaryFilters,
+	} = useDraftFilters<EnrollmentComplexSearchFilters>({
+		initialFilters: {
+			projectIds: [],
+			formerStudentIds: [],
+			statuses: [],
+			dateFrom: "",
+			dateTo: "",
+			periodFrom: "",
+			periodTo: "",
+		},
+	});
+	const enrollmentsPagination = useServicePagePagination({
+		key: "project.enrollments",
 	});
 	const [pendingDeleteEnrollment, setPendingDeleteEnrollment] =
-		useState<EnrollmentResponse | null>(null);
+		useState<EnrollmentDirectoryItem | null>(null);
 	const [pendingStatusAction, setPendingStatusAction] = useState<{
 		action: EnrollmentStatusAction;
-		enrollment: EnrollmentResponse;
+		enrollment: EnrollmentDirectoryItem;
 	} | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
-	const enrollmentsQuery = useEnrollmentsQuery();
+	const enrollmentsQuery = useEnrollmentsQuery(enrollmentsPagination.isAll);
 	const projectsQuery = useProjectsQuery();
 	const formerStudentsQuery = useFormerStudentsQuery();
 	const accountsQuery = useAccountsQuery();
 	const usersQuery = useUsersQuery();
+	const enrollmentsSearchQuery = useEnrollmentsSearchQuery(
+		enrollmentsPagination.backendPage ?? 0,
+		enrollmentsPagination.backendSize ?? 10,
+		appliedFilters,
+		!enrollmentsPagination.isAll,
+	);
 	const deleteEnrollmentMutation = useDeleteEnrollmentMutation();
 	const enrollmentStatusMutation = useEnrollmentStatusMutation();
 	const { schedule } = useDeferredUndoAction();
+
+	const activeQueryError = enrollmentsPagination.isAll
+		? enrollmentsQuery.error
+		: enrollmentsSearchQuery.error;
+	const activeQueryErrorUpdatedAt = enrollmentsPagination.isAll
+		? enrollmentsQuery.errorUpdatedAt
+		: enrollmentsSearchQuery.errorUpdatedAt;
+	const activeQueryIsError = enrollmentsPagination.isAll
+		? enrollmentsQuery.isError
+		: enrollmentsSearchQuery.isError;
+	const activeQueryIsLoading = enrollmentsPagination.isAll
+		? enrollmentsQuery.isLoading
+		: enrollmentsSearchQuery.isLoading;
 
 	const projectById = useMemo(
 		() =>
 			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
+	);
+	const accountById = useMemo(
+		() =>
+			new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		[accountsQuery.data],
+	);
+	const userById = useMemo(
+		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
+		[usersQuery.data],
 	);
 	const formerStudentById = useMemo(
 		() =>
@@ -119,15 +150,6 @@ export function EnrollmentsPage() {
 				]),
 			),
 		[formerStudentsQuery.data],
-	);
-	const accountById = useMemo(
-		() =>
-			new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
-		[accountsQuery.data],
-	);
-	const userById = useMemo(
-		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
-		[usersQuery.data],
 	);
 	const projectOptions = useMemo(
 		() => buildEnrollmentProjectOptions(projectsQuery.data ?? []),
@@ -142,80 +164,86 @@ export function EnrollmentsPage() {
 			),
 		[accountById, formerStudentsQuery.data, userById],
 	);
+	const statusOptions = useMemo(() => getEnrollmentStatusOptions(t), [t]);
+	const backendFilteredAllEnrollments = useMemo(() => {
+		if (!enrollmentsPagination.isAll) {
+			return [];
+		}
+
+		const filtered = filterEnrollmentListByBackendFilters(
+			enrollmentsQuery.data ?? [],
+			appliedFilters,
+			formerStudentById,
+		);
+
+		return mapEnrollmentsToDirectoryItems(
+			filtered,
+			projectById,
+			formerStudentById,
+			accountById,
+			userById,
+		);
+	}, [
+		accountById,
+		appliedFilters,
+		enrollmentsPagination.isAll,
+		enrollmentsQuery.data,
+		formerStudentById,
+		projectById,
+		userById,
+	]);
+	const backendFilteredSearchEnrollments = useMemo(
+		() =>
+			filterEnrollmentsByBackendFilters(
+				enrollmentsSearchQuery.data?.content ?? [],
+				appliedFilters,
+			),
+		[appliedFilters, enrollmentsSearchQuery.data],
+	);
+	const tableSourceEnrollments = useMemo(
+		() =>
+			enrollmentsPagination.isAll
+				? backendFilteredAllEnrollments
+				: backendFilteredSearchEnrollments,
+		[
+			backendFilteredAllEnrollments,
+			backendFilteredSearchEnrollments,
+			enrollmentsPagination.isAll,
+		],
+	);
 	const filteredEnrollments = useMemo(
 		() =>
-			filterEnrollments(enrollmentsQuery.data ?? [], {
-				dateField: appliedFilters.dateField,
-				endDate: appliedFilters.endDate,
-				projectById,
-				projectIdFilter: appliedFilters.projectIdFilter,
+			filterEnrollmentsByFrontendFilters(tableSourceEnrollments, {
 				query: deferredQuerySearch,
-				startDate: appliedFilters.startDate,
-				statusFilter: appliedFilters.statusFilter,
-				formerStudentById,
-				formerStudentIdFilter: appliedFilters.formerStudentIdFilter,
-				accountById,
-				userById,
+				statuses: frontendStatuses,
 			}),
-		[
-			accountById,
-			appliedFilters,
-			deferredQuerySearch,
-			enrollmentsQuery.data,
-			formerStudentById,
-			projectById,
-			userById,
-		],
+		[deferredQuerySearch, frontendStatuses, tableSourceEnrollments],
 	);
-	const columns = useMemo(
-		() =>
-			createEnrollmentColumns(
-				t,
-				projectById,
-				formerStudentById,
-				accountById,
-				userById,
-			),
-		[accountById, formerStudentById, projectById, t, userById],
+	const columns = useMemo(() => createEnrollmentColumns(t), [t]);
+	const hasAnyFilters = Boolean(
+		querySearch.trim() || hasAppliedFilters || frontendStatuses.length > 0,
 	);
-	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
-		() =>
-			getEnrollmentFilterSummary(t, {
-				dateField: appliedFilters.dateField,
-				endDate: appliedFilters.endDate,
-				projectById,
-				projectIdFilter: appliedFilters.projectIdFilter,
-				query: deferredQuerySearch,
-				startDate: appliedFilters.startDate,
-				statusFilter: appliedFilters.statusFilter,
-				formerStudentById,
-				formerStudentIdFilter: appliedFilters.formerStudentIdFilter,
-				accountById,
-				userById,
-			}),
-		[
-			accountById,
-			appliedFilters,
-			deferredQuerySearch,
-			formerStudentById,
-			projectById,
-			t,
-			userById,
-		],
+		() => getEnrollmentFilterSummary(t, appliedFilters, deferredQuerySearch),
+		[appliedFilters, deferredQuerySearch, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getEnrollmentEmptyStateCopy(t, filterSummary),
 		[filterSummary, t],
 	);
 	const tableEmptyState = useMemo(() => {
-		if (enrollmentsQuery.isError) {
+		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
 					title={t("project.enrollmentPage.table.error.title")}
 					description={t("project.enrollmentPage.table.error.description")}
 					onRefresh={() => {
-						void enrollmentsQuery.refetch();
+						if (enrollmentsPagination.isAll) {
+							void enrollmentsQuery.refetch();
+							return;
+						}
+
+						void enrollmentsSearchQuery.refetch();
 					}}
 				/>
 			);
@@ -227,15 +255,42 @@ export function EnrollmentsPage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [emptyStateCopy.description, emptyStateCopy.title, enrollmentsQuery, t]);
+	}, [
+		activeQueryIsError,
+		emptyStateCopy.description,
+		emptyStateCopy.title,
+		enrollmentsPagination.isAll,
+		enrollmentsQuery,
+		enrollmentsSearchQuery,
+		t,
+	]);
+
+	const totalElements = enrollmentsPagination.isAll
+		? backendFilteredAllEnrollments.length
+		: (enrollmentsSearchQuery.data?.totalElements ?? 0);
+	const totalPages = enrollmentsPagination.isAll
+		? 1
+		: Math.max(enrollmentsSearchQuery.data?.totalPages ?? 1, 1);
+
+	useEffect(() => {
+		if (
+			enrollmentsPagination.isAll ||
+			!enrollmentsSearchQuery.data ||
+			enrollmentsPagination.currentPage <= totalPages
+		) {
+			return;
+		}
+
+		enrollmentsPagination.setCurrentPage(totalPages);
+	}, [enrollmentsPagination, enrollmentsSearchQuery.data, totalPages]);
 
 	useQueryErrorToasts([
 		{
 			key: "enrollments-list",
-			error: enrollmentsQuery.error,
-			errorUpdatedAt: enrollmentsQuery.errorUpdatedAt,
+			error: activeQueryError,
+			errorUpdatedAt: activeQueryErrorUpdatedAt,
 			getContent: error => getEnrollmentsListErrorToastContent(t, error),
-			isError: enrollmentsQuery.isError,
+			isError: activeQueryIsError,
 		},
 		{
 			key: "enrollment-projects",
@@ -255,20 +310,10 @@ export function EnrollmentsPage() {
 
 	function clearAllFilters() {
 		setQuerySearch("");
-		clearDraftFilters();
+		setFrontendStatuses([]);
+		clearFilters();
+		enrollmentsPagination.resetPage();
 		setFiltersOpen(false);
-	}
-
-	function getEnrollmentLabel(enrollment: EnrollmentResponse) {
-		return {
-			project: resolveEnrollmentProjectLabel(projectById, enrollment.projectId),
-			student: resolveEnrollmentFormerStudentLabel(
-				formerStudentById,
-				accountById,
-				userById,
-				enrollment.formerStudentId,
-			),
-		};
 	}
 
 	function handleDeleteConfirm() {
@@ -277,22 +322,24 @@ export function EnrollmentsPage() {
 		}
 
 		const enrollment = pendingDeleteEnrollment;
-		const labels = getEnrollmentLabel(enrollment);
 		setPendingDeleteEnrollment(null);
 
 		schedule({
 			key: createEnrollmentCompositeKey(
-				enrollment.projectId,
-				enrollment.formerStudentId,
+				enrollment.project.id,
+				enrollment.student.account.id,
 			),
 			title: t("project.enrollmentPage.delete.undo.title"),
-			description: t("project.enrollmentPage.delete.undo.description", labels),
+			description: t("project.enrollmentPage.delete.undo.description", {
+				project: enrollment.project.name,
+				student: enrollment.student.account.name,
+			}),
 			undoLabel: t("project.enrollmentPage.delete.undo.action"),
 			onCommit: () => {
 				deleteEnrollmentMutation.mutate(
 					{
-						projectId: enrollment.projectId,
-						formerStudentId: enrollment.formerStudentId,
+						projectId: enrollment.project.id,
+						formerStudentId: enrollment.student.account.id,
 					},
 					{
 						onSuccess: () => {
@@ -301,14 +348,19 @@ export function EnrollmentsPage() {
 								{
 									description: t(
 										"project.enrollmentPage.delete.feedback.success.description",
-										labels,
+										{
+											project: enrollment.project.name,
+											student: enrollment.student.account.name,
+										},
 									),
 								},
 							);
 						},
 						onError: error => {
-							const { title, description } =
-								getEnrollmentDeleteErrorToastContent(t, error);
+							const { title, description } = getEnrollmentDeleteErrorToastContent(
+								t,
+								error,
+							);
 							toast.danger(title, { description });
 						},
 					},
@@ -322,26 +374,26 @@ export function EnrollmentsPage() {
 			return;
 		}
 
-		const currentAction = pendingStatusAction;
-		const labels = getEnrollmentLabel(currentAction.enrollment);
+		const current = pendingStatusAction;
 		setPendingStatusAction(null);
 
 		enrollmentStatusMutation.mutate(
 			{
-				action: currentAction.action,
-				projectId: currentAction.enrollment.projectId,
-				formerStudentId: currentAction.enrollment.formerStudentId,
+				action: current.action,
+				projectId: current.enrollment.project.id,
+				formerStudentId: current.enrollment.student.account.id,
 			},
 			{
 				onSuccess: () => {
 					toast.success(
-						t(
-							`project.enrollmentPage.${currentAction.action}.feedback.success.title`,
-						),
+						t(`project.enrollmentPage.${current.action}.feedback.success.title`),
 						{
 							description: t(
-								`project.enrollmentPage.${currentAction.action}.feedback.success.description`,
-								labels,
+								`project.enrollmentPage.${current.action}.feedback.success.description`,
+								{
+									project: current.enrollment.project.name,
+									student: current.enrollment.student.account.name,
+								},
 							),
 						},
 					);
@@ -351,7 +403,7 @@ export function EnrollmentsPage() {
 						getEnrollmentStatusActionErrorToastContent(
 							t,
 							error,
-							currentAction.action,
+							current.action,
 						);
 					toast.danger(title, { description });
 				},
@@ -372,63 +424,82 @@ export function EnrollmentsPage() {
 					),
 				}}
 				actions={
-					hasAnyFilters ? (
-						<Button
-							variant="secondary"
-							onClick={clearAllFilters}
-						>
-							{t("project.enrollmentPage.filters.clear")}
-						</Button>
-					) : null
+					<ServicePageHeaderActions
+						clearLabel={t("project.enrollmentPage.filters.clear")}
+						createLabel={t("project.enrollmentPage.create.trigger")}
+						hasFilters={hasAnyFilters}
+						onClear={clearAllFilters}
+						onCreate={editorState.openCreate}
+					/>
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
 			>
-				<TextFieldFilter
-					label={t("project.enrollmentPage.filters.search.label")}
-					value={querySearch}
-					onChange={setQuerySearch}
-					placeholder={t("project.enrollmentPage.filters.search.placeholder")}
-				/>
+				<div className="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_minmax(220px,0.8fr)]">
+					<TextFieldFilter
+						label={t("project.enrollmentPage.filters.search.label")}
+						value={querySearch}
+						onChange={setQuerySearch}
+						placeholder={t("project.enrollmentPage.filters.search.placeholder")}
+					/>
+
+					<div className="grid gap-2">
+						<Label>{t("project.enrollmentPage.filters.frontStatus.label")}</Label>
+						<Combobox
+							multiple
+							options={statusOptions}
+							values={frontendStatuses}
+							onValuesChange={value =>
+								setFrontendStatuses(value as EnrollmentStatus[])
+							}
+							placeholder={t("project.enrollmentPage.filters.frontStatus.placeholder")}
+							searchPlaceholder={t(
+								"project.enrollmentPage.filters.frontStatus.searchPlaceholder",
+							)}
+							emptyMessage={t(
+								"project.enrollmentPage.filters.frontStatus.emptyMessage",
+							)}
+							maxVisibleValues={1}
+						/>
+					</div>
+				</div>
 
 				<EnrollmentsFiltersDrawer
-					dateField={draftFilters.dateField}
-					endDate={draftFilters.endDate}
+					filters={draftFilters}
+					formerStudentOptions={formerStudentOptions}
+					formerStudentsError={formerStudentsQuery.isError}
 					hasActiveFilters={hasAppliedFilters}
 					onApply={() => {
+						enrollmentsPagination.resetPage();
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
 					onClear={clearAllFilters}
-					onDateFieldChange={value => setDraftFilter("dateField", value)}
-					onEndDateChange={value => setDraftFilter("endDate", value)}
+					onFilterChange={(key, value) => setDraftFilter(key, value)}
 					onOpenChange={setFiltersOpen}
-					onProjectIdFilterChange={value =>
-						setDraftFilter("projectIdFilter", value)
-					}
-					onRefreshProjects={() => {
-						void projectsQuery.refetch();
-					}}
 					onRefreshFormerStudents={() => {
 						void formerStudentsQuery.refetch();
 					}}
-					onStartDateChange={value => setDraftFilter("startDate", value)}
-					onStatusFilterChange={value => setDraftFilter("statusFilter", value)}
-					onFormerStudentIdFilterChange={value =>
-						setDraftFilter("formerStudentIdFilter", value)
-					}
+					onRefreshProjects={() => {
+						void projectsQuery.refetch();
+					}}
 					open={filtersOpen}
-					projectIdFilter={draftFilters.projectIdFilter}
 					projectOptions={projectOptions}
 					projectsError={projectsQuery.isError}
-					startDate={draftFilters.startDate}
-					statusFilter={draftFilters.statusFilter}
-					formerStudentIdFilter={draftFilters.formerStudentIdFilter}
-					formerStudentOptions={formerStudentOptions}
-					formerStudentsError={formerStudentsQuery.isError}
 				/>
 			</ServicePageHeader>
 
-			<ServicePageTableSection<EnrollmentResponse>
+			<ServicePageTableSection<EnrollmentDirectoryItem>
+				footer={
+					<ServicePagePagination
+						currentPage={enrollmentsPagination.currentPage}
+						pageSize={enrollmentsPagination.pageSize}
+						totalElements={totalElements}
+						totalPages={totalPages}
+						onPageChange={enrollmentsPagination.setCurrentPage}
+						onPageSizeChange={enrollmentsPagination.setPageSize}
+						disabled={activeQueryIsLoading}
+					/>
+				}
 				tableProps={{
 					className: "h-full",
 					columns,
@@ -436,22 +507,27 @@ export function EnrollmentsPage() {
 					emptyState: tableEmptyState,
 					getRowActions: row => (
 						<EnrollmentsRowActions
-							enrollment={row}
-							href={`/project/enrollments/${createEnrollmentCompositeKey(row.projectId, row.formerStudentId)}`}
+							href={`/project/enrollments/${createEnrollmentCompositeKey(
+								row.project.id,
+								row.student.account.id,
+							)}`}
 							onDelete={setPendingDeleteEnrollment}
 							onStatusAction={(enrollment, action) =>
 								setPendingStatusAction({ action, enrollment })
 							}
+							enrollment={row}
 						/>
 					),
-					isLoading:
-						enrollmentsQuery.isLoading ||
-						projectsQuery.isLoading ||
-						formerStudentsQuery.isLoading ||
-						accountsQuery.isLoading ||
-						usersQuery.isLoading,
+					isLoading: activeQueryIsLoading,
 					loadingLabel: t("project.enrollmentPage.loading.list"),
 				}}
+			/>
+
+			<EnrollmentEditorDrawer
+				mode="create"
+				onOpenChange={editorState.handleOpenChange}
+				open={editorState.isOpen}
+				enrollmentId={null}
 			/>
 
 			<ServicePageConfirmDialog
@@ -463,22 +539,14 @@ export function EnrollmentsPage() {
 				}}
 				variant="danger"
 				title={t("project.enrollmentPage.delete.confirm.title")}
-				description={t("project.enrollmentPage.delete.confirm.description", {
-					project: pendingDeleteEnrollment
-						? resolveEnrollmentProjectLabel(
-								projectById,
-								pendingDeleteEnrollment.projectId,
-							)
-						: "",
-					student: pendingDeleteEnrollment
-						? resolveEnrollmentFormerStudentLabel(
-								formerStudentById,
-								accountById,
-								userById,
-								pendingDeleteEnrollment.formerStudentId,
-							)
-						: "",
-				})}
+				description={
+					pendingDeleteEnrollment
+						? t("project.enrollmentPage.delete.confirm.description", {
+								project: pendingDeleteEnrollment.project.name,
+								student: pendingDeleteEnrollment.student.account.name,
+							})
+						: ""
+				}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("project.enrollmentPage.table.actions.delete")}
 				onAction={handleDeleteConfirm}
@@ -492,9 +560,12 @@ export function EnrollmentsPage() {
 					}
 				}}
 				variant={
-					pendingStatusAction
-						? getStatusDialogVariant(pendingStatusAction.action)
-						: "success"
+					pendingStatusAction?.action === "accept" ||
+					pendingStatusAction?.action === "complete"
+						? "success"
+						: pendingStatusAction?.action === "remove"
+							? "danger"
+							: "warning"
 				}
 				title={
 					pendingStatusAction
@@ -507,7 +578,10 @@ export function EnrollmentsPage() {
 					pendingStatusAction
 						? t(
 								`project.enrollmentPage.${pendingStatusAction.action}.confirm.description`,
-								getEnrollmentLabel(pendingStatusAction.enrollment),
+								{
+									project: pendingStatusAction.enrollment.project.name,
+									student: pendingStatusAction.enrollment.student.account.name,
+								},
 							)
 						: ""
 				}

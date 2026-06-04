@@ -1,52 +1,33 @@
 "use client";
 
 import { useMemo } from "react";
-
 import { useTranslation } from "react-i18next";
 
-import {
-	Combobox,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SomeErrorState,
-} from "@/components";
+import { Combobox, DatePicker, Input, Label, SomeErrorState } from "@/components";
 import { getAttendanceStatusOptions } from "@/features/project/attendances/utils";
-import {
-	AuditInfoFilterFields,
-	ServicePageFiltersDrawer,
-} from "@/features/shared/service-pages";
+import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import type {
-	AttendanceAuditDateField,
+	AttendanceStatus,
 	AttendancesFiltersDrawerProps,
-	AttendanceStatusFilter,
 } from "@/types";
 
 export function AttendancesFiltersDrawer({
-	dateField,
-	endDate,
+	filters,
+	formerStudentOptions,
+	formerStudentsError,
 	hasActiveFilters,
 	onApply,
 	onClear,
-	onDateFieldChange,
-	onEndDateChange,
+	onFilterChange,
 	onOpenChange,
-	onProjectIdFilterChange,
-	onRefreshProjects,
 	onRefreshFormerStudents,
-	onStartDateChange,
-	onStatusFilterChange,
-	onFormerStudentIdFilterChange,
+	onRefreshProjects,
+	onRefreshValidators,
 	open,
-	projectIdFilter,
 	projectOptions,
 	projectsError,
-	startDate,
-	statusFilter,
-	formerStudentIdFilter,
-	formerStudentOptions,
-	formerStudentsError,
+	validatorOptions,
+	validatorsError,
 }: AttendancesFiltersDrawerProps) {
 	const { t } = useTranslation();
 	const statusOptions = useMemo(() => getAttendanceStatusOptions(t), [t]);
@@ -72,131 +53,137 @@ export function AttendancesFiltersDrawer({
 			title={t("project.attendancePage.filters.drawer.title")}
 			triggerLabel={t("project.attendancePage.filters.drawer.trigger")}
 		>
-			<div className="grid gap-4 sm:grid-cols-2">
-				{projectsError ? (
-					<SomeErrorState
-						title={t("project.attendancePage.filters.project.error.title")}
-						description={t(
-							"project.attendancePage.filters.project.error.description",
+			{projectsError ? (
+				<SomeErrorState
+					title={t("project.attendancePage.filters.project.error.title")}
+					description={t("project.attendancePage.filters.project.error.description")}
+					onRefresh={onRefreshProjects}
+				/>
+			) : (
+				<div className="grid gap-2">
+					<Label>{t("project.attendancePage.filters.project.label")}</Label>
+					<Combobox
+						multiple
+						options={projectOptions}
+						values={filters.projectIds}
+						onValuesChange={value => onFilterChange("projectIds", value)}
+						placeholder={t("project.attendancePage.filters.project.placeholder")}
+						searchPlaceholder={t(
+							"project.attendancePage.filters.project.searchPlaceholder",
 						)}
-						onRefresh={onRefreshProjects}
+						emptyMessage={t("project.attendancePage.filters.project.emptyMessage")}
 					/>
-				) : (
-					<div className="grid gap-2">
-						<p className="field-label">
-							{t("project.attendancePage.filters.project.label")}
-						</p>
-						<Combobox
-							options={projectOptions}
-							value={projectIdFilter}
-							onValueChange={onProjectIdFilterChange}
-							placeholder={t(
-								"project.attendancePage.filters.project.placeholder",
-							)}
-							searchPlaceholder={t(
-								"project.attendancePage.filters.project.searchPlaceholder",
-							)}
-							emptyMessage={t(
-								"project.attendancePage.filters.project.emptyMessage",
-							)}
-						/>
-					</div>
-				)}
+				</div>
+			)}
 
-				{formerStudentsError ? (
-					<SomeErrorState
-						title={t("project.attendancePage.filters.student.error.title")}
-						description={t(
-							"project.attendancePage.filters.student.error.description",
+			{formerStudentsError ? (
+				<SomeErrorState
+					title={t("project.attendancePage.filters.student.error.title")}
+					description={t("project.attendancePage.filters.student.error.description")}
+					onRefresh={onRefreshFormerStudents}
+				/>
+			) : (
+				<div className="grid gap-2">
+					<Label>{t("project.attendancePage.filters.student.label")}</Label>
+					<Combobox
+						multiple
+						options={formerStudentOptions}
+						values={filters.formerStudentIds}
+						onValuesChange={value => onFilterChange("formerStudentIds", value)}
+						placeholder={t("project.attendancePage.filters.student.placeholder")}
+						searchPlaceholder={t(
+							"project.attendancePage.filters.student.searchPlaceholder",
 						)}
-						onRefresh={onRefreshFormerStudents}
+						emptyMessage={t("project.attendancePage.filters.student.emptyMessage")}
 					/>
-				) : (
-					<div className="grid gap-2">
-						<p className="field-label">
-							{t("project.attendancePage.filters.student.label")}
-						</p>
-						<Combobox
-							options={formerStudentOptions}
-							value={formerStudentIdFilter}
-							onValueChange={onFormerStudentIdFilterChange}
-							placeholder={t(
-								"project.attendancePage.filters.student.placeholder",
-							)}
-							searchPlaceholder={t(
-								"project.attendancePage.filters.student.searchPlaceholder",
-							)}
-							emptyMessage={t(
-								"project.attendancePage.filters.student.emptyMessage",
-							)}
-						/>
-					</div>
-				)}
+				</div>
+			)}
+
+			<div className="grid gap-2">
+				<Label>{t("project.attendancePage.filters.status.label")}</Label>
+				<Combobox
+					multiple
+					options={statusOptions}
+					values={filters.statuses}
+					onValuesChange={value =>
+						onFilterChange("statuses", value as AttendanceStatus[])
+					}
+					placeholder={t("project.attendancePage.filters.status.placeholder")}
+					searchPlaceholder={t(
+						"project.attendancePage.filters.status.searchPlaceholder",
+					)}
+					emptyMessage={t("project.attendancePage.filters.status.emptyMessage")}
+				/>
+			</div>
+
+			{validatorsError ? (
+				<SomeErrorState
+					title={t("project.attendancePage.filters.validator.error.title")}
+					description={t(
+						"project.attendancePage.filters.validator.error.description",
+					)}
+					onRefresh={onRefreshValidators}
+				/>
+			) : (
+				<div className="grid gap-2">
+					<Label>{t("project.attendancePage.filters.validator.label")}</Label>
+					<Combobox
+						multiple
+						options={validatorOptions}
+						values={filters.validatedByIds}
+						onValuesChange={value => onFilterChange("validatedByIds", value)}
+						placeholder={t("project.attendancePage.filters.validator.placeholder")}
+						searchPlaceholder={t(
+							"project.attendancePage.filters.validator.searchPlaceholder",
+						)}
+						emptyMessage={t("project.attendancePage.filters.validator.emptyMessage")}
+					/>
+				</div>
+			)}
+
+			<div className="grid gap-2">
+				<Label htmlFor="attendance-duration-from">
+					{t("project.attendancePage.filters.durationFrom.label")}
+				</Label>
+				<Input
+					id="attendance-duration-from"
+					inputMode="numeric"
+					value={filters.durationFrom}
+					onChange={event => onFilterChange("durationFrom", event.target.value)}
+					placeholder={t("project.attendancePage.filters.durationFrom.placeholder")}
+				/>
 			</div>
 
 			<div className="grid gap-2">
-				<p className="field-label">
-					{t("project.attendancePage.filters.status.label")}
-				</p>
-				<Select
-					value={statusFilter}
-					onValueChange={value =>
-						onStatusFilterChange(value as AttendanceStatusFilter)
-					}
-				>
-					<SelectTrigger
-						className="w-full"
-						placeholder={t("project.attendancePage.filters.status.placeholder")}
-					/>
-					<SelectContent>
-						{statusOptions.map(option => (
-							<SelectItem
-								key={option.value}
-								value={option.value}
-							>
-								{option.label}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
+				<Label htmlFor="attendance-duration-to">
+					{t("project.attendancePage.filters.durationTo.label")}
+				</Label>
+				<Input
+					id="attendance-duration-to"
+					inputMode="numeric"
+					value={filters.durationTo}
+					onChange={event => onFilterChange("durationTo", event.target.value)}
+					placeholder={t("project.attendancePage.filters.durationTo.placeholder")}
+				/>
 			</div>
 
-			<AuditInfoFilterFields
-				dateFieldLabel={t("project.attendancePage.filters.dateField.label")}
-				dateFieldPlaceholder={t(
-					"project.attendancePage.filters.dateField.placeholder",
-				)}
-				dateField={dateField}
-				onDateFieldChange={value =>
-					onDateFieldChange(value as AttendanceAuditDateField)
-				}
-				dateFieldOptions={[
-					{
-						value: "createdAt",
-						label: t(
-							"project.attendancePage.filters.dateField.options.createdAt",
-						),
-					},
-					{
-						value: "updatedAt",
-						label: t(
-							"project.attendancePage.filters.dateField.options.updatedAt",
-						),
-					},
-				]}
-				startDateLabel={t("project.attendancePage.filters.startDate.label")}
-				startDatePlaceholder={t(
-					"project.attendancePage.filters.startDate.placeholder",
-				)}
-				startDate={startDate}
-				onStartDateChange={onStartDateChange}
-				endDateLabel={t("project.attendancePage.filters.endDate.label")}
-				endDatePlaceholder={t(
-					"project.attendancePage.filters.endDate.placeholder",
-				)}
-				endDate={endDate}
-				onEndDateChange={onEndDateChange}
-			/>
+			<div className="grid gap-2">
+				<Label>{t("project.attendancePage.filters.startDate.label")}</Label>
+				<DatePicker
+					value={filters.dateFrom}
+					onValueChange={value => onFilterChange("dateFrom", value)}
+					placeholder={t("project.attendancePage.filters.startDate.placeholder")}
+				/>
+			</div>
+
+			<div className="grid gap-2">
+				<Label>{t("project.attendancePage.filters.endDate.label")}</Label>
+				<DatePicker
+					value={filters.dateTo}
+					onValueChange={value => onFilterChange("dateTo", value)}
+					placeholder={t("project.attendancePage.filters.endDate.placeholder")}
+				/>
+			</div>
 		</ServicePageFiltersDrawer>
 	);
 }

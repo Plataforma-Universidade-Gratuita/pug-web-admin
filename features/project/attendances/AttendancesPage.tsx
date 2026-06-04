@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
@@ -8,19 +8,25 @@ import { NoContentState, SomeErrorState, toast } from "@/components";
 import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
 import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { useUsersQuery } from "@/features/identity/users/queries";
-import { AttendancesCreateDrawer } from "@/features/project/attendances/AttendancesCreateDrawer";
+import { AttendanceEditorDrawer } from "@/features/project/attendances/AttendanceEditorDrawer";
 import { AttendancesFiltersDrawer } from "@/features/project/attendances/AttendancesFiltersDrawer";
 import { AttendancesRowActions } from "@/features/project/attendances/AttendancesRowActions";
 import {
 	useRemoveAttendanceMutation,
 	useValidateAttendanceMutation,
 } from "@/features/project/attendances/mutations";
-import { useAttendancesQuery } from "@/features/project/attendances/queries";
+import {
+	useAttendancesQuery,
+	useAttendancesSearchQuery,
+} from "@/features/project/attendances/queries";
 import {
 	buildAttendanceFormerStudentOptions,
 	buildAttendanceProjectOptions,
+	buildAttendanceValidatorOptions,
 	createAttendanceColumns,
-	filterAttendances,
+	filterAttendanceListByBackendFilters,
+	filterAttendancesByBackendFilters,
+	filterAttendancesByFrontendFilters,
 	getAttendanceAdminsErrorToastContent,
 	getAttendanceDeleteErrorToastContent,
 	getAttendanceEmptyStateCopy,
@@ -29,26 +35,28 @@ import {
 	getAttendancesListErrorToastContent,
 	getAttendanceStudentsErrorToastContent,
 	getAttendanceValidateErrorToastContent,
-	resolveAttendanceFormerStudentLabel,
-	resolveAttendanceProjectLabel,
+	mapAttendancesToDirectoryItems,
 } from "@/features/project/attendances/utils";
 import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
 	ServicePageHeaderActions,
+	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
 import {
-	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
+	useServicePageEditorState,
+	useServicePagePagination,
 } from "@/hooks";
-import type { AttendanceResponse } from "@/types";
 import type {
-	AttendanceSecondaryFilters,
+	AttendanceComplexSearchFilters,
+	AttendanceDirectoryItem,
+	AttendanceEditorMode,
 	AttendanceValidationAction,
 } from "@/types";
 
@@ -60,48 +68,79 @@ export function AttendancesPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
 	const [filtersOpen, setFiltersOpen] = useState(false);
-	const [isCreateOpen, setIsCreateOpen] = useState(false);
-	const initialSecondaryFilters = useMemo<AttendanceSecondaryFilters>(
-		() => ({
-			dateField: "",
-			endDate: "",
-			projectIdFilter: "",
-			startDate: "",
-			statusFilter: "",
-			formerStudentIdFilter: "",
-		}),
-		[],
-	);
+	const editorState = useServicePageEditorState<AttendanceEditorMode>({
+		createMode: "create",
+		defaultMode: "update",
+	});
 	const {
 		appliedFilters,
 		applyDraftFilters,
-		clearFilters: clearDraftFilters,
+		clearFilters,
 		draftFilters,
 		hasAppliedFilters,
 		setDraftFilter,
-	} = useDraftFilters<AttendanceSecondaryFilters>({
-		initialFilters: initialSecondaryFilters,
+	} = useDraftFilters<AttendanceComplexSearchFilters>({
+		initialFilters: {
+			projectIds: [],
+			formerStudentIds: [],
+			statuses: [],
+			validatedByIds: [],
+			durationFrom: "",
+			durationTo: "",
+			dateFrom: "",
+			dateTo: "",
+		},
+	});
+	const attendancesPagination = useServicePagePagination({
+		key: "project.attendances",
 	});
 	const [pendingDeleteAttendance, setPendingDeleteAttendance] =
-		useState<AttendanceResponse | null>(null);
+		useState<AttendanceDirectoryItem | null>(null);
 	const [pendingValidation, setPendingValidation] = useState<{
 		action: AttendanceValidationAction;
-		attendance: AttendanceResponse;
+		attendance: AttendanceDirectoryItem;
 	} | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
-	const attendancesQuery = useAttendancesQuery();
+	const attendancesQuery = useAttendancesQuery(attendancesPagination.isAll);
+	const attendancesSearchQuery = useAttendancesSearchQuery(
+		attendancesPagination.backendPage ?? 0,
+		attendancesPagination.backendSize ?? 10,
+		appliedFilters,
+		!attendancesPagination.isAll,
+	);
 	const projectsQuery = useProjectsQuery();
 	const formerStudentsQuery = useFormerStudentsQuery();
 	const accountsQuery = useAccountsQuery();
 	const usersQuery = useUsersQuery();
 	const removeAttendanceMutation = useRemoveAttendanceMutation();
 	const validateAttendanceMutation = useValidateAttendanceMutation();
-	const { schedule } = useDeferredUndoAction();
+
+	const activeQueryError = attendancesPagination.isAll
+		? attendancesQuery.error
+		: attendancesSearchQuery.error;
+	const activeQueryErrorUpdatedAt = attendancesPagination.isAll
+		? attendancesQuery.errorUpdatedAt
+		: attendancesSearchQuery.errorUpdatedAt;
+	const activeQueryIsError = attendancesPagination.isAll
+		? attendancesQuery.isError
+		: attendancesSearchQuery.isError;
+	const activeQueryIsLoading = attendancesPagination.isAll
+		? attendancesQuery.isLoading
+		: attendancesSearchQuery.isLoading;
 
 	const projectById = useMemo(
 		() =>
 			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
+	);
+	const accountById = useMemo(
+		() =>
+			new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
+		[accountsQuery.data],
+	);
+	const userById = useMemo(
+		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
+		[usersQuery.data],
 	);
 	const formerStudentById = useMemo(
 		() =>
@@ -112,15 +151,6 @@ export function AttendancesPage() {
 				]),
 			),
 		[formerStudentsQuery.data],
-	);
-	const accountById = useMemo(
-		() =>
-			new Map((accountsQuery.data ?? []).map(account => [account.id, account])),
-		[accountsQuery.data],
-	);
-	const userById = useMemo(
-		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
-		[usersQuery.data],
 	);
 	const projectOptions = useMemo(
 		() => buildAttendanceProjectOptions(projectsQuery.data ?? []),
@@ -135,80 +165,85 @@ export function AttendancesPage() {
 			),
 		[accountById, formerStudentsQuery.data, userById],
 	);
+	const validatorOptions = useMemo(
+		() => buildAttendanceValidatorOptions(accountsQuery.data ?? [], userById),
+		[accountsQuery.data, userById],
+	);
+	const backendFilteredAllAttendances = useMemo(() => {
+		if (!attendancesPagination.isAll) {
+			return [];
+		}
+
+		const filtered = filterAttendanceListByBackendFilters(
+			attendancesQuery.data ?? [],
+			appliedFilters,
+		);
+
+		return mapAttendancesToDirectoryItems(
+			filtered,
+			projectById,
+			formerStudentById,
+			accountById,
+			userById,
+		);
+	}, [
+		accountById,
+		appliedFilters,
+		attendancesPagination.isAll,
+		attendancesQuery.data,
+		formerStudentById,
+		projectById,
+		userById,
+	]);
+	const backendFilteredSearchAttendances = useMemo(
+		() =>
+			filterAttendancesByBackendFilters(
+				attendancesSearchQuery.data?.content ?? [],
+				appliedFilters,
+			),
+		[appliedFilters, attendancesSearchQuery.data],
+	);
+	const tableSourceAttendances = useMemo(
+		() =>
+			attendancesPagination.isAll
+				? backendFilteredAllAttendances
+				: backendFilteredSearchAttendances,
+		[
+			attendancesPagination.isAll,
+			backendFilteredAllAttendances,
+			backendFilteredSearchAttendances,
+		],
+	);
 	const filteredAttendances = useMemo(
 		() =>
-			filterAttendances(attendancesQuery.data ?? [], {
-				accountById,
-				dateField: appliedFilters.dateField,
-				endDate: appliedFilters.endDate,
-				projectById,
-				projectIdFilter: appliedFilters.projectIdFilter,
+			filterAttendancesByFrontendFilters(tableSourceAttendances, {
 				query: deferredQuerySearch,
-				startDate: appliedFilters.startDate,
-				statusFilter: appliedFilters.statusFilter,
-				formerStudentById,
-				formerStudentIdFilter: appliedFilters.formerStudentIdFilter,
-				userById,
 			}),
-		[
-			accountById,
-			appliedFilters,
-			attendancesQuery.data,
-			deferredQuerySearch,
-			formerStudentById,
-			projectById,
-			userById,
-		],
+		[deferredQuerySearch, tableSourceAttendances],
 	);
-	const columns = useMemo(
-		() =>
-			createAttendanceColumns(
-				t,
-				projectById,
-				formerStudentById,
-				accountById,
-				userById,
-			),
-		[accountById, formerStudentById, projectById, t, userById],
-	);
+	const columns = useMemo(() => createAttendanceColumns(t), [t]);
 	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
-		() =>
-			getAttendanceFilterSummary(t, {
-				accountById,
-				dateField: appliedFilters.dateField,
-				endDate: appliedFilters.endDate,
-				projectById,
-				projectIdFilter: appliedFilters.projectIdFilter,
-				query: deferredQuerySearch,
-				startDate: appliedFilters.startDate,
-				statusFilter: appliedFilters.statusFilter,
-				formerStudentById,
-				formerStudentIdFilter: appliedFilters.formerStudentIdFilter,
-				userById,
-			}),
-		[
-			accountById,
-			appliedFilters,
-			deferredQuerySearch,
-			formerStudentById,
-			projectById,
-			t,
-			userById,
-		],
+		() => getAttendanceFilterSummary(t, appliedFilters, deferredQuerySearch),
+		[appliedFilters, deferredQuerySearch, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getAttendanceEmptyStateCopy(t, filterSummary),
 		[filterSummary, t],
 	);
 	const tableEmptyState = useMemo(() => {
-		if (attendancesQuery.isError) {
+		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
 					title={t("project.attendancePage.table.error.title")}
 					description={t("project.attendancePage.table.error.description")}
 					onRefresh={() => {
-						void attendancesQuery.refetch();
+						if (attendancesPagination.isAll) {
+							void attendancesQuery.refetch();
+							return;
+						}
+
+						void attendancesSearchQuery.refetch();
 					}}
 				/>
 			);
@@ -220,15 +255,42 @@ export function AttendancesPage() {
 				description={emptyStateCopy.description}
 			/>
 		);
-	}, [attendancesQuery, emptyStateCopy.description, emptyStateCopy.title, t]);
+	}, [
+		activeQueryIsError,
+		attendancesPagination.isAll,
+		attendancesQuery,
+		attendancesSearchQuery,
+		emptyStateCopy.description,
+		emptyStateCopy.title,
+		t,
+	]);
+
+	const totalElements = attendancesPagination.isAll
+		? backendFilteredAllAttendances.length
+		: (attendancesSearchQuery.data?.totalElements ?? 0);
+	const totalPages = attendancesPagination.isAll
+		? 1
+		: Math.max(attendancesSearchQuery.data?.totalPages ?? 1, 1);
+
+	useEffect(() => {
+		if (
+			attendancesPagination.isAll ||
+			!attendancesSearchQuery.data ||
+			attendancesPagination.currentPage <= totalPages
+		) {
+			return;
+		}
+
+		attendancesPagination.setCurrentPage(totalPages);
+	}, [attendancesPagination, attendancesSearchQuery.data, totalPages]);
 
 	useQueryErrorToasts([
 		{
 			key: "attendances-list",
-			error: attendancesQuery.error,
-			errorUpdatedAt: attendancesQuery.errorUpdatedAt,
+			error: activeQueryError,
+			errorUpdatedAt: activeQueryErrorUpdatedAt,
 			getContent: error => getAttendancesListErrorToastContent(t, error),
-			isError: attendancesQuery.isError,
+			isError: activeQueryIsError,
 		},
 		{
 			key: "attendance-projects",
@@ -255,20 +317,9 @@ export function AttendancesPage() {
 
 	function clearAllFilters() {
 		setQuerySearch("");
-		clearDraftFilters();
+		clearFilters();
+		attendancesPagination.resetPage();
 		setFiltersOpen(false);
-	}
-
-	function getAttendanceLabels(attendance: AttendanceResponse) {
-		return {
-			project: resolveAttendanceProjectLabel(projectById, attendance.projectId),
-			student: resolveAttendanceFormerStudentLabel(
-				formerStudentById,
-				accountById,
-				userById,
-				attendance.formerStudentId,
-			),
-		};
 	}
 
 	function handleDeleteConfirm() {
@@ -277,41 +328,33 @@ export function AttendancesPage() {
 		}
 
 		const attendance = pendingDeleteAttendance;
-		const labels = getAttendanceLabels(attendance);
 		setPendingDeleteAttendance(null);
 
-		schedule({
-			key: attendance.id,
-			title: t("project.attendancePage.delete.undo.title"),
-			description: t("project.attendancePage.delete.undo.description", {
-				...labels,
-				id: attendance.id,
-			}),
-			undoLabel: t("project.attendancePage.delete.undo.action"),
-			onCommit: () => {
-				removeAttendanceMutation.mutate(
-					{ id: attendance.id },
-					{
-						onSuccess: () => {
-							toast.success(
-								t("project.attendancePage.delete.feedback.success.title"),
+		removeAttendanceMutation.mutate(
+			{ id: attendance.id },
+			{
+				onSuccess: () => {
+					toast.success(
+						t("project.attendancePage.delete.feedback.success.title"),
+						{
+							description: t(
+								"project.attendancePage.delete.feedback.success.description",
 								{
-									description: t(
-										"project.attendancePage.delete.feedback.success.description",
-										{ ...labels, id: attendance.id },
-									),
+									id: attendance.id,
+									project: attendance.project.name,
+									student: attendance.student.account.name,
 								},
-							);
+							),
 						},
-						onError: error => {
-							const { title, description } =
-								getAttendanceDeleteErrorToastContent(t, error);
-							toast.danger(title, { description });
-						},
-					},
-				);
+					);
+				},
+				onError: error => {
+					const { title, description } =
+						getAttendanceDeleteErrorToastContent(t, error);
+					toast.danger(title, { description });
+				},
 			},
-		});
+		);
 	}
 
 	function handleValidationConfirm() {
@@ -320,15 +363,13 @@ export function AttendancesPage() {
 		}
 
 		const currentAction = pendingValidation;
-		const labels = getAttendanceLabels(currentAction.attendance);
 		setPendingValidation(null);
 
 		validateAttendanceMutation.mutate(
 			{
 				id: currentAction.attendance.id,
 				body: {
-					qrValidationHash:
-						currentAction.attendance.qrValidationInfo.qrValidationHash,
+					qrValidationHash: currentAction.attendance.qrValidationInfo.qrValidationHash,
 					status: currentAction.action === "markPresent" ? "PRESENT" : "ABSENT",
 				},
 			},
@@ -341,7 +382,10 @@ export function AttendancesPage() {
 						{
 							description: t(
 								`project.attendancePage.${currentAction.action}.feedback.success.description`,
-								labels,
+								{
+									project: currentAction.attendance.project.name,
+									student: currentAction.attendance.student.account.name,
+								},
 							),
 						},
 					);
@@ -376,7 +420,7 @@ export function AttendancesPage() {
 						createLabel={t("project.attendancePage.create.open")}
 						hasFilters={hasAnyFilters}
 						onClear={clearAllFilters}
-						onCreate={() => setIsCreateOpen(true)}
+						onCreate={editorState.openCreate}
 					/>
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
@@ -389,44 +433,47 @@ export function AttendancesPage() {
 				/>
 
 				<AttendancesFiltersDrawer
-					dateField={draftFilters.dateField}
-					endDate={draftFilters.endDate}
+					filters={draftFilters}
+					formerStudentOptions={formerStudentOptions}
+					formerStudentsError={formerStudentsQuery.isError}
 					hasActiveFilters={hasAppliedFilters}
 					onApply={() => {
+						attendancesPagination.resetPage();
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
 					onClear={clearAllFilters}
-					onDateFieldChange={value => setDraftFilter("dateField", value)}
-					onEndDateChange={value => setDraftFilter("endDate", value)}
+					onFilterChange={(key, value) => setDraftFilter(key, value)}
 					onOpenChange={setFiltersOpen}
-					onProjectIdFilterChange={value =>
-						setDraftFilter("projectIdFilter", value)
-					}
-					onRefreshProjects={() => {
-						void projectsQuery.refetch();
-					}}
 					onRefreshFormerStudents={() => {
 						void formerStudentsQuery.refetch();
 					}}
-					onStartDateChange={value => setDraftFilter("startDate", value)}
-					onStatusFilterChange={value => setDraftFilter("statusFilter", value)}
-					onFormerStudentIdFilterChange={value =>
-						setDraftFilter("formerStudentIdFilter", value)
-					}
+					onRefreshProjects={() => {
+						void projectsQuery.refetch();
+					}}
+					onRefreshValidators={() => {
+						void accountsQuery.refetch();
+					}}
 					open={filtersOpen}
-					projectIdFilter={draftFilters.projectIdFilter}
 					projectOptions={projectOptions}
 					projectsError={projectsQuery.isError}
-					startDate={draftFilters.startDate}
-					statusFilter={draftFilters.statusFilter}
-					formerStudentIdFilter={draftFilters.formerStudentIdFilter}
-					formerStudentOptions={formerStudentOptions}
-					formerStudentsError={formerStudentsQuery.isError}
+					validatorOptions={validatorOptions}
+					validatorsError={accountsQuery.isError}
 				/>
 			</ServicePageHeader>
 
-			<ServicePageTableSection<AttendanceResponse>
+			<ServicePageTableSection<AttendanceDirectoryItem>
+				footer={
+					<ServicePagePagination
+						currentPage={attendancesPagination.currentPage}
+						pageSize={attendancesPagination.pageSize}
+						totalElements={totalElements}
+						totalPages={totalPages}
+						onPageChange={attendancesPagination.setCurrentPage}
+						onPageSizeChange={attendancesPagination.setPageSize}
+						disabled={activeQueryIsLoading}
+					/>
+				}
 				tableProps={{
 					className: "h-full",
 					columns,
@@ -437,13 +484,14 @@ export function AttendancesPage() {
 							attendance={row}
 							href={`/project/attendances/${row.id}`}
 							onDelete={setPendingDeleteAttendance}
+							onOpenEditor={editorState.openEditor}
 							onValidate={(attendance, action) =>
 								setPendingValidation({ action, attendance })
 							}
 						/>
 					),
 					isLoading:
-						attendancesQuery.isLoading ||
+						activeQueryIsLoading ||
 						projectsQuery.isLoading ||
 						formerStudentsQuery.isLoading ||
 						accountsQuery.isLoading ||
@@ -452,9 +500,11 @@ export function AttendancesPage() {
 				}}
 			/>
 
-			<AttendancesCreateDrawer
-				open={isCreateOpen}
-				onOpenChange={setIsCreateOpen}
+			<AttendanceEditorDrawer
+				mode={editorState.editorMode}
+				onOpenChange={editorState.handleOpenChange}
+				open={editorState.isOpen}
+				attendanceId={editorState.editorId}
 			/>
 
 			<ServicePageConfirmDialog
@@ -468,20 +518,8 @@ export function AttendancesPage() {
 				title={t("project.attendancePage.delete.confirm.title")}
 				description={t("project.attendancePage.delete.confirm.description", {
 					id: pendingDeleteAttendance?.id ?? "",
-					project: pendingDeleteAttendance
-						? resolveAttendanceProjectLabel(
-								projectById,
-								pendingDeleteAttendance.projectId,
-							)
-						: "",
-					student: pendingDeleteAttendance
-						? resolveAttendanceFormerStudentLabel(
-								formerStudentById,
-								accountById,
-								userById,
-								pendingDeleteAttendance.formerStudentId,
-							)
-						: "",
+					project: pendingDeleteAttendance?.project.name ?? "",
+					student: pendingDeleteAttendance?.student.account.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("project.attendancePage.table.actions.delete")}
@@ -511,7 +549,10 @@ export function AttendancesPage() {
 					pendingValidation
 						? t(
 								`project.attendancePage.${pendingValidation.action}.confirm.description`,
-								getAttendanceLabels(pendingValidation.attendance),
+								{
+									project: pendingValidation.attendance.project.name,
+									student: pendingValidation.attendance.student.account.name,
+								},
 							)
 						: ""
 				}

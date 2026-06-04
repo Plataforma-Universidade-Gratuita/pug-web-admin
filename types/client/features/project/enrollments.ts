@@ -1,12 +1,12 @@
 import type {
-	AccountResponse,
+	EnrollmentComplexSearchResponse,
 	EnrollmentResponse,
 	EnrollmentStatus,
 	FormerStudentResponse,
 	ProjectResponse,
-	UserResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
+import type { UseFormReturn } from "react-hook-form";
 
 export interface EnrollmentPageProps {
 	enrollmentId: string;
@@ -18,25 +18,38 @@ export interface EnrollmentRoutePageProps {
 	}>;
 }
 
-export type EnrollmentAuditDateField = "" | "createdAt" | "updatedAt";
-export type EnrollmentStatusFilter = "" | EnrollmentStatus;
 export type EnrollmentStatusAction =
 	| "accept"
 	| "cancel"
 	| "complete"
 	| "reject"
 	| "remove";
+export type EnrollmentEditorMode = "create" | "update";
+export type EnrollmentDirectoryItem =
+	EnrollmentComplexSearchResponse["content"][number];
 
-export interface EnrollmentSecondaryFilters {
-	dateField: EnrollmentAuditDateField;
-	endDate: string;
-	projectIdFilter: string;
-	startDate: string;
-	statusFilter: EnrollmentStatusFilter;
-	formerStudentIdFilter: string;
+export interface EnrollmentComplexSearchFilters {
+	projectIds: string[];
+	formerStudentIds: string[];
+	statuses: EnrollmentStatus[];
+	dateFrom: string;
+	dateTo: string;
+	periodFrom: string;
+	periodTo: string;
+}
+
+export interface EnrollmentEditorFormValues {
+	projectId: string;
+	formerStudentId: string;
+	status: EnrollmentStatus;
 }
 
 export interface EnrollmentDeleteMutationVariables {
+	projectId: string;
+	formerStudentId: string;
+}
+
+export interface EnrollmentCreateMutationVariables {
 	projectId: string;
 	formerStudentId: string;
 }
@@ -47,52 +60,62 @@ export interface EnrollmentStatusMutationVariables {
 	formerStudentId: string;
 }
 
+export interface EnrollmentEditorDrawerProps {
+	mode: EnrollmentEditorMode;
+	onOpenChange: (open: boolean) => void;
+	open: boolean;
+	enrollmentId: string | null;
+}
+
+export interface EnrollmentEditorFormProps {
+	canRenderForm: boolean;
+	form: UseFormReturn<EnrollmentEditorFormValues>;
+	mode: EnrollmentEditorMode;
+	enrollment: EnrollmentResponse | null;
+	enrollmentError: unknown;
+	project: ProjectResponse | null;
+	projectError: unknown;
+	projectOptions: ComboboxOption[];
+	projectsError: unknown;
+	formerStudent: FormerStudentResponse | null;
+	formerStudentError: unknown;
+	formerStudentOptions: ComboboxOption[];
+	onRefreshEnrollment: () => void;
+	onRefreshProject: () => void;
+	onRefreshProjects: () => void;
+	onRefreshFormerStudent: () => void;
+}
+
 export interface EnrollmentsFiltersDrawerProps {
-	dateField: EnrollmentAuditDateField;
-	endDate: string;
+	filters: EnrollmentComplexSearchFilters;
+	formerStudentOptions: ComboboxOption[];
+	formerStudentsError: boolean;
 	hasActiveFilters: boolean;
 	onApply: () => void;
 	onClear: () => void;
-	onDateFieldChange: (value: EnrollmentAuditDateField) => void;
-	onEndDateChange: (value: string) => void;
+	onFilterChange: <K extends keyof EnrollmentComplexSearchFilters>(
+		key: K,
+		value: EnrollmentComplexSearchFilters[K],
+	) => void;
 	onOpenChange: (open: boolean) => void;
-	onProjectIdFilterChange: (value: string) => void;
-	onRefreshProjects: () => void;
 	onRefreshFormerStudents: () => void;
-	onStartDateChange: (value: string) => void;
-	onStatusFilterChange: (value: EnrollmentStatusFilter) => void;
-	onFormerStudentIdFilterChange: (value: string) => void;
+	onRefreshProjects: () => void;
 	open: boolean;
-	projectIdFilter: string;
 	projectOptions: ComboboxOption[];
 	projectsError: boolean;
-	startDate: string;
-	statusFilter: EnrollmentStatusFilter;
-	formerStudentIdFilter: string;
-	formerStudentOptions: ComboboxOption[];
-	formerStudentsError: boolean;
 }
 
 export interface EnrollmentsRowActionsProps {
-	enrollment: EnrollmentResponse;
+	enrollment: EnrollmentDirectoryItem;
 	href: string;
-	onDelete: (enrollment: EnrollmentResponse) => void;
+	onDelete: (enrollment: EnrollmentDirectoryItem) => void;
 	onStatusAction: (
-		enrollment: EnrollmentResponse,
+		enrollment: EnrollmentDirectoryItem,
 		action: EnrollmentStatusAction,
 	) => void;
 }
 
 export interface EnrollmentFilterArgs {
-	dateField: EnrollmentAuditDateField;
-	endDate: string;
-	projectById: Map<string, ProjectResponse>;
-	projectIdFilter: string;
 	query: string;
-	startDate: string;
-	statusFilter: EnrollmentStatusFilter;
-	formerStudentById: Map<string, FormerStudentResponse>;
-	formerStudentIdFilter: string;
-	accountById: Map<string, AccountResponse>;
-	userById: Map<string, UserResponse>;
+	statuses: EnrollmentStatus[];
 }

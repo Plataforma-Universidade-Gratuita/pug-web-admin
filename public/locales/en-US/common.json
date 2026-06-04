@@ -4375,6 +4375,12 @@
                     "validatedAt": "Validated at",
                     "validatedBy": "Validated by"
                 },
+                "linkedProject": {
+                    "overhead": "Linked project"
+                },
+                "linkedStudent": {
+                    "overhead": "Linked former student"
+                },
                 "notFound": {
                     "description": "The requested attendance record could not be found.",
                     "title": "Attendance not found"
@@ -4397,6 +4403,8 @@
                     "projectEmptyMessage": "No projects found.",
                     "projectPlaceholder": "Select a project",
                     "projectSearchPlaceholder": "Search projects...",
+                    "status": "Status",
+                    "statusPlaceholder": "Select a status",
                     "student": "Student",
                     "studentEmptyMessage": "No students found.",
                     "studentPlaceholder": "Select a student",
@@ -4417,6 +4425,10 @@
                 "studentLoadError": {
                     "description": "The former-student directory could not be loaded right now.",
                     "title": "Unable to load former students"
+                },
+                "tabs": {
+                    "attendance": "Attendance",
+                    "linked": "Linked"
                 },
                 "validation": {
                     "duration": {
@@ -4503,8 +4515,18 @@
                     "placeholder": "Select a start date"
                 },
                 "status": {
+                    "emptyMessage": "No statuses found.",
                     "label": "Status",
-                    "placeholder": "Select a status"
+                    "placeholder": "Select...",
+                    "searchPlaceholder": "Search statuses..."
+                },
+                "summary": {
+                    "auditDate": "audit dates",
+                    "duration": "duration",
+                    "formerStudents": "former students",
+                    "projects": "projects",
+                    "statuses": "statuses",
+                    "validators": "validators"
                 },
                 "student": {
                     "emptyMessage": "No students found.",
@@ -4515,6 +4537,24 @@
                     "label": "Student",
                     "placeholder": "Select a student",
                     "searchPlaceholder": "Search students..."
+                },
+                "validator": {
+                    "emptyMessage": "No validators found.",
+                    "error": {
+                        "description": "The validator directory could not be loaded right now.",
+                        "title": "Unable to load validators"
+                    },
+                    "label": "Validated by",
+                    "placeholder": "Select...",
+                    "searchPlaceholder": "Search validators..."
+                },
+                "durationFrom": {
+                    "label": "Min duration",
+                    "placeholder": "Filter by minimum duration"
+                },
+                "durationTo": {
+                    "label": "Max duration",
+                    "placeholder": "Filter by maximum duration"
                 }
             },
             "loading": {
@@ -4555,10 +4595,10 @@
             },
             "metadata": {
                 "empty": {
-                    "description": "Attendance records capture participation duration and final validation outcome for each student session.",
-                    "title": "Operational scope"
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
                 },
-                "trigger": "About this page"
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "status": {
                 "options": {
@@ -4572,13 +4612,19 @@
                     "delete": "Delete",
                     "markAbsent": "Mark absent",
                     "markPresent": "Mark present",
+                    "update": "Update",
                     "viewDetails": "View details"
                 },
                 "columns": {
+                    "createdAt": "Created",
                     "duration": "Duration",
+                    "email": "Email",
+                    "id": "Attendance id",
                     "project": "Project",
+                    "registration": "Registration",
                     "status": "Status",
                     "student": "Student",
+                    "updatedAt": "Updated",
                     "validatedAt": "Validated",
                     "validatedBy": "Validated by"
                 },
@@ -4590,7 +4636,33 @@
                     "notValidated": "Not validated"
                 }
             },
-            "title": "Attendances"
+            "title": "Attendances",
+            "update": {
+                "actions": {
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The attendance record could not be updated right now.",
+                        "title": "Unable to save attendance changes"
+                    },
+                    "success": {
+                        "description": "Attendance {{id}} was updated successfully.",
+                        "title": "Attendance updated"
+                    }
+                },
+                "loadError": {
+                    "description": "The attendance record could not be loaded right now.",
+                    "title": "Unable to load attendance editor"
+                },
+                "notFound": {
+                    "description": "The requested attendance record could not be found.",
+                    "title": "Attendance not found"
+                },
+                "overhead": "Update attendance",
+                "titleFallback": "Update attendance"
+            }
         },
         "enrollmentPage": {
             "accept": {
@@ -4641,6 +4713,21 @@
                     }
                 }
             },
+            "create": {
+                "actions": {
+                    "save": "Create enrollment",
+                    "savePending": "Creating enrollment..."
+                },
+                "feedback": {
+                    "success": {
+                        "description": "The enrollment was created successfully.",
+                        "title": "Enrollment created"
+                    }
+                },
+                "overhead": "New enrollment",
+                "titleFallback": "New enrollment",
+                "trigger": "Create enrollment"
+            },
             "delete": {
                 "confirm": {
                     "description": "Delete the enrollment record for {{student}} in {{project}}.",
@@ -4681,6 +4768,12 @@
                     "studentId": "Student id",
                     "updatedAt": "Updated"
                 },
+                "linkedProject": {
+                    "overhead": "Linked project"
+                },
+                "linkedStudent": {
+                    "overhead": "Linked former student"
+                },
                 "notFound": {
                     "description": "The requested enrollment record could not be found.",
                     "title": "Enrollment not found"
@@ -4693,12 +4786,57 @@
                     "unknownStudent": "Student data unavailable"
                 }
             },
+            "editor": {
+                "fields": {
+                    "project": "Project",
+                    "projectEmptyMessage": "No projects found.",
+                    "projectPlaceholder": "Select a project",
+                    "projectSearchPlaceholder": "Search projects...",
+                    "status": "Status",
+                    "statusPlaceholder": "Select a status",
+                    "student": "Former student",
+                    "studentEmptyMessage": "No former students found.",
+                    "studentPlaceholder": "Select a former student",
+                    "studentSearchPlaceholder": "Search former students..."
+                },
+                "projectLoadError": {
+                    "description": "The project directory could not be loaded right now.",
+                    "title": "Unable to load projects"
+                },
+                "studentLoadError": {
+                    "description": "The former-student directory could not be loaded right now.",
+                    "title": "Unable to load former students"
+                },
+                "tabs": {
+                    "enrollment": "Enrollment",
+                    "linked": "Linked"
+                },
+                "validation": {
+                    "formerStudent": {
+                        "required": "Select a former student."
+                    },
+                    "project": {
+                        "required": "Select a project."
+                    },
+                    "status": {
+                        "required": "Select a status."
+                    }
+                }
+            },
             "empty": {
                 "defaultDescription": "No enrollment records are available yet.",
                 "filteredDescription": "No enrollments match the current filters: {{value}}.",
                 "title": "No enrollments found"
             },
             "feedback": {
+                "createError": {
+                    "description": "The enrollment could not be created right now.",
+                    "title": "Unable to create enrollment"
+                },
+                "deleteError": {
+                    "description": "The enrollment record could not be deleted right now.",
+                    "title": "Unable to delete enrollment"
+                },
                 "detailError": {
                     "description": "The selected enrollment could not be loaded right now.",
                     "title": "Unable to load enrollment"
@@ -4714,18 +4852,14 @@
                 "studentsError": {
                     "description": "The former-student directory could not be loaded right now.",
                     "title": "Unable to load former students"
+                },
+                "updateError": {
+                    "description": "The enrollment could not be updated right now.",
+                    "title": "Unable to update enrollment"
                 }
             },
             "filters": {
                 "clear": "Clear filters",
-                "dateField": {
-                    "label": "Audit field",
-                    "options": {
-                        "createdAt": "Created date",
-                        "updatedAt": "Updated date"
-                    },
-                    "placeholder": "Choose a date field"
-                },
                 "drawer": {
                     "active": "Filters active",
                     "apply": "Apply filters",
@@ -4742,6 +4876,14 @@
                     "label": "End date",
                     "placeholder": "Select an end date"
                 },
+                "periodFrom": {
+                    "label": "Period start",
+                    "placeholder": "Select a period start date"
+                },
+                "periodTo": {
+                    "label": "Period end",
+                    "placeholder": "Select a period end date"
+                },
                 "project": {
                     "emptyMessage": "No projects found.",
                     "error": {
@@ -4754,15 +4896,23 @@
                 },
                 "search": {
                     "label": "Search",
-                    "placeholder": "Search by student, email, registration, project, or status"
+                    "placeholder": "Search by project, student, email, registration, campus, or status"
+                },
+                "frontStatus": {
+                    "emptyMessage": "No statuses found.",
+                    "label": "Status",
+                    "placeholder": "Select...",
+                    "searchPlaceholder": "Search statuses..."
                 },
                 "startDate": {
                     "label": "Start date",
                     "placeholder": "Select a start date"
                 },
                 "status": {
+                    "emptyMessage": "No statuses found.",
                     "label": "Status",
-                    "placeholder": "Select a status"
+                    "placeholder": "Select a status",
+                    "searchPlaceholder": "Search statuses..."
                 },
                 "student": {
                     "emptyMessage": "No students found.",
@@ -4773,18 +4923,26 @@
                     "label": "Student",
                     "placeholder": "Select a student",
                     "searchPlaceholder": "Search students..."
+                },
+                "summary": {
+                    "auditDate": "audit date",
+                    "formerStudents": "former students",
+                    "period": "period",
+                    "projects": "projects",
+                    "statuses": "statuses"
                 }
             },
             "loading": {
                 "detail": "Loading enrollment details",
+                "editor": "Loading enrollment editor",
                 "list": "Loading enrollments"
             },
             "metadata": {
                 "empty": {
-                    "description": "Enrollment records track who joined each project and how that participation was closed.",
-                    "title": "Operational scope"
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
                 },
-                "trigger": "About this page"
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "reject": {
                 "confirm": {
@@ -4824,6 +4982,7 @@
                     "CANCELED": "Canceled",
                     "COMPLETED": "Completed",
                     "EXITED": "Exited",
+                    "ON_HOLD": "On hold",
                     "PENDING": "Pending",
                     "REJECTED": "Rejected",
                     "REMOVED": "Removed"
@@ -4837,14 +4996,22 @@
                     "delete": "Delete",
                     "reject": "Reject",
                     "remove": "Mark removed",
+                    "update": "Update",
                     "viewDetails": "View details"
                 },
                 "columns": {
                     "acceptedAt": "Accepted",
+                    "campus": "Campus",
                     "closingStatusAt": "Closed",
+                    "createdAt": "Created",
+                    "email": "Email",
                     "project": "Project",
+                    "projectId": "Project id",
+                    "registration": "Registration",
                     "status": "Status",
-                    "student": "Student"
+                    "student": "Student",
+                    "studentId": "Student id",
+                    "updatedAt": "Updated"
                 },
                 "error": {
                     "description": "The enrollment directory could not be loaded right now.",
@@ -4855,7 +5022,29 @@
                     "open": "Open"
                 }
             },
-            "title": "Enrollments"
+            "title": "Enrollments",
+            "update": {
+                "actions": {
+                    "save": "Update enrollment",
+                    "savePending": "Updating enrollment..."
+                },
+                "feedback": {
+                    "success": {
+                        "description": "The enrollment was updated successfully.",
+                        "title": "Enrollment updated"
+                    }
+                },
+                "loadError": {
+                    "description": "The enrollment editor could not be loaded right now.",
+                    "title": "Unable to load enrollment editor"
+                },
+                "notFound": {
+                    "description": "The requested enrollment could not be found.",
+                    "title": "Enrollment not found"
+                },
+                "overhead": "Update enrollment",
+                "titleFallback": "Update enrollment"
+            }
         },
         "modulePage": {
             "description": "Project delivery workflows for projects, enrollments, and attendance records.",

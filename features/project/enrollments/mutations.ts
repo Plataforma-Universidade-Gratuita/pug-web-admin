@@ -6,10 +6,15 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { deleteEnrollment, updateStatus } from "@/api/web/project/enrollments";
+import {
+	create,
+	deleteEnrollment,
+	updateStatus,
+} from "@/api/web/project/enrollments";
 import { enrollmentQueryKeys } from "@/features/project/enrollments/queries";
 import type { EnrollmentResponse } from "@/types";
 import type {
+	EnrollmentCreateMutationVariables,
 	EnrollmentDeleteMutationVariables,
 	EnrollmentStatusMutationVariables,
 } from "@/types";
@@ -73,6 +78,7 @@ function writeEnrollmentCaches(
 				),
 			),
 	);
+	queryClient.invalidateQueries({ queryKey: enrollmentQueryKeys.all });
 }
 
 function removeEnrollmentCaches(
@@ -90,6 +96,7 @@ function removeEnrollmentCaches(
 	queryClient.removeQueries({
 		queryKey: enrollmentQueryKeys.detail(projectId, formerStudentId),
 	});
+	queryClient.invalidateQueries({ queryKey: enrollmentQueryKeys.all });
 }
 
 function resolveNextStatus(
@@ -116,6 +123,20 @@ async function runEnrollmentStatusAction({
 	formerStudentId,
 }: EnrollmentStatusMutationVariables) {
 	return updateStatus(projectId, formerStudentId, resolveNextStatus(action));
+}
+
+export function useCreateEnrollmentMutation() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: ({
+			projectId,
+			formerStudentId,
+		}: EnrollmentCreateMutationVariables) => create(projectId, formerStudentId),
+		onSuccess: enrollment => {
+			writeEnrollmentCaches(queryClient, enrollment);
+		},
+	});
 }
 
 export function useEnrollmentStatusMutation() {

@@ -1,15 +1,14 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
-	AccountResponse,
+	AttendanceComplexSearchResponse,
 	AttendanceCreateRequest,
 	AttendanceResponse,
 	AttendanceStatus,
+	AttendanceValidateRequest,
 	FormerStudentResponse,
 	ProjectResponse,
-	UserResponse,
 } from "@/types";
-import type { AttendanceValidateRequest } from "@/types";
 import type { ComboboxOption } from "@/types";
 
 export interface AttendancePageProps {
@@ -22,23 +21,27 @@ export interface AttendanceRoutePageProps {
 	}>;
 }
 
-export type AttendanceAuditDateField = "" | "createdAt" | "updatedAt";
-export type AttendanceStatusFilter = "" | AttendanceStatus;
 export type AttendanceValidationAction = "markAbsent" | "markPresent";
+export type AttendanceEditorMode = "create" | "update";
+export type AttendanceDirectoryItem =
+	AttendanceComplexSearchResponse["content"][number];
 
-export interface AttendanceSecondaryFilters {
-	dateField: AttendanceAuditDateField;
-	endDate: string;
-	projectIdFilter: string;
-	startDate: string;
-	statusFilter: AttendanceStatusFilter;
-	formerStudentIdFilter: string;
+export interface AttendanceComplexSearchFilters {
+	projectIds: string[];
+	formerStudentIds: string[];
+	statuses: AttendanceStatus[];
+	validatedByIds: string[];
+	durationFrom: string;
+	durationTo: string;
+	dateFrom: string;
+	dateTo: string;
 }
 
-export interface AttendanceCreateFormValues {
+export interface AttendanceEditorFormValues {
 	duration: string;
 	projectId: string;
 	formerStudentId: string;
+	status: AttendanceStatus;
 }
 
 export interface AttendanceCreateMutationVariables {
@@ -54,68 +57,64 @@ export interface AttendanceValidateMutationVariables {
 	id: string;
 }
 
-export interface AttendancesCreateDrawerProps {
+export interface AttendanceEditorDrawerProps {
+	mode: AttendanceEditorMode;
 	onOpenChange: (open: boolean) => void;
 	open: boolean;
+	attendanceId: string | null;
 }
 
-export interface AttendancesCreateFormProps {
+export interface AttendanceEditorFormProps {
+	attendance: AttendanceResponse | null;
+	attendanceError: unknown;
 	canRenderForm: boolean;
-	form: UseFormReturn<AttendanceCreateFormValues>;
+	formerStudent: FormerStudentResponse | null;
+	formerStudentError: unknown;
+	form: UseFormReturn<AttendanceEditorFormValues>;
+	mode: AttendanceEditorMode;
+	onRefreshAttendance: () => void;
+	onRefreshFormerStudent: () => void;
 	onRefreshProjects: () => void;
-	onRefreshFormerStudents: () => void;
+	formerStudentOptions: ComboboxOption[];
+	project: ProjectResponse | null;
+	projectError: unknown;
 	projectOptions: ComboboxOption[];
 	projectsError: unknown;
-	formerStudentOptions: ComboboxOption[];
-	formerStudentsError: unknown;
 }
 
 export interface AttendancesFiltersDrawerProps {
-	dateField: AttendanceAuditDateField;
-	endDate: string;
+	filters: AttendanceComplexSearchFilters;
+	formerStudentOptions: ComboboxOption[];
+	formerStudentsError: boolean;
 	hasActiveFilters: boolean;
 	onApply: () => void;
 	onClear: () => void;
-	onDateFieldChange: (value: AttendanceAuditDateField) => void;
-	onEndDateChange: (value: string) => void;
+	onFilterChange: <K extends keyof AttendanceComplexSearchFilters>(
+		key: K,
+		value: AttendanceComplexSearchFilters[K],
+	) => void;
 	onOpenChange: (open: boolean) => void;
-	onProjectIdFilterChange: (value: string) => void;
-	onRefreshProjects: () => void;
 	onRefreshFormerStudents: () => void;
-	onStartDateChange: (value: string) => void;
-	onStatusFilterChange: (value: AttendanceStatusFilter) => void;
-	onFormerStudentIdFilterChange: (value: string) => void;
+	onRefreshProjects: () => void;
+	onRefreshValidators: () => void;
 	open: boolean;
-	projectIdFilter: string;
 	projectOptions: ComboboxOption[];
 	projectsError: boolean;
-	startDate: string;
-	statusFilter: AttendanceStatusFilter;
-	formerStudentIdFilter: string;
-	formerStudentOptions: ComboboxOption[];
-	formerStudentsError: boolean;
+	validatorOptions: ComboboxOption[];
+	validatorsError: boolean;
 }
 
 export interface AttendancesRowActionsProps {
-	attendance: AttendanceResponse;
+	attendance: AttendanceDirectoryItem;
 	href: string;
-	onDelete: (attendance: AttendanceResponse) => void;
+	onDelete: (attendance: AttendanceDirectoryItem) => void;
+	onOpenEditor: (id: string, mode: AttendanceEditorMode) => void;
 	onValidate: (
-		attendance: AttendanceResponse,
+		attendance: AttendanceDirectoryItem,
 		action: AttendanceValidationAction,
 	) => void;
 }
 
 export interface AttendanceFilterArgs {
-	accountById: Map<string, AccountResponse>;
-	dateField: AttendanceAuditDateField;
-	endDate: string;
-	projectById: Map<string, ProjectResponse>;
-	projectIdFilter: string;
 	query: string;
-	startDate: string;
-	statusFilter: AttendanceStatusFilter;
-	formerStudentById: Map<string, FormerStudentResponse>;
-	formerStudentIdFilter: string;
-	userById: Map<string, UserResponse>;
 }

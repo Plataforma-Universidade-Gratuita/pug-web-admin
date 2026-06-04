@@ -1,6 +1,8 @@
 export const attendanceQueryKeys = {
 	all: ["project", "attendance"] as const,
 	list: () => [...attendanceQueryKeys.all, "list"] as const,
+	search: (page: number, size: number, filtersKey: string) =>
+		[...attendanceQueryKeys.all, "search", page, size, filtersKey] as const,
 	detail: (id: string) => [...attendanceQueryKeys.all, "detail", id] as const,
 	idleDetail: () => [...attendanceQueryKeys.all, "detail", "idle"] as const,
 };
@@ -8,6 +10,8 @@ export const attendanceQueryKeys = {
 export const enrollmentQueryKeys = {
 	all: ["project", "enrollment"] as const,
 	list: () => [...enrollmentQueryKeys.all, "list"] as const,
+	search: (page: number, size: number, filtersKey: string) =>
+		[...enrollmentQueryKeys.all, "search", page, size, filtersKey] as const,
 	detail: (projectId: string, formerStudentId: string) =>
 		[...enrollmentQueryKeys.all, "detail", projectId, formerStudentId] as const,
 	idleDetail: () =>

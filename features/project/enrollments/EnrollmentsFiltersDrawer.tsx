@@ -1,52 +1,32 @@
 "use client";
 
 import { useMemo } from "react";
-
 import { useTranslation } from "react-i18next";
 
 import {
 	Combobox,
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
+	DatePicker,
+	Label,
 	SomeErrorState,
 } from "@/components";
 import { getEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
-import {
-	AuditInfoFilterFields,
-	ServicePageFiltersDrawer,
-} from "@/features/shared/service-pages";
-import type {
-	EnrollmentAuditDateField,
-	EnrollmentsFiltersDrawerProps,
-	EnrollmentStatusFilter,
-} from "@/types";
+import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
+import type { EnrollmentStatus, EnrollmentsFiltersDrawerProps } from "@/types";
 
 export function EnrollmentsFiltersDrawer({
-	dateField,
-	endDate,
+	filters,
+	formerStudentOptions,
+	formerStudentsError,
 	hasActiveFilters,
 	onApply,
 	onClear,
-	onDateFieldChange,
-	onEndDateChange,
+	onFilterChange,
 	onOpenChange,
-	onProjectIdFilterChange,
-	onRefreshProjects,
 	onRefreshFormerStudents,
-	onStartDateChange,
-	onStatusFilterChange,
-	onFormerStudentIdFilterChange,
+	onRefreshProjects,
 	open,
-	projectIdFilter,
 	projectOptions,
 	projectsError,
-	startDate,
-	statusFilter,
-	formerStudentIdFilter,
-	formerStudentOptions,
-	formerStudentsError,
 }: EnrollmentsFiltersDrawerProps) {
 	const { t } = useTranslation();
 	const statusOptions = useMemo(() => getEnrollmentStatusOptions(t), [t]);
@@ -72,131 +52,118 @@ export function EnrollmentsFiltersDrawer({
 			title={t("project.enrollmentPage.filters.drawer.title")}
 			triggerLabel={t("project.enrollmentPage.filters.drawer.trigger")}
 		>
-			<div className="grid gap-4 sm:grid-cols-2">
-				{projectsError ? (
-					<SomeErrorState
-						title={t("project.enrollmentPage.filters.project.error.title")}
-						description={t(
-							"project.enrollmentPage.filters.project.error.description",
+			{projectsError ? (
+				<SomeErrorState
+					title={t("project.enrollmentPage.filters.project.error.title")}
+					description={t(
+						"project.enrollmentPage.filters.project.error.description",
+					)}
+					onRefresh={onRefreshProjects}
+				/>
+			) : (
+				<div className="grid gap-2">
+					<Label>{t("project.enrollmentPage.filters.project.label")}</Label>
+					<Combobox
+						multiple
+						options={projectOptions}
+						values={filters.projectIds}
+						onValuesChange={value => onFilterChange("projectIds", value)}
+						placeholder={t("project.enrollmentPage.filters.project.placeholder")}
+						searchPlaceholder={t(
+							"project.enrollmentPage.filters.project.searchPlaceholder",
 						)}
-						onRefresh={onRefreshProjects}
+						emptyMessage={t(
+							"project.enrollmentPage.filters.project.emptyMessage",
+						)}
 					/>
-				) : (
-					<div className="grid gap-2">
-						<p className="field-label">
-							{t("project.enrollmentPage.filters.project.label")}
-						</p>
-						<Combobox
-							options={projectOptions}
-							value={projectIdFilter}
-							onValueChange={onProjectIdFilterChange}
-							placeholder={t(
-								"project.enrollmentPage.filters.project.placeholder",
-							)}
-							searchPlaceholder={t(
-								"project.enrollmentPage.filters.project.searchPlaceholder",
-							)}
-							emptyMessage={t(
-								"project.enrollmentPage.filters.project.emptyMessage",
-							)}
-						/>
-					</div>
-				)}
+				</div>
+			)}
 
-				{formerStudentsError ? (
-					<SomeErrorState
-						title={t("project.enrollmentPage.filters.student.error.title")}
-						description={t(
-							"project.enrollmentPage.filters.student.error.description",
+			{formerStudentsError ? (
+				<SomeErrorState
+					title={t("project.enrollmentPage.filters.student.error.title")}
+					description={t(
+						"project.enrollmentPage.filters.student.error.description",
+					)}
+					onRefresh={onRefreshFormerStudents}
+				/>
+			) : (
+				<div className="grid gap-2">
+					<Label>{t("project.enrollmentPage.filters.student.label")}</Label>
+					<Combobox
+						multiple
+						options={formerStudentOptions}
+						values={filters.formerStudentIds}
+						onValuesChange={value =>
+							onFilterChange("formerStudentIds", value)
+						}
+						placeholder={t("project.enrollmentPage.filters.student.placeholder")}
+						searchPlaceholder={t(
+							"project.enrollmentPage.filters.student.searchPlaceholder",
 						)}
-						onRefresh={onRefreshFormerStudents}
+						emptyMessage={t(
+							"project.enrollmentPage.filters.student.emptyMessage",
+						)}
 					/>
-				) : (
-					<div className="grid gap-2">
-						<p className="field-label">
-							{t("project.enrollmentPage.filters.student.label")}
-						</p>
-						<Combobox
-							options={formerStudentOptions}
-							value={formerStudentIdFilter}
-							onValueChange={onFormerStudentIdFilterChange}
-							placeholder={t(
-								"project.enrollmentPage.filters.student.placeholder",
-							)}
-							searchPlaceholder={t(
-								"project.enrollmentPage.filters.student.searchPlaceholder",
-							)}
-							emptyMessage={t(
-								"project.enrollmentPage.filters.student.emptyMessage",
-							)}
-						/>
-					</div>
-				)}
+				</div>
+			)}
+
+			<div className="grid gap-2">
+				<Label>{t("project.enrollmentPage.filters.status.label")}</Label>
+				<Combobox
+					multiple
+					options={statusOptions}
+					values={filters.statuses}
+					onValuesChange={value =>
+						onFilterChange("statuses", value as EnrollmentStatus[])
+					}
+					placeholder={t("project.enrollmentPage.filters.status.placeholder")}
+					searchPlaceholder={t(
+						"project.enrollmentPage.filters.status.searchPlaceholder",
+					)}
+					emptyMessage={t(
+						"project.enrollmentPage.filters.status.emptyMessage",
+					)}
+				/>
 			</div>
 
 			<div className="grid gap-2">
-				<p className="field-label">
-					{t("project.enrollmentPage.filters.status.label")}
-				</p>
-				<Select
-					value={statusFilter}
-					onValueChange={value =>
-						onStatusFilterChange(value as EnrollmentStatusFilter)
-					}
-				>
-					<SelectTrigger
-						className="w-full"
-						placeholder={t("project.enrollmentPage.filters.status.placeholder")}
-					/>
-					<SelectContent>
-						{statusOptions.map(option => (
-							<SelectItem
-								key={option.value}
-								value={option.value}
-							>
-								{option.label}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
+				<Label>{t("project.enrollmentPage.filters.periodFrom.label")}</Label>
+				<DatePicker
+					value={filters.periodFrom}
+					onValueChange={value => onFilterChange("periodFrom", value)}
+					placeholder={t(
+						"project.enrollmentPage.filters.periodFrom.placeholder",
+					)}
+				/>
 			</div>
 
-			<AuditInfoFilterFields
-				dateFieldLabel={t("project.enrollmentPage.filters.dateField.label")}
-				dateFieldPlaceholder={t(
-					"project.enrollmentPage.filters.dateField.placeholder",
-				)}
-				dateField={dateField}
-				onDateFieldChange={value =>
-					onDateFieldChange(value as EnrollmentAuditDateField)
-				}
-				dateFieldOptions={[
-					{
-						value: "createdAt",
-						label: t(
-							"project.enrollmentPage.filters.dateField.options.createdAt",
-						),
-					},
-					{
-						value: "updatedAt",
-						label: t(
-							"project.enrollmentPage.filters.dateField.options.updatedAt",
-						),
-					},
-				]}
-				startDateLabel={t("project.enrollmentPage.filters.startDate.label")}
-				startDatePlaceholder={t(
-					"project.enrollmentPage.filters.startDate.placeholder",
-				)}
-				startDate={startDate}
-				onStartDateChange={onStartDateChange}
-				endDateLabel={t("project.enrollmentPage.filters.endDate.label")}
-				endDatePlaceholder={t(
-					"project.enrollmentPage.filters.endDate.placeholder",
-				)}
-				endDate={endDate}
-				onEndDateChange={onEndDateChange}
-			/>
+			<div className="grid gap-2">
+				<Label>{t("project.enrollmentPage.filters.periodTo.label")}</Label>
+				<DatePicker
+					value={filters.periodTo}
+					onValueChange={value => onFilterChange("periodTo", value)}
+					placeholder={t("project.enrollmentPage.filters.periodTo.placeholder")}
+				/>
+			</div>
+
+			<div className="grid gap-2">
+				<Label>{t("project.enrollmentPage.filters.startDate.label")}</Label>
+				<DatePicker
+					value={filters.dateFrom}
+					onValueChange={value => onFilterChange("dateFrom", value)}
+					placeholder={t("project.enrollmentPage.filters.startDate.placeholder")}
+				/>
+			</div>
+
+			<div className="grid gap-2">
+				<Label>{t("project.enrollmentPage.filters.endDate.label")}</Label>
+				<DatePicker
+					value={filters.dateTo}
+					onValueChange={value => onFilterChange("dateTo", value)}
+					placeholder={t("project.enrollmentPage.filters.endDate.placeholder")}
+				/>
+			</div>
 		</ServicePageFiltersDrawer>
 	);
 }
