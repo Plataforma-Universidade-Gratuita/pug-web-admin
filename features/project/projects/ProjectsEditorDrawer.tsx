@@ -21,8 +21,8 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import { useAreasOfExpertiseQuery } from "@/features/academic/areas-of-expertise/queries";
+import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import { ProjectsEditorForm } from "@/features/project/projects/ProjectsEditorForm";
 import {
 	useCreateProjectMutation,
@@ -363,7 +363,9 @@ export function ProjectsEditorDrawer({
 						<ProjectsEditorForm
 							areaOfExpertiseOptions={areaOfExpertiseOptions}
 							areasOfExpertiseError={
-								areasOfExpertiseQuery.isError ? areasOfExpertiseQuery.error : null
+								areasOfExpertiseQuery.isError
+									? areasOfExpertiseQuery.error
+									: null
 							}
 							canRenderForm={canRenderForm}
 							entitiesError={entitiesQuery.isError ? entitiesQuery.error : null}

@@ -408,8 +408,7 @@ export function appendCopyToEmail(
 	const separatorIndex = email.indexOf("@");
 	const localPart =
 		separatorIndex === -1 ? email : email.slice(0, separatorIndex);
-	const domainPart =
-		separatorIndex === -1 ? "" : email.slice(separatorIndex);
+	const domainPart = separatorIndex === -1 ? "" : email.slice(separatorIndex);
 	const match = localPart.match(/^(.*?)(Copy(?:\d+)?)$/);
 	const normalizedExistingEmails = new Set(
 		existingEmails.map(currentEmail => currentEmail.trim().toLowerCase()),

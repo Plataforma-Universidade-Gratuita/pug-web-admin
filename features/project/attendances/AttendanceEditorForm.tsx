@@ -52,7 +52,10 @@ export function AttendanceEditorForm({
 	const statusOptions = getAttendanceStatusOptions(t);
 
 	if (!isCreateMode && attendanceError) {
-		if (attendanceError instanceof WebApiError && attendanceError.status === 404) {
+		if (
+			attendanceError instanceof WebApiError &&
+			attendanceError.status === 404
+		) {
 			return (
 				<NotFoundState
 					title={t("project.attendancePage.update.notFound.title")}
@@ -74,7 +77,9 @@ export function AttendanceEditorForm({
 		return (
 			<SomeErrorState
 				title={t("project.attendancePage.editor.projectLoadError.title")}
-				description={t("project.attendancePage.editor.projectLoadError.description")}
+				description={t(
+					"project.attendancePage.editor.projectLoadError.description",
+				)}
 				onRefresh={onRefreshProjects}
 			/>
 		);
@@ -84,7 +89,9 @@ export function AttendanceEditorForm({
 		return (
 			<SomeErrorState
 				title={t("project.attendancePage.editor.projectLoadError.title")}
-				description={t("project.attendancePage.editor.projectLoadError.description")}
+				description={t(
+					"project.attendancePage.editor.projectLoadError.description",
+				)}
 				onRefresh={onRefreshProjects}
 			/>
 		);
@@ -94,7 +101,9 @@ export function AttendanceEditorForm({
 		return (
 			<SomeErrorState
 				title={t("project.attendancePage.editor.studentLoadError.title")}
-				description={t("project.attendancePage.editor.studentLoadError.description")}
+				description={t(
+					"project.attendancePage.editor.studentLoadError.description",
+				)}
 				onRefresh={onRefreshFormerStudent}
 			/>
 		);
@@ -102,7 +111,9 @@ export function AttendanceEditorForm({
 
 	if (!canRenderForm) {
 		return (
-			<NotFoundState title={t("project.attendancePage.update.notFound.title")} />
+			<NotFoundState
+				title={t("project.attendancePage.update.notFound.title")}
+			/>
 		);
 	}
 
@@ -218,7 +229,9 @@ export function AttendanceEditorForm({
 						)}
 					/>
 					{form.formState.errors.status ? (
-						<p className="field-error">{form.formState.errors.status.message}</p>
+						<p className="field-error">
+							{form.formState.errors.status.message}
+						</p>
 					) : null}
 				</div>
 			)}

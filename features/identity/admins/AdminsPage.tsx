@@ -8,6 +8,7 @@ import { get as getAdmin } from "@/api/web/identity/admins";
 import { get as getUser } from "@/api/web/identity/users";
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
+import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { AdminsActionDialogs } from "@/features/identity/admins/AdminActionDialogs";
 import { AdminsFilters } from "@/features/identity/admins/AdminsFilters";
 import { AdminsRowActions } from "@/features/identity/admins/AdminsRowActions";
@@ -33,7 +34,6 @@ import {
 	getAdminSetActiveErrorToastContent,
 	getAdminsListErrorToastContent,
 } from "@/features/identity/admins/utils";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import {
 	ServicePageHeader,
 	ServicePageHeaderActions,
@@ -244,9 +244,7 @@ export function AdminsPage() {
 										name: linkedUser.name,
 										email: appendCopyToEmail(
 											admin.account.email,
-											(accountsQuery.data ?? []).map(
-												account => account.email,
-											),
+											(accountsQuery.data ?? []).map(account => account.email),
 										),
 									},
 								),

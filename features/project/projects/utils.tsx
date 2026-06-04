@@ -113,9 +113,7 @@ export function buildProjectCreatorOptions(
 	creators: AccountSimpleComplexSearchResponse[],
 ): ComboboxOption[] {
 	return [...creators]
-		.sort((left, right) =>
-			compareNormalizedText(left.name, right.name),
-		)
+		.sort((left, right) => compareNormalizedText(left.name, right.name))
 		.map(createdBy => ({
 			value: createdBy.id,
 			label: createdBy.name,

@@ -1,15 +1,19 @@
 "use client";
 
 import { useMemo } from "react";
+
 import { useTranslation } from "react-i18next";
 
-import { Combobox, DatePicker, Input, Label, SomeErrorState } from "@/components";
+import {
+	Combobox,
+	DatePicker,
+	Input,
+	Label,
+	SomeErrorState,
+} from "@/components";
 import { getAttendanceStatusOptions } from "@/features/project/attendances/utils";
 import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
-import type {
-	AttendanceStatus,
-	AttendancesFiltersDrawerProps,
-} from "@/types";
+import type { AttendanceStatus, AttendancesFiltersDrawerProps } from "@/types";
 
 export function AttendancesFiltersDrawer({
 	filters,
@@ -56,7 +60,9 @@ export function AttendancesFiltersDrawer({
 			{projectsError ? (
 				<SomeErrorState
 					title={t("project.attendancePage.filters.project.error.title")}
-					description={t("project.attendancePage.filters.project.error.description")}
+					description={t(
+						"project.attendancePage.filters.project.error.description",
+					)}
 					onRefresh={onRefreshProjects}
 				/>
 			) : (
@@ -67,11 +73,15 @@ export function AttendancesFiltersDrawer({
 						options={projectOptions}
 						values={filters.projectIds}
 						onValuesChange={value => onFilterChange("projectIds", value)}
-						placeholder={t("project.attendancePage.filters.project.placeholder")}
+						placeholder={t(
+							"project.attendancePage.filters.project.placeholder",
+						)}
 						searchPlaceholder={t(
 							"project.attendancePage.filters.project.searchPlaceholder",
 						)}
-						emptyMessage={t("project.attendancePage.filters.project.emptyMessage")}
+						emptyMessage={t(
+							"project.attendancePage.filters.project.emptyMessage",
+						)}
 					/>
 				</div>
 			)}
@@ -79,7 +89,9 @@ export function AttendancesFiltersDrawer({
 			{formerStudentsError ? (
 				<SomeErrorState
 					title={t("project.attendancePage.filters.student.error.title")}
-					description={t("project.attendancePage.filters.student.error.description")}
+					description={t(
+						"project.attendancePage.filters.student.error.description",
+					)}
 					onRefresh={onRefreshFormerStudents}
 				/>
 			) : (
@@ -90,11 +102,15 @@ export function AttendancesFiltersDrawer({
 						options={formerStudentOptions}
 						values={filters.formerStudentIds}
 						onValuesChange={value => onFilterChange("formerStudentIds", value)}
-						placeholder={t("project.attendancePage.filters.student.placeholder")}
+						placeholder={t(
+							"project.attendancePage.filters.student.placeholder",
+						)}
 						searchPlaceholder={t(
 							"project.attendancePage.filters.student.searchPlaceholder",
 						)}
-						emptyMessage={t("project.attendancePage.filters.student.emptyMessage")}
+						emptyMessage={t(
+							"project.attendancePage.filters.student.emptyMessage",
+						)}
 					/>
 				</div>
 			)}
@@ -132,11 +148,15 @@ export function AttendancesFiltersDrawer({
 						options={validatorOptions}
 						values={filters.validatedByIds}
 						onValuesChange={value => onFilterChange("validatedByIds", value)}
-						placeholder={t("project.attendancePage.filters.validator.placeholder")}
+						placeholder={t(
+							"project.attendancePage.filters.validator.placeholder",
+						)}
 						searchPlaceholder={t(
 							"project.attendancePage.filters.validator.searchPlaceholder",
 						)}
-						emptyMessage={t("project.attendancePage.filters.validator.emptyMessage")}
+						emptyMessage={t(
+							"project.attendancePage.filters.validator.emptyMessage",
+						)}
 					/>
 				</div>
 			)}
@@ -150,7 +170,9 @@ export function AttendancesFiltersDrawer({
 					inputMode="numeric"
 					value={filters.durationFrom}
 					onChange={event => onFilterChange("durationFrom", event.target.value)}
-					placeholder={t("project.attendancePage.filters.durationFrom.placeholder")}
+					placeholder={t(
+						"project.attendancePage.filters.durationFrom.placeholder",
+					)}
 				/>
 			</div>
 
@@ -163,7 +185,9 @@ export function AttendancesFiltersDrawer({
 					inputMode="numeric"
 					value={filters.durationTo}
 					onChange={event => onFilterChange("durationTo", event.target.value)}
-					placeholder={t("project.attendancePage.filters.durationTo.placeholder")}
+					placeholder={t(
+						"project.attendancePage.filters.durationTo.placeholder",
+					)}
 				/>
 			</div>
 
@@ -172,7 +196,9 @@ export function AttendancesFiltersDrawer({
 				<DatePicker
 					value={filters.dateFrom}
 					onValueChange={value => onFilterChange("dateFrom", value)}
-					placeholder={t("project.attendancePage.filters.startDate.placeholder")}
+					placeholder={t(
+						"project.attendancePage.filters.startDate.placeholder",
+					)}
 				/>
 			</div>
 

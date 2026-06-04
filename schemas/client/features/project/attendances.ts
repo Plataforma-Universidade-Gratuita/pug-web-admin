@@ -1,7 +1,10 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-import { AttendanceStatusEnum, createRequiredNumericStringSchema } from "@/schemas";
+import {
+	AttendanceStatusEnum,
+	createRequiredNumericStringSchema,
+} from "@/schemas";
 import type { AttendanceEditorMode } from "@/types";
 
 export function createAttendanceEditorFormSchema(
@@ -22,14 +25,20 @@ export function createAttendanceEditorFormSchema(
 				? z
 						.string()
 						.trim()
-						.min(1, t("project.attendancePage.editor.validation.project.required"))
+						.min(
+							1,
+							t("project.attendancePage.editor.validation.project.required"),
+						)
 				: z.string(),
 		formerStudentId:
 			mode === "create"
 				? z
 						.string()
 						.trim()
-						.min(1, t("project.attendancePage.editor.validation.student.required"))
+						.min(
+							1,
+							t("project.attendancePage.editor.validation.student.required"),
+						)
 				: z.string(),
 		status: AttendanceStatusEnum,
 	});

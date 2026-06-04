@@ -4,13 +4,19 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Combobox, Label, NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	Combobox,
+	Label,
+	NoContentState,
+	SomeErrorState,
+	toast,
+} from "@/components";
 import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
 import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { useUsersQuery } from "@/features/identity/users/queries";
 import { AttendanceEditorDrawer } from "@/features/project/attendances/AttendanceEditorDrawer";
-import { AttendancesFiltersDrawer } from "@/features/project/attendances/AttendancesFiltersDrawer";
 import { AttendanceQrCodeDialog } from "@/features/project/attendances/AttendanceQrCodeDialog";
+import { AttendancesFiltersDrawer } from "@/features/project/attendances/AttendancesFiltersDrawer";
 import { AttendancesRowActions } from "@/features/project/attendances/AttendancesRowActions";
 import {
 	useRemoveAttendanceMutation,
@@ -70,7 +76,9 @@ function getValidationVariant(action: AttendanceValidationAction) {
 export function AttendancesPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
-	const [frontendStatuses, setFrontendStatuses] = useState<AttendanceDirectoryItem["status"]["status"][]>([]);
+	const [frontendStatuses, setFrontendStatuses] = useState<
+		AttendanceDirectoryItem["status"]["status"][]
+	>([]);
 	const [filtersOpen, setFiltersOpen] = useState(false);
 	const editorState = useServicePageEditorState<AttendanceEditorMode>({
 		createMode: "create",
@@ -393,7 +401,8 @@ export function AttendancesPage() {
 			{
 				id: currentAction.attendance.id,
 				body: {
-					qrValidationHash: currentAction.attendance.qrValidationInfo.qrValidationHash,
+					qrValidationHash:
+						currentAction.attendance.qrValidationInfo.qrValidationHash,
 					status: currentAction.action === "markPresent" ? "PRESENT" : "ABSENT",
 				},
 			},
@@ -468,11 +477,15 @@ export function AttendancesPage() {
 									value as AttendanceDirectoryItem["status"]["status"][],
 								)
 							}
-							placeholder={t("project.attendancePage.filters.status.placeholder")}
+							placeholder={t(
+								"project.attendancePage.filters.status.placeholder",
+							)}
 							searchPlaceholder={t(
 								"project.attendancePage.filters.status.searchPlaceholder",
 							)}
-							emptyMessage={t("project.attendancePage.filters.status.emptyMessage")}
+							emptyMessage={t(
+								"project.attendancePage.filters.status.emptyMessage",
+							)}
 							maxVisibleValues={1}
 						/>
 					</div>

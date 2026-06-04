@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next";
 
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
-import { useCoursesQuery } from "@/features/academic/courses/queries";
 import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
+import { useCoursesQuery } from "@/features/academic/courses/queries";
 import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { useFormerStudentDetailQuery } from "@/features/academic/former-students/queries";
 import {
@@ -64,7 +64,10 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 
 	return (
 		<EntityPageShell
-			title={userDetailQuery.data?.name ?? t("academic.studentPage.dialog.titleFallback")}
+			title={
+				userDetailQuery.data?.name ??
+				t("academic.studentPage.dialog.titleFallback")
+			}
 			description={t("academic.studentPage.description")}
 		>
 			{formerStudentDetailQuery.isError ? (
@@ -129,7 +132,9 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 
 							<div className="grid gap-3">
 								<p className="ty-overhead">
-									{t("academic.coursePage.dialog.linkedAreaOfExpertise.overhead")}
+									{t(
+										"academic.coursePage.dialog.linkedAreaOfExpertise.overhead",
+									)}
 								</p>
 								<AreaOfExpertiseDetailsContent
 									areaOfExpertise={course.areaOfExpertise}

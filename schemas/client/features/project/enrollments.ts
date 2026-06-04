@@ -1,7 +1,10 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-import { createRequiredTrimmedStringSchema, EnrollmentStatusEnum } from "@/schemas";
+import {
+	createRequiredTrimmedStringSchema,
+	EnrollmentStatusEnum,
+} from "@/schemas";
 import type { EnrollmentEditorMode } from "@/types";
 
 export function createEnrollmentEditorFormSchema(
@@ -9,9 +12,7 @@ export function createEnrollmentEditorFormSchema(
 	mode: EnrollmentEditorMode,
 ) {
 	const statusSchema =
-		mode === "create"
-			? EnrollmentStatusEnum
-			: EnrollmentStatusEnum;
+		mode === "create" ? EnrollmentStatusEnum : EnrollmentStatusEnum;
 
 	return z.object({
 		projectId: createRequiredTrimmedStringSchema(

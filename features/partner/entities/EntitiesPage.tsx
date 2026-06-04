@@ -313,7 +313,9 @@ export function EntitiesPage() {
 					label={t("partner.entityPage.filters.frontend.cnpj.label")}
 					value={cnpjSearch}
 					onChange={setCnpjSearch}
-					placeholder={t("partner.entityPage.filters.frontend.cnpj.placeholder")}
+					placeholder={t(
+						"partner.entityPage.filters.frontend.cnpj.placeholder",
+					)}
 				/>
 
 				<EntitiesFiltersDrawer

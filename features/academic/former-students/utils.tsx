@@ -192,7 +192,9 @@ export function createFormerStudentColumns(
 				<div className="flex w-full justify-center">
 					<Badge
 						className="min-h-5 px-2 py-0.5"
-						tone={row.original.counterpartHours.concluded ? "success" : "warning"}
+						tone={
+							row.original.counterpartHours.concluded ? "success" : "warning"
+						}
 						variant="primary"
 					>
 						{row.original.counterpartHours.concluded
@@ -281,7 +283,9 @@ export function filterFormerStudents(
 	const hasCampiFilter = campi.length > 0;
 	const hasCourseFilter = courseIds.length > 0;
 	const hasAreaOfExpertiseFilter = areaOfExpertiseIds.length > 0;
-	const periodFromTimestamp = periodFrom ? getStartOfDayTimestamp(periodFrom) : null;
+	const periodFromTimestamp = periodFrom
+		? getStartOfDayTimestamp(periodFrom)
+		: null;
 	const periodToTimestamp = periodTo ? getEndOfDayTimestamp(periodTo) : null;
 	const dateFromTimestamp = dateFrom ? getStartOfDayTimestamp(dateFrom) : null;
 	const dateToTimestamp = dateTo ? getEndOfDayTimestamp(dateTo) : null;
@@ -381,7 +385,9 @@ export function filterFormerStudents(
 
 		if (
 			hasAreaOfExpertiseFilter &&
-			!areaOfExpertiseIds.includes(formerStudent.course?.areaOfExpertise.id ?? "")
+			!areaOfExpertiseIds.includes(
+				formerStudent.course?.areaOfExpertise.id ?? "",
+			)
 		) {
 			return false;
 		}
@@ -391,9 +397,14 @@ export function filterFormerStudents(
 		}
 
 		if (periodFromTimestamp !== null || periodToTimestamp !== null) {
-			const startTimestamp = getStartOfDayTimestamp(formerStudent.period.startDate);
+			const startTimestamp = getStartOfDayTimestamp(
+				formerStudent.period.startDate,
+			);
 			const dueTimestamp = getEndOfDayTimestamp(formerStudent.period.dueDate);
-			if (periodFromTimestamp !== null && startTimestamp < periodFromTimestamp) {
+			if (
+				periodFromTimestamp !== null &&
+				startTimestamp < periodFromTimestamp
+			) {
 				return false;
 			}
 			if (periodToTimestamp !== null && dueTimestamp > periodToTimestamp) {
@@ -606,8 +617,7 @@ export function appendCopyToEmail(
 	const separatorIndex = email.indexOf("@");
 	const localPart =
 		separatorIndex === -1 ? email : email.slice(0, separatorIndex);
-	const domainPart =
-		separatorIndex === -1 ? "" : email.slice(separatorIndex);
+	const domainPart = separatorIndex === -1 ? "" : email.slice(separatorIndex);
 	const match = localPart.match(/^(.*?)(Copy(?:\d+)?)$/);
 	const normalizedExistingEmails = new Set(
 		existingEmails.map(currentEmail => currentEmail.trim().toLowerCase()),
@@ -701,12 +711,18 @@ export function getStudentFilterSummary(
 	}
 
 	if (campi.length > 0) {
-		parts.push(...campi.map(campus => t(`identity.adminPage.filters.campus.options.${campus}`)));
+		parts.push(
+			...campi.map(campus =>
+				t(`identity.adminPage.filters.campus.options.${campus}`),
+			),
+		);
 	}
 
 	if (courseIds.length > 0) {
 		parts.push(
-			...courseIds.map(courseId => resolveFormerStudentCourseLabel(courseById, courseId)),
+			...courseIds.map(courseId =>
+				resolveFormerStudentCourseLabel(courseById, courseId),
+			),
 		);
 	}
 

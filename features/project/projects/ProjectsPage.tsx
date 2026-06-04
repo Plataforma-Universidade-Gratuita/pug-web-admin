@@ -210,14 +210,9 @@ export function ProjectsPage() {
 			}),
 		[deferredQuerySearch, frontendStatuses, tableSourceProjects],
 	);
-	const columns = useMemo(
-		() => createProjectColumns(t),
-		[t],
-	);
+	const columns = useMemo(() => createProjectColumns(t), [t]);
 	const hasAnyFilters = Boolean(
-		querySearch.trim() ||
-			frontendStatuses.length > 0 ||
-			hasAppliedFilters,
+		querySearch.trim() || frontendStatuses.length > 0 || hasAppliedFilters,
 	);
 	const filterSummary = useMemo(
 		() =>
@@ -473,9 +468,7 @@ export function ProjectsPage() {
 				/>
 
 				<div className="grid gap-2">
-					<Label>
-						{t("project.projectPage.filters.status.label")}
-					</Label>
+					<Label>{t("project.projectPage.filters.status.label")}</Label>
 					<Combobox
 						multiple
 						options={statusOptions}

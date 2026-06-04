@@ -143,10 +143,7 @@ export function resolveEntityCityLabel(
 
 export function filterEntitiesByFrontendQuery(
 	entities: EntityTableRow[],
-	{
-		cnpjQuery,
-		query,
-	}: Pick<EntityFilterArgs, "cnpjQuery" | "query">,
+	{ cnpjQuery, query }: Pick<EntityFilterArgs, "cnpjQuery" | "query">,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
 	const normalizedDigitsQuery = normalizeDigits(cnpjQuery);

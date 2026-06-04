@@ -78,7 +78,9 @@ export function ProjectsFiltersDrawer({
 			{entitiesError ? (
 				<SomeErrorState
 					title={t("project.projectPage.filters.entity.error.title")}
-					description={t("project.projectPage.filters.entity.error.description")}
+					description={t(
+						"project.projectPage.filters.entity.error.description",
+					)}
 					onRefresh={onRefreshEntities}
 				/>
 			) : (

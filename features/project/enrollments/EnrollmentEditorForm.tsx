@@ -23,9 +23,7 @@ import {
 } from "@/components";
 import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { EnrollmentOwnDetailsContent } from "@/features/project/enrollments/enrollment/EnrollmentOwnDetailsContent";
-import {
-	getEditableEnrollmentStatusOptions,
-} from "@/features/project/enrollments/utils";
+import { getEditableEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import type { EnrollmentEditorFormProps } from "@/types";
 import { WebApiError } from "@/utils";
@@ -52,7 +50,10 @@ export function EnrollmentEditorForm({
 	const isCreateMode = mode === "create";
 
 	if (!isCreateMode && enrollmentError) {
-		if (enrollmentError instanceof WebApiError && enrollmentError.status === 404) {
+		if (
+			enrollmentError instanceof WebApiError &&
+			enrollmentError.status === 404
+		) {
 			return (
 				<NotFoundState
 					title={t("project.enrollmentPage.update.notFound.title")}
@@ -74,7 +75,9 @@ export function EnrollmentEditorForm({
 		return (
 			<SomeErrorState
 				title={t("project.enrollmentPage.editor.projectLoadError.title")}
-				description={t("project.enrollmentPage.editor.projectLoadError.description")}
+				description={t(
+					"project.enrollmentPage.editor.projectLoadError.description",
+				)}
 				onRefresh={onRefreshProjects}
 			/>
 		);
@@ -84,7 +87,9 @@ export function EnrollmentEditorForm({
 		return (
 			<SomeErrorState
 				title={t("project.enrollmentPage.editor.projectLoadError.title")}
-				description={t("project.enrollmentPage.editor.projectLoadError.description")}
+				description={t(
+					"project.enrollmentPage.editor.projectLoadError.description",
+				)}
 				onRefresh={onRefreshProject}
 			/>
 		);
@@ -94,7 +99,9 @@ export function EnrollmentEditorForm({
 		return (
 			<SomeErrorState
 				title={t("project.enrollmentPage.editor.studentLoadError.title")}
-				description={t("project.enrollmentPage.editor.studentLoadError.description")}
+				description={t(
+					"project.enrollmentPage.editor.studentLoadError.description",
+				)}
 				onRefresh={onRefreshFormerStudent}
 			/>
 		);
@@ -102,7 +109,9 @@ export function EnrollmentEditorForm({
 
 	if (!canRenderForm) {
 		return (
-			<NotFoundState title={t("project.enrollmentPage.update.notFound.title")} />
+			<NotFoundState
+				title={t("project.enrollmentPage.update.notFound.title")}
+			/>
 		);
 	}
 
@@ -203,7 +212,9 @@ export function EnrollmentEditorForm({
 						)}
 					/>
 					{form.formState.errors.status ? (
-						<p className="field-error">{form.formState.errors.status.message}</p>
+						<p className="field-error">
+							{form.formState.errors.status.message}
+						</p>
 					) : null}
 				</div>
 			)}

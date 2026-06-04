@@ -47,9 +47,7 @@ export function ProjectsEditorForm({
 	const linkedAreasOfExpertiseQuery = useProjectAreasOfExpertiseQuery(
 		isUpdateMode && project ? project.id : null,
 	);
-	const createdByLabel = project
-		? project.projectInfo.createdBy.name
-		: "";
+	const createdByLabel = project ? project.projectInfo.createdBy.name : "";
 
 	if (!isCreateMode && projectError) {
 		if (projectError instanceof WebApiError && projectError.status === 404) {

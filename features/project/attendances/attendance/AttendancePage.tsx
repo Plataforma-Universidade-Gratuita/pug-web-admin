@@ -73,7 +73,9 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 				attendanceDetailQuery.error.status === 404 ? (
 					<NotFoundState
 						title={t("project.attendancePage.dialog.notFound.title")}
-						description={t("project.attendancePage.dialog.notFound.description")}
+						description={t(
+							"project.attendancePage.dialog.notFound.description",
+						)}
 					/>
 				) : (
 					<SomeErrorState

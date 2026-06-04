@@ -28,9 +28,9 @@ import {
 	TabsTrigger,
 } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
+import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
 import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { getFormerStudentCampusOptions } from "@/features/academic/former-students/utils";
-import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
@@ -111,7 +111,9 @@ export function FormerStudentEditorForm({
 		return (
 			<SomeErrorState
 				title={t("identity.adminPage.dialog.linkedUser.error.title")}
-				description={t("identity.adminPage.dialog.linkedUser.error.description")}
+				description={t(
+					"identity.adminPage.dialog.linkedUser.error.description",
+				)}
 				onRefresh={onRefreshUser}
 			/>
 		);
@@ -151,7 +153,10 @@ export function FormerStudentEditorForm({
 		);
 	}
 
-	if (!canRenderForm || (!isUpdateMode && !formerStudent && mode !== "create")) {
+	if (
+		!canRenderForm ||
+		(!isUpdateMode && !formerStudent && mode !== "create")
+	) {
 		return (
 			<NotFoundState title={t("academic.studentPage.update.notFound.title")} />
 		);
@@ -209,9 +214,7 @@ export function FormerStudentEditorForm({
 					{...form.register("name")}
 					disabled={isNameDisabled}
 					aria-describedby={
-						form.formState.errors.name
-							? "former-student-name-error"
-							: undefined
+						form.formState.errors.name ? "former-student-name-error" : undefined
 					}
 					aria-invalid={form.formState.errors.name ? "true" : "false"}
 					placeholder={t("academic.studentPage.editor.fields.namePlaceholder")}
@@ -310,9 +313,7 @@ export function FormerStudentEditorForm({
 					)}
 				/>
 				{form.formState.errors.campus ? (
-					<p className="field-error">
-						{form.formState.errors.campus.message}
-					</p>
+					<p className="field-error">{form.formState.errors.campus.message}</p>
 				) : null}
 			</div>
 
@@ -522,4 +523,3 @@ export function FormerStudentEditorForm({
 		</Tabs>
 	);
 }
-

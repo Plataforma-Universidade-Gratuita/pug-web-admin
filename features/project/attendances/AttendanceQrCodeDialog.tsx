@@ -1,8 +1,8 @@
 "use client";
 
 import { Copy } from "lucide-react";
-import QRCode from "react-qr-code";
 import { useTranslation } from "react-i18next";
+import QRCode from "react-qr-code";
 
 import {
 	Button,
@@ -35,17 +35,27 @@ export function AttendanceQrCodeDialog({
 
 		try {
 			await navigator.clipboard.writeText(hash);
-			toast.success(t("project.attendancePage.dialog.qrCodeDialog.copy.feedback.success.title"), {
-				description: t(
-					"project.attendancePage.dialog.qrCodeDialog.copy.feedback.success.description",
+			toast.success(
+				t(
+					"project.attendancePage.dialog.qrCodeDialog.copy.feedback.success.title",
 				),
-			});
+				{
+					description: t(
+						"project.attendancePage.dialog.qrCodeDialog.copy.feedback.success.description",
+					),
+				},
+			);
 		} catch {
-			toast.danger(t("project.attendancePage.dialog.qrCodeDialog.copy.feedback.error.title"), {
-				description: t(
-					"project.attendancePage.dialog.qrCodeDialog.copy.feedback.error.description",
+			toast.danger(
+				t(
+					"project.attendancePage.dialog.qrCodeDialog.copy.feedback.error.title",
 				),
-			});
+				{
+					description: t(
+						"project.attendancePage.dialog.qrCodeDialog.copy.feedback.error.description",
+					),
+				},
+			);
 		}
 	}
 
@@ -55,11 +65,15 @@ export function AttendanceQrCodeDialog({
 			onOpenChange={onOpenChange}
 		>
 			<DialogContent className="max-w-md">
-				<DialogHeader overhead={t("project.attendancePage.dialog.qrCodeDialog.overhead")}>
-					<DialogTitle>{t("project.attendancePage.dialog.qrCodeDialog.title")}</DialogTitle>
+				<DialogHeader
+					overhead={t("project.attendancePage.dialog.qrCodeDialog.overhead")}
+				>
+					<DialogTitle>
+						{t("project.attendancePage.dialog.qrCodeDialog.title")}
+					</DialogTitle>
 				</DialogHeader>
 				<DialogBody className="grid gap-4">
-					<div className="mx-auto flex w-fit items-center justify-center rounded-md border border-border bg-white p-4 shadow-sm">
+					<div className="border-border mx-auto flex w-fit items-center justify-center rounded-md border bg-white p-4 shadow-sm">
 						{hash ? (
 							<QRCode
 								bgColor="#FFFFFF"
@@ -90,7 +104,7 @@ export function AttendanceQrCodeDialog({
 								{t("project.attendancePage.dialog.qrCodeDialog.copy.action")}
 							</Button>
 						</div>
-						<div className="rounded-md border border-border bg-surface-2 px-3 py-2 font-mono text-sm break-all">
+						<div className="border-border bg-surface-2 rounded-md border px-3 py-2 font-mono text-sm break-all">
 							{hash ?? ""}
 						</div>
 					</div>

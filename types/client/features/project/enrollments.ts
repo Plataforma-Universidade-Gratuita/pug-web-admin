@@ -1,3 +1,5 @@
+import type { UseFormReturn } from "react-hook-form";
+
 import type {
 	EnrollmentComplexSearchResponse,
 	EnrollmentResponse,
@@ -6,7 +8,6 @@ import type {
 	ProjectResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
-import type { UseFormReturn } from "react-hook-form";
 
 export interface EnrollmentPageProps {
 	enrollmentId: string;

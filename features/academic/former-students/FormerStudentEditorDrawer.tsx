@@ -42,7 +42,10 @@ import {
 	toFormerStudentUpdateRequest,
 } from "@/features/academic/former-students/utils";
 import { useAccountDetailQuery } from "@/features/identity/accounts/queries";
-import { useUserDetailQuery, useUsersQuery } from "@/features/identity/users/queries";
+import {
+	useUserDetailQuery,
+	useUsersQuery,
+} from "@/features/identity/users/queries";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,

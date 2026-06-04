@@ -2,13 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import {
-	ArrowUpRight,
-	Check,
-	QrCode,
-	Trash2,
-	UserRoundX,
-} from "lucide-react";
+import { ArrowUpRight, Check, QrCode, Trash2, UserRoundX } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {

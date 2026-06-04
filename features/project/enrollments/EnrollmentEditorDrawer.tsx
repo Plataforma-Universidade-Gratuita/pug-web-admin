@@ -39,7 +39,10 @@ import {
 	getEnrollmentUpdateErrorToastContent,
 	parseEnrollmentCompositeKey,
 } from "@/features/project/enrollments/utils";
-import { useProjectsQuery, useProjectDetailQuery } from "@/features/project/projects/queries";
+import {
+	useProjectsQuery,
+	useProjectDetailQuery,
+} from "@/features/project/projects/queries";
 import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import {
 	useHydratedFormOnOpen,
@@ -161,7 +164,9 @@ export function EnrollmentEditorDrawer({
 			loadedFormValues.status,
 		].join("|");
 	}, [enrollmentDetailQuery.data, isCreateMode, loadedFormValues, mode]);
-	const canRenderForm = isCreateMode ? true : Boolean(enrollmentDetailQuery.data);
+	const canRenderForm = isCreateMode
+		? true
+		: Boolean(enrollmentDetailQuery.data);
 	const isDrawerLoading =
 		open &&
 		(projectsQuery.isLoading ||
@@ -186,7 +191,9 @@ export function EnrollmentEditorDrawer({
 		: getEnrollmentDialogTitle(
 				projectDetailQuery.data ?? null,
 				enrollmentDetailQuery.data
-					? formerStudentById.get(enrollmentDetailQuery.data.formerStudentId) ?? null
+					? (formerStudentById.get(
+							enrollmentDetailQuery.data.formerStudentId,
+						) ?? null)
 					: null,
 				accountById,
 			) || drawerTitleFallback;
@@ -352,15 +359,20 @@ export function EnrollmentEditorDrawer({
 					form={form}
 					mode={mode}
 					enrollment={enrollmentDetailQuery.data ?? null}
-					enrollmentError={enrollmentDetailQuery.isError ? enrollmentDetailQuery.error : null}
+					enrollmentError={
+						enrollmentDetailQuery.isError ? enrollmentDetailQuery.error : null
+					}
 					project={projectDetailQuery.data ?? null}
-					projectError={projectDetailQuery.isError ? projectDetailQuery.error : null}
+					projectError={
+						projectDetailQuery.isError ? projectDetailQuery.error : null
+					}
 					projectOptions={projectOptions}
 					projectsError={projectsQuery.isError ? projectsQuery.error : null}
 					formerStudent={
 						enrollmentDetailQuery.data
-							? formerStudentById.get(enrollmentDetailQuery.data.formerStudentId) ??
-								null
+							? (formerStudentById.get(
+									enrollmentDetailQuery.data.formerStudentId,
+								) ?? null)
 							: null
 					}
 					formerStudentError={
@@ -388,7 +400,9 @@ export function EnrollmentEditorDrawer({
 			>
 				<AlertDialogContent variant="danger">
 					<AlertDialogHeader>
-						<AlertDialogTitle>{t("common.resetConfirm.title")}</AlertDialogTitle>
+						<AlertDialogTitle>
+							{t("common.resetConfirm.title")}
+						</AlertDialogTitle>
 						<AlertDialogDescription>
 							{t("common.resetConfirm.description")}
 						</AlertDialogDescription>

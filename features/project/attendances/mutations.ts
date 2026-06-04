@@ -24,7 +24,9 @@ function upsertListItem<TItem>(
 	const nextId = getId(nextItem);
 	const existingIndex = items.findIndex(item => getId(item) === nextId);
 	if (existingIndex === -1) return [nextItem, ...items];
-	return items.map((item, index) => (index === existingIndex ? nextItem : item));
+	return items.map((item, index) =>
+		index === existingIndex ? nextItem : item,
+	);
 }
 
 function removeListItem<TItem>(
@@ -39,7 +41,10 @@ function writeAttendanceCaches(
 	queryClient: QueryClient,
 	attendance: AttendanceResponse,
 ) {
-	queryClient.setQueryData(attendanceQueryKeys.detail(attendance.id), attendance);
+	queryClient.setQueryData(
+		attendanceQueryKeys.detail(attendance.id),
+		attendance,
+	);
 	queryClient.setQueryData<AttendanceResponse[]>(
 		attendanceQueryKeys.list(),
 		current => upsertListItem(current, attendance, item => item.id),
@@ -47,12 +52,17 @@ function writeAttendanceCaches(
 	queryClient.invalidateQueries({ queryKey: attendanceQueryKeys.all });
 }
 
-function removeAttendanceCaches(queryClient: QueryClient, attendanceId: string) {
+function removeAttendanceCaches(
+	queryClient: QueryClient,
+	attendanceId: string,
+) {
 	queryClient.setQueryData<AttendanceResponse[]>(
 		attendanceQueryKeys.list(),
 		current => removeListItem(current, attendanceId, item => item.id),
 	);
-	queryClient.removeQueries({ queryKey: attendanceQueryKeys.detail(attendanceId) });
+	queryClient.removeQueries({
+		queryKey: attendanceQueryKeys.detail(attendanceId),
+	});
 	queryClient.invalidateQueries({ queryKey: attendanceQueryKeys.all });
 }
 

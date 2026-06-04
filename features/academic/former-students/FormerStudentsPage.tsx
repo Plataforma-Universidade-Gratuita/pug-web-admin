@@ -97,7 +97,9 @@ export function FormerStudentsPage() {
 	const [pendingDeleteStudent, setPendingDeleteStudent] =
 		useState<FormerStudentDirectoryItem | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
-	const deferredRegistrationSearch = useDeferredValue(registrationSearch.trim());
+	const deferredRegistrationSearch = useDeferredValue(
+		registrationSearch.trim(),
+	);
 	const formerStudentsQuery = useFormerStudentsQuery();
 	const coursesQuery = useCoursesQuery();
 	const accountsQuery = useAccountsQuery();
@@ -250,7 +252,9 @@ export function FormerStudentsPage() {
 
 	async function handleDuplicate(formerStudent: FormerStudentDirectoryItem) {
 		try {
-			const formerStudentDetail = await getFormerStudent(formerStudent.accountId);
+			const formerStudentDetail = await getFormerStudent(
+				formerStudent.accountId,
+			);
 			const linkedAccount = await getAccount(formerStudent.accountId);
 			const linkedUser = await getUser(linkedAccount.userId);
 
@@ -431,7 +435,9 @@ export function FormerStudentsPage() {
 				/>
 
 				<TextFieldFilter
-					label={t("academic.studentPage.filters.frontendAcademicRegistration.label")}
+					label={t(
+						"academic.studentPage.filters.frontendAcademicRegistration.label",
+					)}
 					value={registrationSearch}
 					onChange={setRegistrationSearch}
 					placeholder={t(

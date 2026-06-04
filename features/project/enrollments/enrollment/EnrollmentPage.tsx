@@ -106,7 +106,9 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 				enrollmentDetailQuery.error.status === 404 ? (
 					<NotFoundState
 						title={t("project.enrollmentPage.dialog.notFound.title")}
-						description={t("project.enrollmentPage.dialog.notFound.description")}
+						description={t(
+							"project.enrollmentPage.dialog.notFound.description",
+						)}
 					/>
 				) : (
 					<SomeErrorState

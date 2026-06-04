@@ -131,11 +131,9 @@ export function AttendanceEditorDrawer({
 			return null;
 		}
 
-		return [
-			mode,
-			attendanceDetailQuery.data.id,
-			loadedFormValues.status,
-		].join("|");
+		return [mode, attendanceDetailQuery.data.id, loadedFormValues.status].join(
+			"|",
+		);
 	}, [attendanceDetailQuery.data, isCreateMode, loadedFormValues, mode]);
 	const isDrawerLoading =
 		open &&
@@ -148,19 +146,20 @@ export function AttendanceEditorDrawer({
 					formerStudentDetailQuery.isLoading ||
 					projectDetailQuery.isLoading)));
 	const isSubmitPending = createMutation.isPending || updateMutation.isPending;
-	const canRenderForm = isCreateMode ? true : Boolean(attendanceDetailQuery.data);
+	const canRenderForm = isCreateMode
+		? true
+		: Boolean(attendanceDetailQuery.data);
 	const drawerOverhead = t(
 		isCreateMode
 			? "project.attendancePage.create.overhead"
 			: "project.attendancePage.update.overhead",
 	);
-	const drawerTitle =
-		isCreateMode
-			? t("project.attendancePage.create.titleFallback")
-			: projectDetailQuery.data?.name ??
-				formerStudentDetailQuery.data?.academicRegistration ??
-				attendanceDetailQuery.data?.id ??
-				t("project.attendancePage.update.titleFallback");
+	const drawerTitle = isCreateMode
+		? t("project.attendancePage.create.titleFallback")
+		: (projectDetailQuery.data?.name ??
+			formerStudentDetailQuery.data?.academicRegistration ??
+			attendanceDetailQuery.data?.id ??
+			t("project.attendancePage.update.titleFallback"));
 
 	useQueryErrorToasts([
 		{
@@ -342,7 +341,9 @@ export function AttendanceEditorDrawer({
 						void projectDetailQuery.refetch();
 					}}
 					project={projectDetailQuery.data ?? null}
-					projectError={projectDetailQuery.isError ? projectDetailQuery.error : null}
+					projectError={
+						projectDetailQuery.isError ? projectDetailQuery.error : null
+					}
 					projectOptions={projectOptions}
 					projectsError={projectsQuery.isError ? projectsQuery.error : null}
 				/>
@@ -354,7 +355,9 @@ export function AttendanceEditorDrawer({
 			>
 				<AlertDialogContent variant="danger">
 					<AlertDialogHeader>
-						<AlertDialogTitle>{t("common.resetConfirm.title")}</AlertDialogTitle>
+						<AlertDialogTitle>
+							{t("common.resetConfirm.title")}
+						</AlertDialogTitle>
 						<AlertDialogDescription>
 							{t("common.resetConfirm.description")}
 						</AlertDialogDescription>

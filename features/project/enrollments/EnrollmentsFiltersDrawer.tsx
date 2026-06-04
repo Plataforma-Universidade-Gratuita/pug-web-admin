@@ -1,14 +1,10 @@
 "use client";
 
 import { useMemo } from "react";
+
 import { useTranslation } from "react-i18next";
 
-import {
-	Combobox,
-	DatePicker,
-	Label,
-	SomeErrorState,
-} from "@/components";
+import { Combobox, DatePicker, Label, SomeErrorState } from "@/components";
 import { getEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
 import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import type { EnrollmentStatus, EnrollmentsFiltersDrawerProps } from "@/types";
@@ -68,7 +64,9 @@ export function EnrollmentsFiltersDrawer({
 						options={projectOptions}
 						values={filters.projectIds}
 						onValuesChange={value => onFilterChange("projectIds", value)}
-						placeholder={t("project.enrollmentPage.filters.project.placeholder")}
+						placeholder={t(
+							"project.enrollmentPage.filters.project.placeholder",
+						)}
 						searchPlaceholder={t(
 							"project.enrollmentPage.filters.project.searchPlaceholder",
 						)}
@@ -94,10 +92,10 @@ export function EnrollmentsFiltersDrawer({
 						multiple
 						options={formerStudentOptions}
 						values={filters.formerStudentIds}
-						onValuesChange={value =>
-							onFilterChange("formerStudentIds", value)
-						}
-						placeholder={t("project.enrollmentPage.filters.student.placeholder")}
+						onValuesChange={value => onFilterChange("formerStudentIds", value)}
+						placeholder={t(
+							"project.enrollmentPage.filters.student.placeholder",
+						)}
 						searchPlaceholder={t(
 							"project.enrollmentPage.filters.student.searchPlaceholder",
 						)}
@@ -121,9 +119,7 @@ export function EnrollmentsFiltersDrawer({
 					searchPlaceholder={t(
 						"project.enrollmentPage.filters.status.searchPlaceholder",
 					)}
-					emptyMessage={t(
-						"project.enrollmentPage.filters.status.emptyMessage",
-					)}
+					emptyMessage={t("project.enrollmentPage.filters.status.emptyMessage")}
 				/>
 			</div>
 
@@ -152,7 +148,9 @@ export function EnrollmentsFiltersDrawer({
 				<DatePicker
 					value={filters.dateFrom}
 					onValueChange={value => onFilterChange("dateFrom", value)}
-					placeholder={t("project.enrollmentPage.filters.startDate.placeholder")}
+					placeholder={t(
+						"project.enrollmentPage.filters.startDate.placeholder",
+					)}
 				/>
 			</div>
 

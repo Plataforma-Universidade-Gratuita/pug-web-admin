@@ -4,7 +4,13 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Combobox, Label, NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	Combobox,
+	Label,
+	NoContentState,
+	SomeErrorState,
+	toast,
+} from "@/components";
 import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
 import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { useUsersQuery } from "@/features/identity/users/queries";
@@ -65,7 +71,9 @@ import type {
 export function EnrollmentsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
-	const [frontendStatuses, setFrontendStatuses] = useState<EnrollmentStatus[]>([]);
+	const [frontendStatuses, setFrontendStatuses] = useState<EnrollmentStatus[]>(
+		[],
+	);
 	const [filtersOpen, setFiltersOpen] = useState(false);
 	const editorState = useServicePageEditorState<EnrollmentEditorMode>({
 		createMode: "create",
@@ -357,10 +365,8 @@ export function EnrollmentsPage() {
 							);
 						},
 						onError: error => {
-							const { title, description } = getEnrollmentDeleteErrorToastContent(
-								t,
-								error,
-							);
+							const { title, description } =
+								getEnrollmentDeleteErrorToastContent(t, error);
 							toast.danger(title, { description });
 						},
 					},
@@ -386,7 +392,9 @@ export function EnrollmentsPage() {
 			{
 				onSuccess: () => {
 					toast.success(
-						t(`project.enrollmentPage.${current.action}.feedback.success.title`),
+						t(
+							`project.enrollmentPage.${current.action}.feedback.success.title`,
+						),
 						{
 							description: t(
 								`project.enrollmentPage.${current.action}.feedback.success.description`,
@@ -443,7 +451,9 @@ export function EnrollmentsPage() {
 					/>
 
 					<div className="grid gap-2">
-						<Label>{t("project.enrollmentPage.filters.frontStatus.label")}</Label>
+						<Label>
+							{t("project.enrollmentPage.filters.frontStatus.label")}
+						</Label>
 						<Combobox
 							multiple
 							options={statusOptions}
@@ -451,7 +461,9 @@ export function EnrollmentsPage() {
 							onValuesChange={value =>
 								setFrontendStatuses(value as EnrollmentStatus[])
 							}
-							placeholder={t("project.enrollmentPage.filters.frontStatus.placeholder")}
+							placeholder={t(
+								"project.enrollmentPage.filters.frontStatus.placeholder",
+							)}
 							searchPlaceholder={t(
 								"project.enrollmentPage.filters.frontStatus.searchPlaceholder",
 							)}

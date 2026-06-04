@@ -152,7 +152,9 @@ export function FormerStudentsFiltersDrawer({
 							searchPlaceholder={t(
 								"academic.studentPage.filters.campus.searchPlaceholder",
 							)}
-							emptyMessage={t("academic.studentPage.filters.campus.emptyMessage")}
+							emptyMessage={t(
+								"academic.studentPage.filters.campus.emptyMessage",
+							)}
 						/>
 					</div>
 
@@ -173,7 +175,9 @@ export function FormerStudentsFiltersDrawer({
 									options={courseOptions}
 									values={courseIds}
 									onValuesChange={onCourseIdsChange}
-									placeholder={t("academic.studentPage.filters.course.placeholder")}
+									placeholder={t(
+										"academic.studentPage.filters.course.placeholder",
+									)}
 									searchPlaceholder={t(
 										"academic.studentPage.filters.course.searchPlaceholder",
 									)}
@@ -185,7 +189,9 @@ export function FormerStudentsFiltersDrawer({
 							</div>
 
 							<div className="grid gap-2">
-								<Label>{t("academic.studentPage.filters.areaOfExpertise.label")}</Label>
+								<Label>
+									{t("academic.studentPage.filters.areaOfExpertise.label")}
+								</Label>
 								<Combobox
 									multiple
 									options={areaOfExpertiseOptions}
@@ -211,7 +217,9 @@ export function FormerStudentsFiltersDrawer({
 						<DatePicker
 							value={periodFrom}
 							onValueChange={onPeriodFromChange}
-							placeholder={t("academic.studentPage.filters.periodFrom.placeholder")}
+							placeholder={t(
+								"academic.studentPage.filters.periodFrom.placeholder",
+							)}
 						/>
 					</div>
 
@@ -220,7 +228,9 @@ export function FormerStudentsFiltersDrawer({
 						<DatePicker
 							value={periodTo}
 							onValueChange={onPeriodToChange}
-							placeholder={t("academic.studentPage.filters.periodTo.placeholder")}
+							placeholder={t(
+								"academic.studentPage.filters.periodTo.placeholder",
+							)}
 						/>
 					</div>
 
@@ -245,7 +255,9 @@ export function FormerStudentsFiltersDrawer({
 						<DatePicker
 							value={dateFrom}
 							onValueChange={onDateFromChange}
-							placeholder={t("identity.accountPage.filters.startDate.placeholder")}
+							placeholder={t(
+								"identity.accountPage.filters.startDate.placeholder",
+							)}
 						/>
 					</div>
 
@@ -254,7 +266,9 @@ export function FormerStudentsFiltersDrawer({
 						<DatePicker
 							value={dateTo}
 							onValueChange={onDateToChange}
-							placeholder={t("identity.accountPage.filters.endDate.placeholder")}
+							placeholder={t(
+								"identity.accountPage.filters.endDate.placeholder",
+							)}
 						/>
 					</div>
 
@@ -262,7 +276,9 @@ export function FormerStudentsFiltersDrawer({
 						checked={activeOnly}
 						onCheckedChange={checked => onActiveOnlyChange(checked === true)}
 						label={t("identity.accountPage.filters.activeOnly.label")}
-						description={t("identity.accountPage.filters.activeOnly.description")}
+						description={t(
+							"identity.accountPage.filters.activeOnly.description",
+						)}
 					/>
 				</TabsContent>
 			</Tabs>

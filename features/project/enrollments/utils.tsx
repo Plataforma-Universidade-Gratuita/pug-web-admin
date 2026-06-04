@@ -66,8 +66,9 @@ export function parseEnrollmentCompositeKey(value: string | null) {
 		}
 	})();
 
-	const [projectId, formerStudentId] =
-		normalizedValue.split(ENROLLMENT_KEY_SEPARATOR);
+	const [projectId, formerStudentId] = normalizedValue.split(
+		ENROLLMENT_KEY_SEPARATOR,
+	);
 	if (!projectId || !formerStudentId) {
 		return null;
 	}

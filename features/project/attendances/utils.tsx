@@ -146,10 +146,9 @@ export function mapAttendancesToDirectoryItems(
 		const studentUser = formerStudent
 			? getFormerStudentUser(formerStudent, accountById, userById)
 			: undefined;
-		const validator =
-			attendance.attendanceInfo.validatedBy
-				? accountById.get(attendance.attendanceInfo.validatedBy) ?? null
-				: null;
+		const validator = attendance.attendanceInfo.validatedBy
+			? (accountById.get(attendance.attendanceInfo.validatedBy) ?? null)
+			: null;
 
 		if (!project || !formerStudent || !studentAccount || !studentUser) {
 			return [];
@@ -252,8 +251,7 @@ export function createAttendanceColumns(
 			cell: ({ row }) =>
 				row.original.attendanceInfo.validatedBy
 					? row.original.validator.name
-					:
-					t("project.attendancePage.table.values.notValidated"),
+					: t("project.attendancePage.table.values.notValidated"),
 		},
 		{
 			accessorFn: row => row.attendanceInfo.validatedAtFormatted,
@@ -299,7 +297,9 @@ export function buildAttendanceComplexSearchRequest(filters: {
 		durationFrom: filters.durationFrom.trim()
 			? Number(filters.durationFrom)
 			: undefined,
-		durationTo: filters.durationTo.trim() ? Number(filters.durationTo) : undefined,
+		durationTo: filters.durationTo.trim()
+			? Number(filters.durationTo)
+			: undefined,
 		dateFrom: toSearchDateOffsetDateTime(filters.dateFrom, "start"),
 		dateTo: toSearchDateOffsetDateTime(filters.dateTo, "end"),
 	};
@@ -329,10 +329,15 @@ export function filterAttendancesByBackendFilters(
 	const hasDateRange = Boolean(filters.dateFrom || filters.dateTo);
 
 	return items.filter(item => {
-		if (hasProjects && !filters.projectIds.includes(item.project.id)) return false;
-		if (hasStudents && !filters.formerStudentIds.includes(item.student.account.id))
+		if (hasProjects && !filters.projectIds.includes(item.project.id))
 			return false;
-		if (hasStatuses && !filters.statuses.includes(item.status.status)) return false;
+		if (
+			hasStudents &&
+			!filters.formerStudentIds.includes(item.student.account.id)
+		)
+			return false;
+		if (hasStatuses && !filters.statuses.includes(item.status.status))
+			return false;
 		if (
 			hasValidators &&
 			!filters.validatedByIds.includes(item.validator?.id ?? "")
@@ -388,19 +393,30 @@ export function filterAttendanceListByBackendFilters(
 	return attendances.filter(attendance => {
 		if (hasProjects && !filters.projectIds.includes(attendance.projectId))
 			return false;
-		if (hasStudents && !filters.formerStudentIds.includes(attendance.formerStudentId))
+		if (
+			hasStudents &&
+			!filters.formerStudentIds.includes(attendance.formerStudentId)
+		)
 			return false;
 		if (hasStatuses && !filters.statuses.includes(attendance.status.status))
 			return false;
 		if (
 			hasValidators &&
-			!filters.validatedByIds.includes(attendance.attendanceInfo.validatedBy ?? "")
+			!filters.validatedByIds.includes(
+				attendance.attendanceInfo.validatedBy ?? "",
+			)
 		) {
 			return false;
 		}
-		if (durationFrom !== null && attendance.qrValidationInfo.duration < durationFrom)
+		if (
+			durationFrom !== null &&
+			attendance.qrValidationInfo.duration < durationFrom
+		)
 			return false;
-		if (durationTo !== null && attendance.qrValidationInfo.duration > durationTo)
+		if (
+			durationTo !== null &&
+			attendance.qrValidationInfo.duration > durationTo
+		)
 			return false;
 		if (
 			hasDateRange &&
@@ -496,7 +512,9 @@ export function getAttendancesListErrorToastContent(
 ) {
 	return getApiErrorToastContent(error, {
 		fallbackTitle: t("project.attendancePage.feedback.listError.title"),
-		fallbackDescription: t("project.attendancePage.feedback.listError.description"),
+		fallbackDescription: t(
+			"project.attendancePage.feedback.listError.description",
+		),
 	});
 }
 
@@ -506,7 +524,9 @@ export function getAttendanceDetailErrorToastContent(
 ) {
 	return getApiErrorToastContent(error, {
 		fallbackTitle: t("project.attendancePage.feedback.detailError.title"),
-		fallbackDescription: t("project.attendancePage.feedback.detailError.description"),
+		fallbackDescription: t(
+			"project.attendancePage.feedback.detailError.description",
+		),
 	});
 }
 
@@ -516,7 +536,9 @@ export function getAttendanceProjectsErrorToastContent(
 ) {
 	return getApiErrorToastContent(error, {
 		fallbackTitle: t("project.attendancePage.feedback.projectsError.title"),
-		fallbackDescription: t("project.attendancePage.feedback.projectsError.description"),
+		fallbackDescription: t(
+			"project.attendancePage.feedback.projectsError.description",
+		),
 	});
 }
 
@@ -526,7 +548,9 @@ export function getAttendanceStudentsErrorToastContent(
 ) {
 	return getApiErrorToastContent(error, {
 		fallbackTitle: t("project.attendancePage.feedback.studentsError.title"),
-		fallbackDescription: t("project.attendancePage.feedback.studentsError.description"),
+		fallbackDescription: t(
+			"project.attendancePage.feedback.studentsError.description",
+		),
 	});
 }
 
@@ -536,7 +560,9 @@ export function getAttendanceAdminsErrorToastContent(
 ) {
 	return getApiErrorToastContent(error, {
 		fallbackTitle: t("project.attendancePage.feedback.adminsError.title"),
-		fallbackDescription: t("project.attendancePage.feedback.adminsError.description"),
+		fallbackDescription: t(
+			"project.attendancePage.feedback.adminsError.description",
+		),
 	});
 }
 
@@ -546,7 +572,9 @@ export function getAttendanceCreateErrorToastContent(
 ) {
 	return getApiErrorToastContent(error, {
 		fallbackTitle: t("project.attendancePage.feedback.createError.title"),
-		fallbackDescription: t("project.attendancePage.feedback.createError.description"),
+		fallbackDescription: t(
+			"project.attendancePage.feedback.createError.description",
+		),
 	});
 }
 
@@ -568,7 +596,9 @@ export function getAttendanceDeleteErrorToastContent(
 ) {
 	return getApiErrorToastContent(error, {
 		fallbackTitle: t("project.attendancePage.feedback.deleteError.title"),
-		fallbackDescription: t("project.attendancePage.feedback.deleteError.description"),
+		fallbackDescription: t(
+			"project.attendancePage.feedback.deleteError.description",
+		),
 	});
 }
 

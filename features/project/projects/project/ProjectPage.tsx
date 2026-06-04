@@ -2,11 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import {
-	NoContentState,
-	NotFoundState,
-	SomeErrorState,
-} from "@/components";
+import { NoContentState, NotFoundState, SomeErrorState } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";

@@ -69,7 +69,8 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 
 	if (slug.length === 1) {
 		const url = new URL(request.url);
-		const formerStudentId = url.searchParams.get("formerStudentId") ?? undefined;
+		const formerStudentId =
+			url.searchParams.get("formerStudentId") ?? undefined;
 		return routeWithAuthRetry(
 			token => enrollments.create(slug[0]!, formerStudentId, token),
 			EnrollmentResponseSchema,
@@ -83,7 +84,10 @@ export async function PATCH(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 
 	if (slug.length === 2 && slug[1] === "me") {
-		const body = await parseRouteBody(request, EnrollmentUpdateStatusRequestSchema);
+		const body = await parseRouteBody(
+			request,
+			EnrollmentUpdateStatusRequestSchema,
+		);
 		return routeWithAuthRetry(
 			token => enrollments.updateMyStatus(slug[0]!, body.status, token),
 			EnrollmentResponseSchema,
@@ -91,7 +95,10 @@ export async function PATCH(request: Request, { params }: AppRouteSlugContext) {
 	}
 
 	if (slug.length === 2) {
-		const body = await parseRouteBody(request, EnrollmentUpdateStatusRequestSchema);
+		const body = await parseRouteBody(
+			request,
+			EnrollmentUpdateStatusRequestSchema,
+		);
 		return routeWithAuthRetry(
 			token => enrollments.updateStatus(slug[0]!, slug[1]!, body.status, token),
 			EnrollmentResponseSchema,
