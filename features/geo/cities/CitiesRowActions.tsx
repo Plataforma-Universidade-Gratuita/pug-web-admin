@@ -1,24 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
-import { ArrowUpRight } from "lucide-react";
-import { useTranslation } from "react-i18next";
-
-import { DropdownMenuInfoItem } from "@/components";
+import { ViewDetailsRowAction } from "@/components";
 import type { CitiesRowActionsProps } from "@/types";
 
 export function CitiesRowActions({ href }: CitiesRowActionsProps) {
-	const { t } = useTranslation();
-	const router = useRouter();
-
-	return (
-		<DropdownMenuInfoItem
-			icon={ArrowUpRight}
-			label={t("common.table.actions.viewDetails")}
-			onClick={() => {
-				router.push(href);
-			}}
-		/>
-	);
+	return <ViewDetailsRowAction href={href} />;
 }

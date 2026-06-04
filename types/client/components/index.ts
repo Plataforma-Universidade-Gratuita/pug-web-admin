@@ -10,4 +10,5 @@ export * from "./overlays";
 export * from "./overlays/index";
 export * from "./surfaces";
 export * from "./actions";
+export * from "./composite";
 export * from "./structure";

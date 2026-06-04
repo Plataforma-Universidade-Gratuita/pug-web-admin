@@ -72,7 +72,7 @@ This plan is intentionally detailed because there are now many service-page impl
 
 ### Current structural pain points
 
-- [ ] Generic row actions are repeated across many modules.
+- [x] Generic row actions are repeated across many modules.
 - [ ] Generic action copy is repeated or borrowed from unrelated namespaces.
 - [ ] Filter drawers repeatedly rebuild the same labeled fields and async combobox blocks.
 - [ ] Activatable/delete flows are implemented multiple times with mostly the same shape.
@@ -106,8 +106,8 @@ These are the primary service-page slices to use as the reference set:
 
 The order matters. The safest sequence is:
 
-- [ ] Phase 1: common copy namespace and naming cleanup
-- [ ] Phase 2: row-action component abstraction
+- [x] Phase 1: common copy namespace and naming cleanup
+- [x] Phase 2: row-action component abstraction
 - [ ] Phase 3: filter field composites
 - [ ] Phase 4: page action hooks/dialog abstraction
 - [ ] Phase 5: editor shared blocks
@@ -202,27 +202,27 @@ Proposed location:
 
 Proposed components:
 
-- [ ] `ViewDetailsRowAction`
-- [ ] `UpdateRowAction`
-- [ ] `DuplicateRowAction`
-- [ ] `DeleteRowAction`
-- [ ] `ReactivateRowAction`
-- [ ] `DeactivateRowAction`
+- [x] `ViewDetailsRowAction`
+  - [x] `UpdateRowAction`
+  - [x] `DuplicateRowAction`
+  - [x] `DeleteRowAction`
+  - [x] `ReactivateRowAction`
+  - [x] `DeactivateRowAction`
 
 Each should encapsulate:
 
-- [ ] icon
-- [ ] label
-- [ ] dropdown item tone (`info`, `default`, `danger`, `success`, `warning`)
-- [ ] click behavior
+- [x] icon
+  - [x] label
+  - [x] dropdown item tone (`info`, `default`, `danger`, `success`, `warning`)
+  - [x] click behavior
 
 ### 2.2 Keep domain-specific status actions local
 
 Do **not** genericize these yet:
 
-- [ ] project status actions (`start`, `hold`, `complete`, `retake`, `cancel`)
-- [ ] enrollment status actions (`accept`, `reject`, `complete`, `remove`, `cancel`)
-- [ ] attendance validation actions (`markPresent`, `markAbsent`, `viewQrCode`)
+- [x] project status actions (`start`, `hold`, `complete`, `retake`, `cancel`)
+  - [x] enrollment status actions (`accept`, `reject`, `complete`, `remove`, `cancel`)
+  - [x] attendance validation actions (`markPresent`, `markAbsent`, `viewQrCode`)
 
 These can still **use** the common primitives for generic actions around them.
 
@@ -230,27 +230,27 @@ These can still **use** the common primitives for generic actions around them.
 
 Simple view-only pages:
 
-- [ ] `features/geo/cities/CitiesRowActions.tsx`
-- [ ] `features/identity/accounts/AccountsRowActions.tsx`
-- [ ] `features/identity/users/UsersRowActions.tsx`
+- [x] `features/geo/cities/CitiesRowActions.tsx`
+  - [x] `features/identity/accounts/AccountsRowActions.tsx`
+  - [x] `features/identity/users/UsersRowActions.tsx`
 
 CRUD pages:
 
-- [ ] `features/partner/entities/EntitiesRowActions.tsx`
-- [ ] `features/academic/areas-of-expertise/AreasOfExpertiseRowActions.tsx`
-- [ ] `features/academic/courses/CoursesRowActions.tsx`
+- [x] `features/partner/entities/EntitiesRowActions.tsx`
+  - [x] `features/academic/areas-of-expertise/AreasOfExpertiseRowActions.tsx`
+  - [x] `features/academic/courses/CoursesRowActions.tsx`
 
 Activatable pages:
 
-- [ ] `features/identity/admins/AdminsRowActions.tsx`
-- [ ] `features/partner/staff/StaffRowActions.tsx`
-- [ ] `features/academic/former-students/FormerStudentsRowActions.tsx`
+- [x] `features/identity/admins/AdminsRowActions.tsx`
+  - [x] `features/partner/staff/StaffRowActions.tsx`
+  - [x] `features/academic/former-students/FormerStudentsRowActions.tsx`
 
 Mixed domain pages:
 
-- [ ] `features/project/projects/ProjectsRowActions.tsx`
-- [ ] `features/project/enrollments/EnrollmentsRowActions.tsx`
-- [ ] `features/project/attendances/AttendancesRowActions.tsx`
+- [x] `features/project/projects/ProjectsRowActions.tsx`
+  - [x] `features/project/enrollments/EnrollmentsRowActions.tsx`
+  - [x] `features/project/attendances/AttendancesRowActions.tsx`
 
 ### 2.4 Optional follow-up
 
@@ -261,7 +261,7 @@ Default answer for now: probably **not yet**. Shared action components are enoug
 
 ### 2.5 Validation
 
-- [ ] `npm run format`
+- [x] `npm run format`
 - [ ] smoke check row menus in at least:
   - admins
   - staff
@@ -647,11 +647,11 @@ These should **not** be attempted during this pass unless a concrete need appear
 
 If resuming this plan from a fresh session, start here:
 
-- [ ] create common copy keys for generic table actions and generic filters
-- [ ] replace current duplicate `viewDetails/update/duplicate/delete/reactivate/deactivate` labels with those common keys
-- [ ] introduce `components/composite/row-actions/*`
-- [ ] migrate `CitiesRowActions`, `AccountsRowActions`, `UsersRowActions`
-- [ ] migrate `AdminsRowActions`, `StaffRowActions`, `FormerStudentsRowActions`
-- [ ] rerun `npm run format`
+- [x] create common copy keys for generic table actions and generic filters
+  - [x] replace current duplicate `viewDetails/update/duplicate/delete/reactivate/deactivate` labels with those common keys
+  - [x] introduce `components/composite/row-actions/*`
+  - [x] migrate `CitiesRowActions`, `AccountsRowActions`, `UsersRowActions`
+  - [x] migrate `AdminsRowActions`, `StaffRowActions`, `FormerStudentsRowActions`
+  - [x] rerun `npm run format`
 
 That batch is high-value, low-risk, and clears the path for the rest of the cleanup.

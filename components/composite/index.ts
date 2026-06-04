@@ -6,3 +6,4 @@ export * from "./grids";
 export * from "./filters";
 export * from "./linked-blocks";
 export * from "./popovers";
+export * from "./row-actions";

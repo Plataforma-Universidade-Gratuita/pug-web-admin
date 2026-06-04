@@ -1,23 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
-import {
-	ArrowUpRight,
-	Ban,
-	Check,
-	CheckCheck,
-	Trash2,
-	UserMinus,
-	XCircle,
-} from "lucide-react";
+import { Ban, Check, CheckCheck, UserMinus, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
+	DeleteRowAction,
 	DropdownMenuDangerItem,
-	DropdownMenuInfoItem,
 	DropdownMenuSeparator,
 	DropdownMenuSuccessItem,
+	ViewDetailsRowAction,
 	DropdownMenuWarningItem,
 } from "@/components";
 import type { EnrollmentsRowActionsProps } from "@/types";
@@ -29,17 +20,10 @@ export function EnrollmentsRowActions({
 	onStatusAction,
 }: EnrollmentsRowActionsProps) {
 	const { t } = useTranslation();
-	const router = useRouter();
 
 	return (
 		<>
-			<DropdownMenuInfoItem
-				icon={ArrowUpRight}
-				label={t("common.table.actions.viewDetails")}
-				onClick={() => {
-					router.push(href);
-				}}
-			/>
+			<ViewDetailsRowAction href={href} />
 
 			{enrollment.status.status === "PENDING" ? (
 				<>
@@ -89,11 +73,7 @@ export function EnrollmentsRowActions({
 			) : null}
 
 			<DropdownMenuSeparator />
-			<DropdownMenuDangerItem
-				icon={Trash2}
-				label={t("common.table.actions.delete")}
-				onClick={() => onDelete(enrollment)}
-			/>
+			<DeleteRowAction onClick={() => onDelete(enrollment)} />
 		</>
 	);
 }

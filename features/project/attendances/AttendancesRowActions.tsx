@@ -1,15 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
-import { ArrowUpRight, Check, QrCode, Trash2, UserRoundX } from "lucide-react";
+import { Check, QrCode, UserRoundX } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
-	DropdownMenuDangerItem,
+	DeleteRowAction,
 	DropdownMenuInfoItem,
 	DropdownMenuSeparator,
 	DropdownMenuSuccessItem,
+	ViewDetailsRowAction,
 	DropdownMenuWarningItem,
 } from "@/components";
 import type { AttendancesRowActionsProps } from "@/types";
@@ -22,17 +21,10 @@ export function AttendancesRowActions({
 	onViewQrCode,
 }: AttendancesRowActionsProps) {
 	const { t } = useTranslation();
-	const router = useRouter();
 
 	return (
 		<>
-			<DropdownMenuInfoItem
-				icon={ArrowUpRight}
-				label={t("common.table.actions.viewDetails")}
-				onClick={() => {
-					router.push(href);
-				}}
-			/>
+			<ViewDetailsRowAction href={href} />
 			<DropdownMenuInfoItem
 				icon={QrCode}
 				label={t("project.attendancePage.table.actions.viewQrCode")}
@@ -54,11 +46,7 @@ export function AttendancesRowActions({
 				/>
 			) : null}
 			<DropdownMenuSeparator />
-			<DropdownMenuDangerItem
-				icon={Trash2}
-				label={t("common.table.actions.delete")}
-				onClick={() => onDelete(attendance)}
-			/>
+			<DeleteRowAction onClick={() => onDelete(attendance)} />
 		</>
 	);
 }

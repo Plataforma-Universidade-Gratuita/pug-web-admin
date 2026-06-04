@@ -1,26 +1,17 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
-import {
-	ArrowUpRight,
-	Ban,
-	CheckCheck,
-	CopyPlus,
-	Pause,
-	PenSquare,
-	Play,
-	RotateCcw,
-	Trash2,
-} from "lucide-react";
+import { Ban, CheckCheck, Pause, Play, RotateCcw } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
+	DeleteRowAction,
+	DuplicateRowAction,
 	DropdownMenuDangerItem,
 	DropdownMenuInfoItem,
-	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuSuccessItem,
+	UpdateRowAction,
+	ViewDetailsRowAction,
 	DropdownMenuWarningItem,
 } from "@/components";
 import type { ProjectsRowActionsProps } from "@/types";
@@ -34,27 +25,12 @@ export function ProjectsRowActions({
 	project,
 }: ProjectsRowActionsProps) {
 	const { t } = useTranslation();
-	const router = useRouter();
 
 	return (
 		<>
-			<DropdownMenuInfoItem
-				icon={ArrowUpRight}
-				label={t("common.table.actions.viewDetails")}
-				onClick={() => {
-					router.push(href);
-				}}
-			/>
-			<DropdownMenuItem
-				icon={PenSquare}
-				label={t("common.table.actions.update")}
-				onClick={() => onOpenEditor(project.id, "update")}
-			/>
-			<DropdownMenuItem
-				icon={CopyPlus}
-				label={t("common.table.actions.duplicate")}
-				onClick={() => onDuplicate(project)}
-			/>
+			<ViewDetailsRowAction href={href} />
+			<UpdateRowAction onClick={() => onOpenEditor(project.id, "update")} />
+			<DuplicateRowAction onClick={() => onDuplicate(project)} />
 
 			{project.status.status === "PLANNED" ? (
 				<>
@@ -110,11 +86,7 @@ export function ProjectsRowActions({
 			) : null}
 
 			<DropdownMenuSeparator />
-			<DropdownMenuDangerItem
-				icon={Trash2}
-				label={t("common.table.actions.delete")}
-				onClick={() => onDelete(project)}
-			/>
+			<DeleteRowAction onClick={() => onDelete(project)} />
 		</>
 	);
 }

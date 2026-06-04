@@ -1,24 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import {
-	ArrowUpRight,
-	CopyPlus,
-	PenSquare,
-	ShieldCheck,
-	ShieldX,
-	Trash2,
-} from "lucide-react";
-import { useTranslation } from "react-i18next";
-
-import {
-	DropdownMenuDangerItem,
-	DropdownMenuInfoItem,
-	DropdownMenuItem,
+	DeactivateRowAction,
+	DeleteRowAction,
+	DuplicateRowAction,
 	DropdownMenuSeparator,
-	DropdownMenuSuccessItem,
-	DropdownMenuWarningItem,
+	ReactivateRowAction,
+	UpdateRowAction,
+	ViewDetailsRowAction,
 } from "@/components";
 import type { StaffRowActionsProps } from "@/types";
 
@@ -30,47 +19,20 @@ export function StaffRowActions({
 	onSetActive,
 	staff,
 }: StaffRowActionsProps) {
-	const { t } = useTranslation();
-	const router = useRouter();
-
 	return (
 		<>
-			<DropdownMenuInfoItem
-				icon={ArrowUpRight}
-				label={t("common.table.actions.viewDetails")}
-				onClick={() => {
-					router.push(href);
-				}}
-			/>
-			<DropdownMenuItem
-				icon={PenSquare}
-				label={t("common.table.actions.update")}
+			<ViewDetailsRowAction href={href} />
+			<UpdateRowAction
 				onClick={() => onOpenEditor(staff.account.id, "update")}
 			/>
-			<DropdownMenuItem
-				icon={CopyPlus}
-				label={t("common.table.actions.duplicate")}
-				onClick={() => onDuplicate(staff)}
-			/>
+			<DuplicateRowAction onClick={() => onDuplicate(staff)} />
 			<DropdownMenuSeparator />
 			{staff.account.active ? (
-				<DropdownMenuWarningItem
-					icon={ShieldX}
-					label={t("common.table.actions.deactivate")}
-					onClick={() => onSetActive(staff, false)}
-				/>
+				<DeactivateRowAction onClick={() => onSetActive(staff, false)} />
 			) : (
-				<DropdownMenuSuccessItem
-					icon={ShieldCheck}
-					label={t("common.table.actions.reactivate")}
-					onClick={() => onSetActive(staff, true)}
-				/>
+				<ReactivateRowAction onClick={() => onSetActive(staff, true)} />
 			)}
-			<DropdownMenuDangerItem
-				icon={Trash2}
-				label={t("common.table.actions.delete")}
-				onClick={() => onDelete(staff)}
-			/>
+			<DeleteRowAction onClick={() => onDelete(staff)} />
 		</>
 	);
 }
