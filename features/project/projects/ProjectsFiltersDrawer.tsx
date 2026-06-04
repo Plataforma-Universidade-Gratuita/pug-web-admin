@@ -4,7 +4,12 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Combobox, DatePicker, Label, SomeErrorState } from "@/components";
+import {
+	AsyncComboboxFilterField,
+	Combobox,
+	DateRangeFilterFields,
+	Label,
+} from "@/components";
 import { getProjectStatusOptions } from "@/features/project/projects/utils";
 import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import {
@@ -75,26 +80,20 @@ export function ProjectsFiltersDrawer({
 				placeholder={t("project.projectPage.filters.name.placeholder")}
 			/>
 
-			{entitiesError ? (
-				<SomeErrorState
-					title={t("common.loadErrors.entities.title")}
-					description={t("common.loadErrors.entities.description")}
-					onRefresh={onRefreshEntities}
-				/>
-			) : (
-				<div className="grid gap-2">
-					<Label>{t("common.fields.entity")}</Label>
-					<Combobox
-						multiple
-						options={entityOptions}
-						values={entityIds}
-						onValuesChange={value => onEntityIdsChange(value)}
-						placeholder={t("common.placeholders.select")}
-						searchPlaceholder={t("common.placeholders.search")}
-						emptyMessage={t("common.placeholders.noResults")}
-					/>
-				</div>
-			)}
+			<AsyncComboboxFilterField
+				multiple
+				label={t("common.fields.entity")}
+				options={entityOptions}
+				values={entityIds}
+				onValuesChange={value => onEntityIdsChange(value)}
+				placeholder={t("common.placeholders.select")}
+				searchPlaceholder={t("common.placeholders.search")}
+				emptyMessage={t("common.placeholders.noResults")}
+				isError={Boolean(entitiesError)}
+				errorTitle={t("common.loadErrors.entities.title")}
+				errorDescription={t("common.loadErrors.entities.description")}
+				onRefreshError={onRefreshEntities}
+			/>
 
 			<TextFieldFilter
 				label={t("project.projectPage.filters.description.label")}
@@ -103,32 +102,24 @@ export function ProjectsFiltersDrawer({
 				placeholder={t("project.projectPage.filters.description.placeholder")}
 			/>
 
-			{creatorsError ? (
-				<SomeErrorState
-					title={t("project.projectPage.filters.createdBy.error.title")}
-					description={t(
-						"project.projectPage.filters.createdBy.error.description",
-					)}
-					onRefresh={onRefreshCreators}
-				/>
-			) : (
-				<div className="grid gap-2">
-					<Label>{t("project.projectPage.filters.createdBy.label")}</Label>
-					<Combobox
-						multiple
-						options={creatorOptions}
-						values={createdByIds}
-						onValuesChange={value => onCreatedByIdsChange(value)}
-						placeholder={t("project.projectPage.filters.createdBy.placeholder")}
-						searchPlaceholder={t(
-							"project.projectPage.filters.createdBy.searchPlaceholder",
-						)}
-						emptyMessage={t(
-							"project.projectPage.filters.createdBy.emptyMessage",
-						)}
-					/>
-				</div>
-			)}
+			<AsyncComboboxFilterField
+				multiple
+				label={t("project.projectPage.filters.createdBy.label")}
+				options={creatorOptions}
+				values={createdByIds}
+				onValuesChange={value => onCreatedByIdsChange(value)}
+				placeholder={t("project.projectPage.filters.createdBy.placeholder")}
+				searchPlaceholder={t(
+					"project.projectPage.filters.createdBy.searchPlaceholder",
+				)}
+				emptyMessage={t("project.projectPage.filters.createdBy.emptyMessage")}
+				isError={Boolean(creatorsError)}
+				errorTitle={t("project.projectPage.filters.createdBy.error.title")}
+				errorDescription={t(
+					"project.projectPage.filters.createdBy.error.description",
+				)}
+				onRefreshError={onRefreshCreators}
+			/>
 
 			<div className="grid gap-2">
 				<Label>{t("common.fields.status")}</Label>
@@ -159,23 +150,16 @@ export function ProjectsFiltersDrawer({
 				)}
 			/>
 
-			<div className="grid min-w-0 gap-2">
-				<Label>{t("common.filters.startDate.label")}</Label>
-				<DatePicker
-					value={dateFrom}
-					onValueChange={onDateFromChange}
-					placeholder={t("common.filters.startDate.placeholder")}
-				/>
-			</div>
-
-			<div className="grid min-w-0 gap-2">
-				<Label>{t("common.filters.endDate.label")}</Label>
-				<DatePicker
-					value={dateTo}
-					onValueChange={onDateToChange}
-					placeholder={t("common.filters.endDate.placeholder")}
-				/>
-			</div>
+			<DateRangeFilterFields
+				startLabel={t("common.filters.startDate.label")}
+				startValue={dateFrom}
+				onStartValueChange={onDateFromChange}
+				startPlaceholder={t("common.filters.startDate.placeholder")}
+				endLabel={t("common.filters.endDate.label")}
+				endValue={dateTo}
+				onEndValueChange={onDateToChange}
+				endPlaceholder={t("common.filters.endDate.placeholder")}
+			/>
 		</ServicePageFiltersDrawer>
 	);
 }

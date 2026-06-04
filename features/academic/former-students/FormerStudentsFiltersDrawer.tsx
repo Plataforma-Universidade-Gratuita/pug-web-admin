@@ -5,9 +5,10 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
+	AsyncComboboxFilterField,
 	Checkbox,
 	Combobox,
-	DatePicker,
+	DateRangeFilterFields,
 	Label,
 	SomeErrorState,
 	Tabs,
@@ -174,79 +175,62 @@ export function FormerStudentsFiltersDrawer({
 						/>
 					) : (
 						<>
-							<div className="grid gap-2">
-								<Label>
-									{t("academic.formerStudentPage.filters.course.label")}
-								</Label>
-								<Combobox
-									multiple
-									options={courseOptions}
-									values={courseIds}
-									onValuesChange={onCourseIdsChange}
-									placeholder={t(
-										"academic.formerStudentPage.filters.course.placeholder",
-									)}
-									searchPlaceholder={t(
-										"academic.formerStudentPage.filters.course.searchPlaceholder",
-									)}
-									emptyMessage={t(
-										"academic.formerStudentPage.filters.course.emptyMessage",
-									)}
-									disabled={isCoursesLoading}
-								/>
-							</div>
+							<AsyncComboboxFilterField
+								multiple
+								label={t("academic.formerStudentPage.filters.course.label")}
+								options={courseOptions}
+								values={courseIds}
+								onValuesChange={onCourseIdsChange}
+								placeholder={t(
+									"academic.formerStudentPage.filters.course.placeholder",
+								)}
+								searchPlaceholder={t(
+									"academic.formerStudentPage.filters.course.searchPlaceholder",
+								)}
+								emptyMessage={t(
+									"academic.formerStudentPage.filters.course.emptyMessage",
+								)}
+								disabled={isCoursesLoading}
+							/>
 
-							<div className="grid gap-2">
-								<Label>
-									{t(
-										"academic.formerStudentPage.filters.areaOfExpertise.label",
-									)}
-								</Label>
-								<Combobox
-									multiple
-									options={areaOfExpertiseOptions}
-									values={areaOfExpertiseIds}
-									onValuesChange={onAreaOfExpertiseIdsChange}
-									placeholder={t(
-										"academic.formerStudentPage.filters.areaOfExpertise.placeholder",
-									)}
-									searchPlaceholder={t(
-										"academic.formerStudentPage.filters.areaOfExpertise.searchPlaceholder",
-									)}
-									emptyMessage={t(
-										"academic.formerStudentPage.filters.areaOfExpertise.emptyMessage",
-									)}
-									disabled={isAreasOfExpertiseLoading}
-								/>
-							</div>
+							<AsyncComboboxFilterField
+								multiple
+								label={t(
+									"academic.formerStudentPage.filters.areaOfExpertise.label",
+								)}
+								options={areaOfExpertiseOptions}
+								values={areaOfExpertiseIds}
+								onValuesChange={onAreaOfExpertiseIdsChange}
+								placeholder={t(
+									"academic.formerStudentPage.filters.areaOfExpertise.placeholder",
+								)}
+								searchPlaceholder={t(
+									"academic.formerStudentPage.filters.areaOfExpertise.searchPlaceholder",
+								)}
+								emptyMessage={t(
+									"academic.formerStudentPage.filters.areaOfExpertise.emptyMessage",
+								)}
+								disabled={isAreasOfExpertiseLoading}
+							/>
 						</>
 					)}
 
-					<div className="grid min-w-0 gap-2">
-						<Label>
-							{t("academic.formerStudentPage.filters.periodFrom.label")}
-						</Label>
-						<DatePicker
-							value={periodFrom}
-							onValueChange={onPeriodFromChange}
-							placeholder={t(
-								"academic.formerStudentPage.filters.periodFrom.placeholder",
-							)}
-						/>
-					</div>
-
-					<div className="grid min-w-0 gap-2">
-						<Label>
-							{t("academic.formerStudentPage.filters.periodTo.label")}
-						</Label>
-						<DatePicker
-							value={periodTo}
-							onValueChange={onPeriodToChange}
-							placeholder={t(
-								"academic.formerStudentPage.filters.periodTo.placeholder",
-							)}
-						/>
-					</div>
+					<DateRangeFilterFields
+						startLabel={t(
+							"academic.formerStudentPage.filters.periodFrom.label",
+						)}
+						startValue={periodFrom}
+						onStartValueChange={onPeriodFromChange}
+						startPlaceholder={t(
+							"academic.formerStudentPage.filters.periodFrom.placeholder",
+						)}
+						endLabel={t("academic.formerStudentPage.filters.periodTo.label")}
+						endValue={periodTo}
+						onEndValueChange={onPeriodToChange}
+						endPlaceholder={t(
+							"academic.formerStudentPage.filters.periodTo.placeholder",
+						)}
+					/>
 
 					<Checkbox
 						checked={includeConcluded}
@@ -266,23 +250,16 @@ export function FormerStudentsFiltersDrawer({
 					value="status"
 					className="grid gap-4"
 				>
-					<div className="grid min-w-0 gap-2">
-						<Label>{t("common.filters.startDate.label")}</Label>
-						<DatePicker
-							value={dateFrom}
-							onValueChange={onDateFromChange}
-							placeholder={t("common.filters.startDate.placeholder")}
-						/>
-					</div>
-
-					<div className="grid min-w-0 gap-2">
-						<Label>{t("common.filters.endDate.label")}</Label>
-						<DatePicker
-							value={dateTo}
-							onValueChange={onDateToChange}
-							placeholder={t("common.filters.endDate.placeholder")}
-						/>
-					</div>
+					<DateRangeFilterFields
+						startLabel={t("common.filters.startDate.label")}
+						startValue={dateFrom}
+						onStartValueChange={onDateFromChange}
+						startPlaceholder={t("common.filters.startDate.placeholder")}
+						endLabel={t("common.filters.endDate.label")}
+						endValue={dateTo}
+						onEndValueChange={onDateToChange}
+						endPlaceholder={t("common.filters.endDate.placeholder")}
+					/>
 
 					<Checkbox
 						checked={activeOnly}

@@ -3,11 +3,9 @@
 import { useTranslation } from "react-i18next";
 
 import {
+	AsyncComboboxFilterField,
 	Checkbox,
-	Combobox,
-	DatePicker,
-	Label,
-	SomeErrorState,
+	DateRangeFilterFields,
 } from "@/components";
 import {
 	NumberFieldFilter,
@@ -73,45 +71,32 @@ export function StaffFiltersDrawer({
 				placeholder={t("common.filters.email.placeholder")}
 			/>
 
-			{entitiesError ? (
-				<SomeErrorState
-					title={t("common.loadErrors.entities.title")}
-					description={t("common.loadErrors.entities.description")}
-					onRefresh={onRefreshEntities}
-				/>
-			) : (
-				<div className="grid gap-2">
-					<Label>{t("common.fields.entity")}</Label>
-					<Combobox
-						multiple
-						options={entityOptions}
-						values={filters.entityIds}
-						onValuesChange={value => onFilterChange("entityIds", value)}
-						placeholder={t("common.placeholders.select")}
-						searchPlaceholder={t("common.placeholders.search")}
-						emptyMessage={t("common.placeholders.noResults")}
-						disabled={isEntitiesLoading}
-					/>
-				</div>
-			)}
+			<AsyncComboboxFilterField
+				multiple
+				label={t("common.fields.entity")}
+				options={entityOptions}
+				values={filters.entityIds}
+				onValuesChange={value => onFilterChange("entityIds", value)}
+				placeholder={t("common.placeholders.select")}
+				searchPlaceholder={t("common.placeholders.search")}
+				emptyMessage={t("common.placeholders.noResults")}
+				disabled={isEntitiesLoading}
+				isError={Boolean(entitiesError)}
+				errorTitle={t("common.loadErrors.entities.title")}
+				errorDescription={t("common.loadErrors.entities.description")}
+				onRefreshError={onRefreshEntities}
+			/>
 
-			<div className="grid min-w-0 gap-2">
-				<Label>{t("common.filters.startDate.label")}</Label>
-				<DatePicker
-					value={filters.dateFrom}
-					onValueChange={value => onFilterChange("dateFrom", value)}
-					placeholder={t("common.filters.startDate.placeholder")}
-				/>
-			</div>
-
-			<div className="grid min-w-0 gap-2">
-				<Label>{t("common.filters.endDate.label")}</Label>
-				<DatePicker
-					value={filters.dateTo}
-					onValueChange={value => onFilterChange("dateTo", value)}
-					placeholder={t("common.filters.endDate.placeholder")}
-				/>
-			</div>
+			<DateRangeFilterFields
+				startLabel={t("common.filters.startDate.label")}
+				startValue={filters.dateFrom}
+				onStartValueChange={value => onFilterChange("dateFrom", value)}
+				startPlaceholder={t("common.filters.startDate.placeholder")}
+				endLabel={t("common.filters.endDate.label")}
+				endValue={filters.dateTo}
+				onEndValueChange={value => onFilterChange("dateTo", value)}
+				endPlaceholder={t("common.filters.endDate.placeholder")}
+			/>
 
 			<Checkbox
 				checked={filters.activeOnly}

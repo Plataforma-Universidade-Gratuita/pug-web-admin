@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Combobox, DatePicker, Label, SomeErrorState } from "@/components";
+import { AsyncComboboxFilterField, DateRangeFilterFields } from "@/components";
 import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import type { EntitiesFiltersDrawerProps } from "@/types";
 
@@ -46,47 +46,36 @@ export function EntitiesFiltersDrawer({
 			onClear={onClear}
 			onApply={onApply}
 		>
-			{citiesError ? (
-				<SomeErrorState
-					title={t("partner.entityPage.filters.city.error.title")}
-					description={t("partner.entityPage.filters.city.error.description")}
-					onRefresh={onRefreshCities}
-				/>
-			) : (
-				<div className="grid gap-2">
-					<Label>{t("partner.entityPage.filters.city.label")}</Label>
-					<Combobox
-						multiple
-						options={cityOptions}
-						values={cityIdsFilter}
-						onValuesChange={onCityIdsChange}
-						placeholder={t("partner.entityPage.filters.city.placeholder")}
-						searchPlaceholder={t(
-							"partner.entityPage.filters.city.searchPlaceholder",
-						)}
-						emptyMessage={t("partner.entityPage.filters.city.emptyMessage")}
-						disabled={isCitiesLoading}
-					/>
-				</div>
-			)}
+			<AsyncComboboxFilterField
+				multiple
+				label={t("partner.entityPage.filters.city.label")}
+				options={cityOptions}
+				values={cityIdsFilter}
+				onValuesChange={onCityIdsChange}
+				placeholder={t("partner.entityPage.filters.city.placeholder")}
+				searchPlaceholder={t(
+					"partner.entityPage.filters.city.searchPlaceholder",
+				)}
+				emptyMessage={t("partner.entityPage.filters.city.emptyMessage")}
+				disabled={isCitiesLoading}
+				isError={Boolean(citiesError)}
+				errorTitle={t("partner.entityPage.filters.city.error.title")}
+				errorDescription={t(
+					"partner.entityPage.filters.city.error.description",
+				)}
+				onRefreshError={onRefreshCities}
+			/>
 
-			<div className="grid min-w-0 gap-2">
-				<Label>{t("common.filters.startDate.label")}</Label>
-				<DatePicker
-					value={startDate}
-					onValueChange={onStartDateChange}
-					placeholder={t("common.filters.startDate.placeholder")}
-				/>
-			</div>
-
-			<div className="grid min-w-0 gap-2">
-				<Label>{t("common.filters.endDate.label")}</Label>
-				<DatePicker
-					value={endDate}
-					onValueChange={onEndDateChange}
-					placeholder={t("common.filters.endDate.placeholder")}
-				/>
-			</div>
+			<DateRangeFilterFields
+				startLabel={t("common.filters.startDate.label")}
+				startValue={startDate}
+				onStartValueChange={onStartDateChange}
+				startPlaceholder={t("common.filters.startDate.placeholder")}
+				endLabel={t("common.filters.endDate.label")}
+				endValue={endDate}
+				onEndValueChange={onEndDateChange}
+				endPlaceholder={t("common.filters.endDate.placeholder")}
+			/>
 		</ServicePageFiltersDrawer>
 	);
 }

@@ -4,6 +4,7 @@ import type { RowData } from "@tanstack/react-table";
 
 import type {
 	AccountResponse,
+	ComboboxOption,
 	TableProps,
 	TabsProps,
 	UserResponse,
@@ -181,6 +182,38 @@ export interface AuditInfoFilterProps extends AuditInfoFilterFieldsProps {
 	activeLabel: ReactNode;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
+}
+
+export interface AsyncComboboxFilterFieldProps {
+	label: ReactNode;
+	options: ComboboxOption[];
+	value?: string;
+	onValueChange?: (value: string) => void;
+	values?: string[];
+	onValuesChange?: (values: string[]) => void;
+	multiple?: boolean;
+	placeholder?: ReactNode;
+	searchPlaceholder?: string;
+	emptyMessage?: ReactNode;
+	disabled?: boolean;
+	isError?: boolean;
+	errorTitle?: ReactNode;
+	errorDescription?: ReactNode;
+	onRefreshError?: () => void;
+}
+
+export interface DateRangeFilterFieldsProps {
+	startLabel: ReactNode;
+	startValue: string;
+	onStartValueChange: (value: string) => void;
+	endLabel: ReactNode;
+	endValue: string;
+	onEndValueChange: (value: string) => void;
+	startPlaceholder?: string;
+	endPlaceholder?: string;
+	startDisabled?: boolean;
+	endDisabled?: boolean;
+	className?: string;
 }
 
 export type ServicePageDraftFilters = object;

@@ -2,7 +2,11 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Checkbox, Combobox, DatePicker, Label } from "@/components";
+import {
+	AsyncComboboxFilterField,
+	Checkbox,
+	DateRangeFilterFields,
+} from "@/components";
 import { ACCOUNT_TYPE_VALUES } from "@/constants";
 import {
 	NumberFieldFilter,
@@ -64,45 +68,34 @@ export function AccountsFiltersDrawer({
 				placeholder={t("identity.accountPage.filters.email.placeholder")}
 			/>
 
-			<div className="grid gap-2">
-				<Label>{t("identity.accountPage.filters.accountType.label")}</Label>
-				<Combobox
-					multiple
-					values={filters.accountTypes}
-					onValuesChange={value =>
-						onFilterChange("accountTypes", value as typeof filters.accountTypes)
-					}
-					placeholder={t("common.placeholders.select")}
-					searchPlaceholder={t("common.placeholders.select")}
-					emptyMessage={t(
-						"identity.accountPage.filters.accountType.options.all",
-					)}
-					options={ACCOUNT_TYPE_VALUES.map(accountType => ({
-						value: accountType,
-						label: t(
-							`identity.accountPage.filters.accountType.options.${accountType}`,
-						),
-					}))}
-				/>
-			</div>
+			<AsyncComboboxFilterField
+				multiple
+				label={t("identity.accountPage.filters.accountType.label")}
+				values={filters.accountTypes}
+				onValuesChange={value =>
+					onFilterChange("accountTypes", value as typeof filters.accountTypes)
+				}
+				placeholder={t("common.placeholders.select")}
+				searchPlaceholder={t("common.placeholders.select")}
+				emptyMessage={t("identity.accountPage.filters.accountType.options.all")}
+				options={ACCOUNT_TYPE_VALUES.map(accountType => ({
+					value: accountType,
+					label: t(
+						`identity.accountPage.filters.accountType.options.${accountType}`,
+					),
+				}))}
+			/>
 
-			<div className="grid min-w-0 gap-2">
-				<Label>{t("common.filters.startDate.label")}</Label>
-				<DatePicker
-					value={filters.dateFrom}
-					onValueChange={value => onFilterChange("dateFrom", value)}
-					placeholder={t("common.filters.startDate.placeholder")}
-				/>
-			</div>
-
-			<div className="grid min-w-0 gap-2">
-				<Label>{t("common.filters.endDate.label")}</Label>
-				<DatePicker
-					value={filters.dateTo}
-					onValueChange={value => onFilterChange("dateTo", value)}
-					placeholder={t("common.filters.endDate.placeholder")}
-				/>
-			</div>
+			<DateRangeFilterFields
+				startLabel={t("common.filters.startDate.label")}
+				startValue={filters.dateFrom}
+				onStartValueChange={value => onFilterChange("dateFrom", value)}
+				startPlaceholder={t("common.filters.startDate.placeholder")}
+				endLabel={t("common.filters.endDate.label")}
+				endValue={filters.dateTo}
+				onEndValueChange={value => onFilterChange("dateTo", value)}
+				endPlaceholder={t("common.filters.endDate.placeholder")}
+			/>
 
 			<Checkbox
 				checked={filters.activeOnly}

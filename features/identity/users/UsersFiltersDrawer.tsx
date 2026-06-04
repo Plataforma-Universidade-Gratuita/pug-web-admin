@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { DatePicker, Label } from "@/components";
+import { DateRangeFilterFields } from "@/components";
 import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
@@ -61,25 +61,16 @@ export function UsersFiltersDrawer({
 			</div>
 
 			<div className="grid gap-3">
-				<div className="grid min-w-0 gap-2">
-					<Label>{t("common.filters.startDate.label")}</Label>
-					<DatePicker
-						value={filters.dateFrom}
-						onValueChange={value => onFilterChange("dateFrom", value)}
-						placeholder={t("common.filters.startDate.placeholder")}
-					/>
-				</div>
-			</div>
-
-			<div className="grid gap-3">
-				<div className="grid min-w-0 gap-2">
-					<Label>{t("common.filters.endDate.label")}</Label>
-					<DatePicker
-						value={filters.dateTo}
-						onValueChange={value => onFilterChange("dateTo", value)}
-						placeholder={t("common.filters.endDate.placeholder")}
-					/>
-				</div>
+				<DateRangeFilterFields
+					startLabel={t("common.filters.startDate.label")}
+					startValue={filters.dateFrom}
+					onStartValueChange={value => onFilterChange("dateFrom", value)}
+					startPlaceholder={t("common.filters.startDate.placeholder")}
+					endLabel={t("common.filters.endDate.label")}
+					endValue={filters.dateTo}
+					onEndValueChange={value => onFilterChange("dateTo", value)}
+					endPlaceholder={t("common.filters.endDate.placeholder")}
+				/>
 			</div>
 		</ServicePageFiltersDrawer>
 	);
