@@ -29,14 +29,19 @@ export type ProjectStatusAction =
 	| "start";
 
 export interface ProjectComplexSearchFilters {
+	name: string;
+	entityIds: string[];
+	description: string;
 	createdByIds: string[];
+	statuses: ProjectStatus[];
+	maxOfferedHours: string;
+	minOfferedHours: string;
 	dateFrom: string;
 	dateTo: string;
-	entityIds: string[];
-	statuses: ProjectStatus[];
 }
 
 export interface ProjectEditorFormValues {
+	areaOfExpertiseIds: string[];
 	description: string;
 	entityId: string;
 	maxParticipants: string;
@@ -70,11 +75,14 @@ export interface ProjectsEditorDrawerProps {
 }
 
 export interface ProjectsEditorFormProps {
+	areaOfExpertiseOptions: ComboboxOption[];
+	areasOfExpertiseError: unknown;
 	canRenderForm: boolean;
 	entitiesError: unknown;
 	entityOptions: ComboboxOption[];
 	form: UseFormReturn<ProjectEditorFormValues>;
 	mode: ProjectEditorMode;
+	onRefreshAreasOfExpertise: () => void;
 	onRefreshEntities: () => void;
 	onRefreshProject: () => void;
 	project: ProjectResponse | undefined;
@@ -87,6 +95,7 @@ export interface ProjectsFiltersDrawerProps {
 	creatorOptions: ComboboxOption[];
 	dateFrom: string;
 	dateTo: string;
+	description: string;
 	entitiesError: boolean;
 	entityIds: string[];
 	entityOptions: ComboboxOption[];
@@ -96,13 +105,20 @@ export interface ProjectsFiltersDrawerProps {
 	onClear: () => void;
 	onDateFromChange: (value: string) => void;
 	onDateToChange: (value: string) => void;
+	onDescriptionChange: (value: string) => void;
 	onEntityIdsChange: (value: string[]) => void;
+	onMaxOfferedHoursChange: (value: string) => void;
+	onMinOfferedHoursChange: (value: string) => void;
+	onNameChange: (value: string) => void;
 	onOpenChange: (open: boolean) => void;
 	onRefreshCreators: () => void;
 	onRefreshEntities: () => void;
 	onStatusesChange: (value: ProjectStatus[]) => void;
 	open: boolean;
 	statuses: ProjectStatus[];
+	maxOfferedHours: string;
+	minOfferedHours: string;
+	name: string;
 }
 
 export interface ProjectsRowActionsProps {
@@ -118,11 +134,14 @@ export interface ProjectsRowActionsProps {
 }
 
 export interface ProjectFilterArgs {
-	createdByIds: string[];
 	dateFrom: string;
 	dateTo: string;
+	description: string;
 	entityById: Map<string, EntityResponse>;
 	entityIds: string[];
+	maxOfferedHours: string;
+	minOfferedHours: string;
+	name: string;
 	query: string;
 	statuses: ProjectStatus[];
 }

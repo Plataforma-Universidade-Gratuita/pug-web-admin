@@ -4,7 +4,13 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	Combobox,
+	Label,
+	NoContentState,
+	SomeErrorState,
+	toast,
+} from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import { ProjectsEditorDrawer } from "@/features/project/projects/ProjectsEditorDrawer";
@@ -21,10 +27,11 @@ import {
 } from "@/features/project/projects/queries";
 import {
 	appendCopyToProjectName,
+	buildProjectCreatorOptions,
 	buildProjectEntityOptions,
+	createProjectColumns,
 	filterProjectsByBackendFilters,
 	filterProjectsByFrontendFilters,
-	createProjectColumns,
 	getProjectDeleteErrorToastContent,
 	getProjectEmptyStateCopy,
 	getProjectEntitiesErrorToastContent,
@@ -53,6 +60,7 @@ import type { ProjectResponse } from "@/types";
 import type {
 	ProjectComplexSearchFilters,
 	ProjectEditorMode,
+	ProjectStatus,
 	ProjectStatusAction,
 } from "@/types";
 
@@ -73,14 +81,19 @@ function getStatusDialogVariant(action: ProjectStatusAction) {
 export function ProjectsPage() {
 	const { t } = useTranslation();
 	const [querySearch, setQuerySearch] = useState("");
+	const [frontendStatuses, setFrontendStatuses] = useState<ProjectStatus[]>([]);
 	const [filtersOpen, setFiltersOpen] = useState(false);
 	const initialBackendFilters = useMemo<ProjectComplexSearchFilters>(
 		() => ({
+			name: "",
+			entityIds: [],
+			description: "",
 			createdByIds: [],
+			statuses: [],
+			maxOfferedHours: "",
+			minOfferedHours: "",
 			dateFrom: "",
 			dateTo: "",
-			entityIds: [],
-			statuses: [],
 		}),
 		[],
 	);
@@ -145,20 +158,28 @@ export function ProjectsPage() {
 	const creatorOptions = useMemo(
 		() =>
 			projectsQuery.data
-				? Array.from(
-						new Map(
-							projectsQuery.data.map(project => [
-								project.projectInfo.createdBy.id,
-								{
-									value: project.projectInfo.createdBy.id,
-									label: project.projectInfo.createdBy.name,
-									description: project.projectInfo.createdBy.email,
-								},
-							]),
-						).values(),
+				? buildProjectCreatorOptions(
+						Array.from(
+							new Map(
+								projectsQuery.data.map(project => [
+									project.projectInfo.createdBy.id,
+									project.projectInfo.createdBy,
+								]),
+							).values(),
+						),
 					)
 				: [],
 		[projectsQuery.data],
+	);
+	const statusOptions = useMemo(
+		() =>
+			["PLANNED", "IN_PROGRESS", "ON_HOLD", "COMPLETED", "CANCELED"].map(
+				status => ({
+					value: status as ProjectStatus,
+					label: t(`project.projectPage.status.options.${status}`),
+				}),
+			),
+		[t],
 	);
 	const backendFilteredAllProjects = useMemo(
 		() =>
@@ -185,22 +206,30 @@ export function ProjectsPage() {
 		() =>
 			filterProjectsByFrontendFilters(tableSourceProjects, {
 				query: deferredQuerySearch,
+				statuses: frontendStatuses,
 			}),
-		[deferredQuerySearch, tableSourceProjects],
+		[deferredQuerySearch, frontendStatuses, tableSourceProjects],
 	);
 	const columns = useMemo(
 		() => createProjectColumns(t),
 		[t],
 	);
-	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
+	const hasAnyFilters = Boolean(
+		querySearch.trim() ||
+			frontendStatuses.length > 0 ||
+			hasAppliedFilters,
+	);
 	const filterSummary = useMemo(
 		() =>
 			getProjectFilterSummary(t, {
-				createdByIds: appliedFilters.createdByIds,
 				dateFrom: appliedFilters.dateFrom,
 				dateTo: appliedFilters.dateTo,
+				description: appliedFilters.description,
 				entityById,
 				entityIds: appliedFilters.entityIds,
+				maxOfferedHours: appliedFilters.maxOfferedHours,
+				minOfferedHours: appliedFilters.minOfferedHours,
+				name: appliedFilters.name,
 				query: deferredQuerySearch,
 				statuses: appliedFilters.statuses,
 			}),
@@ -282,6 +311,7 @@ export function ProjectsPage() {
 
 	function clearAllFilters() {
 		setQuerySearch("");
+		setFrontendStatuses([]);
 		clearDraftFilters();
 		projectsPagination.resetPage();
 		setFiltersOpen(false);
@@ -433,7 +463,7 @@ export function ProjectsPage() {
 						onCreate={editorState.openCreate}
 					/>
 				}
-				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
+				filtersClassName="grid gap-4 xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_auto] xl:items-end"
 			>
 				<TextFieldFilter
 					label={t("project.projectPage.filters.search.label")}
@@ -442,12 +472,29 @@ export function ProjectsPage() {
 					placeholder={t("project.projectPage.filters.search.placeholder")}
 				/>
 
+				<div className="grid gap-2">
+					<Label>
+						{t("project.projectPage.filters.status.label")}
+					</Label>
+					<Combobox
+						multiple
+						options={statusOptions}
+						values={frontendStatuses}
+						onValuesChange={value =>
+							setFrontendStatuses(value as ProjectStatus[])
+						}
+						placeholder="Select..."
+						maxVisibleValues={1}
+					/>
+				</div>
+
 				<ProjectsFiltersDrawer
 					creatorsError={projectsQuery.isError}
 					createdByIds={draftFilters.createdByIds}
 					creatorOptions={creatorOptions}
 					dateFrom={draftFilters.dateFrom}
 					dateTo={draftFilters.dateTo}
+					description={draftFilters.description}
 					entitiesError={entitiesQuery.isError}
 					entityIds={draftFilters.entityIds}
 					entityOptions={entityOptions}
@@ -461,7 +508,15 @@ export function ProjectsPage() {
 					onClear={clearAllFilters}
 					onDateFromChange={value => setDraftFilter("dateFrom", value)}
 					onDateToChange={value => setDraftFilter("dateTo", value)}
+					onDescriptionChange={value => setDraftFilter("description", value)}
 					onEntityIdsChange={value => setDraftFilter("entityIds", value)}
+					onMaxOfferedHoursChange={value =>
+						setDraftFilter("maxOfferedHours", value)
+					}
+					onMinOfferedHoursChange={value =>
+						setDraftFilter("minOfferedHours", value)
+					}
+					onNameChange={value => setDraftFilter("name", value)}
 					onOpenChange={setFiltersOpen}
 					onRefreshCreators={() => {
 						void projectsQuery.refetch();
@@ -472,6 +527,9 @@ export function ProjectsPage() {
 					onStatusesChange={value => setDraftFilter("statuses", value)}
 					open={filtersOpen}
 					statuses={draftFilters.statuses}
+					maxOfferedHours={draftFilters.maxOfferedHours}
+					minOfferedHours={draftFilters.minOfferedHours}
+					name={draftFilters.name}
 				/>
 			</ServicePageHeader>
 

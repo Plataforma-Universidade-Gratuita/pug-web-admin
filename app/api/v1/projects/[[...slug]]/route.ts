@@ -48,7 +48,7 @@ export async function GET(request: Request, { params }: AppRouteSlugContext) {
 			z.array(ProjectResponseSchema),
 		);
 	}
-	if (slug.length === 3 && slug[1] === "areas-of-expertise") {
+	if (slug.length === 2 && slug[1] === "areas-of-expertise") {
 		return routeWithAuthRetry(
 			token =>
 				projectAreasOfExpertise.listAreasOfExpertiseByProject(slug[0]!, token),
@@ -95,7 +95,7 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 		);
 	}
 
-	if (slug.length === 3 && slug[1] === "areas-of-expertise") {
+	if (slug.length === 2 && slug[1] === "areas-of-expertise") {
 		const body = await parseRouteBody(
 			request,
 			ProjectAreaOfExpertiseRequestSchema,

@@ -16,6 +16,7 @@ export function createProjectEditorFormSchema(
 	const requiresEntity = mode !== "update";
 
 	return z.object({
+		areaOfExpertiseIds: z.array(z.string()),
 		description: createOptionalTrimmedStringSchema(
 			4000,
 			t("project.projectPage.editor.validation.description.tooLong"),

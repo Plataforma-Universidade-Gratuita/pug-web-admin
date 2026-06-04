@@ -5008,7 +5008,15 @@
                     "description": "The entity directory could not be loaded right now.",
                     "title": "Unable to load entities"
                 },
+                "areasOfExpertiseLoadError": {
+                    "description": "The areas of expertise directory could not be loaded right now.",
+                    "title": "Unable to load areas of expertise"
+                },
                 "fields": {
+                    "areasOfExpertise": "Areas of expertise",
+                    "areasOfExpertiseEmptyMessage": "No areas of expertise found.",
+                    "areasOfExpertisePlaceholder": "Select areas",
+                    "areasOfExpertiseSearchPlaceholder": "Search areas...",
                     "description": "Description",
                     "descriptionPlaceholder": "Outline the project's scope and expected delivery.",
                     "entity": "Entity",
@@ -5090,6 +5098,10 @@
                     "placeholder": "Select an admin",
                     "searchPlaceholder": "Search admins..."
                 },
+                "description": {
+                    "label": "Description pattern",
+                    "placeholder": "Filter by project description on the server"
+                },
                 "dateField": {
                     "label": "Audit field",
                     "options": {
@@ -5124,9 +5136,21 @@
                     "placeholder": "Select an entity",
                     "searchPlaceholder": "Search entities..."
                 },
+                "maxOfferedHours": {
+                    "label": "Max offered hours",
+                    "placeholder": "Filter by the maximum offered hours"
+                },
+                "minOfferedHours": {
+                    "label": "Min offered hours",
+                    "placeholder": "Filter by the minimum offered hours"
+                },
+                "name": {
+                    "label": "Name pattern",
+                    "placeholder": "Filter by project name on the server"
+                },
                 "search": {
                     "label": "Search",
-                    "placeholder": "Search by name, description, entity, creator, or status"
+                    "placeholder": "Search by name, description, entity, or creator"
                 },
                 "startDate": {
                     "label": "Start date",
@@ -5160,10 +5184,10 @@
             },
             "metadata": {
                 "empty": {
-                    "description": "Projects connect partner entities, areas of expertise, enrollments, and attendance records.",
-                    "title": "Operational scope"
+                    "description": "$t(geo.cityPage.metadata.empty.description)",
+                    "title": "$t(geo.cityPage.metadata.empty.title)"
                 },
-                "trigger": "About this page"
+                "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "retake": {
                 "confirm": {

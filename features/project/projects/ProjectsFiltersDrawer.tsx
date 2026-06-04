@@ -7,6 +7,10 @@ import { useTranslation } from "react-i18next";
 import { Combobox, DatePicker, Label, SomeErrorState } from "@/components";
 import { getProjectStatusOptions } from "@/features/project/projects/utils";
 import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
+import {
+	NumberFieldFilter,
+	TextFieldFilter,
+} from "@/features/shared/service-pages";
 import type { ProjectsFiltersDrawerProps, ProjectStatus } from "@/types";
 
 export function ProjectsFiltersDrawer({
@@ -15,6 +19,7 @@ export function ProjectsFiltersDrawer({
 	creatorOptions,
 	dateFrom,
 	dateTo,
+	description,
 	entitiesError,
 	entityIds,
 	entityOptions,
@@ -24,13 +29,20 @@ export function ProjectsFiltersDrawer({
 	onClear,
 	onDateFromChange,
 	onDateToChange,
+	onDescriptionChange,
 	onEntityIdsChange,
+	onMaxOfferedHoursChange,
+	onMinOfferedHoursChange,
+	onNameChange,
 	onOpenChange,
 	onRefreshCreators,
 	onRefreshEntities,
 	onStatusesChange,
 	open,
 	statuses,
+	maxOfferedHours,
+	minOfferedHours,
+	name,
 }: ProjectsFiltersDrawerProps) {
 	const { t } = useTranslation();
 	const statusOptions = useMemo(() => getProjectStatusOptions(t), [t]);
@@ -56,6 +68,13 @@ export function ProjectsFiltersDrawer({
 			title={t("project.projectPage.filters.drawer.title")}
 			triggerLabel={t("project.projectPage.filters.drawer.trigger")}
 		>
+			<TextFieldFilter
+				label={t("project.projectPage.filters.name.label")}
+				value={name}
+				onChange={onNameChange}
+				placeholder={t("project.projectPage.filters.name.placeholder")}
+			/>
+
 			{entitiesError ? (
 				<SomeErrorState
 					title={t("project.projectPage.filters.entity.error.title")}
@@ -78,6 +97,13 @@ export function ProjectsFiltersDrawer({
 					/>
 				</div>
 			)}
+
+			<TextFieldFilter
+				label={t("project.projectPage.filters.description.label")}
+				value={description}
+				onChange={onDescriptionChange}
+				placeholder={t("project.projectPage.filters.description.placeholder")}
+			/>
 
 			{creatorsError ? (
 				<SomeErrorState
@@ -116,6 +142,24 @@ export function ProjectsFiltersDrawer({
 					placeholder={t("project.projectPage.filters.status.placeholder")}
 				/>
 			</div>
+
+			<NumberFieldFilter
+				label={t("project.projectPage.filters.maxOfferedHours.label")}
+				value={maxOfferedHours}
+				onChange={onMaxOfferedHoursChange}
+				placeholder={t(
+					"project.projectPage.filters.maxOfferedHours.placeholder",
+				)}
+			/>
+
+			<NumberFieldFilter
+				label={t("project.projectPage.filters.minOfferedHours.label")}
+				value={minOfferedHours}
+				onChange={onMinOfferedHoursChange}
+				placeholder={t(
+					"project.projectPage.filters.minOfferedHours.placeholder",
+				)}
+			/>
 
 			<div className="grid min-w-0 gap-2">
 				<Label>{t("project.projectPage.filters.startDate.label")}</Label>

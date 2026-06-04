@@ -22,13 +22,19 @@ import {
 	toast,
 } from "@/components";
 import { useEntitiesQuery } from "@/features/partner/entities/queries";
+import { useAreasOfExpertiseQuery } from "@/features/academic/areas-of-expertise/queries";
 import { ProjectsEditorForm } from "@/features/project/projects/ProjectsEditorForm";
 import {
 	useCreateProjectMutation,
+	useSetProjectAreasOfExpertiseMutation,
 	useUpdateProjectMutation,
 } from "@/features/project/projects/mutations";
-import { useProjectDetailQuery } from "@/features/project/projects/queries";
 import {
+	useProjectAreasOfExpertiseQuery,
+	useProjectDetailQuery,
+} from "@/features/project/projects/queries";
+import {
+	buildProjectAreaOfExpertiseOptions,
 	buildProjectDuplicateFormValues,
 	buildProjectEntityOptions,
 	buildProjectUpdateFormValues,
@@ -63,10 +69,20 @@ export function ProjectsEditorDrawer({
 	const isCreateMode = mode === "create";
 	const isDuplicateMode = mode === "duplicate";
 	const isUpdateMode = mode === "update";
+	const areasOfExpertiseQuery = useAreasOfExpertiseQuery();
 	const entitiesQuery = useEntitiesQuery();
 	const projectDetailQuery = useProjectDetailQuery(projectId);
+	const projectAreasOfExpertiseQuery = useProjectAreasOfExpertiseQuery(
+		isCreateMode ? null : projectId,
+	);
 	const createMutation = useCreateProjectMutation();
+	const setProjectAreasOfExpertiseMutation =
+		useSetProjectAreasOfExpertiseMutation();
 	const updateMutation = useUpdateProjectMutation();
+	const areaOfExpertiseOptions = useMemo(
+		() => buildProjectAreaOfExpertiseOptions(areasOfExpertiseQuery.data ?? []),
+		[areasOfExpertiseQuery.data],
+	);
 	const entityOptions = useMemo(
 		() => buildProjectEntityOptions(entitiesQuery.data ?? []),
 		[entitiesQuery.data],
@@ -88,9 +104,25 @@ export function ProjectsEditorDrawer({
 		}
 
 		return isDuplicateMode
-			? buildProjectDuplicateFormValues(projectDetailQuery.data)
-			: buildProjectUpdateFormValues(projectDetailQuery.data);
-	}, [emptyValues, isCreateMode, isDuplicateMode, projectDetailQuery.data]);
+			? buildProjectDuplicateFormValues(
+					projectDetailQuery.data,
+					projectAreasOfExpertiseQuery.data?.map(
+						areaOfExpertise => areaOfExpertise.id,
+					) ?? [],
+				)
+			: buildProjectUpdateFormValues(
+					projectDetailQuery.data,
+					projectAreasOfExpertiseQuery.data?.map(
+						areaOfExpertise => areaOfExpertise.id,
+					) ?? [],
+				);
+	}, [
+		emptyValues,
+		isCreateMode,
+		isDuplicateMode,
+		projectAreasOfExpertiseQuery.data,
+		projectDetailQuery.data,
+	]);
 	const hydrationKey = useMemo(() => {
 		if (isCreateMode) {
 			return "create";
@@ -105,6 +137,7 @@ export function ProjectsEditorDrawer({
 			projectDetailQuery.data.id,
 			loadedFormValues.name,
 			loadedFormValues.entityId,
+			loadedFormValues.areaOfExpertiseIds.join(","),
 			loadedFormValues.offeredHours,
 			loadedFormValues.maxParticipants,
 			loadedFormValues.description,
@@ -113,9 +146,15 @@ export function ProjectsEditorDrawer({
 	const canRenderForm = isCreateMode ? true : Boolean(projectDetailQuery.data);
 	const isDrawerLoading =
 		open &&
-		((!isUpdateMode && entitiesQuery.isLoading) ||
-			(!isCreateMode && projectDetailQuery.isLoading));
-	const isSubmitPending = createMutation.isPending || updateMutation.isPending;
+		(areasOfExpertiseQuery.isLoading ||
+			(!isUpdateMode && entitiesQuery.isLoading) ||
+			(!isCreateMode &&
+				(projectDetailQuery.isLoading ||
+					projectAreasOfExpertiseQuery.isLoading)));
+	const isSubmitPending =
+		createMutation.isPending ||
+		updateMutation.isPending ||
+		setProjectAreasOfExpertiseMutation.isPending;
 	const drawerOverhead = t(
 		isCreateMode
 			? "project.projectPage.create.overhead"
@@ -160,6 +199,13 @@ export function ProjectsEditorDrawer({
 			getContent: error => getProjectEntitiesErrorToastContent(t, error),
 			isError: entitiesQuery.isError,
 		},
+		{
+			key: "project-editor-areas-of-expertise",
+			error: areasOfExpertiseQuery.error,
+			errorUpdatedAt: areasOfExpertiseQuery.errorUpdatedAt,
+			getContent: error => getProjectEntitiesErrorToastContent(t, error),
+			isError: areasOfExpertiseQuery.isError,
+		},
 	]);
 
 	useHydratedFormOnOpen({
@@ -195,24 +241,47 @@ export function ProjectsEditorDrawer({
 				},
 				{
 					onSuccess: project => {
-						toast.success(
-							t(
-								isCreateMode
-									? "project.projectPage.create.feedback.success.title"
-									: "project.projectPage.duplicate.feedback.success.title",
-							),
-							{
-								description: t(
+						const finishSuccess = () => {
+							toast.success(
+								t(
 									isCreateMode
-										? "project.projectPage.create.feedback.success.description"
-										: "project.projectPage.duplicate.feedback.success.description",
-									{
-										name: project.name,
-									},
+										? "project.projectPage.create.feedback.success.title"
+										: "project.projectPage.duplicate.feedback.success.title",
 								),
+								{
+									description: t(
+										isCreateMode
+											? "project.projectPage.create.feedback.success.description"
+											: "project.projectPage.duplicate.feedback.success.description",
+										{
+											name: project.name,
+										},
+									),
+								},
+							);
+							closeDrawer();
+						};
+
+						if (values.areaOfExpertiseIds.length === 0) {
+							finishSuccess();
+							return;
+						}
+
+						setProjectAreasOfExpertiseMutation.mutate(
+							{
+								projectId: project.id,
+								areaOfExpertiseIds: values.areaOfExpertiseIds,
+							},
+							{
+								onSuccess: finishSuccess,
+								onError: error => {
+									const { title, description } = isCreateMode
+										? getProjectCreateErrorToastContent(t, error)
+										: getProjectDuplicateErrorToastContent(t, error);
+									toast.danger(title, { description });
+								},
 							},
 						);
-						closeDrawer();
 					},
 					onError: error => {
 						const { title, description } = isCreateMode
@@ -236,18 +305,33 @@ export function ProjectsEditorDrawer({
 			},
 			{
 				onSuccess: project => {
-					toast.success(
-						t("project.projectPage.update.feedback.success.title"),
+					setProjectAreasOfExpertiseMutation.mutate(
 						{
-							description: t(
-								"project.projectPage.update.feedback.success.description",
-								{
-									name: project.name,
-								},
-							),
+							projectId,
+							areaOfExpertiseIds: values.areaOfExpertiseIds,
+						},
+						{
+							onSuccess: () => {
+								toast.success(
+									t("project.projectPage.update.feedback.success.title"),
+									{
+										description: t(
+											"project.projectPage.update.feedback.success.description",
+											{
+												name: project.name,
+											},
+										),
+									},
+								);
+								closeDrawer();
+							},
+							onError: error => {
+								const { title, description } =
+									getProjectUpdateErrorToastContent(t, error);
+								toast.danger(title, { description });
+							},
 						},
 					);
-					closeDrawer();
 				},
 				onError: error => {
 					const { title, description } = getProjectUpdateErrorToastContent(
@@ -277,11 +361,18 @@ export function ProjectsEditorDrawer({
 
 					<DrawerBody className="grid gap-6">
 						<ProjectsEditorForm
+							areaOfExpertiseOptions={areaOfExpertiseOptions}
+							areasOfExpertiseError={
+								areasOfExpertiseQuery.isError ? areasOfExpertiseQuery.error : null
+							}
 							canRenderForm={canRenderForm}
 							entitiesError={entitiesQuery.isError ? entitiesQuery.error : null}
 							entityOptions={entityOptions}
 							form={form}
 							mode={mode}
+							onRefreshAreasOfExpertise={() => {
+								void areasOfExpertiseQuery.refetch();
+							}}
 							onRefreshEntities={() => {
 								void entitiesQuery.refetch();
 							}}

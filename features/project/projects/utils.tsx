@@ -4,6 +4,7 @@ import type { TFunction } from "i18next";
 import { Badge, TableText } from "@/components";
 import type {
 	AccountSimpleComplexSearchResponse,
+	AreaOfExpertiseResponse,
 	EntityResponse,
 	ProjectComplexSearchFilters,
 	ProjectComplexSearchRequest,
@@ -40,6 +41,20 @@ function parsePositiveInteger(value: string) {
 	const parsed = Number(trimmed);
 	if (!Number.isInteger(parsed) || parsed <= 0) {
 		return null;
+	}
+
+	return parsed;
+}
+
+function parseOptionalPositiveNumber(value: string) {
+	const trimmed = value.trim();
+	if (!trimmed) {
+		return undefined;
+	}
+
+	const parsed = Number(trimmed);
+	if (!Number.isFinite(parsed) || parsed < 0) {
+		return undefined;
 	}
 
 	return parsed;
@@ -105,6 +120,17 @@ export function buildProjectCreatorOptions(
 			value: createdBy.id,
 			label: createdBy.name,
 			description: createdBy.email,
+		}));
+}
+
+export function buildProjectAreaOfExpertiseOptions(
+	areasOfExpertise: AreaOfExpertiseResponse[],
+): ComboboxOption[] {
+	return [...areasOfExpertise]
+		.sort((left, right) => compareNormalizedText(left.name, right.name))
+		.map(areaOfExpertise => ({
+			value: areaOfExpertise.id,
+			label: areaOfExpertise.name,
 		}));
 }
 
@@ -205,12 +231,16 @@ export function buildProjectComplexSearchRequest(
 	filters: ProjectComplexSearchFilters,
 ): ProjectComplexSearchRequest {
 	return {
+		name: filters.name.trim() || undefined,
+		entityIds: filters.entityIds.length > 0 ? filters.entityIds : undefined,
+		description: filters.description.trim() || undefined,
 		createdByIds:
 			filters.createdByIds.length > 0 ? filters.createdByIds : undefined,
+		statuses: filters.statuses.length > 0 ? filters.statuses : undefined,
+		maxOfferedHours: parseOptionalPositiveNumber(filters.maxOfferedHours),
+		minOfferedHours: parseOptionalPositiveNumber(filters.minOfferedHours),
 		dateFrom: toSearchDateOffsetDateTime(filters.dateFrom, "start"),
 		dateTo: toSearchDateOffsetDateTime(filters.dateTo, "end"),
-		entityIds: filters.entityIds.length > 0 ? filters.entityIds : undefined,
-		statuses: filters.statuses.length > 0 ? filters.statuses : undefined,
 	};
 }
 
@@ -218,16 +248,43 @@ export function filterProjectsByBackendFilters(
 	projects: ProjectResponse[],
 	filters: ProjectComplexSearchFilters,
 ) {
+	const normalizedName = normalizeTextForSearch(filters.name.trim());
+	const normalizedDescription = normalizeTextForSearch(
+		filters.description.trim(),
+	);
 	const hasCreatedByIds = filters.createdByIds.length > 0;
+	const hasDescription = Boolean(normalizedDescription);
 	const hasEntityIds = filters.entityIds.length > 0;
+	const hasMaxOfferedHours = filters.maxOfferedHours.trim().length > 0;
+	const hasMinOfferedHours = filters.minOfferedHours.trim().length > 0;
+	const hasName = Boolean(normalizedName);
 	const hasStatuses = filters.statuses.length > 0;
 	const hasDateRange = Boolean(filters.dateFrom || filters.dateTo);
 
-	if (!hasCreatedByIds && !hasEntityIds && !hasStatuses && !hasDateRange) {
+	if (
+		!hasName &&
+		!hasEntityIds &&
+		!hasDescription &&
+		!hasCreatedByIds &&
+		!hasStatuses &&
+		!hasMaxOfferedHours &&
+		!hasMinOfferedHours &&
+		!hasDateRange
+	) {
 		return projects;
 	}
 
+	const maxOfferedHours = parseOptionalPositiveNumber(filters.maxOfferedHours);
+	const minOfferedHours = parseOptionalPositiveNumber(filters.minOfferedHours);
+
 	return projects.filter(project => {
+		if (
+			hasName &&
+			!normalizeTextForSearch(project.name).includes(normalizedName)
+		) {
+			return false;
+		}
+
 		if (
 			hasCreatedByIds &&
 			!filters.createdByIds.includes(project.projectInfo.createdBy.id)
@@ -239,7 +296,30 @@ export function filterProjectsByBackendFilters(
 			return false;
 		}
 
+		if (
+			hasDescription &&
+			!normalizeTextForSearch(project.description).includes(
+				normalizedDescription,
+			)
+		) {
+			return false;
+		}
+
 		if (hasStatuses && !filters.statuses.includes(project.status.status)) {
+			return false;
+		}
+
+		if (
+			maxOfferedHours !== undefined &&
+			(project.projectInfo.offeredHours ?? 0) > maxOfferedHours
+		) {
+			return false;
+		}
+
+		if (
+			minOfferedHours !== undefined &&
+			(project.projectInfo.offeredHours ?? 0) < minOfferedHours
+		) {
 			return false;
 		}
 
@@ -265,10 +345,12 @@ export function filterProjectsByBackendFilters(
 
 export function filterProjectsByFrontendFilters(
 	projects: ProjectResponse[],
-	{ query }: Pick<ProjectFilterArgs, "query">,
+	{ query, statuses }: Pick<ProjectFilterArgs, "query" | "statuses">,
 ) {
 	const normalizedQuery = normalizeTextForSearch(query.trim());
-	if (!normalizedQuery) {
+	const hasStatuses = statuses.length > 0;
+
+	if (!normalizedQuery && !hasStatuses) {
 		return projects;
 	}
 
@@ -276,20 +358,25 @@ export function filterProjectsByFrontendFilters(
 		const normalizedName = normalizeTextForSearch(project.name);
 		const normalizedDescription = normalizeTextForSearch(project.description);
 		const normalizedEntity = normalizeTextForSearch(project.entity.name);
-		const normalizedCreator = normalizeTextForSearch(
+		const normalizedCreatedBy = normalizeTextForSearch(
 			project.projectInfo.createdBy.name,
 		);
-		const normalizedStatus = normalizeTextForSearch(
-			project.status.statusFormatted,
-		);
-
-		return (
+		const matchesQuery =
+			!normalizedQuery ||
 			normalizedName.includes(normalizedQuery) ||
 			normalizedDescription.includes(normalizedQuery) ||
 			normalizedEntity.includes(normalizedQuery) ||
-			normalizedCreator.includes(normalizedQuery) ||
-			normalizedStatus.includes(normalizedQuery)
-		);
+			normalizedCreatedBy.includes(normalizedQuery);
+
+		if (!matchesQuery) {
+			return false;
+		}
+
+		if (hasStatuses && !statuses.includes(project.status.status)) {
+			return false;
+		}
+
+		return true;
 	});
 }
 
@@ -424,6 +511,7 @@ export function getProjectStatusActionErrorToastContent(
 
 export function getEmptyProjectEditorFormValues(): ProjectEditorFormValues {
 	return {
+		areaOfExpertiseIds: [],
 		description: "",
 		entityId: "",
 		maxParticipants: "",
@@ -434,8 +522,10 @@ export function getEmptyProjectEditorFormValues(): ProjectEditorFormValues {
 
 export function buildProjectUpdateFormValues(
 	project: ProjectResponse,
+	areaOfExpertiseIds: string[] = [],
 ): ProjectEditorFormValues {
 	return {
+		areaOfExpertiseIds,
 		description: project.description,
 		entityId: project.entity.id,
 		maxParticipants:
@@ -449,9 +539,10 @@ export function buildProjectUpdateFormValues(
 
 export function buildProjectDuplicateFormValues(
 	project: ProjectResponse,
+	areaOfExpertiseIds: string[] = [],
 ): ProjectEditorFormValues {
 	return {
-		...buildProjectUpdateFormValues(project),
+		...buildProjectUpdateFormValues(project, areaOfExpertiseIds),
 		name: appendCopyToProjectName(project.name),
 	};
 }
@@ -482,11 +573,14 @@ export function toProjectUpdateRequest(
 export function getProjectFilterSummary(
 	t: TFunction,
 	{
-		createdByIds,
 		dateFrom,
 		dateTo,
+		description,
 		entityById,
 		entityIds,
+		maxOfferedHours,
+		minOfferedHours,
+		name,
 		query,
 		statuses,
 	}: ProjectFilterArgs,
@@ -497,6 +591,10 @@ export function getProjectFilterSummary(
 		parts.push(query.trim());
 	}
 
+	if (name.trim()) {
+		parts.push(name.trim());
+	}
+
 	if (entityIds.length > 0) {
 		parts.push(
 			entityIds
@@ -505,17 +603,22 @@ export function getProjectFilterSummary(
 		);
 	}
 
-	if (createdByIds.length > 0) {
-		parts.push(
-			createdByIds
-				.join(", "),
-		);
+	if (description.trim()) {
+		parts.push(description.trim());
 	}
 
 	if (statuses.length > 0) {
 		parts.push(
 			statuses.map(status => getProjectStatusLabel(t, status)).join(", "),
 		);
+	}
+
+	if (maxOfferedHours.trim()) {
+		parts.push(`<= ${maxOfferedHours.trim()}`);
+	}
+
+	if (minOfferedHours.trim()) {
+		parts.push(`>= ${minOfferedHours.trim()}`);
 	}
 
 	if (dateFrom || dateTo) {

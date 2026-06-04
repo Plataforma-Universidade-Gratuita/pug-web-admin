@@ -28,11 +28,14 @@ import type { ProjectsEditorFormProps } from "@/types";
 import { WebApiError } from "@/utils";
 
 export function ProjectsEditorForm({
+	areaOfExpertiseOptions,
+	areasOfExpertiseError,
 	canRenderForm,
 	entitiesError,
 	entityOptions,
 	form,
 	mode,
+	onRefreshAreasOfExpertise,
 	onRefreshEntities,
 	onRefreshProject,
 	project,
@@ -75,6 +78,18 @@ export function ProjectsEditorForm({
 					"project.projectPage.editor.entityLoadError.description",
 				)}
 				onRefresh={onRefreshEntities}
+			/>
+		);
+	}
+
+	if (areasOfExpertiseError) {
+		return (
+			<SomeErrorState
+				title={t("project.projectPage.editor.areasOfExpertiseLoadError.title")}
+				description={t(
+					"project.projectPage.editor.areasOfExpertiseLoadError.description",
+				)}
+				onRefresh={onRefreshAreasOfExpertise}
 			/>
 		);
 	}
@@ -143,6 +158,31 @@ export function ProjectsEditorForm({
 					) : null}
 				</div>
 			)}
+
+			<div className="grid gap-2">
+				<Label>{t("project.projectPage.editor.fields.areasOfExpertise")}</Label>
+				<Controller
+					control={form.control}
+					name="areaOfExpertiseIds"
+					render={({ field }) => (
+						<Combobox
+							multiple
+							options={areaOfExpertiseOptions}
+							values={field.value}
+							onValuesChange={field.onChange}
+							placeholder={t(
+								"project.projectPage.editor.fields.areasOfExpertisePlaceholder",
+							)}
+							searchPlaceholder={t(
+								"project.projectPage.editor.fields.areasOfExpertiseSearchPlaceholder",
+							)}
+							emptyMessage={t(
+								"project.projectPage.editor.fields.areasOfExpertiseEmptyMessage",
+							)}
+						/>
+					)}
+				/>
+			</div>
 
 			<div className="grid gap-2 sm:grid-cols-2">
 				<div className="grid gap-2">
@@ -298,6 +338,7 @@ export function ProjectsEditorForm({
 											key={areaOfExpertise.id}
 											areaOfExpertise={areaOfExpertise}
 											columns={2}
+											includeAuditInfo={false}
 										/>
 									))}
 								</div>

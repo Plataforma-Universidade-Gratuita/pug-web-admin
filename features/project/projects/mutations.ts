@@ -7,6 +7,10 @@ import {
 } from "@tanstack/react-query";
 
 import {
+	createAssociations,
+	deleteAllByProject,
+} from "@/api/web/project/project-areas-of-expertise";
+import {
 	create,
 	remove,
 	update,
@@ -59,6 +63,7 @@ function writeProjectCaches(
 		projectQueryKeys.list(),
 		current => upsertListItem(current, project, item => item.id),
 	);
+	queryClient.invalidateQueries({ queryKey: projectQueryKeys.all });
 }
 
 function removeProjectCaches(queryClient: QueryClient, projectId: string) {
@@ -70,6 +75,7 @@ function removeProjectCaches(queryClient: QueryClient, projectId: string) {
 	queryClient.removeQueries({
 		queryKey: projectQueryKeys.areasOfExpertise(projectId),
 	});
+	queryClient.invalidateQueries({ queryKey: projectQueryKeys.all });
 }
 
 async function runProjectStatusAction({
@@ -110,6 +116,31 @@ export function useUpdateProjectMutation() {
 			update(id, body),
 		onSuccess: project => {
 			writeProjectCaches(queryClient, project);
+		},
+	});
+}
+
+export function useSetProjectAreasOfExpertiseMutation() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: async ({
+			areaOfExpertiseIds,
+			projectId,
+		}: {
+			areaOfExpertiseIds: string[];
+			projectId: string;
+		}) => {
+			await deleteAllByProject(projectId);
+
+			if (areaOfExpertiseIds.length > 0) {
+				await createAssociations(projectId, { areaOfExpertiseIds });
+			}
+		},
+		onSuccess: (_data, variables) => {
+			queryClient.invalidateQueries({
+				queryKey: projectQueryKeys.areasOfExpertise(variables.projectId),
+			});
 		},
 	});
 }

@@ -10,12 +10,14 @@ import type { AreaOfExpertiseResponse, EntityPageField } from "@/types";
 interface AreaOfExpertiseDetailsContentProps {
 	areaOfExpertise: AreaOfExpertiseResponse;
 	columns?: 2 | 3;
+	includeAuditInfo?: boolean;
 	includeName?: boolean;
 }
 
 export function AreaOfExpertiseDetailsContent({
 	areaOfExpertise,
 	columns = 3,
+	includeAuditInfo = true,
 	includeName = true,
 }: AreaOfExpertiseDetailsContentProps) {
 	const { t } = useTranslation();
@@ -26,17 +28,22 @@ export function AreaOfExpertiseDetailsContent({
 				label: t("academic.schoolPage.dialog.fields.id"),
 				value: areaOfExpertise.id,
 			},
-			{
-				id: "createdAt",
-				label: t("academic.schoolPage.dialog.fields.createdAt"),
-				value: areaOfExpertise.auditInfo.createdAtFormatted,
-			},
-			{
-				id: "updatedAt",
-				label: t("academic.schoolPage.dialog.fields.updatedAt"),
-				value: areaOfExpertise.auditInfo.updatedAtFormatted,
-			},
 		];
+
+		if (includeAuditInfo) {
+			baseFields.push(
+				{
+					id: "createdAt",
+					label: t("academic.schoolPage.dialog.fields.createdAt"),
+					value: areaOfExpertise.auditInfo.createdAtFormatted,
+				},
+				{
+					id: "updatedAt",
+					label: t("academic.schoolPage.dialog.fields.updatedAt"),
+					value: areaOfExpertise.auditInfo.updatedAtFormatted,
+				},
+			);
+		}
 
 		if (!includeName) {
 			return baseFields;
@@ -50,7 +57,7 @@ export function AreaOfExpertiseDetailsContent({
 			},
 			...baseFields,
 		];
-	}, [areaOfExpertise, includeName, t]);
+	}, [areaOfExpertise, includeAuditInfo, includeName, t]);
 
 	return (
 		<EntityPageFieldsGrid
