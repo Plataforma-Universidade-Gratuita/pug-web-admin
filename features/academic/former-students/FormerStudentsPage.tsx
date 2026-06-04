@@ -555,8 +555,8 @@ export function FormerStudentsPage() {
 				cancelLabel={t("common.cancel")}
 				actionLabel={t(
 					pendingStatusStudent?.account?.active
-						? "academic.studentPage.table.actions.deactivate"
-						: "academic.studentPage.table.actions.reactivate",
+						? "common.table.actions.deactivate"
+						: "common.table.actions.reactivate",
 				)}
 				onAction={handleStatusConfirm}
 			/>
@@ -574,7 +574,7 @@ export function FormerStudentsPage() {
 					name: pendingDeleteStudent?.user?.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("academic.studentPage.table.actions.delete")}
+				actionLabel={t("common.table.actions.delete")}
 				onAction={handleDeleteConfirm}
 			/>
 		</ServicePageShell>

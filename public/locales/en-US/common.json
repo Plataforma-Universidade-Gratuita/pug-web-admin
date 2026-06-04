@@ -51,7 +51,6 @@
                     "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
                     "id": "$t(geo.cityPage.dialog.fields.id)",
                     "name": "$t(academic.coursePage.table.columns.name)",
-                    "school": "$t(academic.coursePage.table.columns.school)",
                     "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                 },
                 "linkedAreaOfExpertise": {
@@ -61,7 +60,6 @@
                     "description": "The requested course could not be found.",
                     "title": "Course not found"
                 },
-                "overhead": "Course record",
                 "titleFallback": "Course details"
             },
             "duplicate": {
@@ -130,14 +128,6 @@
             },
             "filters": {
                 "clear": "$t(docs.drawer.examples.filters.clear.action)",
-                "dateField": {
-                    "label": "$t(identity.accountPage.filters.dateField.label)",
-                    "options": {
-                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
-                    },
-                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
-                },
                 "drawer": {
                     "active": "Filters active",
                     "apply": "Apply filters",
@@ -174,7 +164,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading course details",
                 "list": "Loading courses"
             },
             "metadata": {
@@ -185,12 +174,6 @@
                 "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
-                "actions": {
-                    "delete": "Delete course",
-                    "duplicate": "Duplicate course",
-                    "update": "Update course",
-                    "viewDetails": "$t(docs.table.actions.view)"
-                },
                 "columns": {
                     "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
                     "id": "$t(geo.cityPage.dialog.fields.id)",
@@ -292,7 +275,6 @@
                     "description": "The requested area of expertise could not be found.",
                     "title": "Area not found"
                 },
-                "overhead": "Academic area",
                 "titleFallback": "Area details"
             },
             "duplicate": {
@@ -348,14 +330,6 @@
             },
             "filters": {
                 "clear": "$t(docs.drawer.examples.filters.clear.action)",
-                "dateField": {
-                    "label": "$t(identity.accountPage.filters.dateField.label)",
-                    "options": {
-                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
-                    },
-                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
-                },
                 "drawer": {
                     "active": "Filters active",
                     "apply": "Apply filters",
@@ -382,7 +356,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading area details",
                 "list": "Loading areas"
             },
             "metadata": {
@@ -393,12 +366,6 @@
                 "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
-                "actions": {
-                    "delete": "Delete area",
-                    "duplicate": "Duplicate area",
-                    "update": "Update area",
-                    "viewDetails": "$t(docs.table.actions.view)"
-                },
                 "columns": {
                     "createdAt": "$t(identity.accountPage.table.columns.createdAt)",
                     "id": "$t(geo.cityPage.dialog.fields.id)",
@@ -454,9 +421,7 @@
                         "title": "Former student created"
                     }
                 },
-                "fields": {
-                    "passwordPlaceholder": "Create a temporary password"
-                },
+                "fields": {},
                 "open": "Add former student",
                 "overhead": "Create former student",
                 "titleFallback": "New former student"
@@ -500,10 +465,6 @@
             },
             "description": "Service directory for former students linked to academic courses and campus assignments.",
             "dialog": {
-                "active": {
-                    "no": "$t(identity.accountPage.dialog.active.no)",
-                    "yes": "$t(identity.accountPage.dialog.active.yes)"
-                },
                 "error": {
                     "description": "The former student record could not be loaded right now.",
                     "title": "Unable to load former student"
@@ -511,20 +472,15 @@
                 "fields": {
                     "academicRegistration": "Academic registration",
                     "accountId": "Account ID",
-                    "active": "Status",
                     "campus": "Campus",
                     "completedHours": "Completed hours",
-                    "course": "Course",
                     "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
                     "dueDate": "Due date",
-                    "email": "Email",
                     "missingHours": "Missing hours",
-                    "name": "Name",
                     "remainingDays": "Remaining days",
                     "requiredHours": "Required hours",
                     "startDate": "Start date",
-                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)",
-                    "userId": "User ID"
+                    "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
                 },
                 "notFound": {
                     "description": "The requested former student record could not be found.",
@@ -548,9 +504,7 @@
                         "title": "Former student duplicated"
                     }
                 },
-                "fields": {
-                    "passwordPlaceholder": "Set a password for the duplicate"
-                },
+                "fields": {},
                 "overhead": "Duplicate former student",
                 "titleFallback": "Duplicate former student"
             },
@@ -582,7 +536,6 @@
                     "emailPlaceholder": "Enter the email address",
                     "name": "Name",
                     "namePlaceholder": "Enter the name",
-                    "password": "Password",
                     "requiredHours": "Required hours",
                     "requiredHoursPlaceholder": "Enter the required hours",
                     "startDate": "Start date",
@@ -606,9 +559,7 @@
                         "required": "Enter an academic registration.",
                         "tooLong": "Academic registration must be 15 characters or fewer."
                     },
-                    "campus": {
-                        "required": "Select a campus."
-                    },
+                    "campus": {},
                     "course": {
                         "required": "Select a course."
                     },
@@ -629,9 +580,7 @@
                         "required": "Enter a name.",
                         "tooLong": "Name must be 255 characters or fewer."
                     },
-                    "password": {
-                        "required": "Enter a password."
-                    },
+                    "password": {},
                     "requiredHours": {
                         "invalid": "Enter a number greater than zero.",
                         "required": "Enter the required hours."
@@ -673,11 +622,6 @@
                 "campus": {
                     "emptyMessage": "No campus found.",
                     "label": "Campus",
-                    "options": {
-                        "all": "All campuses",
-                        "JARAGUA_DO_SUL": "$t(identity.adminPage.filters.campus.options.JARAGUA_DO_SUL)",
-                        "JOINVILLE": "$t(identity.adminPage.filters.campus.options.JOINVILLE)"
-                    },
                     "placeholder": "Select campuses",
                     "searchPlaceholder": "Search campuses"
                 },
@@ -704,10 +648,6 @@
                     "title": "Filter former students",
                     "trigger": "More filters"
                 },
-                "endDate": {
-                    "label": "$t(identity.accountPage.filters.endDate.label)",
-                    "placeholder": "$t(identity.accountPage.filters.endDate.placeholder)"
-                },
                 "frontendAcademicRegistration": {
                     "label": "Academic registration",
                     "placeholder": "Filter by academic registration"
@@ -729,10 +669,6 @@
                     "label": "Name or email",
                     "placeholder": "Filter by name or email"
                 },
-                "startDate": {
-                    "label": "$t(identity.accountPage.filters.startDate.label)",
-                    "placeholder": "$t(identity.accountPage.filters.startDate.placeholder)"
-                },
                 "tabs": {
                     "academic": "Academic",
                     "identity": "Identity",
@@ -740,7 +676,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading former-student details",
                 "list": "Loading former students"
             },
             "metadata": {
@@ -767,14 +702,6 @@
                 }
             },
             "table": {
-                "actions": {
-                    "deactivate": "Deactivate former student",
-                    "delete": "Delete former student",
-                    "duplicate": "Duplicate former student",
-                    "reactivate": "Reactivate former student",
-                    "update": "Update former student",
-                    "viewDetails": "$t(docs.table.actions.view)"
-                },
                 "active": {
                     "no": "$t(identity.accountPage.table.active.no)",
                     "yes": "$t(identity.accountPage.table.active.yes)"
@@ -815,9 +742,7 @@
                         "title": "Former student updated"
                     }
                 },
-                "fields": {
-                    "passwordPlaceholder": "Leave blank to keep the current password"
-                },
+                "fields": {},
                 "loadError": {
                     "description": "The former student record could not be loaded right now.",
                     "title": "Unable to load former-student editor"
@@ -934,7 +859,7 @@
         }
     },
     "common": {
-        "cancel": "$t(docs.alertDialog.examples.danger.footer.cancel)",
+        "cancel": "Cancel",
         "filters": {
             "activeOnly": {
                 "description": "Hide inactive records from the directory results.",
@@ -1046,7 +971,6 @@
                     "description": "The requested city record could not be found.",
                     "title": "City not found"
                 },
-                "overhead": "City record",
                 "titleFallback": "City details"
             },
             "empty": {
@@ -1087,7 +1011,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading city details",
                 "list": "Loading city catalog"
             },
             "metadata": {
@@ -1098,9 +1021,7 @@
                 "trigger": "Metadata"
             },
             "table": {
-                "actions": {
-                    "viewDetails": "View city details"
-                },
+                "actions": {},
                 "columns": {
                     "ibgeCode": "$t(geo.cityPage.dialog.fields.ibgeCode)",
                     "identifier": "$t(geo.cityPage.dialog.fields.id)",
@@ -1119,27 +1040,6 @@
         }
     },
     "home": {
-        "currentAccount": {
-            "badge": "Account",
-            "description": "Authenticated account summary.",
-            "error": {
-                "description": "Try the request again.",
-                "retry": "Retry",
-                "title": "Unable to load the current account."
-            },
-            "fields": {
-                "email": "Account email",
-                "status": "Status",
-                "type": "Account type"
-            },
-            "lastUpdated": "Last updated {{value}}.",
-            "loading": "Loading current account",
-            "title": "Current account",
-            "values": {
-                "active": "Active",
-                "inactive": "Inactive"
-            }
-        },
         "dashboard": {
             "description": "Daily operational overview across enrollments, attendances, former students, and projects.",
             "exceptions": {
@@ -1187,22 +1087,6 @@
                 "updated": "Updated"
             },
             "sections": {
-                "account": {
-                    "description": "Authenticated account summary for this session.",
-                    "empty": "Current account is unavailable.",
-                    "error": "Unable to load the current account right now.",
-                    "fields": {
-                        "email": "Account email",
-                        "status": "Status",
-                        "type": "Account type"
-                    },
-                    "lastUpdated": "Last updated {{value}}.",
-                    "title": "Current account",
-                    "values": {
-                        "active": "Active",
-                        "inactive": "Inactive"
-                    }
-                },
                 "exceptions": {
                     "description": "Counts that usually deserve quick follow-up.",
                     "title": "Exceptions"
@@ -1272,28 +1156,10 @@
                     "id": "$t(geo.cityPage.dialog.fields.id)",
                     "updatedAt": "Updated at"
                 },
-                "linkedUser": {
-                    "error": {
-                        "description": "The linked user record could not be loaded right now.",
-                        "title": "Unable to load linked user"
-                    },
-                    "fields": {
-                        "cpf": "CPF",
-                        "id": "$t(geo.cityPage.dialog.fields.id)",
-                        "name": "User name"
-                    },
-                    "loading": "Loading linked user",
-                    "notFound": {
-                        "description": "The linked user record could not be found.",
-                        "title": "Linked user not found"
-                    },
-                    "overhead": "Linked user"
-                },
                 "notFound": {
                     "description": "The requested account record could not be found.",
                     "title": "Account not found"
                 },
-                "overhead": "Account record",
                 "titleFallback": "Account details"
             },
             "empty": {
@@ -1305,10 +1171,6 @@
                 "detailError": {
                     "description": "$t(identity.accountPage.dialog.error.description)",
                     "title": "Unable to load account details"
-                },
-                "linkedUserError": {
-                    "description": "$t(identity.accountPage.dialog.linkedUser.error.description)",
-                    "title": "$t(identity.accountPage.dialog.linkedUser.error.title)"
                 },
                 "listError": {
                     "description": "The account catalog could not be loaded right now.",
@@ -1327,15 +1189,6 @@
                     },
                     "placeholder": "Select..."
                 },
-                "active": {
-                    "label": "$t(docs.drawer.examples.filters.groups.status.title)",
-                    "options": {
-                        "active": "$t(docs.multiSelect.cards.status.options.active)",
-                        "all": "All statuses",
-                        "inactive": "$t(home.currentAccount.values.inactive)"
-                    },
-                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
-                },
                 "activeOnly": {
                     "description": "Keep only active accounts in the search result.",
                     "label": "Active accounts only",
@@ -1346,14 +1199,6 @@
                     "label": "CPF pattern",
                     "placeholder": "Filter accounts by CPF pattern"
                 },
-                "dateField": {
-                    "label": "Date field",
-                    "options": {
-                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
-                    },
-                    "placeholder": "$t(identity.accountPage.filters.accountType.placeholder)"
-                },
                 "drawer": {
                     "active": "Filters active",
                     "apply": "$t(docs.drawer.examples.filters.footer.action)",
@@ -1361,7 +1206,6 @@
                         "description": "This will remove the active account filters from the current table view.",
                         "title": "Clear account filters?"
                     },
-                    "label": "$t(docs.drawer.examples.filters.groups.advanced.title)",
                     "overhead": "Account filters",
                     "title": "Refine account catalog",
                     "trigger": "$t(docs.drawer.examples.filters.groups.advanced.title)"
@@ -1388,7 +1232,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading account details",
                 "list": "Loading account catalog"
             },
             "metadata": {
@@ -1399,9 +1242,7 @@
                 "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
-                "actions": {
-                    "viewDetails": "View account details"
-                },
+                "actions": {},
                 "active": {
                     "no": "$t(home.currentAccount.values.inactive)",
                     "yes": "$t(docs.multiSelect.cards.status.options.active)"
@@ -1438,9 +1279,7 @@
                         "title": "Administrator created"
                     }
                 },
-                "fields": {
-                    "passwordPlaceholder": "Set a password for the new administrator"
-                },
+                "fields": {},
                 "open": "Add admin",
                 "overhead": "New administrator",
                 "titleFallback": "Add administrator"
@@ -1495,56 +1334,24 @@
                     "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
                     "userId": "User identifier"
                 },
-                "linkedAccount": {
-                    "active": {
-                        "no": "$t(identity.accountPage.dialog.active.no)",
-                        "yes": "$t(identity.accountPage.dialog.active.yes)"
-                    },
-                    "error": {
-                        "description": "The linked account record could not be loaded right now.",
-                        "title": "Unable to load linked account"
-                    },
-                    "fields": {
-                        "active": "$t(identity.accountPage.dialog.fields.active)",
-                        "id": "$t(identity.accountPage.dialog.fields.id)",
-                        "type": "$t(identity.accountPage.dialog.fields.accountType)"
-                    },
-                    "loading": "Loading linked account",
-                    "notFound": {
-                        "description": "The linked account record could not be found.",
-                        "title": "Linked account not found"
-                    },
-                    "overhead": "Linked account"
-                },
                 "linkedUser": {
                     "error": {
                         "description": "$t(identity.accountPage.dialog.linkedUser.error.description)",
                         "title": "$t(identity.accountPage.dialog.linkedUser.error.title)"
                     },
-                    "fields": {
-                        "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
-                        "id": "$t(identity.accountPage.dialog.linkedUser.fields.id)",
-                        "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)"
-                    },
-                    "loading": "$t(identity.accountPage.dialog.linkedUser.loading)",
                     "notFound": {
                         "description": "$t(identity.accountPage.dialog.linkedUser.notFound.description)",
                         "title": "$t(identity.accountPage.dialog.linkedUser.notFound.title)"
-                    },
-                    "overhead": "$t(identity.accountPage.dialog.linkedUser.overhead)"
+                    }
                 },
                 "notFound": {
                     "description": "The requested administrator assignment could not be found.",
                     "title": "Administrator not found"
                 },
-                "overhead": "Administrator assignment",
                 "titleFallback": "Administrator details"
             },
             "duplicate": {
-                "actions": {
-                    "save": "Create duplicate",
-                    "savePending": "Creating duplicate..."
-                },
+                "actions": {},
                 "feedback": {
                     "error": {
                         "description": "The administrator duplicate could not be created right now.",
@@ -1555,11 +1362,7 @@
                         "title": "Administrator duplicated"
                     }
                 },
-                "fields": {
-                    "passwordPlaceholder": "Set a password for the duplicated administrator"
-                },
-                "overhead": "Duplicate administrator",
-                "titleFallback": "Duplicate administrator"
+                "fields": {}
             },
             "empty": {
                 "defaultDescription": "The administrator directory is currently empty.",
@@ -1613,7 +1416,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading administrator details",
                 "list": "Loading administrators"
             },
             "metadata": {
@@ -1640,14 +1442,6 @@
                 }
             },
             "table": {
-                "actions": {
-                    "deactivate": "Deactivate administrator",
-                    "delete": "Delete administrator",
-                    "duplicate": "Duplicate administrator",
-                    "reactivate": "Reactivate administrator",
-                    "update": "Update administrator",
-                    "viewDetails": "$t(docs.table.actions.view)"
-                },
                 "active": {
                     "no": "Inactive",
                     "yes": "Active"
@@ -1696,11 +1490,7 @@
                     "accountId": "$t(identity.accountPage.dialog.fields.id)",
                     "accountType": "$t(identity.accountPage.dialog.fields.accountType)",
                     "active": "$t(identity.accountPage.dialog.fields.active)",
-                    "activeDescription": "New administrator accounts are always created as active.",
-                    "activeValues": {
-                        "active": "$t(identity.accountPage.dialog.active.yes)",
-                        "inactive": "$t(identity.accountPage.dialog.active.no)"
-                    },
+                    "activeValues": {},
                     "campus": "Campus",
                     "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
                     "cpfCreateOption": "Use {{value}}",
@@ -1711,11 +1501,7 @@
                     "email": "$t(identity.accountPage.dialog.fields.email)",
                     "grantedAt": "Granted at",
                     "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
-                    "nameEditableDescription": "This CPF is not registered yet. Enter the user's name to create the linked user.",
-                    "nameLockedDescription": "This CPF is already linked to an existing user. The name comes from that user record.",
                     "namePlaceholder": "Enter the user's name",
-                    "password": "Password",
-                    "passwordPlaceholder": "Leave blank to keep the current password",
                     "userId": "User identifier",
                     "userName": "$t(identity.accountPage.dialog.linkedUser.fields.name)"
                 },
@@ -1740,7 +1526,6 @@
                 },
                 "titleFallback": "Edit administrator",
                 "validation": {
-                    "campus": "Select a campus.",
                     "cpf": {
                         "invalid": "Enter a valid CPF.",
                         "required": "Enter a CPF."
@@ -1752,9 +1537,7 @@
                     },
                     "name": "Enter a name.",
                     "nameTooLong": "Name must be 255 characters or fewer.",
-                    "password": {
-                        "required": "Enter a password."
-                    }
+                    "password": {}
                 }
             }
         },
@@ -1780,7 +1563,6 @@
                     "description": "The requested user record could not be found.",
                     "title": "User not found"
                 },
-                "overhead": "User record",
                 "titleFallback": "User details"
             },
             "empty": {
@@ -1824,14 +1606,6 @@
                         "label": "Name pattern",
                         "placeholder": "Filter users by name pattern"
                     },
-                    "operator": {
-                        "label": "Logical operator",
-                        "options": {
-                            "AND": "AND",
-                            "OR": "OR"
-                        },
-                        "placeholder": "Select"
-                    },
                     "overhead": "Refinement",
                     "title": "Filters",
                     "trigger": "Open filters"
@@ -1849,7 +1623,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading user details",
                 "list": "Loading user catalog"
             },
             "metadata": {
@@ -1860,9 +1633,7 @@
                 "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
-                "actions": {
-                    "viewDetails": "View user details"
-                },
+                "actions": {},
                 "columns": {
                     "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
                     "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
@@ -1899,9 +1670,7 @@
             "logoutCurrentSuccess": "Signed out on this device.",
             "logoutDialogDescription": "End this session on the current device or revoke access on every device where this account is signed in.",
             "logoutDialogTitle": "Choose how to sign out",
-            "logoutError": "Unable to sign out right now.",
-            "logoutPending": "Logging out...",
-            "logoutSuccess": "Signed out successfully."
+            "logoutError": "Unable to sign out right now."
         },
         "collapse": "Collapse sidebar",
         "controls": {
@@ -2020,7 +1789,6 @@
                     "description": "The requested entity record could not be found.",
                     "title": "Entity not found"
                 },
-                "overhead": "Entity record",
                 "titleFallback": "Entity details",
                 "values": {
                     "noAddress": "No address provided"
@@ -2070,7 +1838,6 @@
                 },
                 "validation": {
                     "address": {
-                        "required": "Enter an address.",
                         "tooLong": "Address must be 254 characters or fewer."
                     },
                     "city": "Select a city.",
@@ -2113,14 +1880,6 @@
                     "searchPlaceholder": "Search cities"
                 },
                 "clear": "$t(identity.accountPage.filters.clear)",
-                "dateField": {
-                    "label": "$t(identity.accountPage.filters.dateField.label)",
-                    "options": {
-                        "createdAt": "$t(identity.accountPage.dialog.fields.createdAt)",
-                        "updatedAt": "$t(identity.accountPage.dialog.fields.updatedAt)"
-                    },
-                    "placeholder": "$t(identity.accountPage.filters.dateField.placeholder)"
-                },
                 "drawer": {
                     "active": "Filters active",
                     "apply": "Apply filters",
@@ -2153,7 +1912,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading entity details",
                 "list": "Loading entities"
             },
             "metadata": {
@@ -2164,12 +1922,6 @@
                 "trigger": "$t(geo.cityPage.metadata.trigger)"
             },
             "table": {
-                "actions": {
-                    "delete": "Delete entity",
-                    "duplicate": "Duplicate entity",
-                    "update": "Update entity",
-                    "viewDetails": "View entity details"
-                },
                 "columns": {
                     "address": "Address",
                     "city": "City",
@@ -2232,9 +1984,7 @@
                         "title": "Staff member created"
                     }
                 },
-                "fields": {
-                    "passwordPlaceholder": "Create a temporary password"
-                },
+                "fields": {},
                 "open": "Add staff member",
                 "overhead": "Create staff member",
                 "titleFallback": "New staff member"
@@ -2285,46 +2035,12 @@
                     "description": "The staff record could not be loaded right now.",
                     "title": "Unable to load staff member"
                 },
-                "fields": {
-                    "cityId": "City ID",
-                    "email": "Email",
-                    "entity": "Entity",
-                    "id": "Staff ID",
-                    "name": "Name",
-                    "userId": "User ID"
-                },
-                "linkedAccount": {
-                    "active": {
-                        "no": "Inactive",
-                        "yes": "Active"
-                    },
-                    "error": {
-                        "description": "The linked account could not be loaded right now.",
-                        "title": "Unable to load linked account"
-                    },
-                    "fields": {
-                        "active": "Status",
-                        "id": "Account ID",
-                        "type": "Account type"
-                    },
-                    "loading": "Loading linked account",
-                    "notFound": {
-                        "description": "The linked account could not be found.",
-                        "title": "Linked account not found"
-                    },
-                    "overhead": "Linked account"
-                },
+                "fields": {},
                 "linkedUser": {
                     "error": {
                         "description": "The linked user could not be loaded right now.",
                         "title": "Unable to load linked user"
                     },
-                    "fields": {
-                        "cpf": "CPF",
-                        "id": "User ID",
-                        "name": "Name"
-                    },
-                    "loading": "Loading linked user",
                     "notFound": {
                         "description": "The linked user could not be found.",
                         "title": "Linked user not found"
@@ -2335,7 +2051,6 @@
                     "description": "The requested staff record could not be found.",
                     "title": "Staff member not found"
                 },
-                "overhead": "Staff record",
                 "titleFallback": "Staff details"
             },
             "duplicate": {
@@ -2353,9 +2068,7 @@
                         "title": "Staff member duplicated"
                     }
                 },
-                "fields": {
-                    "passwordPlaceholder": "Set a password for the duplicate"
-                },
+                "fields": {},
                 "overhead": "Duplicate staff member",
                 "titleFallback": "Duplicate staff member"
             },
@@ -2378,8 +2091,7 @@
                     "entityEmptyMessage": "No entities found.",
                     "entityPlaceholder": "Select an entity",
                     "entitySearchPlaceholder": "Search entities",
-                    "name": "Name",
-                    "password": "Password"
+                    "name": "Name"
                 },
                 "loading": "Loading staff editor",
                 "resetConfirm": {
@@ -2407,9 +2119,7 @@
                         "required": "Enter a name.",
                         "tooLong": "Name must be 255 characters or fewer."
                     },
-                    "password": {
-                        "required": "Enter a password."
-                    }
+                    "password": {}
                 }
             },
             "empty": {
@@ -2444,34 +2154,7 @@
                 }
             },
             "filters": {
-                "active": {
-                    "label": "Status",
-                    "options": {
-                        "active": "Active",
-                        "all": "All statuses",
-                        "inactive": "Inactive"
-                    },
-                    "placeholder": "Select a status"
-                },
-                "activeOnly": {
-                    "description": "When disabled, inactive linked accounts are included in the results.",
-                    "label": "Active only"
-                },
-                "city": {
-                    "emptyMessage": "No cities found.",
-                    "error": {
-                        "description": "$t(partner.staffPage.feedback.citiesError.description)",
-                        "title": "$t(partner.staffPage.feedback.citiesError.title)"
-                    },
-                    "label": "City",
-                    "placeholder": "Select a city",
-                    "searchPlaceholder": "Search cities"
-                },
                 "clear": "$t(identity.accountPage.filters.clear)",
-                "cpf": {
-                    "label": "CPF",
-                    "placeholder": "Filter by CPF"
-                },
                 "drawer": {
                     "active": "Filters active",
                     "apply": "Apply filters",
@@ -2484,14 +2167,6 @@
                     "title": "Filter staff",
                     "trigger": "More filters"
                 },
-                "email": {
-                    "label": "Email",
-                    "placeholder": "Filter by email"
-                },
-                "endDate": {
-                    "label": "Created or updated until",
-                    "placeholder": "Select an end date"
-                },
                 "entity": {
                     "emptyMessage": "$t(partner.staffPage.editor.fields.entityEmptyMessage)",
                     "error": {
@@ -2502,21 +2177,12 @@
                     "placeholder": "Select an entity",
                     "searchPlaceholder": "Search entities"
                 },
-                "name": {
-                    "label": "Name",
-                    "placeholder": "Filter by staff member name"
-                },
                 "search": {
                     "label": "Name, email or entity",
                     "placeholder": "Filter by name, email or entity"
-                },
-                "startDate": {
-                    "label": "Created or updated from",
-                    "placeholder": "Select a start date"
                 }
             },
             "loading": {
-                "detail": "Loading staff details",
                 "list": "Loading staff"
             },
             "metadata": {
@@ -2543,20 +2209,11 @@
                 }
             },
             "table": {
-                "actions": {
-                    "deactivate": "Deactivate staff member",
-                    "delete": "Delete staff member",
-                    "duplicate": "Duplicate staff member",
-                    "reactivate": "Reactivate staff member",
-                    "update": "Update staff member",
-                    "viewDetails": "View staff details"
-                },
                 "active": {
                     "no": "Inactive",
                     "yes": "Active"
                 },
                 "columns": {
-                    "accountType": "Account type",
                     "active": "Status",
                     "createdAt": "Created at",
                     "email": "Email",
@@ -2586,9 +2243,7 @@
                         "title": "Staff member updated"
                     }
                 },
-                "fields": {
-                    "passwordPlaceholder": "Leave blank to keep the current password"
-                },
+                "fields": {},
                 "loadError": {
                     "description": "The staff record could not be loaded right now.",
                     "title": "Unable to load staff editor"
@@ -2653,18 +2308,13 @@
                 "fields": {
                     "createdAt": "Created",
                     "duration": "Duration",
-                    "email": "Email",
                     "id": "Attendance id",
-                    "project": "Project",
                     "projectId": "Project id",
                     "qrValidationHash": "QR validation hash",
-                    "registration": "Registration",
                     "status": "Status",
-                    "student": "Student",
                     "studentId": "Student id",
                     "updatedAt": "Updated",
-                    "validatedAt": "Validated at",
-                    "validatedBy": "Validated by"
+                    "validatedAt": "Validated at"
                 },
                 "linkedProject": {
                     "overhead": "Linked project"
@@ -2697,8 +2347,7 @@
                 },
                 "titleFallback": "Attendance details",
                 "values": {
-                    "notValidated": "Not validated yet",
-                    "unknownStudent": "Student data unavailable"
+                    "notValidated": "Not validated yet"
                 }
             },
             "editor": {
@@ -2720,16 +2369,10 @@
                     "studentSearchPlaceholder": "Search students..."
                 },
                 "loading": "Loading attendance editor",
-                "notReady": {
-                    "title": "Attendance form unavailable"
-                },
+                "notReady": {},
                 "projectLoadError": {
                     "description": "The project directory could not be loaded right now.",
                     "title": "Unable to load projects"
-                },
-                "resetConfirm": {
-                    "description": "Discard the current changes and restore the empty attendance form.",
-                    "title": "Reset attendance form"
                 },
                 "studentLoadError": {
                     "description": "The former-student directory could not be loaded right now.",
@@ -2781,14 +2424,6 @@
             },
             "filters": {
                 "clear": "Clear filters",
-                "dateField": {
-                    "label": "Audit field",
-                    "options": {
-                        "createdAt": "Created date",
-                        "updatedAt": "Updated date"
-                    },
-                    "placeholder": "Choose a date field"
-                },
                 "drawer": {
                     "active": "Filters active",
                     "apply": "Apply filters",
@@ -2867,7 +2502,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading attendance details",
                 "list": "Loading attendances"
             },
             "markAbsent": {
@@ -3069,12 +2703,8 @@
                     "acceptedAt": "Accepted at",
                     "closingStatusAt": "Closed at",
                     "createdAt": "Created",
-                    "email": "Email",
-                    "project": "Project",
                     "projectId": "Project id",
-                    "registration": "Registration",
                     "status": "Status",
-                    "student": "Student",
                     "studentId": "Student id",
                     "updatedAt": "Updated"
                 },
@@ -3092,8 +2722,7 @@
                 "titleFallback": "Enrollment details",
                 "values": {
                     "notAccepted": "Not accepted yet",
-                    "open": "Open",
-                    "unknownStudent": "Student data unavailable"
+                    "open": "Open"
                 }
             },
             "editor": {
@@ -3128,9 +2757,7 @@
                     "project": {
                         "required": "Select a project."
                     },
-                    "status": {
-                        "required": "Select a status."
-                    }
+                    "status": {}
                 }
             },
             "empty": {
@@ -3243,8 +2870,6 @@
                 }
             },
             "loading": {
-                "detail": "Loading enrollment details",
-                "editor": "Loading enrollment editor",
                 "list": "Loading enrollments"
             },
             "metadata": {
@@ -3449,12 +3074,10 @@
                     "createdAt": "Created",
                     "createdBy": "Created by",
                     "description": "Description",
-                    "entity": "Entity",
                     "id": "Project id",
                     "maxParticipants": "Max participants",
                     "name": "Name",
                     "offeredHours": "Offered hours",
-                    "schools": "Areas of expertise",
                     "status": "Status",
                     "updatedAt": "Updated"
                 },
@@ -3472,11 +3095,9 @@
                     "description": "The requested project record could not be found.",
                     "title": "Project not found"
                 },
-                "overhead": "Project details",
                 "titleFallback": "Project details",
                 "values": {
                     "noDescription": "No description recorded.",
-                    "noSchools": "No areas of expertise linked.",
                     "open": "Open",
                     "unlimited": "Unlimited"
                 }
@@ -3597,14 +3218,6 @@
                     "placeholder": "Select an admin",
                     "searchPlaceholder": "Search admins..."
                 },
-                "dateField": {
-                    "label": "Audit field",
-                    "options": {
-                        "createdAt": "Created date",
-                        "updatedAt": "Updated date"
-                    },
-                    "placeholder": "Choose a date field"
-                },
                 "description": {
                     "label": "Description pattern",
                     "placeholder": "Filter by project description on the server"
@@ -3677,9 +3290,7 @@
                 }
             },
             "loading": {
-                "detail": "Loading project details",
-                "list": "Loading projects",
-                "schools": "Loading linked areas of expertise"
+                "list": "Loading projects"
             },
             "metadata": {
                 "empty": {

@@ -342,7 +342,7 @@ export function CoursesPage() {
 					name: pendingDeleteCourse?.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("academic.coursePage.table.actions.delete")}
+				actionLabel={t("common.table.actions.delete")}
 				onAction={handleDeleteConfirm}
 			/>
 		</ServicePageShell>

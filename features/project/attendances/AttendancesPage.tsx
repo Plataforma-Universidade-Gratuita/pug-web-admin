@@ -591,7 +591,7 @@ export function AttendancesPage() {
 					student: pendingDeleteAttendance?.student.account.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("project.attendancePage.table.actions.delete")}
+				actionLabel={t("common.table.actions.delete")}
 				onAction={handleDeleteConfirm}
 			/>
 

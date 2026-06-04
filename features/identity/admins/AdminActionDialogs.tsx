@@ -37,8 +37,8 @@ export function AdminsActionDialogs({
 				cancelLabel={t("common.cancel")}
 				actionLabel={t(
 					pendingStatusAdmin?.active
-						? "identity.adminPage.table.actions.reactivate"
-						: "identity.adminPage.table.actions.deactivate",
+						? "common.table.actions.reactivate"
+						: "common.table.actions.deactivate",
 				)}
 				onAction={onConfirmStatusChange}
 			/>
@@ -52,7 +52,7 @@ export function AdminsActionDialogs({
 					name: pendingDeleteAdmin?.account.user.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("identity.adminPage.table.actions.delete")}
+				actionLabel={t("common.table.actions.delete")}
 				onAction={onConfirmDelete}
 			/>
 		</>

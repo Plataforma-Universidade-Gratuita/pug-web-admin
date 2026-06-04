@@ -37,8 +37,8 @@ export function StaffActionDialogs({
 				cancelLabel={t("common.cancel")}
 				actionLabel={t(
 					pendingStatusStaff?.active
-						? "partner.staffPage.table.actions.reactivate"
-						: "partner.staffPage.table.actions.deactivate",
+						? "common.table.actions.reactivate"
+						: "common.table.actions.deactivate",
 				)}
 				onAction={onConfirmStatusChange}
 			/>
@@ -52,7 +52,7 @@ export function StaffActionDialogs({
 					name: pendingDeleteStaff?.account.user.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("partner.staffPage.table.actions.delete")}
+				actionLabel={t("common.table.actions.delete")}
 				onAction={onConfirmDelete}
 			/>
 		</>

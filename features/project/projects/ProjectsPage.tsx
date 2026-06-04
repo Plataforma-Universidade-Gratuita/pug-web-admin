@@ -580,7 +580,7 @@ export function ProjectsPage() {
 					name: pendingDeleteProject?.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("project.projectPage.table.actions.delete")}
+				actionLabel={t("common.table.actions.delete")}
 				onAction={handleDeleteConfirm}
 			/>
 

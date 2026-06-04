@@ -308,7 +308,7 @@ export function AreasOfExpertisePage() {
 					name: pendingDeleteAreaOfExpertise?.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("academic.schoolPage.table.actions.delete")}
+				actionLabel={t("common.table.actions.delete")}
 				onAction={handleDeleteConfirm}
 			/>
 		</ServicePageShell>

@@ -560,7 +560,7 @@ export function EnrollmentsPage() {
 						: ""
 				}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("project.enrollmentPage.table.actions.delete")}
+				actionLabel={t("common.table.actions.delete")}
 				onAction={handleDeleteConfirm}
 			/>
 
