@@ -6,17 +6,14 @@ import { Controller, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-	Badge,
 	Combobox,
 	CpfFormField,
 	Input,
 	Label,
+	LinkedDetailsAccordion,
 	NotFoundState,
 	SomeErrorState,
+	AccountSummaryBadges,
 } from "@/components";
 import {
 	getAccountTypeLabel,
@@ -233,65 +230,45 @@ export function StaffEditorForm({
 					) : null}
 				</div>
 
-				<div className="grid gap-4 md:grid-cols-2">
-					<div className="grid gap-2">
-						<Label>{t("identity.adminPage.update.fields.accountType")}</Label>
-						<div>
-							<Badge
-								className="min-h-5 px-2 py-0.5"
-								tone={accountTypeTone}
-								variant="primary"
-							>
-								{accountTypeLabel}
-							</Badge>
-						</div>
-					</div>
-
-					<div className="grid gap-2">
-						<Label>{t("identity.adminPage.update.fields.active")}</Label>
-						<div>
-							<Badge
-								className="min-h-5 px-2 py-0.5"
-								tone={accountStatusTone}
-								variant="primary"
-							>
-								{accountStatusLabel}
-							</Badge>
-						</div>
-					</div>
-				</div>
+				<AccountSummaryBadges
+					accountTypeFieldLabel={t(
+						"identity.adminPage.update.fields.accountType",
+					)}
+					accountTypeLabel={accountTypeLabel}
+					accountTypeTone={accountTypeTone}
+					activeFieldLabel={t("identity.adminPage.update.fields.active")}
+					activeLabel={accountStatusLabel}
+					activeTone={accountStatusTone}
+				/>
 			</section>
 
 			{isUpdateMode && staff && linkedEntityId ? (
-				<Accordion
-					type="single"
-					collapsible
+				<LinkedDetailsAccordion
 					className="pt-2"
 					defaultValue="linked-user"
-				>
-					<AccordionItem value="linked-user">
-						<AccordionTrigger>
-							{t("identity.adminPage.update.tabs.user")}
-						</AccordionTrigger>
-						<AccordionContent>
-							<UserDetailsContent
-								userId={staff.account.userId}
-								columns={2}
-							/>
-						</AccordionContent>
-					</AccordionItem>
-					<AccordionItem value="linked-entity">
-						<AccordionTrigger>
-							{t("partner.staffPage.editor.sections.linkedEntity")}
-						</AccordionTrigger>
-						<AccordionContent>
-							<EntityDetailsContent
-								entityId={linkedEntityId}
-								columns={2}
-							/>
-						</AccordionContent>
-					</AccordionItem>
-				</Accordion>
+					items={[
+						{
+							value: "linked-user",
+							title: t("identity.adminPage.update.tabs.user"),
+							content: (
+								<UserDetailsContent
+									userId={staff.account.userId}
+									columns={2}
+								/>
+							),
+						},
+						{
+							value: "linked-entity",
+							title: t("partner.staffPage.editor.sections.linkedEntity"),
+							content: (
+								<EntityDetailsContent
+									entityId={linkedEntityId}
+									columns={2}
+								/>
+							),
+						},
+					]}
+				/>
 			) : null}
 		</>
 	);

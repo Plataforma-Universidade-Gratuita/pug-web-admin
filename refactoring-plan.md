@@ -77,7 +77,7 @@ This plan is intentionally detailed because there are now many service-page impl
 - [x] Filter drawers repeatedly rebuild the same labeled fields and async combobox blocks.
 - [x] Activatable/delete flows are implemented multiple times with mostly the same shape.
 - [ ] Account-backed duplicate flows repeat the same fetch/copy/toast logic.
-- [ ] Editor forms repeat the same account-summary and linked-detail sections.
+- [x] Editor forms repeat the same account-summary and linked-detail sections.
 - [ ] Table column factories are local to modules even when the columns are semantically identical.
 - [ ] Legacy academic naming still leaks through some code/copy (`school`, `student`) even after route-level migration.
 
@@ -110,7 +110,7 @@ The order matters. The safest sequence is:
 - [x] Phase 2: row-action component abstraction
 - [x] Phase 3: filter field composites
 - [x] Phase 4: page action hooks/dialog abstraction
-- [ ] Phase 5: editor shared blocks
+- [x] Phase 5: editor shared blocks
 - [ ] Phase 6: table column factories
 - [ ] Phase 7: final naming sweep and cleanup
 - [ ] Phase 8: final validation and leftovers review
@@ -442,28 +442,28 @@ Reduce repeated editor-form sections without trying to genericize whole forms.
 
 Proposed component:
 
-- [ ] `AccountSummaryBadges`
+- [x] `AccountSummaryBadges`
 
 Responsibilities:
 
-- [ ] account type label/tone
-- [ ] active label/tone
-- [ ] two-column layout
+- [x] account type label/tone
+- [x] active label/tone
+- [x] two-column layout
 
 Primary users:
 
-- [ ] admin editor
-- [ ] staff editor
-- [ ] former-student editor
+- [x] admin editor
+- [x] staff editor
+- [x] former-student editor
 
 ### 5.2 Shared linked detail accordions
 
 Proposed components:
 
-- [ ] `LinkedUserAccordion`
-- [ ] `LinkedEntityAccordion`
-- [ ] `LinkedCourseAccordion`
-- [ ] maybe `LinkedAreaOfExpertiseAccordion`
+- [x] `LinkedUserAccordion`
+- [x] `LinkedEntityAccordion`
+- [x] `LinkedCourseAccordion`
+- [x] maybe `LinkedAreaOfExpertiseAccordion`
 
 Use where the pattern is:
 
@@ -488,13 +488,13 @@ This is optional. Do it only if the call sites become meaningfully smaller.
 
 ### 5.4 Preserve local form ownership
 
-- [ ] Do **not** try to unify `AdminEditorContent`, `StaffEditorForm`, and `FormerStudentEditorForm` into one generic editor.
-- [ ] Keep domain fields local.
-- [ ] Extract only the repeated visual blocks.
+- [x] Do **not** try to unify `AdminEditorContent`, `StaffEditorForm`, and `FormerStudentEditorForm` into one generic editor.
+- [x] Keep domain fields local.
+- [x] Extract only the repeated visual blocks.
 
 ### 5.5 Validation
 
-- [ ] `npm run format`
+- [x] `npm run format`
 - [ ] visual pass on:
   - admin editor
   - staff editor

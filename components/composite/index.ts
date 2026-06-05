@@ -7,3 +7,4 @@ export * from "./filters";
 export * from "./linked-blocks";
 export * from "./popovers";
 export * from "./row-actions";
+export * from "./editor-blocks";
