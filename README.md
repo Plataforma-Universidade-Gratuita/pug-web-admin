@@ -170,7 +170,7 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
 ## Auth and session behavior
 
 - Auth is cookie-based.
-- Session cookies are defined in `constants/auth.ts`:
+- Session cookies are defined in `constants/utils.ts`:
   - `accessToken`
   - `refreshToken`
 - Public routes are currently only:
@@ -249,7 +249,7 @@ Use it for day-to-day implementation rules, repo conventions, validation steps, 
   - external API routes: `API_ROUTE_BASES`
   - internal web proxy routes: `WEB_API_ROUTE_BASES`
 - The `api/` folder contains client-facing API helpers.
-- `app/api/**/route.ts` acts as the internal proxy layer.
+- `app/api/**/utils.ts` acts as the internal proxy layer.
 - Shared API utilities live under `utils/` and `api/web/`.
 - Shared API error normalization and mutation toast helpers live under:
   - `utils/api-errors.ts`

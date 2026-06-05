@@ -12,7 +12,7 @@ import type {
 	CityResponse,
 	PaginationRequest,
 } from "@/types";
-import { qs, zfetch } from "@/utils";
+import { qs, zfetch } from "@/api/utils";
 
 export async function get(id: string, token?: string): Promise<CityResponse> {
 	return zfetch(
@@ -50,3 +50,4 @@ export async function search(
 		token,
 	);
 }
+

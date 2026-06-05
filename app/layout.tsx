@@ -5,9 +5,9 @@ import "@/app/globals.css";
 import { Providers } from "@/app/providers";
 import { ThemeScript } from "@/app/theme-script";
 import { LANG_COOKIE_NAME, THEME_COOKIE_NAME } from "@/constants";
+import { coerceTheme } from "@/contexts/utils";
+import { coerceLang } from "@/contexts/utils";
 import type { RootLayoutProps } from "@/types";
-import { coerceTheme } from "@/utils/client/theme/theme";
-import { coerceLang } from "@/utils/shared/i18n/lang";
 
 export const metadata: Metadata = {
 	title: {

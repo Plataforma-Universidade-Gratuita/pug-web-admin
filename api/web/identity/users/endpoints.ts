@@ -12,7 +12,7 @@ import type {
 	UserComplexSearchResponse,
 	UserResponse,
 } from "@/types";
-import { qs, webFetch } from "@/utils";
+import { qs, webFetch } from "@/api/web/utils";
 
 export async function get(id: string): Promise<UserResponse> {
 	return webFetch(
@@ -53,3 +53,4 @@ export async function search(
 		},
 	);
 }
+

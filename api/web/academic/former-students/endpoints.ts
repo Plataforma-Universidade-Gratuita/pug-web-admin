@@ -18,7 +18,7 @@ import type {
 	FormerStudentUpdateRequest,
 	PaginationRequest,
 } from "@/types";
-import { qs, webFetch, webVoid } from "@/utils";
+import { qs, webFetch, webVoid } from "@/api/web/utils";
 
 export async function get(id: string): Promise<FormerStudentResponse> {
 	return webFetch(
@@ -117,3 +117,4 @@ export async function remove(id: string): Promise<void> {
 		method: "DELETE",
 	});
 }
+

@@ -7,7 +7,7 @@ import type {
 	RefreshRequest,
 	TokenResponse,
 } from "@/types";
-import { zfetch, zvoid } from "@/utils";
+import { zfetch, zvoid } from "@/api/utils";
 
 export async function login(body: LoginRequest): Promise<TokenResponse> {
 	return zfetch(
@@ -50,3 +50,4 @@ export async function wireCredentials(
 		token,
 	);
 }
+

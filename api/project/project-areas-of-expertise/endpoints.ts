@@ -10,7 +10,7 @@ import type {
 	ProjectAreaOfExpertiseRequest,
 	ProjectResponse,
 } from "@/types";
-import { zfetch, zvoid } from "@/utils";
+import { zfetch, zvoid } from "@/api/utils";
 
 export async function listAreasOfExpertiseByProject(
 	projectId: string,
@@ -81,3 +81,4 @@ export async function deleteAllByAreaOfExpertise(
 		token,
 	);
 }
+

@@ -17,7 +17,7 @@ import type {
 	CourseUpdateRequest,
 	PaginationRequest,
 } from "@/types";
-import { qs, webFetch, webVoid } from "@/utils";
+import { qs, webFetch, webVoid } from "@/api/web/utils";
 
 export async function get(id: string): Promise<CourseResponse> {
 	return webFetch(
@@ -84,3 +84,4 @@ export async function remove(id: string): Promise<void> {
 		method: "DELETE",
 	});
 }
+

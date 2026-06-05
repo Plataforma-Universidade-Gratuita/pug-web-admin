@@ -12,7 +12,7 @@ import type {
 	UserComplexSearchResponse,
 	UserResponse,
 } from "@/types";
-import { zfetch, qs } from "@/utils";
+import { zfetch, qs } from "@/api/utils";
 
 export async function get(id: string, token?: string): Promise<UserResponse> {
 	return zfetch(
@@ -64,3 +64,4 @@ export async function search(
 		token,
 	);
 }
+

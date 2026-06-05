@@ -16,7 +16,7 @@ import type {
 	FormerStudentUpdateRequest,
 	PaginationRequest,
 } from "@/types";
-import { qs, zfetch, zvoid } from "@/utils";
+import { qs, zfetch, zvoid } from "@/api/utils";
 
 export async function get(
 	id: string,
@@ -131,3 +131,4 @@ export async function remove(id: string, token?: string): Promise<void> {
 		token,
 	);
 }
+

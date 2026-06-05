@@ -15,7 +15,7 @@ import type {
 	EnrollmentStatus,
 	PaginationRequest,
 } from "@/types";
-import { qs, zfetch, zvoid } from "@/utils";
+import { qs, zfetch, zvoid } from "@/api/utils";
 
 export async function get(
 	projectId: string,
@@ -149,3 +149,4 @@ export async function deleteEnrollment(
 		token,
 	);
 }
+

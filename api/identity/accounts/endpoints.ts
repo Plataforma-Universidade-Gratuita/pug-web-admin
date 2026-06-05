@@ -13,7 +13,7 @@ import type {
 	AccountResponse,
 	PaginationRequest,
 } from "@/types";
-import { qs, zfetch } from "@/utils";
+import { qs, zfetch } from "@/api/utils";
 
 export async function get(
 	id: string,
@@ -68,3 +68,4 @@ export async function search(
 		token,
 	);
 }
+

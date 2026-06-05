@@ -16,7 +16,7 @@ import type {
 	AdminUpdateRequest,
 	PaginationRequest,
 } from "@/types";
-import { qs, zfetch, zvoid } from "@/utils";
+import { qs, zfetch, zvoid } from "@/api/utils";
 
 export async function get(id: string, token?: string): Promise<AdminResponse> {
 	return zfetch(
@@ -116,3 +116,4 @@ export async function remove(id: string, token?: string): Promise<void> {
 		token,
 	);
 }
+

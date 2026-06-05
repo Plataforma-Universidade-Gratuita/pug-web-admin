@@ -21,7 +21,7 @@ import {
 	routeError,
 	routeVoidWithAuthRetry,
 	routeWithAuthRetry,
-} from "@/utils/server/http/route";
+} from "@/app/api/utils";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -188,3 +188,4 @@ export async function DELETE(
 	}
 	return routeError(new Error("Not found"));
 }
+

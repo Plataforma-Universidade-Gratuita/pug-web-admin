@@ -1,4 +1,17 @@
 import { auth } from "@/api";
+import {
+	parseRouteBody,
+	routeData,
+	routeError,
+	routeNoContent,
+	routeVoidWithAuthRetry,
+} from "@/app/api/utils";
+import {
+	applySessionCookies,
+	clearSessionCookies,
+	getServerCookie,
+} from "@/auth/cookies";
+import { validateAdminToken } from "@/auth/utils";
 import { REFRESH_TOKEN_COOKIE } from "@/constants/auth";
 import {
 	CredentialsRequestSchema,
@@ -8,19 +21,6 @@ import {
 	TokenResponseSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import { validateAdminToken } from "@/utils/server/auth/auth";
-import {
-	applySessionCookies,
-	clearSessionCookies,
-	getServerCookie,
-} from "@/utils/server/auth/cookies";
-import {
-	parseRouteBody,
-	routeData,
-	routeError,
-	routeNoContent,
-	routeVoidWithAuthRetry,
-} from "@/utils/server/http/route";
 
 async function resolveLogoutRefreshToken(
 	request: Request,

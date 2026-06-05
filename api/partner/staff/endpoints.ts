@@ -16,7 +16,7 @@ import type {
 	StaffResponse,
 	StaffUpdateRequest,
 } from "@/types";
-import { qs, zfetch, zvoid } from "@/utils";
+import { qs, zfetch, zvoid } from "@/api/utils";
 
 export async function get(id: string, token?: string): Promise<StaffResponse> {
 	return zfetch(
@@ -120,3 +120,4 @@ export async function remove(id: string, token?: string): Promise<void> {
 		token,
 	);
 }
+

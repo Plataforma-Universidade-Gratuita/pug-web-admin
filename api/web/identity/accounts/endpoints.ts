@@ -13,7 +13,7 @@ import type {
 	AccountResponse,
 	PaginationRequest,
 } from "@/types";
-import { qs, webFetch } from "@/utils";
+import { qs, webFetch } from "@/api/web/utils";
 
 export async function get(id: string): Promise<AccountResponse> {
 	return webFetch(
@@ -54,3 +54,4 @@ export async function search(
 		},
 	);
 }
+

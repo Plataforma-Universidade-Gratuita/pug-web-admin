@@ -21,3 +21,6 @@ export * as projects from "./project/projects";
 export * as projectAreasOfExpertise from "./project/project-areas-of-expertise";
 export * as enrollments from "./project/enrollments";
 export * as attendances from "./project/attendances";
+
+/* --- Shared Query Infrastructure --- */
+export * from "./mutation-toast";

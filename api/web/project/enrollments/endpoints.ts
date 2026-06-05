@@ -15,7 +15,7 @@ import type {
 	EnrollmentStatus,
 	PaginationRequest,
 } from "@/types";
-import { qs, webFetch, webVoid } from "@/utils";
+import { qs, webFetch, webVoid } from "@/api/web/utils";
 
 export async function get(
 	projectId: string,
@@ -130,3 +130,4 @@ export async function deleteEnrollment(
 		},
 	);
 }
+
