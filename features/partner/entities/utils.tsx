@@ -1,7 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { TableText } from "@/components";
+import { createDateTimeColumn, createTableTextColumn } from "@/components";
 import type {
 	CityResponse,
 	EntityComplexSearchFilters,
@@ -37,18 +37,14 @@ function normalizeCnpj(value: string) {
 
 export function createEntityColumns(t: TFunction): ColumnDef<EntityTableRow>[] {
 	return [
-		{
+		createTableTextColumn<EntityTableRow>({
+			id: "id",
 			accessorKey: "id",
 			header: t("common.fields.id"),
+			text: row => row.id,
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
-			cell: ({ row }) => (
-				<TableText
-					text={row.original.id}
-					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
-					tooltiped
-				/>
-			),
-		},
+			maxWidth: TABLE_IDENTIFIER_TEXT_WIDTH,
+		}),
 		{
 			accessorKey: "name",
 			header: t("partner.entityPage.table.columns.name"),
@@ -64,29 +60,25 @@ export function createEntityColumns(t: TFunction): ColumnDef<EntityTableRow>[] {
 			id: "city",
 			header: t("partner.entityPage.table.columns.city"),
 		},
-		{
+		createTableTextColumn<EntityTableRow>({
+			id: "address",
 			accessorKey: "address",
 			header: t("partner.entityPage.table.columns.address"),
-			cell: ({ row }) => (
-				<TableText
-					text={row.original.address}
-					maxWidth={TABLE_ADDRESS_TEXT_WIDTH}
-					tooltiped
-				/>
-			),
-		},
-		{
-			accessorFn: row => row.auditInfo.createdAt,
+			text: row => row.address,
+			maxWidth: TABLE_ADDRESS_TEXT_WIDTH,
+		}),
+		createDateTimeColumn<EntityTableRow>({
 			id: "createdAt",
 			header: t("common.fields.createdAt"),
-			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
-		},
-		{
-			accessorFn: row => row.auditInfo.updatedAt,
+			value: row => row.auditInfo.createdAt,
+			formattedValue: row => row.auditInfo.createdAtFormatted,
+		}),
+		createDateTimeColumn<EntityTableRow>({
 			id: "updatedAt",
 			header: t("common.fields.updatedAt"),
-			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
-		},
+			value: row => row.auditInfo.updatedAt,
+			formattedValue: row => row.auditInfo.updatedAtFormatted,
+		}),
 	];
 }
 

@@ -1,7 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { TableText } from "@/components";
+import { createDateTimeColumn, createTableTextColumn } from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type {
 	UserComplexSearchFilters,
@@ -18,18 +18,14 @@ import {
 
 export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 	return [
-		{
+		createTableTextColumn<UserResponse>({
+			id: "id",
 			accessorKey: "id",
 			header: t("common.fields.id"),
+			text: row => row.id,
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
-			cell: ({ row }) => (
-				<TableText
-					text={row.original.id}
-					maxWidth={TABLE_TRUNCATED_COLUMN_WIDTH}
-					tooltiped
-				/>
-			),
-		},
+			maxWidth: TABLE_TRUNCATED_COLUMN_WIDTH,
+		}),
 		{
 			accessorKey: "name",
 			header: t("identity.userPage.table.columns.name"),
@@ -40,18 +36,18 @@ export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 			header: t("identity.userPage.table.columns.cpf"),
 			cell: ({ row }) => row.original.cpfFormatted,
 		},
-		{
-			accessorFn: row => row.auditInfo.createdAt,
+		createDateTimeColumn<UserResponse>({
 			id: "createdAt",
 			header: t("common.fields.createdAt"),
-			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
-		},
-		{
-			accessorFn: row => row.auditInfo.updatedAt,
+			value: row => row.auditInfo.createdAt,
+			formattedValue: row => row.auditInfo.createdAtFormatted,
+		}),
+		createDateTimeColumn<UserResponse>({
 			id: "updatedAt",
 			header: t("common.fields.updatedAt"),
-			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
-		},
+			value: row => row.auditInfo.updatedAt,
+			formattedValue: row => row.auditInfo.updatedAtFormatted,
+		}),
 	];
 }
 

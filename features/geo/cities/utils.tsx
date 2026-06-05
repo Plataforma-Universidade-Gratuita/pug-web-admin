@@ -1,24 +1,19 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { TableText } from "@/components";
-import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import { createTableTextColumn } from "@/components";
 import type { CityResponse } from "@/types";
 import { getApiErrorToastContent } from "@/utils";
 import { normalizeTextForSearch } from "@/utils";
 
 export function createCityColumns(t: TFunction): ColumnDef<CityResponse>[] {
 	return [
-		{
+		createTableTextColumn<CityResponse>({
+			id: "id",
 			accessorKey: "id",
 			header: t("common.fields.id"),
-			cell: ({ row }) => (
-				<TableText
-					text={row.original.id}
-					tooltiped
-				/>
-			),
-		},
+			text: row => row.id,
+		}),
 		{
 			accessorKey: "name",
 			header: t("geo.cityPage.table.columns.name"),

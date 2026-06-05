@@ -1,7 +1,12 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge, TableText } from "@/components";
+import {
+	Badge,
+	createDateTimeColumn,
+	createTableTextColumn,
+	TableText,
+} from "@/components";
 import type {
 	AccountSimpleComplexSearchResponse,
 	AreaOfExpertiseResponse,
@@ -150,18 +155,14 @@ export function createProjectColumns(
 				</Badge>
 			),
 		},
-		{
+		createTableTextColumn<ProjectResponse>({
+			id: "id",
 			accessorKey: "id",
 			header: t("project.projectPage.table.columns.id"),
+			text: row => row.id,
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
-			cell: ({ row }) => (
-				<TableText
-					text={row.original.id}
-					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
-					tooltiped
-				/>
-			),
-		},
+			maxWidth: TABLE_IDENTIFIER_TEXT_WIDTH,
+		}),
 		{
 			accessorKey: "name",
 			header: t("project.projectPage.table.columns.name"),
@@ -212,16 +213,18 @@ export function createProjectColumns(
 			id: "closedAt",
 			header: t("project.projectPage.table.columns.closedAt"),
 		},
-		{
-			accessorFn: row => row.projectInfo.auditInfo.createdAtFormatted,
+		createDateTimeColumn<ProjectResponse>({
 			id: "createdAt",
 			header: t("common.fields.createdAt"),
-		},
-		{
-			accessorFn: row => row.projectInfo.auditInfo.updatedAtFormatted,
+			value: row => row.projectInfo.auditInfo.createdAt,
+			formattedValue: row => row.projectInfo.auditInfo.createdAtFormatted,
+		}),
+		createDateTimeColumn<ProjectResponse>({
 			id: "updatedAt",
 			header: t("common.fields.updatedAt"),
-		},
+			value: row => row.projectInfo.auditInfo.updatedAt,
+			formattedValue: row => row.projectInfo.auditInfo.updatedAtFormatted,
+		}),
 	];
 }
 

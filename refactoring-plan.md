@@ -78,7 +78,7 @@ This plan is intentionally detailed because there are now many service-page impl
 - [x] Activatable/delete flows are implemented multiple times with mostly the same shape.
 - [ ] Account-backed duplicate flows repeat the same fetch/copy/toast logic.
 - [x] Editor forms repeat the same account-summary and linked-detail sections.
-- [ ] Table column factories are local to modules even when the columns are semantically identical.
+- [x] Table column factories are local to modules even when the columns are semantically identical.
 - [ ] Legacy academic naming still leaks through some code/copy (`school`, `student`) even after route-level migration.
 
 ---
@@ -111,7 +111,7 @@ The order matters. The safest sequence is:
 - [x] Phase 3: filter field composites
 - [x] Phase 4: page action hooks/dialog abstraction
 - [x] Phase 5: editor shared blocks
-- [ ] Phase 6: table column factories
+- [x] Phase 6: table column factories
 - [ ] Phase 7: final naming sweep and cleanup
 - [ ] Phase 8: final validation and leftovers review
 
@@ -512,33 +512,31 @@ Reduce repeated `createXColumns(...)` noise for semantically identical columns.
 
 Proposed location:
 
-- [ ] `components/composite/table-columns/*`
-- [ ] or `features/shared/service-pages/table-columns/*`
+- [x] `components/composite/table-columns/*`
+- [x] or `features/shared/service-pages/table-columns/*`
 
-Proposed factories:
+Implemented factories:
 
-- [ ] `createIdColumn`
-- [ ] `createActiveColumn`
-- [ ] `createCreatedAtColumn`
-- [ ] `createUpdatedAtColumn`
-- [ ] `createTextColumn`
-- [ ] `createBadgeColumn`
+- [x] shared text column builder (used for `id` and other truncated text cells)
+- [x] shared active badge column builder
+- [x] shared datetime column builder
+- [ ] shared generic badge-only column builder
 
 ### 6.2 Adopt incrementally
 
 Start with low-risk modules:
 
-- [ ] cities
-- [ ] accounts
-- [ ] users
+- [x] cities
+- [x] accounts
+- [x] users
 
 Then move to:
 
-- [ ] entities
-- [ ] admins
-- [ ] staff
-- [ ] former students
-- [ ] projects
+- [x] entities
+- [x] admins
+- [x] staff
+- [x] former students
+- [x] projects
 
 ### 6.3 Keep domain columns local
 
@@ -551,7 +549,7 @@ Do not try to genericize:
 
 ### 6.4 Validation
 
-- [ ] `npm run format`
+- [x] `npm run format`
 - [ ] visual pass on table rendering and widths
 
 ---

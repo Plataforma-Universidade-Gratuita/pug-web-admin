@@ -1,7 +1,12 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge, TableText } from "@/components";
+import {
+	Badge,
+	createActiveBadgeColumn,
+	createDateTimeColumn,
+	createTableTextColumn,
+} from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type {
 	AccountType,
@@ -85,42 +90,22 @@ export function createAccountColumns(
 	t: TFunction,
 ): ColumnDef<AccountSearchResponse>[] {
 	return [
-		{
-			accessorKey: "active",
-			size: TABLE_TRUNCATED_COLUMN_WIDTH,
+		createActiveBadgeColumn<AccountSearchResponse>({
+			id: "active",
 			header: t("identity.accountPage.table.columns.active"),
-			cell: ({ row }) => {
-				const label = row.original.active
-					? t("identity.accountPage.table.active.yes")
-					: t("identity.accountPage.table.active.no");
-
-				return (
-					<div className="flex w-full justify-center">
-						<Badge
-							className="min-h-5 max-w-full overflow-hidden px-2 py-0.5 text-ellipsis whitespace-nowrap"
-							tone={row.original.active ? "success" : "danger"}
-							variant="primary"
-						>
-							<span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
-								{label}
-							</span>
-						</Badge>
-					</div>
-				);
-			},
-		},
-		{
+			value: row => row.active,
+			activeLabel: t("identity.accountPage.table.active.yes"),
+			inactiveLabel: t("identity.accountPage.table.active.no"),
+			size: TABLE_TRUNCATED_COLUMN_WIDTH,
+		}),
+		createTableTextColumn<AccountSearchResponse>({
+			id: "id",
 			accessorKey: "id",
 			header: t("common.fields.id"),
+			text: row => row.id,
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
-			cell: ({ row }) => (
-				<TableText
-					text={row.original.id}
-					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
-					tooltiped
-				/>
-			),
-		},
+			maxWidth: TABLE_IDENTIFIER_TEXT_WIDTH,
+		}),
 		{
 			accessorFn: row => row.user.name,
 			id: "name",
@@ -154,18 +139,18 @@ export function createAccountColumns(
 				);
 			},
 		},
-		{
-			accessorFn: row => row.auditInfo.createdAt,
+		createDateTimeColumn<AccountSearchResponse>({
 			id: "createdAt",
 			header: t("common.fields.createdAt"),
-			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
-		},
-		{
-			accessorFn: row => row.auditInfo.updatedAt,
+			value: row => row.auditInfo.createdAt,
+			formattedValue: row => row.auditInfo.createdAtFormatted,
+		}),
+		createDateTimeColumn<AccountSearchResponse>({
 			id: "updatedAt",
 			header: t("common.fields.updatedAt"),
-			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
-		},
+			value: row => row.auditInfo.updatedAt,
+			formattedValue: row => row.auditInfo.updatedAtFormatted,
+		}),
 	];
 }
 

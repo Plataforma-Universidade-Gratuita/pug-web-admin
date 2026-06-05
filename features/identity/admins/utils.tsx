@@ -1,7 +1,11 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge, TableText } from "@/components";
+import {
+	createActiveBadgeColumn,
+	createDateTimeColumn,
+	createTableTextColumn,
+} from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type {
 	AdminComplexSearchFilters,
@@ -34,42 +38,22 @@ export function createAdminColumns(
 	t: TFunction,
 ): ColumnDef<AdminSearchResponse>[] {
 	return [
-		{
-			accessorFn: row => row.account.active,
+		createActiveBadgeColumn<AdminSearchResponse>({
 			id: "active",
+			header: t("common.fields.status"),
+			value: row => row.account.active,
+			activeLabel: t("identity.adminPage.table.active.yes"),
+			inactiveLabel: t("identity.adminPage.table.active.no"),
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
-			header: () => (
-				<div className="flex w-full justify-center">
-					{t("common.fields.status")}
-				</div>
-			),
-			cell: ({ row }) => (
-				<div className="flex w-full justify-center">
-					<Badge
-						className="min-h-5 px-2 py-0.5"
-						tone={row.original.account.active ? "success" : "danger"}
-						variant="primary"
-					>
-						{row.original.account.active
-							? t("identity.adminPage.table.active.yes")
-							: t("identity.adminPage.table.active.no")}
-					</Badge>
-				</div>
-			),
-		},
-		{
-			accessorFn: row => row.account.id,
+		}),
+		createTableTextColumn<AdminSearchResponse>({
 			id: "id",
+			accessorFn: row => row.account.id,
 			header: t("common.fields.id"),
+			text: row => row.account.id,
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
-			cell: ({ row }) => (
-				<TableText
-					text={row.original.account.id}
-					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
-					tooltiped
-				/>
-			),
-		},
+			maxWidth: TABLE_IDENTIFIER_TEXT_WIDTH,
+		}),
 		{
 			accessorFn: row => row.account.user.name,
 			id: "name",
@@ -93,18 +77,18 @@ export function createAdminColumns(
 			header: t("identity.adminPage.table.columns.grantedAt"),
 			cell: ({ row }) => row.original.grantedAtFormatted,
 		},
-		{
-			accessorFn: row => row.account.auditInfo.createdAt,
+		createDateTimeColumn<AdminSearchResponse>({
 			id: "createdAt",
 			header: t("common.fields.createdAt"),
-			cell: ({ row }) => row.original.account.auditInfo.createdAtFormatted,
-		},
-		{
-			accessorFn: row => row.account.auditInfo.updatedAt,
+			value: row => row.account.auditInfo.createdAt,
+			formattedValue: row => row.account.auditInfo.createdAtFormatted,
+		}),
+		createDateTimeColumn<AdminSearchResponse>({
 			id: "updatedAt",
 			header: t("common.fields.updatedAt"),
-			cell: ({ row }) => row.original.account.auditInfo.updatedAtFormatted,
-		},
+			value: row => row.account.auditInfo.updatedAt,
+			formattedValue: row => row.account.auditInfo.updatedAtFormatted,
+		}),
 	];
 }
 

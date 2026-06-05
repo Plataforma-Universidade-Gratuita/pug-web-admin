@@ -1,7 +1,12 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge, TableText } from "@/components";
+import {
+	Badge,
+	createActiveBadgeColumn,
+	createDateTimeColumn,
+	createTableTextColumn,
+} from "@/components";
 import { ADMIN_CAMPI_VALUES } from "@/constants";
 import type {
 	AccountResponse,
@@ -107,41 +112,21 @@ export function createFormerStudentColumns(
 	t: TFunction,
 ): ColumnDef<FormerStudentDirectoryItem>[] {
 	return [
-		{
-			accessorFn: row => row.account?.active ?? false,
+		createActiveBadgeColumn<FormerStudentDirectoryItem>({
 			id: "active",
+			header: t("academic.formerStudentPage.table.columns.active"),
+			value: row => row.account?.active ?? false,
+			activeLabel: t("academic.formerStudentPage.table.active.yes"),
+			inactiveLabel: t("academic.formerStudentPage.table.active.no"),
 			size: 96,
-			header: () => (
-				<div className="flex w-full justify-center">
-					{t("academic.formerStudentPage.table.columns.active")}
-				</div>
-			),
-			cell: ({ row }) => (
-				<div className="flex w-full justify-center">
-					<Badge
-						className="min-h-5 px-2 py-0.5"
-						tone={row.original.account?.active ? "success" : "danger"}
-						variant="primary"
-					>
-						{row.original.account?.active
-							? t("academic.formerStudentPage.table.active.yes")
-							: t("academic.formerStudentPage.table.active.no")}
-					</Badge>
-				</div>
-			),
-		},
-		{
-			accessorFn: row => row.account?.id ?? row.accountId,
+		}),
+		createTableTextColumn<FormerStudentDirectoryItem>({
 			id: "accountId",
+			accessorFn: row => row.account?.id ?? row.accountId,
 			header: t("academic.formerStudentPage.dialog.fields.accountId"),
-			cell: ({ row }) => (
-				<TableText
-					text={row.original.account?.id ?? row.original.accountId}
-					maxWidth={50}
-					tooltiped
-				/>
-			),
-		},
+			text: row => row.account?.id ?? row.accountId,
+			maxWidth: 50,
+		}),
 		{
 			accessorFn: row => row.user?.name ?? row.accountId,
 			id: "name",
@@ -234,18 +219,18 @@ export function createFormerStudentColumns(
 			id: "areaOfExpertise",
 			header: t("academic.formerStudentPage.table.columns.areaOfExpertise"),
 		},
-		{
-			accessorFn: row => row.auditInfo.createdAt,
+		createDateTimeColumn<FormerStudentDirectoryItem>({
 			id: "createdAt",
 			header: t("academic.formerStudentPage.dialog.fields.createdAt"),
-			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
-		},
-		{
-			accessorFn: row => row.auditInfo.updatedAt,
+			value: row => row.auditInfo.createdAt,
+			formattedValue: row => row.auditInfo.createdAtFormatted,
+		}),
+		createDateTimeColumn<FormerStudentDirectoryItem>({
 			id: "updatedAt",
 			header: t("academic.formerStudentPage.dialog.fields.updatedAt"),
-			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
-		},
+			value: row => row.auditInfo.updatedAt,
+			formattedValue: row => row.auditInfo.updatedAtFormatted,
+		}),
 	];
 }
 

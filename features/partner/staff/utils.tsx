@@ -1,7 +1,11 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge, TableText } from "@/components";
+import {
+	createActiveBadgeColumn,
+	createDateTimeColumn,
+	createTableTextColumn,
+} from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
 import type {
@@ -88,46 +92,22 @@ export function createStaffColumns(
 	t: TFunction,
 ): ColumnDef<StaffSearchResponse>[] {
 	return [
-		{
-			accessorFn: row => row.account.active,
+		createActiveBadgeColumn<StaffSearchResponse>({
 			id: "active",
+			header: t("common.fields.status"),
+			value: row => row.account.active,
+			activeLabel: t("partner.staffPage.table.active.yes"),
+			inactiveLabel: t("partner.staffPage.table.active.no"),
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
-			header: () => (
-				<div className="flex w-full justify-center">
-					{t("common.fields.status")}
-				</div>
-			),
-			cell: ({ row }) => {
-				const isActive = row.original.account.active;
-
-				return (
-					<div className="flex w-full justify-center">
-						<Badge
-							className="min-h-5 px-2 py-0.5"
-							tone={isActive ? "success" : "danger"}
-							variant="primary"
-						>
-							{isActive
-								? t("partner.staffPage.table.active.yes")
-								: t("partner.staffPage.table.active.no")}
-						</Badge>
-					</div>
-				);
-			},
-		},
-		{
-			accessorFn: row => row.account.id,
+		}),
+		createTableTextColumn<StaffSearchResponse>({
 			id: "id",
+			accessorFn: row => row.account.id,
 			header: t("partner.staffPage.table.columns.id"),
+			text: row => row.account.id,
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
-			cell: ({ row }) => (
-				<TableText
-					text={row.original.account.id}
-					maxWidth={TABLE_IDENTIFIER_TEXT_WIDTH}
-					tooltiped
-				/>
-			),
-		},
+			maxWidth: TABLE_IDENTIFIER_TEXT_WIDTH,
+		}),
 		{
 			accessorFn: row => row.account.user.name,
 			id: "name",
@@ -146,18 +126,18 @@ export function createStaffColumns(
 			header: t("common.fields.entity"),
 			cell: ({ row }) => row.original.entity.name,
 		},
-		{
-			accessorFn: row => row.account.auditInfo.createdAt,
+		createDateTimeColumn<StaffSearchResponse>({
 			id: "createdAt",
 			header: t("partner.staffPage.table.columns.createdAt"),
-			cell: ({ row }) => row.original.account.auditInfo.createdAtFormatted,
-		},
-		{
-			accessorFn: row => row.account.auditInfo.updatedAt,
+			value: row => row.account.auditInfo.createdAt,
+			formattedValue: row => row.account.auditInfo.createdAtFormatted,
+		}),
+		createDateTimeColumn<StaffSearchResponse>({
 			id: "updatedAt",
 			header: t("partner.staffPage.table.columns.updatedAt"),
-			cell: ({ row }) => row.original.account.auditInfo.updatedAtFormatted,
-		},
+			value: row => row.account.auditInfo.updatedAt,
+			formattedValue: row => row.account.auditInfo.updatedAtFormatted,
+		}),
 	];
 }
 
