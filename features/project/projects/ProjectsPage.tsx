@@ -26,7 +26,6 @@ import {
 	useProjectsSearchQuery,
 } from "@/features/project/projects/queries";
 import {
-	appendCopyToProjectName,
 	buildProjectCreatorOptions,
 	buildProjectEntityOptions,
 	createProjectColumns,
@@ -63,6 +62,7 @@ import type {
 	ProjectStatus,
 	ProjectStatusAction,
 } from "@/types";
+import { appendCopyToText } from "@/utils";
 
 function getStatusDialogVariant(action: ProjectStatusAction) {
 	switch (action) {
@@ -319,7 +319,7 @@ export function ProjectsPage() {
 					description: project.description,
 					entityId: project.entity.id,
 					maxParticipants: project.projectInfo.maxParticipants,
-					name: appendCopyToProjectName(project.name),
+					name: appendCopyToText(project.name),
 					offeredHours: project.projectInfo.offeredHours ?? 0,
 				},
 			},

@@ -76,7 +76,7 @@ This plan is intentionally detailed because there are now many service-page impl
 - [x] Generic action copy is repeated or borrowed from unrelated namespaces.
 - [x] Filter drawers repeatedly rebuild the same labeled fields and async combobox blocks.
 - [x] Activatable/delete flows are implemented multiple times with mostly the same shape.
-- [ ] Account-backed duplicate flows repeat the same fetch/copy/toast logic.
+- [x] Account-backed duplicate flows repeat the same fetch/copy/toast logic.
 - [x] Editor forms repeat the same account-summary and linked-detail sections.
 - [x] Table column factories are local to modules even when the columns are semantically identical.
 - [ ] Legacy academic naming still leaks through some code/copy (`school`, `student`) even after route-level migration.
@@ -112,7 +112,7 @@ The order matters. The safest sequence is:
 - [x] Phase 4: page action hooks/dialog abstraction
 - [x] Phase 5: editor shared blocks
 - [x] Phase 6: table column factories
-- [ ] Phase 7: final naming sweep and cleanup
+- [x] Phase 7: duplicate workflow cleanup
 - [ ] Phase 8: final validation and leftovers review
 
 Do **not** jump straight to column factories or page hooks before copy and action primitives are normalized. That creates churn twice.
@@ -564,20 +564,20 @@ Reduce repeated account-backed duplicate logic while keeping payload assembly ex
 
 Candidates:
 
-- [ ] centralize copy-email collision handling
-- [ ] centralize copy-name suffix handling where used
+- [x] centralize copy-email collision handling
+- [x] centralize copy-name suffix handling where used
 - [ ] centralize “fetch linked account/user before duplicate” workflow if the shape is stable enough
 
 ### 7.2 Apply to current pages
 
-- [ ] admins
-- [ ] staff
-- [ ] former students
-- [ ] projects (`appendCopyToProjectName`)
+- [x] admins
+- [x] staff
+- [x] former students
+- [x] projects (`appendCopyToText`)
 
 ### 7.3 Do not force one generic mutation helper
 
-- [ ] Keep final request body construction local to each module
+- [x] Keep final request body construction local to each module
 
 Reason:
 
@@ -585,7 +585,7 @@ Reason:
 
 ### 7.4 Validation
 
-- [ ] `npm run format`
+- [x] `npm run format`
 - [ ] duplicate the same record multiple times in:
   - admins
   - staff

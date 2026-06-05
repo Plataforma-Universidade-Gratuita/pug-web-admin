@@ -26,6 +26,7 @@ import type {
 } from "@/types";
 import { getApiErrorToastContent } from "@/utils";
 import {
+	appendCopyToText,
 	compareNormalizedText,
 	matchesAnyDateRange,
 	normalizeTextForSearch,
@@ -63,10 +64,6 @@ function parseOptionalPositiveNumber(value: string) {
 	}
 
 	return parsed;
-}
-
-export function appendCopyToProjectName(name: string) {
-	return `${name} Copy`;
 }
 
 export function getProjectStatusLabel(t: TFunction, status: ProjectStatus) {
@@ -540,7 +537,7 @@ export function buildProjectDuplicateFormValues(
 ): ProjectEditorFormValues {
 	return {
 		...buildProjectUpdateFormValues(project, areaOfExpertiseIds),
-		name: appendCopyToProjectName(project.name),
+		name: appendCopyToText(project.name),
 	};
 }
 
