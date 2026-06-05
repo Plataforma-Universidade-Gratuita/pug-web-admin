@@ -7,7 +7,12 @@ import { useTranslation } from "react-i18next";
 import { get as getFormerStudent } from "@/api/web/academic/former-students";
 import { get as getAccount } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	NoContentState,
+	RecordActionDialogs,
+	SomeErrorState,
+	toast,
+} from "@/components";
 import { useCoursesQuery } from "@/features/academic/courses/queries";
 import { FormerStudentEditorDrawer } from "@/features/academic/former-students/FormerStudentEditorDrawer";
 import { FormerStudentsFiltersDrawer } from "@/features/academic/former-students/FormerStudentsFiltersDrawer";
@@ -36,7 +41,6 @@ import {
 import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { useUsersQuery } from "@/features/identity/users/queries";
 import {
-	ServicePageConfirmDialog,
 	ServicePageHeader,
 	ServicePageHeaderActions,
 	ServicePageShell,
@@ -44,7 +48,7 @@ import {
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
 import {
-	useDeferredUndoAction,
+	useActivatableRecordActions,
 	useDraftFilters,
 	useQueryErrorToasts,
 	useServicePageEditorState,
@@ -92,10 +96,6 @@ export function FormerStudentsPage() {
 		createMode: "create",
 		defaultMode: "update",
 	});
-	const [pendingStatusStudent, setPendingStatusStudent] =
-		useState<FormerStudentDirectoryItem | null>(null);
-	const [pendingDeleteStudent, setPendingDeleteStudent] =
-		useState<FormerStudentDirectoryItem | null>(null);
 	const deferredQuerySearch = useDeferredValue(querySearch.trim());
 	const deferredRegistrationSearch = useDeferredValue(
 		registrationSearch.trim(),
@@ -107,7 +107,68 @@ export function FormerStudentsPage() {
 	const createFormerStudentMutation = useCreateFormerStudentMutation();
 	const removeFormerStudentMutation = useRemoveFormerStudentMutation();
 	const setFormerStudentActiveMutation = useSetFormerStudentActiveMutation();
-	const { schedule } = useDeferredUndoAction();
+	const {
+		confirmDelete,
+		confirmStatusChange,
+		pendingDeleteRecord,
+		pendingStatusRecord,
+		setPendingDeleteRecord,
+		setPendingStatusRecord,
+	} = useActivatableRecordActions<
+		FormerStudentDirectoryItem,
+		{ id: string; active: boolean },
+		{ accountId: string; userId: string }
+	>({
+		deleteMutation: removeFormerStudentMutation,
+		getDeleteErrorToastContent: error =>
+			getStudentDeleteErrorToastContent(t, error),
+		getDeleteSuccessToastContent: formerStudent => ({
+			title: t("academic.formerStudentPage.delete.feedback.success.title"),
+			description: t(
+				"academic.formerStudentPage.delete.feedback.success.description",
+				{
+					name: formerStudent.user?.name ?? formerStudent.accountId,
+				},
+			),
+		}),
+		getDeleteUndoToastContent: formerStudent => ({
+			key: formerStudent.accountId,
+			title: t("academic.formerStudentPage.delete.undo.title"),
+			description: t("academic.formerStudentPage.delete.undo.description", {
+				name: formerStudent.user?.name ?? formerStudent.accountId,
+			}),
+			undoLabel: t("common.actions.undo"),
+		}),
+		getDeleteVariables: formerStudent => ({
+			accountId: formerStudent.accountId,
+			userId: formerStudent.account?.userId ?? "",
+		}),
+		getStatusErrorToastContent: (error, _formerStudent, active) =>
+			getStudentSetActiveErrorToastContent(t, error, active),
+		getStatusSuccessToastContent: (formerStudent, active) => ({
+			title: t(
+				active
+					? "academic.formerStudentPage.reactivate.feedback.success.title"
+					: "academic.formerStudentPage.deactivate.feedback.success.title",
+			),
+			description: t(
+				active
+					? "academic.formerStudentPage.reactivate.feedback.success.description"
+					: "academic.formerStudentPage.deactivate.feedback.success.description",
+				{
+					name: formerStudent.user?.name ?? formerStudent.accountId,
+				},
+			),
+		}),
+		getStatusVariables: (formerStudent, active) => ({
+			id: formerStudent.accountId,
+			active,
+		}),
+		onDeleteSuccess: formerStudent => {
+			editorState.clearIfMatches(formerStudent.accountId);
+		},
+		statusMutation: setFormerStudentActiveMutation,
+	});
 
 	const courseById = useMemo(
 		() => new Map((coursesQuery.data ?? []).map(course => [course.id, course])),
@@ -307,103 +368,6 @@ export function FormerStudentsPage() {
 		}
 	}
 
-	function handleStatusConfirm() {
-		if (!pendingStatusStudent) {
-			return;
-		}
-
-		const formerStudent = pendingStatusStudent;
-		const nextActive = !(formerStudent.account?.active ?? false);
-
-		setFormerStudentActiveMutation.mutate(
-			{
-				id: formerStudent.accountId,
-				active: nextActive,
-			},
-			{
-				onSuccess: () => {
-					toast.success(
-						t(
-							nextActive
-								? "academic.formerStudentPage.reactivate.feedback.success.title"
-								: "academic.formerStudentPage.deactivate.feedback.success.title",
-						),
-						{
-							description: t(
-								nextActive
-									? "academic.formerStudentPage.reactivate.feedback.success.description"
-									: "academic.formerStudentPage.deactivate.feedback.success.description",
-								{
-									name: formerStudent.user?.name ?? formerStudent.accountId,
-								},
-							),
-						},
-					);
-					setPendingStatusStudent(null);
-				},
-				onError: error => {
-					const { title, description } = getStudentSetActiveErrorToastContent(
-						t,
-						error,
-						nextActive,
-					);
-					toast.danger(title, { description });
-					setPendingStatusStudent(null);
-				},
-			},
-		);
-	}
-
-	function handleDeleteConfirm() {
-		if (!pendingDeleteStudent) {
-			return;
-		}
-
-		const formerStudent = pendingDeleteStudent;
-		setPendingDeleteStudent(null);
-
-		schedule({
-			key: formerStudent.accountId,
-			title: t("academic.formerStudentPage.delete.undo.title"),
-			description: t("academic.formerStudentPage.delete.undo.description", {
-				name: formerStudent.user?.name ?? formerStudent.accountId,
-			}),
-			undoLabel: t("academic.formerStudentPage.delete.undo.action"),
-			onCommit: () => {
-				removeFormerStudentMutation.mutate(
-					{
-						accountId: formerStudent.accountId,
-						userId: formerStudent.account?.userId ?? "",
-					},
-					{
-						onSuccess: () => {
-							toast.success(
-								t("academic.formerStudentPage.delete.feedback.success.title"),
-								{
-									description: t(
-										"academic.formerStudentPage.delete.feedback.success.description",
-										{
-											name: formerStudent.user?.name ?? formerStudent.accountId,
-										},
-									),
-								},
-							);
-
-							editorState.clearIfMatches(formerStudent.accountId);
-						},
-						onError: error => {
-							const { title, description } = getStudentDeleteErrorToastContent(
-								t,
-								error,
-							);
-							toast.danger(title, { description });
-						},
-					},
-				);
-			},
-		});
-	}
-
 	return (
 		<ServicePageShell>
 			<ServicePageHeader
@@ -509,11 +473,14 @@ export function FormerStudentsPage() {
 						<FormerStudentsRowActions
 							href={`/academic/former-students/${row.accountId}`}
 							formerStudent={row}
-							onDelete={setPendingDeleteStudent}
+							onDelete={setPendingDeleteRecord}
 							onDuplicate={handleDuplicate}
 							onOpenEditor={editorState.openEditor}
 							onSetActive={formerStudent =>
-								setPendingStatusStudent(formerStudent)
+								setPendingStatusRecord({
+									active: !(formerStudent.account?.active ?? false),
+									record: formerStudent,
+								})
 							}
 						/>
 					),
@@ -533,54 +500,64 @@ export function FormerStudentsPage() {
 				formerStudentId={editorState.editorId}
 			/>
 
-			<ServicePageConfirmDialog
-				open={pendingStatusStudent !== null}
-				onOpenChange={open => {
-					if (!open) {
-						setPendingStatusStudent(null);
-					}
-				}}
-				variant={pendingStatusStudent?.account?.active ? "warning" : "success"}
-				title={t(
-					pendingStatusStudent?.account?.active
-						? "academic.formerStudentPage.deactivate.confirm.title"
-						: "academic.formerStudentPage.reactivate.confirm.title",
-				)}
-				description={t(
-					pendingStatusStudent?.account?.active
-						? "academic.formerStudentPage.deactivate.confirm.description"
-						: "academic.formerStudentPage.reactivate.confirm.description",
-					{
-						name: pendingStatusStudent?.user?.name ?? "",
-					},
-				)}
+			<RecordActionDialogs
 				cancelLabel={t("common.cancel")}
-				actionLabel={t(
-					pendingStatusStudent?.account?.active
-						? "common.table.actions.deactivate"
-						: "common.table.actions.reactivate",
-				)}
-				onAction={handleStatusConfirm}
-			/>
-
-			<ServicePageConfirmDialog
-				open={pendingDeleteStudent !== null}
-				onOpenChange={open => {
-					if (!open) {
-						setPendingDeleteStudent(null);
-					}
-				}}
-				variant="danger"
-				title={t("academic.formerStudentPage.delete.confirm.title")}
-				description={t(
-					"academic.formerStudentPage.delete.confirm.description",
-					{
-						name: pendingDeleteStudent?.user?.name ?? "",
-					},
-				)}
-				cancelLabel={t("common.cancel")}
-				actionLabel={t("common.table.actions.delete")}
-				onAction={handleDeleteConfirm}
+				{...(pendingDeleteRecord
+					? {
+							deleteDialog: {
+								actionLabel: t("common.table.actions.delete"),
+								description: t(
+									"academic.formerStudentPage.delete.confirm.description",
+									{
+										name: pendingDeleteRecord.user?.name ?? "",
+									},
+								),
+								onAction: confirmDelete,
+								onOpenChange: open => {
+									if (!open) {
+										setPendingDeleteRecord(null);
+									}
+								},
+								open: true,
+								title: t("academic.formerStudentPage.delete.confirm.title"),
+								variant: "danger" as const,
+							},
+						}
+					: {})}
+				{...(pendingStatusRecord
+					? {
+							statusDialog: {
+								actionLabel: t(
+									pendingStatusRecord.active
+										? "common.table.actions.reactivate"
+										: "common.table.actions.deactivate",
+								),
+								description: t(
+									pendingStatusRecord.active
+										? "academic.formerStudentPage.reactivate.confirm.description"
+										: "academic.formerStudentPage.deactivate.confirm.description",
+									{
+										name: pendingStatusRecord.record.user?.name ?? "",
+									},
+								),
+								onAction: confirmStatusChange,
+								onOpenChange: open => {
+									if (!open) {
+										setPendingStatusRecord(null);
+									}
+								},
+								open: true,
+								title: t(
+									pendingStatusRecord.active
+										? "academic.formerStudentPage.reactivate.confirm.title"
+										: "academic.formerStudentPage.deactivate.confirm.title",
+								),
+								variant: pendingStatusRecord.active
+									? ("success" as const)
+									: ("warning" as const),
+							},
+						}
+					: {})}
 			/>
 		</ServicePageShell>
 	);

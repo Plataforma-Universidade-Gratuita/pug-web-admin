@@ -6,32 +6,40 @@ import { useTranslation } from "react-i18next";
 
 import { get as getUser } from "@/api/web/identity/users";
 import { get as getStaff } from "@/api/web/partner/staff";
-import { NoContentState, SomeErrorState } from "@/components";
-import { toast } from "@/components";
+import {
+	NoContentState,
+	RecordActionDialogs,
+	SomeErrorState,
+	toast,
+} from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { useUsersQuery } from "@/features/identity/users/queries";
-import { StaffActionDialogs } from "@/features/partner/staff/StaffActionDialogs";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
 import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
 import { StaffRowActions } from "@/features/partner/staff/StaffRowActions";
-import { useCreateStaffMutation } from "@/features/partner/staff/mutations";
+import {
+	useCreateStaffMutation,
+	useRemoveStaffMutation,
+	useSetStaffActiveMutation,
+} from "@/features/partner/staff/mutations";
 import {
 	useStaffEntitiesQuery,
 	useStaffSearchQuery,
 	useStaffQuery,
 } from "@/features/partner/staff/queries";
-import { useStaffPageActions } from "@/features/partner/staff/useStaffPageActions";
 import {
 	buildStaffEntityOptions,
 	createStaffColumns,
 	filterStaffByFrontendQuery,
 	filterStaffListByBackendFilters,
+	getStaffDeleteErrorToastContent,
 	getStaffDuplicateErrorToastContent,
 	getStaffEmptyStateCopy,
 	getStaffListErrorToastContent,
 	getStaffEntitiesErrorToastContent,
 	getStaffFilterSummary,
+	getStaffSetActiveErrorToastContent,
 	appendCopyToEmail,
 } from "@/features/partner/staff/utils";
 import {
@@ -43,6 +51,7 @@ import {
 	TextFieldFilter,
 } from "@/features/shared/service-pages";
 import {
+	useActivatableRecordActions,
 	useDraftFilters,
 	useQueryErrorToasts,
 	useServicePageEditorState,
@@ -102,15 +111,61 @@ export function StaffPage() {
 	const {
 		confirmDelete,
 		confirmStatusChange,
-		pendingDeleteStaff,
-		pendingStatusStaff,
-		setPendingDeleteStaff,
-		setPendingStatusStaff,
-	} = useStaffPageActions({
-		currentEditorId: editorState.editorId,
-		currentSelectedId: null,
-		onClearEditor: editorState.closeEditor,
-		onClearSelection: () => {},
+		pendingDeleteRecord,
+		pendingStatusRecord,
+		setPendingDeleteRecord,
+		setPendingStatusRecord,
+	} = useActivatableRecordActions<
+		StaffSearchResponse,
+		{ id: string; active: boolean },
+		{ accountId: string; userId: string }
+	>({
+		deleteMutation: useRemoveStaffMutation(),
+		getDeleteErrorToastContent: error =>
+			getStaffDeleteErrorToastContent(t, error),
+		getDeleteSuccessToastContent: staff => ({
+			title: t("partner.staffPage.delete.feedback.success.title"),
+			description: t("partner.staffPage.delete.feedback.success.description", {
+				name: staff.account.user.name,
+			}),
+		}),
+		getDeleteUndoToastContent: staff => ({
+			key: staff.account.id,
+			title: t("partner.staffPage.delete.undo.title"),
+			description: t("partner.staffPage.delete.undo.description", {
+				name: staff.account.user.name,
+			}),
+			undoLabel: t("common.actions.undo"),
+		}),
+		getDeleteVariables: staff => ({
+			accountId: staff.account.id,
+			userId: staff.account.user.id,
+		}),
+		getStatusErrorToastContent: (error, _staff, active) =>
+			getStaffSetActiveErrorToastContent(t, error, active),
+		getStatusSuccessToastContent: (staff, active) => ({
+			title: t(
+				active
+					? "partner.staffPage.reactivate.feedback.success.title"
+					: "partner.staffPage.deactivate.feedback.success.title",
+			),
+			description: t(
+				active
+					? "partner.staffPage.reactivate.feedback.success.description"
+					: "partner.staffPage.deactivate.feedback.success.description",
+				{
+					name: staff.account.user.name,
+				},
+			),
+		}),
+		getStatusVariables: (staff, active) => ({
+			id: staff.account.id,
+			active,
+		}),
+		onDeleteSuccess: staff => {
+			editorState.clearIfMatches(staff.account.id);
+		},
+		statusMutation: useSetStaffActiveMutation(),
 	});
 	const userById = useMemo(
 		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
@@ -377,11 +432,11 @@ export function StaffPage() {
 					getRowActions: row => (
 						<StaffRowActions
 							href={`/partner/staff/${row.account.id}`}
-							onDelete={setPendingDeleteStaff}
+							onDelete={setPendingDeleteRecord}
 							onDuplicate={handleDuplicate}
 							onOpenEditor={editorState.openEditor}
 							onSetActive={(staff, active) =>
-								setPendingStatusStaff({ active, staff })
+								setPendingStatusRecord({ active, record: staff })
 							}
 							staff={row}
 						/>
@@ -398,21 +453,61 @@ export function StaffPage() {
 				onOpenChange={editorState.handleOpenChange}
 			/>
 
-			<StaffActionDialogs
-				onConfirmDelete={confirmDelete}
-				onConfirmStatusChange={confirmStatusChange}
-				onDeleteOpenChange={open => {
-					if (!open) {
-						setPendingDeleteStaff(null);
-					}
-				}}
-				onStatusOpenChange={open => {
-					if (!open) {
-						setPendingStatusStaff(null);
-					}
-				}}
-				pendingDeleteStaff={pendingDeleteStaff}
-				pendingStatusStaff={pendingStatusStaff}
+			<RecordActionDialogs
+				cancelLabel={t("common.cancel")}
+				{...(pendingDeleteRecord
+					? {
+							deleteDialog: {
+								actionLabel: t("common.table.actions.delete"),
+								description: t("partner.staffPage.delete.confirm.description", {
+									name: pendingDeleteRecord.account.user.name,
+								}),
+								onAction: confirmDelete,
+								onOpenChange: open => {
+									if (!open) {
+										setPendingDeleteRecord(null);
+									}
+								},
+								open: true,
+								title: t("partner.staffPage.delete.confirm.title"),
+								variant: "danger" as const,
+							},
+						}
+					: {})}
+				{...(pendingStatusRecord
+					? {
+							statusDialog: {
+								actionLabel: t(
+									pendingStatusRecord.active
+										? "common.table.actions.reactivate"
+										: "common.table.actions.deactivate",
+								),
+								description: t(
+									pendingStatusRecord.active
+										? "partner.staffPage.reactivate.confirm.description"
+										: "partner.staffPage.deactivate.confirm.description",
+									{
+										name: pendingStatusRecord.record.account.user.name,
+									},
+								),
+								onAction: confirmStatusChange,
+								onOpenChange: open => {
+									if (!open) {
+										setPendingStatusRecord(null);
+									}
+								},
+								open: true,
+								title: t(
+									pendingStatusRecord.active
+										? "partner.staffPage.reactivate.confirm.title"
+										: "partner.staffPage.deactivate.confirm.title",
+								),
+								variant: pendingStatusRecord.active
+									? ("success" as const)
+									: ("warning" as const),
+							},
+						}
+					: {})}
 			/>
 		</ServicePageShell>
 	);

@@ -26,12 +26,12 @@ export interface QueryErrorToastDescriptor extends QueryErrorToastProps {
 }
 
 export interface DeferredUndoActionOptions {
-	description: string;
+	description: ReactNode;
 	duration?: number;
 	key: string;
 	onCommit: () => void;
-	title: string;
-	undoLabel: string;
+	title: ReactNode;
+	undoLabel: ReactNode;
 }
 
 export type SearchDateBoundary = "start" | "end";

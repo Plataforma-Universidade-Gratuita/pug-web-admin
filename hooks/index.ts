@@ -1,5 +1,6 @@
 /* --- Root --- */
 export * from "./useDeferredUndoAction";
+export * from "./useActivatableRecordActions";
 export * from "./useDraftFilters";
 export * from "./useHydratedFormOnOpen";
 export * from "./useLocalizedZodForm";

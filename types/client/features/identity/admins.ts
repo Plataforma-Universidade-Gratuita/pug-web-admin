@@ -128,18 +128,6 @@ export interface AdminsFiltersDrawerProps {
 	open: boolean;
 }
 
-export interface AdminsActionDialogsProps {
-	onConfirmDelete: () => void;
-	onConfirmStatusChange: () => void;
-	onDeleteOpenChange: (open: boolean) => void;
-	onStatusOpenChange: (open: boolean) => void;
-	pendingDeleteAdmin: AdminSearchResponse | null;
-	pendingStatusAdmin: {
-		active: boolean;
-		admin: AdminSearchResponse;
-	} | null;
-}
-
 export interface AdminsRowActionsProps {
 	admin: AdminSearchResponse;
 	canDeactivate: boolean;

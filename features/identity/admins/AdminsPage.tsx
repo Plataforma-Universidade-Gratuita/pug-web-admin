@@ -6,10 +6,14 @@ import { useTranslation } from "react-i18next";
 
 import { get as getAdmin } from "@/api/web/identity/admins";
 import { get as getUser } from "@/api/web/identity/users";
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	NoContentState,
+	RecordActionDialogs,
+	SomeErrorState,
+	toast,
+} from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { useAccountsQuery } from "@/features/identity/accounts/queries";
-import { AdminsActionDialogs } from "@/features/identity/admins/AdminActionDialogs";
 import { AdminsFilters } from "@/features/identity/admins/AdminsFilters";
 import { AdminsRowActions } from "@/features/identity/admins/AdminsRowActions";
 import { AdminsUpdateDrawer } from "@/features/identity/admins/AdminsUpdateDrawer";
@@ -42,7 +46,7 @@ import {
 	ServicePageTableSection,
 } from "@/features/shared/service-pages";
 import {
-	useDeferredUndoAction,
+	useActivatableRecordActions,
 	useDraftFilters,
 	useQueryErrorToasts,
 	useServicePageEditorState,
@@ -68,12 +72,6 @@ export function AdminsPage() {
 		createMode: "create",
 		defaultMode: "update",
 	});
-	const [pendingStatusAdmin, setPendingStatusAdmin] = useState<{
-		active: boolean;
-		admin: AdminSearchResponse;
-	} | null>(null);
-	const [pendingDeleteAdmin, setPendingDeleteAdmin] =
-		useState<AdminSearchResponse | null>(null);
 	const deferredFrontendQuerySearch = useDeferredValue(
 		frontendQuerySearch.trim(),
 	);
@@ -109,7 +107,65 @@ export function AdminsPage() {
 	const createAdminMutation = useCreateAdminMutation();
 	const setAdminActiveMutation = useSetAdminActiveMutation();
 	const removeAdminMutation = useRemoveAdminMutation();
-	const { schedule } = useDeferredUndoAction();
+	const {
+		confirmDelete,
+		confirmStatusChange,
+		pendingDeleteRecord,
+		pendingStatusRecord,
+		setPendingDeleteRecord,
+		setPendingStatusRecord,
+	} = useActivatableRecordActions<
+		AdminSearchResponse,
+		{ active: boolean; id: string },
+		{ accountId: string; userId: string }
+	>({
+		deleteMutation: removeAdminMutation,
+		getDeleteErrorToastContent: error =>
+			getAdminDeleteErrorToastContent(t, error),
+		getDeleteSuccessToastContent: admin => ({
+			title: t("identity.adminPage.delete.feedback.success.title"),
+			description: t("identity.adminPage.delete.feedback.success.description", {
+				name: admin.account.user.name,
+			}),
+		}),
+		getDeleteUndoToastContent: admin => ({
+			key: admin.account.id,
+			title: t("identity.adminPage.delete.undo.title"),
+			description: t("identity.adminPage.delete.undo.description", {
+				name: admin.account.user.name,
+			}),
+			undoLabel: t("common.actions.undo"),
+		}),
+		getDeleteVariables: admin => ({
+			accountId: admin.account.id,
+			userId: admin.account.user.id,
+		}),
+		getStatusErrorToastContent: (error, _admin, active) =>
+			getAdminSetActiveErrorToastContent(t, error, active),
+		getStatusSuccessToastContent: (admin, active) => ({
+			title: t(
+				active
+					? "identity.adminPage.reactivate.feedback.success.title"
+					: "identity.adminPage.deactivate.feedback.success.title",
+			),
+			description: t(
+				active
+					? "identity.adminPage.reactivate.feedback.success.description"
+					: "identity.adminPage.deactivate.feedback.success.description",
+				{
+					name: admin.account.user.name,
+				},
+			),
+		}),
+		getStatusVariables: (admin, active) => ({
+			active,
+			id: admin.account.id,
+		}),
+		onDeleteSuccess: admin => {
+			editorState.clearIfMatches(admin.account.id);
+		},
+		statusMutation: setAdminActiveMutation,
+	});
 
 	const backendFilteredAdmins = useMemo(
 		() =>
@@ -269,109 +325,6 @@ export function AdminsPage() {
 		}
 	}
 
-	function handleStatusChangeConfirm() {
-		if (!pendingStatusAdmin) {
-			return;
-		}
-
-		const { active, admin } = pendingStatusAdmin;
-		const isCurrentAdmin =
-			currentAdminQuery.data?.accountResponse.id === admin.account.id;
-
-		if (!active && isCurrentAdmin) {
-			setPendingStatusAdmin(null);
-			return;
-		}
-
-		setAdminActiveMutation.mutate(
-			{
-				active,
-				id: admin.account.id,
-			},
-			{
-				onSuccess: () => {
-					toast.success(
-						t(
-							active
-								? "identity.adminPage.reactivate.feedback.success.title"
-								: "identity.adminPage.deactivate.feedback.success.title",
-						),
-						{
-							description: t(
-								active
-									? "identity.adminPage.reactivate.feedback.success.description"
-									: "identity.adminPage.deactivate.feedback.success.description",
-								{
-									name: admin.account.user.name,
-								},
-							),
-						},
-					);
-					setPendingStatusAdmin(null);
-				},
-				onError: error => {
-					const { title, description } = getAdminSetActiveErrorToastContent(
-						t,
-						error,
-						active,
-					);
-					toast.danger(title, { description });
-					setPendingStatusAdmin(null);
-				},
-			},
-		);
-	}
-
-	function handleDeleteConfirm() {
-		if (!pendingDeleteAdmin) {
-			return;
-		}
-
-		const admin = pendingDeleteAdmin;
-		setPendingDeleteAdmin(null);
-
-		schedule({
-			key: admin.account.id,
-			title: t("identity.adminPage.delete.undo.title"),
-			description: t("identity.adminPage.delete.undo.description", {
-				name: admin.account.user.name,
-			}),
-			undoLabel: t("common.actions.undo"),
-			onCommit: () => {
-				removeAdminMutation.mutate(
-					{
-						accountId: admin.account.id,
-						userId: admin.account.user.id,
-					},
-					{
-						onSuccess: () => {
-							toast.success(
-								t("identity.adminPage.delete.feedback.success.title"),
-								{
-									description: t(
-										"identity.adminPage.delete.feedback.success.description",
-										{
-											name: admin.account.user.name,
-										},
-									),
-								},
-							);
-
-							editorState.clearIfMatches(admin.account.id);
-						},
-						onError: error => {
-							const { title, description } = getAdminDeleteErrorToastContent(
-								t,
-								error,
-							);
-							toast.danger(title, { description });
-						},
-					},
-				);
-			},
-		});
-	}
-
 	return (
 		<ServicePageShell>
 			<ServicePageHeader
@@ -442,10 +395,10 @@ export function AdminsPage() {
 								row.account.id !== currentAdminQuery.data?.accountResponse.id
 							}
 							href={`/identity/admins/${row.account.id}`}
-							onDelete={setPendingDeleteAdmin}
+							onDelete={setPendingDeleteRecord}
 							onDuplicate={handleDuplicate}
 							onSetActive={(admin, active) =>
-								setPendingStatusAdmin({ active, admin })
+								setPendingStatusRecord({ active, record: admin })
 							}
 							onOpenEditor={editorState.openEditor}
 						/>
@@ -462,21 +415,64 @@ export function AdminsPage() {
 				onOpenChange={editorState.handleOpenChange}
 			/>
 
-			<AdminsActionDialogs
-				onConfirmDelete={handleDeleteConfirm}
-				onConfirmStatusChange={handleStatusChangeConfirm}
-				onDeleteOpenChange={open => {
-					if (!open) {
-						setPendingDeleteAdmin(null);
-					}
-				}}
-				onStatusOpenChange={open => {
-					if (!open) {
-						setPendingStatusAdmin(null);
-					}
-				}}
-				pendingDeleteAdmin={pendingDeleteAdmin}
-				pendingStatusAdmin={pendingStatusAdmin}
+			<RecordActionDialogs
+				cancelLabel={t("common.cancel")}
+				{...(pendingDeleteRecord
+					? {
+							deleteDialog: {
+								actionLabel: t("common.table.actions.delete"),
+								description: t(
+									"identity.adminPage.delete.confirm.description",
+									{
+										name: pendingDeleteRecord.account.user.name,
+									},
+								),
+								onAction: confirmDelete,
+								onOpenChange: open => {
+									if (!open) {
+										setPendingDeleteRecord(null);
+									}
+								},
+								open: true,
+								title: t("identity.adminPage.delete.confirm.title"),
+								variant: "danger" as const,
+							},
+						}
+					: {})}
+				{...(pendingStatusRecord
+					? {
+							statusDialog: {
+								actionLabel: t(
+									pendingStatusRecord.active
+										? "common.table.actions.reactivate"
+										: "common.table.actions.deactivate",
+								),
+								description: t(
+									pendingStatusRecord.active
+										? "identity.adminPage.reactivate.confirm.description"
+										: "identity.adminPage.deactivate.confirm.description",
+									{
+										name: pendingStatusRecord.record.account.user.name,
+									},
+								),
+								onAction: confirmStatusChange,
+								onOpenChange: open => {
+									if (!open) {
+										setPendingStatusRecord(null);
+									}
+								},
+								open: true,
+								title: t(
+									pendingStatusRecord.active
+										? "identity.adminPage.reactivate.confirm.title"
+										: "identity.adminPage.deactivate.confirm.title",
+								),
+								variant: pendingStatusRecord.active
+									? ("success" as const)
+									: ("warning" as const),
+							},
+						}
+					: {})}
 			/>
 		</ServicePageShell>
 	);

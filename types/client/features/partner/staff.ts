@@ -105,18 +105,6 @@ export interface StaffFiltersDrawerProps {
 	open: boolean;
 }
 
-export interface StaffActionDialogsProps {
-	onConfirmDelete: () => void;
-	onConfirmStatusChange: () => void;
-	onDeleteOpenChange: (open: boolean) => void;
-	onStatusOpenChange: (open: boolean) => void;
-	pendingDeleteStaff: StaffSearchResponse | null;
-	pendingStatusStaff: {
-		active: boolean;
-		staff: StaffSearchResponse;
-	} | null;
-}
-
 export interface StaffRowActionsProps {
 	href: string;
 	onDelete: (staff: StaffSearchResponse) => void;
@@ -140,13 +128,6 @@ export interface StaffFilterSummaryArgs {
 	dateFrom: string;
 	dateTo: string;
 	query: string;
-}
-
-export interface UseStaffPageActionsProps {
-	currentEditorId: string | null;
-	currentSelectedId: string | null;
-	onClearEditor: () => void;
-	onClearSelection: () => void;
 }
 
 export interface PatchStaffCachesArgs {

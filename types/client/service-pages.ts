@@ -91,6 +91,92 @@ export interface ServicePageConfirmDialogProps {
 	variant?: "danger" | "success" | "warning";
 }
 
+export interface RecordActionDialogConfig {
+	actionLabel: ReactNode;
+	description: ReactNode;
+	onAction: () => void;
+	onOpenChange: (open: boolean) => void;
+	open: boolean;
+	title: ReactNode;
+	variant?: "danger" | "success" | "warning";
+}
+
+export interface RecordActionDialogsProps {
+	cancelLabel: ReactNode;
+	deleteDialog?: RecordActionDialogConfig;
+	statusDialog?: RecordActionDialogConfig;
+}
+
+export interface ActivatableRecordPendingStatus<TRecord> {
+	active: boolean;
+	record: TRecord;
+}
+
+export interface ActivatableRecordMutationLike<TVariables> {
+	mutate: (
+		variables: TVariables,
+		options: {
+			onSuccess: () => void;
+			onError: (error: unknown) => void;
+		},
+	) => void;
+}
+
+export interface UseActivatableRecordActionsOptions<
+	TRecord,
+	TStatusVariables,
+	TDeleteVariables,
+> {
+	deleteMutation: ActivatableRecordMutationLike<TDeleteVariables>;
+	getDeleteErrorToastContent: (
+		error: unknown,
+		record: TRecord,
+	) => {
+		title: ReactNode;
+		description?: ReactNode;
+	};
+	getDeleteSuccessToastContent: (record: TRecord) => {
+		title: ReactNode;
+		description?: ReactNode;
+	};
+	getDeleteUndoToastContent: (record: TRecord) => {
+		key: string;
+		title: ReactNode;
+		description: ReactNode;
+		undoLabel: ReactNode;
+	};
+	getDeleteVariables: (record: TRecord) => TDeleteVariables;
+	getStatusErrorToastContent: (
+		error: unknown,
+		record: TRecord,
+		active: boolean,
+	) => {
+		title: ReactNode;
+		description?: ReactNode;
+	};
+	getStatusSuccessToastContent: (
+		record: TRecord,
+		active: boolean,
+	) => {
+		title: ReactNode;
+		description?: ReactNode;
+	};
+	getStatusVariables: (record: TRecord, active: boolean) => TStatusVariables;
+	onDeleteSuccess?: (record: TRecord) => void;
+	statusMutation: ActivatableRecordMutationLike<TStatusVariables>;
+}
+
+export interface UseActivatableRecordActionsResult<TRecord> {
+	confirmDelete: () => void;
+	confirmStatusChange: () => void;
+	pendingDeleteRecord: TRecord | null;
+	pendingStatusRecord: ActivatableRecordPendingStatus<TRecord> | null;
+	setPendingDeleteRecord: (record: TRecord | null) => void;
+	setPendingStatusRecord: (
+		pendingStatus: ActivatableRecordPendingStatus<TRecord> | null,
+	) => void;
+}
+
 export interface ServicePageLinkedAccountBlockProps {
 	account: AccountResponse | undefined;
 	activeLabels: {

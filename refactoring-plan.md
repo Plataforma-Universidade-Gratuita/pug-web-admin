@@ -73,9 +73,9 @@ This plan is intentionally detailed because there are now many service-page impl
 ### Current structural pain points
 
 - [x] Generic row actions are repeated across many modules.
-- [ ] Generic action copy is repeated or borrowed from unrelated namespaces.
+- [x] Generic action copy is repeated or borrowed from unrelated namespaces.
 - [x] Filter drawers repeatedly rebuild the same labeled fields and async combobox blocks.
-- [ ] Activatable/delete flows are implemented multiple times with mostly the same shape.
+- [x] Activatable/delete flows are implemented multiple times with mostly the same shape.
 - [ ] Account-backed duplicate flows repeat the same fetch/copy/toast logic.
 - [ ] Editor forms repeat the same account-summary and linked-detail sections.
 - [ ] Table column factories are local to modules even when the columns are semantically identical.
@@ -108,8 +108,8 @@ The order matters. The safest sequence is:
 
 - [x] Phase 1: common copy namespace and naming cleanup
 - [x] Phase 2: row-action component abstraction
-- [ ] Phase 3: filter field composites
-- [ ] Phase 4: page action hooks/dialog abstraction
+- [x] Phase 3: filter field composites
+- [x] Phase 4: page action hooks/dialog abstraction
 - [ ] Phase 5: editor shared blocks
 - [ ] Phase 6: table column factories
 - [ ] Phase 7: final naming sweep and cleanup
@@ -296,7 +296,7 @@ Primary migration candidates:
 - [x] `StaffFiltersDrawer`
 - [x] `ProjectsFiltersDrawer`
 - [x] `FormerStudentsFiltersDrawer`
-- [ ] any other drawer using `SomeErrorState + Label + Combobox`
+- [x] any other drawer using `SomeErrorState + Label + Combobox`
 
 ### 3.2 Introduce date range filter field block
 
@@ -371,46 +371,46 @@ Collapse the repeated activatable/delete/undo flow without hiding domain behavio
 
 Proposed hook:
 
-- [ ] `useActivatableRecordActions`
+- [x] `useActivatableRecordActions`
 
 Responsibilities:
 
-- [ ] hold pending active toggle target
-- [ ] hold pending delete target
-- [ ] provide confirm callbacks
-- [ ] integrate deferred undo delete
-- [ ] clear editor/selection on delete success when configured
-- [ ] expose state for dialogs
+- [x] hold pending active toggle target
+- [x] hold pending delete target
+- [x] provide confirm callbacks
+- [x] integrate deferred undo delete
+- [x] clear editor/selection on delete success when configured
+- [x] expose state for dialogs
 
 Primary adoption candidates:
 
-- [ ] admins
-- [ ] staff
-- [ ] former students
+- [x] admins
+- [x] staff
+- [x] former students
 
 ### 4.2 Shared dialog pair
 
 Proposed component:
 
-- [ ] `ActivatableRecordDialogs`
+- [x] `RecordActionDialogs`
 
 Responsibilities:
 
-- [ ] render confirm dialog for active toggle
-- [ ] render confirm dialog for delete
-- [ ] use module-provided copy keys or resolved strings
+- [x] render confirm dialog for active toggle
+- [x] render confirm dialog for delete
+- [x] use module-provided copy keys or resolved strings
 
 This would replace the duplication in:
 
-- [ ] `features/identity/admins/AdminActionDialogs.tsx`
-- [ ] `features/partner/staff/StaffActionDialogs.tsx`
-- [ ] inline equivalent in `FormerStudentsPage.tsx`
+- [x] `features/identity/admins/AdminActionDialogs.tsx`
+- [x] `features/partner/staff/StaffActionDialogs.tsx`
+- [x] inline equivalent in `FormerStudentsPage.tsx`
 
 ### 4.3 Shared delete-with-undo helper
 
 Even if the full hook above is not introduced, at minimum:
 
-- [ ] consider a helper around `schedule(...)` for standard delete undo toasts
+- [x] consider a helper around `schedule(...)` for standard delete undo toasts
 
 This pattern repeats in:
 
@@ -423,7 +423,7 @@ This pattern repeats in:
 
 ### 4.4 Validation
 
-- [ ] `npm run format`
+- [x] `npm run format`
 - [ ] test active toggle and delete/undo in:
   - admins
   - staff
