@@ -4,8 +4,8 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useAreaOfExpertiseDetailQuery } from "@/api/web/academic/areas-of-expertise";
 import { NotFoundState, SomeErrorState } from "@/components";
-import { useAreaOfExpertiseDetailQuery } from "@/features/academic/areas-of-expertise/queries";
 import { getAreaOfExpertiseDetailErrorToastContent } from "@/features/academic/areas-of-expertise/utils";
 import {
 	EntityPageFieldsGrid,

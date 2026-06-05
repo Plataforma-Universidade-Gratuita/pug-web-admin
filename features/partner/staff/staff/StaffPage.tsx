@@ -2,11 +2,11 @@
 
 import { useTranslation } from "react-i18next";
 
+import { useStaffDetailQuery } from "@/api/web/partner/staff";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
 import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
-import { useStaffDetailQuery } from "@/features/partner/staff/queries";
 import { getStaffDetailErrorToastContent } from "@/features/partner/staff/utils";
 import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";

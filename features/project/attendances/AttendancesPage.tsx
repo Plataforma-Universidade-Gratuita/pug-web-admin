@@ -4,6 +4,18 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useFormerStudentsQuery } from "@/api/web/academic/former-students";
+import { useAccountsQuery } from "@/api/web/identity/accounts";
+import { useUsersQuery } from "@/api/web/identity/users";
+import {
+	useRemoveAttendanceMutation,
+	useValidateAttendanceMutation,
+} from "@/api/web/project/attendances";
+import {
+	useAttendancesQuery,
+	useAttendancesSearchQuery,
+} from "@/api/web/project/attendances";
+import { useProjectsQuery } from "@/api/web/project/projects";
 import {
 	Combobox,
 	Label,
@@ -11,21 +23,10 @@ import {
 	SomeErrorState,
 	toast,
 } from "@/components";
-import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import { AttendanceEditorDrawer } from "@/features/project/attendances/AttendanceEditorDrawer";
 import { AttendanceQrCodeDialog } from "@/features/project/attendances/AttendanceQrCodeDialog";
 import { AttendancesFiltersDrawer } from "@/features/project/attendances/AttendancesFiltersDrawer";
 import { AttendancesRowActions } from "@/features/project/attendances/AttendancesRowActions";
-import {
-	useRemoveAttendanceMutation,
-	useValidateAttendanceMutation,
-} from "@/features/project/attendances/mutations";
-import {
-	useAttendancesQuery,
-	useAttendancesSearchQuery,
-} from "@/features/project/attendances/queries";
 import {
 	buildAttendanceFormerStudentOptions,
 	buildAttendanceProjectOptions,
@@ -45,7 +46,6 @@ import {
 	getAttendanceValidateErrorToastContent,
 	mapAttendancesToDirectoryItems,
 } from "@/features/project/attendances/utils";
-import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,

@@ -4,14 +4,15 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import {
+	useAccountsQuery,
+	useAccountsSearchQuery,
+} from "@/api/web/identity/accounts";
+import { useUsersQuery } from "@/api/web/identity/users";
 import { Button, NoContentState, SomeErrorState } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AccountsFiltersDrawer } from "@/features/identity/accounts/AccountsFiltersDrawer";
 import { AccountsRowActions } from "@/features/identity/accounts/AccountsRowActions";
-import {
-	useAccountsQuery,
-	useAccountsSearchQuery,
-} from "@/features/identity/accounts/queries";
 import {
 	createAccountColumns,
 	filterAccountListByBackendFilters,
@@ -22,7 +23,6 @@ import {
 	getAccountsListErrorToastContent,
 	mapAccountsToSearchResponses,
 } from "@/features/identity/accounts/utils";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	ServicePageHeader,
 	ServicePagePagination,

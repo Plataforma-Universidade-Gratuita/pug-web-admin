@@ -4,17 +4,17 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useRemoveEntityMutation } from "@/api/web/partner/entities";
+import {
+	useEntitiesQuery,
+	useEntityCitiesQuery,
+	useEntitiesSearchQuery,
+} from "@/api/web/partner/entities";
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { EntitiesFiltersDrawer } from "@/features/partner/entities/EntitiesFiltersDrawer";
 import { EntitiesRowActions } from "@/features/partner/entities/EntitiesRowActions";
 import { EntityEditorDrawer } from "@/features/partner/entities/EntityEditorDrawer";
-import { useRemoveEntityMutation } from "@/features/partner/entities/mutations";
-import {
-	useEntitiesQuery,
-	useEntityCitiesQuery,
-	useEntitiesSearchQuery,
-} from "@/features/partner/entities/queries";
 import {
 	buildEntityCityOptions,
 	createEntityColumns,

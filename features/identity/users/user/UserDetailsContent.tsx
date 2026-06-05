@@ -4,8 +4,8 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useUserDetailQuery } from "@/api/web/identity/users";
 import { NotFoundState, SomeErrorState } from "@/components";
-import { useUserDetailQuery } from "@/features/identity/users/queries";
 import { getUserDetailErrorToastContent } from "@/features/identity/users/utils";
 import {
 	EntityPageFieldsGrid,

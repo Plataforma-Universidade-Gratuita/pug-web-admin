@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { useUserDetailQuery } from "@/features/identity/users/queries";
+import { useUserDetailQuery } from "@/api/web/identity/users";
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
 import { EntityPageShell } from "@/features/shared/entity-pages";
 import type { UserPageProps } from "@/types";

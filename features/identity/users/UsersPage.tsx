@@ -4,14 +4,11 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useUsersQuery, useUsersSearchQuery } from "@/api/web/identity/users";
 import { Button, NoContentState, SomeErrorState } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { UsersFilters } from "@/features/identity/users/UsersFilters";
 import { UsersRowActions } from "@/features/identity/users/UsersRowActions";
-import {
-	useUsersQuery,
-	useUsersSearchQuery,
-} from "@/features/identity/users/queries";
 import {
 	createUserColumns,
 	filterUsersByComplexSearch,

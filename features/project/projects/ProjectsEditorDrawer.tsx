@@ -5,6 +5,17 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { useAreasOfExpertiseQuery } from "@/api/web/academic/areas-of-expertise";
+import { useEntitiesQuery } from "@/api/web/partner/entities";
+import {
+	useCreateProjectMutation,
+	useSetProjectAreasOfExpertiseMutation,
+	useUpdateProjectMutation,
+} from "@/api/web/project/projects";
+import {
+	useProjectAreasOfExpertiseQuery,
+	useProjectDetailQuery,
+} from "@/api/web/project/projects";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -21,18 +32,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useAreasOfExpertiseQuery } from "@/features/academic/areas-of-expertise/queries";
-import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import { ProjectsEditorForm } from "@/features/project/projects/ProjectsEditorForm";
-import {
-	useCreateProjectMutation,
-	useSetProjectAreasOfExpertiseMutation,
-	useUpdateProjectMutation,
-} from "@/features/project/projects/mutations";
-import {
-	useProjectAreasOfExpertiseQuery,
-	useProjectDetailQuery,
-} from "@/features/project/projects/queries";
 import {
 	buildProjectAreaOfExpertiseOptions,
 	buildProjectDuplicateFormValues,

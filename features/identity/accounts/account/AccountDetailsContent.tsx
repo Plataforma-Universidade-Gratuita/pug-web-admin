@@ -4,8 +4,8 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useAccountDetailQuery } from "@/api/web/identity/accounts";
 import { Badge, NotFoundState, SomeErrorState } from "@/components";
-import { useAccountDetailQuery } from "@/features/identity/accounts/queries";
 import {
 	getAccountDetailErrorToastContent,
 	getAccountTypeLabel,

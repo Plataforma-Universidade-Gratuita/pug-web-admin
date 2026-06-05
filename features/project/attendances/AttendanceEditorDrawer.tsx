@@ -6,6 +6,21 @@ import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
+	useFormerStudentDetailQuery,
+	useFormerStudentsQuery,
+} from "@/api/web/academic/former-students";
+import { useAccountsQuery } from "@/api/web/identity/accounts";
+import { useUsersQuery } from "@/api/web/identity/users";
+import {
+	useCreateAttendanceMutation,
+	useValidateAttendanceMutation,
+} from "@/api/web/project/attendances";
+import { useAttendanceDetailQuery } from "@/api/web/project/attendances";
+import {
+	useProjectDetailQuery,
+	useProjectsQuery,
+} from "@/api/web/project/projects";
+import {
 	AlertDialog,
 	AlertDialogContent,
 	AlertDialogDescription,
@@ -16,18 +31,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import {
-	useFormerStudentDetailQuery,
-	useFormerStudentsQuery,
-} from "@/features/academic/former-students/queries";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import { AttendanceEditorForm } from "@/features/project/attendances/AttendanceEditorForm";
-import {
-	useCreateAttendanceMutation,
-	useValidateAttendanceMutation,
-} from "@/features/project/attendances/mutations";
-import { useAttendanceDetailQuery } from "@/features/project/attendances/queries";
 import {
 	buildAttendanceFormerStudentOptions,
 	buildAttendanceProjectOptions,
@@ -42,10 +46,6 @@ import {
 	toAttendanceCreateRequest,
 	toAttendanceValidateRequest,
 } from "@/features/project/attendances/utils";
-import {
-	useProjectDetailQuery,
-	useProjectsQuery,
-} from "@/features/project/projects/queries";
 import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import {
 	useHydratedFormOnOpen,

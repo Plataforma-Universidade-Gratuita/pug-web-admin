@@ -4,12 +4,12 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { NotFoundState, SomeErrorState } from "@/components";
-import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import {
 	useAdminDetailQuery,
 	useLinkedAdminUserQuery,
-} from "@/features/identity/admins/queries";
+} from "@/api/web/identity/admins";
+import { NotFoundState, SomeErrorState } from "@/components";
+import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import {
 	getAdminDetailErrorToastContent,
 	getLinkedAdminUserErrorToastContent,

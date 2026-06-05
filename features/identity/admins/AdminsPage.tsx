@@ -4,7 +4,17 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useAccountsQuery } from "@/api/web/identity/accounts";
 import { get as getAdmin } from "@/api/web/identity/admins";
+import {
+	useCreateAdminMutation,
+	useRemoveAdminMutation,
+	useSetAdminActiveMutation,
+} from "@/api/web/identity/admins";
+import {
+	useAdminsSearchQuery,
+	useCurrentAdminQuery,
+} from "@/api/web/identity/admins";
 import { get as getUser } from "@/api/web/identity/users";
 import {
 	NoContentState,
@@ -13,19 +23,9 @@ import {
 	toast,
 } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
 import { AdminsFilters } from "@/features/identity/admins/AdminsFilters";
 import { AdminsRowActions } from "@/features/identity/admins/AdminsRowActions";
 import { AdminsUpdateDrawer } from "@/features/identity/admins/AdminsUpdateDrawer";
-import {
-	useCreateAdminMutation,
-	useRemoveAdminMutation,
-	useSetAdminActiveMutation,
-} from "@/features/identity/admins/mutations";
-import {
-	useAdminsSearchQuery,
-	useCurrentAdminQuery,
-} from "@/features/identity/admins/queries";
 import {
 	appendCopyToEmail,
 	createAdminColumns,

@@ -4,8 +4,20 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useAccountsQuery } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
+import { useUsersQuery } from "@/api/web/identity/users";
 import { get as getStaff } from "@/api/web/partner/staff";
+import {
+	useCreateStaffMutation,
+	useRemoveStaffMutation,
+	useSetStaffActiveMutation,
+} from "@/api/web/partner/staff";
+import {
+	useStaffEntitiesQuery,
+	useStaffSearchQuery,
+	useStaffQuery,
+} from "@/api/web/partner/staff";
 import {
 	NoContentState,
 	RecordActionDialogs,
@@ -13,21 +25,9 @@ import {
 	toast,
 } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
 import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
 import { StaffRowActions } from "@/features/partner/staff/StaffRowActions";
-import {
-	useCreateStaffMutation,
-	useRemoveStaffMutation,
-	useSetStaffActiveMutation,
-} from "@/features/partner/staff/mutations";
-import {
-	useStaffEntitiesQuery,
-	useStaffSearchQuery,
-	useStaffQuery,
-} from "@/features/partner/staff/queries";
 import {
 	buildStaffEntityOptions,
 	createStaffColumns,

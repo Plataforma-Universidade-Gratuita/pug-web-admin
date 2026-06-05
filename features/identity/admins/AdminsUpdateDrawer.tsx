@@ -6,6 +6,16 @@ import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
+	useCreateAdminMutation,
+	useUpdateAdminMutation,
+} from "@/api/web/identity/admins";
+import {
+	useAdminDetailQuery,
+	useLinkedAdminAccountQuery,
+	useLinkedAdminUserQuery,
+} from "@/api/web/identity/admins";
+import { useUsersQuery } from "@/api/web/identity/users";
+import {
 	AlertDialog,
 	AlertDialogContent,
 	AlertDialogDescription,
@@ -17,15 +27,6 @@ import {
 	toast,
 } from "@/components";
 import { AdminEditorContent } from "@/features/identity/admins/AdminEditorContent";
-import {
-	useCreateAdminMutation,
-	useUpdateAdminMutation,
-} from "@/features/identity/admins/mutations";
-import {
-	useAdminDetailQuery,
-	useLinkedAdminAccountQuery,
-	useLinkedAdminUserQuery,
-} from "@/features/identity/admins/queries";
 import {
 	buildAdminUpdateFormValues,
 	createAdminEditorFormSchema,
@@ -40,7 +41,6 @@ import {
 	toAdminCreateRequest,
 	toAdminUpdateRequest,
 } from "@/features/identity/admins/utils";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import {
 	useHydratedFormOnOpen,

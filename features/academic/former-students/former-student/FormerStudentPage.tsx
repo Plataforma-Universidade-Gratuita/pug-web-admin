@@ -4,19 +4,19 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useCoursesQuery } from "@/api/web/academic/courses";
+import { useFormerStudentDetailQuery } from "@/api/web/academic/former-students";
+import { useAccountDetailQuery } from "@/api/web/identity/accounts";
+import { useUserDetailQuery } from "@/api/web/identity/users";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
-import { useCoursesQuery } from "@/features/academic/courses/queries";
 import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
-import { useFormerStudentDetailQuery } from "@/features/academic/former-students/queries";
 import {
 	getStudentCoursesErrorToastContent,
 	getStudentDetailErrorToastContent,
 } from "@/features/academic/former-students/utils";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
-import { useAccountDetailQuery } from "@/features/identity/accounts/queries";
-import { useUserDetailQuery } from "@/features/identity/users/queries";
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
 import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";

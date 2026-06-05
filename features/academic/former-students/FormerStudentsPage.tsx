@@ -4,25 +4,27 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useCoursesQuery } from "@/api/web/academic/courses";
 import { get as getFormerStudent } from "@/api/web/academic/former-students";
+import {
+	useCreateFormerStudentMutation,
+	useRemoveFormerStudentMutation,
+	useSetFormerStudentActiveMutation,
+} from "@/api/web/academic/former-students";
+import { useFormerStudentsQuery } from "@/api/web/academic/former-students";
 import { get as getAccount } from "@/api/web/identity/accounts";
+import { useAccountsQuery } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
+import { useUsersQuery } from "@/api/web/identity/users";
 import {
 	NoContentState,
 	RecordActionDialogs,
 	SomeErrorState,
 	toast,
 } from "@/components";
-import { useCoursesQuery } from "@/features/academic/courses/queries";
 import { FormerStudentEditorDrawer } from "@/features/academic/former-students/FormerStudentEditorDrawer";
 import { FormerStudentsFiltersDrawer } from "@/features/academic/former-students/FormerStudentsFiltersDrawer";
 import { FormerStudentsRowActions } from "@/features/academic/former-students/FormerStudentsRowActions";
-import {
-	useCreateFormerStudentMutation,
-	useRemoveFormerStudentMutation,
-	useSetFormerStudentActiveMutation,
-} from "@/features/academic/former-students/mutations";
-import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
 import {
 	buildFormerStudentAreaOfExpertiseOptions,
 	buildFormerStudentCourseOptions,
@@ -38,8 +40,6 @@ import {
 	getStudentSetActiveErrorToastContent,
 	getStudentsListErrorToastContent,
 } from "@/features/academic/former-students/utils";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import {
 	ServicePageHeader,
 	ServicePageHeaderActions,

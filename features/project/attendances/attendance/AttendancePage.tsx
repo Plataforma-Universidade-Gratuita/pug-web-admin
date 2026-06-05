@@ -2,19 +2,19 @@
 
 import { useTranslation } from "react-i18next";
 
+import { useFormerStudentDetailQuery } from "@/api/web/academic/former-students";
+import { useAttendanceDetailQuery } from "@/api/web/project/attendances";
+import { useProjectDetailQuery } from "@/api/web/project/projects";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
-import { useFormerStudentDetailQuery } from "@/features/academic/former-students/queries";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import { AttendanceOwnDetailsContent } from "@/features/project/attendances/attendance/AttendanceOwnDetailsContent";
-import { useAttendanceDetailQuery } from "@/features/project/attendances/queries";
 import {
 	getAttendanceDetailErrorToastContent,
 	getAttendanceProjectsErrorToastContent,
 	getAttendanceStudentsErrorToastContent,
 } from "@/features/project/attendances/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
-import { useProjectDetailQuery } from "@/features/project/projects/queries";
 import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AttendancePageProps } from "@/types";

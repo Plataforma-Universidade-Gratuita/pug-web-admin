@@ -15,6 +15,13 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { useCoursesQuery } from "@/api/web/academic/courses";
+import { useFormerStudentsQuery } from "@/api/web/academic/former-students";
+import { useAccountsQuery } from "@/api/web/identity/accounts";
+import { useUsersQuery } from "@/api/web/identity/users";
+import { useAttendancesQuery } from "@/api/web/project/attendances";
+import { useEnrollmentsQuery } from "@/api/web/project/enrollments";
+import { useProjectsQuery } from "@/api/web/project/projects";
 import {
 	Badge,
 	Button,
@@ -30,16 +37,9 @@ import {
 	SectionHeader,
 	SectionTitle,
 } from "@/components";
-import { useCoursesQuery } from "@/features/academic/courses/queries";
-import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
 import { buildFormerStudentDirectoryItems } from "@/features/academic/former-students/utils";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
-import { useUsersQuery } from "@/features/identity/users/queries";
-import { useAttendancesQuery } from "@/features/project/attendances/queries";
 import { mapAttendancesToDirectoryItems } from "@/features/project/attendances/utils";
-import { useEnrollmentsQuery } from "@/features/project/enrollments/queries";
 import { mapEnrollmentsToDirectoryItems } from "@/features/project/enrollments/utils";
-import { useProjectsQuery } from "@/features/project/projects/queries";
 import type {
 	BadgeTone,
 	EnrollmentDirectoryItem,

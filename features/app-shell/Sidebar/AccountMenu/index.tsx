@@ -9,7 +9,12 @@ import clsx from "clsx";
 import { LogOut, UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import {
+	adminQueryKeys,
+	useCurrentAdminQuery,
+} from "@/api/web/identity/admins";
 import { logout, logoutAll } from "@/api/web/identity/auth";
+import { userQueryKeys, useCurrentUserQuery } from "@/api/web/identity/users";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -27,14 +32,6 @@ import {
 	toast,
 } from "@/components";
 import { LOGIN_ROUTE } from "@/constants";
-import {
-	adminQueryKeys,
-	useCurrentAdminQuery,
-} from "@/features/identity/admins/queries";
-import {
-	userQueryKeys,
-	useCurrentUserQuery,
-} from "@/features/identity/users/queries";
 import type { SidebarProps } from "@/types";
 import type { LogoutScope } from "@/types";
 

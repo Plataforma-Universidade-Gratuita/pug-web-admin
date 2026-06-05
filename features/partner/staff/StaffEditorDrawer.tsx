@@ -5,6 +5,16 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { useUsersQuery } from "@/api/web/identity/users";
+import {
+	useCreateStaffMutation,
+	useUpdateStaffMutation,
+} from "@/api/web/partner/staff";
+import {
+	useLinkedStaffUserQuery,
+	useStaffDetailQuery,
+	useStaffEntitiesQuery,
+} from "@/api/web/partner/staff";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -21,17 +31,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import { StaffEditorForm } from "@/features/partner/staff/StaffEditorForm";
-import {
-	useCreateStaffMutation,
-	useUpdateStaffMutation,
-} from "@/features/partner/staff/mutations";
-import {
-	useLinkedStaffUserQuery,
-	useStaffDetailQuery,
-	useStaffEntitiesQuery,
-} from "@/features/partner/staff/queries";
 import {
 	buildStaffDuplicateFormValues,
 	buildStaffEntityOptions,

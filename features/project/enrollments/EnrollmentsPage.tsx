@@ -4,6 +4,18 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useFormerStudentsQuery } from "@/api/web/academic/former-students";
+import { useAccountsQuery } from "@/api/web/identity/accounts";
+import { useUsersQuery } from "@/api/web/identity/users";
+import {
+	useDeleteEnrollmentMutation,
+	useEnrollmentStatusMutation,
+} from "@/api/web/project/enrollments";
+import {
+	useEnrollmentsQuery,
+	useEnrollmentsSearchQuery,
+} from "@/api/web/project/enrollments";
+import { useProjectsQuery } from "@/api/web/project/projects";
 import {
 	Combobox,
 	Label,
@@ -11,20 +23,9 @@ import {
 	SomeErrorState,
 	toast,
 } from "@/components";
-import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import { EnrollmentEditorDrawer } from "@/features/project/enrollments/EnrollmentEditorDrawer";
 import { EnrollmentsFiltersDrawer } from "@/features/project/enrollments/EnrollmentsFiltersDrawer";
 import { EnrollmentsRowActions } from "@/features/project/enrollments/EnrollmentsRowActions";
-import {
-	useDeleteEnrollmentMutation,
-	useEnrollmentStatusMutation,
-} from "@/features/project/enrollments/mutations";
-import {
-	useEnrollmentsQuery,
-	useEnrollmentsSearchQuery,
-} from "@/features/project/enrollments/queries";
 import {
 	buildEnrollmentFormerStudentOptions,
 	buildEnrollmentProjectOptions,
@@ -43,7 +44,6 @@ import {
 	getEnrollmentStudentsErrorToastContent,
 	mapEnrollmentsToDirectoryItems,
 } from "@/features/project/enrollments/utils";
-import { useProjectsQuery } from "@/features/project/projects/queries";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,

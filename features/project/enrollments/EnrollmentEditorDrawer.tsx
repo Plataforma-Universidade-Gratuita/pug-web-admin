@@ -5,6 +5,18 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { useFormerStudentsQuery } from "@/api/web/academic/former-students";
+import { useAccountsQuery } from "@/api/web/identity/accounts";
+import { useUsersQuery } from "@/api/web/identity/users";
+import {
+	useCreateEnrollmentMutation,
+	useEnrollmentStatusMutation,
+} from "@/api/web/project/enrollments";
+import { useEnrollmentDetailQuery } from "@/api/web/project/enrollments";
+import {
+	useProjectsQuery,
+	useProjectDetailQuery,
+} from "@/api/web/project/projects";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -16,15 +28,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useFormerStudentsQuery } from "@/features/academic/former-students/queries";
-import { useAccountsQuery } from "@/features/identity/accounts/queries";
-import { useUsersQuery } from "@/features/identity/users/queries";
 import { EnrollmentEditorForm } from "@/features/project/enrollments/EnrollmentEditorForm";
-import {
-	useCreateEnrollmentMutation,
-	useEnrollmentStatusMutation,
-} from "@/features/project/enrollments/mutations";
-import { useEnrollmentDetailQuery } from "@/features/project/enrollments/queries";
 import {
 	buildEnrollmentFormerStudentOptions,
 	buildEnrollmentProjectOptions,
@@ -39,10 +43,6 @@ import {
 	getEnrollmentUpdateErrorToastContent,
 	parseEnrollmentCompositeKey,
 } from "@/features/project/enrollments/utils";
-import {
-	useProjectsQuery,
-	useProjectDetailQuery,
-} from "@/features/project/projects/queries";
 import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import {
 	useHydratedFormOnOpen,

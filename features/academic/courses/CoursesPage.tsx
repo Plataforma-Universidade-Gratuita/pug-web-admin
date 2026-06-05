@@ -4,16 +4,16 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { NoContentState, SomeErrorState, toast } from "@/components";
-import { useAreasOfExpertiseQuery } from "@/features/academic/areas-of-expertise/queries";
-import { CourseEditorDrawer } from "@/features/academic/courses/CourseEditorDrawer";
-import { CoursesFiltersDrawer } from "@/features/academic/courses/CoursesFiltersDrawer";
-import { CoursesRowActions } from "@/features/academic/courses/CoursesRowActions";
+import { useAreasOfExpertiseQuery } from "@/api/web/academic/areas-of-expertise";
 import {
 	useCreateCourseMutation,
 	useRemoveCourseMutation,
-} from "@/features/academic/courses/mutations";
-import { useCoursesQuery } from "@/features/academic/courses/queries";
+} from "@/api/web/academic/courses";
+import { useCoursesQuery } from "@/api/web/academic/courses";
+import { NoContentState, SomeErrorState, toast } from "@/components";
+import { CourseEditorDrawer } from "@/features/academic/courses/CourseEditorDrawer";
+import { CoursesFiltersDrawer } from "@/features/academic/courses/CoursesFiltersDrawer";
+import { CoursesRowActions } from "@/features/academic/courses/CoursesRowActions";
 import {
 	appendCopyToCourseName,
 	buildCourseAreaOfExpertiseOptions,

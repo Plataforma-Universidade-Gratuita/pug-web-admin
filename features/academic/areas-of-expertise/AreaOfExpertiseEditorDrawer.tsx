@@ -6,6 +6,11 @@ import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
+	useCreateAreaOfExpertiseMutation,
+	useUpdateAreaOfExpertiseMutation,
+} from "@/api/web/academic/areas-of-expertise";
+import { useAreaOfExpertiseDetailQuery } from "@/api/web/academic/areas-of-expertise";
+import {
 	AlertDialog,
 	AlertDialogContent,
 	AlertDialogDescription,
@@ -22,11 +27,6 @@ import {
 	toast,
 } from "@/components";
 import { AreaOfExpertiseEditorForm } from "@/features/academic/areas-of-expertise/AreaOfExpertiseEditorForm";
-import {
-	useCreateAreaOfExpertiseMutation,
-	useUpdateAreaOfExpertiseMutation,
-} from "@/features/academic/areas-of-expertise/mutations";
-import { useAreaOfExpertiseDetailQuery } from "@/features/academic/areas-of-expertise/queries";
 import {
 	buildAreaOfExpertiseDuplicateFormValues,
 	buildAreaOfExpertiseUpdateFormValues,

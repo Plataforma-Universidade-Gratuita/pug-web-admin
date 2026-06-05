@@ -5,6 +5,11 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
+	useCreateAreaOfExpertiseMutation,
+	useRemoveAreaOfExpertiseMutation,
+} from "@/api/web/academic/areas-of-expertise";
+import { useAreasOfExpertiseQuery } from "@/api/web/academic/areas-of-expertise";
+import {
 	DatePicker,
 	Label,
 	NoContentState,
@@ -13,11 +18,6 @@ import {
 } from "@/components";
 import { AreaOfExpertiseEditorDrawer } from "@/features/academic/areas-of-expertise/AreaOfExpertiseEditorDrawer";
 import { AreasOfExpertiseRowActions } from "@/features/academic/areas-of-expertise/AreasOfExpertiseRowActions";
-import {
-	useCreateAreaOfExpertiseMutation,
-	useRemoveAreaOfExpertiseMutation,
-} from "@/features/academic/areas-of-expertise/mutations";
-import { useAreasOfExpertiseQuery } from "@/features/academic/areas-of-expertise/queries";
 import {
 	appendCopyToAreaOfExpertiseName,
 	createAreaOfExpertiseColumns,

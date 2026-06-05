@@ -2,10 +2,10 @@
 
 import { useTranslation } from "react-i18next";
 
+import { useCourseDetailQuery } from "@/api/web/academic/courses";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
-import { useCourseDetailQuery } from "@/features/academic/courses/queries";
 import { getCourseDetailErrorToastContent } from "@/features/academic/courses/utils";
 import {
 	EntityPageFieldsGridSkeleton,

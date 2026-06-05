@@ -5,6 +5,14 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { useCoursesQuery } from "@/api/web/academic/courses";
+import {
+	useCreateFormerStudentMutation,
+	useUpdateFormerStudentMutation,
+} from "@/api/web/academic/former-students";
+import { useFormerStudentDetailQuery } from "@/api/web/academic/former-students";
+import { useAccountDetailQuery } from "@/api/web/identity/accounts";
+import { useUserDetailQuery, useUsersQuery } from "@/api/web/identity/users";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -21,13 +29,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useCoursesQuery } from "@/features/academic/courses/queries";
 import { FormerStudentEditorForm } from "@/features/academic/former-students/FormerStudentEditorForm";
-import {
-	useCreateFormerStudentMutation,
-	useUpdateFormerStudentMutation,
-} from "@/features/academic/former-students/mutations";
-import { useFormerStudentDetailQuery } from "@/features/academic/former-students/queries";
 import {
 	buildFormerStudentCourseOptions,
 	buildFormerStudentFormValues,
@@ -41,11 +43,6 @@ import {
 	toFormerStudentCreateRequest,
 	toFormerStudentUpdateRequest,
 } from "@/features/academic/former-students/utils";
-import { useAccountDetailQuery } from "@/features/identity/accounts/queries";
-import {
-	useUserDetailQuery,
-	useUsersQuery,
-} from "@/features/identity/users/queries";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,

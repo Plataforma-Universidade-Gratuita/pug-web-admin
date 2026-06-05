@@ -5,6 +5,12 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { useAreasOfExpertiseQuery } from "@/api/web/academic/areas-of-expertise";
+import {
+	useCreateCourseMutation,
+	useUpdateCourseMutation,
+} from "@/api/web/academic/courses";
+import { useCourseDetailQuery } from "@/api/web/academic/courses";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -21,7 +27,6 @@ import {
 	Footer,
 	toast,
 } from "@/components";
-import { useAreasOfExpertiseQuery } from "@/features/academic/areas-of-expertise/queries";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
@@ -30,8 +35,6 @@ import {
 import type { CourseEditorDrawerProps, CourseEditorFormValues } from "@/types";
 
 import { CourseEditorForm } from "./CourseEditorForm";
-import { useCreateCourseMutation, useUpdateCourseMutation } from "./mutations";
-import { useCourseDetailQuery } from "./queries";
 import {
 	buildCourseAreaOfExpertiseOptions,
 	buildCourseDuplicateFormValues,

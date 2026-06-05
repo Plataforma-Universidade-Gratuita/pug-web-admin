@@ -6,6 +6,14 @@ import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import {
+	useCreateEntityMutation,
+	useUpdateEntityMutation,
+} from "@/api/web/partner/entities";
+import {
+	useEntityCitiesQuery,
+	useEntityDetailQuery,
+} from "@/api/web/partner/entities";
+import {
 	AlertDialog,
 	AlertDialogContent,
 	AlertDialogDescription,
@@ -22,14 +30,6 @@ import {
 	toast,
 } from "@/components";
 import { EntityEditorForm } from "@/features/partner/entities/EntityEditorForm";
-import {
-	useCreateEntityMutation,
-	useUpdateEntityMutation,
-} from "@/features/partner/entities/mutations";
-import {
-	useEntityCitiesQuery,
-	useEntityDetailQuery,
-} from "@/features/partner/entities/queries";
 import {
 	buildEntityCityOptions,
 	buildEntityDuplicateFormValues,

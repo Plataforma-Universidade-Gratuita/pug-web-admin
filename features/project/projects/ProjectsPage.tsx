@@ -4,6 +4,16 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useEntitiesQuery } from "@/api/web/partner/entities";
+import {
+	useCreateProjectMutation,
+	useProjectStatusMutation,
+	useRemoveProjectMutation,
+} from "@/api/web/project/projects";
+import {
+	useProjectsQuery,
+	useProjectsSearchQuery,
+} from "@/api/web/project/projects";
 import {
 	Combobox,
 	Label,
@@ -12,19 +22,9 @@ import {
 	toast,
 } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
-import { useEntitiesQuery } from "@/features/partner/entities/queries";
 import { ProjectsEditorDrawer } from "@/features/project/projects/ProjectsEditorDrawer";
 import { ProjectsFiltersDrawer } from "@/features/project/projects/ProjectsFiltersDrawer";
 import { ProjectsRowActions } from "@/features/project/projects/ProjectsRowActions";
-import {
-	useCreateProjectMutation,
-	useProjectStatusMutation,
-	useRemoveProjectMutation,
-} from "@/features/project/projects/mutations";
-import {
-	useProjectsQuery,
-	useProjectsSearchQuery,
-} from "@/features/project/projects/queries";
 import {
 	buildProjectCreatorOptions,
 	buildProjectEntityOptions,

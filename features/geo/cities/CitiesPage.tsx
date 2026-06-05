@@ -4,6 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { useCitiesQuery, useCitiesSearchQuery } from "@/api/web/geo/cities";
 import { NoContentState, SomeErrorState } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import {
@@ -21,7 +22,6 @@ import type { CityResponse } from "@/types";
 
 import { CitiesFilters } from "./CitiesFilters";
 import { CitiesRowActions } from "./CitiesRowActions";
-import { useCitiesQuery, useCitiesSearchQuery } from "./queries";
 import {
 	createCityColumns,
 	filterCitiesByName,

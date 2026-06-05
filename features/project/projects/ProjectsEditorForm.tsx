@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { useProjectAreasOfExpertiseQuery } from "@/api/web/project/projects";
 import {
 	Accordion,
 	AccordionContent,
@@ -23,7 +24,6 @@ import {
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
-import { useProjectAreasOfExpertiseQuery } from "@/features/project/projects/queries";
 import type { ProjectsEditorFormProps } from "@/types";
 import { WebApiError } from "@/utils";
 

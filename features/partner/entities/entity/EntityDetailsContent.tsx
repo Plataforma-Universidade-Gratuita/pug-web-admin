@@ -4,11 +4,11 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { NotFoundState, SomeErrorState } from "@/components";
 import {
 	useEntityCitiesQuery,
 	useEntityDetailQuery,
-} from "@/features/partner/entities/queries";
+} from "@/api/web/partner/entities";
+import { NotFoundState, SomeErrorState } from "@/components";
 import {
 	getEntityCitiesErrorToastContent,
 	getEntityDetailErrorToastContent,
