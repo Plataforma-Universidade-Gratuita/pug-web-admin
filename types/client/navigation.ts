@@ -86,29 +86,6 @@ export type SidebarRowProps =
 	| ({ kind: "link" } & SidebarRowLinkProps)
 	| ({ kind: "button" } & SidebarRowButtonProps);
 
-export interface SettingCardOption {
-	Icon?: IconComponent;
-	label: string;
-	value: string;
-	onClick: () => void;
-}
-
-export interface SettingCardSelectedOption {
-	label: string;
-	value: string;
-	Icon?: IconComponent;
-}
-
-export interface SettingCardProps {
-	title: string;
-	selectedOption?: SettingCardSelectedOption;
-	options: SettingCardOption[];
-}
-
-export interface SettingsProps {
-	compact?: boolean;
-}
-
 export interface SidebarProps {
 	collapsed: boolean;
 }
@@ -124,12 +101,4 @@ export interface RouteBreadcrumbEntry {
 	href: string;
 	label: string;
 	current: boolean;
-}
-
-export interface ThemeSettingOption extends SettingCardOption {
-	value: AppTheme;
-}
-
-export interface LanguageSettingOption extends SettingCardOption {
-	value: AppLang;
 }

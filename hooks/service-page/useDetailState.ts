@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 
 import type { ServicePageDetailState } from "@/types";
 
-export function useServicePageDetailState<
+export function useDetailState<
 	TId extends string = string,
 >(): ServicePageDetailState<TId> {
 	const [selectedId, setSelectedId] = useState<TId | null>(null);

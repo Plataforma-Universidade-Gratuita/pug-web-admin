@@ -7,7 +7,7 @@ import type {
 	UseServicePageEditorStateOptions,
 } from "@/types";
 
-export function useServicePageEditorState<
+export function useEditorState<
 	TMode extends string,
 	TId extends string = string,
 >({

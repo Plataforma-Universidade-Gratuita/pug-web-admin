@@ -22,7 +22,7 @@ function clampPage(page: number, totalPages: number) {
 	return Math.min(Math.max(page, DEFAULT_SERVICE_PAGE), totalPages);
 }
 
-export function useServicePagePagination({
+export function usePagination({
 	key,
 	totalPages: providedTotalPages,
 	defaultPage = DEFAULT_SERVICE_PAGE,

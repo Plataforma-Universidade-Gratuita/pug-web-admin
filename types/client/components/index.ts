@@ -1,4 +1,3 @@
-/* --- Root --- */
 export * from "./controls";
 export * from "./display";
 export * from "./display/index";
