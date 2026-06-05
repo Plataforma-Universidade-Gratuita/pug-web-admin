@@ -6,6 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
+import { enrollments } from "@/api/web";
 import type { EnrollmentResponse } from "@/types";
 import type {
 	EnrollmentCreateMutationVariables,
@@ -13,8 +14,12 @@ import type {
 	EnrollmentStatusMutationVariables,
 } from "@/types";
 
-import { create, deleteEnrollment, updateStatus } from "./endpoints";
-import { enrollmentQueryKeys } from "./queries";
+const {
+	create,
+	deleteEnrollment,
+	enrollmentKeys: keys,
+	updateStatus,
+} = enrollments;
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,
@@ -58,24 +63,15 @@ function writeEnrollmentCaches(
 	enrollment: EnrollmentResponse,
 ) {
 	queryClient.setQueryData(
-		enrollmentQueryKeys.detail(
-			enrollment.projectId,
-			enrollment.formerStudentId,
-		),
+		keys.detail(enrollment.projectId, enrollment.formerStudentId),
 		enrollment,
 	);
-	queryClient.setQueryData<EnrollmentResponse[]>(
-		enrollmentQueryKeys.list(),
-		current =>
-			upsertListItem(current, enrollment, item =>
-				isSameEnrollment(
-					item,
-					enrollment.projectId,
-					enrollment.formerStudentId,
-				),
-			),
+	queryClient.setQueryData<EnrollmentResponse[]>(keys.list(), current =>
+		upsertListItem(current, enrollment, item =>
+			isSameEnrollment(item, enrollment.projectId, enrollment.formerStudentId),
+		),
 	);
-	queryClient.invalidateQueries({ queryKey: enrollmentQueryKeys.all });
+	queryClient.invalidateQueries({ queryKey: keys.all });
 }
 
 function removeEnrollmentCaches(
@@ -83,17 +79,15 @@ function removeEnrollmentCaches(
 	projectId: string,
 	formerStudentId: string,
 ) {
-	queryClient.setQueryData<EnrollmentResponse[]>(
-		enrollmentQueryKeys.list(),
-		current =>
-			removeListItem(current, item =>
-				isSameEnrollment(item, projectId, formerStudentId),
-			),
+	queryClient.setQueryData<EnrollmentResponse[]>(keys.list(), current =>
+		removeListItem(current, item =>
+			isSameEnrollment(item, projectId, formerStudentId),
+		),
 	);
 	queryClient.removeQueries({
-		queryKey: enrollmentQueryKeys.detail(projectId, formerStudentId),
+		queryKey: keys.detail(projectId, formerStudentId),
 	});
-	queryClient.invalidateQueries({ queryKey: enrollmentQueryKeys.all });
+	queryClient.invalidateQueries({ queryKey: keys.all });
 }
 
 function resolveNextStatus(

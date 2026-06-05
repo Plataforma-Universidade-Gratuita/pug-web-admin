@@ -6,8 +6,8 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { accountQueryKeys } from "@/api/web/identity/accounts";
-import { userQueryKeys } from "@/api/web/identity/users";
+import { accountKeys } from "@/api/web/identity/accounts";
+import { userKeys } from "@/api/web/identity/users";
 import type { AccountResponse, UserResponse } from "@/types";
 import type {
 	AdminCreateMutationVariables,
@@ -19,7 +19,7 @@ import type {
 } from "@/types";
 
 import { create, remove, setActive, update } from "./endpoints";
-import { adminQueryKeys } from "./queries";
+import { adminKeys } from "./keys";
 
 function formatCpf(value: string) {
 	const digits = value.replace(/\D+/g, "").slice(0, 11);
@@ -85,7 +85,7 @@ function removeListItem<TItem>(
 
 function getCachedAccount(queryClient: QueryClient, accountId: string) {
 	const directAccount = queryClient.getQueryData<AccountResponse>(
-		accountQueryKeys.detail(accountId),
+		accountKeys.detail(accountId),
 	);
 
 	if (directAccount) {
@@ -93,7 +93,7 @@ function getCachedAccount(queryClient: QueryClient, accountId: string) {
 	}
 
 	const linkedAccount = queryClient.getQueryData<AccountResponse>(
-		adminQueryKeys.linkedAccount(accountId),
+		adminKeys.linkedAccount(accountId),
 	);
 
 	if (linkedAccount) {
@@ -101,7 +101,7 @@ function getCachedAccount(queryClient: QueryClient, accountId: string) {
 	}
 
 	const accounts = queryClient.getQueryData<AccountResponse[]>(
-		accountQueryKeys.list(),
+		accountKeys.list(),
 	);
 
 	return accounts?.find(account => account.id === accountId);
@@ -109,7 +109,7 @@ function getCachedAccount(queryClient: QueryClient, accountId: string) {
 
 function getCachedUser(queryClient: QueryClient, userId: string) {
 	const directUser = queryClient.getQueryData<UserResponse>(
-		userQueryKeys.detail(userId),
+		userKeys.detail(userId),
 	);
 
 	if (directUser) {
@@ -117,14 +117,14 @@ function getCachedUser(queryClient: QueryClient, userId: string) {
 	}
 
 	const linkedUser = queryClient.getQueryData<UserResponse>(
-		adminQueryKeys.linkedUser(userId),
+		adminKeys.linkedUser(userId),
 	);
 
 	if (linkedUser) {
 		return linkedUser;
 	}
 
-	const users = queryClient.getQueryData<UserResponse[]>(userQueryKeys.list());
+	const users = queryClient.getQueryData<UserResponse[]>(userKeys.list());
 	return users?.find(user => user.id === userId);
 }
 
@@ -168,19 +168,16 @@ function buildNextUserRecord(
 }
 
 function writeAdminCaches(queryClient: QueryClient, admin: AdminResponse) {
-	queryClient.setQueryData(
-		adminQueryKeys.detail(admin.accountResponse.id),
-		admin,
-	);
+	queryClient.setQueryData(adminKeys.detail(admin.accountResponse.id), admin);
 	queryClient.setQueryData<AdminResponse | undefined>(
-		adminQueryKeys.me(),
+		adminKeys.me(),
 		current =>
 			current?.accountResponse.id === admin.accountResponse.id
 				? admin
 				: current,
 	);
-	queryClient.invalidateQueries({ queryKey: adminQueryKeys.directory() });
-	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });
+	queryClient.invalidateQueries({ queryKey: adminKeys.directory() });
+	queryClient.invalidateQueries({ queryKey: adminKeys.searchRoot() });
 }
 
 function patchAdminCaches(
@@ -188,7 +185,7 @@ function patchAdminCaches(
 	{ accountId, accountActive }: PatchAdminCachesArgs,
 ) {
 	queryClient.setQueryData<AdminResponse | undefined>(
-		adminQueryKeys.detail(accountId),
+		adminKeys.detail(accountId),
 		current =>
 			current
 				? {
@@ -201,7 +198,7 @@ function patchAdminCaches(
 				: current,
 	);
 	queryClient.setQueryData<AdminResponse | undefined>(
-		adminQueryKeys.me(),
+		adminKeys.me(),
 		current =>
 			current?.accountResponse.id === accountId
 				? {
@@ -213,35 +210,33 @@ function patchAdminCaches(
 					}
 				: current,
 	);
-	queryClient.invalidateQueries({ queryKey: adminQueryKeys.directory() });
-	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });
+	queryClient.invalidateQueries({ queryKey: adminKeys.directory() });
+	queryClient.invalidateQueries({ queryKey: adminKeys.searchRoot() });
 }
 
 function writeAccountCaches(
 	queryClient: QueryClient,
 	account: AccountResponse,
 ) {
-	queryClient.setQueryData(accountQueryKeys.detail(account.id), account);
-	queryClient.setQueryData(adminQueryKeys.linkedAccount(account.id), account);
-	queryClient.setQueryData<AccountResponse[]>(
-		accountQueryKeys.list(),
-		current => upsertListItem(current, account, item => item.id),
+	queryClient.setQueryData(accountKeys.detail(account.id), account);
+	queryClient.setQueryData(adminKeys.linkedAccount(account.id), account);
+	queryClient.setQueryData<AccountResponse[]>(accountKeys.list(), current =>
+		upsertListItem(current, account, item => item.id),
 	);
 	queryClient.setQueryData<AccountResponse | undefined>(
-		accountQueryKeys.me(),
+		accountKeys.me(),
 		current => (current?.id === account.id ? account : current),
 	);
 }
 
 function writeUserCaches(queryClient: QueryClient, user: UserResponse) {
-	queryClient.setQueryData(userQueryKeys.detail(user.id), user);
-	queryClient.setQueryData(adminQueryKeys.linkedUser(user.id), user);
-	queryClient.setQueryData<UserResponse[]>(userQueryKeys.list(), current =>
+	queryClient.setQueryData(userKeys.detail(user.id), user);
+	queryClient.setQueryData(adminKeys.linkedUser(user.id), user);
+	queryClient.setQueryData<UserResponse[]>(userKeys.list(), current =>
 		upsertListItem(current, user, item => item.id),
 	);
-	queryClient.setQueryData<UserResponse | undefined>(
-		userQueryKeys.me(),
-		current => (current?.id === user.id ? user : current),
+	queryClient.setQueryData<UserResponse | undefined>(userKeys.me(), current =>
+		current?.id === user.id ? user : current,
 	);
 }
 
@@ -252,40 +247,38 @@ function removeAdminRelatedCaches(
 		userId: string;
 	},
 ) {
-	queryClient.removeQueries({ queryKey: adminQueryKeys.detail(ids.accountId) });
+	queryClient.removeQueries({ queryKey: adminKeys.detail(ids.accountId) });
 	queryClient.removeQueries({
-		queryKey: adminQueryKeys.linkedAccount(ids.accountId),
+		queryKey: adminKeys.linkedAccount(ids.accountId),
 	});
 	queryClient.removeQueries({
-		queryKey: adminQueryKeys.linkedUser(ids.userId),
+		queryKey: adminKeys.linkedUser(ids.userId),
 	});
 	queryClient.setQueryData<AdminResponse | undefined>(
-		adminQueryKeys.me(),
+		adminKeys.me(),
 		current =>
 			current?.accountResponse.id === ids.accountId ? undefined : current,
 	);
-	queryClient.invalidateQueries({ queryKey: adminQueryKeys.directory() });
-	queryClient.invalidateQueries({ queryKey: adminQueryKeys.searchRoot() });
+	queryClient.invalidateQueries({ queryKey: adminKeys.directory() });
+	queryClient.invalidateQueries({ queryKey: adminKeys.searchRoot() });
 
-	queryClient.setQueryData<AccountResponse[]>(
-		accountQueryKeys.list(),
-		current => removeListItem(current, ids.accountId, item => item.id),
+	queryClient.setQueryData<AccountResponse[]>(accountKeys.list(), current =>
+		removeListItem(current, ids.accountId, item => item.id),
 	);
 	queryClient.removeQueries({
-		queryKey: accountQueryKeys.detail(ids.accountId),
+		queryKey: accountKeys.detail(ids.accountId),
 	});
 	queryClient.setQueryData<AccountResponse | undefined>(
-		accountQueryKeys.me(),
+		accountKeys.me(),
 		current => (current?.id === ids.accountId ? undefined : current),
 	);
 
-	queryClient.setQueryData<UserResponse[]>(userQueryKeys.list(), current =>
+	queryClient.setQueryData<UserResponse[]>(userKeys.list(), current =>
 		removeListItem(current, ids.userId, item => item.id),
 	);
-	queryClient.removeQueries({ queryKey: userQueryKeys.detail(ids.userId) });
-	queryClient.setQueryData<UserResponse | undefined>(
-		userQueryKeys.me(),
-		current => (current?.id === ids.userId ? undefined : current),
+	queryClient.removeQueries({ queryKey: userKeys.detail(ids.userId) });
+	queryClient.setQueryData<UserResponse | undefined>(userKeys.me(), current =>
+		current?.id === ids.userId ? undefined : current,
 	);
 }
 

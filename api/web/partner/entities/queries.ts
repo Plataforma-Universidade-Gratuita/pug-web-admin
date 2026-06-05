@@ -2,17 +2,15 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { entityQueryKeys } from "@/constants";
+import { entities } from "@/api/web";
 import { buildEntityComplexSearchRequest } from "@/features/partner/entities/utils";
 import type { UseEntitiesSearchQueryFilters } from "@/types";
 
-import { get, list, listCities, search } from "./endpoints";
-
-export { entityQueryKeys };
+const { entityKeys: keys, get, list, listCities, search } = entities;
 
 export function useEntitiesQuery(enabled = true) {
 	return useQuery({
-		queryKey: entityQueryKeys.list(),
+		queryKey: keys.list(),
 		queryFn: () => list(),
 		enabled,
 	});
@@ -28,7 +26,7 @@ export function useEntitiesSearchQuery(
 	const filtersKey = JSON.stringify(complexSearchRequest);
 
 	return useQuery({
-		queryKey: entityQueryKeys.search(page, size, filtersKey),
+		queryKey: keys.search(page, size, filtersKey),
 		queryFn: () =>
 			search(
 				{
@@ -43,15 +41,14 @@ export function useEntitiesSearchQuery(
 
 export function useEntityCitiesQuery() {
 	return useQuery({
-		queryKey: entityQueryKeys.cities(),
+		queryKey: keys.cities(),
 		queryFn: listCities,
 	});
 }
 
 export function useEntityDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null ? entityQueryKeys.idleDetail() : entityQueryKeys.detail(id),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
 		queryFn: () => get(id!),
 		enabled: id !== null,
 	});

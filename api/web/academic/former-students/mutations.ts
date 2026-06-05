@@ -6,8 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { accountQueryKeys } from "@/api/web/identity/accounts";
-import { userQueryKeys } from "@/api/web/identity/users";
+import { accounts, formerStudents, users } from "@/api/web";
 import type {
 	AccountResponse,
 	FormerStudentResponse,
@@ -20,8 +19,15 @@ import type {
 	RemoveFormerStudentMutationVariables,
 } from "@/types";
 
-import { create, remove, setActive, update } from "./endpoints";
-import { formerStudentQueryKeys } from "./queries";
+const { accountKeys } = accounts;
+const {
+	create,
+	formerStudentKeys: keys,
+	remove,
+	setActive,
+	update,
+} = formerStudents;
+const { userKeys } = users;
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,
@@ -56,25 +62,21 @@ function writeFormerStudentCaches(
 	queryClient: QueryClient,
 	formerStudent: FormerStudentResponse,
 ) {
-	queryClient.setQueryData(
-		formerStudentQueryKeys.detail(formerStudent.accountId),
-		formerStudent,
-	);
-	queryClient.setQueryData<FormerStudentResponse[]>(
-		formerStudentQueryKeys.list(),
-		current => upsertListItem(current, formerStudent, item => item.accountId),
+	queryClient.setQueryData(keys.detail(formerStudent.accountId), formerStudent);
+	queryClient.setQueryData<FormerStudentResponse[]>(keys.list(), current =>
+		upsertListItem(current, formerStudent, item => item.accountId),
 	);
 }
 
 function refreshFormerStudentDirectoryCaches(queryClient: QueryClient) {
 	void queryClient.invalidateQueries({
-		queryKey: formerStudentQueryKeys.list(),
+		queryKey: keys.list(),
 	});
 	void queryClient.invalidateQueries({
-		queryKey: accountQueryKeys.list(),
+		queryKey: accountKeys.list(),
 	});
 	void queryClient.invalidateQueries({
-		queryKey: userQueryKeys.list(),
+		queryKey: userKeys.list(),
 	});
 }
 
@@ -84,14 +86,14 @@ function patchAccountCaches(
 	active: boolean,
 ) {
 	queryClient.setQueryData<AccountResponse[]>(
-		accountQueryKeys.list(),
+		accountKeys.list(),
 		current =>
 			current?.map(account =>
 				account.id === accountId ? { ...account, active } : account,
 			) ?? current,
 	);
 	queryClient.setQueryData<AccountResponse | undefined>(
-		accountQueryKeys.detail(accountId),
+		accountKeys.detail(accountId),
 		current => (current ? { ...current, active } : current),
 	);
 }
@@ -100,22 +102,20 @@ function removeFormerStudentCaches(
 	queryClient: QueryClient,
 	{ accountId, userId }: RemoveFormerStudentMutationVariables,
 ) {
-	queryClient.setQueryData<FormerStudentResponse[]>(
-		formerStudentQueryKeys.list(),
-		current => removeListItem(current, accountId, item => item.accountId),
+	queryClient.setQueryData<FormerStudentResponse[]>(keys.list(), current =>
+		removeListItem(current, accountId, item => item.accountId),
 	);
 	queryClient.removeQueries({
-		queryKey: formerStudentQueryKeys.detail(accountId),
+		queryKey: keys.detail(accountId),
 	});
-	queryClient.setQueryData<AccountResponse[]>(
-		accountQueryKeys.list(),
-		current => removeListItem(current, accountId, item => item.id),
+	queryClient.setQueryData<AccountResponse[]>(accountKeys.list(), current =>
+		removeListItem(current, accountId, item => item.id),
 	);
-	queryClient.removeQueries({ queryKey: accountQueryKeys.detail(accountId) });
-	queryClient.setQueryData<UserResponse[]>(userQueryKeys.list(), current =>
+	queryClient.removeQueries({ queryKey: accountKeys.detail(accountId) });
+	queryClient.setQueryData<UserResponse[]>(userKeys.list(), current =>
 		removeListItem(current, userId, item => item.id),
 	);
-	queryClient.removeQueries({ queryKey: userQueryKeys.detail(userId) });
+	queryClient.removeQueries({ queryKey: userKeys.detail(userId) });
 }
 
 export function useCreateFormerStudentMutation() {

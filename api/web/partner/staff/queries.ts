@@ -2,20 +2,18 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { get as getAccount } from "@/api/web/identity/accounts";
-import { get as getUser } from "@/api/web/identity/users";
-import { list as listEntities, listCities } from "@/api/web/partner/entities";
-import { staffQueryKeys } from "@/constants";
+import { accounts, entities, staff, users } from "@/api/web";
 import { buildStaffComplexSearchRequest } from "@/features/partner/staff/utils";
 import type { StaffComplexSearchFilters } from "@/types";
 
-import { get, list, search } from "./endpoints";
-
-export { staffQueryKeys };
+const { get: getAccount } = accounts;
+const { list: listEntities, listCities } = entities;
+const { get, list, search, staffKeys: keys } = staff;
+const { get: getUser } = users;
 
 export function useStaffQuery(enabled = true) {
 	return useQuery({
-		queryKey: staffQueryKeys.list(),
+		queryKey: keys.list(),
 		queryFn: () => list(),
 		enabled,
 	});
@@ -31,7 +29,7 @@ export function useStaffSearchQuery(
 	const filtersKey = JSON.stringify(complexSearchRequest);
 
 	return useQuery({
-		queryKey: staffQueryKeys.search(page, size, filtersKey),
+		queryKey: keys.search(page, size, filtersKey),
 		queryFn: () =>
 			search(
 				{
@@ -46,8 +44,7 @@ export function useStaffSearchQuery(
 
 export function useStaffDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null ? staffQueryKeys.idleDetail() : staffQueryKeys.detail(id),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
 		queryFn: () => get(id!),
 		enabled: id !== null,
 	});
@@ -57,8 +54,8 @@ export function useLinkedStaffAccountQuery(accountId: string | null) {
 	return useQuery({
 		queryKey:
 			accountId === null
-				? staffQueryKeys.idleLinkedAccount()
-				: staffQueryKeys.linkedAccount(accountId),
+				? keys.idleLinkedAccount()
+				: keys.linkedAccount(accountId),
 		queryFn: () => getAccount(accountId!),
 		enabled: accountId !== null,
 	});
@@ -66,10 +63,7 @@ export function useLinkedStaffAccountQuery(accountId: string | null) {
 
 export function useLinkedStaffUserQuery(userId: string | null) {
 	return useQuery({
-		queryKey:
-			userId === null
-				? staffQueryKeys.idleLinkedUser()
-				: staffQueryKeys.linkedUser(userId),
+		queryKey: userId === null ? keys.idleLinkedUser() : keys.linkedUser(userId),
 		queryFn: () => getUser(userId!),
 		enabled: userId !== null,
 	});
@@ -77,14 +71,14 @@ export function useLinkedStaffUserQuery(userId: string | null) {
 
 export function useStaffCitiesQuery() {
 	return useQuery({
-		queryKey: staffQueryKeys.supportingCities(),
+		queryKey: keys.supportingCities(),
 		queryFn: listCities,
 	});
 }
 
 export function useStaffEntitiesQuery() {
 	return useQuery({
-		queryKey: staffQueryKeys.supportingEntities(),
+		queryKey: keys.supportingEntities(),
 		queryFn: () => listEntities(),
 	});
 }

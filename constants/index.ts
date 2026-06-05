@@ -12,4 +12,3 @@ export * from "./pagination";
 export * from "./project";
 export * from "./react-query";
 export * from "./theme";
-export * from "./query-keys";

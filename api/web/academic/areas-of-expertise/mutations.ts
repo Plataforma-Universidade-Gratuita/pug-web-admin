@@ -6,6 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
+import { areasOfExpertise } from "@/api/web";
 import type { AreaOfExpertiseResponse } from "@/types";
 import type {
 	AreaOfExpertiseCreateMutationVariables,
@@ -13,8 +14,7 @@ import type {
 	RemoveAreaOfExpertiseMutationVariables,
 } from "@/types";
 
-import { create, remove, update } from "./endpoints";
-import { areaOfExpertiseQueryKeys } from "./queries";
+const { areaOfExpertiseKeys: keys, create, remove, update } = areasOfExpertise;
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,
@@ -49,13 +49,9 @@ function writeAreaOfExpertiseCaches(
 	queryClient: QueryClient,
 	areaOfExpertise: AreaOfExpertiseResponse,
 ) {
-	queryClient.setQueryData(
-		areaOfExpertiseQueryKeys.detail(areaOfExpertise.id),
-		areaOfExpertise,
-	);
-	queryClient.setQueryData<AreaOfExpertiseResponse[]>(
-		areaOfExpertiseQueryKeys.list(),
-		current => upsertListItem(current, areaOfExpertise, item => item.id),
+	queryClient.setQueryData(keys.detail(areaOfExpertise.id), areaOfExpertise);
+	queryClient.setQueryData<AreaOfExpertiseResponse[]>(keys.list(), current =>
+		upsertListItem(current, areaOfExpertise, item => item.id),
 	);
 }
 
@@ -63,12 +59,11 @@ function removeAreaOfExpertiseCaches(
 	queryClient: QueryClient,
 	areaOfExpertiseId: string,
 ) {
-	queryClient.setQueryData<AreaOfExpertiseResponse[]>(
-		areaOfExpertiseQueryKeys.list(),
-		current => removeListItem(current, areaOfExpertiseId, item => item.id),
+	queryClient.setQueryData<AreaOfExpertiseResponse[]>(keys.list(), current =>
+		removeListItem(current, areaOfExpertiseId, item => item.id),
 	);
 	queryClient.removeQueries({
-		queryKey: areaOfExpertiseQueryKeys.detail(areaOfExpertiseId),
+		queryKey: keys.detail(areaOfExpertiseId),
 	});
 }
 

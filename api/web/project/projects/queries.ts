@@ -2,18 +2,16 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { listAreasOfExpertiseByProject } from "@/api/web/project/project-areas-of-expertise";
-import { projectQueryKeys } from "@/constants";
+import { projectAreasOfExpertise, projects } from "@/api/web";
 import { buildProjectComplexSearchRequest } from "@/features/project/projects/utils";
 import type { ProjectComplexSearchFilters } from "@/types";
 
-import { get, list, search } from "./endpoints";
-
-export { projectQueryKeys };
+const { listAreasOfExpertiseByProject } = projectAreasOfExpertise;
+const { get, list, projectKeys: keys, search } = projects;
 
 export function useProjectsQuery(enabled = true) {
 	return useQuery({
-		queryKey: projectQueryKeys.list(),
+		queryKey: keys.list(),
 		queryFn: () => list(),
 		enabled,
 	});
@@ -29,7 +27,7 @@ export function useProjectsSearchQuery(
 	const filtersKey = JSON.stringify(complexSearchRequest);
 
 	return useQuery({
-		queryKey: projectQueryKeys.search(page, size, filtersKey),
+		queryKey: keys.search(page, size, filtersKey),
 		queryFn: () =>
 			search(
 				{
@@ -44,8 +42,7 @@ export function useProjectsSearchQuery(
 
 export function useProjectDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null ? projectQueryKeys.idleDetail() : projectQueryKeys.detail(id),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
 		queryFn: () => get(id!),
 		enabled: id !== null,
 	});
@@ -55,8 +52,8 @@ export function useProjectAreasOfExpertiseQuery(projectId: string | null) {
 	return useQuery({
 		queryKey:
 			projectId === null
-				? projectQueryKeys.idleAreasOfExpertise()
-				: projectQueryKeys.areasOfExpertise(projectId),
+				? keys.idleAreasOfExpertise()
+				: keys.areasOfExpertise(projectId),
 		queryFn: () => listAreasOfExpertiseByProject(projectId!),
 		enabled: projectId !== null,
 	});

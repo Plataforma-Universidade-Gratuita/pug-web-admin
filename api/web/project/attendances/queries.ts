@@ -2,17 +2,15 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { attendanceQueryKeys } from "@/constants";
+import { attendances } from "@/api/web";
 import { buildAttendanceComplexSearchRequest } from "@/features/project/attendances/utils";
 import type { AttendanceComplexSearchFilters } from "@/types";
 
-import { get, list, search } from "./endpoints";
-
-export { attendanceQueryKeys };
+const { attendanceKeys: keys, get, list, search } = attendances;
 
 export function useAttendancesQuery(enabled = true) {
 	return useQuery({
-		queryKey: attendanceQueryKeys.list(),
+		queryKey: keys.list(),
 		queryFn: () => list(),
 		enabled,
 	});
@@ -28,7 +26,7 @@ export function useAttendancesSearchQuery(
 	const filtersKey = JSON.stringify(complexSearchRequest);
 
 	return useQuery({
-		queryKey: attendanceQueryKeys.search(page, size, filtersKey),
+		queryKey: keys.search(page, size, filtersKey),
 		queryFn: () =>
 			search(
 				{
@@ -43,10 +41,7 @@ export function useAttendancesSearchQuery(
 
 export function useAttendanceDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null
-				? attendanceQueryKeys.idleDetail()
-				: attendanceQueryKeys.detail(id),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
 		queryFn: () => get(id!),
 		enabled: id !== null,
 	});

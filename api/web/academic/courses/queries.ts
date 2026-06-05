@@ -2,23 +2,20 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { courseQueryKeys } from "@/constants";
+import { courses } from "@/api/web";
 
-import { get, list } from "./endpoints";
-
-export { courseQueryKeys };
+const { courseKeys: keys, get, list } = courses;
 
 export function useCoursesQuery() {
 	return useQuery({
-		queryKey: courseQueryKeys.list(),
+		queryKey: keys.list(),
 		queryFn: () => list(),
 	});
 }
 
 export function useCourseDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null ? courseQueryKeys.idleDetail() : courseQueryKeys.detail(id),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
 		queryFn: () => get(id!),
 		enabled: id !== null,
 	});

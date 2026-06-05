@@ -2,25 +2,20 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { areaOfExpertiseQueryKeys } from "@/constants";
+import { areasOfExpertise } from "@/api/web";
 
-import { get, list } from "./endpoints";
-
-export { areaOfExpertiseQueryKeys };
+const { areaOfExpertiseKeys: keys, get, list } = areasOfExpertise;
 
 export function useAreasOfExpertiseQuery() {
 	return useQuery({
-		queryKey: areaOfExpertiseQueryKeys.list(),
+		queryKey: keys.list(),
 		queryFn: () => list(),
 	});
 }
 
 export function useAreaOfExpertiseDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null
-				? areaOfExpertiseQueryKeys.idleDetail()
-				: areaOfExpertiseQueryKeys.detail(id),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
 		queryFn: () => get(id!),
 		enabled: id !== null,
 	});

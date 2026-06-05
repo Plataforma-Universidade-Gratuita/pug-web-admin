@@ -2,17 +2,15 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { accountQueryKeys } from "@/constants";
+import { accounts } from "@/api/web";
 import { buildAccountComplexSearchRequest } from "@/features/identity/accounts/utils";
 import type { AccountComplexSearchFilters } from "@/types";
 
-import { get, getMe, list, search } from "./endpoints";
-
-export { accountQueryKeys };
+const { get, getMe, list, search, accountKeys: keys } = accounts;
 
 export function useAccountsQuery(enabled = true) {
 	return useQuery({
-		queryKey: accountQueryKeys.list(),
+		queryKey: keys.list(),
 		queryFn: () => list(),
 		enabled,
 	});
@@ -28,7 +26,7 @@ export function useAccountsSearchQuery(
 	const filtersKey = JSON.stringify(complexSearchRequest);
 
 	return useQuery({
-		queryKey: accountQueryKeys.search(page, size, filtersKey),
+		queryKey: keys.search(page, size, filtersKey),
 		queryFn: () =>
 			search(
 				{
@@ -43,8 +41,7 @@ export function useAccountsSearchQuery(
 
 export function useAccountDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null ? accountQueryKeys.idleDetail() : accountQueryKeys.detail(id),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
 		queryFn: () => get(id!),
 		enabled: id !== null,
 	});
@@ -52,7 +49,7 @@ export function useAccountDetailQuery(id: string | null) {
 
 export function useCurrentAccountQuery() {
 	return useQuery({
-		queryKey: accountQueryKeys.me(),
+		queryKey: keys.me(),
 		queryFn: getMe,
 	});
 }

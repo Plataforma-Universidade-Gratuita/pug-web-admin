@@ -2,20 +2,14 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { cityQueryKeys } from "@/constants";
+import { cities } from "@/api/web";
 
-import {
-	get as getCity,
-	list as listCities,
-	search as searchCities,
-} from "./endpoints";
-
-export { cityQueryKeys };
+const { get, list, search, cityKeys: keys } = cities;
 
 export function useCitiesQuery(enabled = true) {
 	return useQuery({
-		queryKey: cityQueryKeys.list(),
-		queryFn: () => listCities(),
+		queryKey: keys.list(),
+		queryFn: () => list(),
 		enabled,
 	});
 }
@@ -32,9 +26,9 @@ export function useCitiesSearchQuery(
 	};
 
 	return useQuery({
-		queryKey: cityQueryKeys.search(page, size, normalizedName),
+		queryKey: keys.search(page, size, normalizedName),
 		queryFn: () =>
-			searchCities(
+			search(
 				{
 					page,
 					size,
@@ -47,9 +41,8 @@ export function useCitiesSearchQuery(
 
 export function useCityDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null ? cityQueryKeys.idleDetail() : cityQueryKeys.detail(id),
-		queryFn: () => getCity(id!),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
+		queryFn: () => get(id!),
 		enabled: id !== null,
 	});
 }

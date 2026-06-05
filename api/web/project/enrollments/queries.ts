@@ -2,17 +2,15 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { enrollmentQueryKeys } from "@/constants";
+import { enrollments } from "@/api/web";
 import { buildEnrollmentComplexSearchRequest } from "@/features/project/enrollments/utils";
 import type { EnrollmentComplexSearchFilters } from "@/types";
 
-import { get, list, search } from "./endpoints";
-
-export { enrollmentQueryKeys };
+const { enrollmentKeys: keys, get, list, search } = enrollments;
 
 export function useEnrollmentsQuery(enabled = true) {
 	return useQuery({
-		queryKey: enrollmentQueryKeys.list(),
+		queryKey: keys.list(),
 		queryFn: () => list(),
 		enabled,
 	});
@@ -28,7 +26,7 @@ export function useEnrollmentsSearchQuery(
 	const filtersKey = JSON.stringify(complexSearchRequest);
 
 	return useQuery({
-		queryKey: enrollmentQueryKeys.search(page, size, filtersKey),
+		queryKey: keys.search(page, size, filtersKey),
 		queryFn: () =>
 			search(
 				{
@@ -48,8 +46,8 @@ export function useEnrollmentDetailQuery(
 	return useQuery({
 		queryKey:
 			projectId === null || formerStudentId === null
-				? enrollmentQueryKeys.idleDetail()
-				: enrollmentQueryKeys.detail(projectId, formerStudentId),
+				? keys.idleDetail()
+				: keys.detail(projectId, formerStudentId),
 		queryFn: () => get(projectId!, formerStudentId!),
 		enabled: projectId !== null && formerStudentId !== null,
 	});

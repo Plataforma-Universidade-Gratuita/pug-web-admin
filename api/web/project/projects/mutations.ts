@@ -6,10 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import {
-	createAssociations,
-	deleteAllByProject,
-} from "@/api/web/project/project-areas-of-expertise";
+import { projectAreasOfExpertise, projects } from "@/api/web";
 import type { ProjectResponse } from "@/types";
 import type {
 	ProjectCreateMutationVariables,
@@ -18,8 +15,8 @@ import type {
 	ProjectUpdateMutationVariables,
 } from "@/types";
 
-import { create, remove, update, updateStatus } from "./endpoints";
-import { projectQueryKeys } from "./queries";
+const { createAssociations, deleteAllByProject } = projectAreasOfExpertise;
+const { create, projectKeys: keys, remove, update, updateStatus } = projects;
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,
@@ -54,24 +51,22 @@ function writeProjectCaches(
 	queryClient: QueryClient,
 	project: ProjectResponse,
 ) {
-	queryClient.setQueryData(projectQueryKeys.detail(project.id), project);
-	queryClient.setQueryData<ProjectResponse[]>(
-		projectQueryKeys.list(),
-		current => upsertListItem(current, project, item => item.id),
+	queryClient.setQueryData(keys.detail(project.id), project);
+	queryClient.setQueryData<ProjectResponse[]>(keys.list(), current =>
+		upsertListItem(current, project, item => item.id),
 	);
-	queryClient.invalidateQueries({ queryKey: projectQueryKeys.all });
+	queryClient.invalidateQueries({ queryKey: keys.all });
 }
 
 function removeProjectCaches(queryClient: QueryClient, projectId: string) {
-	queryClient.setQueryData<ProjectResponse[]>(
-		projectQueryKeys.list(),
-		current => removeListItem(current, projectId, item => item.id),
+	queryClient.setQueryData<ProjectResponse[]>(keys.list(), current =>
+		removeListItem(current, projectId, item => item.id),
 	);
-	queryClient.removeQueries({ queryKey: projectQueryKeys.detail(projectId) });
+	queryClient.removeQueries({ queryKey: keys.detail(projectId) });
 	queryClient.removeQueries({
-		queryKey: projectQueryKeys.areasOfExpertise(projectId),
+		queryKey: keys.areasOfExpertise(projectId),
 	});
-	queryClient.invalidateQueries({ queryKey: projectQueryKeys.all });
+	queryClient.invalidateQueries({ queryKey: keys.all });
 }
 
 async function runProjectStatusAction({
@@ -135,7 +130,7 @@ export function useSetProjectAreasOfExpertiseMutation() {
 		},
 		onSuccess: (_data, variables) => {
 			queryClient.invalidateQueries({
-				queryKey: projectQueryKeys.areasOfExpertise(variables.projectId),
+				queryKey: keys.areasOfExpertise(variables.projectId),
 			});
 		},
 	});

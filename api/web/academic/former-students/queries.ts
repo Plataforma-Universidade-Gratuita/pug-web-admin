@@ -2,25 +2,20 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { formerStudentQueryKeys } from "@/constants";
+import { formerStudents } from "@/api/web";
 
-import { get, list } from "./endpoints";
-
-export { formerStudentQueryKeys };
+const { formerStudentKeys: keys, get, list } = formerStudents;
 
 export function useFormerStudentsQuery() {
 	return useQuery({
-		queryKey: formerStudentQueryKeys.list(),
+		queryKey: keys.list(),
 		queryFn: () => list(),
 	});
 }
 
 export function useFormerStudentDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null
-				? formerStudentQueryKeys.idleDetail()
-				: formerStudentQueryKeys.detail(id),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
 		queryFn: () => get(id!),
 		enabled: id !== null,
 	});

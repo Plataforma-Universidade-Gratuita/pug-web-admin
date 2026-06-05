@@ -2,21 +2,18 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { admins } from "@/api/web";
 import { get as getAccount } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
-import { adminQueryKeys } from "@/constants";
 import { buildAdminComplexSearchRequest } from "@/features/identity/admins/utils";
 import type { AdminComplexSearchFilters } from "@/types";
 
-import { get, getMe, search } from "./endpoints";
-
-export { adminQueryKeys };
-
+const { get, getMe, search, adminKeys: keys } = admins;
 const ADMIN_DIRECTORY_SEARCH_PAGE_SIZE = 100;
 
 export function useAdminsQuery(enabled = true) {
 	return useQuery({
-		queryKey: adminQueryKeys.directory(),
+		queryKey: keys.directory(),
 		queryFn: async () => {
 			const admins = [];
 			let page = 0;
@@ -59,7 +56,7 @@ export function useAdminsSearchQuery(
 	const filtersKey = JSON.stringify(complexSearchRequest);
 
 	return useQuery({
-		queryKey: adminQueryKeys.search(page, size, filtersKey),
+		queryKey: keys.search(page, size, filtersKey),
 		queryFn: () =>
 			search(
 				{
@@ -74,8 +71,7 @@ export function useAdminsSearchQuery(
 
 export function useAdminDetailQuery(id: string | null) {
 	return useQuery({
-		queryKey:
-			id === null ? adminQueryKeys.idleDetail() : adminQueryKeys.detail(id),
+		queryKey: id === null ? keys.idleDetail() : keys.detail(id),
 		queryFn: () => get(id!),
 		enabled: id !== null,
 	});
@@ -85,8 +81,8 @@ export function useLinkedAdminAccountQuery(accountId: string | null) {
 	return useQuery({
 		queryKey:
 			accountId === null
-				? adminQueryKeys.idleLinkedAccount()
-				: adminQueryKeys.linkedAccount(accountId),
+				? keys.idleLinkedAccount()
+				: keys.linkedAccount(accountId),
 		queryFn: () => getAccount(accountId!),
 		enabled: accountId !== null,
 	});
@@ -94,10 +90,7 @@ export function useLinkedAdminAccountQuery(accountId: string | null) {
 
 export function useLinkedAdminUserQuery(userId: string | null) {
 	return useQuery({
-		queryKey:
-			userId === null
-				? adminQueryKeys.idleLinkedUser()
-				: adminQueryKeys.linkedUser(userId),
+		queryKey: userId === null ? keys.idleLinkedUser() : keys.linkedUser(userId),
 		queryFn: () => getUser(userId!),
 		enabled: userId !== null,
 	});
@@ -105,7 +98,7 @@ export function useLinkedAdminUserQuery(userId: string | null) {
 
 export function useCurrentAdminQuery() {
 	return useQuery({
-		queryKey: adminQueryKeys.me(),
+		queryKey: keys.me(),
 		queryFn: getMe,
 	});
 }

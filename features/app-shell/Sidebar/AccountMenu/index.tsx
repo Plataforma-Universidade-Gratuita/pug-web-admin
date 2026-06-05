@@ -9,12 +9,9 @@ import clsx from "clsx";
 import { LogOut, UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-	adminQueryKeys,
-	useCurrentAdminQuery,
-} from "@/api/web/identity/admins";
+import { adminKeys, useCurrentAdminQuery } from "@/api/web/identity/admins";
 import { logout, logoutAll } from "@/api/web/identity/auth";
-import { userQueryKeys, useCurrentUserQuery } from "@/api/web/identity/users";
+import { userKeys, useCurrentUserQuery } from "@/api/web/identity/users";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -52,8 +49,8 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 	const profileError = adminQuery.error ?? userQuery.error;
 
 	async function finalizeLogout(successMessage: string) {
-		await queryClient.invalidateQueries({ queryKey: adminQueryKeys.all });
-		await queryClient.invalidateQueries({ queryKey: userQueryKeys.all });
+		await queryClient.invalidateQueries({ queryKey: adminKeys.all });
+		await queryClient.invalidateQueries({ queryKey: userKeys.all });
 		queryClient.clear();
 		setIsLogoutDialogOpen(false);
 		setOpen(false);

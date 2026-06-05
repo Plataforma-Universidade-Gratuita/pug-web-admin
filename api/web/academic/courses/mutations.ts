@@ -6,6 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
+import { courses } from "@/api/web";
 import type { CourseResponse } from "@/types";
 import type {
 	CourseCreateMutationVariables,
@@ -13,8 +14,7 @@ import type {
 	RemoveCourseMutationVariables,
 } from "@/types";
 
-import { create, remove, update } from "./endpoints";
-import { courseQueryKeys } from "./queries";
+const { courseKeys: keys, create, remove, update } = courses;
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,
@@ -46,17 +46,17 @@ function removeListItem<TItem>(
 }
 
 function writeCourseCaches(queryClient: QueryClient, course: CourseResponse) {
-	queryClient.setQueryData(courseQueryKeys.detail(course.id), course);
-	queryClient.setQueryData<CourseResponse[]>(courseQueryKeys.list(), current =>
+	queryClient.setQueryData(keys.detail(course.id), course);
+	queryClient.setQueryData<CourseResponse[]>(keys.list(), current =>
 		upsertListItem(current, course, item => item.id),
 	);
 }
 
 function removeCourseCaches(queryClient: QueryClient, courseId: string) {
-	queryClient.setQueryData<CourseResponse[]>(courseQueryKeys.list(), current =>
+	queryClient.setQueryData<CourseResponse[]>(keys.list(), current =>
 		removeListItem(current, courseId, item => item.id),
 	);
-	queryClient.removeQueries({ queryKey: courseQueryKeys.detail(courseId) });
+	queryClient.removeQueries({ queryKey: keys.detail(courseId) });
 }
 
 export function useCreateCourseMutation() {

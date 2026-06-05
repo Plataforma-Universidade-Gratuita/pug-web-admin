@@ -6,6 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
+import { entities } from "@/api/web";
 import type { EntityResponse } from "@/types";
 import type {
 	EntityCreateMutationVariables,
@@ -13,8 +14,7 @@ import type {
 	EntityUpdateMutationVariables,
 } from "@/types";
 
-import { create, remove, update } from "./endpoints";
-import { entityQueryKeys } from "./queries";
+const { create, entityKeys: keys, remove, update } = entities;
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,
@@ -46,19 +46,19 @@ function removeListItem<TItem>(
 }
 
 function writeEntityCaches(queryClient: QueryClient, entity: EntityResponse) {
-	queryClient.setQueryData(entityQueryKeys.detail(entity.id), entity);
-	queryClient.setQueryData<EntityResponse[]>(entityQueryKeys.list(), current =>
+	queryClient.setQueryData(keys.detail(entity.id), entity);
+	queryClient.setQueryData<EntityResponse[]>(keys.list(), current =>
 		upsertListItem(current, entity, item => item.id),
 	);
-	queryClient.invalidateQueries({ queryKey: entityQueryKeys.searchRoot() });
+	queryClient.invalidateQueries({ queryKey: keys.searchRoot() });
 }
 
 function removeEntityCaches(queryClient: QueryClient, entityId: string) {
-	queryClient.setQueryData<EntityResponse[]>(entityQueryKeys.list(), current =>
+	queryClient.setQueryData<EntityResponse[]>(keys.list(), current =>
 		removeListItem(current, entityId, item => item.id),
 	);
-	queryClient.removeQueries({ queryKey: entityQueryKeys.detail(entityId) });
-	queryClient.invalidateQueries({ queryKey: entityQueryKeys.searchRoot() });
+	queryClient.removeQueries({ queryKey: keys.detail(entityId) });
+	queryClient.invalidateQueries({ queryKey: keys.searchRoot() });
 }
 
 export function useCreateEntityMutation() {
