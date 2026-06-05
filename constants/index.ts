@@ -3,7 +3,6 @@ export * from "./api";
 export * from "./app-shell";
 export * from "./auth";
 export * from "./components";
-export * from "./docs";
 export * from "./forms";
 export * from "./hooks";
 export * from "./identity";

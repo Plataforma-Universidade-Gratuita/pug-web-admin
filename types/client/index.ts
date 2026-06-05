@@ -1,7 +1,6 @@
 /* --- Root --- */
 export * from "./app";
 export * from "./auth";
-export * from "./docs";
 export * from "./entity-pages";
 export * from "./forms";
 export * from "./locale";

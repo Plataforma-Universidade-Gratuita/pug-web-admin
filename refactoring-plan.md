@@ -79,7 +79,7 @@ This plan is intentionally detailed because there are now many service-page impl
 - [x] Account-backed duplicate flows repeat the same fetch/copy/toast logic.
 - [x] Editor forms repeat the same account-summary and linked-detail sections.
 - [x] Table column factories are local to modules even when the columns are semantically identical.
-- [ ] Legacy academic naming still leaks through some code/copy (`school`, `student`) even after route-level migration.
+- [x] Legacy academic naming still leaks through some code/copy (`school`, `student`) even after route-level migration.
 
 ---
 
@@ -113,7 +113,7 @@ The order matters. The safest sequence is:
 - [x] Phase 5: editor shared blocks
 - [x] Phase 6: table column factories
 - [x] Phase 7: duplicate workflow cleanup
-- [ ] Phase 8: final validation and leftovers review
+- [x] Phase 8: final validation and leftovers review
 
 Do **not** jump straight to column factories or page hooks before copy and action primitives are normalized. That creates churn twice.
 
@@ -602,26 +602,26 @@ Finish the cleanup after the abstraction work lands.
 
 ### 8.1 Review imports after component moves
 
-- [ ] ensure `features/shared` is not re-exporting too many component-level pieces that now belong directly to `components/composite`
-- [ ] remove stale compatibility exports if they are no longer needed
+- [x] ensure `features/shared` is not re-exporting too many component-level pieces that now belong directly to `components/composite`
+- [x] remove stale compatibility exports if they are no longer needed
 
 ### 8.2 Review naming consistency
 
-- [ ] service-page feature file names
-- [ ] editor file naming
-- [ ] detail content file naming
-- [ ] copy namespaces
+- [x] service-page feature file names
+- [x] editor file naming
+- [x] detail content file naming
+- [x] copy namespaces
 
 ### 8.3 Review dead helpers
 
-- [ ] remove old helper functions made obsolete by new shared abstractions
-- [ ] remove stale props/types no longer referenced
-- [ ] remove any dead copy keys in `en-US`
+- [x] remove old helper functions made obsolete by new shared abstractions
+- [x] remove stale props/types no longer referenced
+- [x] remove any dead copy keys in `en-US`
 
 ### 8.4 Final validation
 
-- [ ] `npm run format`
-- [ ] confirm:
+- [x] `npm run format`
+- [x] confirm:
   - `prettier` passes
   - `lint:fix` has warnings only
   - `tsc --noEmit` passes

@@ -25,3 +25,8 @@ export interface AppRouteSlugParams {
 export interface AppRouteSlugContext {
 	params: Promise<AppRouteSlugParams>;
 }
+
+export interface RouteBoundaryPageProps {
+	error: Error & { digest?: string };
+	reset: () => void;
+}
