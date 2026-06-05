@@ -2,14 +2,14 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 import { HOME_ROUTE, LOGIN_ROUTE, PUBLIC_ROUTES } from "@/constants/auth";
-import { validateAdminToken } from "@/utils/auth";
+import { validateAdminToken } from "@/utils/server/auth/auth";
 import {
 	applySessionCookies,
 	clearSessionCookies,
 	getAccessTokenFromRequest,
 	getRefreshTokenFromRequest,
-} from "@/utils/cookies";
-import { refreshAdminSession } from "@/utils/session";
+} from "@/utils/server/auth/cookies";
+import { refreshAdminSession } from "@/utils/server/auth/session";
 
 export async function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;

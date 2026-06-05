@@ -9,7 +9,11 @@ import {
 	PaginationRequestSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import { parseRouteBody, routeError, routeWithAuthRetry } from "@/utils/route";
+import {
+	parseRouteBody,
+	routeError,
+	routeWithAuthRetry,
+} from "@/utils/server/http/route";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;

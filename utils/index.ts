@@ -1,10 +1,7 @@
 /* --- Root --- */
-export * from "./api";
-export * from "./api-errors";
-export * from "./auth";
-export * from "./duplicate";
-export * from "./lang";
-export * from "./overlay";
-export * from "./search-date";
-export * from "./theme-value";
-export * from "./web-api";
+export * from "./shared/http/api";
+export * from "./shared/http/api-errors";
+export * from "./shared/http/web-api";
+export * from "./shared/data/duplicate";
+export * from "./shared/data/search-date";
+export * from "./shared/i18n/lang";

@@ -6,7 +6,8 @@ import { Providers } from "@/app/providers";
 import { ThemeScript } from "@/app/theme-script";
 import { LANG_COOKIE_NAME, THEME_COOKIE_NAME } from "@/constants";
 import type { RootLayoutProps } from "@/types";
-import { coerceLang, coerceTheme } from "@/utils";
+import { coerceTheme } from "@/utils/client/theme/theme";
+import { coerceLang } from "@/utils/shared/i18n/lang";
 
 export const metadata: Metadata = {
 	title: {

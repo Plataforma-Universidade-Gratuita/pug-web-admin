@@ -16,7 +16,7 @@ import {
 	routeError,
 	routeVoidWithAuthRetry,
 	routeWithAuthRetry,
-} from "@/utils/route";
+} from "@/utils/server/http/route";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;

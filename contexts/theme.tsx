@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import type { AppTheme, ThemeContextValue } from "@/types";
-import { applyClientTheme } from "@/utils/theme";
+import { applyClientTheme } from "@/utils/client/theme/theme";
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 

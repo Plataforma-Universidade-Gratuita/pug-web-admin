@@ -8,19 +8,19 @@ import {
 	TokenResponseSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import { validateAdminToken } from "@/utils/auth";
+import { validateAdminToken } from "@/utils/server/auth/auth";
 import {
 	applySessionCookies,
 	clearSessionCookies,
 	getServerCookie,
-} from "@/utils/cookies";
+} from "@/utils/server/auth/cookies";
 import {
 	parseRouteBody,
 	routeData,
 	routeError,
 	routeNoContent,
 	routeVoidWithAuthRetry,
-} from "@/utils/route";
+} from "@/utils/server/http/route";
 
 async function resolveLogoutRefreshToken(
 	request: Request,

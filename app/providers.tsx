@@ -11,9 +11,9 @@ import { APP_QUERY_CLIENT_OPTIONS } from "@/constants";
 import { LocaleProvider } from "@/contexts/locale";
 import { ThemeProvider } from "@/contexts/theme";
 import type { ProvidersProps } from "@/types";
-import { coerceLang } from "@/utils";
-import { coerceTheme } from "@/utils";
-import { initI18n } from "@/utils/locale";
+import { initI18n } from "@/utils/client/i18n/locale";
+import { coerceTheme } from "@/utils/client/theme/theme";
+import { coerceLang } from "@/utils/shared/i18n/lang";
 
 export function Providers({
 	children,

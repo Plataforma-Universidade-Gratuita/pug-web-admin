@@ -19,7 +19,7 @@ import type { PopoverContextValue } from "@/types";
 import {
 	getFloatingLayerBoundary,
 	usesAppTopbarCollisionPadding,
-} from "@/utils";
+} from "@/utils/client/ui/overlay";
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
 
