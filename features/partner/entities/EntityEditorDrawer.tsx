@@ -1,18 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
 	Button,
 	Drawer,
 	DrawerBody,
@@ -20,6 +14,7 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
+	ResetChangesDialog,
 	toast,
 } from "@/components";
 import { EntityEditorForm } from "@/features/partner/entities/EntityEditorForm";
@@ -38,6 +33,7 @@ import {
 	toEntityUpdateRequest,
 } from "@/features/partner/entities/utils";
 import {
+	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
@@ -59,9 +55,16 @@ export function EntityEditorDrawer({
 	onOpenChange,
 }: EntityEditorDrawerProps) {
 	const { t } = useTranslation();
-	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
 	const isDuplicateMode = mode === "duplicate";
+	const {
+		handleDrawerOpenChange,
+		isResetConfirmOpen,
+		openResetConfirm,
+		setIsResetConfirmOpen,
+	} = useDrawerResetConfirm({
+		onDrawerOpenChange: onOpenChange,
+	});
 	const entityDetailQuery = useEntityDetailQuery(entityId);
 	const citiesQuery = useEntityCitiesQuery();
 	const createMutation = useCreateEntityMutation();
@@ -175,14 +178,6 @@ export function EntityEditorDrawer({
 
 	function closeDrawer() {
 		onOpenChange(false);
-	}
-
-	function handleDrawerOpenChange(nextOpen: boolean) {
-		if (!nextOpen) {
-			setIsResetConfirmOpen(false);
-		}
-
-		onOpenChange(nextOpen);
 	}
 
 	function resetForm() {
@@ -300,7 +295,7 @@ export function EntityEditorDrawer({
 							variant="secondary"
 							usage="danger"
 							disabled={!form.formState.isDirty || isSubmitPending}
-							onClick={() => setIsResetConfirmOpen(true)}
+							onClick={openResetConfirm}
 						>
 							{t("common.actions.resetChanges")}
 						</Button>
@@ -320,26 +315,15 @@ export function EntityEditorDrawer({
 				</DrawerContent>
 			</Drawer>
 
-			<AlertDialog
+			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-			>
-				<AlertDialogContent variant="danger">
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t("partner.entityPage.editor.resetConfirm.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t("partner.entityPage.editor.resetConfirm.description")}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t("common.actions.resetChanges")}
-						onAction={resetForm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
+				title={t("partner.entityPage.editor.resetConfirm.title")}
+				description={t("partner.entityPage.editor.resetConfirm.description")}
+				cancelLabel={t("common.cancel")}
+				actionLabel={t("common.actions.resetChanges")}
+				onAction={resetForm}
+			/>
 		</>
 	);
 }

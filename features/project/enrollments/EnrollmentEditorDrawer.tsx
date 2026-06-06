@@ -1,22 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
-import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	Button,
-	Footer,
-	toast,
-} from "@/components";
+import { Button, Footer, ResetChangesDialog, toast } from "@/components";
 import { ServicePageEditorDrawer } from "@/components";
 import { EnrollmentEditorForm } from "@/features/project/enrollments/EnrollmentEditorForm";
 import {
@@ -34,6 +24,7 @@ import {
 	parseEnrollmentCompositeKey,
 } from "@/features/project/enrollments/utils";
 import {
+	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
@@ -81,8 +72,15 @@ export function EnrollmentEditorDrawer({
 	onOpenChange,
 }: EnrollmentEditorDrawerProps) {
 	const { t } = useTranslation();
-	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
+	const {
+		handleDrawerOpenChange,
+		isResetConfirmOpen,
+		openResetConfirm,
+		setIsResetConfirmOpen,
+	} = useDrawerResetConfirm({
+		onDrawerOpenChange: onOpenChange,
+	});
 	const enrollmentIdentifier = useMemo(
 		() => parseEnrollmentCompositeKey(enrollmentId),
 		[enrollmentId],
@@ -241,13 +239,6 @@ export function EnrollmentEditorDrawer({
 		setIsResetConfirmOpen(false);
 	}
 
-	function handleDrawerOpenChange(nextOpen: boolean) {
-		if (!nextOpen) {
-			setIsResetConfirmOpen(false);
-		}
-		onOpenChange(nextOpen);
-	}
-
 	function onSubmit(values: EnrollmentEditorFormValues) {
 		if (isCreateMode) {
 			createMutation.mutate(
@@ -329,7 +320,7 @@ export function EnrollmentEditorDrawer({
 						<Button
 							variant="secondary"
 							usage="danger"
-							onClick={() => setIsResetConfirmOpen(true)}
+							onClick={openResetConfirm}
 							disabled={isSubmitPending}
 						>
 							{t("common.reset")}
@@ -396,26 +387,15 @@ export function EnrollmentEditorDrawer({
 				/>
 			</ServicePageEditorDrawer>
 
-			<AlertDialog
+			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-			>
-				<AlertDialogContent variant="danger">
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t("common.resetConfirm.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t("common.resetConfirm.description")}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t("project.enrollmentPage.editor.actions.reset")}
-						onAction={resetForm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
+				title={t("common.resetConfirm.title")}
+				description={t("common.resetConfirm.description")}
+				cancelLabel={t("common.cancel")}
+				actionLabel={t("project.enrollmentPage.editor.actions.reset")}
+				onAction={resetForm}
+			/>
 		</>
 	);
 }

@@ -1,18 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
 	Button,
 	Drawer,
 	DrawerBody,
@@ -20,6 +14,7 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
+	ResetChangesDialog,
 	toast,
 } from "@/components";
 import { FormerStudentEditorForm } from "@/features/academic/former-students/FormerStudentEditorForm";
@@ -37,6 +32,7 @@ import {
 	toFormerStudentUpdateRequest,
 } from "@/features/academic/former-students/utils";
 import {
+	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
@@ -64,9 +60,16 @@ export function FormerStudentEditorDrawer({
 	formerStudentId,
 }: FormerStudentEditorDrawerProps) {
 	const { t } = useTranslation();
-	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
 	const isDuplicateMode = mode === "duplicate";
+	const {
+		handleDrawerOpenChange,
+		isResetConfirmOpen,
+		openResetConfirm,
+		setIsResetConfirmOpen,
+	} = useDrawerResetConfirm({
+		onDrawerOpenChange: onOpenChange,
+	});
 	const existingUsersQuery = useUsersQuery(open && mode !== "update");
 	const formerStudentDetailQuery = useFormerStudentDetailQuery(formerStudentId);
 	const accountDetailQuery = useAccountDetailQuery(
@@ -212,14 +215,6 @@ export function FormerStudentEditorDrawer({
 		onOpenChange(false);
 	}
 
-	function handleDrawerOpenChange(nextOpen: boolean) {
-		if (!nextOpen) {
-			setIsResetConfirmOpen(false);
-		}
-
-		onOpenChange(nextOpen);
-	}
-
 	function resetForm() {
 		form.reset(loadedFormValues ?? emptyValues);
 		setIsResetConfirmOpen(false);
@@ -350,7 +345,7 @@ export function FormerStudentEditorDrawer({
 							variant="secondary"
 							usage="danger"
 							disabled={!form.formState.isDirty || isSubmitPending}
-							onClick={() => setIsResetConfirmOpen(true)}
+							onClick={openResetConfirm}
 						>
 							{t("academic.formerStudentPage.editor.actions.reset")}
 						</Button>
@@ -370,26 +365,17 @@ export function FormerStudentEditorDrawer({
 				</DrawerContent>
 			</Drawer>
 
-			<AlertDialog
+			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-			>
-				<AlertDialogContent variant="danger">
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t("academic.formerStudentPage.editor.resetConfirm.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t("academic.formerStudentPage.editor.resetConfirm.description")}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t("academic.formerStudentPage.editor.actions.reset")}
-						onAction={resetForm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
+				title={t("academic.formerStudentPage.editor.resetConfirm.title")}
+				description={t(
+					"academic.formerStudentPage.editor.resetConfirm.description",
+				)}
+				cancelLabel={t("common.cancel")}
+				actionLabel={t("academic.formerStudentPage.editor.actions.reset")}
+				onAction={resetForm}
+			/>
 		</>
 	);
 }

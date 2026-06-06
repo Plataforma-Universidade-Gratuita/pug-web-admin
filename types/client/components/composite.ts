@@ -36,6 +36,16 @@ export interface LinkedDetailsAccordionProps {
 	className?: string;
 }
 
+export interface ResetChangesDialogProps {
+	actionLabel: ReactNode;
+	cancelLabel: ReactNode;
+	description: ReactNode;
+	onAction: () => void;
+	onOpenChange: (open: boolean) => void;
+	open: boolean;
+	title: ReactNode;
+}
+
 export interface TableTextColumnOptions<TData extends object> {
 	id: string;
 	header: ReactNode;

@@ -1,18 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
 	Button,
 	Drawer,
 	DrawerBody,
@@ -20,6 +14,7 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
+	ResetChangesDialog,
 	toast,
 } from "@/components";
 import { AreaOfExpertiseEditorForm } from "@/features/academic/areas-of-expertise/AreaOfExpertiseEditorForm";
@@ -36,6 +31,7 @@ import {
 	toAreaOfExpertiseUpdateRequest,
 } from "@/features/academic/areas-of-expertise/utils";
 import {
+	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
@@ -59,9 +55,16 @@ export function AreaOfExpertiseEditorDrawer({
 	open,
 }: AreaOfExpertiseEditorDrawerProps) {
 	const { t } = useTranslation();
-	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
 	const isDuplicateMode = mode === "duplicate";
+	const {
+		handleDrawerOpenChange,
+		isResetConfirmOpen,
+		openResetConfirm,
+		setIsResetConfirmOpen,
+	} = useDrawerResetConfirm({
+		onDrawerOpenChange: onOpenChange,
+	});
 	const areaOfExpertiseDetailQuery =
 		useAreaOfExpertiseDetailQuery(areaOfExpertiseId);
 	const createMutation = useCreateAreaOfExpertiseMutation();
@@ -163,14 +166,6 @@ export function AreaOfExpertiseEditorDrawer({
 
 	function closeDrawer() {
 		onOpenChange(false);
-	}
-
-	function handleDrawerOpenChange(nextOpen: boolean) {
-		if (!nextOpen) {
-			setIsResetConfirmOpen(false);
-		}
-
-		onOpenChange(nextOpen);
 	}
 
 	function resetForm() {
@@ -286,7 +281,7 @@ export function AreaOfExpertiseEditorDrawer({
 							variant="secondary"
 							usage="danger"
 							disabled={!form.formState.isDirty || isSubmitPending}
-							onClick={() => setIsResetConfirmOpen(true)}
+							onClick={openResetConfirm}
 						>
 							{t("academic.areaOfExpertisePage.editor.actions.reset")}
 						</Button>
@@ -306,28 +301,17 @@ export function AreaOfExpertiseEditorDrawer({
 				</DrawerContent>
 			</Drawer>
 
-			<AlertDialog
+			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-			>
-				<AlertDialogContent variant="danger">
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t("academic.areaOfExpertisePage.editor.resetConfirm.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t(
-								"academic.areaOfExpertisePage.editor.resetConfirm.description",
-							)}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t("academic.areaOfExpertisePage.editor.actions.reset")}
-						onAction={resetForm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
+				title={t("academic.areaOfExpertisePage.editor.resetConfirm.title")}
+				description={t(
+					"academic.areaOfExpertisePage.editor.resetConfirm.description",
+				)}
+				cancelLabel={t("common.cancel")}
+				actionLabel={t("academic.areaOfExpertisePage.editor.actions.reset")}
+				onAction={resetForm}
+			/>
 		</>
 	);
 }

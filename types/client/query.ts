@@ -34,6 +34,10 @@ export interface DeferredUndoActionOptions {
 	undoLabel: ReactNode;
 }
 
+export interface UseDrawerResetConfirmParams {
+	onDrawerOpenChange: (open: boolean) => void;
+}
+
 export type SearchDateBoundary = "start" | "end";
 
 export interface ApiErrorToastOptions {

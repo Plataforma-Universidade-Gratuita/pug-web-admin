@@ -10,8 +10,8 @@
 - [x] Step 6: Move types, interfaces, and schemas
 - [x] Step 7: Refactor TSX files
 - [x] Step 8: Remove `features/shared`
-- [ ] Step 9: Promote cross-feature components
-- [ ] Step 10: Extract repeated React patterns
+- [x] Step 9: Promote cross-feature components
+- [x] Step 10: Extract repeated React patterns
 - [ ] Step 11: Validate naming
 - [ ] Step 12: Run validation
 - [ ] Step 13: Fix regressions
@@ -303,15 +303,15 @@ These need to move to the lowest valid `constants.ts`:
 
 #### Evaluate after structural cleanup
 
-- [ ] Review page-controller patterns shared by:
+- [x] Review page-controller patterns shared by:
   - `features/project/projects/ProjectsPage.tsx`
   - `features/project/attendances/AttendancesPage.tsx`
   - `features/project/enrollments/EnrollmentsPage.tsx`
   - `features/academic/former-students/FormerStudentsPage.tsx`
   - `features/partner/staff/StaffPage.tsx`
-- [ ] Review repeated drawer hydration/form wiring across editor drawers
-- [ ] Review repeated dialog orchestration across service pages
-- [ ] Extract only if the pattern is used by three or more components and the abstraction reduces complexity
+- [x] Review repeated drawer hydration/form wiring across editor drawers
+- [x] Review repeated dialog orchestration across service pages
+- [x] Extract only if the pattern is used by three or more components and the abstraction reduces complexity
 
 ### Step 11: Validate Naming
 

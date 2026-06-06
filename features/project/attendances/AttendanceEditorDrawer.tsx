@@ -1,22 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
-import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	Button,
-	Footer,
-	toast,
-} from "@/components";
+import { Button, Footer, ResetChangesDialog, toast } from "@/components";
 import { ServicePageEditorDrawer } from "@/components";
 import { AttendanceEditorForm } from "@/features/project/attendances/AttendanceEditorForm";
 import {
@@ -34,6 +24,7 @@ import {
 	toAttendanceValidateRequest,
 } from "@/features/project/attendances/utils";
 import {
+	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
@@ -64,8 +55,15 @@ export function AttendanceEditorDrawer({
 	onOpenChange,
 }: AttendanceEditorDrawerProps) {
 	const { t } = useTranslation();
-	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
+	const {
+		handleDrawerOpenChange,
+		isResetConfirmOpen,
+		openResetConfirm,
+		setIsResetConfirmOpen,
+	} = useDrawerResetConfirm({
+		onDrawerOpenChange: onOpenChange,
+	});
 	const projectsQuery = useProjectsQuery();
 	const formerStudentsQuery = useFormerStudentsQuery();
 	const accountsQuery = useAccountsQuery();
@@ -202,14 +200,6 @@ export function AttendanceEditorDrawer({
 		setIsResetConfirmOpen(false);
 	}
 
-	function handleDrawerOpenChange(nextOpen: boolean) {
-		if (!nextOpen) {
-			setIsResetConfirmOpen(false);
-		}
-
-		onOpenChange(nextOpen);
-	}
-
 	function onSubmit(values: AttendanceEditorFormValues) {
 		if (isCreateMode) {
 			createMutation.mutate(
@@ -288,7 +278,7 @@ export function AttendanceEditorDrawer({
 						<Button
 							variant="secondary"
 							usage="danger"
-							onClick={() => setIsResetConfirmOpen(true)}
+							onClick={openResetConfirm}
 							disabled={isSubmitPending}
 						>
 							{t("common.reset")}
@@ -349,26 +339,15 @@ export function AttendanceEditorDrawer({
 				/>
 			</ServicePageEditorDrawer>
 
-			<AlertDialog
+			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-			>
-				<AlertDialogContent variant="danger">
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t("common.resetConfirm.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t("common.resetConfirm.description")}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t("project.attendancePage.editor.actions.reset")}
-						onAction={resetForm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
+				title={t("common.resetConfirm.title")}
+				description={t("common.resetConfirm.description")}
+				cancelLabel={t("common.cancel")}
+				actionLabel={t("project.attendancePage.editor.actions.reset")}
+				onAction={resetForm}
+			/>
 		</>
 	);
 }

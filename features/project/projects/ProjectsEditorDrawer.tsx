@@ -1,18 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
 	Button,
 	Drawer,
 	DrawerBody,
@@ -20,6 +14,7 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
+	ResetChangesDialog,
 	toast,
 } from "@/components";
 import { ProjectsEditorForm } from "@/features/project/projects/ProjectsEditorForm";
@@ -39,6 +34,7 @@ import {
 	toProjectUpdateRequest,
 } from "@/features/project/projects/utils";
 import {
+	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
@@ -68,10 +64,17 @@ export function ProjectsEditorDrawer({
 	projectId,
 }: ProjectsEditorDrawerProps) {
 	const { t } = useTranslation();
-	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
 	const isDuplicateMode = mode === "duplicate";
 	const isUpdateMode = mode === "update";
+	const {
+		handleDrawerOpenChange,
+		isResetConfirmOpen,
+		openResetConfirm,
+		setIsResetConfirmOpen,
+	} = useDrawerResetConfirm({
+		onDrawerOpenChange: onOpenChange,
+	});
 	const areasOfExpertiseQuery = useAreasOfExpertiseQuery();
 	const entitiesQuery = useEntitiesQuery();
 	const projectDetailQuery = useProjectDetailQuery(projectId);
@@ -221,14 +224,6 @@ export function ProjectsEditorDrawer({
 
 	function closeDrawer() {
 		onOpenChange(false);
-	}
-
-	function handleDrawerOpenChange(nextOpen: boolean) {
-		if (!nextOpen) {
-			setIsResetConfirmOpen(false);
-		}
-
-		onOpenChange(nextOpen);
 	}
 
 	function resetForm() {
@@ -396,7 +391,7 @@ export function ProjectsEditorDrawer({
 							variant="secondary"
 							usage="danger"
 							disabled={!form.formState.isDirty || isSubmitPending}
-							onClick={() => setIsResetConfirmOpen(true)}
+							onClick={openResetConfirm}
 						>
 							{t("project.projectPage.editor.actions.reset")}
 						</Button>
@@ -416,26 +411,15 @@ export function ProjectsEditorDrawer({
 				</DrawerContent>
 			</Drawer>
 
-			<AlertDialog
+			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-			>
-				<AlertDialogContent variant="danger">
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t("project.projectPage.editor.resetConfirm.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t("project.projectPage.editor.resetConfirm.description")}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t("project.projectPage.editor.actions.reset")}
-						onAction={resetForm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
+				title={t("project.projectPage.editor.resetConfirm.title")}
+				description={t("project.projectPage.editor.resetConfirm.description")}
+				cancelLabel={t("common.cancel")}
+				actionLabel={t("project.projectPage.editor.actions.reset")}
+				onAction={resetForm}
+			/>
 		</>
 	);
 }

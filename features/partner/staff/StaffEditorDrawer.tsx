@@ -1,18 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
 	Button,
 	Drawer,
 	DrawerBody,
@@ -20,6 +14,7 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
+	ResetChangesDialog,
 	toast,
 } from "@/components";
 import { StaffEditorForm } from "@/features/partner/staff/StaffEditorForm";
@@ -40,6 +35,7 @@ import {
 	toStaffUpdateRequest,
 } from "@/features/partner/staff/utils";
 import {
+	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
@@ -64,9 +60,16 @@ export function StaffEditorDrawer({
 	onOpenChange,
 }: StaffEditorDrawerProps) {
 	const { t } = useTranslation();
-	const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 	const isCreateMode = mode === "create";
 	const isDuplicateMode = mode === "duplicate";
+	const {
+		handleDrawerOpenChange,
+		isResetConfirmOpen,
+		openResetConfirm,
+		setIsResetConfirmOpen,
+	} = useDrawerResetConfirm({
+		onDrawerOpenChange: onOpenChange,
+	});
 	const existingUsersQuery = useUsersQuery(open && !isUpdateMode(mode));
 	const staffDetailQuery = useStaffDetailQuery(staffId);
 	const linkedUserQuery = useLinkedStaffUserQuery(
@@ -206,14 +209,6 @@ export function StaffEditorDrawer({
 		onOpenChange(false);
 	}
 
-	function handleDrawerOpenChange(nextOpen: boolean) {
-		if (!nextOpen) {
-			setIsResetConfirmOpen(false);
-		}
-
-		onOpenChange(nextOpen);
-	}
-
 	function resetForm() {
 		form.reset(loadedFormValues ?? emptyValues);
 		setIsResetConfirmOpen(false);
@@ -341,7 +336,7 @@ export function StaffEditorDrawer({
 							variant="secondary"
 							usage="danger"
 							disabled={!form.formState.isDirty || isSubmitPending}
-							onClick={() => setIsResetConfirmOpen(true)}
+							onClick={openResetConfirm}
 						>
 							{t("common.actions.resetChanges")}
 						</Button>
@@ -361,26 +356,15 @@ export function StaffEditorDrawer({
 				</DrawerContent>
 			</Drawer>
 
-			<AlertDialog
+			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-			>
-				<AlertDialogContent variant="danger">
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							{t("partner.staffPage.editor.resetConfirm.title")}
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							{t("partner.staffPage.editor.resetConfirm.description")}
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter
-						cancelLabel={t("common.cancel")}
-						actionLabel={t("common.actions.resetChanges")}
-						onAction={resetForm}
-					/>
-				</AlertDialogContent>
-			</AlertDialog>
+				title={t("partner.staffPage.editor.resetConfirm.title")}
+				description={t("partner.staffPage.editor.resetConfirm.description")}
+				cancelLabel={t("common.cancel")}
+				actionLabel={t("common.actions.resetChanges")}
+				onAction={resetForm}
+			/>
 		</>
 	);
 }
