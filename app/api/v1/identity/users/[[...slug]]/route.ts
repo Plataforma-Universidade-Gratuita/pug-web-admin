@@ -2,17 +2,17 @@ import { z } from "zod";
 
 import { users } from "@/api";
 import {
+	parseRouteBody,
+	routeError,
+	routeWithAuthRetry,
+} from "@/app/api/utils";
+import {
 	createPageResponseSchema,
 	PaginationRequestSchema,
 	UserComplexSearchRequestSchema,
 	UserResponseSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeWithAuthRetry,
-} from "@/app/api/utils";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -58,4 +58,3 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 
 	return routeError(new Error("Not found"));
 }
-

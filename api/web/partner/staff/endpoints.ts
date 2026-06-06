@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { qs, webFetch, webVoid } from "@/api/web/utils";
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	AccountStatusRequestSchema,
@@ -18,7 +19,6 @@ import type {
 	StaffResponse,
 	StaffUpdateRequest,
 } from "@/types";
-import { qs, webFetch, webVoid } from "@/api/web/utils";
 
 export async function get(id: string): Promise<StaffResponse> {
 	return webFetch(
@@ -101,4 +101,3 @@ export async function remove(id: string): Promise<void> {
 		method: "DELETE",
 	});
 }
-

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { qs, zfetch } from "@/api/utils";
 import { API_ROUTE_BASES } from "@/constants";
 import {
 	CityComplexSearchRequestSchema,
@@ -12,7 +13,6 @@ import type {
 	CityResponse,
 	PaginationRequest,
 } from "@/types";
-import { qs, zfetch } from "@/api/utils";
 
 export async function get(id: string, token?: string): Promise<CityResponse> {
 	return zfetch(
@@ -50,4 +50,3 @@ export async function search(
 		token,
 	);
 }
-

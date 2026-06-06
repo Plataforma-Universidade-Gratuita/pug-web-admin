@@ -2,6 +2,12 @@ import { z } from "zod";
 
 import { staff } from "@/api";
 import {
+	parseRouteBody,
+	routeError,
+	routeVoidWithAuthRetry,
+	routeWithAuthRetry,
+} from "@/app/api/utils";
+import {
 	AccountStatusRequestSchema,
 	PaginationRequestSchema,
 	StaffComplexSearchRequestSchema,
@@ -12,12 +18,6 @@ import {
 	createPageResponseSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeVoidWithAuthRetry,
-	routeWithAuthRetry,
-} from "@/app/api/utils";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -97,4 +97,3 @@ export async function DELETE(
 	if (slug.length !== 1) return routeError(new Error("Not found"));
 	return routeVoidWithAuthRetry(token => staff.remove(slug[0]!, token));
 }
-

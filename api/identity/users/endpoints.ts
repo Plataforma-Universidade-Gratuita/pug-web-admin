@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { zfetch, qs } from "@/api/utils";
 import { API_ROUTE_BASES } from "@/constants";
 import {
 	createPageResponseSchema,
@@ -12,7 +13,6 @@ import type {
 	UserComplexSearchResponse,
 	UserResponse,
 } from "@/types";
-import { zfetch, qs } from "@/api/utils";
 
 export async function get(id: string, token?: string): Promise<UserResponse> {
 	return zfetch(
@@ -64,4 +64,3 @@ export async function search(
 		token,
 	);
 }
-

@@ -2,6 +2,12 @@ import { z } from "zod";
 
 import { enrollments } from "@/api";
 import {
+	parseRouteBody,
+	routeError,
+	routeVoidWithAuthRetry,
+	routeWithAuthRetry,
+} from "@/app/api/utils";
+import {
 	EnrollmentComplexSearchRequestSchema,
 	EnrollmentComplexSearchResponseSchema,
 	EnrollmentResponseSchema,
@@ -10,12 +16,6 @@ import {
 	createPageResponseSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeVoidWithAuthRetry,
-	routeWithAuthRetry,
-} from "@/app/api/utils";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -121,4 +121,3 @@ export async function DELETE(
 		enrollments.deleteEnrollment(slug[0]!, slug[1]!, token),
 	);
 }
-

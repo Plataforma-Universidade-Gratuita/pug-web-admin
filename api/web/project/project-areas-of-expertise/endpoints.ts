@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { webFetch, webVoid } from "@/api/web/utils";
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	AreaOfExpertiseResponseSchema,
@@ -11,7 +12,6 @@ import type {
 	ProjectAreaOfExpertiseRequest,
 	ProjectResponse,
 } from "@/types";
-import { webFetch, webVoid } from "@/api/web/utils";
 
 export async function listAreasOfExpertiseByProject(
 	projectId: string,
@@ -71,4 +71,3 @@ export async function deleteAllByAreaOfExpertise(
 		{ method: "DELETE" },
 	);
 }
-

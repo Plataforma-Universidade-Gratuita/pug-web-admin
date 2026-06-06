@@ -8,7 +8,7 @@ import { Sidebar } from "@/features/app-shell/Sidebar";
 import { TopBar } from "@/features/app-shell/Topbar";
 import { WireCredentialsDialog } from "@/features/app-shell/WireCredentialsDialog";
 import { usePasswordWiringState } from "@/features/app-shell/utils";
-import { useAppShellStore } from "@/store";
+import { useAppShellStore } from "@/stores";
 import type { NavbarProps } from "@/types";
 
 export function Navbar({ children }: NavbarProps) {

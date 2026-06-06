@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { qs, webFetch, webVoid } from "@/api/web/utils";
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	AreaOfExpertiseComplexSearchRequestSchema,
@@ -17,7 +18,6 @@ import type {
 	AreaOfExpertiseUpdateRequest,
 	PaginationRequest,
 } from "@/types";
-import { qs, webFetch, webVoid } from "@/api/web/utils";
 
 export async function get(id: string): Promise<AreaOfExpertiseResponse> {
 	return webFetch(
@@ -86,4 +86,3 @@ export async function remove(id: string): Promise<void> {
 		method: "DELETE",
 	});
 }
-

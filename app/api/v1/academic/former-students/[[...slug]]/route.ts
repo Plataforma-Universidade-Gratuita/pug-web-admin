@@ -2,6 +2,12 @@ import { z } from "zod";
 
 import { formerStudents } from "@/api";
 import {
+	parseRouteBody,
+	routeError,
+	routeVoidWithAuthRetry,
+	routeWithAuthRetry,
+} from "@/app/api/utils";
+import {
 	AccountStatusRequestSchema,
 	createPageResponseSchema,
 	FormerStudentComplexSearchRequestSchema,
@@ -12,12 +18,6 @@ import {
 	PaginationRequestSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeVoidWithAuthRetry,
-	routeWithAuthRetry,
-} from "@/app/api/utils";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -113,4 +113,3 @@ export async function DELETE(
 		formerStudents.remove(slug[0]!, token),
 	);
 }
-

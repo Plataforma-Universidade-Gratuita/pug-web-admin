@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { qs, webFetch, webVoid } from "@/api/web/utils";
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	EntityComplexSearchRequestSchema,
@@ -17,7 +18,6 @@ import type {
 	EntityUpdateRequest,
 	PaginationRequest,
 } from "@/types";
-import { qs, webFetch, webVoid } from "@/api/web/utils";
 
 export { list as listCities } from "@/api/web/geo/cities";
 
@@ -86,4 +86,3 @@ export async function remove(id: string): Promise<void> {
 		method: "DELETE",
 	});
 }
-

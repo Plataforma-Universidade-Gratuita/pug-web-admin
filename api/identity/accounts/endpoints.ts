@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { qs, zfetch } from "@/api/utils";
 import { API_ROUTE_BASES } from "@/constants";
 import {
 	AccountComplexSearchResponseSchema,
@@ -13,7 +14,6 @@ import type {
 	AccountResponse,
 	PaginationRequest,
 } from "@/types";
-import { qs, zfetch } from "@/api/utils";
 
 export async function get(
 	id: string,
@@ -68,4 +68,3 @@ export async function search(
 		token,
 	);
 }
-

@@ -1,3 +1,4 @@
+import { webFetch, webVoid } from "@/api/web/utils";
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import { TokenResponseSchema } from "@/schemas";
 import type {
@@ -7,7 +8,6 @@ import type {
 	RefreshRequest,
 	TokenResponse,
 } from "@/types";
-import { webFetch, webVoid } from "@/api/web/utils";
 
 export async function login(body: LoginRequest): Promise<TokenResponse> {
 	return webFetch(
@@ -55,4 +55,3 @@ export async function wireCredentials(body: CredentialsRequest): Promise<void> {
 		body: JSON.stringify(body),
 	});
 }
-

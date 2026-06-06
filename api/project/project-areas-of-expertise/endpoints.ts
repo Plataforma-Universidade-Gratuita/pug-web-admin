@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { zfetch, zvoid } from "@/api/utils";
 import { API_ROUTE_BASES } from "@/constants";
 import {
 	AreaOfExpertiseResponseSchema,
@@ -10,7 +11,6 @@ import type {
 	ProjectAreaOfExpertiseRequest,
 	ProjectResponse,
 } from "@/types";
-import { zfetch, zvoid } from "@/api/utils";
 
 export async function listAreasOfExpertiseByProject(
 	projectId: string,
@@ -81,4 +81,3 @@ export async function deleteAllByAreaOfExpertise(
 		token,
 	);
 }
-

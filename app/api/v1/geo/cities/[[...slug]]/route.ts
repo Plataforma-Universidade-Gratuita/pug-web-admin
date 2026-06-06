@@ -2,17 +2,17 @@ import { z } from "zod";
 
 import { cities } from "@/api";
 import {
+	parseRouteBody,
+	routeError,
+	routeWithAuthRetry,
+} from "@/app/api/utils";
+import {
 	CityComplexSearchRequestSchema,
 	CityResponseSchema,
 	PaginationRequestSchema,
 	createPageResponseSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeWithAuthRetry,
-} from "@/app/api/utils";
 
 export async function GET(_request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -50,4 +50,3 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 
 	return routeError(new Error("Not found"));
 }
-

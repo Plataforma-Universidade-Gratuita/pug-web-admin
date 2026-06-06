@@ -1,3 +1,10 @@
+/* --- Domain Groups --- */
+export * as academic from "./academic";
+export * as geo from "./geo";
+export * as identity from "./identity";
+export * as partner from "./partner";
+export * as project from "./project";
+
 /* --- Academic --- */
 export * as areasOfExpertise from "./academic/areas-of-expertise";
 export * as courses from "./academic/courses";

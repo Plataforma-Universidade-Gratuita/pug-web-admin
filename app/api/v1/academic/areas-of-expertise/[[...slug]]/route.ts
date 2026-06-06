@@ -2,6 +2,12 @@ import { z } from "zod";
 
 import { areasOfExpertise, projectAreasOfExpertise } from "@/api";
 import {
+	parseRouteBody,
+	routeError,
+	routeVoidWithAuthRetry,
+	routeWithAuthRetry,
+} from "@/app/api/utils";
+import {
 	AreaOfExpertiseComplexSearchRequestSchema,
 	AreaOfExpertiseComplexSearchResponseSchema,
 	AreaOfExpertiseCreateRequestSchema,
@@ -12,12 +18,6 @@ import {
 	PaginationRequestSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeVoidWithAuthRetry,
-	routeWithAuthRetry,
-} from "@/app/api/utils";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -104,4 +104,3 @@ export async function DELETE(
 		areasOfExpertise.remove(slug[0]!, token),
 	);
 }
-

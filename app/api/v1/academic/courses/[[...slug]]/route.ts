@@ -2,6 +2,12 @@ import { z } from "zod";
 
 import { courses } from "@/api";
 import {
+	parseRouteBody,
+	routeError,
+	routeVoidWithAuthRetry,
+	routeWithAuthRetry,
+} from "@/app/api/utils";
+import {
 	CourseComplexSearchRequestSchema,
 	CourseCreateRequestSchema,
 	CourseResponseSchema,
@@ -11,12 +17,6 @@ import {
 	PaginationRequestSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeVoidWithAuthRetry,
-	routeWithAuthRetry,
-} from "@/app/api/utils";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -83,4 +83,3 @@ export async function DELETE(
 	if (slug.length !== 1) return routeError(new Error("Not found"));
 	return routeVoidWithAuthRetry(token => courses.remove(slug[0]!, token));
 }
-

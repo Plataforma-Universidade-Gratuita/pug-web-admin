@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { qs, webFetch, webVoid } from "@/api/web/utils";
 import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	EnrollmentComplexSearchRequestSchema,
@@ -15,7 +16,6 @@ import type {
 	EnrollmentStatus,
 	PaginationRequest,
 } from "@/types";
-import { qs, webFetch, webVoid } from "@/api/web/utils";
 
 export async function get(
 	projectId: string,
@@ -130,4 +130,3 @@ export async function deleteEnrollment(
 		},
 	);
 }
-

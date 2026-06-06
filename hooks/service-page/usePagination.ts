@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 
 import { DEFAULT_SERVICE_PAGE, DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
-import { usePaginationStore } from "@/store";
+import { usePaginationStore } from "@/stores";
 import type {
 	ServicePageSizeOption,
 	UseServicePagePaginationOptions,

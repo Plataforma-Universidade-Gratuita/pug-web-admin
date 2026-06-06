@@ -10,6 +10,6 @@ export interface LocaleContextValue {
 }
 
 export interface ThemeContextValue {
-    mode: AppTheme;
-    setMode: (mode: AppTheme) => void;
+	mode: AppTheme;
+	setMode: (mode: AppTheme) => void;
 }

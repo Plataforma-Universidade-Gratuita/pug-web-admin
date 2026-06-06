@@ -2,6 +2,12 @@ import { z } from "zod";
 
 import { enrollments, projectAreasOfExpertise, projects } from "@/api";
 import {
+	parseRouteBody,
+	routeError,
+	routeVoidWithAuthRetry,
+	routeWithAuthRetry,
+} from "@/app/api/utils";
+import {
 	AreaOfExpertiseResponseSchema,
 	EnrollmentResponseSchema,
 	EnrollmentUpdateStatusRequestSchema,
@@ -16,12 +22,6 @@ import {
 	createPageResponseSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
-import {
-	parseRouteBody,
-	routeError,
-	routeVoidWithAuthRetry,
-	routeWithAuthRetry,
-} from "@/app/api/utils";
 
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
@@ -188,4 +188,3 @@ export async function DELETE(
 	}
 	return routeError(new Error("Not found"));
 }
-
