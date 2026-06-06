@@ -10,8 +10,8 @@ import {
 	applySessionCookies,
 	clearSessionCookies,
 	getServerCookie,
-} from "@/auth/cookies";
-import { validateAdminToken } from "@/auth/utils";
+	validateAdminToken,
+} from "@/auth";
 import { REFRESH_TOKEN_COOKIE } from "@/constants/auth";
 import {
 	CredentialsRequestSchema,

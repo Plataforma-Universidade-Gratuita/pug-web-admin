@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { login } from "@/api/web/identity/auth";
+import { web } from "@/api";
 import {
 	Button,
 	Card,
@@ -22,11 +22,14 @@ import {
 	toast,
 } from "@/components";
 import { HOME_ROUTE } from "@/constants";
-import { useTheme } from "@/contexts/theme";
+import { useTheme } from "@/contexts";
 import { useLocalizedZodForm } from "@/hooks";
 import { createLoginFormSchema } from "@/schemas";
 import type { LoginFormProps, LoginFormValues } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { auth: authApi } = web.identity;
+const { login } = authApi;
 
 function subscribeToSystemTheme(callback: () => void) {
 	const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");

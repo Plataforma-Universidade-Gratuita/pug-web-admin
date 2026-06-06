@@ -7,7 +7,7 @@ import clsx from "clsx";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 
 import { Icon } from "@/components";
-import { SelectProvider, useSelect } from "@/contexts/select";
+import { SelectProvider, useSelect } from "@/contexts";
 import type {
 	SelectContentProps,
 	SelectGroupProps,

@@ -4,7 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useCitiesQuery, useCitiesSearchQuery } from "@/api/web/geo/cities";
+import { web } from "@/api";
 import { NoContentState, SomeErrorState } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import {
@@ -29,6 +29,9 @@ import {
 	getCitiesEmptyStateCopy,
 	getCitiesListErrorToastContent,
 } from "./utils";
+
+const { cities: citiesApi } = web.geo;
+const { useCitiesQuery, useCitiesSearchQuery } = citiesApi;
 
 export function CitiesPage() {
 	const { t } = useTranslation();

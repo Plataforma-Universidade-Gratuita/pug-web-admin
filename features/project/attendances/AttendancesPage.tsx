@@ -4,18 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useFormerStudentsQuery } from "@/api/web/academic/former-students";
-import { useAccountsQuery } from "@/api/web/identity/accounts";
-import { useUsersQuery } from "@/api/web/identity/users";
-import {
-	useRemoveAttendanceMutation,
-	useValidateAttendanceMutation,
-} from "@/api/web/project/attendances";
-import {
-	useAttendancesQuery,
-	useAttendancesSearchQuery,
-} from "@/api/web/project/attendances";
-import { useProjectsQuery } from "@/api/web/project/projects";
+import { web } from "@/api";
 import {
 	Combobox,
 	Label,
@@ -68,6 +57,20 @@ import type {
 	AttendanceEditorMode,
 	AttendanceValidationAction,
 } from "@/types";
+
+const { formerStudents: formerStudentsApi } = web.academic;
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { attendances: attendancesApi, projects: projectsApi } = web.project;
+const { useFormerStudentsQuery } = formerStudentsApi;
+const { useAccountsQuery } = accountsApi;
+const { useUsersQuery } = usersApi;
+const {
+	useRemoveAttendanceMutation,
+	useValidateAttendanceMutation,
+	useAttendancesQuery,
+	useAttendancesSearchQuery,
+} = attendancesApi;
+const { useProjectsQuery } = projectsApi;
 
 function getValidationVariant(action: AttendanceValidationAction) {
 	return action === "markPresent" ? "success" : "warning";

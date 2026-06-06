@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { useCourseDetailQuery } from "@/api/web/academic/courses";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
@@ -14,6 +14,9 @@ import {
 import { useQueryErrorToasts } from "@/hooks";
 import type { CoursePageProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { courses: coursesApi } = web.academic;
+const { useCourseDetailQuery } = coursesApi;
 
 export function CoursePage({ courseId }: CoursePageProps) {
 	const { t } = useTranslation();

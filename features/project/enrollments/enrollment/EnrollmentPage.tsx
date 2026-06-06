@@ -4,11 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useFormerStudentDetailQuery } from "@/api/web/academic/former-students";
-import { useAccountDetailQuery } from "@/api/web/identity/accounts";
-import { useUserDetailQuery } from "@/api/web/identity/users";
-import { useEnrollmentDetailQuery } from "@/api/web/project/enrollments";
-import { useProjectDetailQuery } from "@/api/web/project/projects";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
@@ -25,6 +21,15 @@ import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { EnrollmentPageProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { formerStudents: formerStudentsApi } = web.academic;
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { enrollments: enrollmentsApi, projects: projectsApi } = web.project;
+const { useFormerStudentDetailQuery } = formerStudentsApi;
+const { useAccountDetailQuery } = accountsApi;
+const { useUserDetailQuery } = usersApi;
+const { useEnrollmentDetailQuery } = enrollmentsApi;
+const { useProjectDetailQuery } = projectsApi;
 
 export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 	const { t } = useTranslation();

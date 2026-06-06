@@ -4,7 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useUsersQuery, useUsersSearchQuery } from "@/api/web/identity/users";
+import { web } from "@/api";
 import { Button, NoContentState, SomeErrorState } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { UsersFilters } from "@/features/identity/users/UsersFilters";
@@ -28,6 +28,9 @@ import {
 	useServicePagePagination,
 } from "@/hooks";
 import type { UserComplexSearchFilters, UserResponse } from "@/types";
+
+const { users: usersApi } = web.identity;
+const { useUsersQuery, useUsersSearchQuery } = usersApi;
 
 export function UsersPage() {
 	const { t } = useTranslation();

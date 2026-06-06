@@ -9,8 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Button, Icon, LanguageSelector, ThemeSelector } from "@/components";
 import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants";
 import { NAVBAR_TITLE_ROUTE } from "@/constants";
-import { useLocale } from "@/contexts/locale";
-import { useTheme } from "@/contexts/theme";
+import { useLocale, useTheme } from "@/contexts";
 import type { TopBarProps } from "@/types";
 
 export function TopBar({

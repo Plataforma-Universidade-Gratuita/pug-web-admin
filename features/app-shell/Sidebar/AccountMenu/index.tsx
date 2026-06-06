@@ -9,9 +9,7 @@ import clsx from "clsx";
 import { LogOut, UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { adminKeys, useCurrentAdminQuery } from "@/api/web/identity/admins";
-import { logout, logoutAll } from "@/api/web/identity/auth";
-import { userKeys, useCurrentUserQuery } from "@/api/web/identity/users";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -31,6 +29,11 @@ import {
 import { LOGIN_ROUTE } from "@/constants";
 import type { SidebarProps } from "@/types";
 import type { LogoutScope } from "@/types";
+
+const { admins: adminsApi, auth: authApi, users: usersApi } = web.identity;
+const { adminKeys, useCurrentAdminQuery } = adminsApi;
+const { logout, logoutAll } = authApi;
+const { userKeys, useCurrentUserQuery } = usersApi;
 
 export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 	const queryClient = useQueryClient();

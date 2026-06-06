@@ -4,20 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useAccountsQuery } from "@/api/web/identity/accounts";
-import { get as getUser } from "@/api/web/identity/users";
-import { useUsersQuery } from "@/api/web/identity/users";
-import { get as getStaff } from "@/api/web/partner/staff";
-import {
-	useCreateStaffMutation,
-	useRemoveStaffMutation,
-	useSetStaffActiveMutation,
-} from "@/api/web/partner/staff";
-import {
-	useStaffEntitiesQuery,
-	useStaffSearchQuery,
-	useStaffQuery,
-} from "@/api/web/partner/staff";
+import { web } from "@/api";
 import {
 	NoContentState,
 	RecordActionDialogs,
@@ -62,6 +49,20 @@ import type {
 	StaffEditorMode,
 	StaffSearchResponse,
 } from "@/types";
+
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { staff: staffApi } = web.partner;
+const { useAccountsQuery } = accountsApi;
+const { get: getUser, useUsersQuery } = usersApi;
+const {
+	get: getStaff,
+	useCreateStaffMutation,
+	useRemoveStaffMutation,
+	useSetStaffActiveMutation,
+	useStaffEntitiesQuery,
+	useStaffSearchQuery,
+	useStaffQuery,
+} = staffApi;
 
 export function StaffPage() {
 	const { t } = useTranslation();

@@ -15,13 +15,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { useCoursesQuery } from "@/api/web/academic/courses";
-import { useFormerStudentsQuery } from "@/api/web/academic/former-students";
-import { useAccountsQuery } from "@/api/web/identity/accounts";
-import { useUsersQuery } from "@/api/web/identity/users";
-import { useAttendancesQuery } from "@/api/web/project/attendances";
-import { useEnrollmentsQuery } from "@/api/web/project/enrollments";
-import { useProjectsQuery } from "@/api/web/project/projects";
+import { web } from "@/api";
 import {
 	Badge,
 	Button,
@@ -45,6 +39,21 @@ import type {
 	EnrollmentDirectoryItem,
 	ProjectResponse,
 } from "@/types";
+
+const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const {
+	attendances: attendancesApi,
+	enrollments: enrollmentsApi,
+	projects: projectsApi,
+} = web.project;
+const { useCoursesQuery } = coursesApi;
+const { useFormerStudentsQuery } = formerStudentsApi;
+const { useAccountsQuery } = accountsApi;
+const { useUsersQuery } = usersApi;
+const { useAttendancesQuery } = attendancesApi;
+const { useEnrollmentsQuery } = enrollmentsApi;
+const { useProjectsQuery } = projectsApi;
 
 interface HomePriorityItem {
 	badge: string;

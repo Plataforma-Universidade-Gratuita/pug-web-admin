@@ -4,10 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useCoursesQuery } from "@/api/web/academic/courses";
-import { useFormerStudentDetailQuery } from "@/api/web/academic/former-students";
-import { useAccountDetailQuery } from "@/api/web/identity/accounts";
-import { useUserDetailQuery } from "@/api/web/identity/users";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
@@ -22,6 +19,13 @@ import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { FormerStudentPageProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { useCoursesQuery } = coursesApi;
+const { useFormerStudentDetailQuery } = formerStudentsApi;
+const { useAccountDetailQuery } = accountsApi;
+const { useUserDetailQuery } = usersApi;
 
 export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 	const { t } = useTranslation();

@@ -3,6 +3,10 @@ import { RefreshRequestSchema } from "@/schemas";
 import { RefreshSessionEnvelopeSchema } from "@/schemas";
 import type { TokenResponse } from "@/types";
 
+/*
+ * This import must remain relative because importing the validation helper through
+ * the auth barrel would create an avoidable self-import inside the auth root.
+ */
 import { validateAdminToken } from "./utils";
 
 export async function refreshAdminSession(

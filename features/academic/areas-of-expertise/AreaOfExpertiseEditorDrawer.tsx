@@ -5,11 +5,7 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-	useCreateAreaOfExpertiseMutation,
-	useUpdateAreaOfExpertiseMutation,
-} from "@/api/web/academic/areas-of-expertise";
-import { useAreaOfExpertiseDetailQuery } from "@/api/web/academic/areas-of-expertise";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -48,6 +44,13 @@ import type {
 	AreaOfExpertiseEditorDrawerProps,
 	AreaOfExpertiseEditorFormValues,
 } from "@/types";
+
+const { areasOfExpertise: areasOfExpertiseApi } = web.academic;
+const {
+	useCreateAreaOfExpertiseMutation,
+	useUpdateAreaOfExpertiseMutation,
+	useAreaOfExpertiseDetailQuery,
+} = areasOfExpertiseApi;
 
 export function AreaOfExpertiseEditorDrawer({
 	areaOfExpertiseId,

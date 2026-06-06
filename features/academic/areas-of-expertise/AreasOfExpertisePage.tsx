@@ -4,11 +4,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import {
-	useCreateAreaOfExpertiseMutation,
-	useRemoveAreaOfExpertiseMutation,
-} from "@/api/web/academic/areas-of-expertise";
-import { useAreasOfExpertiseQuery } from "@/api/web/academic/areas-of-expertise";
+import { web } from "@/api";
 import {
 	DatePicker,
 	Label,
@@ -43,6 +39,13 @@ import {
 } from "@/hooks";
 import type { AreaOfExpertiseEditorMode } from "@/types";
 import type { AreaOfExpertiseResponse } from "@/types";
+
+const { areasOfExpertise: areasOfExpertiseApi } = web.academic;
+const {
+	useCreateAreaOfExpertiseMutation,
+	useRemoveAreaOfExpertiseMutation,
+	useAreasOfExpertiseQuery,
+} = areasOfExpertiseApi;
 
 export function AreasOfExpertisePage() {
 	const { t } = useTranslation();

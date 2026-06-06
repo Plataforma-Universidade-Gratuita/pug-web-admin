@@ -5,14 +5,7 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { useCoursesQuery } from "@/api/web/academic/courses";
-import {
-	useCreateFormerStudentMutation,
-	useUpdateFormerStudentMutation,
-} from "@/api/web/academic/former-students";
-import { useFormerStudentDetailQuery } from "@/api/web/academic/former-students";
-import { useAccountDetailQuery } from "@/api/web/identity/accounts";
-import { useUserDetailQuery, useUsersQuery } from "@/api/web/identity/users";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -52,6 +45,17 @@ import type {
 	FormerStudentEditorDrawerProps,
 	FormerStudentEditorFormValues,
 } from "@/types";
+
+const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { useCoursesQuery } = coursesApi;
+const {
+	useCreateFormerStudentMutation,
+	useUpdateFormerStudentMutation,
+	useFormerStudentDetailQuery,
+} = formerStudentsApi;
+const { useAccountDetailQuery } = accountsApi;
+const { useUserDetailQuery, useUsersQuery } = usersApi;
 
 export function FormerStudentEditorDrawer({
 	mode,

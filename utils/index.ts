@@ -8,5 +8,5 @@ export {
 	isAppLang,
 	normalizeDigits,
 	normalizeTextForSearch,
-} from "@/contexts/utils";
-export { WebApiError } from "@/api/web/utils";
+} from "@/contexts";
+export { WebApiError } from "@/api/web";

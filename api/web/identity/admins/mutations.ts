@@ -18,7 +18,17 @@ import type {
 	RemoveAdminMutationVariables,
 } from "@/types";
 
+/*
+ * This import must remain relative because this mutation module owns the local
+ * service implementation files directly, and routing the import through a barrel
+ * would add needless indirection inside the same service folder.
+ */
 import { create, remove, setActive, update } from "./endpoints";
+/*
+ * This import must remain relative because this mutation module owns the local
+ * service implementation files directly, and routing the import through a barrel
+ * would add needless indirection inside the same service folder.
+ */
 import { adminKeys } from "./keys";
 
 function formatCpf(value: string) {

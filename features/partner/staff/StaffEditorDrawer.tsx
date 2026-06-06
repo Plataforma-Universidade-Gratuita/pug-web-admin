@@ -5,16 +5,7 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { useUsersQuery } from "@/api/web/identity/users";
-import {
-	useCreateStaffMutation,
-	useUpdateStaffMutation,
-} from "@/api/web/partner/staff";
-import {
-	useLinkedStaffUserQuery,
-	useStaffDetailQuery,
-	useStaffEntitiesQuery,
-} from "@/api/web/partner/staff";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -54,6 +45,17 @@ import {
 	useQueryErrorToasts,
 } from "@/hooks";
 import type { StaffEditorDrawerProps, StaffEditorFormValues } from "@/types";
+
+const { users: usersApi } = web.identity;
+const { staff: staffApi } = web.partner;
+const { useUsersQuery } = usersApi;
+const {
+	useCreateStaffMutation,
+	useUpdateStaffMutation,
+	useLinkedStaffUserQuery,
+	useStaffDetailQuery,
+	useStaffEntitiesQuery,
+} = staffApi;
 
 export function StaffEditorDrawer({
 	staffId,

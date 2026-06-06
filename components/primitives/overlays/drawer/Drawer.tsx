@@ -31,7 +31,7 @@ import {
 	DRAWER_MOTION_STYLES,
 	DRAWER_POSITION_STYLES,
 } from "@/constants";
-import { LoadingProvider, useLoading } from "@/contexts/loading";
+import { LoadingProvider, useLoading } from "@/contexts";
 import type {
 	DrawerBodyProps,
 	DrawerCloseProps,

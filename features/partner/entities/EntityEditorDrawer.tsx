@@ -5,14 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-	useCreateEntityMutation,
-	useUpdateEntityMutation,
-} from "@/api/web/partner/entities";
-import {
-	useEntityCitiesQuery,
-	useEntityDetailQuery,
-} from "@/api/web/partner/entities";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -50,6 +43,14 @@ import {
 	useQueryErrorToasts,
 } from "@/hooks";
 import type { EntityEditorDrawerProps, EntityEditorFormValues } from "@/types";
+
+const { entities: entitiesApi } = web.partner;
+const {
+	useCreateEntityMutation,
+	useUpdateEntityMutation,
+	useEntityCitiesQuery,
+	useEntityDetailQuery,
+} = entitiesApi;
 
 export function EntityEditorDrawer({
 	entityId,

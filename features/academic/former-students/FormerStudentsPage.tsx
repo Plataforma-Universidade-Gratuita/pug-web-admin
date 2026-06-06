@@ -4,18 +4,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useCoursesQuery } from "@/api/web/academic/courses";
-import { get as getFormerStudent } from "@/api/web/academic/former-students";
-import {
-	useCreateFormerStudentMutation,
-	useRemoveFormerStudentMutation,
-	useSetFormerStudentActiveMutation,
-} from "@/api/web/academic/former-students";
-import { useFormerStudentsQuery } from "@/api/web/academic/former-students";
-import { get as getAccount } from "@/api/web/identity/accounts";
-import { useAccountsQuery } from "@/api/web/identity/accounts";
-import { get as getUser } from "@/api/web/identity/users";
-import { useUsersQuery } from "@/api/web/identity/users";
+import { web } from "@/api";
 import {
 	NoContentState,
 	RecordActionDialogs,
@@ -58,6 +47,19 @@ import type {
 	FormerStudentEditorMode,
 	FormerStudentSecondaryFilters,
 } from "@/types";
+
+const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { useCoursesQuery } = coursesApi;
+const {
+	get: getFormerStudent,
+	useCreateFormerStudentMutation,
+	useRemoveFormerStudentMutation,
+	useSetFormerStudentActiveMutation,
+	useFormerStudentsQuery,
+} = formerStudentsApi;
+const { get: getAccount, useAccountsQuery } = accountsApi;
+const { get: getUser, useUsersQuery } = usersApi;
 
 export function FormerStudentsPage() {
 	const { t } = useTranslation();

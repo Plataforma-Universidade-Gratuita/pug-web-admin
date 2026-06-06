@@ -24,7 +24,7 @@ import {
 	TOAST_UNDO_DURATION,
 	TOAST_VISIBLE_COUNT,
 } from "@/constants";
-import { useTheme } from "@/contexts/theme";
+import { useTheme } from "@/contexts";
 import type {
 	AppToastOptions,
 	AppToastPromiseOptions,

@@ -3,9 +3,9 @@
 ## Status
 
 - [x] Step 1: Inspect the target folders
-- [ ] Step 2: Protect frozen API type and schema folders
-- [ ] Step 3: Normalize exports
-- [ ] Step 4: Normalize imports
+- [x] Step 2: Protect frozen API type and schema folders
+- [x] Step 3: Normalize exports
+- [x] Step 4: Normalize imports
 - [ ] Step 5: Move utilities and constants
 - [ ] Step 6: Move types, interfaces, and schemas
 - [ ] Step 7: Refactor TSX files
@@ -20,8 +20,12 @@
 
 - [x] Keep `types/api/**` untouched
 - [x] Keep `schemas/api/**` untouched
+- [x] Keep the frozen-folder rule active for every subsequent step
 
 ## Step 1 Inspection Findings
+
+These are inventory findings captured during inspection. They are not all expected
+to be complete before Step 4. Each subsection below feeds a later numbered step.
 
 ### Root-Level Observations
 
@@ -49,23 +53,23 @@ These files still use relative imports and must be either:
 
 #### Replace or justify
 
-- [ ] `api/web/identity/admins/mutations.ts`
+- [x] `api/web/identity/admins/mutations.ts`
   - `./endpoints`
   - `./keys`
-- [ ] `auth/session.ts`
+- [x] `auth/session.ts`
   - `./utils`
-- [ ] `features/academic/courses/CourseEditorDrawer.tsx`
+- [x] `features/academic/courses/CourseEditorDrawer.tsx`
   - `./CourseEditorForm`
-- [ ] `features/geo/cities/CitiesFilters.tsx`
+- [x] `features/geo/cities/CitiesFilters.tsx`
   - `./CitiesFiltersDrawer`
-- [ ] `features/geo/cities/CitiesPage.tsx`
+- [x] `features/geo/cities/CitiesPage.tsx`
   - `./CitiesFilters`
   - `./CitiesRowActions`
-- [ ] `features/geo/cities/city/CityPage.tsx`
+- [x] `features/geo/cities/city/CityPage.tsx`
   - `../utils`
-- [ ] `features/identity/admins/AdminsFilters.tsx`
+- [x] `features/identity/admins/AdminsFilters.tsx`
   - `./AdminsFiltersDrawer`
-- [ ] `features/identity/users/UsersFilters.tsx`
+- [x] `features/identity/users/UsersFilters.tsx`
   - `./UsersFiltersDrawer`
 
 ### Highest-Barrel Import Hotspots
@@ -74,36 +78,38 @@ These files still import deep API paths and should be normalized to the highest 
 
 #### Highest-priority feature files still importing `@/api/web/**`
 
-- [ ] `features/academic/former-students/FormerStudentsPage.tsx`
-- [ ] `features/home/HomeCommandCenterPage.tsx`
-- [ ] `features/project/enrollments/EnrollmentsPage.tsx`
-- [ ] `features/project/enrollments/EnrollmentEditorDrawer.tsx`
-- [ ] `features/partner/staff/StaffPage.tsx`
-- [ ] `features/project/attendances/AttendanceEditorDrawer.tsx`
-- [ ] `features/project/attendances/AttendancesPage.tsx`
-- [ ] `features/identity/admins/AdminsPage.tsx`
-- [ ] `features/project/enrollments/enrollment/EnrollmentPage.tsx`
-- [ ] `features/academic/former-students/FormerStudentEditorDrawer.tsx`
-- [ ] `features/project/projects/ProjectsEditorDrawer.tsx`
-- [ ] `features/academic/former-students/former-student/FormerStudentPage.tsx`
-- [ ] `features/academic/courses/CourseEditorDrawer.tsx`
-- [ ] `features/partner/staff/StaffEditorDrawer.tsx`
-- [ ] `features/academic/courses/CoursesPage.tsx`
-- [ ] `features/project/projects/ProjectsPage.tsx`
-- [ ] `features/identity/admins/AdminsUpdateDrawer.tsx`
-- [ ] `features/project/attendances/attendance/AttendancePage.tsx`
-- [ ] `features/app-shell/Sidebar/AccountMenu/index.tsx`
-- [ ] `features/partner/entities/EntitiesPage.tsx`
+- [x] `features/academic/former-students/FormerStudentsPage.tsx`
+- [x] `features/home/HomeCommandCenterPage.tsx`
+- [x] `features/project/enrollments/EnrollmentsPage.tsx`
+- [x] `features/project/enrollments/EnrollmentEditorDrawer.tsx`
+- [x] `features/partner/staff/StaffPage.tsx`
+- [x] `features/project/attendances/AttendanceEditorDrawer.tsx`
+- [x] `features/project/attendances/AttendancesPage.tsx`
+- [x] `features/identity/admins/AdminsPage.tsx`
+- [x] `features/project/enrollments/enrollment/EnrollmentPage.tsx`
+- [x] `features/academic/former-students/FormerStudentEditorDrawer.tsx`
+- [x] `features/project/projects/ProjectsEditorDrawer.tsx`
+- [x] `features/academic/former-students/former-student/FormerStudentPage.tsx`
+- [x] `features/academic/courses/CourseEditorDrawer.tsx`
+- [x] `features/partner/staff/StaffEditorDrawer.tsx`
+- [x] `features/academic/courses/CoursesPage.tsx`
+- [x] `features/project/projects/ProjectsPage.tsx`
+- [x] `features/identity/admins/AdminsUpdateDrawer.tsx`
+- [x] `features/project/attendances/attendance/AttendancePage.tsx`
+- [x] `features/app-shell/Sidebar/AccountMenu/index.tsx`
+- [x] `features/partner/entities/EntitiesPage.tsx`
 
 #### Non-feature files to normalize after barrels are in place
 
-- [ ] `app/layout.tsx`
-- [ ] `app/providers.tsx`
-- [ ] `contexts/locale.tsx`
-- [ ] `contexts/theme.tsx`
-- [ ] `components/primitives/overlays/popover/Popover.tsx`
+- [x] `app/layout.tsx`
+- [x] `app/providers.tsx`
+- [x] `contexts/locale.tsx`
+- [x] `contexts/theme.tsx`
+- [x] `components/primitives/overlays/popover/Popover.tsx`
 
 ### `features/shared` Still Exists
+
+Deferred target: Step 8.
 
 This folder still exists and violates the target rule.
 
@@ -122,6 +128,8 @@ This folder still exists and violates the target rule.
 
 ### TSX Files Over 500 Lines
 
+Deferred target: Step 7.
+
 These files must be split.
 
 - [ ] `features/home/HomeCommandCenterPage.tsx` - 846 lines
@@ -136,6 +144,8 @@ These files must be split.
 - [ ] `features/academic/former-students/FormerStudentsPage.tsx` - 548 lines
 
 ### Inline Interfaces Still Declared Inside TSX Files
+
+Deferred target: Step 6.
 
 These must move to `types/client/**`:
 
@@ -152,6 +162,8 @@ These must move to `types/client/**`:
 - [ ] `features/project/projects/project/ProjectOwnDetailsContent.tsx`
 
 ### Constants Still Declared Inside TSX or `utils.tsx` Files
+
+Deferred target: Step 5.
 
 These need to move to the lowest valid `constants.ts`:
 
@@ -182,9 +194,9 @@ These need to move to the lowest valid `constants.ts`:
 
 ### Step 2: Protect Frozen API Type and Schema Folders
 
-- [ ] Add a note to the refactor batch that `types/api/**` must not be edited
-- [ ] Add a note to the refactor batch that `schemas/api/**` must not be edited
-- [ ] Avoid moving imports inside frozen folders unless the build breaks and a block comment is added
+- [x] Add a note to the refactor batch that `types/api/**` must not be edited
+- [x] Add a note to the refactor batch that `schemas/api/**` must not be edited
+- [x] Avoid moving imports inside frozen folders unless the build breaks and a block comment is added
 
 ### Step 3: Normalize Exports
 
@@ -194,18 +206,18 @@ These need to move to the lowest valid `constants.ts`:
 - [x] Add `api/partner/index.ts`
 - [x] Add `api/project/index.ts`
 - [x] Add `i18n/index.ts`
-- [ ] Remove empty `types/client/features/docs/`
-- [ ] Audit `components/**/index.ts` files for duplicate or redundant re-exports
-- [ ] Audit `types/client/components/index.ts` for duplicate barrel exports
+- [x] Remove empty `types/client/features/docs/`
+- [x] Audit `components/**/index.ts` files for duplicate or redundant re-exports
+- [x] Audit `types/client/components/index.ts` for duplicate barrel exports
 
 ### Step 4: Normalize Imports
 
-- [ ] Replace remaining deep `@/api/web/**` imports in feature files with `@/api`
-- [ ] Replace remaining direct `@/auth/*` imports with `@/auth` where the barrel is sufficient
-- [ ] Replace remaining direct `@/i18n/*` imports with `@/i18n` after `i18n/index.ts` is added
-- [ ] Replace remaining direct `@/contexts/*` imports with `@/contexts` where the barrel is sufficient
-- [ ] Review every remaining relative import listed above
-- [ ] Add required `/* */` explanation comments above any relative import that must remain
+- [x] Replace remaining deep `@/api/web/**` imports in feature files with `@/api`
+- [x] Replace remaining direct `@/auth/*` imports with `@/auth` where the barrel is sufficient
+- [x] Replace remaining direct `@/i18n/*` imports with `@/i18n` after `i18n/index.ts` is added
+- [x] Replace remaining direct `@/contexts/*` imports with `@/contexts` where the barrel is sufficient
+- [x] Review every remaining relative import listed above
+- [x] Add required `/* */` explanation comments above any relative import that must remain
 
 ### Step 5: Move Utilities and Constants
 

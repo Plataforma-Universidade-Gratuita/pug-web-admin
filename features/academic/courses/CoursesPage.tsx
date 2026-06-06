@@ -4,12 +4,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useAreasOfExpertiseQuery } from "@/api/web/academic/areas-of-expertise";
-import {
-	useCreateCourseMutation,
-	useRemoveCourseMutation,
-} from "@/api/web/academic/courses";
-import { useCoursesQuery } from "@/api/web/academic/courses";
+import { web } from "@/api";
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { CourseEditorDrawer } from "@/features/academic/courses/CourseEditorDrawer";
 import { CoursesFiltersDrawer } from "@/features/academic/courses/CoursesFiltersDrawer";
@@ -42,6 +37,12 @@ import {
 } from "@/hooks";
 import type { AreaOfExpertiseResponse, CourseResponse } from "@/types";
 import type { CourseEditorMode, CourseSecondaryFilters } from "@/types";
+
+const { areasOfExpertise: areasOfExpertiseApi, courses: coursesApi } =
+	web.academic;
+const { useAreasOfExpertiseQuery } = areasOfExpertiseApi;
+const { useCreateCourseMutation, useRemoveCourseMutation, useCoursesQuery } =
+	coursesApi;
 
 export function CoursesPage() {
 	const { t } = useTranslation();

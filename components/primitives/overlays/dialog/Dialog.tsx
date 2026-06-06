@@ -17,7 +17,7 @@ import {
 	SkeletonTextBlock,
 } from "@/components/primitives/display/skeleton/presets";
 import { APP_TOPBAR_HEIGHT } from "@/constants";
-import { LoadingProvider, useLoading } from "@/contexts/loading";
+import { LoadingProvider, useLoading } from "@/contexts";
 import type {
 	DialogBodyProps,
 	DialogContentProps,

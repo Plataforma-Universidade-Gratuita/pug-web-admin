@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useAreaOfExpertiseDetailQuery } from "@/api/web/academic/areas-of-expertise";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { getAreaOfExpertiseDetailErrorToastContent } from "@/features/academic/areas-of-expertise/utils";
 import {
@@ -15,6 +15,9 @@ import {
 import { useQueryErrorToasts } from "@/hooks";
 import type { AreaOfExpertisePageProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { areasOfExpertise: areasOfExpertiseApi } = web.academic;
+const { useAreaOfExpertiseDetailQuery } = areasOfExpertiseApi;
 
 export function AreaOfExpertisePage({
 	areaOfExpertiseId,

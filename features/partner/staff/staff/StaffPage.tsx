@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { useStaffDetailQuery } from "@/api/web/partner/staff";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
@@ -12,6 +12,9 @@ import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { StaffPageProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { staff: staffApi } = web.partner;
+const { useStaffDetailQuery } = staffApi;
 
 export function StaffPage({ staffId }: StaffPageProps) {
 	const { t } = useTranslation();

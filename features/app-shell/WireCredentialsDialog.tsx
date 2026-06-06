@@ -8,7 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { KeyRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { wireCredentials } from "@/api/web/identity/auth";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -30,6 +30,9 @@ import type {
 	WireCredentialsFormValues,
 } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { auth: authApi } = web.identity;
+const { wireCredentials } = authApi;
 
 export function WireCredentialsDialog({
 	open,

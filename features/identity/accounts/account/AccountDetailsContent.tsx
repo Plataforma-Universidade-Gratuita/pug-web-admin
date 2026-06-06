@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useAccountDetailQuery } from "@/api/web/identity/accounts";
+import { web } from "@/api";
 import { Badge, NotFoundState, SomeErrorState } from "@/components";
 import {
 	getAccountDetailErrorToastContent,
@@ -19,6 +19,9 @@ import {
 import { useQueryErrorToasts } from "@/hooks";
 import type { AccountDetailsContentProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { accounts: accountsApi } = web.identity;
+const { useAccountDetailQuery } = accountsApi;
 
 export function AccountDetailsContent({
 	accountId,

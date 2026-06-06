@@ -5,16 +5,7 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-	useCreateAdminMutation,
-	useUpdateAdminMutation,
-} from "@/api/web/identity/admins";
-import {
-	useAdminDetailQuery,
-	useLinkedAdminAccountQuery,
-	useLinkedAdminUserQuery,
-} from "@/api/web/identity/admins";
-import { useUsersQuery } from "@/api/web/identity/users";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -48,6 +39,16 @@ import {
 	useQueryErrorToasts,
 } from "@/hooks";
 import type { AdminEditorFormValues, AdminsUpdateDrawerProps } from "@/types";
+
+const { admins: adminsApi, users: usersApi } = web.identity;
+const {
+	useCreateAdminMutation,
+	useUpdateAdminMutation,
+	useAdminDetailQuery,
+	useLinkedAdminAccountQuery,
+	useLinkedAdminUserQuery,
+} = adminsApi;
+const { useUsersQuery } = usersApi;
 
 export function AdminsUpdateDrawer({
 	adminId,

@@ -5,8 +5,8 @@ import "@/app/globals.css";
 import { Providers } from "@/app/providers";
 import { ThemeScript } from "@/app/theme-script";
 import { LANG_COOKIE_NAME, THEME_COOKIE_NAME } from "@/constants";
-import { coerceTheme } from "@/contexts/utils";
-import { coerceLang } from "@/contexts/utils";
+import { coerceTheme } from "@/contexts";
+import { coerceLang } from "@/contexts";
 import type { RootLayoutProps } from "@/types";
 
 export const metadata: Metadata = {

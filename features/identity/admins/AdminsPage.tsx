@@ -4,18 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useAccountsQuery } from "@/api/web/identity/accounts";
-import { get as getAdmin } from "@/api/web/identity/admins";
-import {
-	useCreateAdminMutation,
-	useRemoveAdminMutation,
-	useSetAdminActiveMutation,
-} from "@/api/web/identity/admins";
-import {
-	useAdminsSearchQuery,
-	useCurrentAdminQuery,
-} from "@/api/web/identity/admins";
-import { get as getUser } from "@/api/web/identity/users";
+import { web } from "@/api";
 import {
 	NoContentState,
 	RecordActionDialogs,
@@ -58,6 +47,22 @@ import type {
 	AdminSearchResponse,
 	Campi,
 } from "@/types";
+
+const {
+	accounts: accountsApi,
+	admins: adminsApi,
+	users: usersApi,
+} = web.identity;
+const { useAccountsQuery } = accountsApi;
+const {
+	get: getAdmin,
+	useCreateAdminMutation,
+	useRemoveAdminMutation,
+	useSetAdminActiveMutation,
+	useAdminsSearchQuery,
+	useCurrentAdminQuery,
+} = adminsApi;
+const { get: getUser } = usersApi;
 
 const ADMIN_ALL_PAGE_SIZE = 2147483647;
 

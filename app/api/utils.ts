@@ -7,8 +7,8 @@ import {
 	applySessionCookies,
 	clearSessionCookies,
 	getServerCookie,
-} from "@/auth/cookies";
-import { refreshAdminSession } from "@/auth/session";
+	refreshAdminSession,
+} from "@/auth";
 import { REFRESH_TOKEN_COOKIE } from "@/constants";
 
 export function routeData<T>(data: T, init?: ResponseInit): NextResponse<T> {

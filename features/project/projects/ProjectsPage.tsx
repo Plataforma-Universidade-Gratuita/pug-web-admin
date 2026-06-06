@@ -4,16 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useEntitiesQuery } from "@/api/web/partner/entities";
-import {
-	useCreateProjectMutation,
-	useProjectStatusMutation,
-	useRemoveProjectMutation,
-} from "@/api/web/project/projects";
-import {
-	useProjectsQuery,
-	useProjectsSearchQuery,
-} from "@/api/web/project/projects";
+import { web } from "@/api";
 import {
 	Combobox,
 	Label,
@@ -63,6 +54,17 @@ import type {
 	ProjectStatusAction,
 } from "@/types";
 import { appendCopyToText } from "@/utils";
+
+const { entities: entitiesApi } = web.partner;
+const { projects: projectsApi } = web.project;
+const { useEntitiesQuery } = entitiesApi;
+const {
+	useCreateProjectMutation,
+	useProjectStatusMutation,
+	useRemoveProjectMutation,
+	useProjectsQuery,
+	useProjectsSearchQuery,
+} = projectsApi;
 
 function getStatusDialogVariant(action: ProjectStatusAction) {
 	switch (action) {

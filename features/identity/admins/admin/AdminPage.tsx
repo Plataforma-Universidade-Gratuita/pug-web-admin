@@ -4,10 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import {
-	useAdminDetailQuery,
-	useLinkedAdminUserQuery,
-} from "@/api/web/identity/admins";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import {
@@ -22,6 +19,9 @@ import {
 import { useQueryErrorToasts } from "@/hooks";
 import type { AdminPageProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { admins: adminsApi } = web.identity;
+const { useAdminDetailQuery, useLinkedAdminUserQuery } = adminsApi;
 
 export function AdminPage({ adminId }: AdminPageProps) {
 	const { t } = useTranslation();

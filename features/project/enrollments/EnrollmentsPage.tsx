@@ -4,18 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useFormerStudentsQuery } from "@/api/web/academic/former-students";
-import { useAccountsQuery } from "@/api/web/identity/accounts";
-import { useUsersQuery } from "@/api/web/identity/users";
-import {
-	useDeleteEnrollmentMutation,
-	useEnrollmentStatusMutation,
-} from "@/api/web/project/enrollments";
-import {
-	useEnrollmentsQuery,
-	useEnrollmentsSearchQuery,
-} from "@/api/web/project/enrollments";
-import { useProjectsQuery } from "@/api/web/project/projects";
+import { web } from "@/api";
 import {
 	Combobox,
 	Label,
@@ -67,6 +56,20 @@ import type {
 	EnrollmentStatus,
 	EnrollmentStatusAction,
 } from "@/types";
+
+const { formerStudents: formerStudentsApi } = web.academic;
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { enrollments: enrollmentsApi, projects: projectsApi } = web.project;
+const { useFormerStudentsQuery } = formerStudentsApi;
+const { useAccountsQuery } = accountsApi;
+const { useUsersQuery } = usersApi;
+const {
+	useDeleteEnrollmentMutation,
+	useEnrollmentStatusMutation,
+	useEnrollmentsQuery,
+	useEnrollmentsSearchQuery,
+} = enrollmentsApi;
+const { useProjectsQuery } = projectsApi;
 
 export function EnrollmentsPage() {
 	const { t } = useTranslation();

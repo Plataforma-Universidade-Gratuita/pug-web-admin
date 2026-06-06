@@ -5,17 +5,7 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { useAreasOfExpertiseQuery } from "@/api/web/academic/areas-of-expertise";
-import { useEntitiesQuery } from "@/api/web/partner/entities";
-import {
-	useCreateProjectMutation,
-	useSetProjectAreasOfExpertiseMutation,
-	useUpdateProjectMutation,
-} from "@/api/web/project/projects";
-import {
-	useProjectAreasOfExpertiseQuery,
-	useProjectDetailQuery,
-} from "@/api/web/project/projects";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -57,6 +47,19 @@ import type {
 	ProjectsEditorDrawerProps,
 	ProjectEditorFormValues,
 } from "@/types";
+
+const { areasOfExpertise: areasOfExpertiseApi } = web.academic;
+const { entities: entitiesApi } = web.partner;
+const { projects: projectsApi } = web.project;
+const { useAreasOfExpertiseQuery } = areasOfExpertiseApi;
+const { useEntitiesQuery } = entitiesApi;
+const {
+	useCreateProjectMutation,
+	useSetProjectAreasOfExpertiseMutation,
+	useUpdateProjectMutation,
+	useProjectAreasOfExpertiseQuery,
+	useProjectDetailQuery,
+} = projectsApi;
 
 export function ProjectsEditorDrawer({
 	mode,

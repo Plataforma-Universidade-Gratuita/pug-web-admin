@@ -2,10 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import {
-	useProjectDetailQuery,
-	useProjectAreasOfExpertiseQuery,
-} from "@/api/web/project/projects";
+import { web } from "@/api";
 import { NoContentState, NotFoundState, SomeErrorState } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
@@ -21,6 +18,9 @@ import {
 import { useQueryErrorToasts } from "@/hooks";
 import type { ProjectPageProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { projects: projectsApi } = web.project;
+const { useProjectDetailQuery, useProjectAreasOfExpertiseQuery } = projectsApi;
 
 export function ProjectPage({ projectId }: ProjectPageProps) {
 	const { t } = useTranslation();

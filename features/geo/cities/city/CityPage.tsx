@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useCityDetailQuery } from "@/api/web/geo/cities";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import {
 	EntityPageFieldsGrid,
@@ -16,6 +16,9 @@ import type { CityPageProps } from "@/types";
 import { WebApiError } from "@/utils";
 
 import { getCityDetailErrorToastContent } from "../utils";
+
+const { cities: citiesApi } = web.geo;
+const { useCityDetailQuery } = citiesApi;
 
 export function CityPage({ cityId }: CityPageProps) {
 	const { t } = useTranslation();

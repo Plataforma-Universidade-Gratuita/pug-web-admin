@@ -4,11 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import {
-	useAccountsQuery,
-	useAccountsSearchQuery,
-} from "@/api/web/identity/accounts";
-import { useUsersQuery } from "@/api/web/identity/users";
+import { web } from "@/api";
 import { Button, NoContentState, SomeErrorState } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AccountsFiltersDrawer } from "@/features/identity/accounts/AccountsFiltersDrawer";
@@ -39,6 +35,10 @@ import type {
 	AccountComplexSearchFilters,
 	AccountSearchResponse,
 } from "@/types";
+
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { useAccountsQuery, useAccountsSearchQuery } = accountsApi;
+const { useUsersQuery } = usersApi;
 
 export function AccountsPage() {
 	const { t } = useTranslation();

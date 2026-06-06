@@ -10,7 +10,7 @@ import {
 	SkeletonPanelBlock,
 	SkeletonTextBlock,
 } from "@/components/primitives/display/skeleton/presets";
-import { LoadingProvider, useLoading } from "@/contexts/loading";
+import { LoadingProvider, useLoading } from "@/contexts";
 import type {
 	CardContentProps,
 	CardDescriptionProps,

@@ -5,12 +5,7 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { useAreasOfExpertiseQuery } from "@/api/web/academic/areas-of-expertise";
-import {
-	useCreateCourseMutation,
-	useUpdateCourseMutation,
-} from "@/api/web/academic/courses";
-import { useCourseDetailQuery } from "@/api/web/academic/courses";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -34,6 +29,11 @@ import {
 } from "@/hooks";
 import type { CourseEditorDrawerProps, CourseEditorFormValues } from "@/types";
 
+/*
+ * This import must remain relative because the drawer owns its private feature
+ * form implementation, and routing it through a wider barrel would expose a
+ * feature-internal component without adding reuse.
+ */
 import { CourseEditorForm } from "./CourseEditorForm";
 import {
 	buildCourseAreaOfExpertiseOptions,
@@ -49,6 +49,15 @@ import {
 	toCourseCreateRequest,
 	toCourseUpdateRequest,
 } from "./utils";
+
+const { areasOfExpertise: areasOfExpertiseApi, courses: coursesApi } =
+	web.academic;
+const { useAreasOfExpertiseQuery } = areasOfExpertiseApi;
+const {
+	useCreateCourseMutation,
+	useUpdateCourseMutation,
+	useCourseDetailQuery,
+} = coursesApi;
 
 export function CourseEditorDrawer({
 	courseId,

@@ -5,21 +5,7 @@ import { useMemo, useState } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-	useFormerStudentDetailQuery,
-	useFormerStudentsQuery,
-} from "@/api/web/academic/former-students";
-import { useAccountsQuery } from "@/api/web/identity/accounts";
-import { useUsersQuery } from "@/api/web/identity/users";
-import {
-	useCreateAttendanceMutation,
-	useValidateAttendanceMutation,
-} from "@/api/web/project/attendances";
-import { useAttendanceDetailQuery } from "@/api/web/project/attendances";
-import {
-	useProjectDetailQuery,
-	useProjectsQuery,
-} from "@/api/web/project/projects";
+import { web } from "@/api";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -56,6 +42,20 @@ import type {
 	AttendanceEditorDrawerProps,
 	AttendanceEditorFormValues,
 } from "@/types";
+
+const { formerStudents: formerStudentsApi } = web.academic;
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { attendances: attendancesApi, projects: projectsApi } = web.project;
+const { useFormerStudentDetailQuery, useFormerStudentsQuery } =
+	formerStudentsApi;
+const { useAccountsQuery } = accountsApi;
+const { useUsersQuery } = usersApi;
+const {
+	useCreateAttendanceMutation,
+	useValidateAttendanceMutation,
+	useAttendanceDetailQuery,
+} = attendancesApi;
+const { useProjectDetailQuery, useProjectsQuery } = projectsApi;
 
 export function AttendanceEditorDrawer({
 	attendanceId,

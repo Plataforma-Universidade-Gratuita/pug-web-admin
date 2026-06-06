@@ -2,9 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { useFormerStudentDetailQuery } from "@/api/web/academic/former-students";
-import { useAttendanceDetailQuery } from "@/api/web/project/attendances";
-import { useProjectDetailQuery } from "@/api/web/project/projects";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
@@ -19,6 +17,12 @@ import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AttendancePageProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { formerStudents: formerStudentsApi } = web.academic;
+const { attendances: attendancesApi, projects: projectsApi } = web.project;
+const { useFormerStudentDetailQuery } = formerStudentsApi;
+const { useAttendanceDetailQuery } = attendancesApi;
+const { useProjectDetailQuery } = projectsApi;
 
 export function AttendancePage({ attendanceId }: AttendancePageProps) {
 	const { t } = useTranslation();

@@ -4,12 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useRemoveEntityMutation } from "@/api/web/partner/entities";
-import {
-	useEntitiesQuery,
-	useEntityCitiesQuery,
-	useEntitiesSearchQuery,
-} from "@/api/web/partner/entities";
+import { web } from "@/api";
 import { NoContentState, SomeErrorState, toast } from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { EntitiesFiltersDrawer } from "@/features/partner/entities/EntitiesFiltersDrawer";
@@ -50,6 +45,14 @@ import type {
 	EntityTableRow,
 	UseEntitiesSearchQueryFilters,
 } from "@/types";
+
+const { entities: entitiesApi } = web.partner;
+const {
+	useRemoveEntityMutation,
+	useEntitiesQuery,
+	useEntityCitiesQuery,
+	useEntitiesSearchQuery,
+} = entitiesApi;
 
 export function EntitiesPage() {
 	const { t } = useTranslation();

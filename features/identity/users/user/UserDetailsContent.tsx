@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { useUserDetailQuery } from "@/api/web/identity/users";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { getUserDetailErrorToastContent } from "@/features/identity/users/utils";
 import {
@@ -14,6 +14,9 @@ import {
 import { useQueryErrorToasts } from "@/hooks";
 import type { UserDetailsContentProps } from "@/types";
 import { WebApiError } from "@/utils";
+
+const { users: usersApi } = web.identity;
+const { useUserDetailQuery } = usersApi;
 
 export function UserDetailsContent({
 	userId,

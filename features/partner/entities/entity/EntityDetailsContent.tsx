@@ -4,10 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import {
-	useEntityCitiesQuery,
-	useEntityDetailQuery,
-} from "@/api/web/partner/entities";
+import { web } from "@/api";
 import { NotFoundState, SomeErrorState } from "@/components";
 import {
 	getEntityCitiesErrorToastContent,
@@ -20,6 +17,9 @@ import {
 } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import { WebApiError } from "@/utils";
+
+const { entities: entitiesApi } = web.partner;
+const { useEntityCitiesQuery, useEntityDetailQuery } = entitiesApi;
 
 interface EntityDetailsContentProps {
 	entityId: string;
