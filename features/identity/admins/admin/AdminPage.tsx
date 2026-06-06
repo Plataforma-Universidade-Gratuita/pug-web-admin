@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import {
@@ -18,7 +19,6 @@ import {
 } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AdminPageProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 const { admins: adminsApi } = web.identity;
 const { useAdminDetailQuery, useLinkedAdminUserQuery } = adminsApi;

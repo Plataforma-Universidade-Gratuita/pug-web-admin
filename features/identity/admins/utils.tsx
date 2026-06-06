@@ -7,6 +7,7 @@ import {
 	createTableTextColumn,
 } from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/identity/admins/constants";
 import type {
 	AdminComplexSearchFilters,
 	AdminComplexSearchRequest,
@@ -28,8 +29,6 @@ import {
 
 export { createAdminEditorFormSchema } from "@/schemas";
 export { appendCopyToEmail } from "@/utils";
-
-const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
 
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");

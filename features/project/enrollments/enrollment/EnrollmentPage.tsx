@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
@@ -20,7 +21,6 @@ import { ProjectOwnDetailsContent } from "@/features/project/projects/project/Pr
 import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { EnrollmentPageProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 const { formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;

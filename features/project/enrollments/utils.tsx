@@ -3,6 +3,7 @@ import type { TFunction } from "i18next";
 
 import { Badge, TableText } from "@/components";
 import { ENROLLMENT_KEY_SEPARATOR } from "@/constants";
+import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/project/enrollments/constants";
 import type {
 	AccountResponse,
 	EnrollmentComplexSearchRequest,
@@ -26,8 +27,6 @@ import {
 } from "@/utils";
 
 export { createEnrollmentEditorFormSchema } from "@/schemas";
-
-const TABLE_IDENTIFIER_TEXT_WIDTH = 70;
 
 function getFormerStudentUser(
 	formerStudent: FormerStudentResponse | undefined,

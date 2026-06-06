@@ -1,0 +1,1 @@
+export const TABLE_IDENTIFIER_TEXT_WIDTH = 50;

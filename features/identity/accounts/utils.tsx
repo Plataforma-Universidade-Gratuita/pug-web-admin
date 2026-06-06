@@ -8,6 +8,7 @@ import {
 	createTableTextColumn,
 } from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/identity/accounts/constants";
 import type {
 	AccountType,
 	AccountTypeResponse,
@@ -23,8 +24,6 @@ import {
 	normalizeTextForSearch,
 	toSearchDateOffsetDateTime,
 } from "@/utils";
-
-const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
 
 function getAccountTypeValue(accountType: AccountType | AccountTypeResponse) {
 	return typeof accountType === "string"

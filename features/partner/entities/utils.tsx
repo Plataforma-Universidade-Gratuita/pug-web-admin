@@ -2,6 +2,10 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import { createDateTimeColumn, createTableTextColumn } from "@/components";
+import {
+	TABLE_ADDRESS_TEXT_WIDTH,
+	TABLE_IDENTIFIER_TEXT_WIDTH,
+} from "@/features/partner/entities/constants";
 import type {
 	CityResponse,
 	EntityComplexSearchFilters,
@@ -27,9 +31,6 @@ import {
 } from "@/utils";
 
 export { createEntityEditorFormSchema } from "@/schemas";
-
-const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
-const TABLE_ADDRESS_TEXT_WIDTH = 150;
 
 function normalizeCnpj(value: string) {
 	return normalizeDigits(value).slice(0, 14);

@@ -7,6 +7,10 @@ import {
 	createTableTextColumn,
 	TableText,
 } from "@/components";
+import {
+	TABLE_DESCRIPTION_TEXT_WIDTH,
+	TABLE_IDENTIFIER_TEXT_WIDTH,
+} from "@/features/project/projects/constants";
 import type {
 	AccountSimpleComplexSearchResponse,
 	AreaOfExpertiseResponse,
@@ -34,9 +38,6 @@ import {
 } from "@/utils";
 
 export { createProjectEditorFormSchema } from "@/schemas";
-
-const TABLE_IDENTIFIER_TEXT_WIDTH = 70;
-const TABLE_DESCRIPTION_TEXT_WIDTH = 220;
 
 function parsePositiveInteger(value: string) {
 	const trimmed = value.trim();

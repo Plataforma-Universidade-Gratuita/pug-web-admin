@@ -2,6 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import { Badge, TableText } from "@/components";
+import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/project/attendances/constants";
 import type {
 	AccountResponse,
 	AttendanceComplexSearchRequest,
@@ -27,8 +28,6 @@ import {
 } from "@/utils";
 
 export { createAttendanceEditorFormSchema } from "@/schemas";
-
-const TABLE_IDENTIFIER_TEXT_WIDTH = 70;
 
 function getFormerStudentUser(
 	formerStudent: FormerStudentResponse | undefined,

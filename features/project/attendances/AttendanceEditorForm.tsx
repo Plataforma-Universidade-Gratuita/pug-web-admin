@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { WebApiError } from "@/api/web";
 import {
 	Accordion,
 	AccordionContent,
@@ -28,7 +29,6 @@ import { AttendanceOwnDetailsContent } from "@/features/project/attendances/atte
 import { getAttendanceStatusOptions } from "@/features/project/attendances/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import type { AttendanceEditorFormProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 export function AttendanceEditorForm({
 	attendance,

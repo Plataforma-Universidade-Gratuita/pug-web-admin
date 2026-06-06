@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { WebApiError } from "@/api/web";
 import {
 	Accordion,
 	AccordionContent,
@@ -19,7 +20,6 @@ import {
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
 import type { CourseEditorFormProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 export function CourseEditorForm({
 	areaOfExpertiseOptions,

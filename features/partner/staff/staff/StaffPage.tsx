@@ -3,6 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
@@ -11,7 +12,6 @@ import { getStaffDetailErrorToastContent } from "@/features/partner/staff/utils"
 import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { StaffPageProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 const { staff: staffApi } = web.partner;
 const { useStaffDetailQuery } = staffApi;

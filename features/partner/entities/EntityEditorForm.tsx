@@ -3,6 +3,7 @@
 import { Controller, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { WebApiError } from "@/api/web";
 import {
 	Combobox,
 	Input,
@@ -12,7 +13,6 @@ import {
 } from "@/components";
 import type { EntityEditorFormProps } from "@/types";
 import { normalizeDigits } from "@/utils";
-import { WebApiError } from "@/utils";
 
 function formatCnpjValue(value: string) {
 	const digits = normalizeDigits(value).slice(0, 14);

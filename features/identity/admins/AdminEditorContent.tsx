@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Controller, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { WebApiError } from "@/api/web";
 import {
 	AccountSummaryBadges,
 	CpfFormField,
@@ -27,7 +28,6 @@ import type {
 	AdminEditorContentProps,
 	CpfFormFieldExistingUser,
 } from "@/types";
-import { WebApiError } from "@/utils";
 
 export function AdminEditorContent({
 	admin,

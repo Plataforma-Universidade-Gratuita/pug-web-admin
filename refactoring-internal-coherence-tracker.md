@@ -6,7 +6,7 @@
 - [x] Step 2: Protect frozen API type and schema folders
 - [x] Step 3: Normalize exports
 - [x] Step 4: Normalize imports
-- [ ] Step 5: Move utilities and constants
+- [x] Step 5: Move utilities and constants
 - [ ] Step 6: Move types, interfaces, and schemas
 - [ ] Step 7: Refactor TSX files
 - [ ] Step 8: Remove `features/shared`
@@ -167,22 +167,22 @@ Deferred target: Step 5.
 
 These need to move to the lowest valid `constants.ts`:
 
-- [ ] `features/identity/accounts/utils.tsx`
+- [x] `features/identity/accounts/utils.tsx`
   - `TABLE_IDENTIFIER_TEXT_WIDTH`
-- [ ] `features/identity/admins/AdminsPage.tsx`
+- [x] `features/identity/admins/AdminsPage.tsx`
   - `ADMIN_ALL_PAGE_SIZE`
-- [ ] `features/identity/admins/utils.tsx`
+- [x] `features/identity/admins/utils.tsx`
   - `TABLE_IDENTIFIER_TEXT_WIDTH`
-- [ ] `features/partner/entities/utils.tsx`
+- [x] `features/partner/entities/utils.tsx`
   - `TABLE_IDENTIFIER_TEXT_WIDTH`
   - `TABLE_ADDRESS_TEXT_WIDTH`
-- [ ] `features/partner/staff/utils.tsx`
+- [x] `features/partner/staff/utils.tsx`
   - `TABLE_IDENTIFIER_TEXT_WIDTH`
-- [ ] `features/project/attendances/utils.tsx`
+- [x] `features/project/attendances/utils.tsx`
   - `TABLE_IDENTIFIER_TEXT_WIDTH`
-- [ ] `features/project/enrollments/utils.tsx`
+- [x] `features/project/enrollments/utils.tsx`
   - `TABLE_IDENTIFIER_TEXT_WIDTH`
-- [ ] `features/project/projects/utils.tsx`
+- [x] `features/project/projects/utils.tsx`
   - `TABLE_IDENTIFIER_TEXT_WIDTH`
   - `TABLE_DESCRIPTION_TEXT_WIDTH`
 
@@ -223,20 +223,20 @@ These need to move to the lowest valid `constants.ts`:
 
 #### Root-level utility cleanup
 
-- [ ] Audit `contexts/utils.ts`
+- [x] Audit `contexts/utils.ts`
   - split text normalization helpers from theme helpers if they do not share the same lowest valid scope
   - move cross-root shared helpers back to root `utils/` if required by the scope rule
-- [ ] Audit `utils/index.ts`
+- [x] Audit `utils/index.ts`
   - remove compatibility re-exports that no longer belong at root after import normalization is complete
-- [ ] Audit `api/utils.ts` and `api/web/utils.ts`
+- [x] Audit `api/utils.ts` and `api/web/utils.ts`
   - keep only transport-layer helpers there
-- [ ] Audit `app/api/utils.ts`
+- [x] Audit `app/api/utils.ts`
   - keep only route-handler helpers there
 
 #### Move constants out of TSX and `utils.tsx`
 
-- [ ] Create or update the correct `constants.ts` files for the constant list above
-- [ ] Update imports after moving each constant
+- [x] Create or update the correct `constants.ts` files for the constant list above
+- [x] Update imports after moving each constant
 
 ### Step 6: Move Types, Interfaces, and Schemas
 

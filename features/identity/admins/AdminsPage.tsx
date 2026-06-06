@@ -15,6 +15,7 @@ import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AdminsFilters } from "@/features/identity/admins/AdminsFilters";
 import { AdminsRowActions } from "@/features/identity/admins/AdminsRowActions";
 import { AdminsUpdateDrawer } from "@/features/identity/admins/AdminsUpdateDrawer";
+import { ADMIN_ALL_PAGE_SIZE } from "@/features/identity/admins/constants";
 import {
 	appendCopyToEmail,
 	createAdminColumns,
@@ -63,8 +64,6 @@ const {
 	useCurrentAdminQuery,
 } = adminsApi;
 const { get: getUser } = usersApi;
-
-const ADMIN_ALL_PAGE_SIZE = 2147483647;
 
 export function AdminsPage() {
 	const { t } = useTranslation();

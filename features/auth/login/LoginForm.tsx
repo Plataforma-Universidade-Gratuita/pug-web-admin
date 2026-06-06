@@ -9,6 +9,7 @@ import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import {
 	Button,
 	Card,
@@ -26,7 +27,6 @@ import { useTheme } from "@/contexts";
 import { useLocalizedZodForm } from "@/hooks";
 import { createLoginFormSchema } from "@/schemas";
 import type { LoginFormProps, LoginFormValues } from "@/types";
-import { WebApiError } from "@/utils";
 
 const { auth: authApi } = web.identity;
 const { login } = authApi;

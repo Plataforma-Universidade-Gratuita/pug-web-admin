@@ -3,6 +3,7 @@
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { WebApiError } from "@/api/web";
 import {
 	Accordion,
 	AccordionContent,
@@ -26,7 +27,6 @@ import { EnrollmentOwnDetailsContent } from "@/features/project/enrollments/enro
 import { getEditableEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import type { EnrollmentEditorFormProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 export function EnrollmentEditorForm({
 	canRenderForm,

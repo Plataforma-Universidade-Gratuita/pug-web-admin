@@ -1,0 +1,2 @@
+export const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
+export const TABLE_ADDRESS_TEXT_WIDTH = 150;

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Controller, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { WebApiError } from "@/api/web";
 import {
 	Combobox,
 	CpfFormField,
@@ -22,7 +23,6 @@ import {
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
 import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
 import type { CpfFormFieldExistingUser, StaffEditorFormProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 export function StaffEditorForm({
 	canRenderForm,

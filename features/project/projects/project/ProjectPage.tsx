@@ -3,6 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import { NoContentState, NotFoundState, SomeErrorState } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
@@ -17,7 +18,6 @@ import {
 } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { ProjectPageProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 const { projects: projectsApi } = web.project;
 const { useProjectDetailQuery, useProjectAreasOfExpertiseQuery } = projectsApi;

@@ -9,6 +9,7 @@ import { KeyRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -29,7 +30,6 @@ import type {
 	WireCredentialsDialogProps,
 	WireCredentialsFormValues,
 } from "@/types";
-import { WebApiError } from "@/utils";
 
 const { auth: authApi } = web.identity;
 const { wireCredentials } = authApi;

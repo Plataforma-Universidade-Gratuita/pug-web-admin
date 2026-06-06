@@ -4,6 +4,7 @@ import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import {
 	Accordion,
 	AccordionContent,
@@ -25,7 +26,6 @@ import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expe
 import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import type { ProjectsEditorFormProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 const { projects: projectsApi } = web.project;
 const { useProjectAreasOfExpertiseQuery } = projectsApi;

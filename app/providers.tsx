@@ -8,14 +8,10 @@ import { I18nextProvider } from "react-i18next";
 
 import { ToastProvider } from "@/components";
 import { APP_QUERY_CLIENT_OPTIONS } from "@/constants";
-import {
-	LocaleProvider,
-	ThemeProvider,
-	coerceLang,
-	coerceTheme,
-} from "@/contexts";
+import { LocaleProvider, ThemeProvider, coerceTheme } from "@/contexts";
 import { initI18n } from "@/i18n";
 import type { ProvidersProps } from "@/types";
+import { coerceLang } from "@/utils";
 
 export function Providers({
 	children,

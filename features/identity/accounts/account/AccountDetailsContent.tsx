@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import { Badge, NotFoundState, SomeErrorState } from "@/components";
 import {
 	getAccountDetailErrorToastContent,
@@ -18,7 +19,6 @@ import {
 } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AccountDetailsContentProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 const { accounts: accountsApi } = web.identity;
 const { useAccountDetailQuery } = accountsApi;

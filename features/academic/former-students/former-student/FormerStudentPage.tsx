@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
@@ -18,7 +19,6 @@ import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsCo
 import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { FormerStudentPageProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;

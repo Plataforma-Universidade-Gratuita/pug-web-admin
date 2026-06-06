@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
 import {
 	EntityPageFieldsGrid,
@@ -13,7 +14,6 @@ import {
 } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { CityPageProps } from "@/types";
-import { WebApiError } from "@/utils";
 
 import { getCityDetailErrorToastContent } from "../utils";
 

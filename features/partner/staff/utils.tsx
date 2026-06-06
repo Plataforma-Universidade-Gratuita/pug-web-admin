@@ -8,6 +8,7 @@ import {
 } from "@/components";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
+import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/partner/staff/constants";
 import type {
 	CityResponse,
 	EntityResponse,
@@ -34,8 +35,6 @@ import {
 
 export { createStaffEditorFormSchema } from "@/schemas";
 export { appendCopyToEmail } from "@/utils";
-
-const TABLE_IDENTIFIER_TEXT_WIDTH = 50;
 
 function normalizeCpf(value: string) {
 	return normalizeDigits(value).slice(0, 11);
