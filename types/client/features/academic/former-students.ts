@@ -102,6 +102,12 @@ export interface FormerStudentEditorFormProps {
 	userError: unknown;
 }
 
+export interface FormerStudentOwnDetailsContentProps {
+	formerStudent: FormerStudentResponse;
+	columns?: 2 | 3;
+	includeEditableFields?: boolean;
+}
+
 export interface FormerStudentsFiltersDrawerProps {
 	name: string;
 	cpf: string;

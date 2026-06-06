@@ -56,6 +56,13 @@ export interface AreaOfExpertiseEditorFormProps {
 	areaOfExpertiseError: unknown;
 }
 
+export interface AreaOfExpertiseDetailsContentProps {
+	areaOfExpertise: AreaOfExpertiseResponse;
+	columns?: 2 | 3;
+	includeAuditInfo?: boolean;
+	includeName?: boolean;
+}
+
 export interface AreasOfExpertiseFiltersDrawerProps {
 	endDate: string;
 	hasActiveFilters: boolean;

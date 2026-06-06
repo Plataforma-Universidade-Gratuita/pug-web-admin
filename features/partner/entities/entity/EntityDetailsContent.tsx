@@ -17,14 +17,10 @@ import {
 	EntityPageFieldsGridSkeleton,
 } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
+import type { EntityDetailsContentProps } from "@/types";
 
 const { entities: entitiesApi } = web.partner;
 const { useEntityCitiesQuery, useEntityDetailQuery } = entitiesApi;
-
-interface EntityDetailsContentProps {
-	entityId: string;
-	columns?: 2 | 3;
-}
 
 export function EntityDetailsContent({
 	entityId,

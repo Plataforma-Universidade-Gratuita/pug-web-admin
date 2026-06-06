@@ -7,7 +7,7 @@
 - [x] Step 3: Normalize exports
 - [x] Step 4: Normalize imports
 - [x] Step 5: Move utilities and constants
-- [ ] Step 6: Move types, interfaces, and schemas
+- [x] Step 6: Move types, interfaces, and schemas
 - [ ] Step 7: Refactor TSX files
 - [ ] Step 8: Remove `features/shared`
 - [ ] Step 9: Promote cross-feature components
@@ -149,17 +149,17 @@ Deferred target: Step 6.
 
 These must move to `types/client/**`:
 
-- [ ] `features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent.tsx`
-- [ ] `features/academic/courses/course/CourseOwnDetailsContent.tsx`
-- [ ] `features/academic/former-students/former-student/FormerStudentOwnDetailsContent.tsx`
-- [ ] `features/home/HomeCommandCenterPage.tsx`
+- [x] `features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent.tsx`
+- [x] `features/academic/courses/course/CourseOwnDetailsContent.tsx`
+- [x] `features/academic/former-students/former-student/FormerStudentOwnDetailsContent.tsx`
+- [x] `features/home/HomeCommandCenterPage.tsx`
   - `HomePriorityItem`
   - `HomePulseMetric`
   - `HomeRecentItem`
-  - `HomeUpcomingDeadline`
-- [ ] `features/partner/entities/entity/EntityDetailsContent.tsx`
-- [ ] `features/project/attendances/AttendanceQrCodeDialog.tsx`
-- [ ] `features/project/projects/project/ProjectOwnDetailsContent.tsx`
+  - `HomeUpcomingItem`
+- [x] `features/partner/entities/entity/EntityDetailsContent.tsx`
+- [x] `features/project/attendances/AttendanceQrCodeDialog.tsx`
+- [x] `features/project/projects/project/ProjectOwnDetailsContent.tsx`
 
 ### Constants Still Declared Inside TSX or `utils.tsx` Files
 
@@ -240,14 +240,14 @@ These need to move to the lowest valid `constants.ts`:
 
 ### Step 6: Move Types, Interfaces, and Schemas
 
-- [ ] Move `AreaOfExpertiseDetailsContent` props/interface to `types/client/features/academic/areas-of-expertise.ts`
-- [ ] Move `CourseOwnDetailsContent` props/interface to `types/client/features/academic/courses.ts`
-- [ ] Move `FormerStudentOwnDetailsContent` props/interface to `types/client/features/academic/former-students.ts`
-- [ ] Move `HomeCommandCenterPage` local interfaces to `types/client/features/home.ts`
-- [ ] Move `EntityDetailsContent` props/interface to `types/client/features/partner/entities.ts`
-- [ ] Move `AttendanceQrCodeDialog` props/interface to `types/client/features/project/attendances.ts`
-- [ ] Move `ProjectOwnDetailsContent` props/interface to `types/client/features/project/projects.ts`
-- [ ] Re-run the TSX schema scan after the moves to confirm no new local schemas were introduced
+- [x] Move `AreaOfExpertiseDetailsContent` props/interface to `types/client/features/academic/areas-of-expertise.ts`
+- [x] Move `CourseOwnDetailsContent` props/interface to `types/client/features/academic/courses.ts`
+- [x] Move `FormerStudentOwnDetailsContent` props/interface to `types/client/features/academic/former-students.ts`
+- [x] Move `HomeCommandCenterPage` local interfaces to `types/client/features/home.ts`
+- [x] Move `EntityDetailsContent` props/interface to `types/client/features/partner/entities.ts`
+- [x] Move `AttendanceQrCodeDialog` props/interface to `types/client/features/project/attendances.ts`
+- [x] Move `ProjectOwnDetailsContent` props/interface to `types/client/features/project/projects.ts`
+- [x] Re-run the TSX schema scan after the moves to confirm no new local schemas were introduced
 
 ### Step 7: Refactor TSX Files
 

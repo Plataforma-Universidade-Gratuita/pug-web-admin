@@ -5,13 +5,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { EntityPageFieldsGrid } from "@/features/shared/entity-pages";
-import type { CourseResponse, EntityPageField } from "@/types";
-
-interface CourseOwnDetailsContentProps {
-	course: CourseResponse;
-	columns?: 2 | 3;
-	includeName?: boolean;
-}
+import type { CourseOwnDetailsContentProps, EntityPageField } from "@/types";
 
 export function CourseOwnDetailsContent({
 	course,

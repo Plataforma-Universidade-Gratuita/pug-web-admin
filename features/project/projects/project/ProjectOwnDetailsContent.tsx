@@ -10,14 +10,7 @@ import {
 	getProjectStatusTone,
 } from "@/features/project/projects/utils";
 import { EntityPageFieldsGrid } from "@/features/shared/entity-pages";
-import type { EntityPageField, ProjectResponse } from "@/types";
-
-interface ProjectOwnDetailsContentProps {
-	project: ProjectResponse;
-	createdByLabel: string;
-	columns?: 2 | 3;
-	includeEditableFields?: boolean;
-}
+import type { EntityPageField, ProjectOwnDetailsContentProps } from "@/types";
 
 export function ProjectOwnDetailsContent({
 	project,

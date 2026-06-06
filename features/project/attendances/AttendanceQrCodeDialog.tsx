@@ -14,12 +14,7 @@ import {
 	Icon,
 	toast,
 } from "@/components";
-
-interface AttendanceQrCodeDialogProps {
-	hash: string | null;
-	onOpenChange: (open: boolean) => void;
-	open: boolean;
-}
+import type { AttendanceQrCodeDialogProps } from "@/types";
 
 export function AttendanceQrCodeDialog({
 	hash,

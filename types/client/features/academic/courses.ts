@@ -62,6 +62,12 @@ export interface CourseEditorFormProps {
 	areasOfExpertiseError: unknown;
 }
 
+export interface CourseOwnDetailsContentProps {
+	course: CourseResponse;
+	columns?: 2 | 3;
+	includeName?: boolean;
+}
+
 export interface CoursesFiltersDrawerProps {
 	endDate: string;
 	hasActiveFilters: boolean;

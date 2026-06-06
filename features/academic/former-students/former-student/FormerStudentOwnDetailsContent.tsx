@@ -6,13 +6,10 @@ import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/components";
 import { EntityPageFieldsGrid } from "@/features/shared/entity-pages";
-import type { FormerStudentResponse, EntityPageField } from "@/types";
-
-interface FormerStudentOwnDetailsContentProps {
-	formerStudent: FormerStudentResponse;
-	columns?: 2 | 3;
-	includeEditableFields?: boolean;
-}
+import type {
+	EntityPageField,
+	FormerStudentOwnDetailsContentProps,
+} from "@/types";
 
 export function FormerStudentOwnDetailsContent({
 	formerStudent,

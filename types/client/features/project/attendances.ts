@@ -82,6 +82,12 @@ export interface AttendanceEditorFormProps {
 	projectsError: unknown;
 }
 
+export interface AttendanceQrCodeDialogProps {
+	hash: string | null;
+	onOpenChange: (open: boolean) => void;
+	open: boolean;
+}
+
 export interface AttendancesFiltersDrawerProps {
 	filters: AttendanceComplexSearchFilters;
 	formerStudentOptions: ComboboxOption[];

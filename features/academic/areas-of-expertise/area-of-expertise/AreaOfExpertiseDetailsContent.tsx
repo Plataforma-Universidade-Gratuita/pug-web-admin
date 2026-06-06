@@ -5,14 +5,10 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { EntityPageFieldsGrid } from "@/features/shared/entity-pages";
-import type { AreaOfExpertiseResponse, EntityPageField } from "@/types";
-
-interface AreaOfExpertiseDetailsContentProps {
-	areaOfExpertise: AreaOfExpertiseResponse;
-	columns?: 2 | 3;
-	includeAuditInfo?: boolean;
-	includeName?: boolean;
-}
+import type {
+	AreaOfExpertiseDetailsContentProps,
+	EntityPageField,
+} from "@/types";
 
 export function AreaOfExpertiseDetailsContent({
 	areaOfExpertise,

@@ -89,6 +89,13 @@ export interface ProjectsEditorFormProps {
 	projectError: unknown;
 }
 
+export interface ProjectOwnDetailsContentProps {
+	project: ProjectResponse;
+	createdByLabel: string;
+	columns?: 2 | 3;
+	includeEditableFields?: boolean;
+}
+
 export interface ProjectsFiltersDrawerProps {
 	creatorsError: boolean;
 	createdByIds: string[];

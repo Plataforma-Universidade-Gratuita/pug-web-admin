@@ -77,6 +77,11 @@ export interface EntityEditorFormProps {
 	onRefreshEntity: () => void;
 }
 
+export interface EntityDetailsContentProps {
+	entityId: string;
+	columns?: 2 | 3;
+}
+
 export interface EntitiesFiltersDrawerProps {
 	citiesError: boolean;
 	cityIdsFilter: string[];

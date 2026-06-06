@@ -35,8 +35,11 @@ import { buildFormerStudentDirectoryItems } from "@/features/academic/former-stu
 import { mapAttendancesToDirectoryItems } from "@/features/project/attendances/utils";
 import { mapEnrollmentsToDirectoryItems } from "@/features/project/enrollments/utils";
 import type {
-	BadgeTone,
 	EnrollmentDirectoryItem,
+	HomePriorityItem,
+	HomePulseMetric,
+	HomeRecentItem,
+	HomeUpcomingItem,
 	ProjectResponse,
 } from "@/types";
 
@@ -54,40 +57,6 @@ const { useUsersQuery } = usersApi;
 const { useAttendancesQuery } = attendancesApi;
 const { useEnrollmentsQuery } = enrollmentsApi;
 const { useProjectsQuery } = projectsApi;
-
-interface HomePriorityItem {
-	badge: string;
-	description: string;
-	href: string;
-	id: string;
-	title: string;
-	tone: BadgeTone;
-}
-
-interface HomePulseMetric {
-	key: string;
-	label: string;
-	value: string;
-	width: number;
-}
-
-interface HomeRecentItem {
-	action: string;
-	id: string;
-	module: string;
-	record: string;
-	when: string;
-	whenTimestamp: number;
-}
-
-interface HomeUpcomingItem {
-	badge: string;
-	description: string;
-	href: string;
-	id: string;
-	title: string;
-	tone: BadgeTone;
-}
 
 function getTimestamp(value: string | null | undefined) {
 	if (!value) {
