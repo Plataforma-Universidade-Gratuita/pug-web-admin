@@ -5,15 +5,13 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
-import {
-	NoContentState,
-	RecordActionDialogs,
-	SomeErrorState,
-	toast,
-} from "@/components";
+import { NoContentState, SomeErrorState, toast } from "@/components";
 import { FormerStudentEditorDrawer } from "@/features/academic/former-students/FormerStudentEditorDrawer";
-import { FormerStudentsFiltersDrawer } from "@/features/academic/former-students/FormerStudentsFiltersDrawer";
 import { FormerStudentsRowActions } from "@/features/academic/former-students/FormerStudentsRowActions";
+import {
+	FormerStudentsPageDialogs,
+	FormerStudentsPageFilters,
+} from "@/features/academic/former-students/components/FormerStudentsPageControls";
 import {
 	buildFormerStudentAreaOfExpertiseOptions,
 	buildFormerStudentCourseOptions,
@@ -34,7 +32,6 @@ import {
 	ServicePageHeaderActions,
 	ServicePageShell,
 	ServicePageTableSection,
-	TextFieldFilter,
 } from "@/features/shared/service-pages";
 import {
 	useActivatableRecordActions,
@@ -393,75 +390,28 @@ export function FormerStudentsPage() {
 				}
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_auto]"
 			>
-				<TextFieldFilter
-					label={t("academic.formerStudentPage.filters.search.label")}
-					value={querySearch}
-					onChange={setQuerySearch}
-					placeholder={t(
-						"academic.formerStudentPage.filters.search.placeholder",
-					)}
-				/>
-
-				<TextFieldFilter
-					label={t(
-						"academic.formerStudentPage.filters.frontendAcademicRegistration.label",
-					)}
-					value={registrationSearch}
-					onChange={setRegistrationSearch}
-					placeholder={t(
-						"academic.formerStudentPage.filters.frontendAcademicRegistration.placeholder",
-					)}
-				/>
-
-				<FormerStudentsFiltersDrawer
-					name={draftFilters.name}
-					cpf={draftFilters.cpf}
-					email={draftFilters.email}
-					academicRegistration={draftFilters.academicRegistration}
-					activeOnly={draftFilters.activeOnly}
-					campi={draftFilters.campi}
-					courseIds={draftFilters.courseIds}
-					areaOfExpertiseIds={draftFilters.areaOfExpertiseIds}
-					includeConcluded={draftFilters.includeConcluded}
-					periodFrom={draftFilters.periodFrom}
-					periodTo={draftFilters.periodTo}
-					dateFrom={draftFilters.dateFrom}
-					dateTo={draftFilters.dateTo}
+				<FormerStudentsPageFilters
+					querySearch={querySearch}
+					onQuerySearchChange={setQuerySearch}
+					registrationSearch={registrationSearch}
+					onRegistrationSearchChange={setRegistrationSearch}
+					draftFilters={draftFilters}
 					courseOptions={courseOptions}
 					areaOfExpertiseOptions={areaOfExpertiseOptions}
 					coursesError={coursesQuery.isError}
-					hasActiveFilters={hasAppliedFilters}
-					isCoursesLoading={coursesQuery.isLoading}
-					isAreasOfExpertiseLoading={coursesQuery.isLoading}
-					onNameChange={value => setDraftFilter("name", value)}
-					onCpfChange={value => setDraftFilter("cpf", value)}
-					onEmailChange={value => setDraftFilter("email", value)}
-					onAcademicRegistrationChange={value =>
-						setDraftFilter("academicRegistration", value)
-					}
-					onActiveOnlyChange={value => setDraftFilter("activeOnly", value)}
+					coursesLoading={coursesQuery.isLoading}
+					hasAppliedFilters={hasAppliedFilters}
+					filtersOpen={filtersOpen}
 					onApply={() => {
 						applyDraftFilters();
 						setFiltersOpen(false);
 					}}
-					onCampiChange={value => setDraftFilter("campi", value)}
 					onClear={clearAllFilters}
-					onCourseIdsChange={value => setDraftFilter("courseIds", value)}
-					onAreaOfExpertiseIdsChange={value =>
-						setDraftFilter("areaOfExpertiseIds", value)
-					}
-					onIncludeConcludedChange={value =>
-						setDraftFilter("includeConcluded", value)
-					}
-					onPeriodFromChange={value => setDraftFilter("periodFrom", value)}
-					onPeriodToChange={value => setDraftFilter("periodTo", value)}
-					onDateFromChange={value => setDraftFilter("dateFrom", value)}
-					onDateToChange={value => setDraftFilter("dateTo", value)}
 					onOpenChange={setFiltersOpen}
 					onRefreshCourses={() => {
 						void coursesQuery.refetch();
 					}}
-					open={filtersOpen}
+					onFilterChange={(key, value) => setDraftFilter(key, value)}
 				/>
 			</ServicePageHeader>
 
@@ -502,64 +452,21 @@ export function FormerStudentsPage() {
 				formerStudentId={editorState.editorId}
 			/>
 
-			<RecordActionDialogs
-				cancelLabel={t("common.cancel")}
-				{...(pendingDeleteRecord
-					? {
-							deleteDialog: {
-								actionLabel: t("common.table.actions.delete"),
-								description: t(
-									"academic.formerStudentPage.delete.confirm.description",
-									{
-										name: pendingDeleteRecord.user?.name ?? "",
-									},
-								),
-								onAction: confirmDelete,
-								onOpenChange: open => {
-									if (!open) {
-										setPendingDeleteRecord(null);
-									}
-								},
-								open: true,
-								title: t("academic.formerStudentPage.delete.confirm.title"),
-								variant: "danger" as const,
-							},
-						}
-					: {})}
-				{...(pendingStatusRecord
-					? {
-							statusDialog: {
-								actionLabel: t(
-									pendingStatusRecord.active
-										? "common.table.actions.reactivate"
-										: "common.table.actions.deactivate",
-								),
-								description: t(
-									pendingStatusRecord.active
-										? "academic.formerStudentPage.reactivate.confirm.description"
-										: "academic.formerStudentPage.deactivate.confirm.description",
-									{
-										name: pendingStatusRecord.record.user?.name ?? "",
-									},
-								),
-								onAction: confirmStatusChange,
-								onOpenChange: open => {
-									if (!open) {
-										setPendingStatusRecord(null);
-									}
-								},
-								open: true,
-								title: t(
-									pendingStatusRecord.active
-										? "academic.formerStudentPage.reactivate.confirm.title"
-										: "academic.formerStudentPage.deactivate.confirm.title",
-								),
-								variant: pendingStatusRecord.active
-									? ("success" as const)
-									: ("warning" as const),
-							},
-						}
-					: {})}
+			<FormerStudentsPageDialogs
+				pendingDeleteRecord={pendingDeleteRecord}
+				pendingStatusRecord={pendingStatusRecord}
+				onDeleteOpenChange={open => {
+					if (!open) {
+						setPendingDeleteRecord(null);
+					}
+				}}
+				onStatusOpenChange={open => {
+					if (!open) {
+						setPendingStatusRecord(null);
+					}
+				}}
+				onDeleteConfirm={confirmDelete}
+				onStatusConfirm={confirmStatusChange}
 			/>
 		</ServicePageShell>
 	);

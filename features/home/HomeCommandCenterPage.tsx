@@ -4,44 +4,31 @@ import { useMemo } from "react";
 
 import { useRouter } from "next/navigation";
 
-import {
-	AlertTriangle,
-	ArrowRight,
-	BriefcaseBusiness,
-	ClipboardCheck,
-	ClipboardList,
-	FolderKanban,
-	Users,
-} from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
-import {
-	Badge,
-	Button,
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-	PageShell,
-	Section,
-	SectionContent,
-	SectionDescription,
-	SectionHeader,
-	SectionTitle,
-} from "@/components";
+import { PageShell, Section, SectionContent } from "@/components";
 import { buildFormerStudentDirectoryItems } from "@/features/academic/former-students/utils";
+import { HomeDashboardHero } from "@/features/home/components/HomeDashboardHero";
+import { HomeDashboardPrimarySections } from "@/features/home/components/HomeDashboardPrimarySections";
+import { HomeDashboardSidebarSections } from "@/features/home/components/HomeDashboardSidebarSections";
 import { mapAttendancesToDirectoryItems } from "@/features/project/attendances/utils";
 import { mapEnrollmentsToDirectoryItems } from "@/features/project/enrollments/utils";
 import type {
-	EnrollmentDirectoryItem,
 	HomePriorityItem,
 	HomePulseMetric,
 	HomeRecentItem,
 	HomeUpcomingItem,
-	ProjectResponse,
 } from "@/types";
+
+import {
+	formatPercent,
+	getEnrollmentHref,
+	getProjectCompletionPercent,
+	getTimestamp,
+	isActiveProject,
+	isProjectNearCompletion,
+} from "./utils";
 
 const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;
@@ -57,47 +44,6 @@ const { useUsersQuery } = usersApi;
 const { useAttendancesQuery } = attendancesApi;
 const { useEnrollmentsQuery } = enrollmentsApi;
 const { useProjectsQuery } = projectsApi;
-
-function getTimestamp(value: string | null | undefined) {
-	if (!value) {
-		return 0;
-	}
-
-	const parsed = Date.parse(value);
-	return Number.isFinite(parsed) ? parsed : 0;
-}
-
-function formatPercent(value: number) {
-	return `${value.toFixed(0)}%`;
-}
-
-function getProjectCompletionPercent(project: ProjectResponse) {
-	const offeredHours = project.projectInfo.offeredHours ?? 0;
-	if (offeredHours <= 0) {
-		return 0;
-	}
-
-	return ((project.projectInfo.completedHours ?? 0) / offeredHours) * 100;
-}
-
-function isActiveProject(project: ProjectResponse) {
-	return ["PLANNED", "IN_PROGRESS", "ON_HOLD"].includes(project.status.status);
-}
-
-function isProjectNearCompletion(project: ProjectResponse) {
-	return (
-		project.status.status === "IN_PROGRESS" &&
-		getProjectCompletionPercent(project) >= 85
-	);
-}
-
-function getEnrollmentHref(item: EnrollmentDirectoryItem) {
-	return `/project/enrollments/${encodeURIComponent(`${item.project.id}::${item.student.account.id}`)}`;
-}
-
-function getProgressWidth(value: number) {
-	return `${Math.max(0, Math.min(value, 100))}%`;
-}
 
 export function HomeCommandCenterPage() {
 	const { t } = useTranslation();
@@ -503,379 +449,36 @@ export function HomeCommandCenterPage() {
 			className="space-y-5 p-5 lg:p-6"
 		>
 			<Section>
-				<SectionHeader className="gap-3 xl:flex-row xl:items-end xl:justify-between">
-					<div className="space-y-3">
-						<Badge tone="warning">{t("home.dashboard.hero.badge")}</Badge>
-						<div className="space-y-2">
-							<SectionTitle>{t("home.dashboard.title")}</SectionTitle>
-							<SectionDescription>
-								{t("home.dashboard.description")}
-							</SectionDescription>
-						</div>
-					</div>
-					<div className="flex flex-wrap gap-3">
-						<Button
-							variant="secondary"
-							usage="secondary"
-							onClick={() => router.push("/project/attendances")}
-						>
-							{t("home.dashboard.hero.actions.attendances")}
-						</Button>
-						<Button
-							variant="secondary"
-							usage="secondary"
-							onClick={() => router.push("/project/enrollments")}
-						>
-							{t("home.dashboard.hero.actions.enrollments")}
-						</Button>
-					</div>
-				</SectionHeader>
-
 				<SectionContent className="grid gap-5">
-					<div className="surface-2 rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4 lg:p-5">
-						<div className="flex flex-col gap-2">
-							<p className="ty-sm-bold">
-								{t("home.dashboard.hero.title", { count: priorityCount })}
-							</p>
-							<p className="ty-helper">
-								{t("home.dashboard.hero.description")}
-							</p>
-						</div>
-
-						<div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-							<div className="rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)] p-4">
-								<p className="field-label">
-									{t("home.dashboard.metrics.pendingEnrollments")}
-								</p>
-								<p className="mt-3 text-3xl font-semibold">
-									{pendingEnrollments.length}
-								</p>
-							</div>
-							<div className="rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)] p-4">
-								<p className="field-label">
-									{t("home.dashboard.metrics.waitingAttendances")}
-								</p>
-								<p className="mt-3 text-3xl font-semibold">
-									{waitingAttendances.length}
-								</p>
-							</div>
-							<div className="rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)] p-4">
-								<p className="field-label">
-									{t("home.dashboard.metrics.activeProjects")}
-								</p>
-								<p className="mt-3 text-3xl font-semibold">
-									{activeProjects.length}
-								</p>
-							</div>
-							<div className="rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] bg-[color:var(--twc-surface-1)] p-4">
-								<p className="field-label">
-									{t("home.dashboard.metrics.activeFormerStudents")}
-								</p>
-								<p className="mt-3 text-3xl font-semibold">
-									{activeFormerStudentsCount}
-								</p>
-							</div>
-						</div>
-					</div>
+					<HomeDashboardHero
+						priorityCount={priorityCount}
+						pendingEnrollmentsCount={pendingEnrollments.length}
+						waitingAttendancesCount={waitingAttendances.length}
+						activeProjectsCount={activeProjects.length}
+						activeFormerStudentsCount={activeFormerStudentsCount}
+						onNavigate={href => router.push(href)}
+					/>
 
 					<div className="grid gap-5 xl:grid-cols-[minmax(0,1.7fr)_minmax(320px,0.95fr)]">
-						<div className="grid gap-5">
-							<Card isLoading={isOperationalLoading}>
-								<CardHeader
-									icon={ClipboardList}
-									className="mb-4 px-5 pt-5 pb-0"
-								>
-									<CardTitle>
-										{t("home.dashboard.sections.priority.title")}
-									</CardTitle>
-									<CardDescription>
-										{t("home.dashboard.sections.priority.description")}
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="grid gap-3 px-5 pt-0 pb-5">
-									{hasOperationalError ? (
-										<p className="ty-helper">
-											{t("home.dashboard.sections.sharedError")}
-										</p>
-									) : priorityItems.length > 0 ? (
-										priorityItems.map(item => (
-											<button
-												key={item.id}
-												type="button"
-												className="surface-2 flex w-full items-start justify-between gap-4 rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4 text-left transition-colors hover:bg-[color:var(--twc-surface-1)]"
-												onClick={() => router.push(item.href)}
-											>
-												<div className="space-y-2">
-													<Badge tone={item.tone}>{item.badge}</Badge>
-													<div className="space-y-1">
-														<p className="ty-sm-bold">{item.title}</p>
-														<p className="ty-helper">{item.description}</p>
-													</div>
-												</div>
-												<ArrowRight className="mt-1 h-4 w-4 shrink-0 text-[color:var(--twc-text-3)]" />
-											</button>
-										))
-									) : (
-										<p className="ty-helper">
-											{t("home.dashboard.sections.priority.empty")}
-										</p>
-									)}
-								</CardContent>
-							</Card>
+						<HomeDashboardPrimarySections
+							isOperationalLoading={isOperationalLoading}
+							hasOperationalError={hasOperationalError}
+							priorityItems={priorityItems}
+							pulseMetrics={pulseMetrics}
+							recentItems={recentItems}
+							onNavigate={href => router.push(href)}
+						/>
 
-							<Card isLoading={isOperationalLoading}>
-								<CardHeader
-									icon={ClipboardCheck}
-									className="mb-4 px-5 pt-5 pb-0"
-								>
-									<CardTitle>
-										{t("home.dashboard.sections.pulse.title")}
-									</CardTitle>
-									<CardDescription>
-										{t("home.dashboard.sections.pulse.description")}
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="grid gap-4 px-5 pt-0 pb-5 md:grid-cols-2">
-									{hasOperationalError ? (
-										<p className="ty-helper">
-											{t("home.dashboard.sections.sharedError")}
-										</p>
-									) : (
-										pulseMetrics.map(metric => (
-											<div
-												key={metric.key}
-												className="surface-2 grid gap-3 rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4"
-											>
-												<div className="flex items-center justify-between gap-3">
-													<p className="ty-helper">{metric.label}</p>
-													<p className="ty-sm-bold">{metric.value}</p>
-												</div>
-												<div className="h-2 overflow-hidden rounded-full bg-[color:var(--twc-surface-1)]">
-													<div
-														className="h-full rounded-full bg-[color:var(--color-brand)]"
-														style={{ width: getProgressWidth(metric.width) }}
-													/>
-												</div>
-											</div>
-										))
-									)}
-								</CardContent>
-							</Card>
-
-							<Card isLoading={isOperationalLoading}>
-								<CardHeader
-									icon={FolderKanban}
-									className="mb-4 px-5 pt-5 pb-0"
-								>
-									<CardTitle>
-										{t("home.dashboard.sections.recent.title")}
-									</CardTitle>
-									<CardDescription>
-										{t("home.dashboard.sections.recent.description")}
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="px-5 pt-0 pb-5">
-									{hasOperationalError ? (
-										<p className="ty-helper">
-											{t("home.dashboard.sections.sharedError")}
-										</p>
-									) : recentItems.length > 0 ? (
-										<div className="overflow-hidden rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)]">
-											<table className="w-full border-collapse text-sm">
-												<thead className="surface-2">
-													<tr>
-														<th className="px-4 py-3 text-left font-medium text-[color:var(--twc-text-3)]">
-															{t("home.dashboard.sections.recent.columns.when")}
-														</th>
-														<th className="px-4 py-3 text-left font-medium text-[color:var(--twc-text-3)]">
-															{t(
-																"home.dashboard.sections.recent.columns.module",
-															)}
-														</th>
-														<th className="px-4 py-3 text-left font-medium text-[color:var(--twc-text-3)]">
-															{t(
-																"home.dashboard.sections.recent.columns.record",
-															)}
-														</th>
-														<th className="px-4 py-3 text-left font-medium text-[color:var(--twc-text-3)]">
-															{t(
-																"home.dashboard.sections.recent.columns.action",
-															)}
-														</th>
-													</tr>
-												</thead>
-												<tbody>
-													{recentItems.map(item => (
-														<tr
-															key={item.id}
-															className="border-t border-[color:var(--twc-border-2)]"
-														>
-															<td className="px-4 py-3 text-[color:var(--twc-text-3)]">
-																{item.when}
-															</td>
-															<td className="px-4 py-3">{item.module}</td>
-															<td className="px-4 py-3">{item.record}</td>
-															<td className="px-4 py-3 text-[color:var(--twc-text-3)]">
-																{item.action}
-															</td>
-														</tr>
-													))}
-												</tbody>
-											</table>
-										</div>
-									) : (
-										<p className="ty-helper">
-											{t("home.dashboard.sections.recent.empty")}
-										</p>
-									)}
-								</CardContent>
-							</Card>
-						</div>
-
-						<div className="grid gap-5">
-							<Card>
-								<CardHeader
-									icon={BriefcaseBusiness}
-									className="mb-4 px-5 pt-5 pb-0"
-								>
-									<CardTitle>
-										{t("home.dashboard.sections.shortcuts.title")}
-									</CardTitle>
-									<CardDescription>
-										{t("home.dashboard.sections.shortcuts.description")}
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="grid gap-3 px-5 pt-0 pb-5">
-									<Button
-										variant="secondary"
-										usage="secondary"
-										onClick={() => router.push("/project/enrollments")}
-									>
-										{t("home.dashboard.sections.shortcuts.pendingEnrollments")}
-									</Button>
-									<Button
-										variant="secondary"
-										usage="secondary"
-										onClick={() => router.push("/project/attendances")}
-									>
-										{t("home.dashboard.sections.shortcuts.waitingAttendances")}
-									</Button>
-									<Button
-										variant="secondary"
-										usage="secondary"
-										onClick={() => router.push("/academic/former-students")}
-									>
-										{t("home.dashboard.sections.shortcuts.formerStudents")}
-									</Button>
-									<Button
-										variant="secondary"
-										usage="secondary"
-										onClick={() => router.push("/project/projects")}
-									>
-										{t("home.dashboard.sections.shortcuts.activeProjects")}
-									</Button>
-								</CardContent>
-							</Card>
-
-							<Card isLoading={isOperationalLoading}>
-								<CardHeader
-									icon={AlertTriangle}
-									className="mb-4 px-5 pt-5 pb-0"
-								>
-									<CardTitle>
-										{t("home.dashboard.sections.exceptions.title")}
-									</CardTitle>
-									<CardDescription>
-										{t("home.dashboard.sections.exceptions.description")}
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="grid gap-3 px-5 pt-0 pb-5">
-									{hasOperationalError ? (
-										<p className="ty-helper">
-											{t("home.dashboard.sections.sharedError")}
-										</p>
-									) : (
-										<>
-											<div className="surface-2 flex items-center justify-between rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4">
-												<p className="ty-helper">
-													{t("home.dashboard.exceptions.waitingAttendances")}
-												</p>
-												<Badge tone="warning">
-													{waitingAttendances.length}
-												</Badge>
-											</div>
-											<div className="surface-2 flex items-center justify-between rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4">
-												<p className="ty-helper">
-													{t("home.dashboard.exceptions.pendingEnrollments")}
-												</p>
-												<Badge tone="warning">
-													{pendingEnrollments.length}
-												</Badge>
-											</div>
-											<div className="surface-2 flex items-center justify-between rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4">
-												<p className="ty-helper">
-													{t("home.dashboard.exceptions.dueSoonFormerStudents")}
-												</p>
-												<Badge tone="danger">
-													{dueSoonFormerStudents.length}
-												</Badge>
-											</div>
-											<div className="surface-2 flex items-center justify-between rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4">
-												<p className="ty-helper">
-													{t("home.dashboard.exceptions.nearLimitProjects")}
-												</p>
-												<Badge tone="info">
-													{nearCompletionProjects.length}
-												</Badge>
-											</div>
-										</>
-									)}
-								</CardContent>
-							</Card>
-
-							<Card isLoading={isOperationalLoading}>
-								<CardHeader
-									icon={Users}
-									className="mb-4 px-5 pt-5 pb-0"
-								>
-									<CardTitle>
-										{t("home.dashboard.sections.upcoming.title")}
-									</CardTitle>
-									<CardDescription>
-										{t("home.dashboard.sections.upcoming.description")}
-									</CardDescription>
-								</CardHeader>
-								<CardContent className="grid gap-3 px-5 pt-0 pb-5">
-									{hasOperationalError ? (
-										<p className="ty-helper">
-											{t("home.dashboard.sections.sharedError")}
-										</p>
-									) : upcomingItems.length > 0 ? (
-										upcomingItems.map(item => (
-											<button
-												key={item.id}
-												type="button"
-												className="surface-2 flex w-full items-start justify-between gap-4 rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4 text-left transition-colors hover:bg-[color:var(--twc-surface-1)]"
-												onClick={() => router.push(item.href)}
-											>
-												<div className="space-y-2">
-													<Badge tone={item.tone}>{item.badge}</Badge>
-													<div className="space-y-1">
-														<p className="ty-sm-bold">{item.title}</p>
-														<p className="ty-helper">{item.description}</p>
-													</div>
-												</div>
-												<ArrowRight className="mt-1 h-4 w-4 shrink-0 text-[color:var(--twc-text-3)]" />
-											</button>
-										))
-									) : (
-										<p className="ty-helper">
-											{t("home.dashboard.sections.upcoming.empty")}
-										</p>
-									)}
-								</CardContent>
-							</Card>
-						</div>
+						<HomeDashboardSidebarSections
+							isOperationalLoading={isOperationalLoading}
+							hasOperationalError={hasOperationalError}
+							waitingAttendancesCount={waitingAttendances.length}
+							pendingEnrollmentsCount={pendingEnrollments.length}
+							dueSoonFormerStudentsCount={dueSoonFormerStudents.length}
+							nearCompletionProjectsCount={nearCompletionProjects.length}
+							upcomingItems={upcomingItems}
+							onNavigate={href => router.push(href)}
+						/>
 					</div>
 				</SectionContent>
 			</Section>

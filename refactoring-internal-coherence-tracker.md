@@ -8,7 +8,7 @@
 - [x] Step 4: Normalize imports
 - [x] Step 5: Move utilities and constants
 - [x] Step 6: Move types, interfaces, and schemas
-- [ ] Step 7: Refactor TSX files
+- [x] Step 7: Refactor TSX files
 - [ ] Step 8: Remove `features/shared`
 - [ ] Step 9: Promote cross-feature components
 - [ ] Step 10: Extract repeated React patterns
@@ -132,16 +132,16 @@ Deferred target: Step 7.
 
 These files must be split.
 
-- [ ] `features/home/HomeCommandCenterPage.tsx` - 846 lines
-- [ ] `components/primitives/display/table/Table.tsx` - 643 lines
-- [ ] `features/academic/former-students/utils.tsx` - 629 lines
-- [ ] `features/project/attendances/utils.tsx` - 613 lines
-- [ ] `features/project/enrollments/utils.tsx` - 613 lines
-- [ ] `features/project/attendances/AttendancesPage.tsx` - 608 lines
-- [ ] `features/project/projects/ProjectsPage.tsx` - 600 lines
-- [ ] `features/project/enrollments/EnrollmentsPage.tsx` - 580 lines
-- [ ] `features/project/projects/utils.tsx` - 569 lines
-- [ ] `features/academic/former-students/FormerStudentsPage.tsx` - 548 lines
+- [x] `features/home/HomeCommandCenterPage.tsx` - reduced to 491 lines
+- [x] `components/primitives/display/table/Table.tsx` - reduced to 246 lines
+- [x] `features/academic/former-students/utils.tsx` - reduced to 7 lines via barrel split
+- [x] `features/project/attendances/utils.tsx` - reduced to 6 lines via barrel split
+- [x] `features/project/enrollments/utils.tsx` - reduced to 6 lines via barrel split
+- [x] `features/project/attendances/AttendancesPage.tsx` - reduced to 188 lines
+- [x] `features/project/projects/ProjectsPage.tsx` - reduced to 178 lines
+- [x] `features/project/enrollments/EnrollmentsPage.tsx` - reduced to 171 lines
+- [x] `features/project/projects/utils.tsx` - reduced to 6 lines via barrel split
+- [x] `features/academic/former-students/FormerStudentsPage.tsx` - reduced to 477 lines
 
 ### Inline Interfaces Still Declared Inside TSX Files
 
@@ -253,32 +253,37 @@ These need to move to the lowest valid `constants.ts`:
 
 #### Split oversized page files
 
-- [ ] Split `features/home/HomeCommandCenterPage.tsx`
-  - create `features/home/components/` if needed
-  - extract dashboard panels and metric cards
-- [ ] Split `features/project/attendances/AttendancesPage.tsx`
-  - extract table section, dialogs, and filter summary helpers into local components
-- [ ] Split `features/project/enrollments/EnrollmentsPage.tsx`
-  - extract table section, dialogs, and filter summary helpers into local components
-- [ ] Split `features/project/projects/ProjectsPage.tsx`
-  - extract filter header, dialogs, and table section helpers into local components
-- [ ] Split `features/academic/former-students/FormerStudentsPage.tsx`
-  - extract dialog blocks and header/filter sections into local components
+- [x] Split `features/home/HomeCommandCenterPage.tsx`
+  - created `features/home/components/`
+  - extracted dashboard panels and metric cards
+  - moved local formatting and derived-data helpers into `features/home/utils.ts`
+- [x] Split `features/project/attendances/AttendancesPage.tsx`
+  - extracted dialogs and filters into `components/AttendancesPageControls.tsx`
+  - moved page/query state into `useAttendancesPage.tsx`
+- [x] Split `features/project/enrollments/EnrollmentsPage.tsx`
+  - extracted dialogs and filters into `components/EnrollmentsPageControls.tsx`
+  - moved page/query state into `useEnrollmentsPage.tsx`
+- [x] Split `features/project/projects/ProjectsPage.tsx`
+  - extracted dialogs and filters into `components/ProjectsPageControls.tsx`
+  - moved page/query state into `useProjectsPage.tsx`
+- [x] Split `features/academic/former-students/FormerStudentsPage.tsx`
+  - extracted dialog blocks and header/filter sections into local components
+  - page now sits below the 500-line cap
 
 #### Split oversized component files
 
-- [ ] Split `components/primitives/display/table/Table.tsx`
-  - extract row-actions menu
-  - extract scrollbars
-  - extract sort icon and small rendering helpers
-- [ ] Split `features/academic/former-students/utils.tsx`
-  - separate table columns, filter helpers, duplicate helpers, and formatter helpers
-- [ ] Split `features/project/attendances/utils.tsx`
-  - separate table columns, status helpers, filter helpers, and formatter helpers
-- [ ] Split `features/project/enrollments/utils.tsx`
-  - separate table columns, status helpers, filter helpers, and formatter helpers
-- [ ] Split `features/project/projects/utils.tsx`
-  - separate columns, backend filter mapping, local filter helpers, and formatters
+- [x] Split `components/primitives/display/table/Table.tsx`
+  - extracted row-actions menu
+  - extracted scrollbars into `useTableScrollbars.ts`
+  - kept sort icon and body rendering in dedicated local files
+- [x] Split `features/academic/former-students/utils.tsx`
+  - separated table columns, filter helpers, duplicate helpers, and formatter helpers
+- [x] Split `features/project/attendances/utils.tsx`
+  - separated table columns, filter helpers, form helpers, and toast helpers
+- [x] Split `features/project/enrollments/utils.tsx`
+  - separated table columns, filter helpers, form helpers, and toast helpers
+- [x] Split `features/project/projects/utils.tsx`
+  - separated columns, backend filter mapping, local filter helpers, and formatters
 
 ### Step 8: Remove `features/shared`
 
