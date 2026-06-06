@@ -17,6 +17,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
+import { ServicePageEditorDrawer } from "@/components";
 import { AttendanceEditorForm } from "@/features/project/attendances/AttendanceEditorForm";
 import {
 	buildAttendanceFormerStudentOptions,
@@ -32,7 +33,6 @@ import {
 	toAttendanceCreateRequest,
 	toAttendanceValidateRequest,
 } from "@/features/project/attendances/utils";
-import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,

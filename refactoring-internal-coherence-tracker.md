@@ -9,7 +9,7 @@
 - [x] Step 5: Move utilities and constants
 - [x] Step 6: Move types, interfaces, and schemas
 - [x] Step 7: Refactor TSX files
-- [ ] Step 8: Remove `features/shared`
+- [x] Step 8: Remove `features/shared`
 - [ ] Step 9: Promote cross-feature components
 - [ ] Step 10: Extract repeated React patterns
 - [ ] Step 11: Validate naming
@@ -287,11 +287,11 @@ These need to move to the lowest valid `constants.ts`:
 
 ### Step 8: Remove `features/shared`
 
-- [ ] Move `features/shared/entity-pages/*` to `components/composite/features/entity-pages/*`
-- [ ] Move `features/shared/module-pages/*` to `components/composite/features/module-pages/*`
-- [ ] Move `features/shared/service-pages/*` to `components/composite/features/service-pages/*`
-- [ ] Update all imports to consume these through `@/components`
-- [ ] Delete `features/shared/**` once empty
+- [x] Move `features/shared/entity-pages/*` to `components/composite/features/entity-pages/*`
+- [x] Move `features/shared/module-pages/*` to `components/composite/features/module-pages/*`
+- [x] Move `features/shared/service-pages/*` to `components/composite/features/service-pages/*`
+- [x] Update all imports to consume these through `@/components`
+- [x] Delete `features/shared/**` once empty
 
 ### Step 9: Promote Cross-Feature Components
 

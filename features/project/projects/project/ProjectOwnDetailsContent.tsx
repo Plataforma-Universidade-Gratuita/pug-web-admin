@@ -5,11 +5,11 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/components";
+import { EntityPageFieldsGrid } from "@/components";
 import {
 	getProjectStatusLabel,
 	getProjectStatusTone,
 } from "@/features/project/projects/utils";
-import { EntityPageFieldsGrid } from "@/features/shared/entity-pages";
 import type { EntityPageField, ProjectOwnDetailsContentProps } from "@/types";
 
 export function ProjectOwnDetailsContent({

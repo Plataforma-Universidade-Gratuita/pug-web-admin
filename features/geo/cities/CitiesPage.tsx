@@ -6,13 +6,13 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { NoContentState, SomeErrorState } from "@/components";
-import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import {
 	ServicePageHeader,
 	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
-} from "@/features/shared/service-pages";
+} from "@/components";
+import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import {
 	useDraftFilters,
 	useQueryErrorToasts,

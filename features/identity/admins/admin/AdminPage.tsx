@@ -7,16 +7,16 @@ import { useTranslation } from "react-i18next";
 import { web } from "@/api";
 import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
+import {
+	EntityPageFieldsGrid,
+	EntityPageFieldsGridSkeleton,
+	EntityPageShell,
+} from "@/components";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import {
 	getAdminDetailErrorToastContent,
 	getLinkedAdminUserErrorToastContent,
 } from "@/features/identity/admins/utils";
-import {
-	EntityPageFieldsGrid,
-	EntityPageFieldsGridSkeleton,
-	EntityPageShell,
-} from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AdminPageProps } from "@/types";
 

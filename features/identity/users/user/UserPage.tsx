@@ -3,8 +3,8 @@
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
+import { EntityPageShell } from "@/components";
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
-import { EntityPageShell } from "@/features/shared/entity-pages";
 import type { UserPageProps } from "@/types";
 
 const { users: usersApi } = web.identity;

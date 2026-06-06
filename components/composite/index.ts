@@ -9,3 +9,4 @@ export * from "./popovers";
 export * from "./row-actions";
 export * from "./editor-blocks";
 export * from "./table-columns";
+export * from "./features";

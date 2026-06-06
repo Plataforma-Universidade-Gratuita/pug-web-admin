@@ -16,12 +16,12 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@/components";
-import { getFormerStudentCampusOptions } from "@/features/academic/former-students/utils";
 import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
 	TextFieldFilter,
-} from "@/features/shared/service-pages";
+} from "@/components";
+import { getFormerStudentCampusOptions } from "@/features/academic/former-students/utils";
 import type { FormerStudentsFiltersDrawerProps } from "@/types";
 
 export function FormerStudentsFiltersDrawer({

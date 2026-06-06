@@ -7,12 +7,12 @@ import {
 	Checkbox,
 	DateRangeFilterFields,
 } from "@/components";
-import { ACCOUNT_TYPE_VALUES } from "@/constants";
 import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
 	TextFieldFilter,
-} from "@/features/shared/service-pages";
+} from "@/components";
+import { ACCOUNT_TYPE_VALUES } from "@/constants";
 import type { AccountsFiltersDrawerProps } from "@/types";
 
 export function AccountsFiltersDrawer({

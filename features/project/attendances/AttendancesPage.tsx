@@ -1,5 +1,12 @@
 "use client";
 
+import {
+	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePagePagination,
+	ServicePageShell,
+	ServicePageTableSection,
+} from "@/components";
 import { AttendanceEditorDrawer } from "@/features/project/attendances/AttendanceEditorDrawer";
 import { AttendancesRowActions } from "@/features/project/attendances/AttendancesRowActions";
 import {
@@ -7,13 +14,6 @@ import {
 	AttendancesPageFilters,
 } from "@/features/project/attendances/components/AttendancesPageControls";
 import { useAttendancesPage } from "@/features/project/attendances/useAttendancesPage";
-import {
-	ServicePageHeader,
-	ServicePageHeaderActions,
-	ServicePagePagination,
-	ServicePageShell,
-	ServicePageTableSection,
-} from "@/features/shared/service-pages";
 import type { AttendanceDirectoryItem } from "@/types";
 
 export function AttendancesPage() {

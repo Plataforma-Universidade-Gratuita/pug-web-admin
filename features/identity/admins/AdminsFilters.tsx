@@ -5,8 +5,8 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Combobox, Label } from "@/components";
+import { TextFieldFilter } from "@/components";
 import { getAdminCampusOptions } from "@/features/identity/admins/utils";
-import { TextFieldFilter } from "@/features/shared/service-pages";
 import type { AdminsFiltersProps } from "@/types";
 
 import { AdminsFiltersDrawer } from "./AdminsFiltersDrawer";

@@ -10,12 +10,9 @@ import {
 	DateRangeFilterFields,
 	Label,
 } from "@/components";
+import { ServicePageFiltersDrawer } from "@/components";
+import { NumberFieldFilter, TextFieldFilter } from "@/components";
 import { getProjectStatusOptions } from "@/features/project/projects/utils";
-import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
-import {
-	NumberFieldFilter,
-	TextFieldFilter,
-} from "@/features/shared/service-pages";
 import type { ProjectsFiltersDrawerProps, ProjectStatus } from "@/types";
 
 export function ProjectsFiltersDrawer({

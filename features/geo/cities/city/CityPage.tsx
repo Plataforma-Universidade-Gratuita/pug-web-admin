@@ -11,7 +11,7 @@ import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
-} from "@/features/shared/entity-pages";
+} from "@/components";
 import { useQueryErrorToasts } from "@/hooks";
 import type { CityPageProps } from "@/types";
 

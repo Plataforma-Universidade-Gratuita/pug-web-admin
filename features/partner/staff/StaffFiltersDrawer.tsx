@@ -11,7 +11,7 @@ import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
 	TextFieldFilter,
-} from "@/features/shared/service-pages";
+} from "@/components";
 import type { StaffFiltersDrawerProps } from "@/types";
 
 export function StaffFiltersDrawer({

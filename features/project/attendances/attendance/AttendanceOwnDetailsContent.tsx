@@ -5,8 +5,8 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/components";
+import { EntityPageFieldsGrid } from "@/components";
 import { getAttendanceStatusTone } from "@/features/project/attendances/utils";
-import { EntityPageFieldsGrid } from "@/features/shared/entity-pages";
 import type { AttendanceResponse } from "@/types";
 
 export function AttendanceOwnDetailsContent({

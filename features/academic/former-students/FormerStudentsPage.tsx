@@ -6,6 +6,12 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePageShell,
+	ServicePageTableSection,
+} from "@/components";
 import { FormerStudentEditorDrawer } from "@/features/academic/former-students/FormerStudentEditorDrawer";
 import { FormerStudentsRowActions } from "@/features/academic/former-students/FormerStudentsRowActions";
 import {
@@ -27,12 +33,6 @@ import {
 	getStudentSetActiveErrorToastContent,
 	getStudentsListErrorToastContent,
 } from "@/features/academic/former-students/utils";
-import {
-	ServicePageHeader,
-	ServicePageHeaderActions,
-	ServicePageShell,
-	ServicePageTableSection,
-} from "@/features/shared/service-pages";
 import {
 	useActivatableRecordActions,
 	useDraftFilters,

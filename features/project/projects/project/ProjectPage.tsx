@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { web } from "@/api";
 import { WebApiError } from "@/api/web";
 import { NoContentState, NotFoundState, SomeErrorState } from "@/components";
+import { EntityPageFieldsGridSkeleton, EntityPageShell } from "@/components";
 import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
 import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
@@ -12,10 +13,6 @@ import {
 	getProjectAreasOfExpertiseErrorToastContent,
 	getProjectDetailErrorToastContent,
 } from "@/features/project/projects/utils";
-import {
-	EntityPageFieldsGridSkeleton,
-	EntityPageShell,
-} from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { ProjectPageProps } from "@/types";
 

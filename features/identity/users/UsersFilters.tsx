@@ -2,10 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import {
-	NumberFieldFilter,
-	TextFieldFilter,
-} from "@/features/shared/service-pages";
+import { NumberFieldFilter, TextFieldFilter } from "@/components";
 import type { UsersFiltersProps } from "@/types";
 
 import { UsersFiltersDrawer } from "./UsersFiltersDrawer";

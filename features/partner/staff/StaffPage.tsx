@@ -11,6 +11,14 @@ import {
 	SomeErrorState,
 	toast,
 } from "@/components";
+import {
+	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePagePagination,
+	ServicePageShell,
+	ServicePageTableSection,
+	TextFieldFilter,
+} from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
 import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
@@ -29,14 +37,6 @@ import {
 	getStaffSetActiveErrorToastContent,
 	appendCopyToEmail,
 } from "@/features/partner/staff/utils";
-import {
-	ServicePageHeader,
-	ServicePageHeaderActions,
-	ServicePagePagination,
-	ServicePageShell,
-	ServicePageTableSection,
-	TextFieldFilter,
-} from "@/features/shared/service-pages";
 import {
 	useActivatableRecordActions,
 	useDraftFilters,

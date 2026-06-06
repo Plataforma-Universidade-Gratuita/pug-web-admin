@@ -12,6 +12,14 @@ import {
 	SomeErrorState,
 	toast,
 } from "@/components";
+import {
+	ServicePageConfirmDialog,
+	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePageShell,
+	ServicePageTableSection,
+	TextFieldFilter,
+} from "@/components";
 import { AreaOfExpertiseEditorDrawer } from "@/features/academic/areas-of-expertise/AreaOfExpertiseEditorDrawer";
 import { AreasOfExpertiseRowActions } from "@/features/academic/areas-of-expertise/AreasOfExpertiseRowActions";
 import {
@@ -24,14 +32,6 @@ import {
 	getAreaOfExpertiseFilterSummary,
 	getAreasOfExpertiseListErrorToastContent,
 } from "@/features/academic/areas-of-expertise/utils";
-import {
-	ServicePageConfirmDialog,
-	ServicePageHeader,
-	ServicePageHeaderActions,
-	ServicePageShell,
-	ServicePageTableSection,
-	TextFieldFilter,
-} from "@/features/shared/service-pages";
 import {
 	useDeferredUndoAction,
 	useQueryErrorToasts,

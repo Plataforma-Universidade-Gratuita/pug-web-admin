@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { TextFieldFilter } from "@/features/shared/service-pages";
+import { TextFieldFilter } from "@/components";
 import type { CitiesFiltersProps } from "@/types";
 
 import { CitiesFiltersDrawer } from "./CitiesFiltersDrawer";

@@ -11,6 +11,13 @@ import {
 	SomeErrorState,
 	toast,
 } from "@/components";
+import {
+	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePagePagination,
+	ServicePageShell,
+	ServicePageTableSection,
+} from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AdminsFilters } from "@/features/identity/admins/AdminsFilters";
 import { AdminsRowActions } from "@/features/identity/admins/AdminsRowActions";
@@ -28,13 +35,6 @@ import {
 	getAdminSetActiveErrorToastContent,
 	getAdminsListErrorToastContent,
 } from "@/features/identity/admins/utils";
-import {
-	ServicePageHeader,
-	ServicePageHeaderActions,
-	ServicePagePagination,
-	ServicePageShell,
-	ServicePageTableSection,
-} from "@/features/shared/service-pages";
 import {
 	useActivatableRecordActions,
 	useDraftFilters,

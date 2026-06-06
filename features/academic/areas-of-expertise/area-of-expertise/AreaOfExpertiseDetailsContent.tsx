@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { EntityPageFieldsGrid } from "@/features/shared/entity-pages";
+import { EntityPageFieldsGrid } from "@/components";
 import type {
 	AreaOfExpertiseDetailsContentProps,
 	EntityPageField,

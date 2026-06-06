@@ -11,8 +11,8 @@ import {
 	Input,
 	Label,
 } from "@/components";
+import { ServicePageFiltersDrawer } from "@/components";
 import { getAttendanceStatusOptions } from "@/features/project/attendances/utils";
-import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import type { AttendanceStatus, AttendancesFiltersDrawerProps } from "@/types";
 
 export function AttendancesFiltersDrawer({

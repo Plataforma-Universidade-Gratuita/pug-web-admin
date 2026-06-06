@@ -17,6 +17,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
+import { ServicePageEditorDrawer } from "@/components";
 import { EnrollmentEditorForm } from "@/features/project/enrollments/EnrollmentEditorForm";
 import {
 	buildEnrollmentFormerStudentOptions,
@@ -32,7 +33,6 @@ import {
 	getEnrollmentUpdateErrorToastContent,
 	parseEnrollmentCompositeKey,
 } from "@/features/project/enrollments/utils";
-import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,

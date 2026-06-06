@@ -8,15 +8,15 @@ import { web } from "@/api";
 import { WebApiError } from "@/api/web";
 import { Badge, NotFoundState, SomeErrorState } from "@/components";
 import {
+	EntityPageFieldsGrid,
+	EntityPageFieldsGridSkeleton,
+} from "@/components";
+import {
 	getAccountDetailErrorToastContent,
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
 import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
-import {
-	EntityPageFieldsGrid,
-	EntityPageFieldsGridSkeleton,
-} from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AccountDetailsContentProps } from "@/types";
 

@@ -7,7 +7,7 @@ import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
 	TextFieldFilter,
-} from "@/features/shared/service-pages";
+} from "@/components";
 import type { AdminsFiltersDrawerProps } from "@/types";
 
 export function AdminsFiltersDrawer({

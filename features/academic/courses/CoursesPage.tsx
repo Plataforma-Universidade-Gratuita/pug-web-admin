@@ -6,6 +6,14 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	ServicePageConfirmDialog,
+	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePageShell,
+	ServicePageTableSection,
+	TextFieldFilter,
+} from "@/components";
 import { CourseEditorDrawer } from "@/features/academic/courses/CourseEditorDrawer";
 import { CoursesFiltersDrawer } from "@/features/academic/courses/CoursesFiltersDrawer";
 import { CoursesRowActions } from "@/features/academic/courses/CoursesRowActions";
@@ -21,14 +29,6 @@ import {
 	getCourseSchoolsErrorToastContent,
 	getCoursesListErrorToastContent,
 } from "@/features/academic/courses/utils";
-import {
-	ServicePageConfirmDialog,
-	ServicePageHeader,
-	ServicePageHeaderActions,
-	ServicePageShell,
-	ServicePageTableSection,
-	TextFieldFilter,
-} from "@/features/shared/service-pages";
 import {
 	useDeferredUndoAction,
 	useDraftFilters,

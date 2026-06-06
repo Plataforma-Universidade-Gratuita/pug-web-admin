@@ -7,12 +7,12 @@ import { useTranslation } from "react-i18next";
 import { web } from "@/api";
 import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
-import { getAreaOfExpertiseDetailErrorToastContent } from "@/features/academic/areas-of-expertise/utils";
 import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
-} from "@/features/shared/entity-pages";
+} from "@/components";
+import { getAreaOfExpertiseDetailErrorToastContent } from "@/features/academic/areas-of-expertise/utils";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AreaOfExpertisePageProps } from "@/types";
 

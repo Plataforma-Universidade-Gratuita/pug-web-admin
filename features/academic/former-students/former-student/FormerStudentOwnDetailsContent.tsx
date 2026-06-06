@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/components";
-import { EntityPageFieldsGrid } from "@/features/shared/entity-pages";
+import { EntityPageFieldsGrid } from "@/components";
 import type {
 	EntityPageField,
 	FormerStudentOwnDetailsContentProps,

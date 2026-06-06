@@ -6,6 +6,12 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { Button, NoContentState, SomeErrorState } from "@/components";
+import {
+	ServicePageHeader,
+	ServicePagePagination,
+	ServicePageShell,
+	ServicePageTableSection,
+} from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { UsersFilters } from "@/features/identity/users/UsersFilters";
 import { UsersRowActions } from "@/features/identity/users/UsersRowActions";
@@ -16,12 +22,6 @@ import {
 	getUserEmptyStateCopy,
 	getUsersListErrorToastContent,
 } from "@/features/identity/users/utils";
-import {
-	ServicePageHeader,
-	ServicePagePagination,
-	ServicePageShell,
-	ServicePageTableSection,
-} from "@/features/shared/service-pages";
 import {
 	useDraftFilters,
 	useQueryErrorToasts,

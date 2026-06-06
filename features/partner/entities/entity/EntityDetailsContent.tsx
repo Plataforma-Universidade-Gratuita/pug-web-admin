@@ -8,14 +8,14 @@ import { web } from "@/api";
 import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
 import {
+	EntityPageFieldsGrid,
+	EntityPageFieldsGridSkeleton,
+} from "@/components";
+import {
 	getEntityCitiesErrorToastContent,
 	getEntityDetailErrorToastContent,
 	resolveEntityCityLabel,
 } from "@/features/partner/entities/utils";
-import {
-	EntityPageFieldsGrid,
-	EntityPageFieldsGridSkeleton,
-} from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { EntityDetailsContentProps } from "@/types";
 

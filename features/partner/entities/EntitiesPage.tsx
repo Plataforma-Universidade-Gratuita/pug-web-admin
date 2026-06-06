@@ -6,6 +6,16 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { NoContentState, SomeErrorState, toast } from "@/components";
+import {
+	NumberFieldFilter,
+	ServicePageConfirmDialog,
+	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePagePagination,
+	ServicePageShell,
+	ServicePageTableSection,
+	TextFieldFilter,
+} from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { EntitiesFiltersDrawer } from "@/features/partner/entities/EntitiesFiltersDrawer";
 import { EntitiesRowActions } from "@/features/partner/entities/EntitiesRowActions";
@@ -23,16 +33,6 @@ import {
 	mapEntitiesToTableRows,
 	mapEntitySearchResponsesToTableRows,
 } from "@/features/partner/entities/utils";
-import {
-	NumberFieldFilter,
-	ServicePageConfirmDialog,
-	ServicePageHeader,
-	ServicePageHeaderActions,
-	ServicePagePagination,
-	ServicePageShell,
-	ServicePageTableSection,
-	TextFieldFilter,
-} from "@/features/shared/service-pages";
 import {
 	useDeferredUndoAction,
 	useDraftFilters,

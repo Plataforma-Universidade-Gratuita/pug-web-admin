@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { AsyncComboboxFilterField, DateRangeFilterFields } from "@/components";
-import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
+import { ServicePageFiltersDrawer } from "@/components";
 import type { EntitiesFiltersDrawerProps } from "@/types";
 
 export function EntitiesFiltersDrawer({

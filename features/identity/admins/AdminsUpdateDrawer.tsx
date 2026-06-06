@@ -17,6 +17,7 @@ import {
 	Footer,
 	toast,
 } from "@/components";
+import { ServicePageEditorDrawer } from "@/components";
 import { AdminEditorContent } from "@/features/identity/admins/AdminEditorContent";
 import {
 	buildAdminUpdateFormValues,
@@ -32,7 +33,6 @@ import {
 	toAdminCreateRequest,
 	toAdminUpdateRequest,
 } from "@/features/identity/admins/utils";
-import { ServicePageEditorDrawer } from "@/features/shared/service-pages";
 import {
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,

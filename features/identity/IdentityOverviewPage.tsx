@@ -2,10 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import {
-	ModulePageComingSoon,
-	ModulePageShell,
-} from "@/features/shared/module-pages";
+import { ModulePageComingSoon, ModulePageShell } from "@/components";
 
 export function IdentityOverviewPage() {
 	const { t } = useTranslation();

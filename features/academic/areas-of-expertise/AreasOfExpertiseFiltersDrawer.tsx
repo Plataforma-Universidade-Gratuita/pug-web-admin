@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { DatePicker, Label } from "@/components";
-import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
+import { ServicePageFiltersDrawer } from "@/components";
 import type { AreasOfExpertiseFiltersDrawerProps } from "@/types";
 
 export function AreasOfExpertiseFiltersDrawer({

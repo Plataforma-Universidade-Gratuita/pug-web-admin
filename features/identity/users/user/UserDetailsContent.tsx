@@ -7,11 +7,11 @@ import { useTranslation } from "react-i18next";
 import { web } from "@/api";
 import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
-import { getUserDetailErrorToastContent } from "@/features/identity/users/utils";
 import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
-} from "@/features/shared/entity-pages";
+} from "@/components";
+import { getUserDetailErrorToastContent } from "@/features/identity/users/utils";
 import { useQueryErrorToasts } from "@/hooks";
 import type { UserDetailsContentProps } from "@/types";
 

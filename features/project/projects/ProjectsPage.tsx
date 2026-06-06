@@ -1,5 +1,12 @@
 "use client";
 
+import {
+	ServicePageHeader,
+	ServicePageHeaderActions,
+	ServicePagePagination,
+	ServicePageShell,
+	ServicePageTableSection,
+} from "@/components";
 import { ProjectsEditorDrawer } from "@/features/project/projects/ProjectsEditorDrawer";
 import { ProjectsRowActions } from "@/features/project/projects/ProjectsRowActions";
 import {
@@ -7,13 +14,6 @@ import {
 	ProjectsPageFilters,
 } from "@/features/project/projects/components/ProjectsPageControls";
 import { useProjectsPage } from "@/features/project/projects/useProjectsPage";
-import {
-	ServicePageHeader,
-	ServicePageHeaderActions,
-	ServicePagePagination,
-	ServicePageShell,
-	ServicePageTableSection,
-} from "@/features/shared/service-pages";
 import type { ProjectResponse } from "@/types";
 
 export function ProjectsPage() {

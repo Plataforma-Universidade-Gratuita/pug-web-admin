@@ -10,8 +10,8 @@ import {
 	DateRangeFilterFields,
 	Label,
 } from "@/components";
+import { ServicePageFiltersDrawer } from "@/components";
 import { getEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
-import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
 import type { EnrollmentStatus, EnrollmentsFiltersDrawerProps } from "@/types";
 
 export function EnrollmentsFiltersDrawer({

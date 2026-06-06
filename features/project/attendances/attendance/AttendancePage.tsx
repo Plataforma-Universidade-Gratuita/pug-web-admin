@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { web } from "@/api";
 import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
+import { EntityPageShell } from "@/components";
 import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import { AttendanceOwnDetailsContent } from "@/features/project/attendances/attendance/AttendanceOwnDetailsContent";
@@ -14,7 +15,6 @@ import {
 	getAttendanceStudentsErrorToastContent,
 } from "@/features/project/attendances/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
-import { EntityPageShell } from "@/features/shared/entity-pages";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AttendancePageProps } from "@/types";
 

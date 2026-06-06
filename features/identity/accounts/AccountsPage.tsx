@@ -6,6 +6,13 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { Button, NoContentState, SomeErrorState } from "@/components";
+import {
+	ServicePageHeader,
+	ServicePagePagination,
+	ServicePageShell,
+	ServicePageTableSection,
+	TextFieldFilter,
+} from "@/components";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AccountsFiltersDrawer } from "@/features/identity/accounts/AccountsFiltersDrawer";
 import { AccountsRowActions } from "@/features/identity/accounts/AccountsRowActions";
@@ -19,13 +26,6 @@ import {
 	getAccountsListErrorToastContent,
 	mapAccountsToSearchResponses,
 } from "@/features/identity/accounts/utils";
-import {
-	ServicePageHeader,
-	ServicePagePagination,
-	ServicePageShell,
-	ServicePageTableSection,
-	TextFieldFilter,
-} from "@/features/shared/service-pages";
 import {
 	useDraftFilters,
 	useQueryErrorToasts,

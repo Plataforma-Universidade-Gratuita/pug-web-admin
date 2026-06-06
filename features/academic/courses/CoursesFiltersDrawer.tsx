@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { Combobox, Label, SomeErrorState } from "@/components";
 import { DatePicker } from "@/components";
-import { ServicePageFiltersDrawer } from "@/features/shared/service-pages";
+import { ServicePageFiltersDrawer } from "@/components";
 import type { CoursesFiltersDrawerProps } from "@/types";
 
 export function CoursesFiltersDrawer({
