@@ -6,17 +6,20 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { WebApiError } from "@/api/web";
-import { NotFoundState, SomeErrorState } from "@/components";
-import { EntityPageShell } from "@/components";
-import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
-import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
-import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
+import {
+	AccountDetailsContent,
+	AreaOfExpertiseDetailsContent,
+	CourseOwnDetailsContent,
+	EntityPageShell,
+	FormerStudentOwnDetailsContent,
+	NotFoundState,
+	SomeErrorState,
+	UserDetailsContent,
+} from "@/components";
 import {
 	getStudentCoursesErrorToastContent,
 	getStudentDetailErrorToastContent,
 } from "@/features/academic/former-students/utils";
-import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
-import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
 import { useQueryErrorToasts } from "@/hooks";
 import type { FormerStudentPageProps } from "@/types";
 

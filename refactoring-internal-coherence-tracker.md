@@ -295,9 +295,9 @@ These need to move to the lowest valid `constants.ts`:
 
 ### Step 9: Promote Cross-Feature Components
 
-- [ ] After moving `features/shared/**`, verify whether any remaining feature-local component is imported by more than one feature path
-- [ ] Promote any such component into `components/composite/features/**`
-- [ ] Ensure promoted components are exported from the highest valid component barrel
+- [x] After moving `features/shared/**`, verify whether any remaining feature-local component is imported by more than one feature path
+- [x] Promote any such component into `components/composite/features/**`
+- [x] Ensure promoted components are exported from the highest valid component barrel
 
 ### Step 10: Extract Repeated React Patterns
 

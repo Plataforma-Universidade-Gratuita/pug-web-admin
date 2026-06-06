@@ -8,9 +8,12 @@ import { useTranslation } from "react-i18next";
 import { WebApiError } from "@/api/web";
 import {
 	AccountSummaryBadges,
+	AreaOfExpertiseDetailsContent,
 	Combobox,
+	CourseOwnDetailsContent,
 	CpfFormField,
 	DatePicker,
+	FormerStudentOwnDetailsContent,
 	Input,
 	Label,
 	LinkedDetailsAccordion,
@@ -24,16 +27,13 @@ import {
 	TabsContent,
 	TabsList,
 	TabsTrigger,
+	UserDetailsContent,
 } from "@/components";
-import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
-import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
-import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { getFormerStudentCampusOptions } from "@/features/academic/former-students/utils";
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
-import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
 import type {
 	CpfFormFieldExistingUser,
 	FormerStudentEditorFormProps,

@@ -10,6 +10,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 	Combobox,
+	FormerStudentOwnDetailsContent,
 	Label,
 	NotFoundState,
 	Select,
@@ -22,7 +23,6 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@/components";
-import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
 import { EnrollmentOwnDetailsContent } from "@/features/project/enrollments/enrollment/EnrollmentOwnDetailsContent";
 import { getEditableEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";

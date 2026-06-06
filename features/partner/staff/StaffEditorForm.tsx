@@ -7,21 +7,21 @@ import { useTranslation } from "react-i18next";
 
 import { WebApiError } from "@/api/web";
 import {
+	AccountSummaryBadges,
 	Combobox,
 	CpfFormField,
+	EntityDetailsContent,
 	Input,
 	Label,
 	LinkedDetailsAccordion,
 	NotFoundState,
 	SomeErrorState,
-	AccountSummaryBadges,
+	UserDetailsContent,
 } from "@/components";
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
-import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
-import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
 import type { CpfFormFieldExistingUser, StaffEditorFormProps } from "@/types";
 
 export function StaffEditorForm({

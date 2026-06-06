@@ -4,11 +4,14 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { WebApiError } from "@/api/web";
-import { NotFoundState, SomeErrorState } from "@/components";
-import { EntityPageShell } from "@/components";
-import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
-import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
-import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
+import {
+	AccountDetailsContent,
+	EntityDetailsContent,
+	EntityPageShell,
+	NotFoundState,
+	SomeErrorState,
+	UserDetailsContent,
+} from "@/components";
 import { getStaffDetailErrorToastContent } from "@/features/partner/staff/utils";
 import { useQueryErrorToasts } from "@/hooks";
 import type { StaffPageProps } from "@/types";

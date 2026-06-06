@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 
+import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
@@ -11,16 +12,37 @@ import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 } from "@/components";
-import {
-	getEntityCitiesErrorToastContent,
-	getEntityDetailErrorToastContent,
-	resolveEntityCityLabel,
-} from "@/features/partner/entities/utils";
 import { useQueryErrorToasts } from "@/hooks";
-import type { EntityDetailsContentProps } from "@/types";
+import type { CityResponse, EntityDetailsContentProps } from "@/types";
+import { getApiErrorToastContent } from "@/utils";
 
 const { entities: entitiesApi } = web.partner;
 const { useEntityCitiesQuery, useEntityDetailQuery } = entitiesApi;
+
+function resolveEntityCityLabel(
+	cityById: Map<string, CityResponse>,
+	cityId: string,
+) {
+	return cityById.get(cityId)?.name ?? cityId;
+}
+
+function getEntityDetailErrorToastContent(t: TFunction, error: unknown) {
+	return getApiErrorToastContent(error, {
+		fallbackTitle: t("partner.entityPage.feedback.detailError.title"),
+		fallbackDescription: t(
+			"partner.entityPage.feedback.detailError.description",
+		),
+	});
+}
+
+function getEntityCitiesErrorToastContent(t: TFunction, error: unknown) {
+	return getApiErrorToastContent(error, {
+		fallbackTitle: t("partner.entityPage.feedback.citiesError.title"),
+		fallbackDescription: t(
+			"partner.entityPage.feedback.citiesError.description",
+		),
+	});
+}
 
 export function EntityDetailsContent({
 	entityId,

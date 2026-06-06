@@ -6,8 +6,10 @@ import { web } from "@/api";
 import { WebApiError } from "@/api/web";
 import { NotFoundState, SomeErrorState } from "@/components";
 import { EntityPageFieldsGridSkeleton, EntityPageShell } from "@/components";
-import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
-import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
+import {
+	AreaOfExpertiseDetailsContent,
+	CourseOwnDetailsContent,
+} from "@/components";
 import { getCourseDetailErrorToastContent } from "@/features/academic/courses/utils";
 import { useQueryErrorToasts } from "@/hooks";
 import type { CoursePageProps } from "@/types";

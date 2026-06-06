@@ -6,13 +6,14 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { WebApiError } from "@/api/web";
-import { NotFoundState, SomeErrorState } from "@/components";
 import {
+	AccountDetailsContent,
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
+	NotFoundState,
+	SomeErrorState,
 } from "@/components";
-import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import {
 	getAdminDetailErrorToastContent,
 	getLinkedAdminUserErrorToastContent,

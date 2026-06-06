@@ -9,16 +9,14 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-} from "@/components";
-import {
+	AreaOfExpertiseDetailsContent,
 	Combobox,
+	CourseOwnDetailsContent,
 	Input,
 	Label,
 	NotFoundState,
 	SomeErrorState,
 } from "@/components";
-import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
-import { CourseOwnDetailsContent } from "@/features/academic/courses/course/CourseOwnDetailsContent";
 import type { CourseEditorFormProps } from "@/types";
 
 export function CourseEditorForm({

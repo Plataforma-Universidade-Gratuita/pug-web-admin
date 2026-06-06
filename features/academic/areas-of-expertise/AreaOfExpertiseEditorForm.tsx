@@ -3,8 +3,13 @@
 import { useTranslation } from "react-i18next";
 
 import { WebApiError } from "@/api/web";
-import { Input, Label, NotFoundState, SomeErrorState } from "@/components";
-import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
+import {
+	AreaOfExpertiseDetailsContent,
+	Input,
+	Label,
+	NotFoundState,
+	SomeErrorState,
+} from "@/components";
 import type { AreaOfExpertiseEditorFormProps } from "@/types";
 
 export function AreaOfExpertiseEditorForm({

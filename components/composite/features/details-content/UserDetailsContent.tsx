@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 
+import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
@@ -11,12 +12,21 @@ import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 } from "@/components";
-import { getUserDetailErrorToastContent } from "@/features/identity/users/utils";
 import { useQueryErrorToasts } from "@/hooks";
 import type { UserDetailsContentProps } from "@/types";
+import { getApiErrorToastContent } from "@/utils";
 
 const { users: usersApi } = web.identity;
 const { useUserDetailQuery } = usersApi;
+
+function getUserDetailErrorToastContent(t: TFunction, error: unknown) {
+	return getApiErrorToastContent(error, {
+		fallbackTitle: t("identity.userPage.feedback.detailError.title"),
+		fallbackDescription: t(
+			"identity.userPage.feedback.detailError.description",
+		),
+	});
+}
 
 export function UserDetailsContent({
 	userId,

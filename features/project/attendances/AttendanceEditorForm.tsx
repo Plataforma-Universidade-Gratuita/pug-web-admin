@@ -5,11 +5,13 @@ import { useTranslation } from "react-i18next";
 
 import { WebApiError } from "@/api/web";
 import {
+	AccountDetailsContent,
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 	Combobox,
+	FormerStudentOwnDetailsContent,
 	Input,
 	Label,
 	NotFoundState,
@@ -23,8 +25,6 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@/components";
-import { FormerStudentOwnDetailsContent } from "@/features/academic/former-students/former-student/FormerStudentOwnDetailsContent";
-import { AccountDetailsContent } from "@/features/identity/accounts/account/AccountDetailsContent";
 import { AttendanceOwnDetailsContent } from "@/features/project/attendances/attendance/AttendanceOwnDetailsContent";
 import { getAttendanceStatusOptions } from "@/features/project/attendances/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";

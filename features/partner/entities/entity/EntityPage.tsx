@@ -2,8 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { EntityPageShell } from "@/components";
-import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
+import { EntityDetailsContent, EntityPageShell } from "@/components";
 import type { EntityPageProps } from "@/types";
 
 export function EntityPage({ entityId }: EntityPageProps) {

@@ -18,12 +18,12 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SomeErrorState,
+	UserDetailsContent,
 } from "@/components";
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
-import { UserDetailsContent } from "@/features/identity/users/user/UserDetailsContent";
 import type {
 	AdminEditorContentProps,
 	CpfFormFieldExistingUser,

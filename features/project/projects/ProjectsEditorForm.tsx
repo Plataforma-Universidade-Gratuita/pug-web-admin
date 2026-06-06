@@ -10,7 +10,9 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
+	AreaOfExpertiseDetailsContent,
 	Combobox,
+	EntityDetailsContent,
 	Input,
 	Label,
 	NoContentState,
@@ -22,8 +24,6 @@ import {
 	TabsTrigger,
 	TextArea,
 } from "@/components";
-import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
-import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import type { ProjectsEditorFormProps } from "@/types";
 

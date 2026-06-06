@@ -4,10 +4,15 @@ import { useTranslation } from "react-i18next";
 
 import { web } from "@/api";
 import { WebApiError } from "@/api/web";
-import { NoContentState, NotFoundState, SomeErrorState } from "@/components";
-import { EntityPageFieldsGridSkeleton, EntityPageShell } from "@/components";
-import { AreaOfExpertiseDetailsContent } from "@/features/academic/areas-of-expertise/area-of-expertise/AreaOfExpertiseDetailsContent";
-import { EntityDetailsContent } from "@/features/partner/entities/entity/EntityDetailsContent";
+import {
+	AreaOfExpertiseDetailsContent,
+	EntityDetailsContent,
+	EntityPageFieldsGridSkeleton,
+	EntityPageShell,
+	NoContentState,
+	NotFoundState,
+	SomeErrorState,
+} from "@/components";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import {
 	getProjectAreasOfExpertiseErrorToastContent,
