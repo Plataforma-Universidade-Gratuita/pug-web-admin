@@ -24,22 +24,16 @@ import {
 } from "@/components/primitives";
 import { HOME_ROUTE } from "@/constants";
 import { useTheme } from "@/contexts";
+import {
+	getSystemThemeSnapshot,
+	subscribeToSystemTheme,
+} from "@/features/auth/login/utils";
 import { useLocalizedZodForm } from "@/hooks";
 import { createLoginFormSchema } from "@/schemas/client";
 import type { LoginFormProps, LoginFormValues } from "@/types/client";
 
 const { auth: authApi } = web.identity;
 const { login } = authApi;
-
-function subscribeToSystemTheme(callback: () => void) {
-	const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-	mediaQuery.addEventListener("change", callback);
-	return () => mediaQuery.removeEventListener("change", callback);
-}
-
-function getSystemThemeSnapshot() {
-	return window.matchMedia("(prefers-color-scheme: dark)").matches;
-}
 
 export function LoginForm({ panelRef }: LoginFormProps) {
 	const { t } = useTranslation();

@@ -31,6 +31,7 @@ import {
 	getStaffDuplicateErrorToastContent,
 	getStaffEntitiesErrorToastContent,
 	getStaffUpdateErrorToastContent,
+	isStaffUpdateMode,
 	toStaffCreateRequest,
 	toStaffUpdateRequest,
 } from "@/features/partner/staff/utils";
@@ -73,7 +74,7 @@ export function StaffEditorDrawer({
 	} = useDrawerResetConfirm({
 		onDrawerOpenChange: onOpenChange,
 	});
-	const existingUsersQuery = useUsersQuery(open && !isUpdateMode(mode));
+	const existingUsersQuery = useUsersQuery(open && !isStaffUpdateMode(mode));
 	const staffDetailQuery = useStaffDetailQuery(staffId);
 	const linkedUserQuery = useLinkedStaffUserQuery(
 		staffDetailQuery.data?.account.userId ?? null,
@@ -370,8 +371,4 @@ export function StaffEditorDrawer({
 			/>
 		</>
 	);
-}
-
-function isUpdateMode(mode: StaffEditorDrawerProps["mode"]) {
-	return mode === "update";
 }

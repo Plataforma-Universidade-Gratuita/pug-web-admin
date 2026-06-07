@@ -8,26 +8,13 @@ import {
 } from "@/components/composite";
 import { Combobox, Label } from "@/components/primitives";
 import { ProjectsFiltersDrawer } from "@/features/project/projects/ProjectsFiltersDrawer";
+import { getProjectStatusDialogVariant } from "@/features/project/projects/components/utils";
 import type { ProjectResponse, ProjectStatus } from "@/types/api";
 import type {
 	ComboboxOption,
 	ProjectComplexSearchFilters,
 	ProjectStatusAction,
 } from "@/types/client";
-
-function getStatusDialogVariant(action: ProjectStatusAction) {
-	switch (action) {
-		case "cancel":
-			return "danger" as const;
-		case "hold":
-			return "warning" as const;
-		case "complete":
-		case "retake":
-		case "start":
-		default:
-			return "success" as const;
-	}
-}
 
 export function ProjectsPageFilters({
 	querySearch,
@@ -184,7 +171,7 @@ export function ProjectsPageDialogs({
 				onOpenChange={onStatusOpenChange}
 				variant={
 					pendingStatusAction
-						? getStatusDialogVariant(pendingStatusAction.action)
+						? getProjectStatusDialogVariant(pendingStatusAction.action)
 						: "success"
 				}
 				title={

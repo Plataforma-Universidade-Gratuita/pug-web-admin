@@ -10,6 +10,7 @@ import type {
 	UserResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
+import type { BadgeTone } from "@/types";
 import type { CpfFormFieldExistingUser } from "@/types";
 
 export type FormerStudentEditorMode = "create" | "duplicate" | "update";
@@ -100,6 +101,29 @@ export interface FormerStudentEditorFormProps {
 	formerStudent: FormerStudentResponse | undefined;
 	formerStudentError: unknown;
 	userError: unknown;
+}
+
+export interface FormerStudentCampusOption {
+	label: string;
+	value: Campi;
+}
+
+export interface FormerStudentProfileSectionProps {
+	existingUsers: CpfFormFieldExistingUser[];
+	form: UseFormReturn<FormerStudentEditorFormValues>;
+	isCreateLikeMode: boolean;
+	isNameDisabled: boolean;
+	onMatchedExistingUserChange: (user: CpfFormFieldExistingUser | null) => void;
+}
+
+export interface FormerStudentAcademicSectionProps {
+	accountStatusLabel: string;
+	accountStatusTone: BadgeTone;
+	accountTypeLabel: string;
+	accountTypeTone: BadgeTone;
+	campusOptions: FormerStudentCampusOption[];
+	courseOptions: ComboboxOption[];
+	form: UseFormReturn<FormerStudentEditorFormValues>;
 }
 
 export interface FormerStudentOwnDetailsContentProps {

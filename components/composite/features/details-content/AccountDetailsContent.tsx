@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 
-import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import * as web from "@/api/web";
@@ -12,71 +11,17 @@ import {
 	EntityPageFieldsGridSkeleton,
 	UserDetailsContent,
 } from "@/components/composite";
+import {
+	getAccountDetailErrorToastContent,
+	getAccountTypeLabel,
+	getAccountTypeTone,
+} from "@/components/composite/features/details-content/utils";
 import { Badge, NotFoundState, SomeErrorState } from "@/components/primitives";
 import { useQueryErrorToasts } from "@/hooks";
-import type { AccountType, AccountTypeResponse } from "@/types/api";
 import type { AccountDetailsContentProps } from "@/types/client";
-import { getApiErrorToastContent } from "@/utils";
 
 const { accounts: accountsApi } = web.identity;
 const { useAccountDetailQuery } = accountsApi;
-
-function getAccountTypeValue(accountType: AccountType | AccountTypeResponse) {
-	return typeof accountType === "string"
-		? accountType
-		: accountType.accountType;
-}
-
-function getAccountTypeTone(accountType: AccountType | AccountTypeResponse) {
-	switch (getAccountTypeValue(accountType)) {
-		case "ADMIN":
-			return "warning";
-		case "PARTNER":
-			return "info";
-		case "FORMER_STUDENT":
-			return "brand";
-		default:
-			return "neutral";
-	}
-}
-
-function getAccountTypeLabel(
-	t: TFunction,
-	accountType: AccountType | AccountTypeResponse,
-) {
-	if (
-		typeof accountType !== "string" &&
-		accountType.accountTypeFormatted.trim()
-	) {
-		return accountType.accountTypeFormatted;
-	}
-
-	const accountTypeValue = getAccountTypeValue(accountType);
-	const localized = t(
-		`identity.accountPage.filters.accountType.options.${accountTypeValue}`,
-	);
-
-	if (
-		!localized.includes("identity.accountPage.filters.accountType.options.")
-	) {
-		return localized;
-	}
-
-	return accountTypeValue
-		.toLowerCase()
-		.split("_")
-		.map(segment => segment.charAt(0).toUpperCase() + segment.slice(1))
-		.join(" ");
-}
-
-function getAccountDetailErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.accountPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"identity.accountPage.feedback.detailError.description",
-		),
-	});
-}
 
 export function AccountDetailsContent({
 	accountId,

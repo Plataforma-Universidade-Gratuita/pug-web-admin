@@ -5,20 +5,17 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import * as web from "@/api/web";
-import { RecordActionDialogs } from "@/components/composite";
 import {
-	ServicePageHeader,
-	ServicePageHeaderActions,
 	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
-	TextFieldFilter,
 } from "@/components/composite";
 import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
-import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
 import { StaffRowActions } from "@/features/partner/staff/StaffRowActions";
+import { StaffPageDialogs } from "@/features/partner/staff/components/StaffPageDialogs";
+import { StaffPageFilters } from "@/features/partner/staff/components/StaffPageFilters";
 import {
 	buildStaffEntityOptions,
 	createStaffColumns,
@@ -362,52 +359,28 @@ export function StaffPage() {
 
 	return (
 		<ServicePageShell>
-			<ServicePageHeader
-				title={t("partner.staffPage.title")}
-				description={t("partner.staffPage.description")}
-				metadata={{
-					triggerLabel: t("common.metadata.trigger"),
-					emptyTitle: t("common.metadata.empty.title"),
-					emptyDescription: t("common.metadata.empty.description"),
+			<StaffPageFilters
+				entityOptions={entityOptions}
+				entitiesError={staffEntitiesQuery.isError}
+				filters={draftFilters}
+				filtersOpen={filtersOpen}
+				hasActiveFilters={hasAppliedFilters}
+				isEntitiesLoading={staffEntitiesQuery.isLoading}
+				onApply={() => {
+					staffPagination.resetPage();
+					applyDraftFilters();
+					setFiltersOpen(false);
 				}}
-				actions={
-					<ServicePageHeaderActions
-						clearLabel={t("common.filters.clear")}
-						createLabel={t("partner.staffPage.create.open")}
-						hasFilters={hasAnyFilters}
-						onClear={clearAllFilters}
-						onCreate={editorState.openCreate}
-					/>
-				}
-				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
-			>
-				<TextFieldFilter
-					label={t("partner.staffPage.filters.search.label")}
-					value={querySearch}
-					onChange={setQuerySearch}
-					placeholder={t("partner.staffPage.filters.search.placeholder")}
-				/>
-
-				<StaffFiltersDrawer
-					filters={draftFilters}
-					entitiesError={staffEntitiesQuery.isError}
-					entityOptions={entityOptions}
-					hasActiveFilters={hasAppliedFilters}
-					isEntitiesLoading={staffEntitiesQuery.isLoading}
-					onApply={() => {
-						staffPagination.resetPage();
-						applyDraftFilters();
-						setFiltersOpen(false);
-					}}
-					onClear={clearAllFilters}
-					onFilterChange={(key, value) => setDraftFilter(key, value)}
-					onOpenChange={setFiltersOpen}
-					onRefreshEntities={() => {
-						void staffEntitiesQuery.refetch();
-					}}
-					open={filtersOpen}
-				/>
-			</ServicePageHeader>
+				onClear={clearAllFilters}
+				onCreate={editorState.openCreate}
+				onFilterChange={(key, value) => setDraftFilter(key, value)}
+				onOpenChange={setFiltersOpen}
+				onQuerySearchChange={setQuerySearch}
+				onRefreshEntities={() => {
+					void staffEntitiesQuery.refetch();
+				}}
+				querySearch={querySearch}
+			/>
 
 			<ServicePageTableSection<StaffSearchResponse>
 				footer={
@@ -450,61 +423,21 @@ export function StaffPage() {
 				onOpenChange={editorState.handleOpenChange}
 			/>
 
-			<RecordActionDialogs
-				cancelLabel={t("common.cancel")}
-				{...(pendingDeleteRecord
-					? {
-							deleteDialog: {
-								actionLabel: t("common.table.actions.delete"),
-								description: t("partner.staffPage.delete.confirm.description", {
-									name: pendingDeleteRecord.account.user.name,
-								}),
-								onAction: confirmDelete,
-								onOpenChange: open => {
-									if (!open) {
-										setPendingDeleteRecord(null);
-									}
-								},
-								open: true,
-								title: t("partner.staffPage.delete.confirm.title"),
-								variant: "danger" as const,
-							},
-						}
-					: {})}
-				{...(pendingStatusRecord
-					? {
-							statusDialog: {
-								actionLabel: t(
-									pendingStatusRecord.active
-										? "common.table.actions.reactivate"
-										: "common.table.actions.deactivate",
-								),
-								description: t(
-									pendingStatusRecord.active
-										? "partner.staffPage.reactivate.confirm.description"
-										: "partner.staffPage.deactivate.confirm.description",
-									{
-										name: pendingStatusRecord.record.account.user.name,
-									},
-								),
-								onAction: confirmStatusChange,
-								onOpenChange: open => {
-									if (!open) {
-										setPendingStatusRecord(null);
-									}
-								},
-								open: true,
-								title: t(
-									pendingStatusRecord.active
-										? "partner.staffPage.reactivate.confirm.title"
-										: "partner.staffPage.deactivate.confirm.title",
-								),
-								variant: pendingStatusRecord.active
-									? ("success" as const)
-									: ("warning" as const),
-							},
-						}
-					: {})}
+			<StaffPageDialogs
+				onDeleteConfirm={confirmDelete}
+				onDeleteOpenChange={open => {
+					if (!open) {
+						setPendingDeleteRecord(null);
+					}
+				}}
+				onStatusConfirm={confirmStatusChange}
+				onStatusOpenChange={open => {
+					if (!open) {
+						setPendingStatusRecord(null);
+					}
+				}}
+				pendingDeleteRecord={pendingDeleteRecord}
+				pendingStatusRecord={pendingStatusRecord}
 			/>
 		</ServicePageShell>
 	);

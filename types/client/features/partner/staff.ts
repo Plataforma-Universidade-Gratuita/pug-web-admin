@@ -10,6 +10,7 @@ import type {
 	UserResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
+import type { BadgeTone } from "@/types";
 
 export type StaffEditorMode = "create" | "duplicate" | "update";
 
@@ -112,6 +113,40 @@ export interface StaffRowActionsProps {
 	onOpenEditor: (id: string, mode: StaffEditorMode) => void;
 	onSetActive: (staff: StaffSearchResponse, active: boolean) => void;
 	staff: StaffSearchResponse;
+}
+
+export interface StaffPageFiltersProps {
+	entityOptions: ComboboxOption[];
+	entitiesError: boolean;
+	filters: StaffComplexSearchFilters;
+	filtersOpen: boolean;
+	hasActiveFilters: boolean;
+	isEntitiesLoading: boolean;
+	onApply: () => void;
+	onClear: () => void;
+	onCreate: () => void;
+	onFilterChange: <TKey extends keyof StaffComplexSearchFilters>(
+		key: TKey,
+		value: StaffComplexSearchFilters[TKey],
+	) => void;
+	onOpenChange: (open: boolean) => void;
+	onQuerySearchChange: (value: string) => void;
+	onRefreshEntities: () => void;
+	querySearch: string;
+}
+
+export interface PendingStaffStatusRecord {
+	active: boolean;
+	record: StaffSearchResponse;
+}
+
+export interface StaffPageDialogsProps {
+	onDeleteConfirm: () => void;
+	onDeleteOpenChange: (open: boolean) => void;
+	onStatusConfirm: () => void;
+	onStatusOpenChange: (open: boolean) => void;
+	pendingDeleteRecord: StaffSearchResponse | null;
+	pendingStatusRecord: PendingStaffStatusRecord | null;
 }
 
 export interface StaffFilterArgs {

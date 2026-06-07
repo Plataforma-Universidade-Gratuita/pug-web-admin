@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 
-import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import * as web from "@/api/web";
@@ -11,39 +10,17 @@ import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 } from "@/components/composite";
+import {
+	getEntityCitiesErrorToastContent,
+	getEntityDetailErrorToastContent,
+	resolveEntityCityLabel,
+} from "@/components/composite/features/details-content/utils";
 import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import { useQueryErrorToasts } from "@/hooks";
-import type { CityResponse } from "@/types/api";
 import type { EntityDetailsContentProps } from "@/types/client";
-import { getApiErrorToastContent } from "@/utils";
 
 const { entities: entitiesApi } = web.partner;
 const { useEntityCitiesQuery, useEntityDetailQuery } = entitiesApi;
-
-function resolveEntityCityLabel(
-	cityById: Map<string, CityResponse>,
-	cityId: string,
-) {
-	return cityById.get(cityId)?.name ?? cityId;
-}
-
-function getEntityDetailErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.entityPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"partner.entityPage.feedback.detailError.description",
-		),
-	});
-}
-
-function getEntityCitiesErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.entityPage.feedback.citiesError.title"),
-		fallbackDescription: t(
-			"partner.entityPage.feedback.citiesError.description",
-		),
-	});
-}
 
 export function EntityDetailsContent({
 	entityId,

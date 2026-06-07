@@ -9,16 +9,13 @@ import {
 import { Combobox, Label } from "@/components/primitives";
 import { AttendanceQrCodeDialog } from "@/features/project/attendances/AttendanceQrCodeDialog";
 import { AttendancesFiltersDrawer } from "@/features/project/attendances/AttendancesFiltersDrawer";
+import { getAttendanceValidationVariant } from "@/features/project/attendances/components/utils";
 import type {
 	AttendanceComplexSearchFilters,
 	AttendanceDirectoryItem,
 	AttendanceValidationAction,
 	ComboboxOption,
 } from "@/types/client";
-
-function getValidationVariant(action: AttendanceValidationAction) {
-	return action === "markPresent" ? "success" : "warning";
-}
 
 export function AttendancesPageFilters({
 	querySearch,
@@ -179,7 +176,7 @@ export function AttendancesPageDialogs({
 				onOpenChange={onValidationOpenChange}
 				variant={
 					pendingValidation
-						? getValidationVariant(pendingValidation.action)
+						? getAttendanceValidationVariant(pendingValidation.action)
 						: "success"
 				}
 				title={

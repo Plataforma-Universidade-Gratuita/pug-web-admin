@@ -364,22 +364,51 @@ The consolidated rules explicitly require a 3+ component reuse threshold for hoo
 
 ## Step 6: Re-Audit Types and Schemas
 
-- [ ] Re-scan `app/`, `auth/`, `components/`, `contexts/`, `features/`, `hooks/`, `i18n/`, `stores/`, and `utils/` for inline client types/interfaces.
-- [ ] Move any remaining client types into `types/client/**`.
-- [ ] Use `types/client/global.ts` only for client types shared across two or more root folders.
-- [ ] Re-scan the same folders for client schemas.
-- [ ] Move any remaining client schemas into `schemas/client/**`.
-- [ ] Use `schemas/client/global.ts` only for schemas shared across two or more root folders.
-- [ ] Keep `import type` usage correct after moves.
+- [x] Re-scan `app/`, `auth/`, `components/`, `contexts/`, `features/`, `hooks/`, `i18n/`, `stores/`, and `utils/` for inline client types/interfaces.
+- [x] Move any remaining client types into `types/client/**`.
+- [x] Use `types/client/global.ts` only for client types shared across two or more root folders.
+- [x] Re-scan the same folders for client schemas.
+- [x] Move any remaining client schemas into `schemas/client/**`.
+- [x] Use `schemas/client/global.ts` only for schemas shared across two or more root folders.
+- [x] Keep `import type` usage correct after moves.
+
+### Step 6 Notes
+
+- Re-scan result for `app/`, `auth/`, `components/`, `contexts/`, `features/`, `hooks/`, `i18n/`, `stores/`, and `utils/`:
+  - no remaining inline client `interface` declarations
+  - no remaining inline client `type` aliases
+  - no remaining client schema definitions outside `schemas/client/**`
+- Route handlers under `app/api/**/route.ts` still contain local `z.array(...)` response parsing, which is accepted and not part of the client-schema scope audited in this step.
+- No `types/client/global.ts` or `schemas/client/global.ts` file was needed because there was no remaining cross-root shared type/schema that lacked a more specific owner.
+- `import type` usage remains correct after the earlier refactor passes; no additional edits were required in this step.
 
 ## Step 7: Re-Audit TSX Discipline
 
-- [ ] Re-check every `.tsx` file under `components/**` and `features/**`.
-- [ ] Ensure helpers stay in `utils.ts` or `utils.tsx`.
-- [ ] Ensure constants stay in `constants.ts`.
-- [ ] Ensure files remain under 500 lines.
-- [ ] Split any file that grows again during this pass.
-- [ ] Keep filenames aligned with exported component names.
+- [x] Re-check every `.tsx` file under `components/**` and `features/**`.
+- [x] Ensure helpers stay in `utils.ts` or `utils.tsx`.
+- [x] Ensure constants stay in `constants.ts`.
+- [x] Ensure files remain under 500 lines.
+- [x] Split any file that grows again during this pass.
+- [x] Keep filenames aligned with exported component names.
+
+### Step 7 Notes
+
+- The remaining oversized TSX files were resolved by:
+  - renaming `features/partner/staff/utils.tsx` to `features/partner/staff/utils.ts` because it contains no JSX
+  - extracting staff page filters and dialogs into dedicated feature components
+  - extracting former-student editor sections into dedicated feature components
+- Re-audit result:
+  - no `.tsx` file under `components/**` exceeds 500 lines
+  - no `.tsx` file under `features/**` exceeds 500 lines
+- Remaining module-level helper functions in audited TSX files are now limited to:
+  - actual local component declarations
+  - helper functions inside `utils.tsx` files, which remain valid under this rule
+- Helper logic was moved out of TSX into nearby utility owners where needed, including:
+  - `components/composite/features/details-content/utils.ts`
+  - `components/composite/form-fields/utils.ts`
+  - `features/auth/login/utils.ts`
+  - `features/project/attendances/components/utils.ts`
+  - `features/project/projects/components/utils.ts`
 
 ## Step 8: Re-Audit Cross-Feature Ownership
 

@@ -23,6 +23,7 @@ import {
 	getEnrollmentStudentsErrorToastContent,
 	getEnrollmentUpdateErrorToastContent,
 	parseEnrollmentCompositeKey,
+	resolveEnrollmentStatusAction,
 } from "@/features/project/enrollments/utils";
 import {
 	useDrawerResetConfirm,
@@ -48,23 +49,6 @@ const {
 	useEnrollmentDetailQuery,
 } = enrollmentsApi;
 const { useProjectsQuery, useProjectDetailQuery } = projectsApi;
-
-function resolveStatusAction(status: string): EnrollmentStatusAction | null {
-	switch (status) {
-		case "APPROVED":
-			return "accept";
-		case "CANCELED":
-			return "cancel";
-		case "COMPLETED":
-			return "complete";
-		case "REJECTED":
-			return "reject";
-		case "REMOVED":
-			return "remove";
-		default:
-			return null;
-	}
-}
 
 export function EnrollmentEditorDrawer({
 	enrollmentId,
@@ -272,7 +256,7 @@ export function EnrollmentEditorDrawer({
 		}
 
 		const identifier = enrollmentIdentifier;
-		const action = resolveStatusAction(values.status);
+		const action = resolveEnrollmentStatusAction(values.status);
 		if (!identifier || !action) {
 			return;
 		}
