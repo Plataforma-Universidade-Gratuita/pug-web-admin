@@ -1,10 +1,14 @@
 import { z } from "zod";
 
+/*
+ * Forced exception: this frozen API schema avoids the root schemas barrel to
+ * break a build-time initialization cycle during Next.js SSR collection.
+ */
 import {
 	AccountComplexSearchResponseSchema,
 	AccountResponseSchema,
-	EntitySimpleComplexSearchResponseSchema,
-} from "@/schemas";
+} from "../identity/accounts";
+import { EntitySimpleComplexSearchResponseSchema } from "./entities";
 
 export const StaffResponseSchema = z.object({
 	account: AccountResponseSchema,

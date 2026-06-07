@@ -363,15 +363,6 @@ export interface UseDraftFiltersResult<
 	setDraftFilters: Dispatch<SetStateAction<TFilters>>;
 }
 
-export interface ServicePageDetailState<TId extends string = string> {
-	selectedId: TId | null;
-	isOpen: boolean;
-	openDetail: (id: TId) => void;
-	closeDetail: () => void;
-	handleOpenChange: (open: boolean) => void;
-	clearIfMatches: (id: TId) => void;
-}
-
 export interface UseServicePageEditorStateOptions<TMode extends string> {
 	createMode: TMode;
 	defaultMode: TMode;

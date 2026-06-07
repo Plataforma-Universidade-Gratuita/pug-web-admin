@@ -144,13 +144,13 @@ export function EntitiesPage() {
 	);
 	const filterSummary = useMemo(
 		() =>
-			getEntityFilterSummary(t, {
+			getEntityFilterSummary({
 				cnpjQuery: deferredCnpjSearch,
 				query: deferredQuerySearch,
 				dateFrom: appliedFilters.dateFrom,
 				dateTo: appliedFilters.dateTo,
 			}),
-		[appliedFilters, deferredCnpjSearch, deferredQuerySearch, t],
+		[appliedFilters, deferredCnpjSearch, deferredQuerySearch],
 	);
 	const emptyStateCopy = useMemo(
 		() => getEntityEmptyStateCopy(t, filterSummary),

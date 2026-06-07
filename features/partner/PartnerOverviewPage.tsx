@@ -2,7 +2,12 @@
 
 import { useTranslation } from "react-i18next";
 
-import { ModulePageComingSoon, ModulePageShell } from "@/components/composite";
+/*
+ * Exception: these overview pages import the module-page components directly to
+ * keep the client/server boundary explicit during Next.js build collection.
+ */
+import { ModulePageComingSoon } from "@/components/composite/features/module-pages/ModulePageComingSoon";
+import { ModulePageShell } from "@/components/composite/features/module-pages/ModulePageShell";
 
 export function PartnerOverviewPage() {
 	const { t } = useTranslation();

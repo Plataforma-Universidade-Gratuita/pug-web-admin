@@ -379,10 +379,12 @@ export function buildEntityComplexSearchRequest(
 	};
 }
 
-export function getEntityFilterSummary(
-	t: TFunction,
-	{ cnpjQuery, query, dateFrom, dateTo }: EntityFilterArgs,
-) {
+export function getEntityFilterSummary({
+	cnpjQuery,
+	query,
+	dateFrom,
+	dateTo,
+}: EntityFilterArgs) {
 	const parts: string[] = [];
 
 	if (query.trim()) {

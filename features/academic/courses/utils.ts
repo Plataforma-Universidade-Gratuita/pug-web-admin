@@ -258,7 +258,6 @@ export function toCourseUpdateRequest(
 }
 
 export function getCourseFilterSummary(
-	t: TFunction,
 	{ areaOfExpertiseIds, endDate, query, startDate }: CourseFilterArgs,
 	areaOfExpertiseById: Map<string, AreaOfExpertiseResponse>,
 ) {

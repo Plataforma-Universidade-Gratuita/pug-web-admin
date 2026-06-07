@@ -1,10 +1,14 @@
 import { z } from "zod";
 
+import { AuditInfoResponseSchema } from "../shared/shared";
+/*
+ * Forced exception: this frozen API schema avoids the root schemas barrel to
+ * break a build-time initialization cycle during Next.js SSR collection.
+ */
 import {
 	AreaOfExpertiseComplexSearchResponseSchema,
 	AreaOfExpertiseResponseSchema,
-	AuditInfoResponseSchema,
-} from "@/schemas";
+} from "./areas-of-expertise";
 
 export const CourseComplexSearchRequestSchema = z.object({
 	name: z.string().optional(),

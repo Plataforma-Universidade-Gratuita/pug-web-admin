@@ -3,8 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 
 import { FloatingPageSelectors } from "@/components/composite";
-import { LoginForm } from "@/features";
-import { LoginHero } from "@/features";
+/*
+ * Exception: app route wrappers import feature entries directly instead of
+ * through the root features barrel to keep Next.js client/server boundaries
+ * explicit during build collection.
+ */
+import { LoginForm } from "@/features/auth/login/LoginForm";
+import { LoginHero } from "@/features/auth/login/LoginHero";
 
 export default function Page() {
 	const formCardRef = useRef<HTMLDivElement | null>(null);

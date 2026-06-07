@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { AuditInfoResponseSchema } from "@/schemas";
+/*
+ * Forced exception: this frozen API schema avoids the root schemas barrel to
+ * break a build-time initialization cycle during Next.js SSR collection.
+ */
+import { AuditInfoResponseSchema } from "../shared/shared";
 
 export const UserResponseSchema = z.object({
 	id: z.string(),

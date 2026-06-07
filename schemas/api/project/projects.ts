@@ -1,10 +1,12 @@
 import { z } from "zod";
 
-import {
-	AccountSimpleComplexSearchResponseSchema,
-	AuditInfoResponseSchema,
-	EntitySimpleComplexSearchResponseSchema,
-} from "@/schemas";
+/*
+ * Forced exception: this frozen API schema avoids the root schemas barrel to
+ * break a build-time initialization cycle during Next.js SSR collection.
+ */
+import { AccountSimpleComplexSearchResponseSchema } from "../identity/accounts";
+import { EntitySimpleComplexSearchResponseSchema } from "../partner/entities";
+import { AuditInfoResponseSchema } from "../shared/shared";
 
 export const ProjectStatusEnum = z.enum([
 	"CANCELED",

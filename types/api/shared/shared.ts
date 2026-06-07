@@ -7,7 +7,6 @@ import {
 	AccountStatusRequestSchema,
 	CampiEnum,
 	CampusResponseSchema,
-	CredentialsRequestSchema,
 } from "@/schemas";
 
 export type Campi = z.infer<typeof CampiEnum>;

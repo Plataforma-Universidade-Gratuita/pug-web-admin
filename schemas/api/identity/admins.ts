@@ -1,10 +1,14 @@
 import { z } from "zod";
 
+import { CampusResponseSchema } from "../shared/shared";
+/*
+ * Forced exception: this frozen API schema avoids the root schemas barrel to
+ * break a build-time initialization cycle during Next.js SSR collection.
+ */
 import {
 	AccountComplexSearchResponseSchema,
 	AccountResponseSchema,
-	CampusResponseSchema,
-} from "@/schemas";
+} from "./accounts";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

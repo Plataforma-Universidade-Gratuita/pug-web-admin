@@ -84,12 +84,12 @@ export function AreasOfExpertisePage() {
 	);
 	const filterSummary = useMemo(
 		() =>
-			getAreaOfExpertiseFilterSummary(t, {
+			getAreaOfExpertiseFilterSummary({
 				query: deferredQuerySearch,
 				startDate: startDateFilter,
 				endDate: endDateFilter,
 			}),
-		[deferredQuerySearch, endDateFilter, startDateFilter, t],
+		[deferredQuerySearch, endDateFilter, startDateFilter],
 	);
 	const emptyStateCopy = useMemo(
 		() => getAreaOfExpertiseEmptyStateCopy(t, filterSummary),

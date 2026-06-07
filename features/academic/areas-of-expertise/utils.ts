@@ -233,10 +233,11 @@ export function toAreaOfExpertiseUpdateRequest(
 	};
 }
 
-export function getAreaOfExpertiseFilterSummary(
-	t: TFunction,
-	{ endDate, query, startDate }: AreaOfExpertiseFilterArgs,
-) {
+export function getAreaOfExpertiseFilterSummary({
+	endDate,
+	query,
+	startDate,
+}: AreaOfExpertiseFilterArgs) {
 	const parts: string[] = [];
 
 	if (query.trim()) {

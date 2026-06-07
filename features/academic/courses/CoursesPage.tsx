@@ -108,7 +108,6 @@ export function CoursesPage() {
 	const filterSummary = useMemo(
 		() =>
 			getCourseFilterSummary(
-				t,
 				{
 					query: deferredQuerySearch,
 					areaOfExpertiseIds: appliedFilters.areaOfExpertiseIds,
@@ -117,7 +116,7 @@ export function CoursesPage() {
 				},
 				areaOfExpertiseById as Map<string, AreaOfExpertiseResponse>,
 			),
-		[appliedFilters, areaOfExpertiseById, deferredQuerySearch, t],
+		[appliedFilters, areaOfExpertiseById, deferredQuerySearch],
 	);
 	const emptyStateCopy = useMemo(
 		() => getCourseEmptyStateCopy(t, filterSummary),
