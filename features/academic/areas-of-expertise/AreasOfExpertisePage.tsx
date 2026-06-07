@@ -240,12 +240,10 @@ export function AreasOfExpertisePage() {
 				filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,0.8fr)_minmax(0,0.8fr)]"
 			>
 				<TextFieldFilter
-					label={t("academic.areaOfExpertisePage.filters.search.label")}
+					label={t("common.filters.search.label")}
 					value={querySearch}
 					onChange={setQuerySearch}
-					placeholder={t(
-						"academic.areaOfExpertisePage.filters.search.placeholder",
-					)}
+					placeholder={t("common.filters.name.placeholder")}
 				/>
 
 				<div className="grid gap-2">

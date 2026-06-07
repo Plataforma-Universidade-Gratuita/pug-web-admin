@@ -25,16 +25,16 @@ export function UsersFilters({
 	return (
 		<div className="grid gap-2 lg:grid-cols-[minmax(0,1.6fr)_minmax(16rem,1fr)_auto] lg:items-end">
 			<TextFieldFilter
-				label={t("identity.userPage.filters.frontend.name.label")}
+				label={t("common.filters.name.label")}
 				value={frontendNameSearch}
 				onChange={onFrontendNameSearchChange}
-				placeholder={t("identity.userPage.filters.frontend.name.placeholder")}
+				placeholder={t("common.filters.name.placeholder")}
 			/>
 			<NumberFieldFilter
 				label={t("common.fields.cpf")}
 				value={frontendCpfSearch}
 				onChange={onFrontendCpfSearchChange}
-				placeholder={t("identity.userPage.filters.frontend.cpf.placeholder")}
+				placeholder={t("common.filters.cpf.placeholder")}
 			/>
 			<UsersFiltersDrawer
 				filters={backendFilters}

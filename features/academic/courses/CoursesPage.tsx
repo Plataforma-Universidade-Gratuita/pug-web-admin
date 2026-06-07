@@ -273,7 +273,7 @@ export function CoursesPage() {
 					label={t("common.filters.search.label")}
 					value={querySearch}
 					onChange={setQuerySearch}
-					placeholder={t("academic.coursePage.filters.search.placeholder")}
+					placeholder={t("common.filters.search.placeholder")}
 				/>
 
 				<CoursesFiltersDrawer

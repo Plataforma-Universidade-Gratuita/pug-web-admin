@@ -38,12 +38,8 @@ export function EntitiesFiltersDrawer({
 			triggerLabel={t("common.filters.more")}
 			overhead={t("common.filters.overhead")}
 			title={t("common.filters.title")}
-			clearConfirmTitle={t(
-				"partner.entityPage.filters.drawer.clearConfirm.title",
-			)}
-			clearConfirmDescription={t(
-				"partner.entityPage.filters.drawer.clearConfirm.description",
-			)}
+			clearConfirmTitle={t("common.filters.clearConfirm.title")}
+			clearConfirmDescription={t("common.filters.clearConfirm.description")}
 			clearLabel={t("common.filters.clear")}
 			applyLabel={t("common.filters.apply")}
 			onClear={onClear}

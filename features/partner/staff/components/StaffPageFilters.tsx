@@ -49,10 +49,10 @@ export function StaffPageFilters({
 			filtersClassName="grid gap-4 lg:grid-cols-[minmax(0,1.8fr)_auto]"
 		>
 			<TextFieldFilter
-				label={t("partner.staffPage.filters.search.label")}
+				label={t("common.filters.search.label")}
 				value={querySearch}
 				onChange={onQuerySearchChange}
-				placeholder={t("partner.staffPage.filters.search.placeholder")}
+				placeholder={t("common.filters.search.placeholder")}
 			/>
 
 			<StaffFiltersDrawer

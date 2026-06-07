@@ -76,7 +76,7 @@ export function AttendancesPageFilters({
 					label={t("common.filters.search.label")}
 					value={querySearch}
 					onChange={onQuerySearchChange}
-					placeholder={t("project.attendancePage.filters.search.placeholder")}
+					placeholder={t("common.filters.search.placeholder")}
 				/>
 
 				<div className="grid gap-2">

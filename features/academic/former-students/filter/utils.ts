@@ -279,7 +279,7 @@ export function getStudentFilterSummary(
 	}
 
 	if (activeOnly) {
-		parts.push(t("identity.accountPage.filters.activeOnly.label"));
+		parts.push(t("common.filters.activeOnly.label"));
 	}
 
 	if (!includeConcluded) {

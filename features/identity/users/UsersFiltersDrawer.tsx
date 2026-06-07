@@ -44,19 +44,19 @@ export function UsersFiltersDrawer({
 		>
 			<div className="grid gap-3">
 				<TextFieldFilter
-					label={t("identity.userPage.filters.backend.name.label")}
+					label={t("common.filters.name.label")}
 					value={filters.name}
 					onChange={value => onFilterChange("name", value)}
-					placeholder={t("identity.userPage.filters.backend.name.placeholder")}
+					placeholder={t("common.filters.name.placeholder")}
 				/>
 			</div>
 
 			<div className="grid gap-3">
 				<NumberFieldFilter
-					label={t("identity.userPage.filters.backend.cpf.label")}
+					label={t("common.filters.cpf.label")}
 					value={filters.cpf}
 					onChange={value => onFilterChange("cpf", value)}
-					placeholder={t("identity.userPage.filters.backend.cpf.placeholder")}
+					placeholder={t("common.filters.cpf.placeholder")}
 				/>
 			</div>
 

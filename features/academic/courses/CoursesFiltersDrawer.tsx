@@ -36,12 +36,8 @@ export function CoursesFiltersDrawer({
 			triggerLabel={t("common.filters.more")}
 			overhead={t("common.filters.overhead")}
 			title={t("common.filters.title")}
-			clearConfirmTitle={t(
-				"academic.coursePage.filters.drawer.clearConfirm.title",
-			)}
-			clearConfirmDescription={t(
-				"academic.coursePage.filters.drawer.clearConfirm.description",
-			)}
+			clearConfirmTitle={t("common.filters.clearConfirm.title")}
+			clearConfirmDescription={t("common.filters.clearConfirm.description")}
 			clearLabel={t("common.filters.clear")}
 			applyLabel={t("common.filters.apply")}
 			onClear={onClear}

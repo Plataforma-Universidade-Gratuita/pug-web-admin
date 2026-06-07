@@ -250,7 +250,7 @@ export function AccountsPage() {
 					label={t("common.filters.search.label")}
 					value={querySearch}
 					onChange={setQuerySearch}
-					placeholder={t("identity.accountPage.filters.search.placeholder")}
+					placeholder={t("common.filters.search.placeholder")}
 				/>
 
 				<AccountsFiltersDrawer

@@ -30,10 +30,10 @@ export function AdminsFilters({
 	return (
 		<div className="grid gap-2 lg:grid-cols-[minmax(0,1.6fr)_minmax(16rem,1fr)_auto] lg:items-end">
 			<TextFieldFilter
-				label={t("identity.adminPage.filters.search.label")}
+				label={t("common.filters.search.label")}
 				value={frontendQuerySearch}
 				onChange={onFrontendQuerySearchChange}
-				placeholder={t("identity.adminPage.filters.search.placeholder")}
+				placeholder={t("common.filters.search.placeholder")}
 			/>
 			<div className="grid gap-2">
 				<Label>{t("common.fields.campus")}</Label>

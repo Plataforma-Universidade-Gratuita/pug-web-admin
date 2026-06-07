@@ -37,10 +37,10 @@ export function CitiesFiltersDrawer({
 			onApply={onApply}
 		>
 			<TextFieldFilter
-				label={t("geo.cityPage.filters.backend.name.label")}
+				label={t("common.filters.name.label")}
 				value={nameFilter}
 				onChange={onNameFilterChange}
-				placeholder={t("geo.cityPage.filters.backend.name.placeholder")}
+				placeholder={t("common.filters.name.placeholder")}
 			/>
 		</ServicePageFiltersDrawer>
 	);

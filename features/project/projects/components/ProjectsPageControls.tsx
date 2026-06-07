@@ -76,10 +76,10 @@ export function ProjectsPageFilters({
 	return (
 		<>
 			<TextFieldFilter
-				label={t("project.projectPage.filters.search.label")}
+				label={t("common.filters.search.label")}
 				value={querySearch}
 				onChange={onQuerySearchChange}
-				placeholder={t("project.projectPage.filters.search.placeholder")}
+				placeholder={t("common.filters.search.placeholder")}
 			/>
 
 			<div className="grid gap-2">

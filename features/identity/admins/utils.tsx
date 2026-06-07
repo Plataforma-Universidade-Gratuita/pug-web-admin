@@ -422,7 +422,7 @@ export function getAdminFilterSummary(
 	}
 
 	if (!backendFilters.activeOnly) {
-		parts.push(t("identity.accountPage.filters.activeOnly.off"));
+		parts.push(t("common.filters.activeOnly.off"));
 	}
 
 	return parts.join(" | ");

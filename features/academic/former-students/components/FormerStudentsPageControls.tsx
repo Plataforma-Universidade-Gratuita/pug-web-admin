@@ -53,10 +53,10 @@ export function FormerStudentsPageFilters({
 	return (
 		<>
 			<TextFieldFilter
-				label={t("academic.formerStudentPage.filters.search.label")}
+				label={t("common.filters.search.label")}
 				value={querySearch}
 				onChange={onQuerySearchChange}
-				placeholder={t("academic.formerStudentPage.filters.search.placeholder")}
+				placeholder={t("common.filters.search.placeholder")}
 			/>
 
 			<TextFieldFilter

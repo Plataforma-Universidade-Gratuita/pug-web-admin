@@ -111,19 +111,9 @@
                 }
             },
             "filters": {
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "This will clear the current area-of-expertise filters.",
-                        "title": "Clear these filters?"
-                    }
-                },
                 "endDate": {
                     "label": "End date",
                     "placeholder": "Select an end date"
-                },
-                "search": {
-                    "label": "Search",
-                    "placeholder": "Filter by area of expertise name"
                 },
                 "startDate": {
                     "label": "Start date",
@@ -286,21 +276,12 @@
                 }
             },
             "filters": {
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "This will clear the current course filters.",
-                        "title": "Clear these filters?"
-                    }
-                },
                 "school": {
                     "error": {
                         "description": "The areas directory could not be loaded right now.",
                         "title": "Unable to load areas"
                     },
                     "label": "Area of expertise"
-                },
-                "search": {
-                    "placeholder": "Filter by course or area"
                 }
             },
             "loading": {
@@ -565,12 +546,6 @@
                     "placeholder": "Select courses",
                     "searchPlaceholder": "Search courses..."
                 },
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "This will clear the current former-student filters.",
-                        "title": "Clear these filters?"
-                    }
-                },
                 "frontendAcademicRegistration": {
                     "label": "Academic registration",
                     "placeholder": "Filter current results by academic registration"
@@ -587,10 +562,6 @@
                 "periodTo": {
                     "label": "Period end",
                     "placeholder": "Select a period end date"
-                },
-                "search": {
-                    "label": "Search",
-                    "placeholder": "Filter by former-student name or email"
                 },
                 "tabs": {
                     "academic": "Academic",
@@ -823,21 +794,23 @@
         "filters": {
             "active": "Filters active",
             "activeOnly": {
-                "description": "Hide inactive records from the directory results.",
-                "label": "Show only active records"
+                "description": "Hide inactive records from the current results.",
+                "label": "Show only active records",
+                "off": "Including inactive records"
             },
             "apply": "Apply filters",
             "clear": "Clear filters",
             "clearConfirm": {
+                "description": "This will clear the current filters.",
                 "title": "Clear filters?"
             },
             "cpf": {
                 "label": "CPF",
-                "placeholder": "Enter a CPF"
+                "placeholder": "Filter by CPF"
             },
             "email": {
                 "label": "Email",
-                "placeholder": "Enter an email"
+                "placeholder": "Filter by email"
             },
             "endDate": {
                 "label": "End date",
@@ -847,11 +820,12 @@
             "more": "More filters",
             "name": {
                 "label": "Name",
-                "placeholder": "Enter a name"
+                "placeholder": "Filter by name"
             },
             "overhead": "Filters",
             "search": {
-                "label": "Search"
+                "label": "Search",
+                "placeholder": "Filter current results"
             },
             "startDate": {
                 "label": "Start date",
@@ -1037,15 +1011,9 @@
                     "clear": "Clear filters",
                     "clearConfirm": {
                         "description": "This will remove the applied filters from the city table."
-                    },
-                    "name": {
-                        "label": "Name pattern",
-                        "placeholder": "Filter by city name on the server"
                     }
                 },
-                "frontend": {
-                    "searchPlaceholder": "Filter the current results by city name or IBGE code"
-                }
+                "frontend": {}
             },
             "loading": {
                 "list": "Loading city catalog"
@@ -1201,32 +1169,6 @@
                         "PARTNER": "Partner",
                         "STUDENT": "Student"
                     }
-                },
-                "activeOnly": {
-                    "description": "Keep only active accounts in the search result.",
-                    "label": "Active accounts only",
-                    "off": "Including inactive accounts"
-                },
-                "cpf": {
-                    "label": "CPF pattern",
-                    "placeholder": "Filter accounts by CPF pattern"
-                },
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "This will remove the active account filters from the current table view.",
-                        "title": "Clear account filters?"
-                    }
-                },
-                "email": {
-                    "label": "Email pattern",
-                    "placeholder": "Filter accounts by email pattern"
-                },
-                "name": {
-                    "label": "Name pattern",
-                    "placeholder": "Filter accounts by user name pattern"
-                },
-                "search": {
-                    "placeholder": "Filter current results by ID, name, or email"
                 }
             },
             "loading": {
@@ -1354,16 +1296,6 @@
                         "JARAGUA_DO_SUL": "JaraguÃ¡ do Sul",
                         "JOINVILLE": "Joinville"
                     }
-                },
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "This will clear the current administrator filters.",
-                        "title": "Clear these filters?"
-                    }
-                },
-                "search": {
-                    "label": "Name or email",
-                    "placeholder": "Filter by administrator name or email"
                 }
             },
             "loading": {
@@ -1503,23 +1435,6 @@
                     "clearConfirm": {
                         "description": "This will remove the applied filters from the users table.",
                         "title": "Clear filters?"
-                    },
-                    "cpf": {
-                        "label": "CPF pattern",
-                        "placeholder": "Filter users by CPF pattern"
-                    },
-                    "name": {
-                        "label": "Name pattern",
-                        "placeholder": "Filter users by name pattern"
-                    }
-                },
-                "frontend": {
-                    "cpf": {
-                        "placeholder": "Filter the current results by CPF"
-                    },
-                    "name": {
-                        "label": "Name",
-                        "placeholder": "Filter the current results by user name"
                     }
                 }
             },
@@ -1734,21 +1649,11 @@
                     "placeholder": "Select a city",
                     "searchPlaceholder": "Search cities"
                 },
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "This will clear the current entity filters.",
-                        "title": "Clear entity filters?"
-                    }
-                },
                 "frontend": {
                     "cnpj": {
                         "label": "CNPJ",
                         "placeholder": "Filter by CNPJ"
                     }
-                },
-                "search": {
-                    "label": "Name, city or address",
-                    "placeholder": "Filter by name, city or address"
                 }
             },
             "loading": {
@@ -1931,18 +1836,7 @@
                     "title": "Unable to load staff"
                 }
             },
-            "filters": {
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "This will clear the current staff filters.",
-                        "title": "Clear staff filters?"
-                    }
-                },
-                "search": {
-                    "label": "Name, email or entity",
-                    "placeholder": "Filter by name, email or entity"
-                }
-            },
+            "filters": {},
             "loading": {
                 "list": "Loading staff"
             },
@@ -2143,12 +2037,6 @@
                 }
             },
             "filters": {
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "Remove every applied attendance filter.",
-                        "title": "Clear attendance filters"
-                    }
-                },
                 "durationFrom": {
                     "label": "Min duration",
                     "placeholder": "Filter by minimum duration"
@@ -2156,9 +2044,6 @@
                 "durationTo": {
                     "label": "Max duration",
                     "placeholder": "Filter by maximum duration"
-                },
-                "search": {
-                    "placeholder": "Search by student, email, registration, project, status, validator, or QR hash"
                 },
                 "status": {
                     "emptyMessage": "No statuses found.",
@@ -2447,12 +2332,6 @@
                 }
             },
             "filters": {
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "Remove every applied enrollment filter.",
-                        "title": "Clear enrollment filters"
-                    }
-                },
                 "frontStatus": {
                     "emptyMessage": "No statuses found.",
                     "searchPlaceholder": "Search statuses..."
@@ -2464,9 +2343,6 @@
                 "periodTo": {
                     "label": "Period end",
                     "placeholder": "Select a period end date"
-                },
-                "search": {
-                    "placeholder": "Search by project, student, email, registration, campus, or status"
                 },
                 "status": {
                     "emptyMessage": "No statuses found.",
@@ -2805,12 +2681,6 @@
                     "label": "Description pattern",
                     "placeholder": "Filter by project description on the server"
                 },
-                "drawer": {
-                    "clearConfirm": {
-                        "description": "Remove every applied project filter.",
-                        "title": "Clear project filters"
-                    }
-                },
                 "maxOfferedHours": {
                     "label": "Max offered hours",
                     "placeholder": "Filter by the maximum offered hours"
@@ -2818,14 +2688,6 @@
                 "minOfferedHours": {
                     "label": "Min offered hours",
                     "placeholder": "Filter by the minimum offered hours"
-                },
-                "name": {
-                    "label": "Name pattern",
-                    "placeholder": "Filter by project name on the server"
-                },
-                "search": {
-                    "label": "Search",
-                    "placeholder": "Search by name, description, entity, or creator"
                 }
             },
             "hold": {

@@ -53,12 +53,8 @@ export function ProjectsFiltersDrawer({
 		<ServicePageFiltersDrawer
 			activeLabel={t("common.filters.active")}
 			applyLabel={t("common.filters.apply")}
-			clearConfirmDescription={t(
-				"project.projectPage.filters.drawer.clearConfirm.description",
-			)}
-			clearConfirmTitle={t(
-				"project.projectPage.filters.drawer.clearConfirm.title",
-			)}
+			clearConfirmDescription={t("common.filters.clearConfirm.description")}
+			clearConfirmTitle={t("common.filters.clearConfirm.title")}
 			clearLabel={t("common.filters.clear")}
 			hasActiveFilters={hasActiveFilters}
 			label={t("common.filters.label")}
@@ -71,10 +67,10 @@ export function ProjectsFiltersDrawer({
 			triggerLabel={t("common.filters.more")}
 		>
 			<TextFieldFilter
-				label={t("project.projectPage.filters.name.label")}
+				label={t("common.filters.name.label")}
 				value={name}
 				onChange={onNameChange}
-				placeholder={t("project.projectPage.filters.name.placeholder")}
+				placeholder={t("common.filters.name.placeholder")}
 			/>
 
 			<AsyncComboboxFilterField

@@ -25,7 +25,7 @@ export function CitiesFilters({
 			<TextFieldFilter
 				value={frontendSearch}
 				onChange={onFrontendSearchChange}
-				placeholder={t("geo.cityPage.filters.frontend.searchPlaceholder")}
+				placeholder={t("common.filters.search.placeholder")}
 			/>
 			<CitiesFiltersDrawer
 				nameFilter={backendNameFilter}
