@@ -119,7 +119,7 @@ export function AdminPage({ adminId }: AdminPageProps) {
 					<EntityPageFieldsGrid fields={fields} />
 					<div className="grid gap-3">
 						<p className="ty-overhead">
-							{t("identity.adminPage.dialog.linkedAccount.overhead")}
+				{t("common.linkedAccount.overhead")}
 						</p>
 						<AccountDetailsContent accountId={admin.accountResponse.id} />
 					</div>

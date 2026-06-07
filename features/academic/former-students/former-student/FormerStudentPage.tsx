@@ -110,7 +110,7 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 
 					<div className="grid gap-3">
 						<p className="ty-overhead">
-							{t("partner.staffPage.dialog.linkedAccount.overhead")}
+				{t("common.linkedAccount.overhead")}
 						</p>
 						<AccountDetailsContent
 							accountId={formerStudent.accountId}
@@ -120,7 +120,7 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 
 					<div className="grid gap-3">
 						<p className="ty-overhead">
-							{t("partner.staffPage.dialog.linkedUser.overhead")}
+				{t("common.linkedUser.overhead")}
 						</p>
 						{accountDetailQuery.data ? (
 							<UserDetailsContent userId={accountDetailQuery.data.userId} />

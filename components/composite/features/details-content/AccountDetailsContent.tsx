@@ -123,7 +123,7 @@ export function AccountDetailsContent({
 				{includeLinkedUser ? (
 					<div className="grid gap-3">
 						<p className="ty-overhead">
-							{t("identity.accountPage.dialog.linkedUser.overhead")}
+				{t("common.linkedUser.overhead")}
 						</p>
 						<UserDetailsContent userId={account.userId} />
 					</div>

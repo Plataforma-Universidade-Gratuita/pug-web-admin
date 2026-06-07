@@ -64,9 +64,9 @@ export function getAttendanceCreateErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.attendancePage.feedback.createError.title"),
+		fallbackTitle: t("project.attendancePage.create.feedback.error.title"),
 		fallbackDescription: t(
-			"project.attendancePage.feedback.createError.description",
+			"project.attendancePage.create.feedback.error.description",
 		),
 	});
 }
@@ -88,9 +88,9 @@ export function getAttendanceDeleteErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.attendancePage.feedback.deleteError.title"),
+		fallbackTitle: t("project.attendancePage.delete.feedback.error.title"),
 		fallbackDescription: t(
-			"project.attendancePage.feedback.deleteError.description",
+			"project.attendancePage.delete.feedback.error.description",
 		),
 	});
 }
@@ -103,9 +103,9 @@ export function getAttendanceValidateErrorToastContent(
 	return getApiErrorToastContent(error, {
 		fallbackTitle: action
 			? t(`project.attendancePage.${action}.feedback.error.title`)
-			: t("project.attendancePage.feedback.updateError.title"),
+			: t("project.attendancePage.update.feedback.error.title"),
 		fallbackDescription: action
 			? t(`project.attendancePage.${action}.feedback.error.description`)
-			: t("project.attendancePage.feedback.updateError.description"),
+			: t("project.attendancePage.update.feedback.error.description"),
 	});
 }

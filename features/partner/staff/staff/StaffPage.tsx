@@ -59,14 +59,14 @@ export function StaffPage({ staffId }: StaffPageProps) {
 				<div className="grid gap-6">
 					<div className="grid gap-3">
 						<p className="ty-overhead">
-							{t("partner.staffPage.dialog.linkedAccount.overhead")}
+				{t("common.linkedAccount.overhead")}
 						</p>
 						<AccountDetailsContent accountId={staff.account.id} />
 					</div>
 
 					<div className="grid gap-3">
 						<p className="ty-overhead">
-							{t("partner.staffPage.dialog.linkedUser.overhead")}
+				{t("common.linkedUser.overhead")}
 						</p>
 						<UserDetailsContent userId={staff.account.userId} />
 					</div>

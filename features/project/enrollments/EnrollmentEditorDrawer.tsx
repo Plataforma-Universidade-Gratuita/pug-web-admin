@@ -377,7 +377,7 @@ export function EnrollmentEditorDrawer({
 				title={t("common.resetConfirm.title")}
 				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("project.enrollmentPage.editor.actions.reset")}
+				actionLabel={t("common.reset")}
 				onAction={resetForm}
 			/>
 		</>

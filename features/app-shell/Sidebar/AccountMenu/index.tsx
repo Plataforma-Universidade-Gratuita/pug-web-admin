@@ -149,12 +149,12 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 							<div className="flex flex-col items-start gap-4 rounded-[var(--twc-radius-lg)] border border-[color:var(--twc-border-2)] p-4">
 								<div className="space-y-1">
 									<p className="ty-sm-bold">
-										{t("home.currentAccount.error.title")}
+										{t("common.accountMenu.error.title")}
 									</p>
 									<p className="ty-helper">
 										{profileError instanceof Error
 											? profileError.message
-											: t("home.currentAccount.error.description")}
+											: t("common.accountMenu.error.description")}
 									</p>
 								</div>
 								<Button
@@ -162,7 +162,7 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 									variant="secondary"
 									onClick={handleRetryProfile}
 								>
-									{t("home.currentAccount.error.retry")}
+									{t("common.accountMenu.error.retry")}
 								</Button>
 							</div>
 							<Separator className="separator-horizontal" />
