@@ -8,6 +8,7 @@ import { WebApiError } from "@/api/web";
 import {
 	AreaOfExpertiseDetailsContent,
 	EntityDetailsContent,
+	ProjectOwnDetailsContent,
 } from "@/components/composite";
 import {
 	Accordion,
@@ -26,7 +27,6 @@ import {
 	TabsTrigger,
 	TextArea,
 } from "@/components/primitives";
-import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import type { ProjectsEditorFormProps } from "@/types/client";
 
 const { projects: projectsApi } = web.project;

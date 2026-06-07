@@ -4,7 +4,10 @@ import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { WebApiError } from "@/api/web";
-import { FormerStudentOwnDetailsContent } from "@/components/composite";
+import {
+	FormerStudentOwnDetailsContent,
+	ProjectOwnDetailsContent,
+} from "@/components/composite";
 import {
 	Accordion,
 	AccordionContent,
@@ -25,7 +28,6 @@ import {
 } from "@/components/primitives";
 import { EnrollmentOwnDetailsContent } from "@/features/project/enrollments/enrollment/EnrollmentOwnDetailsContent";
 import { getEditableEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
-import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import type { EnrollmentEditorFormProps } from "@/types/client";
 
 export function EnrollmentEditorForm({

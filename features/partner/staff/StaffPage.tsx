@@ -198,7 +198,6 @@ export function StaffPage() {
 		[deferredQuerySearch, tableSourceStaff],
 	);
 	const columns = useMemo(() => createStaffColumns(t), [t]);
-	const hasAnyFilters = Boolean(querySearch.trim() || hasAppliedFilters);
 	const filterSummary = useMemo(
 		() =>
 			getStaffFilterSummary(t, {

@@ -7,6 +7,7 @@ import { WebApiError } from "@/api/web";
 import {
 	AccountDetailsContent,
 	FormerStudentOwnDetailsContent,
+	ProjectOwnDetailsContent,
 } from "@/components/composite";
 import {
 	Accordion,
@@ -29,7 +30,6 @@ import {
 } from "@/components/primitives";
 import { AttendanceOwnDetailsContent } from "@/features/project/attendances/attendance/AttendanceOwnDetailsContent";
 import { getAttendanceStatusOptions } from "@/features/project/attendances/utils";
-import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import type { AttendanceEditorFormProps } from "@/types/client";
 
 export function AttendanceEditorForm({

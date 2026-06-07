@@ -10,6 +10,7 @@ import {
 	AccountDetailsContent,
 	EntityPageShell,
 	FormerStudentOwnDetailsContent,
+	ProjectOwnDetailsContent,
 	UserDetailsContent,
 } from "@/components/composite";
 import { NotFoundState, SomeErrorState } from "@/components/primitives";
@@ -20,7 +21,6 @@ import {
 	getEnrollmentStudentsErrorToastContent,
 	parseEnrollmentCompositeKey,
 } from "@/features/project/enrollments/utils";
-import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import { useQueryErrorToasts } from "@/hooks";
 import type { EnrollmentPageProps } from "@/types/client";
 

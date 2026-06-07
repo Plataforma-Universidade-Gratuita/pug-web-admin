@@ -9,13 +9,13 @@ import {
 	EntityDetailsContent,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
+	ProjectOwnDetailsContent,
 } from "@/components/composite";
 import {
 	NoContentState,
 	NotFoundState,
 	SomeErrorState,
 } from "@/components/primitives";
-import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import {
 	getProjectAreasOfExpertiseErrorToastContent,
 	getProjectDetailErrorToastContent,

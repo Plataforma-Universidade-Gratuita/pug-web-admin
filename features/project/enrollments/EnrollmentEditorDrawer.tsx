@@ -34,7 +34,6 @@ import {
 import type {
 	EnrollmentEditorDrawerProps,
 	EnrollmentEditorFormValues,
-	EnrollmentStatusAction,
 } from "@/types/client";
 
 const { formerStudents: formerStudentsApi } = web.academic;

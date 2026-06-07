@@ -8,6 +8,7 @@ import {
 	AccountDetailsContent,
 	EntityPageShell,
 	FormerStudentOwnDetailsContent,
+	ProjectOwnDetailsContent,
 } from "@/components/composite";
 import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import { AttendanceOwnDetailsContent } from "@/features/project/attendances/attendance/AttendanceOwnDetailsContent";
@@ -16,7 +17,6 @@ import {
 	getAttendanceProjectsErrorToastContent,
 	getAttendanceStudentsErrorToastContent,
 } from "@/features/project/attendances/utils";
-import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import { useQueryErrorToasts } from "@/hooks";
 import type { AttendancePageProps } from "@/types/client";
 

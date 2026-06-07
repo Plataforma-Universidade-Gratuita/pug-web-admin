@@ -10,7 +10,6 @@ import type {
 	UserResponse,
 } from "@/types";
 import type { ComboboxOption } from "@/types";
-import type { BadgeTone } from "@/types";
 
 export type StaffEditorMode = "create" | "duplicate" | "update";
 

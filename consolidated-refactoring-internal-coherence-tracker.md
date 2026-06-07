@@ -412,10 +412,19 @@ The consolidated rules explicitly require a 3+ component reuse threshold for hoo
 
 ## Step 8: Re-Audit Cross-Feature Ownership
 
-- [ ] Confirm there is still no `features/shared/`.
-- [ ] Re-audit feature-owned components that are imported outside their own feature path.
-- [ ] Promote any remaining cross-feature reusable component to `components/composite/`.
-- [ ] Keep feature-local composition private.
+- [x] Confirm there is still no `features/shared/`.
+- [x] Re-audit feature-owned components that are imported outside their own feature path.
+- [x] Promote any remaining cross-feature reusable component to `components/composite/`.
+- [x] Keep feature-local composition private.
+
+### Step 8 Notes
+
+- Re-audit confirmed `features/shared/` is still absent.
+- The remaining cross-feature reusable component leak was `ProjectOwnDetailsContent`.
+- It was promoted from `features/project/projects/project/ProjectOwnDetailsContent.tsx` to:
+  - `components/composite/features/details-content/ProjectOwnDetailsContent.tsx`
+- All consumers now import it through `@/components/composite`.
+- No other feature-owned component remained imported across feature-path boundaries; the remaining `@/features/**` cross-path imports in the repo are feature-local composition or utility access and are handled by other steps.
 
 ## Step 9: Re-Audit Repeated React Patterns
 
