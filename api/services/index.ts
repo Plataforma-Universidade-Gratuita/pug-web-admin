@@ -28,6 +28,3 @@ export * as attendances from "./project/attendances";
 
 /* --- Geo --- */
 export * as cities from "./geo/cities";
-
-/* --- Web --- */
-export * as web from "./web";
