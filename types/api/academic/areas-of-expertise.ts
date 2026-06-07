@@ -6,8 +6,8 @@ import {
 	AreaOfExpertiseCreateRequestSchema,
 	AreaOfExpertiseResponseSchema,
 	AreaOfExpertiseUpdateRequestSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type AreaOfExpertiseResponse = z.infer<
 	typeof AreaOfExpertiseResponseSchema

@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/api/services/constants";
-import { qs, zfetch, zvoid } from "@/api/utils";
+import { zfetch, zvoid } from "@/api/services/utils";
+import { qs } from "@/api/utils";
 import {
 	CourseComplexSearchRequestSchema,
 	CourseResponseSchema,

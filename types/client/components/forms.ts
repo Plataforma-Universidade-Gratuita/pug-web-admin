@@ -7,8 +7,10 @@ import type {
 
 import type { FieldValues, UseFormReturn } from "react-hook-form";
 
-import type { BadgeTone } from "@/types";
-import type { PopoverContentProps } from "@/types";
+import type {
+	BadgeTone,
+	PopoverContentProps,
+} from "@/types/client/components/display";
 
 export interface InputProps extends Omit<
 	InputHTMLAttributes<HTMLInputElement>,

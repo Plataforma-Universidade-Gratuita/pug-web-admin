@@ -1,6 +1,9 @@
 import { jwtDecode } from "jwt-decode";
 
-import type { AdminTokenValidationResult, PugJwtPayload } from "@/types";
+import type {
+	AdminTokenValidationResult,
+	PugJwtPayload,
+} from "@/types/client/auth";
 
 export function validateAdminToken(token: string): AdminTokenValidationResult {
 	try {

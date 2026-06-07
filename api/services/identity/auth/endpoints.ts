@@ -1,5 +1,5 @@
 import { API_ROUTE_BASES } from "@/api/services/constants";
-import { zfetch, zvoid } from "@/api/utils";
+import { zfetch, zvoid } from "@/api/services/utils";
 import { TokenResponseSchema } from "@/schemas/api";
 import type {
 	CredentialsRequest,

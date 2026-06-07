@@ -6,8 +6,8 @@ import {
 	StaffCreateRequestSchema,
 	StaffResponseSchema,
 	StaffUpdateRequestSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type StaffResponse = z.infer<typeof StaffResponseSchema>;
 export type StaffComplexSearchRequest = z.infer<

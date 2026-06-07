@@ -6,8 +6,8 @@ import type {
 	ProjectResponse,
 	ProjectStatus,
 	ProjectUpdateRequest,
-} from "@/types";
-import type { ComboboxOption } from "@/types";
+} from "@/types/api";
+import type { ComboboxOption } from "@/types/client/components/forms";
 
 export interface ProjectPageProps {
 	projectId: string;

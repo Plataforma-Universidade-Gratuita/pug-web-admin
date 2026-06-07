@@ -4,8 +4,8 @@ import {
 	UserComplexSearchRequestSchema,
 	UserResponseSchema,
 	UserSimpleComplexSearchResponseSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type UserResponse = z.infer<typeof UserResponseSchema>;
 

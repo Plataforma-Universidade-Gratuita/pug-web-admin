@@ -5,8 +5,8 @@ import {
 	createCnpjFieldSchema,
 	createOptionalTrimmedStringSchema,
 	createRequiredTrimmedStringSchema,
-} from "@/schemas";
-import type { EntityEditorMode } from "@/types";
+} from "@/schemas/client/shared";
+import type { EntityEditorMode } from "@/types/client/features/partner";
 
 export function createEntityEditorFormSchema(
 	t: TFunction,

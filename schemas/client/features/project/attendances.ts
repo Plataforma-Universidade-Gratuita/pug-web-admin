@@ -1,11 +1,9 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-import {
-	AttendanceStatusEnum,
-	createRequiredNumericStringSchema,
-} from "@/schemas";
-import type { AttendanceEditorMode } from "@/types";
+import { AttendanceStatusEnum } from "@/schemas/api";
+import { createRequiredNumericStringSchema } from "@/schemas/client/shared";
+import type { AttendanceEditorMode } from "@/types/client/features/project";
 
 export function createAttendanceEditorFormSchema(
 	t: TFunction,

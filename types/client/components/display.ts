@@ -18,9 +18,8 @@ import type {
 } from "@tanstack/react-table";
 import type { LucideProps } from "lucide-react";
 
-import type { ToggleGroupColorVariant } from "@/types";
-import type { AppLang } from "@/types";
-import type { AppTheme } from "@/types";
+import type { ToggleGroupColorVariant } from "@/types/client/components/controls";
+import type { AppLang, AppTheme } from "@/types/client/context";
 
 export type BadgeTone =
 	| "neutral"

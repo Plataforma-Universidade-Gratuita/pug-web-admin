@@ -7,8 +7,8 @@ import {
 	EntitySimpleComplexSearchResponseSchema,
 	EntityResponseSchema,
 	EntityUpdateRequestSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type EntitySimpleComplexSearchResponse = z.infer<
 	typeof EntitySimpleComplexSearchResponseSchema

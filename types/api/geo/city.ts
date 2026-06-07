@@ -1,7 +1,10 @@
 import { z } from "zod";
 
-import { CityComplexSearchRequestSchema, CityResponseSchema } from "@/schemas";
-import type { PageResponse } from "@/types";
+import {
+	CityComplexSearchRequestSchema,
+	CityResponseSchema,
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

@@ -6,7 +6,7 @@ import {
 	LogoutRequestSchema,
 	RefreshRequestSchema,
 	TokenResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { API_ROUTE_BASES } from "@/api/services/constants";
-import { zfetch, zvoid } from "@/api/utils";
+import { zfetch, zvoid } from "@/api/services/utils";
 import {
 	AreaOfExpertiseResponseSchema,
 	ProjectResponseSchema,

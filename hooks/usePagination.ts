@@ -130,3 +130,5 @@ export function usePagination({
 		},
 	};
 }
+
+export const useServicePagePagination = usePagination;

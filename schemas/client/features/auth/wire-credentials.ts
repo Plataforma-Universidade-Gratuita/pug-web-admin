@@ -1,7 +1,10 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-import { createEmailFieldSchema, createPasswordFieldSchema } from "@/schemas";
+import {
+	createEmailFieldSchema,
+	createPasswordFieldSchema,
+} from "@/schemas/client/shared";
 
 export function createWireCredentialsFormSchema(t: TFunction) {
 	return z

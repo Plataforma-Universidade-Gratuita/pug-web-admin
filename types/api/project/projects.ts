@@ -9,8 +9,8 @@ import {
 	ProjectSimpleComplexSearchResponseSchema,
 	ProjectStatusEnum,
 	ProjectUpdateRequestSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type ProjectStatus = z.infer<typeof ProjectStatusEnum>;
 export type ProjectSimpleComplexSearchResponse = z.infer<

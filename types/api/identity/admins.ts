@@ -7,8 +7,8 @@ import {
 	AdminResponseSchema,
 	AdminSearchResponseSchema,
 	AdminUpdateRequestSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type AdminResponse = z.infer<typeof AdminResponseSchema>;
 export type AdminSearchResponse = z.infer<typeof AdminSearchResponseSchema>;

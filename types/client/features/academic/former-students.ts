@@ -8,10 +8,12 @@ import type {
 	FormerStudentResponse,
 	FormerStudentUpdateRequest,
 	UserResponse,
-} from "@/types";
-import type { ComboboxOption } from "@/types";
-import type { BadgeTone } from "@/types";
-import type { CpfFormFieldExistingUser } from "@/types";
+} from "@/types/api";
+import type { BadgeTone } from "@/types/client/components/display";
+import type {
+	ComboboxOption,
+	CpfFormFieldExistingUser,
+} from "@/types/client/components/forms";
 
 export type FormerStudentEditorMode = "create" | "duplicate" | "update";
 

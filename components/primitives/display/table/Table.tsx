@@ -14,8 +14,8 @@ import { useTranslation } from "react-i18next";
 
 import type { TableProps } from "@/types/client";
 
-import { SortIcon } from "./SortIcon";
-import { TableBody } from "./TableBody";
+import { SortIcon } from "./components/SortIcon";
+import { TableBody } from "./components/TableBody";
 import { useTableScrollbars } from "./useTableScrollbars";
 import { compareTableValues, getTableColumnStyle } from "./utils";
 

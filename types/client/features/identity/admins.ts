@@ -8,7 +8,7 @@ import type {
 	AdminUpdateRequest,
 	Campi,
 	UserResponse,
-} from "@/types";
+} from "@/types/api";
 
 export type AdminEditorMode = "create" | "update";
 

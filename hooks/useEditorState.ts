@@ -87,3 +87,5 @@ export function useEditorState<
 		clearIfMatches,
 	};
 }
+
+export const useServicePageEditorState = useEditorState;

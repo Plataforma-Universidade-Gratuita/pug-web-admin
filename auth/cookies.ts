@@ -6,7 +6,7 @@ import {
 	PASSWORD_WIRED_COOKIE,
 	REFRESH_TOKEN_COOKIE,
 } from "@/constants";
-import type { TokenResponse } from "@/types";
+import type { TokenResponse } from "@/types/api";
 
 export function getAccessTokenFromRequest(request: {
 	cookies: { get(name: string): { value: string } | undefined };

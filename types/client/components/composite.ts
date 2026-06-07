@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import type { ColumnDef } from "@tanstack/react-table";
 
-import type { BadgeTone } from "@/types";
+import type { BadgeTone } from "@/types/client/components/display";
 
 export interface RowActionNavigateProps {
 	href: string;

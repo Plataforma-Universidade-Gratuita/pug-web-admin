@@ -8,8 +8,8 @@ import type {
 	AttendanceValidateRequest,
 	FormerStudentResponse,
 	ProjectResponse,
-} from "@/types";
-import type { ComboboxOption } from "@/types";
+} from "@/types/api";
+import type { ComboboxOption } from "@/types/client/components/forms";
 
 export interface AttendancePageProps {
 	attendanceId: string;

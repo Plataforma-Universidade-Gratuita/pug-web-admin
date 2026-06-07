@@ -4,7 +4,7 @@ import type {
 	AreaOfExpertiseCreateRequest,
 	AreaOfExpertiseResponse,
 	AreaOfExpertiseUpdateRequest,
-} from "@/types";
+} from "@/types/api";
 
 export type AreaOfExpertiseEditorMode = "create" | "duplicate" | "update";
 

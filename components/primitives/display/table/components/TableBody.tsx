@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 
 import { NoContentState, Skeleton } from "@/components/primitives";
 
+import { getTableColumnStyle } from "../utils";
 import { RowActionsCell } from "./RowActionsCell";
-import { getTableColumnStyle } from "./utils";
 
 export function TableBody<TData extends object>({
 	rows,

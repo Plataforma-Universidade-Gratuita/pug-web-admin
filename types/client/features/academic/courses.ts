@@ -4,8 +4,8 @@ import type {
 	CourseCreateRequest,
 	CourseResponse,
 	CourseUpdateRequest,
-} from "@/types";
-import type { ComboboxOption } from "@/types";
+} from "@/types/api";
+import type { ComboboxOption } from "@/types/client/components/forms";
 
 export type CourseEditorMode = "create" | "duplicate" | "update";
 

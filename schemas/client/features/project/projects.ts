@@ -6,8 +6,8 @@ import {
 	createOptionalTrimmedStringSchema,
 	createRequiredNumericStringSchema,
 	createRequiredTrimmedStringSchema,
-} from "@/schemas";
-import type { ProjectEditorMode } from "@/types";
+} from "@/schemas/client/shared";
+import type { ProjectEditorMode } from "@/types/client/features/project";
 
 export function createProjectEditorFormSchema(
 	t: TFunction,

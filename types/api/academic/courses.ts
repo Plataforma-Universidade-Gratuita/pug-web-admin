@@ -7,8 +7,8 @@ import {
 	CourseResponseSchema,
 	CourseUpdateRequestSchema,
 	CourseWithAuditInfoComplexSearchResponseSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type CourseResponse = z.infer<typeof CourseResponseSchema>;
 export type CourseComplexSearchRequest = z.infer<

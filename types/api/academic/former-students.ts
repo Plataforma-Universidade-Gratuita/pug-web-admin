@@ -9,8 +9,8 @@ import {
 	FormerStudentSimpleComplexSearchResponseSchema,
 	FormerStudentUpdateRequestSchema,
 	PeriodResponseSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type CounterpartHoursResponse = z.infer<
 	typeof CounterpartHoursResponseSchema

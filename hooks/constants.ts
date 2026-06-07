@@ -1,1 +1,1 @@
-export const DEFAULT_UNDO_DURATION = 4000;
+export const DEFAULT_UNDO_DURATION = 3000;

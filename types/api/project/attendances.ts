@@ -7,8 +7,8 @@ import {
 	AttendanceResponseSchema,
 	AttendanceStatusEnum,
 	AttendanceValidateRequestSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type AttendanceStatus = z.infer<typeof AttendanceStatusEnum>;
 export type AttendanceResponse = z.infer<typeof AttendanceResponseSchema>;

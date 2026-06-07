@@ -6,8 +6,8 @@ import {
 	AccountResponseSchema,
 	AccountSimpleComplexSearchResponseSchema,
 	AccountSearchResponseSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type AccountResponse = z.infer<typeof AccountResponseSchema>;
 export type AccountSimpleComplexSearchResponse = z.infer<

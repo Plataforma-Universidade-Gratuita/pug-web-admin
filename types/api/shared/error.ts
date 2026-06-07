@@ -4,7 +4,7 @@ import {
 	ApiErrorSchema,
 	FieldErrorDetailSchema,
 	FieldErrorSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 
 export type FieldErrorDetail = z.infer<typeof FieldErrorDetailSchema>;
 export type FieldError = z.infer<typeof FieldErrorSchema>;

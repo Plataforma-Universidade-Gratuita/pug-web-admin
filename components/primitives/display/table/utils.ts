@@ -1,13 +1,4 @@
-import {
-	Children,
-	Fragment,
-	isValidElement,
-	type ReactElement,
-	type ReactNode,
-} from "react";
-
 import { MIN_TABLE_SCROLLBAR_THUMB_SIZE } from "@/components/primitives/display/table/constants";
-import type { DropdownMenuItemProps } from "@/types/client";
 import type {
 	ScrollOffsetFromThumbOffsetArgs,
 	TableScrollbarMetricsArgs,
@@ -96,30 +87,4 @@ export function getTableColumnStyle(size: number | undefined) {
 		width: `${size}px`,
 		minWidth: `${size}px`,
 	};
-}
-
-export function flattenActionNodes(children: ReactNode): ReactElement[] {
-	return Children.toArray(children).flatMap(child => {
-		if (!isValidElement(child)) {
-			return [];
-		}
-
-		if (child.type === Fragment) {
-			return flattenActionNodes(
-				(child as ReactElement<{ children?: ReactNode }>).props.children,
-			);
-		}
-
-		return [child];
-	});
-}
-
-export function getDirectActionProps(element: ReactElement) {
-	const props = element.props as Partial<DropdownMenuItemProps>;
-
-	if (!props.icon || !props.label) {
-		return null;
-	}
-
-	return props as DropdownMenuItemProps;
 }

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { PaginationRequestSchema } from "@/schemas";
+import { PaginationRequestSchema } from "@/schemas/api";
 
 export type PaginationRequest = z.infer<typeof PaginationRequestSchema>;
 

@@ -1,6 +1,6 @@
 /* --- Root --- */
 export * from "./api";
-export * from "./app-shell";
+export * from "./app";
 export * from "./auth";
 export * from "./components";
 export * from "./locale";

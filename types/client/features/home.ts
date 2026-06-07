@@ -1,4 +1,4 @@
-import type { BadgeTone } from "@/types";
+import type { BadgeTone } from "@/types/client/components/display";
 
 export interface HomePriorityItem {
 	badge: string;

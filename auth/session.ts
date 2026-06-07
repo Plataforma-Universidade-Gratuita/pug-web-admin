@@ -1,7 +1,7 @@
 import { API_BASE_URL, JSON_HEADERS } from "@/constants";
-import { RefreshRequestSchema } from "@/schemas";
-import { RefreshSessionEnvelopeSchema } from "@/schemas";
-import type { TokenResponse } from "@/types";
+import { RefreshRequestSchema } from "@/schemas/api";
+import { RefreshSessionEnvelopeSchema } from "@/schemas/client";
+import type { TokenResponse } from "@/types/api";
 
 /*
  * This import must remain relative because importing the validation helper through

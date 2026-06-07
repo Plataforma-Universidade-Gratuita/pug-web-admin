@@ -1,11 +1,9 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 
-import {
-	createRequiredTrimmedStringSchema,
-	EnrollmentStatusEnum,
-} from "@/schemas";
-import type { EnrollmentEditorMode } from "@/types";
+import { EnrollmentStatusEnum } from "@/schemas/api";
+import { createRequiredTrimmedStringSchema } from "@/schemas/client/shared";
+import type { EnrollmentEditorMode } from "@/types/client/features/project";
 
 export function createEnrollmentEditorFormSchema(
 	t: TFunction,

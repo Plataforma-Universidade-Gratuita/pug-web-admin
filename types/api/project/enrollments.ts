@@ -7,8 +7,8 @@ import {
 	EnrollmentResponseSchema,
 	EnrollmentStatusEnum,
 	EnrollmentUpdateStatusRequestSchema,
-} from "@/schemas";
-import type { PageResponse } from "@/types";
+} from "@/schemas/api";
+import type { PageResponse } from "@/types/api";
 
 export type EnrollmentStatus = z.infer<typeof EnrollmentStatusEnum>;
 export type EnrollmentResponse = z.infer<typeof EnrollmentResponseSchema>;

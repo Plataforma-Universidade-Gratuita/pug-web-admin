@@ -2,8 +2,6 @@ import { z } from "zod";
 
 import { JSON_HEADERS } from "@/constants";
 
-export { qs } from "@/api/utils";
-
 export class WebApiError extends Error {
 	public readonly status: number;
 	public readonly code: string | undefined;
