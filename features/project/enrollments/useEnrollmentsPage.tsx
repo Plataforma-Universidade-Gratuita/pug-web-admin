@@ -4,8 +4,8 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import * as web from "@/api/web";
+import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import {
 	buildEnrollmentFormerStudentOptions,
 	buildEnrollmentProjectOptions,
@@ -31,13 +31,13 @@ import {
 	useServicePageEditorState,
 	useServicePagePagination,
 } from "@/hooks";
+import type { EnrollmentStatus } from "@/types/api";
 import type {
 	EnrollmentComplexSearchFilters,
 	EnrollmentDirectoryItem,
 	EnrollmentEditorMode,
-	EnrollmentStatus,
 	EnrollmentStatusAction,
-} from "@/types";
+} from "@/types/client";
 
 const { formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;

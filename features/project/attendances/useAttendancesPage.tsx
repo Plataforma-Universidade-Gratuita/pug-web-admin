@@ -4,8 +4,8 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import * as web from "@/api/web";
+import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import {
 	buildAttendanceFormerStudentOptions,
 	buildAttendanceProjectOptions,
@@ -37,7 +37,7 @@ import type {
 	AttendanceDirectoryItem,
 	AttendanceEditorMode,
 	AttendanceValidationAction,
-} from "@/types";
+} from "@/types/client";
 
 const { formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;

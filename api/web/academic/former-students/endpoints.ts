@@ -10,7 +10,7 @@ import {
 	FormerStudentCreateRequestSchema,
 	FormerStudentResponseSchema,
 	FormerStudentUpdateRequestSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	FormerStudentComplexSearchRequest,
 	FormerStudentComplexSearchResponse,
@@ -18,7 +18,7 @@ import type {
 	FormerStudentResponse,
 	FormerStudentUpdateRequest,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string): Promise<FormerStudentResponse> {
 	return webFetch(

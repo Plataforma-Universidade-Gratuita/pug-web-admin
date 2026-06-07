@@ -1,9 +1,9 @@
 import clsx from "clsx";
 
-import { Tooltip } from "@/components";
+import { Tooltip } from "@/components/primitives";
 import { getAccessibleText } from "@/components/primitives/actions/button/utils";
 import { BUTTON_SIZES, BUTTON_USAGES, BUTTON_VARIANTS } from "@/constants";
-import type { ButtonProps } from "@/types";
+import type { ButtonProps } from "@/types/client";
 
 export function Button({
 	"aria-label": ariaLabel,

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { enrollments, projectAreasOfExpertise, projects } from "@/api";
+import { enrollments, projectAreasOfExpertise, projects } from "@/api/services";
 import {
 	parseRouteBody,
 	routeError,

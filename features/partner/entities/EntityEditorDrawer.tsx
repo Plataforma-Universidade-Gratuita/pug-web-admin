@@ -5,7 +5,8 @@ import { useEffect, useMemo } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
+import { ResetChangesDialog } from "@/components/composite";
 import {
 	Button,
 	Drawer,
@@ -14,9 +15,8 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
-	ResetChangesDialog,
 	toast,
-} from "@/components";
+} from "@/components/primitives";
 import { EntityEditorForm } from "@/features/partner/entities/EntityEditorForm";
 import {
 	buildEntityCityOptions,
@@ -38,7 +38,10 @@ import {
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type { EntityEditorDrawerProps, EntityEditorFormValues } from "@/types";
+import type {
+	EntityEditorDrawerProps,
+	EntityEditorFormValues,
+} from "@/types/client";
 
 const { entities: entitiesApi } = web.partner;
 const {

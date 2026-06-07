@@ -13,7 +13,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 	ScrollArea,
-} from "@/components";
+} from "@/components/primitives";
 import { MenuItem } from "@/features/app-shell/Sidebar/MenuItem";
 import { SidebarRow } from "@/features/app-shell/Sidebar/SidebarRow";
 import { isLeafItem, isNodeActive } from "@/features/app-shell/Sidebar/utils";
@@ -21,7 +21,7 @@ import type {
 	MenuGroupProps,
 	PopoverGroupListProps,
 	PopoverGroupProps,
-} from "@/types";
+} from "@/types/client";
 
 function PopoverGroupList({
 	items,

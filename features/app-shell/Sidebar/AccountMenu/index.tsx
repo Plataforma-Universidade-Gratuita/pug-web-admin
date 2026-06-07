@@ -9,7 +9,7 @@ import clsx from "clsx";
 import { LogOut, UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -25,10 +25,10 @@ import {
 	Separator,
 	Skeleton,
 	toast,
-} from "@/components";
+} from "@/components/primitives";
 import { LOGIN_ROUTE } from "@/constants";
-import type { SidebarProps } from "@/types";
-import type { LogoutScope } from "@/types";
+import type { SidebarProps } from "@/types/client";
+import type { LogoutScope } from "@/types/client";
 
 const { admins: adminsApi, auth: authApi, users: usersApi } = web.identity;
 const { adminKeys, useCurrentAdminQuery } = adminsApi;

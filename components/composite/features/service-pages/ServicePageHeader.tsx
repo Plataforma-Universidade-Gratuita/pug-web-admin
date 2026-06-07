@@ -1,5 +1,6 @@
 import clsx from "clsx";
 
+import { MetadataPopover } from "@/components/composite";
 import {
 	Section,
 	SectionActions,
@@ -7,9 +8,8 @@ import {
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
-} from "@/components";
-import { MetadataPopover } from "@/components";
-import type { ServicePageHeaderProps } from "@/types";
+} from "@/components/primitives";
+import type { ServicePageHeaderProps } from "@/types/client";
 
 export function ServicePageHeader({
 	title,

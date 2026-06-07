@@ -6,7 +6,7 @@ import {
 	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
-} from "@/components";
+} from "@/components/composite";
 import { ProjectsEditorDrawer } from "@/features/project/projects/ProjectsEditorDrawer";
 import { ProjectsRowActions } from "@/features/project/projects/ProjectsRowActions";
 import {
@@ -14,7 +14,7 @@ import {
 	ProjectsPageFilters,
 } from "@/features/project/projects/components/ProjectsPageControls";
 import { useProjectsPage } from "@/features/project/projects/useProjectsPage";
-import type { ProjectResponse } from "@/types";
+import type { ProjectResponse } from "@/types/api";
 
 export function ProjectsPage() {
 	const {

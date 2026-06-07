@@ -4,8 +4,7 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import * as web from "@/api/web";
 import {
 	NumberFieldFilter,
 	ServicePageConfirmDialog,
@@ -15,7 +14,8 @@ import {
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
-} from "@/components";
+} from "@/components/composite";
+import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { EntitiesFiltersDrawer } from "@/features/partner/entities/EntitiesFiltersDrawer";
 import { EntitiesRowActions } from "@/features/partner/entities/EntitiesRowActions";
@@ -44,7 +44,7 @@ import type {
 	EntityEditorMode,
 	EntityTableRow,
 	UseEntitiesSearchQueryFilters,
-} from "@/types";
+} from "@/types/client";
 
 const { entities: entitiesApi } = web.partner;
 const {

@@ -13,8 +13,8 @@ import {
 	DialogTitle,
 	Icon,
 	toast,
-} from "@/components";
-import type { AttendanceQrCodeDialogProps } from "@/types";
+} from "@/components/primitives";
+import type { AttendanceQrCodeDialogProps } from "@/types/client";
 
 export function AttendanceQrCodeDialog({
 	hash,

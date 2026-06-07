@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { courses } from "@/api";
+import { courses } from "@/api/services";
 import {
 	parseRouteBody,
 	routeError,

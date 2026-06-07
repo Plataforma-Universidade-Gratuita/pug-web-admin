@@ -1,4 +1,4 @@
-export { createFormerStudentEditorFormSchema } from "@/schemas";
+export { createFormerStudentEditorFormSchema } from "@/schemas/client";
 export { appendCopyToEmail } from "@/utils";
 
 export * from "./filter/utils";

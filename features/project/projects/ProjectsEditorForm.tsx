@@ -3,16 +3,18 @@
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
+import {
+	AreaOfExpertiseDetailsContent,
+	EntityDetailsContent,
+} from "@/components/composite";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-	AreaOfExpertiseDetailsContent,
 	Combobox,
-	EntityDetailsContent,
 	Input,
 	Label,
 	NoContentState,
@@ -23,9 +25,9 @@ import {
 	TabsList,
 	TabsTrigger,
 	TextArea,
-} from "@/components";
+} from "@/components/primitives";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
-import type { ProjectsEditorFormProps } from "@/types";
+import type { ProjectsEditorFormProps } from "@/types/client";
 
 const { projects: projectsApi } = web.project;
 const { useProjectAreasOfExpertiseQuery } = projectsApi;

@@ -2,24 +2,26 @@
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
 import {
 	AreaOfExpertiseDetailsContent,
 	EntityDetailsContent,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
+} from "@/components/composite";
+import {
 	NoContentState,
 	NotFoundState,
 	SomeErrorState,
-} from "@/components";
+} from "@/components/primitives";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import {
 	getProjectAreasOfExpertiseErrorToastContent,
 	getProjectDetailErrorToastContent,
 } from "@/features/project/projects/utils";
 import { useQueryErrorToasts } from "@/hooks";
-import type { ProjectPageProps } from "@/types";
+import type { ProjectPageProps } from "@/types/client";
 
 const { projects: projectsApi } = web.project;
 const { useProjectDetailQuery, useProjectAreasOfExpertiseQuery } = projectsApi;

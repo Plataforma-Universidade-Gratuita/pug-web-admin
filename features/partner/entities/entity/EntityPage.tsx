@@ -2,8 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 
-import { EntityDetailsContent, EntityPageShell } from "@/components";
-import type { EntityPageProps } from "@/types";
+import { EntityDetailsContent, EntityPageShell } from "@/components/composite";
+import type { EntityPageProps } from "@/types/client";
 
 export function EntityPage({ entityId }: EntityPageProps) {
 	const { t } = useTranslation();

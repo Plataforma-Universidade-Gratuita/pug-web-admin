@@ -4,13 +4,8 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import {
-	NoContentState,
-	RecordActionDialogs,
-	SomeErrorState,
-	toast,
-} from "@/components";
+import * as web from "@/api/web";
+import { RecordActionDialogs } from "@/components/composite";
 import {
 	ServicePageHeader,
 	ServicePageHeaderActions,
@@ -18,7 +13,8 @@ import {
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
-} from "@/components";
+} from "@/components/composite";
+import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { StaffEditorDrawer } from "@/features/partner/staff/StaffEditorDrawer";
 import { StaffFiltersDrawer } from "@/features/partner/staff/StaffFiltersDrawer";
@@ -44,11 +40,11 @@ import {
 	useServicePageEditorState,
 	useServicePagePagination,
 } from "@/hooks";
+import type { StaffSearchResponse } from "@/types/api";
 import type {
 	StaffComplexSearchFilters,
 	StaffEditorMode,
-	StaffSearchResponse,
-} from "@/types";
+} from "@/types/client";
 
 const { accounts: accountsApi, users: usersApi } = web.identity;
 const { staff: staffApi } = web.partner;

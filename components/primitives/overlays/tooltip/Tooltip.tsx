@@ -2,7 +2,7 @@
 
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 
-import type { TooltipProps } from "@/types";
+import type { TooltipProps } from "@/types/client";
 
 export function Tooltip({
 	children,

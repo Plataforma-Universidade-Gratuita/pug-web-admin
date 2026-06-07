@@ -1,4 +1,4 @@
-import { IdentityOverviewPage } from "@/features/identity/IdentityOverviewPage";
+import { IdentityOverviewPage } from "@/features";
 
 export default function Page() {
 	return <IdentityOverviewPage />;

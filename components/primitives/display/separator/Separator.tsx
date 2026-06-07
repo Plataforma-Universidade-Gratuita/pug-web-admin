@@ -3,7 +3,7 @@
 import * as RadixSeparator from "@radix-ui/react-separator";
 import clsx from "clsx";
 
-import type { SeparatorProps } from "@/types";
+import type { SeparatorProps } from "@/types/client";
 
 export function Separator({
 	orientation = "horizontal",

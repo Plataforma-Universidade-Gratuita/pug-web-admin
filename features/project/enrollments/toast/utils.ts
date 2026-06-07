@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next";
 
-import type { EnrollmentStatusAction } from "@/types";
+import type { EnrollmentStatusAction } from "@/types/client";
 import { getApiErrorToastContent } from "@/utils";
 
 export function getEnrollmentsListErrorToastContent(

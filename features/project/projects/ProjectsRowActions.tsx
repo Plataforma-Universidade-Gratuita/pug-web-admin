@@ -6,15 +6,17 @@ import { useTranslation } from "react-i18next";
 import {
 	DeleteRowAction,
 	DuplicateRowAction,
+	UpdateRowAction,
+	ViewDetailsRowAction,
+} from "@/components/composite";
+import {
 	DropdownMenuDangerItem,
 	DropdownMenuInfoItem,
 	DropdownMenuSeparator,
 	DropdownMenuSuccessItem,
-	UpdateRowAction,
-	ViewDetailsRowAction,
 	DropdownMenuWarningItem,
-} from "@/components";
-import type { ProjectsRowActionsProps } from "@/types";
+} from "@/components/primitives";
+import type { ProjectsRowActionsProps } from "@/types/client";
 
 export function ProjectsRowActions({
 	href,

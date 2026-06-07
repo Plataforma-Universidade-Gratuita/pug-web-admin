@@ -2,10 +2,10 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Combobox, Label, SomeErrorState } from "@/components";
-import { DatePicker } from "@/components";
-import { ServicePageFiltersDrawer } from "@/components";
-import type { CoursesFiltersDrawerProps } from "@/types";
+import { ServicePageFiltersDrawer } from "@/components/composite";
+import { Combobox, Label, SomeErrorState } from "@/components/primitives";
+import { DatePicker } from "@/components/primitives";
+import type { CoursesFiltersDrawerProps } from "@/types/client";
 
 export function CoursesFiltersDrawer({
 	areaOfExpertiseIds,

@@ -2,9 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-import { TextFieldFilter } from "@/components";
-import { ServicePageFiltersDrawer } from "@/components";
-import type { CitiesFiltersDrawerProps } from "@/types";
+import { TextFieldFilter } from "@/components/composite";
+import { ServicePageFiltersDrawer } from "@/components/composite";
+import type { CitiesFiltersDrawerProps } from "@/types/client";
 
 export function CitiesFiltersDrawer({
 	nameFilter,

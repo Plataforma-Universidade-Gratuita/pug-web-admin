@@ -7,13 +7,13 @@ import {
 	AccountComplexSearchRequestSchema,
 	AccountResponseSchema,
 	AccountComplexSearchResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	AccountComplexSearchRequest,
 	AccountComplexSearchResponse,
 	AccountResponse,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string): Promise<AccountResponse> {
 	return webFetch(

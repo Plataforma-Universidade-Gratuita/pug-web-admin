@@ -1,26 +1,31 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { createDateTimeColumn, createTableTextColumn } from "@/components";
+import {
+	createDateTimeColumn,
+	createTableTextColumn,
+} from "@/components/composite";
 import {
 	TABLE_ADDRESS_TEXT_WIDTH,
 	TABLE_IDENTIFIER_TEXT_WIDTH,
 } from "@/features/partner/entities/constants";
 import type {
 	CityResponse,
-	EntityComplexSearchFilters,
 	EntityComplexSearchRequest,
 	EntityComplexSearchResponse,
 	EntityResponse,
 	EntityCreateRequest,
-	EntityTableRow,
 	EntityUpdateRequest,
-} from "@/types";
+} from "@/types/api";
+import type {
+	EntityComplexSearchFilters,
+	EntityTableRow,
+} from "@/types/client";
 import type {
 	ComboboxOption,
 	EntityEditorFormValues,
 	EntityFilterArgs,
-} from "@/types";
+} from "@/types/client";
 import { getApiErrorToastContent } from "@/utils";
 import {
 	compareNormalizedText,
@@ -30,7 +35,7 @@ import {
 	toSearchDateOffsetDateTime,
 } from "@/utils";
 
-export { createEntityEditorFormSchema } from "@/schemas";
+export { createEntityEditorFormSchema } from "@/schemas/client";
 
 function normalizeCnpj(value: string) {
 	return normalizeDigits(value).slice(0, 14);

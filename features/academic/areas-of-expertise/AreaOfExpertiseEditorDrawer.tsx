@@ -5,7 +5,8 @@ import { useMemo } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
+import { ResetChangesDialog } from "@/components/composite";
 import {
 	Button,
 	Drawer,
@@ -14,9 +15,8 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
-	ResetChangesDialog,
 	toast,
-} from "@/components";
+} from "@/components/primitives";
 import { AreaOfExpertiseEditorForm } from "@/features/academic/areas-of-expertise/AreaOfExpertiseEditorForm";
 import {
 	buildAreaOfExpertiseDuplicateFormValues,
@@ -39,7 +39,7 @@ import {
 import type {
 	AreaOfExpertiseEditorDrawerProps,
 	AreaOfExpertiseEditorFormValues,
-} from "@/types";
+} from "@/types/client";
 
 const { areasOfExpertise: areasOfExpertiseApi } = web.academic;
 const {

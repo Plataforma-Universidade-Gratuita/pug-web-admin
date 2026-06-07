@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
 
-import { Icon } from "@/components";
+import { Icon } from "@/components/primitives";
 import type {
 	BreadcrumbCurrentProps,
 	BreadcrumbItemProps,
@@ -11,7 +11,7 @@ import type {
 	BreadcrumbListProps,
 	BreadcrumbProps,
 	BreadcrumbSeparatorProps,
-} from "@/types";
+} from "@/types/client";
 
 export function Breadcrumb({ children, className, ...props }: BreadcrumbProps) {
 	return (

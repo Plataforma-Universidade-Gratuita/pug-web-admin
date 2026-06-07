@@ -1,4 +1,4 @@
-import { EnrollmentsPage } from "@/features/project/enrollments/EnrollmentsPage";
+import { EnrollmentsPage } from "@/features";
 
 export default function Page() {
 	return <EnrollmentsPage />;

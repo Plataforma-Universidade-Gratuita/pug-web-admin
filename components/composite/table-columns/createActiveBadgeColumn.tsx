@@ -3,7 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "@/components/primitives";
-import type { ActiveBadgeColumnOptions } from "@/types";
+import type { ActiveBadgeColumnOptions } from "@/types/client";
 
 export function createActiveBadgeColumn<TData extends object>({
 	id,

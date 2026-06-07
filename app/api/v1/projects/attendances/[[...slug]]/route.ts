@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { attendances } from "@/api";
+import { attendances } from "@/api/services";
 import {
 	parseRouteBody,
 	routeError,

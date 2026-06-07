@@ -3,15 +3,14 @@
 import { Ban, Check, CheckCheck, UserMinus, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { DeleteRowAction, ViewDetailsRowAction } from "@/components/composite";
 import {
-	DeleteRowAction,
 	DropdownMenuDangerItem,
 	DropdownMenuSeparator,
 	DropdownMenuSuccessItem,
-	ViewDetailsRowAction,
 	DropdownMenuWarningItem,
-} from "@/components";
-import type { EnrollmentsRowActionsProps } from "@/types";
+} from "@/components/primitives";
+import type { EnrollmentsRowActionsProps } from "@/types/client";
 
 export function EnrollmentsRowActions({
 	enrollment,

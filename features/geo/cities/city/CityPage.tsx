@@ -4,16 +4,16 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
-import { NotFoundState, SomeErrorState } from "@/components";
 import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
-} from "@/components";
+} from "@/components/composite";
+import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import { useQueryErrorToasts } from "@/hooks";
-import type { CityPageProps } from "@/types";
+import type { CityPageProps } from "@/types/client";
 
 import { getCityDetailErrorToastContent } from "../utils";
 

@@ -1,13 +1,13 @@
 import { webFetch, webVoid } from "@/api/web/utils";
 import { WEB_API_ROUTE_BASES } from "@/constants";
-import { TokenResponseSchema } from "@/schemas";
+import { TokenResponseSchema } from "@/schemas/api";
 import type {
 	CredentialsRequest,
 	LoginRequest,
 	LogoutRequest,
 	RefreshRequest,
 	TokenResponse,
-} from "@/types";
+} from "@/types/api";
 
 export async function login(body: LoginRequest): Promise<TokenResponse> {
 	return webFetch(

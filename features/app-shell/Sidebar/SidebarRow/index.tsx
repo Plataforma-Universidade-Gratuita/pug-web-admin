@@ -5,9 +5,9 @@ import Link from "next/link";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 
-import { Icon as AppIcon, Tooltip } from "@/components";
+import { Icon as AppIcon, Tooltip } from "@/components/primitives";
 import { getSidebarRowStyle } from "@/features/app-shell/Sidebar/utils";
-import type { SidebarRowProps } from "@/types";
+import type { SidebarRowProps } from "@/types/client";
 
 export function SidebarRow(props: SidebarRowProps) {
 	const { t } = useTranslation();

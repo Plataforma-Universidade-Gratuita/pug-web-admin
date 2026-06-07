@@ -1,4 +1,4 @@
-import { EntitiesPage } from "@/features/partner/entities/EntitiesPage";
+import { EntitiesPage } from "@/features";
 
 export default function Page() {
 	return <EntitiesPage />;

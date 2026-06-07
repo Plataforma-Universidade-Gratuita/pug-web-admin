@@ -5,7 +5,8 @@ import { useMemo } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
+import { ResetChangesDialog } from "@/components/composite";
 import {
 	Button,
 	Drawer,
@@ -14,16 +15,18 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
-	ResetChangesDialog,
 	toast,
-} from "@/components";
+} from "@/components/primitives";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type { CourseEditorDrawerProps, CourseEditorFormValues } from "@/types";
+import type {
+	CourseEditorDrawerProps,
+	CourseEditorFormValues,
+} from "@/types/client";
 
 /*
  * This import must remain relative because the drawer owns its private feature

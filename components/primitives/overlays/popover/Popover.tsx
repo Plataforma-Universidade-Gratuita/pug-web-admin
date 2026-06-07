@@ -18,8 +18,8 @@ import type {
 	PopoverContentProps,
 	PopoverProps,
 	PopoverTriggerProps,
-} from "@/types";
-import type { PopoverContextValue } from "@/types";
+} from "@/types/client";
+import type { PopoverContextValue } from "@/types/client";
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
 

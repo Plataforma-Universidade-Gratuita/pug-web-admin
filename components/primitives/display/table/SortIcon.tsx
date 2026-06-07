@@ -2,8 +2,8 @@
 
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 
-import { Icon } from "@/components";
-import type { SortIconProps } from "@/types";
+import { Icon } from "@/components/primitives";
+import type { SortIconProps } from "@/types/client";
 
 export function SortIcon({ direction }: SortIconProps) {
 	if (direction === "asc") {

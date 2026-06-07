@@ -8,9 +8,9 @@ import clsx from "clsx";
 import { Eraser, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components";
-import { Icon } from "@/components";
-import { Skeleton } from "@/components";
+import { Button } from "@/components/primitives";
+import { Icon } from "@/components/primitives";
+import { Skeleton } from "@/components/primitives";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -18,9 +18,9 @@ import {
 	AlertDialogFooter as AlertDialogFooterActions,
 	AlertDialogHeader,
 	AlertDialogTitle,
-} from "@/components";
-import { Footer, Header } from "@/components";
-import { ScrollArea } from "@/components";
+} from "@/components/primitives";
+import { Footer, Header } from "@/components/primitives";
+import { ScrollArea } from "@/components/primitives";
 import {
 	SkeletonActionGroup,
 	SkeletonPanelBlock,
@@ -42,7 +42,7 @@ import type {
 	DrawerProps,
 	DrawerTitleProps,
 	DrawerTriggerProps,
-} from "@/types";
+} from "@/types/client";
 
 export function Drawer({
 	children,

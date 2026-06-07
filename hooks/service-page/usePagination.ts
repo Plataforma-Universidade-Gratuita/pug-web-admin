@@ -8,7 +8,7 @@ import type {
 	ServicePageSizeOption,
 	UseServicePagePaginationOptions,
 	UseServicePagePaginationResult,
-} from "@/types";
+} from "@/types/client";
 
 function normalizeTotalPages(totalPages?: number) {
 	if (!totalPages || totalPages < 1) {

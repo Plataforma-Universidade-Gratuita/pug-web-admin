@@ -2,13 +2,13 @@
 
 import { useTranslation } from "react-i18next";
 
-import { DateRangeFilterFields } from "@/components";
+import { DateRangeFilterFields } from "@/components/composite";
 import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
 	TextFieldFilter,
-} from "@/components";
-import type { UsersFiltersDrawerProps } from "@/types";
+} from "@/components/composite";
+import type { UsersFiltersDrawerProps } from "@/types/client";
 
 export function UsersFiltersDrawer({
 	filters,

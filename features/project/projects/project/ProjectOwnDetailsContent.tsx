@@ -4,13 +4,16 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Badge } from "@/components";
-import { EntityPageFieldsGrid } from "@/components";
+import { EntityPageFieldsGrid } from "@/components/composite";
+import { Badge } from "@/components/primitives";
 import {
 	getProjectStatusLabel,
 	getProjectStatusTone,
 } from "@/features/project/projects/utils";
-import type { EntityPageField, ProjectOwnDetailsContentProps } from "@/types";
+import type {
+	EntityPageField,
+	ProjectOwnDetailsContentProps,
+} from "@/types/client";
 
 export function ProjectOwnDetailsContent({
 	project,

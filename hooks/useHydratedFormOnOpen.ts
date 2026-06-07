@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 import type { FieldValues } from "react-hook-form";
 
-import type { HydratedFormOnOpenProps } from "@/types";
+import type { HydratedFormOnOpenProps } from "@/types/client";
 
 export function useHydratedFormOnOpen<TValues extends FieldValues>({
 	emptyValues,

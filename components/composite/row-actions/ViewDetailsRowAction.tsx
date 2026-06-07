@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { DropdownMenuInfoItem } from "@/components";
-import type { RowActionNavigateProps } from "@/types";
+import { DropdownMenuInfoItem } from "@/components/primitives";
+import type { RowActionNavigateProps } from "@/types/client";
 
 export function ViewDetailsRowAction({ href, label }: RowActionNavigateProps) {
 	const { t } = useTranslation();

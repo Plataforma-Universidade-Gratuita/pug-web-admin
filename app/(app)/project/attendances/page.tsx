@@ -1,4 +1,4 @@
-import { AttendancesPage } from "@/features/project/attendances/AttendancesPage";
+import { AttendancesPage } from "@/features";
 
 export default function Page() {
 	return <AttendancesPage />;

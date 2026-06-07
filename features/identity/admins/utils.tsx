@@ -5,21 +5,23 @@ import {
 	createActiveBadgeColumn,
 	createDateTimeColumn,
 	createTableTextColumn,
-} from "@/components";
+} from "@/components/composite";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/identity/admins/constants";
 import type {
-	AdminComplexSearchFilters,
 	AdminComplexSearchRequest,
-	AdminCreateExistingUser,
 	AdminCreateRequest,
-	AdminEditorFormValues,
-	AdminLinkedUser,
 	AdminResponse,
 	AdminSearchResponse,
 	AdminUpdateRequest,
-} from "@/types";
-import type { AdminFrontendFilterArgs } from "@/types";
+} from "@/types/api";
+import type {
+	AdminComplexSearchFilters,
+	AdminCreateExistingUser,
+	AdminEditorFormValues,
+	AdminLinkedUser,
+} from "@/types/client";
+import type { AdminFrontendFilterArgs } from "@/types/client";
 import {
 	getApiErrorToastContent,
 	matchesAnyDateRange,
@@ -27,7 +29,7 @@ import {
 	toSearchDateOffsetDateTime,
 } from "@/utils";
 
-export { createAdminEditorFormSchema } from "@/schemas";
+export { createAdminEditorFormSchema } from "@/schemas/client";
 export { appendCopyToEmail } from "@/utils";
 
 function normalizeCpf(value: string) {

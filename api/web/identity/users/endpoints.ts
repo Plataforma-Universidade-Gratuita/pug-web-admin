@@ -6,13 +6,13 @@ import {
 	createPageResponseSchema,
 	UserComplexSearchRequestSchema,
 	UserResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	PaginationRequest,
 	UserComplexSearchRequest,
 	UserComplexSearchResponse,
 	UserResponse,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string): Promise<UserResponse> {
 	return webFetch(

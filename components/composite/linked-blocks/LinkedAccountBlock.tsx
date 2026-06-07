@@ -1,6 +1,6 @@
 import { WebApiError } from "@/api/web";
-import { Badge, NotFoundState, SomeErrorState } from "@/components";
-import type { ServicePageLinkedAccountBlockProps } from "@/types";
+import { Badge, NotFoundState, SomeErrorState } from "@/components/primitives";
+import type { ServicePageLinkedAccountBlockProps } from "@/types/client";
 
 export function ServicePageLinkedAccountBlock({
 	account,

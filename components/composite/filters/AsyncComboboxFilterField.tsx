@@ -1,5 +1,5 @@
-import { Combobox, Label, SomeErrorState } from "@/components";
-import type { AsyncComboboxFilterFieldProps } from "@/types";
+import { Combobox, Label, SomeErrorState } from "@/components/primitives";
+import type { AsyncComboboxFilterFieldProps } from "@/types/client";
 
 export function AsyncComboboxFilterField({
 	label,

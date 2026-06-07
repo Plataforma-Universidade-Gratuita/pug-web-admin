@@ -1,5 +1,5 @@
-import { AdminPage } from "@/features/identity/admins/admin/AdminPage";
-import type { AdminRoutePageProps } from "@/types";
+import { AdminPage } from "@/features";
+import type { AdminRoutePageProps } from "@/types/client";
 
 export default async function Page({ params }: AdminRoutePageProps) {
 	const { adminId } = await params;

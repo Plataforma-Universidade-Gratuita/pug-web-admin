@@ -1,4 +1,4 @@
-import { CitiesPage } from "@/features/geo/cities/CitiesPage";
+import { CitiesPage } from "@/features";
 
 export default function Page() {
 	return <CitiesPage />;

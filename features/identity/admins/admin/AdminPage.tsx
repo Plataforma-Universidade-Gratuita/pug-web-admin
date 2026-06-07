@@ -4,22 +4,21 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
 import {
 	AccountDetailsContent,
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
-	NotFoundState,
-	SomeErrorState,
-} from "@/components";
+} from "@/components/composite";
+import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import {
 	getAdminDetailErrorToastContent,
 	getLinkedAdminUserErrorToastContent,
 } from "@/features/identity/admins/utils";
 import { useQueryErrorToasts } from "@/hooks";
-import type { AdminPageProps } from "@/types";
+import type { AdminPageProps } from "@/types/client";
 
 const { admins: adminsApi } = web.identity;
 const { useAdminDetailQuery, useLinkedAdminUserQuery } = adminsApi;

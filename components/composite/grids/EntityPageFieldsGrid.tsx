@@ -1,10 +1,10 @@
 import clsx from "clsx";
 
-import { Card, Skeleton } from "@/components";
+import { Card, Skeleton } from "@/components/primitives";
 import type {
 	EntityPageFieldsGridProps,
 	EntityPageFieldsGridSkeletonProps,
-} from "@/types";
+} from "@/types/client";
 
 export function EntityPageFieldsGrid({
 	fields,

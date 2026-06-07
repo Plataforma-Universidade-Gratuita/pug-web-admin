@@ -5,9 +5,9 @@ import { createContext, useContext } from "react";
 import * as RadixToggleGroup from "@radix-ui/react-toggle-group";
 import clsx from "clsx";
 
-import { Tooltip } from "@/components";
-import type { ToggleGroupItemProps, ToggleGroupProps } from "@/types";
-import type { ToggleGroupStyleContextValue } from "@/types";
+import { Tooltip } from "@/components/primitives";
+import type { ToggleGroupItemProps, ToggleGroupProps } from "@/types/client";
+import type { ToggleGroupStyleContextValue } from "@/types/client";
 
 const ToggleGroupStyleContext = createContext<ToggleGroupStyleContextValue>({
 	colorVariant: "default",

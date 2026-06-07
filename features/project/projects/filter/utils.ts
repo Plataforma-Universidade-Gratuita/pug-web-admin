@@ -1,11 +1,10 @@
 import type { TFunction } from "i18next";
 
+import type { ProjectComplexSearchRequest, ProjectResponse } from "@/types/api";
 import type {
 	ProjectComplexSearchFilters,
-	ProjectComplexSearchRequest,
 	ProjectFilterArgs,
-	ProjectResponse,
-} from "@/types";
+} from "@/types/client";
 import {
 	matchesAnyDateRange,
 	normalizeTextForSearch,

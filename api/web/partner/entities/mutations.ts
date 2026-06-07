@@ -6,12 +6,12 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import type { EntityResponse } from "@/types";
+import type { EntityResponse } from "@/types/api";
 import type {
 	EntityCreateMutationVariables,
 	RemoveEntityMutationVariables,
 	EntityUpdateMutationVariables,
-} from "@/types";
+} from "@/types/client";
 
 import { create, remove, update } from "./endpoints";
 import { entityKeys as keys } from "./keys";

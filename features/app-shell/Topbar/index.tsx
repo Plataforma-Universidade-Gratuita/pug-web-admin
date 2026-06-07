@@ -6,11 +6,12 @@ import Link from "next/link";
 import { KeyRound, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button, Icon, LanguageSelector, ThemeSelector } from "@/components";
+import { LanguageSelector, ThemeSelector } from "@/components/composite";
+import { Button, Icon } from "@/components/primitives";
 import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants";
 import { NAVBAR_TITLE_ROUTE } from "@/constants";
 import { useLocale, useTheme } from "@/contexts";
-import type { TopBarProps } from "@/types";
+import type { TopBarProps } from "@/types/client";
 
 export function TopBar({
 	collapsed,

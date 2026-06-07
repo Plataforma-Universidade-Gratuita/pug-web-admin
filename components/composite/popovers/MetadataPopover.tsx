@@ -6,8 +6,8 @@ import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from "@/components";
-import type { ServicePageMetadataPopoverProps } from "@/types";
+} from "@/components/primitives";
+import type { ServicePageMetadataPopoverProps } from "@/types/client";
 
 export function MetadataPopover({
 	triggerLabel,

@@ -18,10 +18,19 @@ import { CalendarDays, ChevronDown } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components";
-import { Icon } from "@/components";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components";
+import { Button } from "@/components/primitives";
+import { Icon } from "@/components/primitives";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+} from "@/components/primitives";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/primitives";
 import {
 	clampDateToBounds,
 	formatDateTimeValue,
@@ -30,7 +39,7 @@ import {
 	parseDateTimeValue,
 	setRefValue,
 } from "@/components/primitives/forms/date-picker/utils";
-import type { DatePickerProps } from "@/types";
+import type { DatePickerProps } from "@/types/client";
 
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
 	function DatePicker(

@@ -1,4 +1,4 @@
-import { AcademicOverviewPage } from "@/features/academic/AcademicOverviewPage";
+import { AcademicOverviewPage } from "@/features";
 
 export default function Page() {
 	return <AcademicOverviewPage />;

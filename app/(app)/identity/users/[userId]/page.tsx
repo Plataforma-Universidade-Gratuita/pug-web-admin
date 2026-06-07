@@ -1,5 +1,5 @@
-import { UserPage } from "@/features/identity/users/user/UserPage";
-import type { UserRoutePageProps } from "@/types";
+import { UserPage } from "@/features";
+import type { UserRoutePageProps } from "@/types/client";
 
 export default async function Page({ params }: UserRoutePageProps) {
 	const { userId } = await params;

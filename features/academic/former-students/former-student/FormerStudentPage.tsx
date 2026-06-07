@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
 import {
 	AccountDetailsContent,
@@ -12,16 +12,15 @@ import {
 	CourseOwnDetailsContent,
 	EntityPageShell,
 	FormerStudentOwnDetailsContent,
-	NotFoundState,
-	SomeErrorState,
 	UserDetailsContent,
-} from "@/components";
+} from "@/components/composite";
+import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import {
 	getStudentCoursesErrorToastContent,
 	getStudentDetailErrorToastContent,
 } from "@/features/academic/former-students/utils";
 import { useQueryErrorToasts } from "@/hooks";
-import type { FormerStudentPageProps } from "@/types";
+import type { FormerStudentPageProps } from "@/types/client";
 
 const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;

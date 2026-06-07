@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next";
 
-import type { ProjectStatusAction } from "@/types";
+import type { ProjectStatusAction } from "@/types/client";
 import { getApiErrorToastContent } from "@/utils";
 
 export function getProjectsListErrorToastContent(t: TFunction, error: unknown) {

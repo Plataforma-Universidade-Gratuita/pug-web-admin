@@ -4,14 +4,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import {
-	DatePicker,
-	Label,
-	NoContentState,
-	SomeErrorState,
-	toast,
-} from "@/components";
+import * as web from "@/api/web";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -19,7 +12,14 @@ import {
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
-} from "@/components";
+} from "@/components/composite";
+import {
+	DatePicker,
+	Label,
+	NoContentState,
+	SomeErrorState,
+	toast,
+} from "@/components/primitives";
 import { AreaOfExpertiseEditorDrawer } from "@/features/academic/areas-of-expertise/AreaOfExpertiseEditorDrawer";
 import { AreasOfExpertiseRowActions } from "@/features/academic/areas-of-expertise/AreasOfExpertiseRowActions";
 import {
@@ -37,8 +37,8 @@ import {
 	useQueryErrorToasts,
 	useServicePageEditorState,
 } from "@/hooks";
-import type { AreaOfExpertiseEditorMode } from "@/types";
-import type { AreaOfExpertiseResponse } from "@/types";
+import type { AreaOfExpertiseResponse } from "@/types/api";
+import type { AreaOfExpertiseEditorMode } from "@/types/client";
 
 const { areasOfExpertise: areasOfExpertiseApi } = web.academic;
 const {

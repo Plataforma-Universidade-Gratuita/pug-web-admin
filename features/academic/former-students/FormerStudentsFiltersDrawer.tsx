@@ -6,23 +6,25 @@ import { useTranslation } from "react-i18next";
 
 import {
 	AsyncComboboxFilterField,
+	DateRangeFilterFields,
+} from "@/components/composite";
+import {
+	NumberFieldFilter,
+	ServicePageFiltersDrawer,
+	TextFieldFilter,
+} from "@/components/composite";
+import {
 	Checkbox,
 	Combobox,
-	DateRangeFilterFields,
 	Label,
 	SomeErrorState,
 	Tabs,
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from "@/components";
-import {
-	NumberFieldFilter,
-	ServicePageFiltersDrawer,
-	TextFieldFilter,
-} from "@/components";
+} from "@/components/primitives";
 import { getFormerStudentCampusOptions } from "@/features/academic/former-students/utils";
-import type { FormerStudentsFiltersDrawerProps } from "@/types";
+import type { FormerStudentsFiltersDrawerProps } from "@/types/client";
 
 export function FormerStudentsFiltersDrawer({
 	academicRegistration,

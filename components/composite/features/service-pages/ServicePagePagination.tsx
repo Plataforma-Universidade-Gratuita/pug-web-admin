@@ -15,7 +15,7 @@ import {
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
-} from "@/components";
+} from "@/components/primitives";
 import {
 	DEFAULT_SERVICE_PAGE_SIZE,
 	SERVICE_PAGE_SIZE_OPTIONS,
@@ -23,7 +23,7 @@ import {
 import type {
 	ServicePagePaginationProps,
 	ServicePageSizeOption,
-} from "@/types";
+} from "@/types/client";
 
 export function ServicePagePagination({
 	currentPage,

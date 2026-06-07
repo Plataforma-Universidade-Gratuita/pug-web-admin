@@ -4,11 +4,11 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { EntityPageFieldsGrid } from "@/components";
+import { EntityPageFieldsGrid } from "@/components/composite";
 import type {
 	AreaOfExpertiseDetailsContentProps,
 	EntityPageField,
-} from "@/types";
+} from "@/types/client";
 
 export function AreaOfExpertiseDetailsContent({
 	areaOfExpertise,

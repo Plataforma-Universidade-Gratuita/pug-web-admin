@@ -7,8 +7,8 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-} from "@/components";
-import type { ResetChangesDialogProps } from "@/types";
+} from "@/components/primitives";
+import type { ResetChangesDialogProps } from "@/types/client";
 
 export function ResetChangesDialog({
 	actionLabel,

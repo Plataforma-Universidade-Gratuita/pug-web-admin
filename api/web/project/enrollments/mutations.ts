@@ -6,12 +6,12 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import type { EnrollmentResponse } from "@/types";
+import type { EnrollmentResponse } from "@/types/api";
 import type {
 	EnrollmentCreateMutationVariables,
 	EnrollmentDeleteMutationVariables,
 	EnrollmentStatusMutationVariables,
-} from "@/types";
+} from "@/types/client";
 
 import { create, deleteEnrollment, updateStatus } from "./endpoints";
 import { enrollmentKeys as keys } from "./keys";

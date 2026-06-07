@@ -7,8 +7,8 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Tabs,
-} from "@/components";
-import type { ServicePageEditorDrawerProps } from "@/types";
+} from "@/components/primitives";
+import type { ServicePageEditorDrawerProps } from "@/types/client";
 
 export function ServicePageEditorDrawer({
 	bodyClassName,

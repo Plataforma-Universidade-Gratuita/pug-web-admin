@@ -1,5 +1,5 @@
-import { DatePicker, Label } from "@/components";
-import type { DateRangeFilterFieldsProps } from "@/types";
+import { DatePicker, Label } from "@/components/primitives";
+import type { DateRangeFilterFieldsProps } from "@/types/client";
 
 export function DateRangeFilterFields({
 	startLabel,

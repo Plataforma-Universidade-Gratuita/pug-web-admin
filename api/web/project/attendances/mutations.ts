@@ -6,12 +6,12 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import type { AttendanceResponse } from "@/types";
+import type { AttendanceResponse } from "@/types/api";
 import type {
 	AttendanceCreateMutationVariables,
 	AttendanceRemoveMutationVariables,
 	AttendanceValidateMutationVariables,
-} from "@/types";
+} from "@/types/client";
 
 import { create, remove, validate } from "./endpoints";
 import { attendanceKeys as keys } from "./keys";

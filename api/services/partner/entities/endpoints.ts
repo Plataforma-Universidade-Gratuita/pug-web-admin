@@ -7,7 +7,7 @@ import {
 	EntityComplexSearchResponseSchema,
 	EntityResponseSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	EntityComplexSearchRequest,
 	EntityComplexSearchResponse,
@@ -15,7 +15,7 @@ import type {
 	EntityResponse,
 	EntityUpdateRequest,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string, token?: string): Promise<EntityResponse> {
 	return zfetch(

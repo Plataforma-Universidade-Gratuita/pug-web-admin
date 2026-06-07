@@ -7,11 +7,11 @@ import clsx from "clsx";
 import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components";
-import { Icon } from "@/components";
-import { Skeleton } from "@/components";
-import { Header } from "@/components";
-import { ScrollArea } from "@/components";
+import { Button } from "@/components/primitives";
+import { Icon } from "@/components/primitives";
+import { Skeleton } from "@/components/primitives";
+import { Header } from "@/components/primitives";
+import { ScrollArea } from "@/components/primitives";
 import {
 	SkeletonPanelBlock,
 	SkeletonTextBlock,
@@ -24,7 +24,7 @@ import type {
 	DialogHeaderProps,
 	DialogProps,
 	DialogTitleProps,
-} from "@/types";
+} from "@/types/client";
 
 export function Dialog({
 	children,

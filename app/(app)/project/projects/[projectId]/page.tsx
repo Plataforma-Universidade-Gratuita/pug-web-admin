@@ -1,5 +1,5 @@
-import { ProjectPage } from "@/features/project/projects/project/ProjectPage";
-import type { ProjectRoutePageProps } from "@/types";
+import { ProjectPage } from "@/features";
+import type { ProjectRoutePageProps } from "@/types/client";
 
 export default async function Page({ params }: ProjectRoutePageProps) {
 	const { projectId } = await params;

@@ -2,19 +2,18 @@
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
 import {
 	AccountDetailsContent,
 	EntityDetailsContent,
 	EntityPageShell,
-	NotFoundState,
-	SomeErrorState,
 	UserDetailsContent,
-} from "@/components";
+} from "@/components/composite";
+import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import { getStaffDetailErrorToastContent } from "@/features/partner/staff/utils";
 import { useQueryErrorToasts } from "@/hooks";
-import type { StaffPageProps } from "@/types";
+import type { StaffPageProps } from "@/types/client";
 
 const { staff: staffApi } = web.partner;
 const { useStaffDetailQuery } = staffApi;

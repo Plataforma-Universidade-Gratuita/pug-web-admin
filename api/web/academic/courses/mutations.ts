@@ -6,12 +6,12 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import type { CourseResponse } from "@/types";
+import type { CourseResponse } from "@/types/api";
 import type {
 	CourseCreateMutationVariables,
 	CourseUpdateMutationVariables,
 	RemoveCourseMutationVariables,
-} from "@/types";
+} from "@/types/client";
 
 import { create, remove, update } from "./endpoints";
 import { courseKeys as keys } from "./keys";

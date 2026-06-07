@@ -4,8 +4,8 @@ import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import clsx from "clsx";
 import { Check } from "lucide-react";
 
-import { Icon } from "@/components";
-import type { CheckboxProps } from "@/types";
+import { Icon } from "@/components/primitives";
+import type { CheckboxProps } from "@/types/client";
 
 export function Checkbox({
 	label,

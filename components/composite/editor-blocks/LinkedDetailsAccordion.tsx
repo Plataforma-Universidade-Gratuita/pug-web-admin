@@ -5,8 +5,8 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-} from "@/components";
-import type { LinkedDetailsAccordionProps } from "@/types";
+} from "@/components/primitives";
+import type { LinkedDetailsAccordionProps } from "@/types/client";
 
 export function LinkedDetailsAccordion({
 	items,

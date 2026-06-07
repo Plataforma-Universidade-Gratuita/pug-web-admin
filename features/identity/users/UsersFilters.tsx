@@ -2,8 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 
-import { NumberFieldFilter, TextFieldFilter } from "@/components";
-import type { UsersFiltersProps } from "@/types";
+import { NumberFieldFilter, TextFieldFilter } from "@/components/composite";
+import type { UsersFiltersProps } from "@/types/client";
 
 import { UsersFiltersDrawer } from "./UsersFiltersDrawer";
 

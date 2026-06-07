@@ -6,7 +6,7 @@ import {
 	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
-} from "@/components";
+} from "@/components/composite";
 import { AttendanceEditorDrawer } from "@/features/project/attendances/AttendanceEditorDrawer";
 import { AttendancesRowActions } from "@/features/project/attendances/AttendancesRowActions";
 import {
@@ -14,7 +14,7 @@ import {
 	AttendancesPageFilters,
 } from "@/features/project/attendances/components/AttendancesPageControls";
 import { useAttendancesPage } from "@/features/project/attendances/useAttendancesPage";
-import type { AttendanceDirectoryItem } from "@/types";
+import type { AttendanceDirectoryItem } from "@/types/client";
 
 export function AttendancesPage() {
 	const {

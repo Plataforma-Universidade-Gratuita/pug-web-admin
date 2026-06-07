@@ -5,7 +5,8 @@ import { useMemo } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
+import { ResetChangesDialog } from "@/components/composite";
 import {
 	Button,
 	Drawer,
@@ -14,9 +15,8 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
-	ResetChangesDialog,
 	toast,
-} from "@/components";
+} from "@/components/primitives";
 import { FormerStudentEditorForm } from "@/features/academic/former-students/FormerStudentEditorForm";
 import {
 	buildFormerStudentCourseOptions,
@@ -40,7 +40,7 @@ import {
 import type {
 	FormerStudentEditorDrawerProps,
 	FormerStudentEditorFormValues,
-} from "@/types";
+} from "@/types/client";
 
 const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;

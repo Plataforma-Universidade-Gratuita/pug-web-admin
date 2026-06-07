@@ -2,8 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 
-import { AccountDetailsContent, EntityPageShell } from "@/components";
-import type { AccountPageProps } from "@/types";
+import { AccountDetailsContent, EntityPageShell } from "@/components/composite";
+import type { AccountPageProps } from "@/types/client";
 
 export function AccountPage({ accountId }: AccountPageProps) {
 	const { t } = useTranslation();

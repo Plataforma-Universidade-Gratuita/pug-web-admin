@@ -4,7 +4,7 @@ import {
 	THEME_COOKIE_MAX_AGE,
 	THEME_COOKIE_NAME,
 } from "@/constants";
-import type { AppTheme } from "@/types";
+import type { AppTheme } from "@/types/client";
 
 export function isAppTheme(x: unknown): x is AppTheme {
 	return typeof x === "string" && APP_THEMES.includes(x as AppTheme);

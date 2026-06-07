@@ -2,17 +2,20 @@
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
-import { NotFoundState, SomeErrorState } from "@/components";
-import { EntityPageFieldsGridSkeleton, EntityPageShell } from "@/components";
+import {
+	EntityPageFieldsGridSkeleton,
+	EntityPageShell,
+} from "@/components/composite";
 import {
 	AreaOfExpertiseDetailsContent,
 	CourseOwnDetailsContent,
-} from "@/components";
+} from "@/components/composite";
+import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import { getCourseDetailErrorToastContent } from "@/features/academic/courses/utils";
 import { useQueryErrorToasts } from "@/hooks";
-import type { CoursePageProps } from "@/types";
+import type { CoursePageProps } from "@/types/client";
 
 const { courses: coursesApi } = web.academic;
 const { useCourseDetailQuery } = coursesApi;

@@ -6,12 +6,14 @@ import { useTranslation } from "react-i18next";
 import { WebApiError } from "@/api/web";
 import {
 	AccountDetailsContent,
+	FormerStudentOwnDetailsContent,
+} from "@/components/composite";
+import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 	Combobox,
-	FormerStudentOwnDetailsContent,
 	Input,
 	Label,
 	NotFoundState,
@@ -24,11 +26,11 @@ import {
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from "@/components";
+} from "@/components/primitives";
 import { AttendanceOwnDetailsContent } from "@/features/project/attendances/attendance/AttendanceOwnDetailsContent";
 import { getAttendanceStatusOptions } from "@/features/project/attendances/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
-import type { AttendanceEditorFormProps } from "@/types";
+import type { AttendanceEditorFormProps } from "@/types/client";
 
 export function AttendanceEditorForm({
 	attendance,

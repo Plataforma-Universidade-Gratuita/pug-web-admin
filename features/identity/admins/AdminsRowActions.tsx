@@ -4,12 +4,12 @@ import {
 	DeactivateRowAction,
 	DeleteRowAction,
 	DuplicateRowAction,
-	DropdownMenuSeparator,
 	ReactivateRowAction,
 	UpdateRowAction,
 	ViewDetailsRowAction,
-} from "@/components";
-import type { AdminsRowActionsProps } from "@/types";
+} from "@/components/composite";
+import { DropdownMenuSeparator } from "@/components/primitives";
+import type { AdminsRowActionsProps } from "@/types/client";
 
 export function AdminsRowActions({
 	admin,

@@ -1,4 +1,4 @@
-import type { SearchDateBoundary } from "@/types";
+import type { SearchDateBoundary } from "@/types/client";
 
 function setBoundaryHours(date: Date, boundary: SearchDateBoundary) {
 	if (boundary === "start") {

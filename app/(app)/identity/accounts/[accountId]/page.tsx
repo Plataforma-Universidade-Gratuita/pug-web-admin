@@ -1,5 +1,5 @@
-import { AccountPage } from "@/features/identity/accounts/account/AccountPage";
-import type { AccountRoutePageProps } from "@/types";
+import { AccountPage } from "@/features";
+import type { AccountRoutePageProps } from "@/types/client";
 
 export default async function Page({ params }: AccountRoutePageProps) {
 	const { accountId } = await params;

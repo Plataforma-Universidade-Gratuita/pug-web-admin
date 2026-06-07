@@ -1,5 +1,5 @@
-import { StaffPage } from "@/features/partner/staff/staff/StaffPage";
-import type { StaffRoutePageProps } from "@/types";
+import { StaffPage } from "@/features";
+import type { StaffRoutePageProps } from "@/types/client";
 
 export default async function Page({ params }: StaffRoutePageProps) {
 	const { staffId } = await params;

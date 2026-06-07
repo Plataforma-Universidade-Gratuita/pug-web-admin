@@ -8,15 +8,15 @@ import {
 
 import { accountKeys } from "@/api/web/identity/accounts";
 import { userKeys } from "@/api/web/identity/users";
-import type { AccountResponse, UserResponse } from "@/types";
+import type { AccountResponse, UserResponse } from "@/types/api";
+import type { AdminResponse } from "@/types/api";
 import type {
 	AdminCreateMutationVariables,
-	AdminResponse,
 	AdminSetActiveMutationVariables,
 	AdminUpdateMutationVariables,
 	PatchAdminCachesArgs,
 	RemoveAdminMutationVariables,
-} from "@/types";
+} from "@/types/client";
 
 /*
  * This import must remain relative because this mutation module owns the local

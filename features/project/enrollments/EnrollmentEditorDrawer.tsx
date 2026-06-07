@@ -5,9 +5,10 @@ import { useMemo } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { Button, Footer, ResetChangesDialog, toast } from "@/components";
-import { ServicePageEditorDrawer } from "@/components";
+import * as web from "@/api/web";
+import { ResetChangesDialog } from "@/components/composite";
+import { ServicePageEditorDrawer } from "@/components/composite";
+import { Button, Footer, toast } from "@/components/primitives";
 import { EnrollmentEditorForm } from "@/features/project/enrollments/EnrollmentEditorForm";
 import {
 	buildEnrollmentFormerStudentOptions,
@@ -33,7 +34,7 @@ import type {
 	EnrollmentEditorDrawerProps,
 	EnrollmentEditorFormValues,
 	EnrollmentStatusAction,
-} from "@/types";
+} from "@/types/client";
 
 const { formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;

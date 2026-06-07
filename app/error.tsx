@@ -1,7 +1,8 @@
 "use client";
 
-import { Button, FloatingPageSelectors } from "@/components";
-import type { RouteBoundaryPageProps } from "@/types";
+import { FloatingPageSelectors } from "@/components/composite";
+import { Button } from "@/components/primitives";
+import type { RouteBoundaryPageProps } from "@/types/client";
 
 export default function ErrorPage(props: RouteBoundaryPageProps) {
 	return (

@@ -11,13 +11,13 @@ import type {
 	AccountResponse,
 	FormerStudentResponse,
 	UserResponse,
-} from "@/types";
+} from "@/types/api";
 import type {
 	FormerStudentCreateMutationVariables,
 	FormerStudentSetActiveMutationVariables,
 	FormerStudentUpdateMutationVariables,
 	RemoveFormerStudentMutationVariables,
-} from "@/types";
+} from "@/types/client";
 
 import { create, remove, setActive, update } from "./endpoints";
 import { formerStudentKeys as keys } from "./keys";

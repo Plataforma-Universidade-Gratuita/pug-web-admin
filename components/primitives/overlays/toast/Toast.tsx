@@ -30,7 +30,7 @@ import type {
 	AppToastPromiseOptions,
 	ToastProviderProps,
 	AppToastUndoOptions,
-} from "@/types";
+} from "@/types/client";
 
 export function ToastProvider(props: ToastProviderProps) {
 	const { mode } = useTheme();

@@ -2,8 +2,8 @@
 
 import clsx from "clsx";
 
-import { Skeleton } from "@/components";
-import { Content } from "@/components";
+import { Skeleton } from "@/components/primitives";
+import { Content } from "@/components/primitives";
 import {
 	SkeletonActionGroup,
 	SkeletonPanelBlock,
@@ -17,7 +17,7 @@ import type {
 	SectionHeaderProps,
 	SectionProps,
 	SectionTitleProps,
-} from "@/types";
+} from "@/types/client";
 
 export function Section({
 	children,

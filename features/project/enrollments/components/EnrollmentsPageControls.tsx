@@ -3,19 +3,18 @@
 import { useTranslation } from "react-i18next";
 
 import {
-	Combobox,
-	Label,
 	ServicePageConfirmDialog,
 	TextFieldFilter,
-} from "@/components";
+} from "@/components/composite";
+import { Combobox, Label } from "@/components/primitives";
 import { EnrollmentsFiltersDrawer } from "@/features/project/enrollments/EnrollmentsFiltersDrawer";
+import type { EnrollmentStatus } from "@/types/api";
 import type {
 	ComboboxOption,
 	EnrollmentComplexSearchFilters,
 	EnrollmentDirectoryItem,
-	EnrollmentStatus,
 	EnrollmentStatusAction,
-} from "@/types";
+} from "@/types/client";
 
 export function EnrollmentsPageFilters({
 	querySearch,

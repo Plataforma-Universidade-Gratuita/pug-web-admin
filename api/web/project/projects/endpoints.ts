@@ -10,7 +10,7 @@ import {
 	ProjectStatusEnum,
 	ProjectUpdateRequestSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	PaginationRequest,
 	ProjectComplexSearchRequest,
@@ -19,7 +19,7 @@ import type {
 	ProjectResponse,
 	ProjectStatus,
 	ProjectUpdateRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string): Promise<ProjectResponse> {
 	return webFetch(

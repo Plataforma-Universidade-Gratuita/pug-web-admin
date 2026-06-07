@@ -5,8 +5,8 @@ import {
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
-} from "@/components";
-import type { ModulePageShellProps } from "@/types";
+} from "@/components/primitives";
+import type { ModulePageShellProps } from "@/types/client";
 
 export function ModulePageShell({
 	children,

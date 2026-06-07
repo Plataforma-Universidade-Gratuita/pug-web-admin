@@ -7,7 +7,7 @@ import {
 	AttendanceComplexSearchResponseSchema,
 	AttendanceResponseSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	AttendanceComplexSearchRequest,
 	AttendanceComplexSearchResponse,
@@ -15,7 +15,7 @@ import type {
 	AttendanceResponse,
 	AttendanceValidateRequest,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(
 	id: string,

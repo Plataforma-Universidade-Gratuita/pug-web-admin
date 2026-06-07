@@ -7,7 +7,7 @@ import {
 	AreaOfExpertiseComplexSearchResponseSchema,
 	AreaOfExpertiseResponseSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	AreaOfExpertiseComplexSearchRequest,
 	AreaOfExpertiseComplexSearchResponse,
@@ -15,7 +15,7 @@ import type {
 	AreaOfExpertiseResponse,
 	AreaOfExpertiseUpdateRequest,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(
 	id: string,

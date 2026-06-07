@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { buildEntityComplexSearchRequest } from "@/features/partner/entities/utils";
-import type { UseEntitiesSearchQueryFilters } from "@/types";
+import type { UseEntitiesSearchQueryFilters } from "@/types/client";
 
 import { get, list, listCities, search } from "./endpoints";
 import { entityKeys as keys } from "./keys";

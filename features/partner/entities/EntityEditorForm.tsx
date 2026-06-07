@@ -10,8 +10,8 @@ import {
 	Label,
 	NotFoundState,
 	SomeErrorState,
-} from "@/components";
-import type { EntityEditorFormProps } from "@/types";
+} from "@/components/primitives";
+import type { EntityEditorFormProps } from "@/types/client";
 import { normalizeDigits } from "@/utils";
 
 function formatCnpjValue(value: string) {

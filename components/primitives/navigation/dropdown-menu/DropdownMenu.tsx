@@ -3,7 +3,7 @@
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 import clsx from "clsx";
 
-import { Icon } from "@/components";
+import { Icon } from "@/components/primitives";
 import type {
 	DropdownMenuContentProps,
 	DropdownMenuItemProps,
@@ -11,7 +11,7 @@ import type {
 	DropdownMenuProps,
 	DropdownMenuSeparatorProps,
 	DropdownMenuTriggerProps,
-} from "@/types";
+} from "@/types/client";
 
 export function DropdownMenu({
 	children,

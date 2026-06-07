@@ -2,12 +2,14 @@ import type { TFunction } from "i18next";
 
 import type {
 	EnrollmentComplexSearchRequest,
-	EnrollmentDirectoryItem,
-	EnrollmentFilterArgs,
 	EnrollmentResponse,
 	EnrollmentStatus,
 	FormerStudentResponse,
-} from "@/types";
+} from "@/types/api";
+import type {
+	EnrollmentDirectoryItem,
+	EnrollmentFilterArgs,
+} from "@/types/client";
 import {
 	matchesAnyDateRange,
 	normalizeTextForSearch,

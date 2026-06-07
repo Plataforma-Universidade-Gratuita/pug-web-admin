@@ -4,20 +4,16 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import {
-	NoContentState,
-	RecordActionDialogs,
-	SomeErrorState,
-	toast,
-} from "@/components";
+import * as web from "@/api/web";
+import { RecordActionDialogs } from "@/components/composite";
 import {
 	ServicePageHeader,
 	ServicePageHeaderActions,
 	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
-} from "@/components";
+} from "@/components/composite";
+import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AdminsFilters } from "@/features/identity/admins/AdminsFilters";
 import { AdminsRowActions } from "@/features/identity/admins/AdminsRowActions";
@@ -42,12 +38,11 @@ import {
 	useServicePageEditorState,
 	useServicePagePagination,
 } from "@/hooks";
+import type { AdminSearchResponse, Campi } from "@/types/api";
 import type {
 	AdminComplexSearchFilters,
 	AdminEditorMode,
-	AdminSearchResponse,
-	Campi,
-} from "@/types";
+} from "@/types/client";
 
 const {
 	accounts: accountsApi,

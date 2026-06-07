@@ -1,9 +1,9 @@
 import type {
 	ProjectCreateRequest,
-	ProjectEditorFormValues,
 	ProjectResponse,
 	ProjectUpdateRequest,
-} from "@/types";
+} from "@/types/api";
+import type { ProjectEditorFormValues } from "@/types/client";
 import { appendCopyToText } from "@/utils";
 
 function parsePositiveInteger(value: string) {

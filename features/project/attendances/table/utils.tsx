@@ -1,18 +1,18 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge, TableText } from "@/components";
+import { Badge, TableText } from "@/components/primitives";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/project/attendances/constants";
 import type {
 	AccountResponse,
-	AttendanceDirectoryItem,
 	AttendanceResponse,
 	AttendanceStatus,
 	FormerStudentResponse,
 	ProjectResponse,
 	UserResponse,
-} from "@/types";
-import type { BadgeTone, ComboboxOption } from "@/types";
+} from "@/types/api";
+import type { AttendanceDirectoryItem } from "@/types/client";
+import type { BadgeTone, ComboboxOption } from "@/types/client";
 import { compareNormalizedText } from "@/utils";
 
 function getFormerStudentUser(

@@ -5,9 +5,10 @@ import { useMemo } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { Button, Footer, ResetChangesDialog, toast } from "@/components";
-import { ServicePageEditorDrawer } from "@/components";
+import * as web from "@/api/web";
+import { ResetChangesDialog } from "@/components/composite";
+import { ServicePageEditorDrawer } from "@/components/composite";
+import { Button, Footer, toast } from "@/components/primitives";
 import { AdminEditorContent } from "@/features/identity/admins/AdminEditorContent";
 import {
 	buildAdminUpdateFormValues,
@@ -29,7 +30,10 @@ import {
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type { AdminEditorFormValues, AdminsUpdateDrawerProps } from "@/types";
+import type {
+	AdminEditorFormValues,
+	AdminsUpdateDrawerProps,
+} from "@/types/client";
 
 const { admins: adminsApi, users: usersApi } = web.identity;
 const {

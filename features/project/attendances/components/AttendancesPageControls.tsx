@@ -3,11 +3,10 @@
 import { useTranslation } from "react-i18next";
 
 import {
-	Combobox,
-	Label,
 	ServicePageConfirmDialog,
 	TextFieldFilter,
-} from "@/components";
+} from "@/components/composite";
+import { Combobox, Label } from "@/components/primitives";
 import { AttendanceQrCodeDialog } from "@/features/project/attendances/AttendanceQrCodeDialog";
 import { AttendancesFiltersDrawer } from "@/features/project/attendances/AttendancesFiltersDrawer";
 import type {
@@ -15,7 +14,7 @@ import type {
 	AttendanceDirectoryItem,
 	AttendanceValidationAction,
 	ComboboxOption,
-} from "@/types";
+} from "@/types/client";
 
 function getValidationVariant(action: AttendanceValidationAction) {
 	return action === "markPresent" ? "success" : "warning";

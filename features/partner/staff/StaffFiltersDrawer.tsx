@@ -4,15 +4,15 @@ import { useTranslation } from "react-i18next";
 
 import {
 	AsyncComboboxFilterField,
-	Checkbox,
 	DateRangeFilterFields,
-} from "@/components";
+} from "@/components/composite";
 import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
 	TextFieldFilter,
-} from "@/components";
-import type { StaffFiltersDrawerProps } from "@/types";
+} from "@/components/composite";
+import { Checkbox } from "@/components/primitives";
+import type { StaffFiltersDrawerProps } from "@/types/client";
 
 export function StaffFiltersDrawer({
 	filters,

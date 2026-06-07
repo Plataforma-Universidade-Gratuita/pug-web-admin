@@ -3,7 +3,7 @@
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import clsx from "clsx";
 
-import type { RadioGroupItemProps, RadioGroupProps } from "@/types";
+import type { RadioGroupItemProps, RadioGroupProps } from "@/types/client";
 
 export function RadioGroup({ children, className, ...props }: RadioGroupProps) {
 	return (

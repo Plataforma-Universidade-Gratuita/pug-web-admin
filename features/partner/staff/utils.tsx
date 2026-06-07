@@ -5,24 +5,26 @@ import {
 	createActiveBadgeColumn,
 	createDateTimeColumn,
 	createTableTextColumn,
-} from "@/components";
+} from "@/components/composite";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/partner/staff/constants";
 import type {
 	CityResponse,
 	EntityResponse,
-	StaffComplexSearchFilters,
 	StaffComplexSearchRequest,
-	StaffCreateExistingUser,
 	StaffCreateRequest,
-	StaffEditorFormValues,
 	StaffResponse,
 	StaffSearchResponse,
 	StaffUpdateRequest,
 	UserResponse,
-} from "@/types";
-import type { StaffFilterSummaryArgs } from "@/types";
+} from "@/types/api";
+import type {
+	StaffComplexSearchFilters,
+	StaffCreateExistingUser,
+	StaffEditorFormValues,
+} from "@/types/client";
+import type { StaffFilterSummaryArgs } from "@/types/client";
 import { getApiErrorToastContent } from "@/utils";
 import {
 	appendCopyToEmail,
@@ -33,7 +35,7 @@ import {
 	toSearchDateOffsetDateTime,
 } from "@/utils";
 
-export { createStaffEditorFormSchema } from "@/schemas";
+export { createStaffEditorFormSchema } from "@/schemas/client";
 export { appendCopyToEmail } from "@/utils";
 
 function normalizeCpf(value: string) {

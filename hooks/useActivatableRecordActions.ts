@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-import { toast } from "@/components";
+import { toast } from "@/components/primitives";
 import { useDeferredUndoAction } from "@/hooks";
 import type {
 	ActivatableRecordPendingStatus,
 	UseActivatableRecordActionsOptions,
 	UseActivatableRecordActionsResult,
-} from "@/types";
+} from "@/types/client";
 
 export function useActivatableRecordActions<
 	TRecord,

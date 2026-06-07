@@ -1,5 +1,5 @@
 import { UNKNOWN_ROUTE_LABEL } from "@/constants";
-import type { RouteBreadcrumbEntry } from "@/types";
+import type { RouteBreadcrumbEntry } from "@/types/client";
 
 function isDynamicRouteSegment(segment: string) {
 	return /^\[[^\]]+\]$/.test(segment);

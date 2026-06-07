@@ -1,5 +1,5 @@
-import { ServicePageConfirmDialog } from "@/components";
-import type { RecordActionDialogsProps } from "@/types";
+import { ServicePageConfirmDialog } from "@/components/composite";
+import type { RecordActionDialogsProps } from "@/types/client";
 
 export function RecordActionDialogs({
 	cancelLabel,

@@ -4,8 +4,8 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import * as web from "@/api/web";
+import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import {
 	buildProjectCreatorOptions,
@@ -29,13 +29,12 @@ import {
 	useServicePageEditorState,
 	useServicePagePagination,
 } from "@/hooks";
+import type { ProjectResponse, ProjectStatus } from "@/types/api";
 import type {
 	ProjectComplexSearchFilters,
 	ProjectEditorMode,
-	ProjectResponse,
-	ProjectStatus,
 	ProjectStatusAction,
-} from "@/types";
+} from "@/types/client";
 import { appendCopyToText } from "@/utils";
 
 const { entities: entitiesApi } = web.partner;

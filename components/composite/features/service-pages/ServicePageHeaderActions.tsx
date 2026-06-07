@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react";
 
-import { Button } from "@/components";
-import type { ServicePageHeaderActionsProps } from "@/types";
+import { Button } from "@/components/primitives";
+import type { ServicePageHeaderActionsProps } from "@/types/client";
 
 export function ServicePageHeaderActions({
 	clearLabel,

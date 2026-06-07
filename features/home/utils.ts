@@ -1,4 +1,5 @@
-import type { EnrollmentDirectoryItem, ProjectResponse } from "@/types";
+import type { ProjectResponse } from "@/types/api";
+import type { EnrollmentDirectoryItem } from "@/types/client";
 
 export function getTimestamp(value: string | null | undefined) {
 	if (!value) {

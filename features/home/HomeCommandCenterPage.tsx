@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { PageShell, Section, SectionContent } from "@/components";
+import * as web from "@/api/web";
+import { PageShell, Section, SectionContent } from "@/components/primitives";
 import { buildFormerStudentDirectoryItems } from "@/features/academic/former-students/utils";
 import { HomeDashboardHero } from "@/features/home/components/HomeDashboardHero";
 import { HomeDashboardPrimarySections } from "@/features/home/components/HomeDashboardPrimarySections";
@@ -19,7 +19,7 @@ import type {
 	HomePulseMetric,
 	HomeRecentItem,
 	HomeUpcomingItem,
-} from "@/types";
+} from "@/types/client";
 
 import {
 	formatPercent,

@@ -7,14 +7,14 @@ import {
 } from "@tanstack/react-query";
 
 import * as identity from "@/api/web/identity";
-import type { AccountResponse, StaffResponse, UserResponse } from "@/types";
+import type { AccountResponse, StaffResponse, UserResponse } from "@/types/api";
 import type {
 	PatchStaffCachesArgs,
 	StaffCreateMutationVariables,
 	StaffRemoveMutationVariables,
 	StaffSetActiveMutationVariables,
 	StaffUpdateMutationVariables,
-} from "@/types";
+} from "@/types/client";
 
 import { create, remove, setActive, update } from "./endpoints";
 import { staffKeys as keys } from "./keys";

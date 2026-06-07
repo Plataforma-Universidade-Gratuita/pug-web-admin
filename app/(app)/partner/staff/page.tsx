@@ -1,5 +1,5 @@
-import { StaffPage } from "@/features/partner/staff/StaffPage";
+import { StaffDirectoryPage } from "@/features";
 
 export default function Page() {
-	return <StaffPage />;
+	return <StaffDirectoryPage />;
 }

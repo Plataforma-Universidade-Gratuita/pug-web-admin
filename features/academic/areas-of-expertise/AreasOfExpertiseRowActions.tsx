@@ -3,11 +3,11 @@
 import {
 	DeleteRowAction,
 	DuplicateRowAction,
-	DropdownMenuSeparator,
 	UpdateRowAction,
 	ViewDetailsRowAction,
-} from "@/components";
-import type { AreasOfExpertiseRowActionsProps } from "@/types";
+} from "@/components/composite";
+import { DropdownMenuSeparator } from "@/components/primitives";
+import type { AreasOfExpertiseRowActionsProps } from "@/types/client";
 
 export function AreasOfExpertiseRowActions({
 	href,

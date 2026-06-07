@@ -1,10 +1,10 @@
 import type { TFunction } from "i18next";
 
+import type { CourseResponse } from "@/types/api";
 import type {
-	CourseResponse,
 	FormerStudentDirectoryItem,
 	FormerStudentFilterArgs,
-} from "@/types";
+} from "@/types/client";
 import { normalizeTextForSearch } from "@/utils";
 
 function normalizeCpf(value: string) {

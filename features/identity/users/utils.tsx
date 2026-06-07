@@ -1,14 +1,16 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { createDateTimeColumn, createTableTextColumn } from "@/components";
+import {
+	createDateTimeColumn,
+	createTableTextColumn,
+} from "@/components/composite";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import type { UserComplexSearchRequest, UserResponse } from "@/types/api";
 import type {
 	UserComplexSearchFilters,
-	UserComplexSearchRequest,
 	UserFrontendFilterArgs,
-	UserResponse,
-} from "@/types";
+} from "@/types/client";
 import {
 	getApiErrorToastContent,
 	matchesAnyDateRange,

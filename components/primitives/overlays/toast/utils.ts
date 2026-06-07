@@ -4,7 +4,7 @@ import type { ExternalToast } from "sonner";
 
 import { LOGIN_ROUTE } from "@/constants";
 import { TOAST_OFFSET_TOP } from "@/constants";
-import type { AppToastOptions } from "@/types";
+import type { AppToastOptions } from "@/types/client";
 
 export function withToastDefaults(
 	options: AppToastOptions | undefined,

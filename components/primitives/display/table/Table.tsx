@@ -12,7 +12,7 @@ import {
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 
-import type { TableProps } from "@/types";
+import type { TableProps } from "@/types/client";
 
 import { SortIcon } from "./SortIcon";
 import { TableBody } from "./TableBody";

@@ -8,7 +8,7 @@ import {
 	FormerStudentComplexSearchRequestSchema,
 	FormerStudentComplexSearchResponseSchema,
 	FormerStudentResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	FormerStudentComplexSearchRequest,
 	FormerStudentComplexSearchResponse,
@@ -16,7 +16,7 @@ import type {
 	FormerStudentResponse,
 	FormerStudentUpdateRequest,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(
 	id: string,

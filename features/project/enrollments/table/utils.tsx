@@ -1,19 +1,19 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { Badge, TableText } from "@/components";
+import { Badge, TableText } from "@/components/primitives";
 import { ENROLLMENT_KEY_SEPARATOR } from "@/constants";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/project/enrollments/constants";
 import type {
 	AccountResponse,
-	EnrollmentDirectoryItem,
 	EnrollmentResponse,
 	EnrollmentStatus,
 	FormerStudentResponse,
 	ProjectResponse,
 	UserResponse,
-} from "@/types";
-import type { BadgeTone, ComboboxOption } from "@/types";
+} from "@/types/api";
+import type { EnrollmentDirectoryItem } from "@/types/client";
+import type { BadgeTone, ComboboxOption } from "@/types/client";
 import { compareNormalizedText } from "@/utils";
 
 function getFormerStudentUser(

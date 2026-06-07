@@ -2,8 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 
-import { TextFieldFilter } from "@/components";
-import type { CitiesFiltersProps } from "@/types";
+import { TextFieldFilter } from "@/components/composite";
+import type { CitiesFiltersProps } from "@/types/client";
 
 import { CitiesFiltersDrawer } from "./CitiesFiltersDrawer";
 

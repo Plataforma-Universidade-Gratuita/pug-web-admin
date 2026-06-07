@@ -1,9 +1,9 @@
 import type {
 	AttendanceCreateRequest,
-	AttendanceEditorFormValues,
 	AttendanceResponse,
 	AttendanceValidateRequest,
-} from "@/types";
+} from "@/types/api";
+import type { AttendanceEditorFormValues } from "@/types/client";
 
 export function getEmptyAttendanceEditorFormValues(): AttendanceEditorFormValues {
 	return {

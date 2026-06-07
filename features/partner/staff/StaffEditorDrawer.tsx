@@ -5,7 +5,8 @@ import { useMemo } from "react";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
+import { ResetChangesDialog } from "@/components/composite";
 import {
 	Button,
 	Drawer,
@@ -14,9 +15,8 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Footer,
-	ResetChangesDialog,
 	toast,
-} from "@/components";
+} from "@/components/primitives";
 import { StaffEditorForm } from "@/features/partner/staff/StaffEditorForm";
 import {
 	buildStaffDuplicateFormValues,
@@ -40,7 +40,10 @@ import {
 	useLocalizedZodForm,
 	useQueryErrorToasts,
 } from "@/hooks";
-import type { StaffEditorDrawerProps, StaffEditorFormValues } from "@/types";
+import type {
+	StaffEditorDrawerProps,
+	StaffEditorFormValues,
+} from "@/types/client";
 
 const { users: usersApi } = web.identity;
 const { staff: staffApi } = web.partner;

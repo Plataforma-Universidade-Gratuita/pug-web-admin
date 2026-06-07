@@ -5,8 +5,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { EmptyState, Icon } from "@/components";
-import type { ModulePageComingSoonProps } from "@/types";
+import { EmptyState, Icon } from "@/components/primitives";
+import type { ModulePageComingSoonProps } from "@/types/client";
 
 export function ModulePageComingSoon({
 	className,

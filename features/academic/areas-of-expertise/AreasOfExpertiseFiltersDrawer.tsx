@@ -2,9 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-import { DatePicker, Label } from "@/components";
-import { ServicePageFiltersDrawer } from "@/components";
-import type { AreasOfExpertiseFiltersDrawerProps } from "@/types";
+import { ServicePageFiltersDrawer } from "@/components/composite";
+import { DatePicker, Label } from "@/components/primitives";
+import type { AreasOfExpertiseFiltersDrawerProps } from "@/types/client";
 
 export function AreasOfExpertiseFiltersDrawer({
 	endDate,

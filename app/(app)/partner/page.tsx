@@ -1,4 +1,4 @@
-import { PartnerOverviewPage } from "@/features/partner/PartnerOverviewPage";
+import { PartnerOverviewPage } from "@/features";
 
 export default function Page() {
 	return <PartnerOverviewPage />;

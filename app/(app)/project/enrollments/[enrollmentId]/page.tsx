@@ -1,5 +1,5 @@
-import { EnrollmentPage } from "@/features/project/enrollments/enrollment/EnrollmentPage";
-import type { EnrollmentRoutePageProps } from "@/types";
+import { EnrollmentPage } from "@/features";
+import type { EnrollmentRoutePageProps } from "@/types/client";
 
 export default async function Page({ params }: EnrollmentRoutePageProps) {
 	const { enrollmentId } = await params;

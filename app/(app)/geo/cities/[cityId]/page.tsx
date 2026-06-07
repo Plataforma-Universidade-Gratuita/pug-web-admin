@@ -1,5 +1,5 @@
-import { CityPage } from "@/features/geo/cities/city/CityPage";
-import type { CityRoutePageProps } from "@/types";
+import { CityPage } from "@/features";
+import type { CityRoutePageProps } from "@/types/client";
 
 export default async function Page({ params }: CityRoutePageProps) {
 	const { cityId } = await params;

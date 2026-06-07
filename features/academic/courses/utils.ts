@@ -1,19 +1,19 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { TableText } from "@/components";
+import { TableText } from "@/components/primitives";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type {
 	AreaOfExpertiseResponse,
 	CourseCreateRequest,
 	CourseResponse,
 	CourseUpdateRequest,
-} from "@/types";
+} from "@/types/api";
 import type {
 	ComboboxOption,
 	CourseEditorFormValues,
 	CourseFilterArgs,
-} from "@/types";
+} from "@/types/client";
 import {
 	compareNormalizedText,
 	getApiErrorToastContent,
@@ -22,7 +22,7 @@ import {
 	toSearchDateOffsetDateTime,
 } from "@/utils";
 
-export { createCourseEditorFormSchema } from "@/schemas";
+export { createCourseEditorFormSchema } from "@/schemas/client";
 
 export function createCourseColumns(t: TFunction): ColumnDef<CourseResponse>[] {
 	return [

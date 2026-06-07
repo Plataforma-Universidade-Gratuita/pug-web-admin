@@ -4,17 +4,17 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
-import { NotFoundState, SomeErrorState } from "@/components";
 import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	EntityPageShell,
-} from "@/components";
+} from "@/components/composite";
+import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import { getAreaOfExpertiseDetailErrorToastContent } from "@/features/academic/areas-of-expertise/utils";
 import { useQueryErrorToasts } from "@/hooks";
-import type { AreaOfExpertisePageProps } from "@/types";
+import type { AreaOfExpertisePageProps } from "@/types/client";
 
 const { areasOfExpertise: areasOfExpertiseApi } = web.academic;
 const { useAreaOfExpertiseDetailQuery } = areasOfExpertiseApi;

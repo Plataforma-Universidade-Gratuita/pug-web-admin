@@ -3,19 +3,17 @@
 import { useTranslation } from "react-i18next";
 
 import {
-	Combobox,
-	Label,
 	ServicePageConfirmDialog,
 	TextFieldFilter,
-} from "@/components";
+} from "@/components/composite";
+import { Combobox, Label } from "@/components/primitives";
 import { ProjectsFiltersDrawer } from "@/features/project/projects/ProjectsFiltersDrawer";
+import type { ProjectResponse, ProjectStatus } from "@/types/api";
 import type {
 	ComboboxOption,
 	ProjectComplexSearchFilters,
-	ProjectResponse,
-	ProjectStatus,
 	ProjectStatusAction,
-} from "@/types";
+} from "@/types/client";
 
 function getStatusDialogVariant(action: ProjectStatusAction) {
 	switch (action) {

@@ -8,7 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { KeyRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
 import {
 	AlertDialog,
@@ -22,14 +22,14 @@ import {
 	Input,
 	Label,
 	toast,
-} from "@/components";
+} from "@/components/primitives";
 import { writePasswordWiredCookie } from "@/features/app-shell/utils";
 import { useLocalizedZodForm } from "@/hooks";
-import { createWireCredentialsFormSchema } from "@/schemas";
+import { createWireCredentialsFormSchema } from "@/schemas/client";
 import type {
 	WireCredentialsDialogProps,
 	WireCredentialsFormValues,
-} from "@/types";
+} from "@/types/client";
 
 const { auth: authApi } = web.identity;
 const { wireCredentials } = authApi;

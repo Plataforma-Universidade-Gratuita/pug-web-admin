@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react";
 
-import type { SelectContextValue, SelectProviderProps } from "@/types";
+import type { SelectContextValue, SelectProviderProps } from "@/types/client";
 
 const SelectContext = createContext<SelectContextValue>({
 	clearSelection: () => undefined,

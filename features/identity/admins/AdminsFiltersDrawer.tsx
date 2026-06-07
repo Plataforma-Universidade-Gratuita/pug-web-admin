@@ -2,13 +2,14 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Checkbox, DateRangeFilterFields } from "@/components";
+import { DateRangeFilterFields } from "@/components/composite";
 import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
 	TextFieldFilter,
-} from "@/components";
-import type { AdminsFiltersDrawerProps } from "@/types";
+} from "@/components/composite";
+import { Checkbox } from "@/components/primitives";
+import type { AdminsFiltersDrawerProps } from "@/types/client";
 
 export function AdminsFiltersDrawer({
 	filters,

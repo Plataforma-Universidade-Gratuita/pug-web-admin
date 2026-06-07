@@ -4,14 +4,14 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import * as web from "@/api/web";
 import {
 	ServicePageHeader,
 	ServicePageHeaderActions,
 	ServicePageShell,
 	ServicePageTableSection,
-} from "@/components";
+} from "@/components/composite";
+import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import { FormerStudentEditorDrawer } from "@/features/academic/former-students/FormerStudentEditorDrawer";
 import { FormerStudentsRowActions } from "@/features/academic/former-students/FormerStudentsRowActions";
 import {
@@ -43,7 +43,7 @@ import type {
 	FormerStudentDirectoryItem,
 	FormerStudentEditorMode,
 	FormerStudentSecondaryFilters,
-} from "@/types";
+} from "@/types/client";
 
 const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;

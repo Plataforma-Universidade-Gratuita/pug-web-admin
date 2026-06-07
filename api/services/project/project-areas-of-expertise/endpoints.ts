@@ -5,12 +5,12 @@ import { API_ROUTE_BASES } from "@/constants";
 import {
 	AreaOfExpertiseResponseSchema,
 	ProjectResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	AreaOfExpertiseResponse,
 	ProjectAreaOfExpertiseRequest,
 	ProjectResponse,
-} from "@/types";
+} from "@/types/api";
 
 export async function listAreasOfExpertiseByProject(
 	projectId: string,

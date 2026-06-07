@@ -6,14 +6,14 @@ import { useTranslation } from "react-i18next";
 
 import {
 	AsyncComboboxFilterField,
-	Combobox,
 	DateRangeFilterFields,
-	Label,
-} from "@/components";
-import { ServicePageFiltersDrawer } from "@/components";
-import { NumberFieldFilter, TextFieldFilter } from "@/components";
+} from "@/components/composite";
+import { ServicePageFiltersDrawer } from "@/components/composite";
+import { NumberFieldFilter, TextFieldFilter } from "@/components/composite";
+import { Combobox, Label } from "@/components/primitives";
 import { getProjectStatusOptions } from "@/features/project/projects/utils";
-import type { ProjectsFiltersDrawerProps, ProjectStatus } from "@/types";
+import type { ProjectStatus } from "@/types/api";
+import type { ProjectsFiltersDrawerProps } from "@/types/client";
 
 export function ProjectsFiltersDrawer({
 	creatorsError,

@@ -3,8 +3,8 @@
 import { useTranslation } from "react-i18next";
 
 import { WebApiError } from "@/api/web";
-import { NotFoundState, SomeErrorState } from "@/components";
-import type { AdminUserTabProps } from "@/types";
+import { NotFoundState, SomeErrorState } from "@/components/primitives";
+import type { AdminUserTabProps } from "@/types/client";
 
 export function AdminUserTab({
 	admin,

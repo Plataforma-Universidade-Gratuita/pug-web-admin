@@ -8,8 +8,8 @@ import {
 	DropdownMenuContent,
 	DropdownMenuTrigger,
 	Icon,
-} from "@/components";
-import type { RowActionsCellProps } from "@/types";
+} from "@/components/primitives";
+import type { RowActionsCellProps } from "@/types/client";
 
 import { flattenActionNodes, getDirectActionProps } from "./utils";
 

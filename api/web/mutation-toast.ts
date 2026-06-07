@@ -1,7 +1,7 @@
 import type { UseMutationOptions } from "@tanstack/react-query";
 
-import { toast } from "@/components";
-import type { MutationToastOptions, ResolvedToastValue } from "@/types";
+import { toast } from "@/components/primitives";
+import type { MutationToastOptions, ResolvedToastValue } from "@/types/client";
 import { getApiErrorToastContent } from "@/utils/api-errors";
 
 function resolveToastValue<TArgs extends unknown[]>(

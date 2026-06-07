@@ -1,4 +1,4 @@
-export { createEnrollmentEditorFormSchema } from "@/schemas";
+export { createEnrollmentEditorFormSchema } from "@/schemas/client";
 
 export * from "./filter/utils";
 export * from "./form/utils";

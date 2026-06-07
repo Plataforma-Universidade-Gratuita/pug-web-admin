@@ -3,15 +3,14 @@
 import { Check, QrCode, UserRoundX } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { DeleteRowAction, ViewDetailsRowAction } from "@/components/composite";
 import {
-	DeleteRowAction,
 	DropdownMenuInfoItem,
 	DropdownMenuSeparator,
 	DropdownMenuSuccessItem,
-	ViewDetailsRowAction,
 	DropdownMenuWarningItem,
-} from "@/components";
-import type { AttendancesRowActionsProps } from "@/types";
+} from "@/components/primitives";
+import type { AttendancesRowActionsProps } from "@/types/client";
 
 export function AttendancesRowActions({
 	attendance,

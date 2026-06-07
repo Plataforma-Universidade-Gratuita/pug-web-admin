@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { accounts } from "@/api";
+import { accounts } from "@/api/services";
 import {
 	parseRouteBody,
 	routeError,

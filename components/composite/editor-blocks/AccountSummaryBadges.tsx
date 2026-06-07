@@ -1,7 +1,7 @@
 "use client";
 
-import { Badge, Label } from "@/components";
-import type { AccountSummaryBadgesProps } from "@/types";
+import { Badge, Label } from "@/components/primitives";
+import type { AccountSummaryBadgesProps } from "@/types/client";
 
 export function AccountSummaryBadges({
 	accountTypeFieldLabel,

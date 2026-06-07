@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import type { UseDrawerResetConfirmParams } from "@/types";
+import type { UseDrawerResetConfirmParams } from "@/types/client";
 
 export function useDrawerResetConfirm({
 	onDrawerOpenChange,

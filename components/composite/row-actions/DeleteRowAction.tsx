@@ -3,8 +3,8 @@
 import { Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { DropdownMenuDangerItem } from "@/components";
-import type { RowActionClickProps } from "@/types";
+import { DropdownMenuDangerItem } from "@/components/primitives";
+import type { RowActionClickProps } from "@/types/client";
 
 export function DeleteRowAction({ onClick, label }: RowActionClickProps) {
 	const { t } = useTranslation();

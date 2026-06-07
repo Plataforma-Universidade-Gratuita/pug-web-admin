@@ -9,7 +9,7 @@ import {
 } from "@/constants";
 import enUSCommon from "@/public/locales/en-US/common.json";
 import ptBRCommon from "@/public/locales/pt-BR/common.json";
-import type { AppLang } from "@/types";
+import type { AppLang } from "@/types/client";
 
 const resources = {
 	"en-US": {

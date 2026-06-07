@@ -5,20 +5,17 @@ import { useMemo } from "react";
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
-import { Badge, NotFoundState, SomeErrorState } from "@/components";
 import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
 	UserDetailsContent,
-} from "@/components";
+} from "@/components/composite";
+import { Badge, NotFoundState, SomeErrorState } from "@/components/primitives";
 import { useQueryErrorToasts } from "@/hooks";
-import type {
-	AccountDetailsContentProps,
-	AccountType,
-	AccountTypeResponse,
-} from "@/types";
+import type { AccountType, AccountTypeResponse } from "@/types/api";
+import type { AccountDetailsContentProps } from "@/types/client";
 import { getApiErrorToastContent } from "@/utils";
 
 const { accounts: accountsApi } = web.identity;

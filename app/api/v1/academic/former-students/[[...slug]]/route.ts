@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { formerStudents } from "@/api";
+import { formerStudents } from "@/api/services";
 import {
 	parseRouteBody,
 	routeError,

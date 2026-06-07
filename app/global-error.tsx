@@ -2,8 +2,9 @@
 
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
-import { Button, FloatingPageSelectors } from "@/components";
-import type { RouteBoundaryPageProps } from "@/types";
+import { FloatingPageSelectors } from "@/components/composite";
+import { Button } from "@/components/primitives";
+import type { RouteBoundaryPageProps } from "@/types/client";
 
 export default function GlobalErrorPage(props: RouteBoundaryPageProps) {
 	return (

@@ -4,21 +4,21 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { NoContentState, SomeErrorState } from "@/components";
+import * as web from "@/api/web";
 import {
 	ServicePageHeader,
 	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
-} from "@/components";
+} from "@/components/composite";
+import { NoContentState, SomeErrorState } from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import {
 	useDraftFilters,
 	useQueryErrorToasts,
 	useServicePagePagination,
 } from "@/hooks";
-import type { CityResponse } from "@/types";
+import type { CityResponse } from "@/types/api";
 
 import { CitiesFilters } from "./CitiesFilters";
 import { CitiesRowActions } from "./CitiesRowActions";

@@ -4,15 +4,19 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { Button, NoContentState, SomeErrorState } from "@/components";
+import * as web from "@/api/web";
 import {
 	ServicePageHeader,
 	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
-} from "@/components";
+} from "@/components/composite";
+import {
+	Button,
+	NoContentState,
+	SomeErrorState,
+} from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { AccountsFiltersDrawer } from "@/features/identity/accounts/AccountsFiltersDrawer";
 import { AccountsRowActions } from "@/features/identity/accounts/AccountsRowActions";
@@ -31,10 +35,8 @@ import {
 	useQueryErrorToasts,
 	useServicePagePagination,
 } from "@/hooks";
-import type {
-	AccountComplexSearchFilters,
-	AccountSearchResponse,
-} from "@/types";
+import type { AccountSearchResponse } from "@/types/api";
+import type { AccountComplexSearchFilters } from "@/types/client";
 
 const { accounts: accountsApi, users: usersApi } = web.identity;
 const { useAccountsQuery, useAccountsSearchQuery } = accountsApi;

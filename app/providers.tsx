@@ -6,11 +6,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { I18nextProvider } from "react-i18next";
 
-import { ToastProvider } from "@/components";
+import { ToastProvider } from "@/components/primitives";
 import { APP_QUERY_CLIENT_OPTIONS } from "@/constants";
 import { LocaleProvider, ThemeProvider, coerceTheme } from "@/contexts";
 import { initI18n } from "@/i18n";
-import type { ProvidersProps } from "@/types";
+import type { ProvidersProps } from "@/types/client";
 import { coerceLang } from "@/utils";
 
 export function Providers({

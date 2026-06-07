@@ -4,8 +4,11 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { EntityPageFieldsGrid } from "@/components";
-import type { CourseOwnDetailsContentProps, EntityPageField } from "@/types";
+import { EntityPageFieldsGrid } from "@/components/composite";
+import type {
+	CourseOwnDetailsContentProps,
+	EntityPageField,
+} from "@/types/client";
 
 export function CourseOwnDetailsContent({
 	course,

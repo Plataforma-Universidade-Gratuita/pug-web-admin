@@ -8,7 +8,7 @@ import {
 	AdminResponseSchema,
 	AccountStatusRequestSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	AdminComplexSearchRequest,
 	AdminComplexSearchResponse,
@@ -16,7 +16,7 @@ import type {
 	AdminResponse,
 	AdminUpdateRequest,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string, token?: string): Promise<AdminResponse> {
 	return zfetch(

@@ -10,13 +10,13 @@ import {
 	type Path,
 } from "react-hook-form";
 
-import { Combobox, Icon, Label } from "@/components";
-import { normalizeDigits } from "@/schemas";
+import { Combobox, Icon, Label } from "@/components/primitives";
+import { normalizeDigits } from "@/schemas/client";
 import type {
 	ComboboxOption,
 	CpfFormFieldExistingUser,
 	CpfFormFieldProps,
-} from "@/types";
+} from "@/types/client";
 
 function formatCpfValue(value: string) {
 	const digits = normalizeDigits(value).slice(0, 11);

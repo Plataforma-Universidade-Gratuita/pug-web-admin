@@ -1,4 +1,5 @@
-import type { EnrollmentEditorFormValues, EnrollmentResponse } from "@/types";
+import type { EnrollmentResponse } from "@/types/api";
+import type { EnrollmentEditorFormValues } from "@/types/client";
 
 export function getEmptyEnrollmentEditorFormValues(): EnrollmentEditorFormValues {
 	return {

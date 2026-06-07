@@ -8,21 +8,26 @@ import { useTranslation } from "react-i18next";
 import { WebApiError } from "@/api/web";
 import {
 	AccountSummaryBadges,
-	Combobox,
 	CpfFormField,
 	EntityDetailsContent,
+	LinkedDetailsAccordion,
+	UserDetailsContent,
+} from "@/components/composite";
+import {
+	Combobox,
 	Input,
 	Label,
-	LinkedDetailsAccordion,
 	NotFoundState,
 	SomeErrorState,
-	UserDetailsContent,
-} from "@/components";
+} from "@/components/primitives";
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
 } from "@/features/identity/accounts/utils";
-import type { CpfFormFieldExistingUser, StaffEditorFormProps } from "@/types";
+import type {
+	CpfFormFieldExistingUser,
+	StaffEditorFormProps,
+} from "@/types/client";
 
 export function StaffEditorForm({
 	canRenderForm,

@@ -4,14 +4,14 @@ import clsx from "clsx";
 import { Inbox, RotateCcw, SearchX, TriangleAlert } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components";
-import { Content, Footer, Header } from "@/components";
+import { Button } from "@/components/primitives";
+import { Content, Footer, Header } from "@/components/primitives";
 import type {
 	EmptyStateProps,
 	NoContentStateProps,
 	NotFoundStateProps,
 	SomeErrorStateProps,
-} from "@/types";
+} from "@/types/client";
 
 export function EmptyState({
 	actions,

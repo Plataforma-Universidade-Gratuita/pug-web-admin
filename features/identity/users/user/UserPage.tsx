@@ -2,9 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { EntityPageShell, UserDetailsContent } from "@/components";
-import type { UserPageProps } from "@/types";
+import * as web from "@/api/web";
+import { EntityPageShell, UserDetailsContent } from "@/components/composite";
+import type { UserPageProps } from "@/types/client";
 
 const { users: usersApi } = web.identity;
 const { useUserDetailQuery } = usersApi;

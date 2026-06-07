@@ -2,11 +2,13 @@ import type { TFunction } from "i18next";
 
 import type {
 	AttendanceComplexSearchRequest,
-	AttendanceDirectoryItem,
-	AttendanceFilterArgs,
 	AttendanceResponse,
 	AttendanceStatus,
-} from "@/types";
+} from "@/types/api";
+import type {
+	AttendanceDirectoryItem,
+	AttendanceFilterArgs,
+} from "@/types/client";
 import {
 	matchesAnyDateRange,
 	normalizeTextForSearch,

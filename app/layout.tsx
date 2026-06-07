@@ -6,7 +6,7 @@ import { Providers } from "@/app/providers";
 import { ThemeScript } from "@/app/theme-script";
 import { LANG_COOKIE_NAME, THEME_COOKIE_NAME } from "@/constants";
 import { coerceTheme } from "@/contexts";
-import type { RootLayoutProps } from "@/types";
+import type { RootLayoutProps } from "@/types/client";
 import { coerceLang } from "@/utils";
 
 export const metadata: Metadata = {

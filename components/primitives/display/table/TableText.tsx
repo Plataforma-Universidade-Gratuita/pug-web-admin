@@ -2,8 +2,8 @@
 
 import clsx from "clsx";
 
-import { Tooltip } from "@/components";
-import type { TableTextProps } from "@/types";
+import { Tooltip } from "@/components/primitives";
+import type { TableTextProps } from "@/types/client";
 
 export function TableText({
 	text,

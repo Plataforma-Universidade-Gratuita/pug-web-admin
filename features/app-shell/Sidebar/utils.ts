@@ -4,7 +4,7 @@ import {
 	SIDEBAR_ROW_BASE_PADDING_REM,
 	SIDEBAR_ROW_NEST_STEP_REM,
 } from "@/constants";
-import type { MenuLeafItem, MenuNode } from "@/types";
+import type { MenuLeafItem, MenuNode } from "@/types/client";
 
 export function isLeafItem(item: MenuNode): item is MenuLeafItem {
 	return "href" in item;

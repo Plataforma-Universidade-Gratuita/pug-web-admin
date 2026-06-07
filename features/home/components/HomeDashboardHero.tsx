@@ -8,7 +8,7 @@ import {
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
-} from "@/components";
+} from "@/components/primitives";
 
 export function HomeDashboardHero({
 	priorityCount,

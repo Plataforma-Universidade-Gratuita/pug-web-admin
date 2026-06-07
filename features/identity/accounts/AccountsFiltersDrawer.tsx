@@ -4,16 +4,16 @@ import { useTranslation } from "react-i18next";
 
 import {
 	AsyncComboboxFilterField,
-	Checkbox,
 	DateRangeFilterFields,
-} from "@/components";
+} from "@/components/composite";
 import {
 	NumberFieldFilter,
 	ServicePageFiltersDrawer,
 	TextFieldFilter,
-} from "@/components";
+} from "@/components/composite";
+import { Checkbox } from "@/components/primitives";
 import { ACCOUNT_TYPE_VALUES } from "@/constants";
-import type { AccountsFiltersDrawerProps } from "@/types";
+import type { AccountsFiltersDrawerProps } from "@/types/client";
 
 export function AccountsFiltersDrawer({
 	filters,

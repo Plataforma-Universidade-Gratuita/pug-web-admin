@@ -4,14 +4,18 @@ import { useDeferredValue, useEffect, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { Button, NoContentState, SomeErrorState } from "@/components";
+import * as web from "@/api/web";
 import {
 	ServicePageHeader,
 	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
-} from "@/components";
+} from "@/components/composite";
+import {
+	Button,
+	NoContentState,
+	SomeErrorState,
+} from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import { UsersFilters } from "@/features/identity/users/UsersFilters";
 import { UsersRowActions } from "@/features/identity/users/UsersRowActions";
@@ -27,7 +31,8 @@ import {
 	useQueryErrorToasts,
 	useServicePagePagination,
 } from "@/hooks";
-import type { UserComplexSearchFilters, UserResponse } from "@/types";
+import type { UserResponse } from "@/types/api";
+import type { UserComplexSearchFilters } from "@/types/client";
 
 const { users: usersApi } = web.identity;
 const { useUsersQuery, useUsersSearchQuery } = usersApi;

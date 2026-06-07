@@ -7,7 +7,7 @@ import {
 	CourseResponseSchema,
 	CourseWithAuditInfoComplexSearchResponseSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	CourseComplexSearchRequest,
 	CourseComplexSearchResponse,
@@ -15,7 +15,7 @@ import type {
 	CourseResponse,
 	CourseUpdateRequest,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string, token?: string): Promise<CourseResponse> {
 	return zfetch(

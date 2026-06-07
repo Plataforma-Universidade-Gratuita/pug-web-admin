@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import * as identity from "@/api/web/identity";
 import { buildStaffComplexSearchRequest } from "@/features/partner/staff/utils";
-import type { StaffComplexSearchFilters } from "@/types";
+import type { StaffComplexSearchFilters } from "@/types/client";
 
 import * as entities from "../entities";
 import { get, list, search } from "./endpoints";

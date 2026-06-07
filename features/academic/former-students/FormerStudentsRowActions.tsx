@@ -4,12 +4,12 @@ import {
 	DeactivateRowAction,
 	DeleteRowAction,
 	DuplicateRowAction,
-	DropdownMenuSeparator,
 	ReactivateRowAction,
 	UpdateRowAction,
 	ViewDetailsRowAction,
-} from "@/components";
-import type { FormerStudentsRowActionsProps } from "@/types";
+} from "@/components/composite";
+import { DropdownMenuSeparator } from "@/components/primitives";
+import type { FormerStudentsRowActionsProps } from "@/types/client";
 
 export function FormerStudentsRowActions({
 	href,

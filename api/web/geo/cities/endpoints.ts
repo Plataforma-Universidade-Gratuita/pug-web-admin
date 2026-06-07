@@ -6,13 +6,13 @@ import {
 	CityComplexSearchRequestSchema,
 	CityResponseSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	CityComplexSearchRequest,
 	CityComplexSearchResponse,
 	CityResponse,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string): Promise<CityResponse> {
 	return webFetch(

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
 import {
 	Button,
@@ -21,12 +21,12 @@ import {
 	Input,
 	Label,
 	toast,
-} from "@/components";
+} from "@/components/primitives";
 import { HOME_ROUTE } from "@/constants";
 import { useTheme } from "@/contexts";
 import { useLocalizedZodForm } from "@/hooks";
-import { createLoginFormSchema } from "@/schemas";
-import type { LoginFormProps, LoginFormValues } from "@/types";
+import { createLoginFormSchema } from "@/schemas/client";
+import type { LoginFormProps, LoginFormValues } from "@/types/client";
 
 const { auth: authApi } = web.identity;
 const { login } = authApi;

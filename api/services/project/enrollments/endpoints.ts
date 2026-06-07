@@ -8,14 +8,14 @@ import {
 	EnrollmentResponseSchema,
 	EnrollmentUpdateStatusRequestSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	EnrollmentComplexSearchRequest,
 	EnrollmentComplexSearchResponse,
 	EnrollmentResponse,
 	EnrollmentStatus,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(
 	projectId: string,

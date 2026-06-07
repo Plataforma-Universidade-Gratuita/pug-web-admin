@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { i18n as I18nInstance } from "i18next";
 
 import { applyClientLanguage } from "@/i18n";
-import type { AppLang, LocaleContextValue } from "@/types";
+import type { AppLang, LocaleContextValue } from "@/types/client";
 import { coerceLang } from "@/utils";
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);

@@ -6,7 +6,7 @@ import * as RadixSelect from "@radix-ui/react-select";
 import clsx from "clsx";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 
-import { Icon } from "@/components";
+import { Icon } from "@/components/primitives";
 import { SelectProvider, useSelect } from "@/contexts";
 import type {
 	SelectContentProps,
@@ -16,7 +16,7 @@ import type {
 	SelectProps,
 	SelectSeparatorProps,
 	SelectTriggerProps,
-} from "@/types";
+} from "@/types/client";
 
 export function Select({
 	children,

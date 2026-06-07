@@ -9,7 +9,7 @@ import {
 	EntityResponseSchema,
 	EntityUpdateRequestSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	EntityComplexSearchRequest,
 	EntityComplexSearchResponse,
@@ -17,7 +17,7 @@ import type {
 	EntityResponse,
 	EntityUpdateRequest,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export { list as listCities } from "@/api/web/geo/cities";
 

@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { LanguageSelector, ThemeSelector } from "@/components";
+import { LanguageSelector, ThemeSelector } from "@/components/composite";
 import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants";
 import { useLocale, useTheme } from "@/contexts";
 

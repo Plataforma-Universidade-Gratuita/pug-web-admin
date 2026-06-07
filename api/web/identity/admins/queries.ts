@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { get as getAccount } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
 import { buildAdminComplexSearchRequest } from "@/features/identity/admins/utils";
-import type { AdminComplexSearchFilters } from "@/types";
+import type { AdminComplexSearchFilters } from "@/types/client";
 
 import { get, getMe, search } from "./endpoints";
 import { adminKeys as keys } from "./keys";

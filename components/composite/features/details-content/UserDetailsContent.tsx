@@ -5,15 +5,15 @@ import { useMemo } from "react";
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
-import { NotFoundState, SomeErrorState } from "@/components";
 import {
 	EntityPageFieldsGrid,
 	EntityPageFieldsGridSkeleton,
-} from "@/components";
+} from "@/components/composite";
+import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import { useQueryErrorToasts } from "@/hooks";
-import type { UserDetailsContentProps } from "@/types";
+import type { UserDetailsContentProps } from "@/types/client";
 import { getApiErrorToastContent } from "@/utils";
 
 const { users: usersApi } = web.identity;

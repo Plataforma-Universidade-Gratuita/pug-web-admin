@@ -1,4 +1,4 @@
-export { createAttendanceEditorFormSchema } from "@/schemas";
+export { createAttendanceEditorFormSchema } from "@/schemas/client";
 
 export * from "./filter/utils";
 export * from "./form/utils";

@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next";
 
-import type { AttendanceValidationAction } from "@/types";
+import type { AttendanceValidationAction } from "@/types/client";
 import { getApiErrorToastContent } from "@/utils";
 
 export function getAttendancesListErrorToastContent(

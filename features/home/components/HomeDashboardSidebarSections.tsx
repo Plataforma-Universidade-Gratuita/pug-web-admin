@@ -16,8 +16,8 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@/components";
-import type { HomeUpcomingItem } from "@/types";
+} from "@/components/primitives";
+import type { HomeUpcomingItem } from "@/types/client";
 
 export function HomeDashboardSidebarSections({
 	isOperationalLoading,

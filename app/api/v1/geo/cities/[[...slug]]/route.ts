@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { cities } from "@/api";
+import { cities } from "@/api/services";
 import {
 	parseRouteBody,
 	routeError,

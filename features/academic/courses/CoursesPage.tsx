@@ -4,8 +4,7 @@ import { useDeferredValue, useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
-import { NoContentState, SomeErrorState, toast } from "@/components";
+import * as web from "@/api/web";
 import {
 	ServicePageConfirmDialog,
 	ServicePageHeader,
@@ -13,7 +12,8 @@ import {
 	ServicePageShell,
 	ServicePageTableSection,
 	TextFieldFilter,
-} from "@/components";
+} from "@/components/composite";
+import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import { CourseEditorDrawer } from "@/features/academic/courses/CourseEditorDrawer";
 import { CoursesFiltersDrawer } from "@/features/academic/courses/CoursesFiltersDrawer";
 import { CoursesRowActions } from "@/features/academic/courses/CoursesRowActions";
@@ -35,8 +35,8 @@ import {
 	useQueryErrorToasts,
 	useServicePageEditorState,
 } from "@/hooks";
-import type { AreaOfExpertiseResponse, CourseResponse } from "@/types";
-import type { CourseEditorMode, CourseSecondaryFilters } from "@/types";
+import type { AreaOfExpertiseResponse, CourseResponse } from "@/types/api";
+import type { CourseEditorMode, CourseSecondaryFilters } from "@/types/client";
 
 const { areasOfExpertise: areasOfExpertiseApi, courses: coursesApi } =
 	web.academic;

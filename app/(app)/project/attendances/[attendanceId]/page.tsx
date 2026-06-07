@@ -1,5 +1,5 @@
-import { AttendancePage } from "@/features/project/attendances/attendance/AttendancePage";
-import type { AttendanceRoutePageProps } from "@/types";
+import { AttendancePage } from "@/features";
+import type { AttendanceRoutePageProps } from "@/types/client";
 
 export default async function Page({ params }: AttendanceRoutePageProps) {
 	const { attendanceId } = await params;

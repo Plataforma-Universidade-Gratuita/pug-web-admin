@@ -1,4 +1,4 @@
-import type { ComboboxOption } from "@/types";
+import type { ComboboxOption } from "@/types/client";
 import { normalizeTextForSearch } from "@/utils";
 
 export function getSearchableComboboxText(option: ComboboxOption) {

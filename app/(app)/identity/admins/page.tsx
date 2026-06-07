@@ -1,4 +1,4 @@
-import { AdminsPage } from "@/features/identity/admins/AdminsPage";
+import { AdminsPage } from "@/features";
 
 export default function Page() {
 	return <AdminsPage />;

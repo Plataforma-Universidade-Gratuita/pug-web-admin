@@ -2,15 +2,14 @@
 
 import { useTranslation } from "react-i18next";
 
-import { web } from "@/api";
+import * as web from "@/api/web";
 import { WebApiError } from "@/api/web";
 import {
 	AccountDetailsContent,
 	EntityPageShell,
 	FormerStudentOwnDetailsContent,
-	NotFoundState,
-	SomeErrorState,
-} from "@/components";
+} from "@/components/composite";
+import { NotFoundState, SomeErrorState } from "@/components/primitives";
 import { AttendanceOwnDetailsContent } from "@/features/project/attendances/attendance/AttendanceOwnDetailsContent";
 import {
 	getAttendanceDetailErrorToastContent,
@@ -19,7 +18,7 @@ import {
 } from "@/features/project/attendances/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
 import { useQueryErrorToasts } from "@/hooks";
-import type { AttendancePageProps } from "@/types";
+import type { AttendancePageProps } from "@/types/client";
 
 const { formerStudents: formerStudentsApi } = web.academic;
 const { attendances: attendancesApi, projects: projectsApi } = web.project;

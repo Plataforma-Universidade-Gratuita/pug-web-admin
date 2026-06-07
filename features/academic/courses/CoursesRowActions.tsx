@@ -3,11 +3,11 @@
 import {
 	DeleteRowAction,
 	DuplicateRowAction,
-	DropdownMenuSeparator,
 	UpdateRowAction,
 	ViewDetailsRowAction,
-} from "@/components";
-import type { CoursesRowActionsProps } from "@/types";
+} from "@/components/composite";
+import { DropdownMenuSeparator } from "@/components/primitives";
+import type { CoursesRowActionsProps } from "@/types/client";
 
 export function CoursesRowActions({
 	course,

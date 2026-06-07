@@ -15,13 +15,13 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@/components";
+} from "@/components/primitives";
 import { getProgressWidth } from "@/features/home/utils";
 import type {
 	HomePriorityItem,
 	HomePulseMetric,
 	HomeRecentItem,
-} from "@/types";
+} from "@/types/client";
 
 export function HomeDashboardPrimarySections({
 	isOperationalLoading,

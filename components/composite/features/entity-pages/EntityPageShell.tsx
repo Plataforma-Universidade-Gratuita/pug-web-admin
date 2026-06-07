@@ -5,8 +5,8 @@ import {
 	SectionDescription,
 	SectionHeader,
 	SectionTitle,
-} from "@/components";
-import type { EntityPageShellProps } from "@/types";
+} from "@/components/primitives";
+import type { EntityPageShellProps } from "@/types/client";
 
 export function EntityPageShell({
 	children,

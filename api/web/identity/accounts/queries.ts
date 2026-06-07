@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { buildAccountComplexSearchRequest } from "@/features/identity/accounts/utils";
-import type { AccountComplexSearchFilters } from "@/types";
+import type { AccountComplexSearchFilters } from "@/types/client";
 
 import { get, getMe, list, search } from "./endpoints";
 import { accountKeys as keys } from "./keys";

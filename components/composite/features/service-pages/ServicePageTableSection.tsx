@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
-import { Section, SectionContent, Table } from "@/components";
-import type { ServicePageTableSectionProps } from "@/types";
+import { Section, SectionContent, Table } from "@/components/primitives";
+import type { ServicePageTableSectionProps } from "@/types/client";
 
 export function ServicePageTableSection<TData extends object>({
 	footer,

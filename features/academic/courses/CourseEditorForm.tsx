@@ -5,19 +5,21 @@ import { useTranslation } from "react-i18next";
 
 import { WebApiError } from "@/api/web";
 import {
+	AreaOfExpertiseDetailsContent,
+	CourseOwnDetailsContent,
+} from "@/components/composite";
+import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-	AreaOfExpertiseDetailsContent,
 	Combobox,
-	CourseOwnDetailsContent,
 	Input,
 	Label,
 	NotFoundState,
 	SomeErrorState,
-} from "@/components";
-import type { CourseEditorFormProps } from "@/types";
+} from "@/components/primitives";
+import type { CourseEditorFormProps } from "@/types/client";
 
 export function CourseEditorForm({
 	areaOfExpertiseOptions,

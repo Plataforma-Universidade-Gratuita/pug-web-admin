@@ -6,14 +6,13 @@ import { useTranslation } from "react-i18next";
 
 import {
 	AsyncComboboxFilterField,
-	Combobox,
 	DateRangeFilterFields,
-	Input,
-	Label,
-} from "@/components";
-import { ServicePageFiltersDrawer } from "@/components";
+} from "@/components/composite";
+import { ServicePageFiltersDrawer } from "@/components/composite";
+import { Combobox, Input, Label } from "@/components/primitives";
 import { getAttendanceStatusOptions } from "@/features/project/attendances/utils";
-import type { AttendanceStatus, AttendancesFiltersDrawerProps } from "@/types";
+import type { AttendanceStatus } from "@/types/api";
+import type { AttendancesFiltersDrawerProps } from "@/types/client";
 
 export function AttendancesFiltersDrawer({
 	filters,

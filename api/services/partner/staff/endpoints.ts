@@ -8,7 +8,7 @@ import {
 	StaffComplexSearchResponseSchema,
 	StaffResponseSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	PaginationRequest,
 	StaffComplexSearchRequest,
@@ -16,7 +16,7 @@ import type {
 	StaffCreateRequest,
 	StaffResponse,
 	StaffUpdateRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string, token?: string): Promise<StaffResponse> {
 	return zfetch(

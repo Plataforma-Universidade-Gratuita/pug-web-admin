@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { FloatingPageSelectors } from "@/components";
+import { FloatingPageSelectors } from "@/components/composite";
 
 export default function NotFoundPage() {
 	return (

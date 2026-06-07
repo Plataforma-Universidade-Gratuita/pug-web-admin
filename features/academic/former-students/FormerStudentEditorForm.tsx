@@ -9,14 +9,17 @@ import { WebApiError } from "@/api/web";
 import {
 	AccountSummaryBadges,
 	AreaOfExpertiseDetailsContent,
-	Combobox,
 	CourseOwnDetailsContent,
 	CpfFormField,
-	DatePicker,
 	FormerStudentOwnDetailsContent,
+	LinkedDetailsAccordion,
+	UserDetailsContent,
+} from "@/components/composite";
+import {
+	Combobox,
+	DatePicker,
 	Input,
 	Label,
-	LinkedDetailsAccordion,
 	NotFoundState,
 	Select,
 	SelectContent,
@@ -27,8 +30,7 @@ import {
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-	UserDetailsContent,
-} from "@/components";
+} from "@/components/primitives";
 import { getFormerStudentCampusOptions } from "@/features/academic/former-students/utils";
 import {
 	getAccountTypeLabel,
@@ -37,7 +39,7 @@ import {
 import type {
 	CpfFormFieldExistingUser,
 	FormerStudentEditorFormProps,
-} from "@/types";
+} from "@/types/client";
 
 export function FormerStudentEditorForm({
 	canRenderForm,

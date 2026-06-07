@@ -2,7 +2,7 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 
-import type { DateTimeColumnOptions } from "@/types";
+import type { DateTimeColumnOptions } from "@/types/client";
 
 export function createDateTimeColumn<TData extends object>({
 	id,

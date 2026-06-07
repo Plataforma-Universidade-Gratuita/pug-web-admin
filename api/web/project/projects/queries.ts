@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { buildProjectComplexSearchRequest } from "@/features/project/projects/utils";
-import type { ProjectComplexSearchFilters } from "@/types";
+import type { ProjectComplexSearchFilters } from "@/types/client";
 
 import * as projectAreasOfExpertise from "../project-areas-of-expertise";
 import { get, list, search } from "./endpoints";

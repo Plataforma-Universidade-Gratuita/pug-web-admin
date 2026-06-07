@@ -3,8 +3,8 @@
 import { ShieldX } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { DropdownMenuWarningItem } from "@/components";
-import type { RowActionClickProps } from "@/types";
+import { DropdownMenuWarningItem } from "@/components/primitives";
+import type { RowActionClickProps } from "@/types/client";
 
 export function DeactivateRowAction({ onClick, label }: RowActionClickProps) {
 	const { t } = useTranslation();

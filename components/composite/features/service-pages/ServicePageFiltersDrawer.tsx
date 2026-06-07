@@ -9,8 +9,8 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	Label,
-} from "@/components";
-import type { ServicePageFiltersDrawerProps } from "@/types";
+} from "@/components/primitives";
+import type { ServicePageFiltersDrawerProps } from "@/types/client";
 
 export function ServicePageFiltersDrawer({
 	activeLabel,

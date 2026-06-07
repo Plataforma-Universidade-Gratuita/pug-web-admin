@@ -6,13 +6,13 @@ import { useTranslation } from "react-i18next";
 
 import {
 	AsyncComboboxFilterField,
-	Combobox,
 	DateRangeFilterFields,
-	Label,
-} from "@/components";
-import { ServicePageFiltersDrawer } from "@/components";
+} from "@/components/composite";
+import { ServicePageFiltersDrawer } from "@/components/composite";
+import { Combobox, Label } from "@/components/primitives";
 import { getEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
-import type { EnrollmentStatus, EnrollmentsFiltersDrawerProps } from "@/types";
+import type { EnrollmentStatus } from "@/types/api";
+import type { EnrollmentsFiltersDrawerProps } from "@/types/client";
 
 export function EnrollmentsFiltersDrawer({
 	filters,

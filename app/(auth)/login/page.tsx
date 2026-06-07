@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { FloatingPageSelectors } from "@/components";
-import { LoginForm } from "@/features/auth/login/LoginForm";
-import { LoginHero } from "@/features/auth/login/LoginHero";
+import { FloatingPageSelectors } from "@/components/composite";
+import { LoginForm } from "@/features";
+import { LoginHero } from "@/features";
 
 export default function Page() {
 	const formCardRef = useRef<HTMLDivElement | null>(null);

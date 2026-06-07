@@ -1,17 +1,17 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { TableText } from "@/components";
+import { TableText } from "@/components/primitives";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import type {
 	AreaOfExpertiseCreateRequest,
 	AreaOfExpertiseResponse,
 	AreaOfExpertiseUpdateRequest,
-} from "@/types";
+} from "@/types/api";
 import type {
 	AreaOfExpertiseEditorFormValues,
 	AreaOfExpertiseFilterArgs,
-} from "@/types";
+} from "@/types/client";
 import {
 	getApiErrorToastContent,
 	matchesAnyDateRange,
@@ -19,7 +19,7 @@ import {
 	toSearchDateOffsetDateTime,
 } from "@/utils";
 
-export { createAreaOfExpertiseEditorFormSchema } from "@/schemas";
+export { createAreaOfExpertiseEditorFormSchema } from "@/schemas/client";
 
 export function createAreaOfExpertiseColumns(
 	t: TFunction,

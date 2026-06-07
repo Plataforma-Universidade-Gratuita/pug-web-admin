@@ -94,17 +94,17 @@ For this repository:
 
 The new rules do not allow the current root-level imports below.
 
-- [ ] Replace root `@/api` imports with `@/api/services` or `@/api/web`.
+- [x] Replace root `@/api` imports with `@/api/services` or `@/api/web`.
   - Current hotspot patterns:
     - `app/api/v1/**/route.ts`
     - feature files still importing `web` from `@/api`
-- [ ] Replace root `@/components` imports with `@/components/primitives` or `@/components/composite`.
+- [x] Replace root `@/components` imports with `@/components/primitives` or `@/components/composite`.
   - Current hotspot patterns:
     - feature pages and drawers
     - hooks using `toast`
     - `app/(auth)/login/page.tsx`
     - `api/web/mutation-toast.ts`
-- [ ] Replace root `@/types` imports with `@/types/client` or the nearest valid client barrel.
+- [x] Replace root `@/types` imports with `@/types/client` or the nearest valid client barrel.
   - Current hotspot patterns:
     - almost every route page under `app/(app)/**`
     - `api/services/**`
@@ -114,14 +114,14 @@ The new rules do not allow the current root-level imports below.
     - `stores/**`
     - `utils/**`
     - `i18n/locale.ts`
-- [ ] Replace root `@/schemas` imports with `@/schemas/client` or `@/schemas/api`, except frozen files.
+- [x] Replace root `@/schemas` imports with `@/schemas/client` or `@/schemas/api`, except frozen files.
   - Current hotspot patterns:
     - `api/services/**`
     - `api/web/**`
     - `schemas/client/**`
   - Excluded from edits unless required:
     - `schemas/api/**`
-- [ ] Replace root `@/features/...deep path` app imports with the final `features/index.ts` public route-facing exports.
+- [x] Replace root `@/features/...deep path` app imports with the final `features/index.ts` public route-facing exports.
   - Current app imports are deep and route-specific, for example:
     - `app/(app)/academic/**/page.tsx`
     - `app/(app)/geo/**/page.tsx`
@@ -134,21 +134,21 @@ The new rules do not allow the current root-level imports below.
 
 ### B. Export Surface Gaps
 
-- [ ] Create `features/index.ts`.
+- [x] Create `features/index.ts`.
   - It must export only route-facing `.tsx` files consumed directly by `app/`.
-- [ ] Audit `api/index.ts`.
+- [x] Audit `api/index.ts`.
   - Keep only exports that support the allowed first-level public API boundary.
   - Consumers should end up importing from `@/api/services` or `@/api/web`, not `@/api`.
-- [ ] Audit `components/index.ts`.
+- [x] Audit `components/index.ts`.
   - Keep only what is required internally or for safe transition.
   - Consumers should end up importing from `@/components/primitives` or `@/components/composite`.
-- [ ] Audit `constants/index.ts`.
+- [x] Audit `constants/index.ts`.
   - It is a real public root barrel in this repository.
   - Final callers should import shared constants from `@/constants`.
   - Remove only dead or redundant exports.
-- [ ] Audit `types/index.ts`.
+- [x] Audit `types/index.ts`.
   - Final callers should import from `@/types/client` or `@/types/api`.
-- [ ] Audit `schemas/index.ts`.
+- [x] Audit `schemas/index.ts`.
   - Final callers should import from `@/schemas/client` or `@/schemas/api`.
 
 ### C. Utility and Constant Scope Re-Audit
@@ -195,28 +195,28 @@ The consolidated rules explicitly require a 3+ component reuse threshold for hoo
 
 ### Root-Barrel Folders
 
-- [ ] Verify `auth/index.ts`.
-- [ ] Verify `constants/index.ts`.
-- [ ] Verify `contexts/index.ts`.
-- [ ] Verify `hooks/index.ts`.
-- [ ] Verify `i18n/index.ts`.
-- [ ] Verify `stores/index.ts`.
-- [ ] Verify `utils/index.ts`.
+- [x] Verify `auth/index.ts`.
+- [x] Verify `constants/index.ts`.
+- [x] Verify `contexts/index.ts`.
+- [x] Verify `hooks/index.ts`.
+- [x] Verify `i18n/index.ts`.
+- [x] Verify `stores/index.ts`.
+- [x] Verify `utils/index.ts`.
 
 ### First-Level Public Barrels
 
-- [ ] Verify `api/services/index.ts`.
-- [ ] Verify `api/web/index.ts`.
-- [ ] Verify `components/primitives/index.ts`.
-- [ ] Verify `components/composite/index.ts`.
-- [ ] Verify `types/client/index.ts`.
-- [ ] Verify `schemas/client/index.ts`.
+- [x] Verify `api/services/index.ts`.
+- [x] Verify `api/web/index.ts`.
+- [x] Verify `components/primitives/index.ts`.
+- [x] Verify `components/composite/index.ts`.
+- [x] Verify `types/client/index.ts`.
+- [x] Verify `schemas/client/index.ts`.
 
 ### Features Exception
 
-- [ ] Create `features/index.ts`.
-- [ ] Export only route-facing `.tsx` files consumed directly by `app/`.
-- [ ] Export all current route-facing feature entries:
+- [x] Create `features/index.ts`.
+- [x] Export only route-facing `.tsx` files consumed directly by `app/`.
+- [x] Export all current route-facing feature entries:
   - `Navbar`
   - `HomeCommandCenterPage`
   - `LoginForm`
@@ -241,6 +241,7 @@ The consolidated rules explicitly require a 3+ component reuse threshold for hoo
   - `PartnerOverviewPage`
   - `EntitiesPage`
   - `EntityPage`
+  - `StaffDirectoryPage`
   - `StaffPage`
   - `ProjectOverviewPage`
   - `ProjectsPage`
@@ -249,49 +250,64 @@ The consolidated rules explicitly require a 3+ component reuse threshold for hoo
   - `AttendancePage`
   - `EnrollmentsPage`
   - `EnrollmentPage`
-- [ ] Do not create broad `features/<direct-child>/index.ts` files unless a specific local need justifies them.
+- [x] Do not create broad `features/<direct-child>/index.ts` files unless a specific local need justifies them.
+
+### Step 3 Notes
+
+- `api/index.ts`, `components/index.ts`, `types/index.ts`, and `schemas/index.ts` were restored as temporary compatibility barrels for the next import-normalization step.
+- They are intentionally not the target public boundaries under the consolidated rules.
+- `features/index.ts` uses `StaffDirectoryPage` for the staff list route because the repository already has two different route-facing files that export `StaffPage`.
 
 ## Step 4: Normalize Imports
 
 ### App Routes and Layouts
 
-- [ ] Update all `app/(app)/**/page.tsx` and `app/(auth)/**/page.tsx` imports to the final public feature boundary.
-- [ ] Update all route prop type imports in `app/**` from `@/types` to `@/types/client`.
-- [ ] Update `app/api/v1/**/route.ts` imports from `@/api` to `@/api/services`.
+- [x] Update all `app/(app)/**/page.tsx` and `app/(auth)/**/page.tsx` imports to the final public feature boundary.
+- [x] Update all route prop type imports in `app/**` from `@/types` to `@/types/client`.
+- [x] Update `app/api/v1/**/route.ts` imports from `@/api` to `@/api/services`.
 
 ### API Layers
 
-- [ ] Update `api/services/**` imports:
+- [x] Update `api/services/**` imports:
   - `@/constants` -> keep or normalize to the root constants barrel
   - `@/schemas` -> `@/schemas/api` or `@/schemas/client`
   - `@/types` -> `@/types/api` or `@/types/client`
-- [ ] Update `api/web/**` imports:
+- [x] Update `api/web/**` imports:
   - `@/components` -> `@/components/primitives` or `@/components/composite`
   - `@/constants` -> keep or normalize to the root constants barrel
   - `@/schemas` -> `@/schemas/api` or `@/schemas/client`
   - `@/types` -> `@/types/client`
   - `@/api` -> `@/api/web` or `@/api/services` only where allowed
-- [ ] Preserve local intra-service imports when a higher barrel would create a cycle.
-- [ ] Add block comments above any relative imports that must remain.
+- [x] Preserve local intra-service imports when a higher barrel would create a cycle.
+- [x] Add block comments above any relative imports that must remain.
 
 ### Components, Hooks, Contexts, Stores, i18n, Utils
 
-- [ ] Update all `components/**` imports away from root `@/components`, `@/types`, and `@/schemas`.
-- [ ] Update all `hooks/**` imports away from root `@/components` and `@/types`.
-- [ ] Update all `contexts/**` imports away from root `@/types`.
-- [ ] Update all `stores/**` imports away from root `@/types`.
-- [ ] Update `i18n/locale.ts` imports away from root `@/types`.
-- [ ] Update `utils/**` imports away from root `@/types`.
-- [ ] Keep shared constant consumers on `@/constants` unless a constant is moved down to a lower scope.
+- [x] Update all `components/**` imports away from root `@/components`, `@/types`, and `@/schemas`.
+- [x] Update all `hooks/**` imports away from root `@/components` and `@/types`.
+- [x] Update all `contexts/**` imports away from root `@/types`.
+- [x] Update all `stores/**` imports away from root `@/types`.
+- [x] Update `i18n/locale.ts` imports away from root `@/types`.
+- [x] Update `utils/**` imports away from root `@/types`.
+- [x] Keep shared constant consumers on `@/constants` unless a constant is moved down to a lower scope.
 
 ### Features
 
-- [ ] Update all `features/**` imports away from root `@/components`.
-- [ ] Update all `features/**` imports away from root `@/types`.
-- [ ] Update all `features/**` imports away from root `@/schemas`.
-- [ ] Update all `features/**` imports away from root `@/api`.
-- [ ] Keep shared constant consumers on `@/constants` unless a constant is moved down to a lower scope.
-- [ ] If a feature needs something from another feature path, stop and evaluate whether that thing belongs in `components/composite/`.
+- [x] Update all `features/**` imports away from root `@/components`.
+- [x] Update all `features/**` imports away from root `@/types`.
+- [x] Update all `features/**` imports away from root `@/schemas`.
+- [x] Update all `features/**` imports away from root `@/api`.
+- [x] Keep shared constant consumers on `@/constants` unless a constant is moved down to a lower scope.
+- [x] If a feature needs something from another feature path, stop and evaluate whether that thing belongs in `components/composite/`.
+
+### Step 4 Notes
+
+- `app/**` now consumes route-facing pages only through `@/features`.
+- `app/api/v1/**/route.ts` now imports service clients only through `@/api/services`.
+- Root `@/components` imports were split into `@/components/primitives` and `@/components/composite`.
+- Root `@/api` imports were split into `@/api/services` and `@/api/web`.
+- Root `@/schemas` imports were split into `@/schemas/api` and `@/schemas/client`.
+- Root `@/types` imports were not mapped blindly to `@/types/client`; they were split between `@/types/api` and `@/types/client` based on the actual symbol ownership.
 
 ## Step 5: Re-Audit Utilities and Constants
 

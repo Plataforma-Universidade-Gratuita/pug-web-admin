@@ -1,4 +1,4 @@
-import { FormerStudentsPage } from "@/features/academic/former-students/FormerStudentsPage";
+import { FormerStudentsPage } from "@/features";
 
 export default function Page() {
 	return <FormerStudentsPage />;

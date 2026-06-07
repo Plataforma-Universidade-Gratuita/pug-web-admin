@@ -6,13 +6,13 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import type { ProjectResponse } from "@/types";
+import type { ProjectResponse } from "@/types/api";
 import type {
 	ProjectCreateMutationVariables,
 	ProjectRemoveMutationVariables,
 	ProjectStatusMutationVariables,
 	ProjectUpdateMutationVariables,
-} from "@/types";
+} from "@/types/client";
 
 import * as projectAreasOfExpertise from "../project-areas-of-expertise";
 import { create, remove, update, updateStatus } from "./endpoints";

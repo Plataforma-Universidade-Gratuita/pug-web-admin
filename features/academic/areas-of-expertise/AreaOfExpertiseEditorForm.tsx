@@ -3,14 +3,14 @@
 import { useTranslation } from "react-i18next";
 
 import { WebApiError } from "@/api/web";
+import { AreaOfExpertiseDetailsContent } from "@/components/composite";
 import {
-	AreaOfExpertiseDetailsContent,
 	Input,
 	Label,
 	NotFoundState,
 	SomeErrorState,
-} from "@/components";
-import type { AreaOfExpertiseEditorFormProps } from "@/types";
+} from "@/components/primitives";
+import type { AreaOfExpertiseEditorFormProps } from "@/types/client";
 
 export function AreaOfExpertiseEditorForm({
 	canRenderForm,

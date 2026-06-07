@@ -4,10 +4,10 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Combobox, Label } from "@/components";
-import { TextFieldFilter } from "@/components";
+import { TextFieldFilter } from "@/components/composite";
+import { Combobox, Label } from "@/components/primitives";
 import { getAdminCampusOptions } from "@/features/identity/admins/utils";
-import type { AdminsFiltersProps } from "@/types";
+import type { AdminsFiltersProps } from "@/types/client";
 
 import { AdminsFiltersDrawer } from "./AdminsFiltersDrawer";
 

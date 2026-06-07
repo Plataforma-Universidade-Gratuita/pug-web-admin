@@ -2,20 +2,20 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import {
-	Badge,
 	createActiveBadgeColumn,
 	createDateTimeColumn,
 	createTableTextColumn,
-} from "@/components";
+} from "@/components/composite";
+import { Badge } from "@/components/primitives";
 import { ADMIN_CAMPI_VALUES } from "@/constants";
 import type {
 	AccountResponse,
 	CourseResponse,
-	FormerStudentDirectoryItem,
 	FormerStudentResponse,
 	UserResponse,
-} from "@/types";
-import type { ComboboxOption } from "@/types";
+} from "@/types/api";
+import type { FormerStudentDirectoryItem } from "@/types/client";
+import type { ComboboxOption } from "@/types/client";
 import { compareNormalizedText } from "@/utils";
 
 export function buildFormerStudentDirectoryItems(

@@ -2,13 +2,13 @@
 
 import { useTranslation } from "react-i18next";
 
-import { RecordActionDialogs, TextFieldFilter } from "@/components";
+import { RecordActionDialogs, TextFieldFilter } from "@/components/composite";
 import { FormerStudentsFiltersDrawer } from "@/features/academic/former-students/FormerStudentsFiltersDrawer";
 import type {
 	ComboboxOption,
 	FormerStudentDirectoryItem,
 	FormerStudentSecondaryFilters,
-} from "@/types";
+} from "@/types/client";
 
 export function FormerStudentsPageFilters({
 	querySearch,

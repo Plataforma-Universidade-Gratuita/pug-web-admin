@@ -4,10 +4,10 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Badge } from "@/components";
-import { EntityPageFieldsGrid } from "@/components";
+import { EntityPageFieldsGrid } from "@/components/composite";
+import { Badge } from "@/components/primitives";
 import { getAttendanceStatusTone } from "@/features/project/attendances/utils";
-import type { AttendanceResponse } from "@/types";
+import type { AttendanceResponse } from "@/types/api";
 
 export function AttendanceOwnDetailsContent({
 	attendance,

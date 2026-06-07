@@ -6,7 +6,7 @@ import {
 	ServicePagePagination,
 	ServicePageShell,
 	ServicePageTableSection,
-} from "@/components";
+} from "@/components/composite";
 import { EnrollmentEditorDrawer } from "@/features/project/enrollments/EnrollmentEditorDrawer";
 import { EnrollmentsRowActions } from "@/features/project/enrollments/EnrollmentsRowActions";
 import {
@@ -15,7 +15,7 @@ import {
 } from "@/features/project/enrollments/components/EnrollmentsPageControls";
 import { useEnrollmentsPage } from "@/features/project/enrollments/useEnrollmentsPage";
 import { createEnrollmentCompositeKey } from "@/features/project/enrollments/utils";
-import type { EnrollmentDirectoryItem } from "@/types";
+import type { EnrollmentDirectoryItem } from "@/types/client";
 
 export function EnrollmentsPage() {
 	const {

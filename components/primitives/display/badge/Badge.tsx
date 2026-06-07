@@ -3,9 +3,9 @@
 import clsx from "clsx";
 import { X } from "lucide-react";
 
-import { Icon } from "@/components";
+import { Icon } from "@/components/primitives";
 import { BADGE_STYLES } from "@/constants";
-import type { BadgeProps } from "@/types";
+import type { BadgeProps } from "@/types/client";
 
 export function Badge({
 	children,

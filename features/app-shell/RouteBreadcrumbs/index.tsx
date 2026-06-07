@@ -11,7 +11,7 @@ import {
 	BreadcrumbItem,
 	BreadcrumbList,
 	BreadcrumbSeparator,
-} from "@/components";
+} from "@/components/primitives";
 import { APP_ROUTE_LABELS } from "@/constants";
 import { getRouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs/utils";
 

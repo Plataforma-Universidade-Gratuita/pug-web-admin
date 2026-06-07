@@ -1,11 +1,11 @@
 import type {
 	AccountResponse,
 	FormerStudentCreateRequest,
-	FormerStudentEditorFormValues,
 	FormerStudentResponse,
 	FormerStudentUpdateRequest,
 	UserResponse,
-} from "@/types";
+} from "@/types/api";
+import type { FormerStudentEditorFormValues } from "@/types/client";
 
 import { toFormerStudentCreateCpf } from "../filter/utils";
 

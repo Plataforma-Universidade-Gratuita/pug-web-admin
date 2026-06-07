@@ -6,12 +6,12 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import type { AreaOfExpertiseResponse } from "@/types";
+import type { AreaOfExpertiseResponse } from "@/types/api";
 import type {
 	AreaOfExpertiseCreateMutationVariables,
 	AreaOfExpertiseUpdateMutationVariables,
 	RemoveAreaOfExpertiseMutationVariables,
-} from "@/types";
+} from "@/types/client";
 
 import { create, remove, update } from "./endpoints";
 import { areaOfExpertiseKeys as keys } from "./keys";

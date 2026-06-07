@@ -4,13 +4,13 @@ import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { WebApiError } from "@/api/web";
+import { FormerStudentOwnDetailsContent } from "@/components/composite";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 	Combobox,
-	FormerStudentOwnDetailsContent,
 	Label,
 	NotFoundState,
 	Select,
@@ -22,11 +22,11 @@ import {
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from "@/components";
+} from "@/components/primitives";
 import { EnrollmentOwnDetailsContent } from "@/features/project/enrollments/enrollment/EnrollmentOwnDetailsContent";
 import { getEditableEnrollmentStatusOptions } from "@/features/project/enrollments/utils";
 import { ProjectOwnDetailsContent } from "@/features/project/projects/project/ProjectOwnDetailsContent";
-import type { EnrollmentEditorFormProps } from "@/types";
+import type { EnrollmentEditorFormProps } from "@/types/client";
 
 export function EnrollmentEditorForm({
 	canRenderForm,

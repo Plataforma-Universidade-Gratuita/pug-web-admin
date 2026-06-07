@@ -5,15 +5,15 @@ import { createContext, useContext } from "react";
 import * as RadixTabs from "@radix-ui/react-tabs";
 import clsx from "clsx";
 
-import { Tooltip } from "@/components";
-import { ScrollArea } from "@/components";
+import { Tooltip } from "@/components/primitives";
+import { ScrollArea } from "@/components/primitives";
 import type {
 	TabsContentProps,
 	TabsListProps,
 	TabsProps,
 	TabsTriggerProps,
 	TabsListVariant,
-} from "@/types";
+} from "@/types/client";
 
 const TabsVariantContext = createContext<TabsListVariant>("default");
 

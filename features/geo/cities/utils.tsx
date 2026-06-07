@@ -1,8 +1,8 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
-import { createTableTextColumn } from "@/components";
-import type { CityResponse } from "@/types";
+import { createTableTextColumn } from "@/components/composite";
+import type { CityResponse } from "@/types/api";
 import { getApiErrorToastContent } from "@/utils";
 import { normalizeTextForSearch } from "@/utils";
 

@@ -10,7 +10,7 @@ import {
 	AdminUpdateRequestSchema,
 	AccountStatusRequestSchema,
 	createPageResponseSchema,
-} from "@/schemas";
+} from "@/schemas/api";
 import type {
 	AdminComplexSearchRequest,
 	AdminComplexSearchResponse,
@@ -18,7 +18,7 @@ import type {
 	AdminResponse,
 	AdminUpdateRequest,
 	PaginationRequest,
-} from "@/types";
+} from "@/types/api";
 
 export async function get(id: string): Promise<AdminResponse> {
 	return webFetch(

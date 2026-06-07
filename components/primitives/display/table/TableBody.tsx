@@ -3,7 +3,7 @@
 import { flexRender, type Column, type Row } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 
-import { NoContentState, Skeleton } from "@/components";
+import { NoContentState, Skeleton } from "@/components/primitives";
 
 import { RowActionsCell } from "./RowActionsCell";
 import { getTableColumnStyle } from "./utils";

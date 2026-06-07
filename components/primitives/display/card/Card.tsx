@@ -2,9 +2,9 @@
 
 import clsx from "clsx";
 
-import { Icon } from "@/components";
-import { Skeleton } from "@/components";
-import { Content, Footer, Header } from "@/components";
+import { Icon } from "@/components/primitives";
+import { Skeleton } from "@/components/primitives";
+import { Content, Footer, Header } from "@/components/primitives";
 import {
 	SkeletonActionGroup,
 	SkeletonPanelBlock,
@@ -18,7 +18,7 @@ import type {
 	CardHeaderProps,
 	CardProps,
 	CardTitleProps,
-} from "@/types";
+} from "@/types/client";
 
 export function Card({
 	children,

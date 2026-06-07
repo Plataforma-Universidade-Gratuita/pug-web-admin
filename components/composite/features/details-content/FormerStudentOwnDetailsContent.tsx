@@ -4,12 +4,12 @@ import { useMemo } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Badge } from "@/components";
-import { EntityPageFieldsGrid } from "@/components";
+import { EntityPageFieldsGrid } from "@/components/composite";
+import { Badge } from "@/components/primitives";
 import type {
 	EntityPageField,
 	FormerStudentOwnDetailsContentProps,
-} from "@/types";
+} from "@/types/client";
 
 export function FormerStudentOwnDetailsContent({
 	formerStudent,

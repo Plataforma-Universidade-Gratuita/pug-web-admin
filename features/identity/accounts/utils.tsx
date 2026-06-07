@@ -2,22 +2,24 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import {
-	Badge,
 	createActiveBadgeColumn,
 	createDateTimeColumn,
 	createTableTextColumn,
-} from "@/components";
+} from "@/components/composite";
+import { Badge } from "@/components/primitives";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/identity/accounts/constants";
 import type {
 	AccountType,
 	AccountTypeResponse,
-	AccountComplexSearchFilters,
-	AccountFilterArgs,
 	AccountResponse,
 	AccountSearchResponse,
 	UserResponse,
-} from "@/types";
+} from "@/types/api";
+import type {
+	AccountComplexSearchFilters,
+	AccountFilterArgs,
+} from "@/types/client";
 import {
 	getApiErrorToastContent,
 	matchesAnyDateRange,

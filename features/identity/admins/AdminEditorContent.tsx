@@ -9,17 +9,19 @@ import { WebApiError } from "@/api/web";
 import {
 	AccountSummaryBadges,
 	CpfFormField,
+	LinkedDetailsAccordion,
+	UserDetailsContent,
+} from "@/components/composite";
+import {
 	Input,
 	Label,
-	LinkedDetailsAccordion,
 	NotFoundState,
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SomeErrorState,
-	UserDetailsContent,
-} from "@/components";
+} from "@/components/primitives";
 import {
 	getAccountTypeLabel,
 	getAccountTypeTone,
@@ -27,7 +29,7 @@ import {
 import type {
 	AdminEditorContentProps,
 	CpfFormFieldExistingUser,
-} from "@/types";
+} from "@/types/client";
 
 export function AdminEditorContent({
 	admin,

@@ -2,14 +2,14 @@
 
 import { useEffect, useRef } from "react";
 
-import { ScrollArea } from "@/components";
+import { ScrollArea } from "@/components/primitives";
 import { RouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs";
 import { Sidebar } from "@/features/app-shell/Sidebar";
 import { TopBar } from "@/features/app-shell/Topbar";
 import { WireCredentialsDialog } from "@/features/app-shell/WireCredentialsDialog";
 import { usePasswordWiringState } from "@/features/app-shell/utils";
 import { useAppShellStore } from "@/stores";
-import type { NavbarProps } from "@/types";
+import type { NavbarProps } from "@/types/client";
 
 export function Navbar({ children }: NavbarProps) {
 	const collapsed = useAppShellStore(state => state.collapsed);

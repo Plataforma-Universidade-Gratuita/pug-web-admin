@@ -2,11 +2,10 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import {
-	Badge,
 	createDateTimeColumn,
 	createTableTextColumn,
-	TableText,
-} from "@/components";
+} from "@/components/composite";
+import { Badge, TableText } from "@/components/primitives";
 import {
 	TABLE_DESCRIPTION_TEXT_WIDTH,
 	TABLE_IDENTIFIER_TEXT_WIDTH,
@@ -17,8 +16,8 @@ import type {
 	EntityResponse,
 	ProjectResponse,
 	ProjectStatus,
-} from "@/types";
-import type { BadgeTone, ComboboxOption } from "@/types";
+} from "@/types/api";
+import type { BadgeTone, ComboboxOption } from "@/types/client";
 import { compareNormalizedText } from "@/utils";
 
 export function getProjectStatusLabel(t: TFunction, status: ProjectStatus) {

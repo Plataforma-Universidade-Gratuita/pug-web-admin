@@ -2,9 +2,12 @@
 
 import { useTranslation } from "react-i18next";
 
-import { AsyncComboboxFilterField, DateRangeFilterFields } from "@/components";
-import { ServicePageFiltersDrawer } from "@/components";
-import type { EntitiesFiltersDrawerProps } from "@/types";
+import {
+	AsyncComboboxFilterField,
+	DateRangeFilterFields,
+} from "@/components/composite";
+import { ServicePageFiltersDrawer } from "@/components/composite";
+import type { EntitiesFiltersDrawerProps } from "@/types/client";
 
 export function EntitiesFiltersDrawer({
 	citiesError,

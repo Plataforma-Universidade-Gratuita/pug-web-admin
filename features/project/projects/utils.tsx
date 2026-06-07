@@ -1,4 +1,4 @@
-export { createProjectEditorFormSchema } from "@/schemas";
+export { createProjectEditorFormSchema } from "@/schemas/client";
 
 export * from "./filter/utils";
 export * from "./form/utils";
