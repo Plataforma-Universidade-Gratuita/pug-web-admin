@@ -4,18 +4,21 @@ import type { CSSProperties } from "react";
 
 import * as RadixDialog from "@radix-ui/react-dialog";
 import clsx from "clsx";
-import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/primitives";
-import { Icon } from "@/components/primitives";
-import { Skeleton } from "@/components/primitives";
-import { Header } from "@/components/primitives";
-import { ScrollArea } from "@/components/primitives";
+import { Skeleton } from "@/components/primitives/display";
 import {
 	SkeletonPanelBlock,
 	SkeletonTextBlock,
 } from "@/components/primitives/display/skeleton/presets";
+import {
+	getControllableOverlayRootProps,
+	ModalFrame,
+	OverlayCloseButton,
+	OverlayHeader,
+	OverlayScrollBody,
+	OverlayTitle,
+} from "@/components/primitives/overlays/components";
 import { APP_TOPBAR_HEIGHT } from "@/components/primitives/overlays/constants";
 import { LoadingProvider, useLoading } from "@/contexts";
 import type {
@@ -34,15 +37,11 @@ export function Dialog({
 	isLoading = false,
 	loadingLabel,
 }: DialogProps) {
-	const rootProps: Partial<{
-		open: boolean;
-		defaultOpen: boolean;
-		onOpenChange: (open: boolean) => void;
-	}> = {};
-
-	if (open !== undefined) rootProps.open = open;
-	if (defaultOpen !== undefined) rootProps.defaultOpen = defaultOpen;
-	if (onOpenChange !== undefined) rootProps.onOpenChange = onOpenChange;
+	const rootProps = getControllableOverlayRootProps(
+		open,
+		defaultOpen,
+		onOpenChange,
+	);
 
 	return (
 		<LoadingProvider value={{ isLoading, loadingLabel }}>
@@ -58,10 +57,7 @@ export function DialogContent({ children, className }: DialogContentProps) {
 
 	return (
 		<RadixDialog.Portal>
-			<div
-				className="modal-frame"
-				style={{ top: APP_TOPBAR_HEIGHT }}
-			>
+			<ModalFrame>
 				<RadixDialog.Overlay className="dialog-overlay-motion modal-overlay" />
 				<RadixDialog.Content
 					aria-busy={isLoading || undefined}
@@ -96,7 +92,7 @@ export function DialogContent({ children, className }: DialogContentProps) {
 						</RadixDialog.Title>
 					) : null}
 				</RadixDialog.Content>
-			</div>
+			</ModalFrame>
 		</RadixDialog.Portal>
 	);
 }
@@ -109,75 +105,48 @@ export function DialogHeader({
 	const { t } = useTranslation();
 
 	return (
-		<Header className={clsx("dialog-header", className)}>
-			<div className="dialog-header-main">
-				{overhead ? <p className="dialog-overhead">{overhead}</p> : null}
-				{children}
-			</div>
-			<RadixDialog.Close asChild>
-				<Button
-					size="icon"
-					variant="secondary"
-					title={t("components.dialog.close")}
-					aria-label={t("components.dialog.close")}
-				>
-					<Icon
-						icon={X}
-						className="h-4 w-4"
-					/>
-				</Button>
-			</RadixDialog.Close>
-		</Header>
+		<OverlayHeader
+			className={clsx("dialog-header", className)}
+			mainClassName="dialog-header-main"
+			overhead={overhead}
+			overheadClassName="dialog-overhead"
+			closeButton={<OverlayCloseButton label={t("components.dialog.close")} />}
+		>
+			{children}
+		</OverlayHeader>
 	);
 }
 
 export function DialogTitle({ children, className }: DialogTitleProps) {
-	const { isLoading } = useLoading();
-
-	if (isLoading) {
-		return (
-			<>
-				<RadixDialog.Title className="sr-only">{children}</RadixDialog.Title>
-				<Skeleton className={clsx("h-5 w-[42%]", className)} />
-			</>
-		);
-	}
-
 	return (
-		<RadixDialog.Title className={clsx("ty-header", className)}>
+		<OverlayTitle
+			TitleComponent={RadixDialog.Title}
+			skeletonClassName="h-5 w-[42%]"
+			className={className}
+		>
 			{children}
-		</RadixDialog.Title>
+		</OverlayTitle>
 	);
 }
 
 export function DialogBody({ children, className }: DialogBodyProps) {
-	const { isLoading } = useLoading();
-
-	if (isLoading) {
-		return (
-			<div className="dialog-body">
-				<ScrollArea
-					className="dialog-body-scroll"
-					viewportClassName="dialog-body-viewport"
-				>
-					<div className={clsx("dialog-body-inner grid gap-4", className)}>
-						<SkeletonTextBlock lines={["w-full", "w-[78%]", "w-[84%]"]} />
-						<SkeletonPanelBlock heightClassName="h-28" />
-						<SkeletonTextBlock lines={["w-[68%]", "w-[52%]"]} />
-					</div>
-				</ScrollArea>
-			</div>
-		);
-	}
-
 	return (
-		<div className="dialog-body">
-			<ScrollArea
-				className="dialog-body-scroll"
-				viewportClassName="dialog-body-viewport"
-			>
-				<div className={clsx("dialog-body-inner", className)}>{children}</div>
-			</ScrollArea>
-		</div>
+		<OverlayScrollBody
+			outerClassName="dialog-body"
+			scrollClassName="dialog-body-scroll"
+			viewportClassName="dialog-body-viewport"
+			innerClassName="dialog-body-inner"
+			loadingClassName="grid gap-4"
+			className={className}
+			loadingContent={
+				<>
+					<SkeletonTextBlock lines={["w-full", "w-[78%]", "w-[84%]"]} />
+					<SkeletonPanelBlock heightClassName="h-28" />
+					<SkeletonTextBlock lines={["w-[68%]", "w-[52%]"]} />
+				</>
+			}
+		>
+			{children}
+		</OverlayScrollBody>
 	);
 }

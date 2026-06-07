@@ -11,6 +11,7 @@ import { ModulePageShell } from "@/components/composite/features/module-pages/Mo
 
 export function GeoOverviewPage() {
 	const { t } = useTranslation();
+	const moduleName = t("geo.modulePage.title").toLocaleLowerCase();
 
 	return (
 		<ModulePageShell
@@ -18,6 +19,7 @@ export function GeoOverviewPage() {
 			description={t("geo.modulePage.description")}
 		>
 			<ModulePageComingSoon
+				moduleName={moduleName}
 				paths={[
 					{
 						href: "/geo/cities",

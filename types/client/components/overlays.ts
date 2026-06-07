@@ -65,9 +65,10 @@ export interface AlertDialogDescriptionProps {
 }
 
 export interface AlertDialogFooterProps {
+	children?: ReactNode;
 	className?: string;
-	cancelLabel: ReactNode;
-	actionLabel: ReactNode;
+	cancelLabel?: ReactNode;
+	actionLabel?: ReactNode;
 	onAction?: () => void;
 }
 

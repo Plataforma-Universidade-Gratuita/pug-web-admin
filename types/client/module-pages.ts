@@ -15,6 +15,7 @@ export interface ModulePageShellProps {
 export interface ModulePageComingSoonProps {
 	className?: string;
 	description?: ReactNode;
+	moduleName?: string;
 	paths?: ModulePageChildPath[];
 	title?: ReactNode;
 }

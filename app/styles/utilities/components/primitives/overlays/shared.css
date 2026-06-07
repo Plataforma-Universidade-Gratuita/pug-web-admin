@@ -24,4 +24,22 @@
 		line-height: var(--twc-leading-relaxed);
 		color: var(--twc-muted);
 	}
+
+	.dialog-footer {
+		display: flex;
+		min-width: 0;
+		width: 100%;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 0.5rem;
+		margin-top: auto;
+		border-top: 1px solid var(--twc-border-2);
+		padding: 0.5rem 0.5rem 0.5rem;
+		box-sizing: border-box;
+	}
+
+	.alert-dialog-footer {
+		justify-content: flex-end;
+	}
 }

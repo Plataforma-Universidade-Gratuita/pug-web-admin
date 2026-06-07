@@ -52,7 +52,7 @@ export function HomeDashboardSidebarSections({
 						{t("home.dashboard.sections.shortcuts.description")}
 					</CardDescription>
 				</CardHeader>
-				<CardContent className="grid gap-3 px-5 pt-0 pb-5">
+				<CardContent className="grid px-5 pt-0 pb-5">
 					<Button
 						variant="secondary"
 						usage="secondary"

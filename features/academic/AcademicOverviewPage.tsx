@@ -11,6 +11,7 @@ import { ModulePageShell } from "@/components/composite/features/module-pages/Mo
 
 export function AcademicOverviewPage() {
 	const { t } = useTranslation();
+	const moduleName = t("academic.modulePage.title").toLocaleLowerCase();
 
 	return (
 		<ModulePageShell
@@ -18,6 +19,7 @@ export function AcademicOverviewPage() {
 			description={t("academic.modulePage.description")}
 		>
 			<ModulePageComingSoon
+				moduleName={moduleName}
 				paths={[
 					{
 						href: "/academic/areas-of-expertise",

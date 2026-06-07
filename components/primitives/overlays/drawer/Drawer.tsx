@@ -5,12 +5,16 @@ import { useState } from "react";
 
 import * as RadixDialog from "@radix-ui/react-dialog";
 import clsx from "clsx";
-import { Eraser, X } from "lucide-react";
+import { Eraser } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/primitives";
-import { Icon } from "@/components/primitives";
-import { Skeleton } from "@/components/primitives";
+import { Button } from "@/components/primitives/actions";
+import { Icon, Skeleton } from "@/components/primitives/display";
+import {
+	SkeletonActionGroup,
+	SkeletonPanelBlock,
+	SkeletonTextBlock,
+} from "@/components/primitives/display/skeleton/presets";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -18,19 +22,21 @@ import {
 	AlertDialogFooter as AlertDialogFooterActions,
 	AlertDialogHeader,
 	AlertDialogTitle,
-} from "@/components/primitives";
-import { Footer, Header } from "@/components/primitives";
-import { ScrollArea } from "@/components/primitives";
+} from "@/components/primitives/overlays/alert-dialog";
 import {
-	SkeletonActionGroup,
-	SkeletonPanelBlock,
-	SkeletonTextBlock,
-} from "@/components/primitives/display/skeleton/presets";
+	getControllableOverlayRootProps,
+	OverlayCloseButton,
+	OverlayDescription,
+	OverlayHeader,
+	OverlayScrollBody,
+	OverlayTitle,
+} from "@/components/primitives/overlays/components";
 import { APP_TOPBAR_HEIGHT } from "@/components/primitives/overlays/constants";
 import {
 	DRAWER_MOTION_STYLES,
 	DRAWER_POSITION_STYLES,
 } from "@/components/primitives/overlays/drawer/constants";
+import { Footer } from "@/components/primitives/structure";
 import { LoadingProvider, useLoading } from "@/contexts";
 import type {
 	DrawerBodyProps,
@@ -52,15 +58,11 @@ export function Drawer({
 	isLoading = false,
 	loadingLabel,
 }: DrawerProps) {
-	const rootProps: Partial<{
-		open: boolean;
-		defaultOpen: boolean;
-		onOpenChange: (open: boolean) => void;
-	}> = {};
-
-	if (open !== undefined) rootProps.open = open;
-	if (defaultOpen !== undefined) rootProps.defaultOpen = defaultOpen;
-	if (onOpenChange !== undefined) rootProps.onOpenChange = onOpenChange;
+	const rootProps = getControllableOverlayRootProps(
+		open,
+		defaultOpen,
+		onOpenChange,
+	);
 
 	return (
 		<LoadingProvider value={{ isLoading, loadingLabel }}>
@@ -139,44 +141,27 @@ export function DrawerHeader({
 	const { t } = useTranslation();
 
 	return (
-		<Header className={clsx("drawer-header", className)}>
-			<div className="drawer-header-main">
-				{overhead ? <p className="drawer-overhead">{overhead}</p> : null}
-				{children}
-			</div>
-			<RadixDialog.Close asChild>
-				<Button
-					size="icon"
-					variant="secondary"
-					title={t("components.drawer.close")}
-					aria-label={t("components.drawer.close")}
-				>
-					<Icon
-						icon={X}
-						className="h-4 w-4"
-					/>
-				</Button>
-			</RadixDialog.Close>
-		</Header>
+		<OverlayHeader
+			className={clsx("drawer-header", className)}
+			mainClassName="drawer-header-main"
+			overhead={overhead}
+			overheadClassName="drawer-overhead"
+			closeButton={<OverlayCloseButton label={t("components.drawer.close")} />}
+		>
+			{children}
+		</OverlayHeader>
 	);
 }
 
 export function DrawerTitle({ children, className }: DrawerTitleProps) {
-	const { isLoading } = useLoading();
-
-	if (isLoading) {
-		return (
-			<>
-				<RadixDialog.Title className="sr-only">{children}</RadixDialog.Title>
-				<Skeleton className={clsx("h-5 w-[42%]", className)} />
-			</>
-		);
-	}
-
 	return (
-		<RadixDialog.Title className={clsx("ty-header", className)}>
+		<OverlayTitle
+			TitleComponent={RadixDialog.Title}
+			skeletonClassName="h-5 w-[42%]"
+			className={className}
+		>
 			{children}
-		</RadixDialog.Title>
+		</OverlayTitle>
 	);
 }
 
@@ -184,56 +169,39 @@ export function DrawerDescription({
 	children,
 	className,
 }: DrawerDescriptionProps) {
-	const { isLoading } = useLoading();
-
-	if (isLoading) {
-		return (
-			<SkeletonTextBlock
-				className={className}
-				lines={["w-full", "w-[72%]"]}
-			/>
-		);
-	}
-
 	return (
-		<RadixDialog.Description className={clsx("dialog-description", className)}>
+		<OverlayDescription
+			DescriptionComponent={RadixDialog.Description}
+			skeletonLines={["w-full", "w-[72%]"]}
+			className={className}
+		>
 			{children}
-		</RadixDialog.Description>
+		</OverlayDescription>
 	);
 }
 
 export function DrawerBody({ children, className }: DrawerBodyProps) {
-	const { isLoading } = useLoading();
-
-	if (isLoading) {
-		return (
-			<div className="drawer-body">
-				<ScrollArea
-					className="drawer-body-scroll"
-					viewportClassName="drawer-body-viewport"
-				>
-					<div className={clsx("drawer-body-inner grid gap-4", className)}>
-						<SkeletonTextBlock lines={["w-full", "w-[76%]"]} />
-						<div className="grid gap-3 md:grid-cols-2">
-							<SkeletonPanelBlock heightClassName="h-12" />
-							<SkeletonPanelBlock heightClassName="h-12" />
-						</div>
-						<SkeletonPanelBlock heightClassName="h-40" />
-					</div>
-				</ScrollArea>
-			</div>
-		);
-	}
-
 	return (
-		<div className="drawer-body">
-			<ScrollArea
-				className="drawer-body-scroll"
-				viewportClassName="drawer-body-viewport"
-			>
-				<div className={clsx("drawer-body-inner", className)}>{children}</div>
-			</ScrollArea>
-		</div>
+		<OverlayScrollBody
+			outerClassName="drawer-body"
+			scrollClassName="drawer-body-scroll"
+			viewportClassName="drawer-body-viewport"
+			innerClassName="drawer-body-inner"
+			loadingClassName="grid gap-4"
+			className={className}
+			loadingContent={
+				<>
+					<SkeletonTextBlock lines={["w-full", "w-[76%]"]} />
+					<div className="grid gap-3 md:grid-cols-2">
+						<SkeletonPanelBlock heightClassName="h-12" />
+						<SkeletonPanelBlock heightClassName="h-12" />
+					</div>
+					<SkeletonPanelBlock heightClassName="h-40" />
+				</>
+			}
+		>
+			{children}
+		</OverlayScrollBody>
 	);
 }
 

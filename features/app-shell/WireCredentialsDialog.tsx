@@ -14,10 +14,10 @@ import {
 	AlertDialog,
 	AlertDialogContent,
 	AlertDialogDescription,
+	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
 	Button,
-	Footer,
 	Icon,
 	Input,
 	Label,
@@ -214,10 +214,11 @@ export function WireCredentialsDialog({
 						{error ? <p className="login-form-error">{error}</p> : null}
 					</div>
 
-					<Footer className="alert-dialog-footer dialog-footer px-6 pb-6 sm:flex-nowrap">
+					<AlertDialogFooter className="sm:flex-nowrap">
 						<Button
 							type="button"
 							variant="secondary"
+							className="ml-auto"
 							disabled={isPending}
 							onClick={() => {
 								reset();
@@ -243,7 +244,7 @@ export function WireCredentialsDialog({
 						>
 							{t("auth.login.wireCredentials.actions.submit")}
 						</Button>
-					</Footer>
+					</AlertDialogFooter>
 				</form>
 			</AlertDialogContent>
 		</AlertDialog>

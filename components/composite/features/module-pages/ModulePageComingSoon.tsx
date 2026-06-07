@@ -11,6 +11,7 @@ import type { ModulePageComingSoonProps } from "@/types/client";
 export function ModulePageComingSoon({
 	className,
 	description,
+	moduleName,
 	paths,
 	title,
 }: ModulePageComingSoonProps) {
@@ -21,7 +22,12 @@ export function ModulePageComingSoon({
 			className={className}
 			icon={undefined}
 			title={title ?? t("modulePages.comingSoon.title")}
-			description={description ?? t("modulePages.comingSoon.description")}
+			description={
+				description ??
+				t("modulePages.comingSoon.description", {
+					moduleName,
+				})
+			}
 		>
 			{paths?.length ? (
 				<div className="grid w-full max-w-2xl gap-3">

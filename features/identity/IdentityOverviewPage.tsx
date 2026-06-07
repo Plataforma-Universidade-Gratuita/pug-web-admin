@@ -11,6 +11,7 @@ import { ModulePageShell } from "@/components/composite/features/module-pages/Mo
 
 export function IdentityOverviewPage() {
 	const { t } = useTranslation();
+	const moduleName = t("identity.modulePage.title").toLocaleLowerCase();
 
 	return (
 		<ModulePageShell
@@ -18,6 +19,7 @@ export function IdentityOverviewPage() {
 			description={t("identity.modulePage.description")}
 		>
 			<ModulePageComingSoon
+				moduleName={moduleName}
 				paths={[
 					{
 						href: "/identity/users",

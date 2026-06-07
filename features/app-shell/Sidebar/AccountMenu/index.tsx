@@ -14,10 +14,10 @@ import {
 	AlertDialog,
 	AlertDialogContent,
 	AlertDialogDescription,
+	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
 	Button,
-	Footer,
 	Icon,
 	Popover,
 	PopoverContent,
@@ -248,9 +248,9 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 							{t("Navbar.account.logoutDialogDescription")}
 						</AlertDialogDescription>
 					</AlertDialogHeader>
-					<Footer className="alert-dialog-footer dialog-footer sm:flex-nowrap">
+					<AlertDialogFooter className="sm:flex-nowrap">
 						<Button
-							className="whitespace-nowrap"
+							className="ml-auto whitespace-nowrap"
 							variant="secondary"
 							disabled={isPending}
 							onClick={() => setIsLogoutDialogOpen(false)}
@@ -276,7 +276,7 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 						>
 							{t("Navbar.account.logoutCurrentDevice")}
 						</Button>
-					</Footer>
+					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>
 		</>

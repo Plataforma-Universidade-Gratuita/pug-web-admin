@@ -11,6 +11,7 @@ import { ModulePageShell } from "@/components/composite/features/module-pages/Mo
 
 export function ProjectOverviewPage() {
 	const { t } = useTranslation();
+	const moduleName = t("project.modulePage.title").toLocaleLowerCase();
 
 	return (
 		<ModulePageShell
@@ -18,6 +19,7 @@ export function ProjectOverviewPage() {
 			description={t("project.modulePage.description")}
 		>
 			<ModulePageComingSoon
+				moduleName={moduleName}
 				paths={[
 					{
 						href: "/project/projects",

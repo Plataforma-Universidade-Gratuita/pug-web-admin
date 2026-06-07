@@ -6,14 +6,16 @@ import * as RadixAlertDialog from "@radix-ui/react-alert-dialog";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/primitives";
-import { Skeleton } from "@/components/primitives";
-import { Footer, Header } from "@/components/primitives";
+import { Button } from "@/components/primitives/actions";
+import { Skeleton } from "@/components/primitives/display";
+import { SkeletonActionGroup } from "@/components/primitives/display/skeleton/presets";
 import {
-	SkeletonActionGroup,
-	SkeletonTextBlock,
-} from "@/components/primitives/display/skeleton/presets";
-import { APP_TOPBAR_HEIGHT } from "@/components/primitives/overlays/constants";
+	ModalFrame,
+	OverlayDescription,
+	OverlayHeader,
+	OverlayTitle,
+} from "@/components/primitives/overlays/components";
+import { Footer } from "@/components/primitives/structure";
 import { LoadingProvider, useLoading } from "@/contexts";
 import type {
 	AlertDialogContentProps,
@@ -56,10 +58,7 @@ export function AlertDialogContent({
 	return (
 		<AlertDialogVariantContext.Provider value={variant}>
 			<RadixAlertDialog.Portal>
-				<div
-					className="modal-frame"
-					style={{ top: APP_TOPBAR_HEIGHT }}
-				>
+				<ModalFrame>
 					<RadixAlertDialog.Overlay className="dialog-overlay-motion modal-overlay" />
 					<RadixAlertDialog.Content
 						aria-busy={isLoading || undefined}
@@ -87,7 +86,7 @@ export function AlertDialogContent({
 							</RadixAlertDialog.Title>
 						) : null}
 					</RadixAlertDialog.Content>
-				</div>
+				</ModalFrame>
 			</RadixAlertDialog.Portal>
 		</AlertDialogVariantContext.Provider>
 	);
@@ -111,14 +110,14 @@ export function AlertDialogHeader({
 					: null);
 
 	return (
-		<Header className={clsx("alert-dialog-header dialog-header", className)}>
-			<div className="alert-dialog-header-main">
-				{resolvedOverhead ? (
-					<p className="alert-dialog-overhead">{resolvedOverhead}</p>
-				) : null}
-				{children}
-			</div>
-		</Header>
+		<OverlayHeader
+			className={clsx("alert-dialog-header dialog-header", className)}
+			mainClassName="alert-dialog-header-main"
+			overhead={resolvedOverhead}
+			overheadClassName="alert-dialog-overhead"
+		>
+			{children}
+		</OverlayHeader>
 	);
 }
 
@@ -126,23 +125,14 @@ export function AlertDialogTitle({
 	children,
 	className,
 }: AlertDialogTitleProps) {
-	const { isLoading } = useLoading();
-
-	if (isLoading) {
-		return (
-			<>
-				<RadixAlertDialog.Title className="sr-only">
-					{children}
-				</RadixAlertDialog.Title>
-				<Skeleton className={clsx("h-5 w-[48%]", className)} />
-			</>
-		);
-	}
-
 	return (
-		<RadixAlertDialog.Title className={clsx("ty-header", className)}>
+		<OverlayTitle
+			TitleComponent={RadixAlertDialog.Title}
+			skeletonClassName="h-5 w-[48%]"
+			className={className}
+		>
 			{children}
-		</RadixAlertDialog.Title>
+		</OverlayTitle>
 	);
 }
 
@@ -150,27 +140,19 @@ export function AlertDialogDescription({
 	children,
 	className,
 }: AlertDialogDescriptionProps) {
-	const { isLoading } = useLoading();
-
-	if (isLoading) {
-		return (
-			<SkeletonTextBlock
-				className={className}
-				lines={["w-full", "w-[76%]"]}
-			/>
-		);
-	}
-
 	return (
-		<RadixAlertDialog.Description
-			className={clsx("dialog-description", className)}
+		<OverlayDescription
+			DescriptionComponent={RadixAlertDialog.Description}
+			skeletonLines={["w-full", "w-[76%]"]}
+			className={className}
 		>
 			{children}
-		</RadixAlertDialog.Description>
+		</OverlayDescription>
 	);
 }
 
 export function AlertDialogFooter({
+	children,
 	actionLabel,
 	cancelLabel,
 	className,
@@ -189,11 +171,16 @@ export function AlertDialogFooter({
 
 	return (
 		<Footer
-			className={clsx("alert-dialog-footer dialog-footer", className)}
+			className={clsx(
+				"alert-dialog-footer dialog-footer flex w-full flex-wrap items-center justify-end gap-3 border-t border-[color:var(--twc-border-2)] px-6 py-4",
+				className,
+			)}
 			isLoading={isLoading}
 		>
 			{isLoading ? (
 				<SkeletonActionGroup />
+			) : children ? (
+				children
 			) : (
 				<>
 					<RadixAlertDialog.Cancel asChild>

@@ -11,6 +11,7 @@ import { ModulePageShell } from "@/components/composite/features/module-pages/Mo
 
 export function PartnerOverviewPage() {
 	const { t } = useTranslation();
+	const moduleName = t("partner.modulePage.title").toLocaleLowerCase();
 
 	return (
 		<ModulePageShell
@@ -18,6 +19,7 @@ export function PartnerOverviewPage() {
 			description={t("partner.modulePage.description")}
 		>
 			<ModulePageComingSoon
+				moduleName={moduleName}
 				paths={[
 					{
 						href: "/partner/entities",
