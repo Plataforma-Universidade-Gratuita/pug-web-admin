@@ -9,29 +9,29 @@ export const THEME_OPTIONS: readonly AppShellThemeOption[] = [
 	{
 		value: "light",
 		icon: Sun,
-		labelKey: "Navbar.controls.theme.options.light",
+		labelKey: "common.selectors.theme.options.light",
 	},
 	{
 		value: "dark",
 		icon: Moon,
-		labelKey: "Navbar.controls.theme.options.dark",
+		labelKey: "common.selectors.theme.options.dark",
 	},
 	{
 		value: "system",
 		icon: Laptop,
-		labelKey: "Navbar.controls.theme.options.system",
+		labelKey: "common.selectors.theme.options.system",
 	},
 ] as const;
 
 export const LANGUAGE_OPTIONS: readonly AppShellLanguageOption[] = [
 	{
 		value: "en-US",
-		labelKey: "Navbar.controls.language.options.en-US",
-		shortLabelKey: "Navbar.controls.language.short.en-US",
+		labelKey: "common.selectors.language.options.en-US",
+		shortLabelKey: "common.selectors.language.short.en-US",
 	},
 	{
 		value: "pt-BR",
-		labelKey: "Navbar.controls.language.options.pt-BR",
-		shortLabelKey: "Navbar.controls.language.short.pt-BR",
+		labelKey: "common.selectors.language.options.pt-BR",
+		shortLabelKey: "common.selectors.language.short.pt-BR",
 	},
 ] as const;

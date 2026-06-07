@@ -357,6 +357,25 @@
             "search": "Search...",
             "select": "Select..."
         },
+        "selectors": {
+            "language": {
+                "options": {
+                    "en-US": "English",
+                    "pt-BR": "Portuguese"
+                },
+                "short": {
+                    "en-US": "EN",
+                    "pt-BR": "PT"
+                }
+            },
+            "theme": {
+                "options": {
+                    "dark": "Dark",
+                    "light": "Light",
+                    "system": "System"
+                }
+            }
+        },
         "table": {
             "actions": {
                 "deactivate": "Deactivate",
@@ -1034,25 +1053,6 @@
             "logoutError": "Unable to sign out right now."
         },
         "collapse": "Collapse sidebar",
-        "controls": {
-            "language": {
-                "options": {
-                    "en-US": "$t(docs.toggleControls.cards.chrome.locale.english)",
-                    "pt-BR": "$t(docs.toggleControls.cards.chrome.locale.portuguese)"
-                },
-                "short": {
-                    "en-US": "EN",
-                    "pt-BR": "PT"
-                }
-            },
-            "theme": {
-                "options": {
-                    "dark": "$t(docs.toggleControls.cards.chrome.theme.dark)",
-                    "light": "$t(docs.toggleControls.cards.chrome.theme.light)",
-                    "system": "$t(docs.toggleControls.cards.chrome.theme.system)"
-                }
-            }
-        },
         "expand": "Expand sidebar",
         "navigation": "Primary navigation",
         "paths": {
