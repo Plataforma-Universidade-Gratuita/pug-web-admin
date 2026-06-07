@@ -2,11 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { accounts } from "@/api/web";
 import { buildAccountComplexSearchRequest } from "@/features/identity/accounts/utils";
 import type { AccountComplexSearchFilters } from "@/types";
 
-const { get, getMe, list, search, accountKeys: keys } = accounts;
+import { get, getMe, list, search } from "./endpoints";
+import { accountKeys as keys } from "./keys";
 
 export function useAccountsQuery(enabled = true) {
 	return useQuery({

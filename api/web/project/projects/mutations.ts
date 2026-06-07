@@ -6,7 +6,6 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { projectAreasOfExpertise, projects } from "@/api/web";
 import type { ProjectResponse } from "@/types";
 import type {
 	ProjectCreateMutationVariables,
@@ -15,8 +14,11 @@ import type {
 	ProjectUpdateMutationVariables,
 } from "@/types";
 
+import * as projectAreasOfExpertise from "../project-areas-of-expertise";
+import { create, remove, update, updateStatus } from "./endpoints";
+import { projectKeys as keys } from "./keys";
+
 const { createAssociations, deleteAllByProject } = projectAreasOfExpertise;
-const { create, projectKeys: keys, remove, update, updateStatus } = projects;
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

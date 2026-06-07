@@ -2,11 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { users } from "@/api/web";
 import { buildUserComplexSearchRequest } from "@/features/identity/users/utils";
 import type { UserComplexSearchFilters } from "@/types";
 
-const { get, getMe, list, search, userKeys: keys } = users;
+import { get, getMe, list, search } from "./endpoints";
+import { userKeys as keys } from "./keys";
 
 export function useUsersQuery(enabled = true) {
 	return useQuery({

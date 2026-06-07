@@ -6,7 +6,6 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { courses } from "@/api/web";
 import type { CourseResponse } from "@/types";
 import type {
 	CourseCreateMutationVariables,
@@ -14,7 +13,8 @@ import type {
 	RemoveCourseMutationVariables,
 } from "@/types";
 
-const { courseKeys: keys, create, remove, update } = courses;
+import { create, remove, update } from "./endpoints";
+import { courseKeys as keys } from "./keys";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

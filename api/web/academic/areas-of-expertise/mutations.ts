@@ -6,7 +6,6 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { areasOfExpertise } from "@/api/web";
 import type { AreaOfExpertiseResponse } from "@/types";
 import type {
 	AreaOfExpertiseCreateMutationVariables,
@@ -14,7 +13,8 @@ import type {
 	RemoveAreaOfExpertiseMutationVariables,
 } from "@/types";
 
-const { areaOfExpertiseKeys: keys, create, remove, update } = areasOfExpertise;
+import { create, remove, update } from "./endpoints";
+import { areaOfExpertiseKeys as keys } from "./keys";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

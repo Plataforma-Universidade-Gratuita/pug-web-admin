@@ -2,11 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { entities } from "@/api/web";
 import { buildEntityComplexSearchRequest } from "@/features/partner/entities/utils";
 import type { UseEntitiesSearchQueryFilters } from "@/types";
 
-const { entityKeys: keys, get, list, listCities, search } = entities;
+import { get, list, listCities, search } from "./endpoints";
+import { entityKeys as keys } from "./keys";
 
 export function useEntitiesQuery(enabled = true) {
 	return useQuery({

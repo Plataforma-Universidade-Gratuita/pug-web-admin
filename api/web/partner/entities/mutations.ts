@@ -6,7 +6,6 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { entities } from "@/api/web";
 import type { EntityResponse } from "@/types";
 import type {
 	EntityCreateMutationVariables,
@@ -14,7 +13,8 @@ import type {
 	EntityUpdateMutationVariables,
 } from "@/types";
 
-const { create, entityKeys: keys, remove, update } = entities;
+import { create, remove, update } from "./endpoints";
+import { entityKeys as keys } from "./keys";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

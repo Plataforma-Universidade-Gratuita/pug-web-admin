@@ -6,7 +6,6 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { enrollments } from "@/api/web";
 import type { EnrollmentResponse } from "@/types";
 import type {
 	EnrollmentCreateMutationVariables,
@@ -14,12 +13,8 @@ import type {
 	EnrollmentStatusMutationVariables,
 } from "@/types";
 
-const {
-	create,
-	deleteEnrollment,
-	enrollmentKeys: keys,
-	updateStatus,
-} = enrollments;
+import { create, deleteEnrollment, updateStatus } from "./endpoints";
+import { enrollmentKeys as keys } from "./keys";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

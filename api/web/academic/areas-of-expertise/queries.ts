@@ -2,9 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { areasOfExpertise } from "@/api/web";
-
-const { areaOfExpertiseKeys: keys, get, list } = areasOfExpertise;
+import { get, list } from "./endpoints";
+import { areaOfExpertiseKeys as keys } from "./keys";
 
 export function useAreasOfExpertiseQuery() {
 	return useQuery({

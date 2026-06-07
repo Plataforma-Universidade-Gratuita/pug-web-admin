@@ -53,14 +53,24 @@ export function CitiesPage() {
 	const citiesPagination = useServicePagePagination({
 		key: "geo.cities",
 	});
+	const {
+		currentPage,
+		isAll,
+		pageSize,
+		resetPage,
+		setCurrentPage,
+		setPageSize,
+		backendPage,
+		backendSize,
+	} = citiesPagination;
 	const citiesQuery = useCitiesQuery(citiesPagination.isAll);
 	const citiesSearchQuery = useCitiesSearchQuery(
-		citiesPagination.backendPage ?? 0,
-		citiesPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
+		backendPage ?? 0,
+		backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
 		appliedFilters.name,
-		!citiesPagination.isAll,
+		!isAll,
 	);
-	const activeQuery = citiesPagination.isAll ? citiesQuery : citiesSearchQuery;
+	const activeQuery = isAll ? citiesQuery : citiesSearchQuery;
 
 	const allCities = useMemo(() => citiesQuery.data ?? [], [citiesQuery.data]);
 	const backendFilteredCities = useMemo(
@@ -69,10 +79,8 @@ export function CitiesPage() {
 	);
 	const tableSourceCities = useMemo(
 		() =>
-			citiesPagination.isAll
-				? backendFilteredCities
-				: (citiesSearchQuery.data?.content ?? []),
-		[backendFilteredCities, citiesPagination.isAll, citiesSearchQuery.data],
+			isAll ? backendFilteredCities : (citiesSearchQuery.data?.content ?? []),
+		[backendFilteredCities, isAll, citiesSearchQuery.data],
 	);
 	const filteredCities = useMemo(
 		() => filterCities(tableSourceCities, deferredFrontendSearch),
@@ -105,30 +113,20 @@ export function CitiesPage() {
 		);
 	}, [activeQuery, emptyStateCopy, t]);
 
-	const totalElements = citiesPagination.isAll
+	const totalElements = isAll
 		? backendFilteredCities.length
 		: (citiesSearchQuery.data?.totalElements ?? 0);
-	const totalPages = citiesPagination.isAll
+	const totalPages = isAll
 		? 1
 		: Math.max(citiesSearchQuery.data?.totalPages ?? 1, 1);
 
 	useEffect(() => {
-		if (
-			citiesPagination.isAll ||
-			!citiesSearchQuery.data ||
-			citiesPagination.currentPage <= totalPages
-		) {
+		if (isAll || !citiesSearchQuery.data || currentPage <= totalPages) {
 			return;
 		}
 
-		citiesPagination.setCurrentPage(totalPages);
-	}, [
-		citiesPagination.currentPage,
-		citiesPagination.isAll,
-		citiesPagination.setCurrentPage,
-		citiesSearchQuery.data,
-		totalPages,
-	]);
+		setCurrentPage(totalPages);
+	}, [currentPage, isAll, setCurrentPage, citiesSearchQuery.data, totalPages]);
 
 	useQueryErrorToasts([
 		{
@@ -157,7 +155,7 @@ export function CitiesPage() {
 					backendFiltersOpen={backendFiltersOpen}
 					hasBackendFilters={hasAppliedFilters}
 					onApplyBackendFilters={() => {
-						citiesPagination.resetPage();
+						resetPage();
 						applyDraftFilters();
 						setBackendFiltersOpen(false);
 					}}
@@ -167,7 +165,7 @@ export function CitiesPage() {
 					}}
 					onClearBackendFilters={() => {
 						clearFilters();
-						citiesPagination.resetPage();
+						resetPage();
 						setBackendFiltersOpen(false);
 					}}
 					onFrontendSearchChange={setFrontendSearch}
@@ -178,12 +176,12 @@ export function CitiesPage() {
 			<ServicePageTableSection<CityResponse>
 				footer={
 					<ServicePagePagination
-						currentPage={citiesPagination.currentPage}
-						pageSize={citiesPagination.pageSize}
+						currentPage={currentPage}
+						pageSize={pageSize}
 						totalElements={totalElements}
 						totalPages={totalPages}
-						onPageChange={citiesPagination.setCurrentPage}
-						onPageSizeChange={citiesPagination.setPageSize}
+						onPageChange={setCurrentPage}
+						onPageSizeChange={setPageSize}
 						disabled={activeQuery.isLoading}
 					/>
 				}

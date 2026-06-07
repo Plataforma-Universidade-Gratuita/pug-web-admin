@@ -2,9 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { formerStudents } from "@/api/web";
-
-const { formerStudentKeys: keys, get, list } = formerStudents;
+import { get, list } from "./endpoints";
+import { formerStudentKeys as keys } from "./keys";
 
 export function useFormerStudentsQuery() {
 	return useQuery({

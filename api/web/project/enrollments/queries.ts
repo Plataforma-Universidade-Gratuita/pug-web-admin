@@ -2,11 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { enrollments } from "@/api/web";
 import { buildEnrollmentComplexSearchRequest } from "@/features/project/enrollments/utils";
 import type { EnrollmentComplexSearchFilters } from "@/types";
 
-const { enrollmentKeys: keys, get, list, search } = enrollments;
+import { get, list, search } from "./endpoints";
+import { enrollmentKeys as keys } from "./keys";
 
 export function useEnrollmentsQuery(enabled = true) {
 	return useQuery({

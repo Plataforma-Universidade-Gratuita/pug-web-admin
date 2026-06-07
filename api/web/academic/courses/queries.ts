@@ -2,9 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { courses } from "@/api/web";
-
-const { courseKeys: keys, get, list } = courses;
+import { get, list } from "./endpoints";
+import { courseKeys as keys } from "./keys";
 
 export function useCoursesQuery() {
 	return useQuery({

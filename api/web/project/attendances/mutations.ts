@@ -6,7 +6,6 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { attendances } from "@/api/web";
 import type { AttendanceResponse } from "@/types";
 import type {
 	AttendanceCreateMutationVariables,
@@ -14,7 +13,8 @@ import type {
 	AttendanceValidateMutationVariables,
 } from "@/types";
 
-const { attendanceKeys: keys, create, remove, validate } = attendances;
+import { create, remove, validate } from "./endpoints";
+import { attendanceKeys as keys } from "./keys";
 
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,

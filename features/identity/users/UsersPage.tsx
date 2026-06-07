@@ -59,14 +59,24 @@ export function UsersPage() {
 	const usersPagination = useServicePagePagination({
 		key: "identity.users",
 	});
+	const {
+		currentPage,
+		isAll,
+		pageSize,
+		resetPage,
+		setCurrentPage,
+		setPageSize,
+		backendPage,
+		backendSize,
+	} = usersPagination;
 	const usersQuery = useUsersQuery(usersPagination.isAll);
 	const usersSearchQuery = useUsersSearchQuery(
-		usersPagination.backendPage ?? 0,
-		usersPagination.backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
+		backendPage ?? 0,
+		backendSize ?? DEFAULT_SERVICE_PAGE_SIZE,
 		appliedFilters,
-		!usersPagination.isAll,
+		!isAll,
 	);
-	const activeQuery = usersPagination.isAll ? usersQuery : usersSearchQuery;
+	const activeQuery = isAll ? usersQuery : usersSearchQuery;
 	const allUsers = useMemo(() => usersQuery.data ?? [], [usersQuery.data]);
 	const backendFilteredUsers = useMemo(
 		() => filterUsersByComplexSearch(allUsers, appliedFilters),
@@ -74,10 +84,8 @@ export function UsersPage() {
 	);
 	const tableSourceUsers = useMemo(
 		() =>
-			usersPagination.isAll
-				? backendFilteredUsers
-				: (usersSearchQuery.data?.content ?? []),
-		[backendFilteredUsers, usersPagination.isAll, usersSearchQuery.data],
+			isAll ? backendFilteredUsers : (usersSearchQuery.data?.content ?? []),
+		[backendFilteredUsers, isAll, usersSearchQuery.data],
 	);
 	const filteredUsers = useMemo(
 		() =>
@@ -137,30 +145,20 @@ export function UsersPage() {
 		);
 	}, [activeQuery, emptyStateCopy, t]);
 
-	const totalElements = usersPagination.isAll
+	const totalElements = isAll
 		? backendFilteredUsers.length
 		: (usersSearchQuery.data?.totalElements ?? 0);
-	const totalPages = usersPagination.isAll
+	const totalPages = isAll
 		? 1
 		: Math.max(usersSearchQuery.data?.totalPages ?? 1, 1);
 
 	useEffect(() => {
-		if (
-			usersPagination.isAll ||
-			!usersSearchQuery.data ||
-			usersPagination.currentPage <= totalPages
-		) {
+		if (isAll || !usersSearchQuery.data || currentPage <= totalPages) {
 			return;
 		}
 
-		usersPagination.setCurrentPage(totalPages);
-	}, [
-		usersPagination.currentPage,
-		usersPagination.isAll,
-		usersPagination.setCurrentPage,
-		usersSearchQuery.data,
-		totalPages,
-	]);
+		setCurrentPage(totalPages);
+	}, [currentPage, isAll, setCurrentPage, usersSearchQuery.data, totalPages]);
 
 	useQueryErrorToasts([
 		{
@@ -176,7 +174,7 @@ export function UsersPage() {
 		setFrontendNameSearch("");
 		setFrontendCpfSearch("");
 		clearFilters();
-		usersPagination.resetPage();
+		resetPage();
 		setBackendFiltersOpen(false);
 	}
 
@@ -209,7 +207,7 @@ export function UsersPage() {
 					frontendNameSearch={frontendNameSearch}
 					hasBackendFilters={hasAppliedFilters}
 					onApplyBackendFilters={() => {
-						usersPagination.resetPage();
+						resetPage();
 						applyDraftFilters();
 						setBackendFiltersOpen(false);
 					}}
@@ -219,7 +217,7 @@ export function UsersPage() {
 					onBackendFiltersOpenChange={setBackendFiltersOpen}
 					onClearBackendFilters={() => {
 						clearFilters();
-						usersPagination.resetPage();
+						resetPage();
 						setBackendFiltersOpen(false);
 					}}
 					onFrontendCpfSearchChange={setFrontendCpfSearch}
@@ -230,12 +228,12 @@ export function UsersPage() {
 			<ServicePageTableSection<UserResponse>
 				footer={
 					<ServicePagePagination
-						currentPage={usersPagination.currentPage}
-						pageSize={usersPagination.pageSize}
+						currentPage={currentPage}
+						pageSize={pageSize}
 						totalElements={totalElements}
 						totalPages={totalPages}
-						onPageChange={usersPagination.setCurrentPage}
-						onPageSizeChange={usersPagination.setPageSize}
+						onPageChange={setCurrentPage}
+						onPageSizeChange={setPageSize}
 						disabled={activeQuery.isLoading}
 					/>
 				}

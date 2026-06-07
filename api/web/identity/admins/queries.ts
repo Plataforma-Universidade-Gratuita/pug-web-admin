@@ -2,13 +2,14 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { admins } from "@/api/web";
 import { get as getAccount } from "@/api/web/identity/accounts";
 import { get as getUser } from "@/api/web/identity/users";
 import { buildAdminComplexSearchRequest } from "@/features/identity/admins/utils";
 import type { AdminComplexSearchFilters } from "@/types";
 
-const { get, getMe, search, adminKeys: keys } = admins;
+import { get, getMe, search } from "./endpoints";
+import { adminKeys as keys } from "./keys";
+
 const ADMIN_DIRECTORY_SEARCH_PAGE_SIZE = 100;
 
 export function useAdminsQuery(enabled = true) {

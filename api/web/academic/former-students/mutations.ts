@@ -6,7 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { accounts, formerStudents, users } from "@/api/web";
+import * as identity from "@/api/web/identity";
 import type {
 	AccountResponse,
 	FormerStudentResponse,
@@ -19,14 +19,11 @@ import type {
 	RemoveFormerStudentMutationVariables,
 } from "@/types";
 
+import { create, remove, setActive, update } from "./endpoints";
+import { formerStudentKeys as keys } from "./keys";
+
+const { accounts, users } = identity;
 const { accountKeys } = accounts;
-const {
-	create,
-	formerStudentKeys: keys,
-	remove,
-	setActive,
-	update,
-} = formerStudents;
 const { userKeys } = users;
 
 function upsertListItem<TItem>(

@@ -2,11 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { attendances } from "@/api/web";
 import { buildAttendanceComplexSearchRequest } from "@/features/project/attendances/utils";
 import type { AttendanceComplexSearchFilters } from "@/types";
 
-const { attendanceKeys: keys, get, list, search } = attendances;
+import { get, list, search } from "./endpoints";
+import { attendanceKeys as keys } from "./keys";
 
 export function useAttendancesQuery(enabled = true) {
 	return useQuery({

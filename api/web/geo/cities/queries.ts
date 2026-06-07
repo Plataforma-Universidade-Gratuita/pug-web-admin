@@ -2,9 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { cities } from "@/api/web";
-
-const { get, list, search, cityKeys: keys } = cities;
+import { get, list, search } from "./endpoints";
+import { cityKeys as keys } from "./keys";
 
 export function useCitiesQuery(enabled = true) {
 	return useQuery({

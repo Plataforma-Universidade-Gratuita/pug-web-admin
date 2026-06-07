@@ -2,13 +2,17 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { accounts, entities, staff, users } from "@/api/web";
+import * as identity from "@/api/web/identity";
 import { buildStaffComplexSearchRequest } from "@/features/partner/staff/utils";
 import type { StaffComplexSearchFilters } from "@/types";
 
+import * as entities from "../entities";
+import { get, list, search } from "./endpoints";
+import { staffKeys as keys } from "./keys";
+
+const { accounts, users } = identity;
 const { get: getAccount } = accounts;
 const { list: listEntities, listCities } = entities;
-const { get, list, search, staffKeys: keys } = staff;
 const { get: getUser } = users;
 
 export function useStaffQuery(enabled = true) {

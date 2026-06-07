@@ -6,7 +6,7 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import { accounts, staff, users } from "@/api/web";
+import * as identity from "@/api/web/identity";
 import type { AccountResponse, StaffResponse, UserResponse } from "@/types";
 import type {
 	PatchStaffCachesArgs,
@@ -16,8 +16,11 @@ import type {
 	StaffUpdateMutationVariables,
 } from "@/types";
 
+import { create, remove, setActive, update } from "./endpoints";
+import { staffKeys as keys } from "./keys";
+
+const { accounts, users } = identity;
 const { accountKeys } = accounts;
-const { create, remove, setActive, staffKeys: keys, update } = staff;
 const { userKeys } = users;
 
 function formatCpf(value: string) {

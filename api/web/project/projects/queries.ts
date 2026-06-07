@@ -2,12 +2,14 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { projectAreasOfExpertise, projects } from "@/api/web";
 import { buildProjectComplexSearchRequest } from "@/features/project/projects/utils";
 import type { ProjectComplexSearchFilters } from "@/types";
 
+import * as projectAreasOfExpertise from "../project-areas-of-expertise";
+import { get, list, search } from "./endpoints";
+import { projectKeys as keys } from "./keys";
+
 const { listAreasOfExpertiseByProject } = projectAreasOfExpertise;
-const { get, list, projectKeys: keys, search } = projects;
 
 export function useProjectsQuery(enabled = true) {
 	return useQuery({

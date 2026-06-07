@@ -15,6 +15,9 @@ export const metadata: Metadata = {
 		template: "%s | PUG Web Admin",
 	},
 	description: "Operational workspace for the PUG platform.",
+	metadataBase: new URL(
+		process.env.NEXT_PUBLIC_APP_URL ?? "https://pug-web-admin.local",
+	),
 	manifest: "/manifest.webmanifest",
 	icons: {
 		icon: [
