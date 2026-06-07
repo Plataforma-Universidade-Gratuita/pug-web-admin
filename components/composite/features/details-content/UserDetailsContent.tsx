@@ -49,12 +49,12 @@ export function UserDetailsContent({
 						},
 						{
 							id: "name",
-							label: t("identity.userPage.dialog.fields.name"),
+							label: t("common.fields.name"),
 							value: user.name,
 						},
 						{
 							id: "cpf",
-							label: t("identity.userPage.dialog.fields.cpf"),
+							label: t("common.fields.cpf"),
 							value: user.cpfFormatted,
 						},
 						{

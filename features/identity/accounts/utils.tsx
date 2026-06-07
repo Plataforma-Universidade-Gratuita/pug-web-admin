@@ -94,8 +94,8 @@ export function createAccountColumns(
 			id: "active",
 			header: t("identity.accountPage.table.columns.active"),
 			value: row => row.active,
-			activeLabel: t("identity.accountPage.table.active.yes"),
-			inactiveLabel: t("identity.accountPage.table.active.no"),
+			activeLabel: t("common.status.active"),
+			inactiveLabel: t("common.status.inactive"),
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 		}),
 		createTableTextColumn<AccountSearchResponse>({
@@ -120,7 +120,7 @@ export function createAccountColumns(
 		{
 			accessorKey: "accountType",
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
-			header: t("identity.accountPage.table.columns.accountType"),
+			header: t("common.fields.accountType"),
 			cell: ({ row }) => {
 				const label = getAccountTypeLabel(t, row.original.accountType);
 

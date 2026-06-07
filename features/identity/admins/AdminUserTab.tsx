@@ -33,39 +33,29 @@ export function AdminUserTab({
 				linkedUserError instanceof WebApiError &&
 				linkedUserError.status === 404 ? (
 					<NotFoundState
-						title={t("identity.adminPage.dialog.linkedUser.notFound.title")}
-						description={t(
-							"identity.adminPage.dialog.linkedUser.notFound.description",
-						)}
+						title={t("common.linkedUser.notFound.title")}
+						description={t("common.linkedUser.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
-						title={t("identity.adminPage.dialog.linkedUser.error.title")}
-						description={t(
-							"identity.adminPage.dialog.linkedUser.error.description",
-						)}
+						title={t("common.linkedUser.error.title")}
+						description={t("common.linkedUser.error.description")}
 						onRefresh={onRefreshUser}
 					/>
 				)
 			) : linkedUser ? (
 				<>
 					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("identity.adminPage.update.fields.userName")}
-						</p>
+						<p className="ty-helper">{t("common.fields.name")}</p>
 						<p className="ty-sm-semibold">{linkedUser.name}</p>
 					</div>
 					<div className="grid gap-1">
-						<p className="ty-helper">
-							{t("identity.adminPage.update.fields.cpf")}
-						</p>
+						<p className="ty-helper">{t("common.fields.cpf")}</p>
 						<p className="ty-sm-semibold">{linkedUser.cpfFormatted}</p>
 					</div>
 				</>
 			) : (
-				<NotFoundState
-					title={t("identity.adminPage.dialog.linkedUser.notFound.title")}
-				/>
+				<NotFoundState title={t("common.linkedUser.notFound.title")} />
 			)}
 		</div>
 	);

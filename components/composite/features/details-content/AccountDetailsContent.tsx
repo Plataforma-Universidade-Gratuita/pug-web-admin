@@ -57,7 +57,7 @@ export function AccountDetailsContent({
 						},
 						{
 							id: "accountType",
-							label: t("identity.accountPage.dialog.fields.accountType"),
+							label: t("common.fields.accountType"),
 							value: (
 								<Badge
 									className="min-h-5 px-2 py-0.5"
@@ -70,7 +70,7 @@ export function AccountDetailsContent({
 						},
 						{
 							id: "active",
-							label: t("identity.accountPage.dialog.fields.active"),
+							label: t("common.fields.active"),
 							value: (
 								<Badge
 									className="min-h-5 px-2 py-0.5"
@@ -78,8 +78,8 @@ export function AccountDetailsContent({
 									variant="primary"
 								>
 									{account.active
-										? t("identity.accountPage.dialog.active.yes")
-										: t("identity.accountPage.dialog.active.no")}
+										? t("common.status.active")
+										: t("common.status.inactive")}
 								</Badge>
 							),
 						},
@@ -122,9 +122,7 @@ export function AccountDetailsContent({
 				<EntityPageFieldsGrid fields={fields} />
 				{includeLinkedUser ? (
 					<div className="grid gap-3">
-						<p className="ty-overhead">
-				{t("common.linkedUser.overhead")}
-						</p>
+						<p className="ty-overhead">{t("common.linkedUser.overhead")}</p>
 						<UserDetailsContent userId={account.userId} />
 					</div>
 				) : null}

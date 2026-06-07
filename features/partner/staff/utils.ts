@@ -437,10 +437,8 @@ export function getLinkedStaffAccountErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.staffPage.feedback.linkedAccountError.title"),
-		fallbackDescription: t(
-			"partner.staffPage.feedback.linkedAccountError.description",
-		),
+		fallbackTitle: t("common.linkedAccount.error.title"),
+		fallbackDescription: t("common.linkedAccount.error.description"),
 	});
 }
 
@@ -449,10 +447,8 @@ export function getLinkedStaffUserErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.staffPage.feedback.linkedUserError.title"),
-		fallbackDescription: t(
-			"partner.staffPage.feedback.linkedUserError.description",
-		),
+		fallbackTitle: t("common.linkedUser.error.title"),
+		fallbackDescription: t("common.linkedUser.error.description"),
 	});
 }
 

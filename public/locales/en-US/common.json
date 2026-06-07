@@ -1,8 +1,177 @@
 {
     "academic": {
         "areaOfExpertisePage": {
+            "create": {
+                "actions": {
+                    "save": "Create area of expertise",
+                    "savePending": "Creating area of expertise..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The area of expertise could not be created right now.",
+                        "title": "Unable to create area of expertise"
+                    },
+                    "success": {
+                        "description": "{{name}} was created successfully.",
+                        "title": "Area of expertise created"
+                    }
+                },
+                "open": "Add area of expertise",
+                "overhead": "New area of expertise",
+                "titleFallback": "Add area of expertise"
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} will be removed after the undo window expires.",
+                    "title": "Delete this area of expertise?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The area of expertise could not be deleted right now.",
+                        "title": "Unable to delete area of expertise"
+                    },
+                    "success": {
+                        "description": "{{name}} was removed from the directory.",
+                        "title": "Area of expertise deleted"
+                    }
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Area-of-expertise deletion scheduled"
+                }
+            },
             "description": "Browse areas of expertise used across academic records, course classification, and linked workflows.",
-            "title": "Areas of expertise"
+            "dialog": {
+                "error": {
+                    "description": "The area of expertise could not be loaded right now.",
+                    "title": "Unable to load area of expertise"
+                },
+                "fields": {
+                    "createdAt": "Created at",
+                    "id": "Identifier",
+                    "name": "Area of expertise",
+                    "updatedAt": "Updated at"
+                },
+                "notFound": {
+                    "description": "The requested area of expertise could not be found.",
+                    "title": "Area of expertise not found"
+                },
+                "titleFallback": "Area-of-expertise details"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Create duplicate",
+                    "savePending": "Creating duplicate..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The area-of-expertise duplicate could not be created right now.",
+                        "title": "Unable to duplicate area of expertise"
+                    },
+                    "success": {
+                        "description": "{{name}} was duplicated successfully.",
+                        "title": "Area of expertise duplicated"
+                    }
+                },
+                "overhead": "Duplicate area of expertise",
+                "titleFallback": "Duplicate area of expertise"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Reset form"
+                },
+                "fields": {
+                    "name": "Area of expertise",
+                    "namePlaceholder": "Enter the area of expertise name"
+                },
+                "loading": "Loading area-of-expertise editor",
+                "resetConfirm": {
+                    "description": "This will discard the unsaved changes in the current drawer.",
+                    "title": "Reset area-of-expertise changes?"
+                },
+                "validation": {
+                    "name": "Enter a name.",
+                    "nameTooLong": "Name must be 150 characters or fewer."
+                }
+            },
+            "empty": {
+                "defaultDescription": "The area-of-expertise directory is currently empty.",
+                "filteredDescription": "No area of expertise matches \"{{value}}\".",
+                "title": "No areas of expertise found"
+            },
+            "feedback": {
+                "detailError": {
+                    "description": "The area of expertise could not be loaded right now.",
+                    "title": "Unable to load area-of-expertise details"
+                },
+                "listError": {
+                    "description": "The area-of-expertise directory could not be loaded right now.",
+                    "title": "Unable to load areas of expertise"
+                }
+            },
+            "filters": {
+                "drawer": {
+                    "clearConfirm": {
+                        "description": "This will clear the current area-of-expertise filters.",
+                        "title": "Clear these filters?"
+                    }
+                },
+                "endDate": {
+                    "label": "End date",
+                    "placeholder": "Select an end date"
+                },
+                "search": {
+                    "label": "Search",
+                    "placeholder": "Filter by area of expertise name"
+                },
+                "startDate": {
+                    "label": "Start date",
+                    "placeholder": "Select a start date"
+                }
+            },
+            "loading": {
+                "list": "Loading areas of expertise"
+            },
+            "table": {
+                "columns": {
+                    "createdAt": "Created at",
+                    "id": "Identifier",
+                    "name": "Area of expertise",
+                    "updatedAt": "Updated at"
+                },
+                "error": {
+                    "description": "The area-of-expertise directory could not be loaded right now.",
+                    "title": "Unable to load areas of expertise"
+                }
+            },
+            "title": "Areas of expertise",
+            "update": {
+                "actions": {
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The area of expertise could not be updated right now.",
+                        "title": "Unable to save area-of-expertise changes"
+                    },
+                    "success": {
+                        "description": "{{name}} was updated successfully.",
+                        "title": "Area of expertise updated"
+                    }
+                },
+                "loadError": {
+                    "description": "The area of expertise could not be loaded right now.",
+                    "title": "Unable to load area-of-expertise editor"
+                },
+                "notFound": {
+                    "description": "The requested area of expertise could not be found.",
+                    "title": "Area of expertise not found"
+                },
+                "overhead": "Edit area of expertise",
+                "titleFallback": "Edit area of expertise"
+            }
         },
         "coursePage": {
             "create": {
@@ -172,8 +341,339 @@
             }
         },
         "formerStudentPage": {
+            "create": {
+                "actions": {
+                    "save": "Create former student",
+                    "savePending": "Creating former student..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The former-student record could not be created right now.",
+                        "title": "Unable to create former student"
+                    },
+                    "success": {
+                        "description": "{{name}} was created successfully.",
+                        "title": "Former student created"
+                    }
+                },
+                "open": "Add former student",
+                "overhead": "New former student",
+                "titleFallback": "Add former student"
+            },
+            "deactivate": {
+                "confirm": {
+                    "description": "{{name}} will be marked as inactive until reactivated.",
+                    "title": "Deactivate this former student?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The former-student record could not be deactivated right now.",
+                        "title": "Unable to deactivate former student"
+                    },
+                    "success": {
+                        "description": "{{name}} is now inactive.",
+                        "title": "Former student deactivated"
+                    }
+                }
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} will be removed from the former-student directory after the undo window expires.",
+                    "title": "Delete this former student?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The former-student record could not be deleted right now.",
+                        "title": "Unable to delete former student"
+                    },
+                    "success": {
+                        "description": "{{name}} was removed from the former-student directory.",
+                        "title": "Former student deleted"
+                    }
+                },
+                "undo": {
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Former-student deletion scheduled"
+                }
+            },
             "description": "Browse former-student records, academic progress, linked accounts, and completion timelines.",
-            "title": "Former students"
+            "dialog": {
+                "error": {
+                    "description": "The former-student record could not be loaded right now.",
+                    "title": "Unable to load former student"
+                },
+                "fields": {
+                    "academicRegistration": "Academic registration",
+                    "accountId": "Account id",
+                    "campus": "Campus",
+                    "completedHours": "Completed hours",
+                    "createdAt": "Created at",
+                    "dueDate": "Due date",
+                    "missingHours": "Missing hours",
+                    "remainingDays": "Remaining days",
+                    "requiredHours": "Required hours",
+                    "startDate": "Start date",
+                    "updatedAt": "Updated at"
+                },
+                "notFound": {
+                    "description": "The requested former-student record could not be found.",
+                    "title": "Former student not found"
+                },
+                "overhead": "Former-student details",
+                "titleFallback": "Former-student details"
+            },
+            "duplicate": {
+                "actions": {
+                    "save": "Create duplicate",
+                    "savePending": "Creating duplicate..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The former-student duplicate could not be created right now.",
+                        "title": "Unable to duplicate former student"
+                    },
+                    "success": {
+                        "description": "{{name}} was duplicated successfully.",
+                        "title": "Former student duplicated"
+                    }
+                },
+                "overhead": "Duplicate former student",
+                "titleFallback": "Duplicate former student"
+            },
+            "editor": {
+                "actions": {
+                    "reset": "Reset form"
+                },
+                "courseLoadError": {
+                    "description": "The course directory could not be loaded right now.",
+                    "title": "Unable to load courses"
+                },
+                "fields": {
+                    "academicRegistration": "Academic registration",
+                    "academicRegistrationPlaceholder": "Enter the academic registration",
+                    "campus": "Campus",
+                    "campusPlaceholder": "Select a campus",
+                    "course": "Course",
+                    "courseEmptyMessage": "No courses found.",
+                    "coursePlaceholder": "Select a course",
+                    "courseSearchPlaceholder": "Search courses...",
+                    "cpf": "CPF",
+                    "cpfCreateOption": "Use {{value}}",
+                    "cpfEmpty": "No CPF found.",
+                    "cpfPlaceholder": "Select an existing CPF or enter a new one",
+                    "cpfSearchPlaceholder": "Search or create a CPF",
+                    "dueDate": "Due date",
+                    "dueDatePlaceholder": "Select a due date",
+                    "email": "Email",
+                    "emailPlaceholder": "Enter the account email",
+                    "name": "Name",
+                    "namePlaceholder": "Enter the user's name",
+                    "requiredHours": "Required hours",
+                    "requiredHoursPlaceholder": "Enter the required hours",
+                    "startDate": "Start date",
+                    "startDatePlaceholder": "Select a start date"
+                },
+                "loading": "Loading former-student editor",
+                "resetConfirm": {
+                    "description": "This will discard the unsaved changes in the current drawer.",
+                    "title": "Reset former-student changes?"
+                },
+                "sections": {
+                    "academic": "Academic",
+                    "linkedCourse": "Linked course"
+                },
+                "tabs": {
+                    "academic": "Academic",
+                    "linked": "Linked"
+                },
+                "validation": {
+                    "academicRegistration": {
+                        "required": "Enter an academic registration.",
+                        "tooLong": "Academic registration must be 15 characters or fewer."
+                    },
+                    "course": {
+                        "required": "Select a course."
+                    },
+                    "cpf": {
+                        "invalid": "Enter a valid CPF.",
+                        "required": "Enter a CPF."
+                    },
+                    "dueDate": {
+                        "range": "Due date must be on or after the start date.",
+                        "required": "Select a due date."
+                    },
+                    "email": {
+                        "invalid": "Enter a valid email.",
+                        "required": "Enter an email.",
+                        "tooLong": "Email must be 255 characters or fewer."
+                    },
+                    "name": {
+                        "required": "Enter a name.",
+                        "tooLong": "Name must be 255 characters or fewer."
+                    },
+                    "requiredHours": {
+                        "invalid": "Enter a valid number greater than zero.",
+                        "required": "Enter the required hours."
+                    },
+                    "startDate": {
+                        "required": "Select a start date."
+                    }
+                }
+            },
+            "empty": {
+                "defaultDescription": "The former-student directory is currently empty.",
+                "filteredDescription": "No former student matches \"{{value}}\".",
+                "title": "No former students found"
+            },
+            "feedback": {
+                "coursesError": {
+                    "description": "The course directory could not be loaded right now.",
+                    "title": "Unable to load courses"
+                },
+                "detailError": {
+                    "description": "The former-student record could not be loaded right now.",
+                    "title": "Unable to load former-student details"
+                },
+                "listError": {
+                    "description": "The former-student directory could not be loaded right now.",
+                    "title": "Unable to load former students"
+                }
+            },
+            "filters": {
+                "academicRegistration": {
+                    "placeholder": "Filter by academic registration"
+                },
+                "areaOfExpertise": {
+                    "emptyMessage": "No areas of expertise found.",
+                    "label": "Area of expertise",
+                    "placeholder": "Select areas of expertise",
+                    "searchPlaceholder": "Search areas of expertise..."
+                },
+                "campus": {
+                    "emptyMessage": "No campuses found.",
+                    "label": "Campus",
+                    "placeholder": "Select campuses",
+                    "searchPlaceholder": "Search campuses..."
+                },
+                "course": {
+                    "emptyMessage": "No courses found.",
+                    "error": {
+                        "description": "The course directory could not be loaded right now.",
+                        "title": "Unable to load courses"
+                    },
+                    "label": "Course",
+                    "placeholder": "Select courses",
+                    "searchPlaceholder": "Search courses..."
+                },
+                "drawer": {
+                    "clearConfirm": {
+                        "description": "This will clear the current former-student filters.",
+                        "title": "Clear these filters?"
+                    }
+                },
+                "frontendAcademicRegistration": {
+                    "label": "Academic registration",
+                    "placeholder": "Filter current results by academic registration"
+                },
+                "includeConcluded": {
+                    "description": "Keep concluded former students in the current results.",
+                    "label": "Include concluded former students",
+                    "off": "Hiding concluded former students"
+                },
+                "periodFrom": {
+                    "label": "Period start",
+                    "placeholder": "Select a period start date"
+                },
+                "periodTo": {
+                    "label": "Period end",
+                    "placeholder": "Select a period end date"
+                },
+                "search": {
+                    "label": "Search",
+                    "placeholder": "Filter by former-student name or email"
+                },
+                "tabs": {
+                    "academic": "Academic",
+                    "identity": "Identity",
+                    "status": "Status"
+                }
+            },
+            "loading": {
+                "list": "Loading former students"
+            },
+            "metadata": {
+                "empty": {
+                    "description": "Service provenance, freshness, and request metadata will live here."
+                }
+            },
+            "reactivate": {
+                "confirm": {
+                    "description": "{{name}} will regain active former-student status.",
+                    "title": "Reactivate this former student?"
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The former-student record could not be reactivated right now.",
+                        "title": "Unable to reactivate former student"
+                    },
+                    "success": {
+                        "description": "{{name}} is now active again.",
+                        "title": "Former student reactivated"
+                    }
+                }
+            },
+            "table": {
+                "active": {
+                    "no": "Inactive",
+                    "yes": "Active"
+                },
+                "columns": {
+                    "academicRegistration": "Academic registration",
+                    "active": "Active",
+                    "areaOfExpertise": "Area of expertise",
+                    "campus": "Campus",
+                    "concluded": "Concluded",
+                    "course": "Course",
+                    "email": "Email",
+                    "name": "Name",
+                    "progress": "Progress"
+                },
+                "concluded": {
+                    "no": "No",
+                    "yes": "Yes"
+                },
+                "error": {
+                    "description": "The former-student directory could not be loaded right now.",
+                    "title": "Unable to load former students"
+                }
+            },
+            "title": "Former students",
+            "update": {
+                "actions": {
+                    "save": "Save changes",
+                    "savePending": "Saving changes..."
+                },
+                "feedback": {
+                    "error": {
+                        "description": "The former-student record could not be updated right now.",
+                        "title": "Unable to save former-student changes"
+                    },
+                    "success": {
+                        "description": "{{name}} was updated successfully.",
+                        "title": "Former student updated"
+                    }
+                },
+                "loadError": {
+                    "description": "The former-student record could not be loaded right now.",
+                    "title": "Unable to load former-student editor"
+                },
+                "notFound": {
+                    "description": "The requested former-student record could not be found.",
+                    "title": "Former student not found"
+                },
+                "overhead": "Edit former student",
+                "titleFallback": "Edit former student"
+            }
         },
         "modulePage": {
             "description": "Academic reference and workflow services for areas of expertise, courses, and former students.",
@@ -283,12 +783,6 @@
         }
     },
     "common": {
-        "actions": {
-            "createDuplicate": "Create duplicate",
-            "resetChanges": "Reset changes",
-            "saveChanges": "Save changes",
-            "undo": "Undo"
-        },
         "accountMenu": {
             "error": {
                 "description": "The current account summary could not be loaded right now.",
@@ -296,20 +790,29 @@
                 "title": "Unable to load account summary"
             }
         },
+        "actions": {
+            "createDuplicate": "Create duplicate",
+            "resetChanges": "Reset changes",
+            "saveChanges": "Save changes",
+            "undo": "Undo"
+        },
         "cancel": "Cancel",
         "fields": {
             "accountType": "Account type",
             "active": "Active",
             "campus": "Campus",
+            "city": "City",
+            "cpf": "CPF",
             "createdAt": "Created at",
             "email": "Email",
-            "entityEmptyMessage": "No entities found.",
             "entity": "Entity",
+            "entityEmptyMessage": "No entities found.",
             "entityPlaceholder": "Select an entity",
             "entitySearchPlaceholder": "Search entities...",
             "id": "Identifier",
-            "projectEmptyMessage": "No projects found.",
+            "name": "Name",
             "project": "Project",
+            "projectEmptyMessage": "No projects found.",
             "projectId": "Project id",
             "projectPlaceholder": "Select a project",
             "projectSearchPlaceholder": "Search projects...",
@@ -356,6 +859,24 @@
             },
             "title": "Refine directory"
         },
+        "linkedAccount": {
+            "error": {
+                "description": "The linked account record could not be loaded right now.",
+                "title": "Unable to load linked account"
+            },
+            "overhead": "Linked account"
+        },
+        "linkedUser": {
+            "error": {
+                "description": "The linked user could not be loaded right now.",
+                "title": "Unable to load linked user"
+            },
+            "notFound": {
+                "description": "The linked user could not be found.",
+                "title": "Linked user not found"
+            },
+            "overhead": "Linked user"
+        },
         "loadErrors": {
             "entities": {
                 "description": "The entity directory could not be loaded right now.",
@@ -369,12 +890,6 @@
                 "description": "The project directory could not be loaded right now.",
                 "title": "Unable to load projects"
             }
-        },
-        "linkedAccount": {
-            "overhead": "Linked account"
-        },
-        "linkedUser": {
-            "overhead": "Linked user"
         },
         "metadata": {
             "empty": {
@@ -411,6 +926,10 @@
                     "system": "System"
                 }
             }
+        },
+        "status": {
+            "active": "Active",
+            "inactive": "Inactive"
         },
         "table": {
             "actions": {
@@ -533,8 +1052,7 @@
             },
             "table": {
                 "columns": {
-                    "ibgeCode": "IBGE code",
-                    "name": "$t(docs.combobox.cards.city.label)"
+                    "ibgeCode": "IBGE code"
                 },
                 "error": {
                     "description": "The city catalog could not be loaded right now.",
@@ -649,17 +1167,9 @@
         "accountPage": {
             "description": "Browse account records, linked users, and identity relationships across the platform.",
             "dialog": {
-                "active": {
-                    "no": "$t(home.currentAccount.values.inactive)",
-                    "yes": "$t(docs.multiSelect.cards.status.options.active)"
-                },
                 "error": {
                     "description": "The account record could not be loaded right now.",
                     "title": "Unable to load account"
-                },
-                "fields": {
-                    "accountType": "$t(home.currentAccount.fields.type)",
-                    "active": "$t(docs.drawer.examples.filters.groups.status.title)"
                 },
                 "notFound": {
                     "description": "The requested account record could not be found.",
@@ -684,7 +1194,6 @@
             },
             "filters": {
                 "accountType": {
-                    "label": "$t(home.currentAccount.fields.type)",
                     "options": {
                         "ADMIN": "Admin",
                         "all": "All account types",
@@ -729,13 +1238,7 @@
                 }
             },
             "table": {
-                "active": {
-                    "no": "$t(home.currentAccount.values.inactive)",
-                    "yes": "$t(docs.multiSelect.cards.status.options.active)"
-                },
                 "columns": {
-                    "accountType": "$t(home.currentAccount.fields.type)",
-                    "active": "$t(docs.drawer.examples.filters.groups.status.title)",
                     "name": "Name"
                 },
                 "error": {
@@ -809,18 +1312,7 @@
                 },
                 "fields": {
                     "grantedAt": "Granted at",
-                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
                     "userId": "User identifier"
-                },
-                "linkedUser": {
-                    "error": {
-                        "description": "$t(identity.accountPage.dialog.linkedUser.error.description)",
-                        "title": "$t(identity.accountPage.dialog.linkedUser.error.title)"
-                    },
-                    "notFound": {
-                        "description": "$t(identity.accountPage.dialog.linkedUser.notFound.description)",
-                        "title": "$t(identity.accountPage.dialog.linkedUser.notFound.title)"
-                    }
                 },
                 "notFound": {
                     "description": "The requested administrator assignment could not be found.",
@@ -849,14 +1341,6 @@
                 "detailError": {
                     "description": "The administrator record could not be loaded right now.",
                     "title": "Unable to load administrator details"
-                },
-                "linkedAccountError": {
-                    "description": "The linked account record could not be loaded right now.",
-                    "title": "Unable to load linked account"
-                },
-                "linkedUserError": {
-                    "description": "$t(identity.accountPage.feedback.linkedUserError.description)",
-                    "title": "$t(identity.accountPage.feedback.linkedUserError.title)"
                 },
                 "listError": {
                     "description": "The administrator directory could not be loaded right now.",
@@ -937,19 +1421,14 @@
                 },
                 "fields": {
                     "accountId": "Identifier",
-                    "accountType": "$t(home.currentAccount.fields.type)",
-                    "active": "$t(docs.drawer.examples.filters.groups.status.title)",
-                    "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
                     "cpfCreateOption": "Use {{value}}",
                     "cpfEmpty": "No CPF found.",
                     "cpfHelp": "Selecting an existing CPF links this administrator to that existing user. Entering a new CPF creates a new linked user.",
                     "cpfPlaceholder": "Select an existing CPF or enter a new one",
                     "cpfSearchPlaceholder": "Search or create a CPF",
                     "grantedAt": "Granted at",
-                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)",
                     "namePlaceholder": "Enter the user's name",
-                    "userId": "User identifier",
-                    "userName": "$t(identity.accountPage.dialog.linkedUser.fields.name)"
+                    "userId": "User identifier"
                 },
                 "loadError": {
                     "description": "The administrator record could not be loaded right now.",
@@ -997,10 +1476,6 @@
                     "description": "The user record could not be loaded right now.",
                     "title": "Unable to load user"
                 },
-                "fields": {
-                    "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
-                    "name": "$t(identity.accountPage.dialog.linkedUser.fields.name)"
-                },
                 "notFound": {
                     "description": "The requested user record could not be found.",
                     "title": "User not found"
@@ -1040,7 +1515,6 @@
                 },
                 "frontend": {
                     "cpf": {
-                        "label": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
                         "placeholder": "Filter the current results by CPF"
                     },
                     "name": {
@@ -1054,7 +1528,6 @@
             },
             "table": {
                 "columns": {
-                    "cpf": "$t(identity.accountPage.dialog.linkedUser.fields.cpf)",
                     "name": "User"
                 },
                 "error": {
@@ -1382,17 +1855,6 @@
                     "description": "The staff record could not be loaded right now.",
                     "title": "Unable to load staff member"
                 },
-                "linkedUser": {
-                    "error": {
-                        "description": "The linked user could not be loaded right now.",
-                        "title": "Unable to load linked user"
-                    },
-                    "notFound": {
-                        "description": "The linked user could not be found.",
-                        "title": "Linked user not found"
-                    },
-                    "overhead": "Linked user"
-                },
                 "notFound": {
                     "description": "The requested staff record could not be found.",
                     "title": "Staff member not found"
@@ -1463,14 +1925,6 @@
                 "detailError": {
                     "description": "The staff record could not be loaded right now.",
                     "title": "Unable to load staff details"
-                },
-                "linkedAccountError": {
-                    "description": "$t(partner.staffPage.dialog.linkedAccount.error.description)",
-                    "title": "$t(partner.staffPage.dialog.linkedAccount.error.title)"
-                },
-                "linkedUserError": {
-                    "description": "The linked user could not be loaded right now.",
-                    "title": "Unable to load linked user"
                 },
                 "listError": {
                     "description": "The staff directory could not be loaded right now.",

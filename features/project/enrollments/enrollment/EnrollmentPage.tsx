@@ -153,7 +153,7 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 					{formerStudent ? (
 						<div className="grid gap-3">
 							<p className="ty-overhead">
-				{t("common.linkedAccount.overhead")}
+								{t("common.linkedAccount.overhead")}
 							</p>
 							<AccountDetailsContent
 								accountId={formerStudent.accountId}
@@ -164,9 +164,7 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 
 					{accountDetailQuery.data ? (
 						<div className="grid gap-3">
-							<p className="ty-overhead">
-				{t("common.linkedUser.overhead")}
-							</p>
+							<p className="ty-overhead">{t("common.linkedUser.overhead")}</p>
 							<UserDetailsContent
 								userId={accountDetailQuery.data.userId}
 								columns={3}

@@ -119,12 +119,10 @@ export function FormerStudentAcademicSection({
 			</div>
 
 			<AccountSummaryBadges
-				accountTypeFieldLabel={t(
-					"identity.adminPage.update.fields.accountType",
-				)}
+				accountTypeFieldLabel={t("common.fields.accountType")}
 				accountTypeLabel={accountTypeLabel}
 				accountTypeTone={accountTypeTone}
-				activeFieldLabel={t("identity.adminPage.update.fields.active")}
+				activeFieldLabel={t("common.fields.active")}
 				activeLabel={accountStatusLabel}
 				activeTone={accountStatusTone}
 			/>

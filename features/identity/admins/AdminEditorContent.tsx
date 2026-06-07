@@ -107,20 +107,16 @@ export function AdminEditorContent({
 		) {
 			return (
 				<NotFoundState
-					title={t("identity.adminPage.dialog.linkedUser.notFound.title")}
-					description={t(
-						"identity.adminPage.dialog.linkedUser.notFound.description",
-					)}
+					title={t("common.linkedUser.notFound.title")}
+					description={t("common.linkedUser.notFound.description")}
 				/>
 			);
 		}
 
 		return (
 			<SomeErrorState
-				title={t("identity.adminPage.dialog.linkedUser.error.title")}
-				description={t(
-					"identity.adminPage.dialog.linkedUser.error.description",
-				)}
+				title={t("common.linkedUser.error.title")}
+				description={t("common.linkedUser.error.description")}
 				onRefresh={onRefreshUser}
 			/>
 		);
@@ -143,8 +139,8 @@ export function AdminEditorContent({
 			: getAccountTypeTone(linkedAccount.accountType);
 	const accountIsActive = linkedAccount?.active ?? true;
 	const accountStatusLabel = accountIsActive
-		? t("identity.accountPage.dialog.active.yes")
-		: t("identity.accountPage.dialog.active.no");
+		? t("common.status.active")
+		: t("common.status.inactive");
 	const accountStatusTone = accountIsActive ? "success" : "danger";
 	const hasCpfValue = (watchedCpf ?? "").trim().length > 0;
 	const isNameDisabled =
@@ -164,7 +160,7 @@ export function AdminEditorContent({
 							id="admin-cpf"
 							form={form}
 							existingUsers={existingUsers}
-							label={t("identity.adminPage.update.fields.cpf")}
+							label={t("common.fields.cpf")}
 							tooltipContent={t("identity.adminPage.update.fields.cpfHelp")}
 							placeholder={t("identity.adminPage.update.fields.cpfPlaceholder")}
 							searchPlaceholder={t(
@@ -182,9 +178,7 @@ export function AdminEditorContent({
 				) : null}
 
 				<div className="grid gap-2">
-					<Label htmlFor="admin-name">
-						{t("identity.adminPage.update.fields.name")}
-					</Label>
+					<Label htmlFor="admin-name">{t("common.fields.name")}</Label>
 					<Input
 						id="admin-name"
 						{...form.register("name")}
@@ -269,12 +263,10 @@ export function AdminEditorContent({
 				</div>
 
 				<AccountSummaryBadges
-					accountTypeFieldLabel={t(
-						"identity.adminPage.update.fields.accountType",
-					)}
+					accountTypeFieldLabel={t("common.fields.accountType")}
 					accountTypeLabel={accountTypeLabel}
 					accountTypeTone={accountTypeTone}
-					activeFieldLabel={t("identity.adminPage.update.fields.active")}
+					activeFieldLabel={t("common.fields.active")}
 					activeLabel={accountStatusLabel}
 					activeTone={accountStatusTone}
 				/>

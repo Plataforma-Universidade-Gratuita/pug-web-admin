@@ -16,7 +16,7 @@ export function createCityColumns(t: TFunction): ColumnDef<CityResponse>[] {
 		}),
 		{
 			accessorKey: "name",
-			header: t("geo.cityPage.table.columns.name"),
+			header: t("common.fields.city"),
 			cell: ({ row }) => row.original.name,
 		},
 		{

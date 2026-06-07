@@ -233,10 +233,8 @@ export function getLinkedAdminUserErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.adminPage.feedback.linkedUserError.title"),
-		fallbackDescription: t(
-			"identity.adminPage.feedback.linkedUserError.description",
-		),
+		fallbackTitle: t("common.linkedUser.error.title"),
+		fallbackDescription: t("common.linkedUser.error.description"),
 	});
 }
 
@@ -245,10 +243,8 @@ export function getLinkedAdminAccountErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.adminPage.feedback.linkedAccountError.title"),
-		fallbackDescription: t(
-			"identity.adminPage.feedback.linkedAccountError.description",
-		),
+		fallbackTitle: t("common.linkedAccount.error.title"),
+		fallbackDescription: t("common.linkedAccount.error.description"),
 	});
 }
 

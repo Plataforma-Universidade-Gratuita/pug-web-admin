@@ -95,20 +95,16 @@ export function FormerStudentEditorForm({
 		if (userError instanceof WebApiError && userError.status === 404) {
 			return (
 				<NotFoundState
-					title={t("identity.adminPage.dialog.linkedUser.notFound.title")}
-					description={t(
-						"identity.adminPage.dialog.linkedUser.notFound.description",
-					)}
+					title={t("common.linkedUser.notFound.title")}
+					description={t("common.linkedUser.notFound.description")}
 				/>
 			);
 		}
 
 		return (
 			<SomeErrorState
-				title={t("identity.adminPage.dialog.linkedUser.error.title")}
-				description={t(
-					"identity.adminPage.dialog.linkedUser.error.description",
-				)}
+				title={t("common.linkedUser.error.title")}
+				description={t("common.linkedUser.error.description")}
 				onRefresh={onRefreshUser}
 			/>
 		);
@@ -164,8 +160,8 @@ export function FormerStudentEditorForm({
 		isCreateLikeMode && (!hasCpfValue || matchedExistingUser != null);
 	const accountIsActive = linkedAccount?.active ?? true;
 	const accountStatusLabel = accountIsActive
-		? t("identity.accountPage.dialog.active.yes")
-		: t("identity.accountPage.dialog.active.no");
+		? t("common.status.active")
+		: t("common.status.inactive");
 	const accountStatusTone = accountIsActive ? "success" : "danger";
 	const accountTypeLabel = getAccountTypeLabel(t, "FORMER_STUDENT");
 	const accountTypeTone = linkedAccount

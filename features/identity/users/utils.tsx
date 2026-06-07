@@ -34,7 +34,7 @@ export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 		},
 		{
 			accessorKey: "cpf",
-			header: t("identity.userPage.table.columns.cpf"),
+			header: t("common.fields.cpf"),
 			cell: ({ row }) => row.original.cpfFormatted,
 		},
 		createDateTimeColumn<UserResponse>({

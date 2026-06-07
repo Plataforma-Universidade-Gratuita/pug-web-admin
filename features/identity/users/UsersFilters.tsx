@@ -31,7 +31,7 @@ export function UsersFilters({
 				placeholder={t("identity.userPage.filters.frontend.name.placeholder")}
 			/>
 			<NumberFieldFilter
-				label={t("identity.userPage.filters.frontend.cpf.label")}
+				label={t("common.fields.cpf")}
 				value={frontendCpfSearch}
 				onChange={onFrontendCpfSearchChange}
 				placeholder={t("identity.userPage.filters.frontend.cpf.placeholder")}

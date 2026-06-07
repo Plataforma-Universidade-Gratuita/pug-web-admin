@@ -80,18 +80,16 @@ export function StaffEditorForm({
 		if (userError instanceof WebApiError && userError.status === 404) {
 			return (
 				<NotFoundState
-					title={t("partner.staffPage.dialog.linkedUser.notFound.title")}
-					description={t(
-						"partner.staffPage.dialog.linkedUser.notFound.description",
-					)}
+					title={t("common.linkedUser.notFound.title")}
+					description={t("common.linkedUser.notFound.description")}
 				/>
 			);
 		}
 
 		return (
 			<SomeErrorState
-				title={t("partner.staffPage.dialog.linkedUser.error.title")}
-				description={t("partner.staffPage.dialog.linkedUser.error.description")}
+				title={t("common.linkedUser.error.title")}
+				description={t("common.linkedUser.error.description")}
 				onRefresh={onRefreshUser}
 			/>
 		);
@@ -118,8 +116,8 @@ export function StaffEditorForm({
 		isCreateLikeMode && (!hasCpfValue || matchedExistingUser != null);
 	const accountIsActive = staff?.account.active ?? true;
 	const accountStatusLabel = accountIsActive
-		? t("identity.accountPage.dialog.active.yes")
-		: t("identity.accountPage.dialog.active.no");
+		? t("common.status.active")
+		: t("common.status.inactive");
 	const accountStatusTone = accountIsActive ? "success" : "danger";
 	const accountTypeLabel = getAccountTypeLabel(
 		t,
@@ -236,12 +234,10 @@ export function StaffEditorForm({
 				</div>
 
 				<AccountSummaryBadges
-					accountTypeFieldLabel={t(
-						"identity.adminPage.update.fields.accountType",
-					)}
+					accountTypeFieldLabel={t("common.fields.accountType")}
 					accountTypeLabel={accountTypeLabel}
 					accountTypeTone={accountTypeTone}
-					activeFieldLabel={t("identity.adminPage.update.fields.active")}
+					activeFieldLabel={t("common.fields.active")}
 					activeLabel={accountStatusLabel}
 					activeTone={accountStatusTone}
 				/>

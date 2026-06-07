@@ -119,7 +119,7 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 					{formerStudent ? (
 						<div className="grid gap-3">
 							<p className="ty-overhead">
-				{t("common.linkedAccount.overhead")}
+								{t("common.linkedAccount.overhead")}
 							</p>
 							<AccountDetailsContent
 								accountId={formerStudent.accountId}

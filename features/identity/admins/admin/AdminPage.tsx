@@ -59,7 +59,7 @@ export function AdminPage({ adminId }: AdminPageProps) {
 						},
 						{
 							id: "name",
-							label: t("identity.adminPage.dialog.fields.name"),
+							label: t("common.fields.name"),
 							value: linkedUserQuery.data?.name ?? "-",
 						},
 						{
@@ -118,9 +118,7 @@ export function AdminPage({ adminId }: AdminPageProps) {
 				<div className="grid gap-6">
 					<EntityPageFieldsGrid fields={fields} />
 					<div className="grid gap-3">
-						<p className="ty-overhead">
-				{t("common.linkedAccount.overhead")}
-						</p>
+						<p className="ty-overhead">{t("common.linkedAccount.overhead")}</p>
 						<AccountDetailsContent accountId={admin.accountResponse.id} />
 					</div>
 				</div>

@@ -290,7 +290,7 @@ export function AttendanceEditorForm({
 					>
 						<AccordionItem value="linked-account">
 							<AccordionTrigger>
-				{t("common.linkedAccount.overhead")}
+								{t("common.linkedAccount.overhead")}
 							</AccordionTrigger>
 							<AccordionContent>
 								<AccountDetailsContent

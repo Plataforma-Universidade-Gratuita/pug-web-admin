@@ -70,7 +70,7 @@ export function AccountsFiltersDrawer({
 
 			<AsyncComboboxFilterField
 				multiple
-				label={t("identity.accountPage.filters.accountType.label")}
+				label={t("common.fields.accountType")}
 				values={filters.accountTypes}
 				onValuesChange={value =>
 					onFilterChange("accountTypes", value as typeof filters.accountTypes)
