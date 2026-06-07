@@ -78,18 +78,6 @@
 		background: transparent;
 	}
 
-	.app-topbar-picker-icon {
-		display: inline-flex;
-		height: 2rem;
-		width: 2rem;
-		flex-shrink: 0;
-		align-items: center;
-		justify-content: center;
-		border-radius: var(--twc-radius-circle);
-		background-color: color-mix(in oklab, var(--white-a12) 10%, transparent);
-		color: var(--twc-chrome-fg);
-	}
-
 	.app-topbar-picker-theme {
 		padding-right: 0;
 	}

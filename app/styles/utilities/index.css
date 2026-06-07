@@ -1,13 +1,6 @@
 @import "./components/index.css";
 @import "./features/index.css";
 @layer components {
-	.shadow-weak {
-		box-shadow:
-			inset 0 1px 0 var(--twc-surface-highlight),
-			inset 0 -1px 0 var(--twc-surface-lowlight),
-			var(--twc-shadow-sm);
-	}
-
 	.shadow-normal {
 		box-shadow:
 			inset 0 1px 0 var(--twc-surface-highlight),

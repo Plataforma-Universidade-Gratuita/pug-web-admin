@@ -161,10 +161,6 @@
 		overflow-x: hidden !important;
 	}
 
-	.app-sidebar-popover-arrow {
-		fill: var(--twc-surface-2);
-	}
-
 	.app-sidebar-account-popover {
 		width: max-content;
 		min-width: 13rem;
