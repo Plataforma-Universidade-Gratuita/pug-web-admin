@@ -313,19 +313,54 @@ The consolidated rules explicitly require a 3+ component reuse threshold for hoo
 
 ### Utilities
 
-- [ ] Build a usage map for every root utility export.
-- [ ] Move each utility to the lowest valid folder scope.
-- [ ] Keep a utility in root `utils/` only if it is used across two or more root folders.
-- [ ] Keep `utils.tsx` only where JSX is actually required.
-- [ ] Remove dead compatibility re-exports from `utils/index.ts`.
+- [x] Build a usage map for every root utility export.
+- [x] Move each utility to the lowest valid folder scope.
+- [x] Keep a utility in root `utils/` only if it is used across two or more root folders.
+- [x] Keep `utils.tsx` only where JSX is actually required.
+- [x] Remove dead compatibility re-exports from `utils/index.ts`.
 
 ### Constants
 
-- [ ] Build a usage map for every symbol in `constants/*.ts`.
-- [ ] Move each constant to the lowest valid folder scope.
-- [ ] Keep a constant in root `constants/` when it is root-shared or intentionally part of the public constants barrel.
-- [ ] Make `constants/index.ts` the canonical public entry for shared constants.
-- [ ] Remove only dead or redundant re-exports from `constants/index.ts`.
+- [x] Build a usage map for every symbol in `constants/*.ts`.
+- [x] Move each constant to the lowest valid folder scope.
+- [x] Keep a constant in root `constants/` when it is root-shared or intentionally part of the public constants barrel.
+- [x] Make `constants/index.ts` the canonical public entry for shared constants.
+- [x] Remove only dead or redundant re-exports from `constants/index.ts`.
+
+### Step 5 Notes
+
+- Root `utils/` was narrowed to shared-safe exports only:
+  - `utils/api-errors.ts`
+  - `utils/utils.ts`
+- Feature-owned helpers were moved down to `features/utils.ts`:
+  - duplication helpers
+  - search-date helpers
+  - digit normalization
+- Infrastructure utilities were re-checked and kept in their closest valid owners:
+  - `api/utils.ts`
+  - `api/web/utils.ts`
+  - `app/api/utils.ts`
+  - `contexts/utils.ts`
+  - `components/primitives/overlays/utils.ts`
+  - `auth/**`
+  - `i18n/locale.ts`
+- Root constants were reduced to intentionally shared/public slices only.
+- Lower-scope constants were moved into:
+  - `app/constants.ts`
+  - `contexts/constants.ts`
+  - `i18n/constants.ts`
+  - `hooks/constants.ts`
+  - `stores/constants.ts`
+  - `features/**/constants.ts`
+  - `components/**/constants.ts`
+  - `api/services/constants.ts`
+  - `api/web/constants.ts`
+- Step validation passed:
+  - `prettier --write`
+  - `npm run lint:fix`
+  - `tsc --noEmit`
+  - only remaining failure: missing `pt-BR` translations
+  - `Traducoes faltantes em EN: []`
 
 ## Step 6: Re-Audit Types and Schemas
 

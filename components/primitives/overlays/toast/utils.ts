@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 
 import type { ExternalToast } from "sonner";
 
+import { TOAST_OFFSET_TOP } from "@/components/primitives/overlays/toast/constants";
 import { LOGIN_ROUTE } from "@/constants";
-import { TOAST_OFFSET_TOP } from "@/constants";
 import type { AppToastOptions } from "@/types/client";
 
 export function withToastDefaults(

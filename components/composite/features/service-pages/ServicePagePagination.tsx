@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { SERVICE_PAGE_SIZE_OPTIONS } from "@/components/composite/features/service-pages/constants";
 import {
 	Button,
 	Icon,
@@ -16,10 +17,7 @@ import {
 	SelectItem,
 	SelectTrigger,
 } from "@/components/primitives";
-import {
-	DEFAULT_SERVICE_PAGE_SIZE,
-	SERVICE_PAGE_SIZE_OPTIONS,
-} from "@/constants";
+import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import type {
 	ServicePagePaginationProps,
 	ServicePageSizeOption,

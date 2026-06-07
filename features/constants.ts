@@ -1,0 +1,1 @@
+export const TABLE_TRUNCATED_COLUMN_WIDTH = 100;

@@ -7,8 +7,12 @@ import {
 	createTableTextColumn,
 } from "@/components/composite";
 import { Badge } from "@/components/primitives";
-import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/features/constants";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/identity/accounts/constants";
+import {
+	matchesAnyDateRange,
+	toSearchDateOffsetDateTime,
+} from "@/features/utils";
 import type {
 	AccountType,
 	AccountTypeResponse,
@@ -20,12 +24,7 @@ import type {
 	AccountComplexSearchFilters,
 	AccountFilterArgs,
 } from "@/types/client";
-import {
-	getApiErrorToastContent,
-	matchesAnyDateRange,
-	normalizeTextForSearch,
-	toSearchDateOffsetDateTime,
-} from "@/utils";
+import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
 
 function getAccountTypeValue(accountType: AccountType | AccountTypeResponse) {
 	return typeof accountType === "string"

@@ -26,11 +26,11 @@ import {
 	SkeletonPanelBlock,
 	SkeletonTextBlock,
 } from "@/components/primitives/display/skeleton/presets";
+import { APP_TOPBAR_HEIGHT } from "@/components/primitives/overlays/constants";
 import {
-	APP_TOPBAR_HEIGHT,
 	DRAWER_MOTION_STYLES,
 	DRAWER_POSITION_STYLES,
-} from "@/constants";
+} from "@/components/primitives/overlays/drawer/constants";
 import { LoadingProvider, useLoading } from "@/contexts";
 import type {
 	DrawerBodyProps,

@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { PAGINATION_STORAGE_KEY } from "@/constants";
+import { PAGINATION_STORAGE_KEY } from "@/stores/constants";
 import type { PaginationStoreState } from "@/types/client";
 
 export const usePaginationStore = create<PaginationStoreState>()(

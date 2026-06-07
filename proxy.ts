@@ -9,7 +9,9 @@ import {
 	getAccessTokenFromRequest,
 	getRefreshTokenFromRequest,
 } from "@/auth";
-import { HOME_ROUTE, LOGIN_ROUTE, PUBLIC_ROUTES } from "@/constants/auth";
+import { HOME_ROUTE, LOGIN_ROUTE } from "@/constants";
+
+const PUBLIC_ROUTES = [LOGIN_ROUTE];
 
 export async function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;

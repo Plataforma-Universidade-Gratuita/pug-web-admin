@@ -1,12 +1,8 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import {
-	DEFAULT_LANG,
-	I18N_NAMESPACE,
-	LANG_COOKIE_MAX_AGE,
-	LANG_COOKIE_NAME,
-} from "@/constants";
+import { DEFAULT_LANG, LANG_COOKIE_NAME } from "@/constants";
+import { I18N_NAMESPACE, LANG_COOKIE_MAX_AGE } from "@/i18n/constants";
 import enUSCommon from "@/public/locales/en-US/common.json";
 import ptBRCommon from "@/public/locales/pt-BR/common.json";
 import type { AppLang } from "@/types/client";

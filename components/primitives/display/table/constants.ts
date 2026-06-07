@@ -1,0 +1,1 @@
+export const MIN_TABLE_SCROLLBAR_THUMB_SIZE = 32;

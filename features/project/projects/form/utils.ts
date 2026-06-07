@@ -1,10 +1,10 @@
+import { appendCopyToText } from "@/features/utils";
 import type {
 	ProjectCreateRequest,
 	ProjectResponse,
 	ProjectUpdateRequest,
 } from "@/types/api";
 import type { ProjectEditorFormValues } from "@/types/client";
-import { appendCopyToText } from "@/utils";
 
 function parsePositiveInteger(value: string) {
 	const trimmed = value.trim();

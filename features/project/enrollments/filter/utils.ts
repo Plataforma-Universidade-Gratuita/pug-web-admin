@@ -1,5 +1,9 @@
 import type { TFunction } from "i18next";
 
+import {
+	matchesAnyDateRange,
+	toSearchDateOffsetDateTime,
+} from "@/features/utils";
 import type {
 	EnrollmentComplexSearchRequest,
 	EnrollmentResponse,
@@ -10,11 +14,7 @@ import type {
 	EnrollmentDirectoryItem,
 	EnrollmentFilterArgs,
 } from "@/types/client";
-import {
-	matchesAnyDateRange,
-	normalizeTextForSearch,
-	toSearchDateOffsetDateTime,
-} from "@/utils";
+import { normalizeTextForSearch } from "@/utils";
 
 export function buildEnrollmentComplexSearchRequest(filters: {
 	projectIds: string[];

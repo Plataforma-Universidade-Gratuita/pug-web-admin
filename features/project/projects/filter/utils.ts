@@ -1,15 +1,15 @@
 import type { TFunction } from "i18next";
 
+import {
+	matchesAnyDateRange,
+	toSearchDateOffsetDateTime,
+} from "@/features/utils";
 import type { ProjectComplexSearchRequest, ProjectResponse } from "@/types/api";
 import type {
 	ProjectComplexSearchFilters,
 	ProjectFilterArgs,
 } from "@/types/client";
-import {
-	matchesAnyDateRange,
-	normalizeTextForSearch,
-	toSearchDateOffsetDateTime,
-} from "@/utils";
+import { normalizeTextForSearch } from "@/utils";
 
 import {
 	getProjectStatusLabel,

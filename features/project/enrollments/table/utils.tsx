@@ -2,7 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import { Badge, TableText } from "@/components/primitives";
-import { ENROLLMENT_KEY_SEPARATOR } from "@/constants";
+import { ENROLLMENT_KEY_SEPARATOR } from "@/features/project/enrollments/constants";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/project/enrollments/constants";
 import type {
 	AccountResponse,

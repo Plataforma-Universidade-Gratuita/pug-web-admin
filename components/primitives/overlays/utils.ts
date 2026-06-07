@@ -1,4 +1,4 @@
-import { FLOATING_BOUNDARY_SELECTOR } from "@/constants";
+import { FLOATING_BOUNDARY_SELECTOR } from "@/components/primitives/overlays/constants";
 
 export function getFloatingLayerBoundary(
 	element: Element | null,

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
+import { WEB_API_ROUTE_BASES } from "@/api/web/constants";
 import { qs, webFetch, webVoid } from "@/api/web/utils";
-import { WEB_API_ROUTE_BASES } from "@/constants";
 import {
 	EnrollmentComplexSearchRequestSchema,
 	EnrollmentComplexSearchResponseSchema,

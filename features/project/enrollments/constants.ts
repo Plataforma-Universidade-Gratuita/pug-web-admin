@@ -1,1 +1,3 @@
 export const TABLE_IDENTIFIER_TEXT_WIDTH = 70;
+
+export const ENROLLMENT_KEY_SEPARATOR = "::";

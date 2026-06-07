@@ -1,4 +1,4 @@
-import { UNKNOWN_ROUTE_LABEL } from "@/constants";
+import { UNKNOWN_ROUTE_LABEL } from "@/features/app-shell/constants";
 import type { RouteBreadcrumbEntry } from "@/types/client";
 
 function isDynamicRouteSegment(segment: string) {

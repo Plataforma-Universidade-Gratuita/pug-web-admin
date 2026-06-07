@@ -12,8 +12,8 @@ import {
 	BreadcrumbList,
 	BreadcrumbSeparator,
 } from "@/components/primitives";
-import { APP_ROUTE_LABELS } from "@/constants";
 import { getRouteBreadcrumbs } from "@/features/app-shell/RouteBreadcrumbs/utils";
+import { APP_ROUTE_LABELS } from "@/features/app-shell/constants";
 
 export function RouteBreadcrumbs() {
 	const pathname = usePathname();

@@ -6,9 +6,15 @@ import {
 	createDateTimeColumn,
 	createTableTextColumn,
 } from "@/components/composite";
-import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/features/constants";
 import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/partner/staff/constants";
+import {
+	appendCopyToEmail,
+	matchesAnyDateRange,
+	normalizeDigits,
+	toSearchDateOffsetDateTime,
+} from "@/features/utils";
 import type {
 	CityResponse,
 	EntityResponse,
@@ -25,18 +31,14 @@ import type {
 	StaffEditorFormValues,
 } from "@/types/client";
 import type { StaffFilterSummaryArgs } from "@/types/client";
-import { getApiErrorToastContent } from "@/utils";
 import {
-	appendCopyToEmail,
 	compareNormalizedText,
-	matchesAnyDateRange,
-	normalizeDigits,
+	getApiErrorToastContent,
 	normalizeTextForSearch,
-	toSearchDateOffsetDateTime,
 } from "@/utils";
 
 export { createStaffEditorFormSchema } from "@/schemas/client";
-export { appendCopyToEmail } from "@/utils";
+export { appendCopyToEmail } from "@/features/utils";
 
 function normalizeCpf(value: string) {
 	return normalizeDigits(value).slice(0, 11);

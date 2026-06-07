@@ -15,15 +15,15 @@ import {
 import { Toaster as SonnerToaster, toast as sonnerToast } from "sonner";
 
 import {
+	TOAST_DEFAULT_DURATION,
+	TOAST_UNDO_DURATION,
+	TOAST_VISIBLE_COUNT,
+} from "@/components/primitives/overlays/toast/constants";
+import {
 	resolveToastOffset,
 	resolveToastValue,
 	withToastDefaults,
 } from "@/components/primitives/overlays/toast/utils";
-import {
-	TOAST_DEFAULT_DURATION,
-	TOAST_UNDO_DURATION,
-	TOAST_VISIBLE_COUNT,
-} from "@/constants";
 import { useTheme } from "@/contexts";
 import type {
 	AppToastOptions,

@@ -6,8 +6,12 @@ import {
 	createDateTimeColumn,
 	createTableTextColumn,
 } from "@/components/composite";
-import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/features/constants";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/identity/admins/constants";
+import {
+	matchesAnyDateRange,
+	toSearchDateOffsetDateTime,
+} from "@/features/utils";
 import type {
 	AdminComplexSearchRequest,
 	AdminCreateRequest,
@@ -22,15 +26,10 @@ import type {
 	AdminLinkedUser,
 } from "@/types/client";
 import type { AdminFrontendFilterArgs } from "@/types/client";
-import {
-	getApiErrorToastContent,
-	matchesAnyDateRange,
-	normalizeTextForSearch,
-	toSearchDateOffsetDateTime,
-} from "@/utils";
+import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
 
 export { createAdminEditorFormSchema } from "@/schemas/client";
-export { appendCopyToEmail } from "@/utils";
+export { appendCopyToEmail } from "@/features/utils";
 
 function normalizeCpf(value: string) {
 	return value.replace(/\D+/g, "");

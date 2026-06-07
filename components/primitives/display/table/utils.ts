@@ -6,7 +6,7 @@ import {
 	type ReactNode,
 } from "react";
 
-import { MIN_TABLE_SCROLLBAR_THUMB_SIZE } from "@/constants";
+import { MIN_TABLE_SCROLLBAR_THUMB_SIZE } from "@/components/primitives/display/table/constants";
 import type { DropdownMenuItemProps } from "@/types/client";
 import type {
 	ScrollOffsetFromThumbOffsetArgs,

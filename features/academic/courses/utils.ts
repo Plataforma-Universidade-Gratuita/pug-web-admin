@@ -2,7 +2,11 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { TFunction } from "i18next";
 
 import { TableText } from "@/components/primitives";
-import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/features/constants";
+import {
+	matchesAnyDateRange,
+	toSearchDateOffsetDateTime,
+} from "@/features/utils";
 import type {
 	AreaOfExpertiseResponse,
 	CourseCreateRequest,
@@ -17,9 +21,7 @@ import type {
 import {
 	compareNormalizedText,
 	getApiErrorToastContent,
-	matchesAnyDateRange,
 	normalizeTextForSearch,
-	toSearchDateOffsetDateTime,
 } from "@/utils";
 
 export { createCourseEditorFormSchema } from "@/schemas/client";

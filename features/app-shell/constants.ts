@@ -15,11 +15,22 @@ import {
 	UserRoundCog,
 } from "lucide-react";
 
-import type { MenuGroupChild, MenuLeafItem, RouteLabelMap } from "@/types";
+import { LANGUAGE_OPTIONS, THEME_OPTIONS } from "@/constants";
+import type {
+	MenuGroupChild,
+	MenuLeafItem,
+	RouteLabelMap,
+} from "@/types/client";
+
+export { LANGUAGE_OPTIONS, THEME_OPTIONS };
+
+export const UNKNOWN_ROUTE_LABEL = "Navbar.paths.unknown";
 
 export const NAVBAR_TITLE_ROUTE = "/";
 
-export const SIDEBAR_STORAGE_KEY = "pug.sidebar";
+export const SIDEBAR_ROW_BASE_PADDING_REM = 0.725;
+
+export const SIDEBAR_ROW_NEST_STEP_REM = 0.75;
 
 export const SIDEBAR_HOME_ITEM: MenuLeafItem = {
 	href: "/",
@@ -160,7 +171,7 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/academic/areas-of-expertise/[areaOfExpertiseId]":
 		"academic.areaOfExpertisePage.dialog.titleFallback",
 	"/academic/former-students": "Navbar.paths.academic.student",
-	"/academic/former-students/[studentId]":
+	"/academic/former-students/[formerStudentId]":
 		"academic.formerStudentPage.dialog.titleFallback",
 	"/geo": "Navbar.paths.geo.root",
 	"/geo/cities": "Navbar.paths.geo.city",

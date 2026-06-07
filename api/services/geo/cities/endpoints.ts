@@ -1,7 +1,7 @@
 import { z } from "zod";
 
+import { API_ROUTE_BASES } from "@/api/services/constants";
 import { qs, zfetch } from "@/api/utils";
-import { API_ROUTE_BASES } from "@/constants";
 import {
 	CityComplexSearchRequestSchema,
 	CityResponseSchema,

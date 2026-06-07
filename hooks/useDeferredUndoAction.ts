@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 import { toast } from "@/components/primitives";
-import { DEFAULT_UNDO_DURATION } from "@/constants";
+import { DEFAULT_UNDO_DURATION } from "@/hooks/constants";
 import type { DeferredUndoActionOptions } from "@/types/client";
 
 export function useDeferredUndoAction() {

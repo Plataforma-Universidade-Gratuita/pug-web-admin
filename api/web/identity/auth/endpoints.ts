@@ -1,5 +1,5 @@
+import { WEB_API_ROUTE_BASES } from "@/api/web/constants";
 import { webFetch, webVoid } from "@/api/web/utils";
-import { WEB_API_ROUTE_BASES } from "@/constants";
 import { TokenResponseSchema } from "@/schemas/api";
 import type {
 	CredentialsRequest,

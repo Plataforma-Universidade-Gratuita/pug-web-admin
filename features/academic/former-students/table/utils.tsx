@@ -7,7 +7,7 @@ import {
 	createTableTextColumn,
 } from "@/components/composite";
 import { Badge } from "@/components/primitives";
-import { ADMIN_CAMPI_VALUES } from "@/constants";
+import { ADMIN_CAMPI_VALUES } from "@/features/academic/former-students/constants";
 import type {
 	AccountResponse,
 	CourseResponse,

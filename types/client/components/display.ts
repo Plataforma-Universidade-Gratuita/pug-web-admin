@@ -18,13 +18,19 @@ import type {
 } from "@tanstack/react-table";
 import type { LucideProps } from "lucide-react";
 
-import { BADGE_TONES, BADGE_VARIANTS } from "@/constants";
 import type { ToggleGroupColorVariant } from "@/types";
 import type { AppLang } from "@/types";
 import type { AppTheme } from "@/types";
 
-export type BadgeTone = keyof typeof BADGE_TONES;
-export type BadgeVariant = keyof typeof BADGE_VARIANTS;
+export type BadgeTone =
+	| "neutral"
+	| "brand"
+	| "success"
+	| "info"
+	| "warning"
+	| "danger";
+
+export type BadgeVariant = "primary" | "secondary";
 
 export interface TooltipProps {
 	children: ReactNode;

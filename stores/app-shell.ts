@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { SIDEBAR_STORAGE_KEY } from "@/constants";
+import { SIDEBAR_STORAGE_KEY } from "@/stores/constants";
 import type { AppShellStoreState } from "@/types/client";
 
 export const useAppShellStore = create<AppShellStoreState>()(

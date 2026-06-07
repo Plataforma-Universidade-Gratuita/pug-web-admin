@@ -22,6 +22,7 @@ import {
 	getProjectStatusActionErrorToastContent,
 	getProjectStatusOptions,
 } from "@/features/project/projects/utils";
+import { appendCopyToText } from "@/features/utils";
 import {
 	useDeferredUndoAction,
 	useDraftFilters,
@@ -35,7 +36,6 @@ import type {
 	ProjectEditorMode,
 	ProjectStatusAction,
 } from "@/types/client";
-import { appendCopyToText } from "@/utils";
 
 const { entities: entitiesApi } = web.partner;
 const { projects: projectsApi } = web.project;

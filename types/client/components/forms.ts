@@ -7,7 +7,7 @@ import type {
 
 import type { FieldValues, UseFormReturn } from "react-hook-form";
 
-import { BADGE_TONES } from "@/constants";
+import type { BadgeTone } from "@/types";
 import type { PopoverContentProps } from "@/types";
 
 export interface InputProps extends Omit<
@@ -99,7 +99,7 @@ export interface CpfFormFieldProps<
 	onExistingUserChange?: (user: CpfFormFieldExistingUser | null) => void;
 }
 
-export type MultiSelectSelectionTone = keyof typeof BADGE_TONES;
+export type MultiSelectSelectionTone = BadgeTone;
 
 export interface MultiSelectProps {
 	options: MultiSelectOption[];

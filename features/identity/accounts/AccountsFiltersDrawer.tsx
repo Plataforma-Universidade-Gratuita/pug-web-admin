@@ -12,7 +12,7 @@ import {
 	TextFieldFilter,
 } from "@/components/composite";
 import { Checkbox } from "@/components/primitives";
-import { ACCOUNT_TYPE_VALUES } from "@/constants";
+import { ACCOUNT_TYPE_VALUES } from "@/features/identity/accounts/constants";
 import type { AccountsFiltersDrawerProps } from "@/types/client";
 
 export function AccountsFiltersDrawer({

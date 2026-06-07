@@ -11,8 +11,8 @@ import {
 	NotFoundState,
 	SomeErrorState,
 } from "@/components/primitives";
+import { normalizeDigits } from "@/features/utils";
 import type { EntityEditorFormProps } from "@/types/client";
-import { normalizeDigits } from "@/utils";
 
 function formatCnpjValue(value: string) {
 	const digits = normalizeDigits(value).slice(0, 14);

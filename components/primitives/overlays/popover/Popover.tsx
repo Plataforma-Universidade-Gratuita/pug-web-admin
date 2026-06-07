@@ -7,13 +7,13 @@ import * as RadixPopover from "@radix-ui/react-popover";
 import clsx from "clsx";
 
 import {
+	APP_TOPBAR_COLLISION_PADDING,
+	FLOATING_PANEL_VIEWPORT_PADDING,
+} from "@/components/primitives/overlays/constants";
+import {
 	getFloatingLayerBoundary,
 	usesAppTopbarCollisionPadding,
 } from "@/components/primitives/overlays/utils";
-import {
-	APP_TOPBAR_COLLISION_PADDING,
-	FLOATING_PANEL_VIEWPORT_PADDING,
-} from "@/constants";
 import type {
 	PopoverContentProps,
 	PopoverProps,

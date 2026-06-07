@@ -5,18 +5,17 @@ import {
 	createDateTimeColumn,
 	createTableTextColumn,
 } from "@/components/composite";
-import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/constants";
+import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/features/constants";
+import {
+	matchesAnyDateRange,
+	toSearchDateOffsetDateTime,
+} from "@/features/utils";
 import type { UserComplexSearchRequest, UserResponse } from "@/types/api";
 import type {
 	UserComplexSearchFilters,
 	UserFrontendFilterArgs,
 } from "@/types/client";
-import {
-	getApiErrorToastContent,
-	matchesAnyDateRange,
-	normalizeTextForSearch,
-	toSearchDateOffsetDateTime,
-} from "@/utils";
+import { getApiErrorToastContent, normalizeTextForSearch } from "@/utils";
 
 export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 	return [

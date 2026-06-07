@@ -1,5 +1,9 @@
 import type { TFunction } from "i18next";
 
+import {
+	matchesAnyDateRange,
+	toSearchDateOffsetDateTime,
+} from "@/features/utils";
 import type {
 	AttendanceComplexSearchRequest,
 	AttendanceResponse,
@@ -9,11 +13,7 @@ import type {
 	AttendanceDirectoryItem,
 	AttendanceFilterArgs,
 } from "@/types/client";
-import {
-	matchesAnyDateRange,
-	normalizeTextForSearch,
-	toSearchDateOffsetDateTime,
-} from "@/utils";
+import { normalizeTextForSearch } from "@/utils";
 
 export function buildAttendanceComplexSearchRequest(filters: {
 	projectIds: string[];

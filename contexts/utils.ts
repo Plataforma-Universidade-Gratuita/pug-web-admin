@@ -1,9 +1,8 @@
-import { APP_THEMES } from "@/constants";
+import { APP_THEMES, THEME_COOKIE_NAME } from "@/constants";
 import {
 	THEME_ANIMATION_CLASS,
 	THEME_COOKIE_MAX_AGE,
-	THEME_COOKIE_NAME,
-} from "@/constants";
+} from "@/contexts/constants";
 import type { AppTheme } from "@/types/client";
 
 export function isAppTheme(x: unknown): x is AppTheme {
