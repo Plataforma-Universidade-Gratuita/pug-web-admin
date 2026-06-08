@@ -14,12 +14,17 @@ import type { AdminsRowActionsProps } from "@/types/client";
 export function AdminsRowActions({
 	admin,
 	canDeactivate,
+	canDelete,
 	href,
 	onDelete,
 	onDuplicate,
 	onSetActive,
 	onOpenEditor,
 }: AdminsRowActionsProps) {
+	const showStatusAction = admin.account.active ? canDeactivate : true;
+	const showDeleteAction = canDelete;
+	const showManagementActions = showStatusAction || showDeleteAction;
+
 	return (
 		<>
 			<ViewDetailsRowAction href={href} />
@@ -27,13 +32,15 @@ export function AdminsRowActions({
 				onClick={() => onOpenEditor(admin.account.id, "update")}
 			/>
 			<DuplicateRowAction onClick={() => onDuplicate(admin)} />
-			<DropdownMenuSeparator />
+			{showManagementActions ? <DropdownMenuSeparator /> : null}
 			{admin.account.active && canDeactivate ? (
 				<DeactivateRowAction onClick={() => onSetActive(admin, false)} />
 			) : !admin.account.active ? (
 				<ReactivateRowAction onClick={() => onSetActive(admin, true)} />
 			) : null}
-			<DeleteRowAction onClick={() => onDelete(admin)} />
+			{showDeleteAction ? (
+				<DeleteRowAction onClick={() => onDelete(admin)} />
+			) : null}
 		</>
 	);
 }

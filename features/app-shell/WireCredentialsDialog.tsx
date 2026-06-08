@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -32,7 +32,9 @@ import type {
 } from "@/types/client";
 
 const { auth: authApi } = web.identity;
+const { admins: adminsApi } = web.identity;
 const { wireCredentials } = authApi;
+const { useCurrentAdminQuery } = adminsApi;
 
 export function WireCredentialsDialog({
 	open,
@@ -44,10 +46,14 @@ export function WireCredentialsDialog({
 	const queryClient = useQueryClient();
 	const [isPending, startTransition] = useTransition();
 	const [error, setError] = useState<string | null>(null);
+	const currentAdminQuery = useCurrentAdminQuery();
+	const currentEmail =
+		currentAdminQuery.data?.accountResponse.email?.trim() ?? "";
 	const {
 		register,
 		handleSubmit,
 		reset,
+		setValue,
 		formState: { errors },
 	} = useLocalizedZodForm<WireCredentialsFormValues>({
 		schemaFactory: createWireCredentialsFormSchema,
@@ -58,14 +64,33 @@ export function WireCredentialsDialog({
 		},
 	});
 
+	useEffect(() => {
+		if (!currentEmail) {
+			return;
+		}
+
+		setValue("email", currentEmail, {
+			shouldDirty: false,
+			shouldTouch: false,
+			shouldValidate: true,
+		});
+	}, [currentEmail, setValue]);
+
 	function onSubmit(values: WireCredentialsFormValues) {
 		setError(null);
+		if (!currentEmail) {
+			const message = t("auth.login.wireCredentials.feedback.error");
+			setError(message);
+			toast.danger(message);
+			return;
+		}
+
 		const password = values.password?.trim() ?? "";
 
 		startTransition(async () => {
 			try {
 				await wireCredentials({
-					email: values.email.trim(),
+					email: currentEmail,
 					password,
 				});
 
@@ -93,7 +118,11 @@ export function WireCredentialsDialog({
 			onOpenChange={nextOpen => {
 				if (!isPending) {
 					if (!nextOpen) {
-						reset();
+						reset({
+							email: currentEmail,
+							password: "",
+							confirmPassword: "",
+						});
 						setError(null);
 					}
 					onOpenChange(nextOpen);
@@ -124,6 +153,7 @@ export function WireCredentialsDialog({
 									id="wire-email"
 									type="email"
 									autoComplete="email"
+									disabled
 									{...register("email", {
 										onChange: () => {
 											if (error) setError(null);
@@ -234,6 +264,7 @@ export function WireCredentialsDialog({
 							usage="danger"
 							variant="secondary"
 							className="whitespace-nowrap"
+							disabled={currentAdminQuery.isLoading || !currentEmail}
 							isLoading={isPending}
 							loadingText={t("auth.login.wireCredentials.actions.pending")}
 							leadingIcon={

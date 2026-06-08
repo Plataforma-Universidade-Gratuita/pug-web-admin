@@ -11,7 +11,11 @@ import {
 	ServicePageShell,
 	ServicePageTableSection,
 } from "@/components/composite";
-import { NoContentState, SomeErrorState } from "@/components/primitives";
+import {
+	Button,
+	NoContentState,
+	SomeErrorState,
+} from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import {
 	useDraftFilters,
@@ -87,6 +91,9 @@ export function CitiesPage() {
 		[deferredFrontendSearch, tableSourceCities],
 	);
 	const columns = useMemo(() => createCityColumns(t), [t]);
+	const hasAnyFilters = Boolean(
+		deferredFrontendSearch.length > 0 || hasAppliedFilters,
+	);
 	const emptyStateCopy = useMemo(
 		() =>
 			getCitiesEmptyStateCopy(t, deferredFrontendSearch, appliedFilters.name),
@@ -138,6 +145,13 @@ export function CitiesPage() {
 		},
 	]);
 
+	function clearAllFilters() {
+		setFrontendSearch("");
+		clearFilters();
+		resetPage();
+		setBackendFiltersOpen(false);
+	}
+
 	return (
 		<ServicePageShell>
 			<ServicePageHeader
@@ -148,6 +162,16 @@ export function CitiesPage() {
 					emptyTitle: t("common.metadata.empty.title"),
 					emptyDescription: t("common.metadata.empty.description"),
 				}}
+				actions={
+					hasAnyFilters ? (
+						<Button
+							variant="secondary"
+							onClick={clearAllFilters}
+						>
+							{t("common.filters.clear")}
+						</Button>
+					) : undefined
+				}
 				filtersClassName="grid gap-2"
 			>
 				<CitiesFilters

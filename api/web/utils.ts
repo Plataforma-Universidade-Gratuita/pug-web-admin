@@ -29,12 +29,33 @@ async function parseWebApiError(response: Response): Promise<never> {
 	throw new WebApiError(response.status, message, code);
 }
 
+function resolveClientLocaleHeader(): string | undefined {
+	if (typeof document !== "undefined") {
+		const documentLanguage = document.documentElement.lang?.trim();
+		if (documentLanguage) {
+			return documentLanguage;
+		}
+	}
+
+	if (typeof navigator !== "undefined") {
+		return navigator.language;
+	}
+
+	return undefined;
+}
+
 function webRequest(path: string, init?: RequestInit): Promise<Response> {
+	const locale = resolveClientLocaleHeader();
+
 	return fetch(path, {
 		...init,
 		cache: "no-store",
 		credentials: "include",
-		headers: { ...JSON_HEADERS, ...init?.headers },
+		headers: {
+			...JSON_HEADERS,
+			...(locale ? { "Accept-Language": locale } : {}),
+			...init?.headers,
+		},
 	});
 }
 

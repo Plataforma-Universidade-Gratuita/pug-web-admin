@@ -58,10 +58,10 @@ const { useAccountsQuery } = accountsApi;
 const {
 	get: getAdmin,
 	useCreateAdminMutation,
+	useCurrentAdminQuery,
 	useRemoveAdminMutation,
 	useSetAdminActiveMutation,
 	useAdminsSearchQuery,
-	useCurrentAdminQuery,
 } = adminsApi;
 const { get: getUser } = usersApi;
 
@@ -391,6 +391,9 @@ export function AdminsPage() {
 						<AdminsRowActions
 							admin={row}
 							canDeactivate={
+								row.account.id !== currentAdminQuery.data?.accountResponse.id
+							}
+							canDelete={
 								row.account.id !== currentAdminQuery.data?.accountResponse.id
 							}
 							href={`/identity/admins/${row.account.id}`}

@@ -18,8 +18,13 @@ function normalizeTotalPages(totalPages?: number) {
 	return totalPages;
 }
 
-function clampPage(page: number, totalPages: number) {
-	return Math.min(Math.max(page, DEFAULT_SERVICE_PAGE), totalPages);
+function clampPage(page: number, totalPages?: number) {
+	const normalizedPage = Math.max(page, DEFAULT_SERVICE_PAGE);
+	if (!totalPages || totalPages < 1) {
+		return normalizedPage;
+	}
+
+	return Math.min(normalizedPage, totalPages);
 }
 
 export function usePagination({
@@ -36,7 +41,7 @@ export function usePagination({
 	const isAll = pageSize === "all";
 	const normalizedCurrentPage = isAll
 		? DEFAULT_SERVICE_PAGE
-		: clampPage(currentPage, totalPages);
+		: clampPage(currentPage, providedTotalPages);
 
 	useEffect(() => {
 		if (!entry) {

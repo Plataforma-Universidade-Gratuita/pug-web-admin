@@ -131,6 +131,7 @@ export interface AdminsFiltersDrawerProps {
 export interface AdminsRowActionsProps {
 	admin: AdminSearchResponse;
 	canDeactivate: boolean;
+	canDelete: boolean;
 	href: string;
 	onDelete: (admin: AdminSearchResponse) => void;
 	onDuplicate: (admin: AdminSearchResponse) => void;
