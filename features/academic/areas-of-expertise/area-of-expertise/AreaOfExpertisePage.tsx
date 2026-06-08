@@ -43,22 +43,22 @@ export function AreaOfExpertisePage({
 				? [
 						{
 							id: "name",
-							label: t("academic.areaOfExpertisePage.dialog.fields.name"),
+							label: t("common.fields.areaOfExpertise"),
 							value: areaOfExpertise.name,
 						},
 						{
 							id: "id",
-							label: t("academic.areaOfExpertisePage.dialog.fields.id"),
+							label: t("common.fields.id"),
 							value: areaOfExpertise.id,
 						},
 						{
 							id: "createdAt",
-							label: t("academic.areaOfExpertisePage.dialog.fields.createdAt"),
+							label: t("common.fields.createdAt"),
 							value: areaOfExpertise.auditInfo.createdAtFormatted,
 						},
 						{
 							id: "updatedAt",
-							label: t("academic.areaOfExpertisePage.dialog.fields.updatedAt"),
+							label: t("common.fields.updatedAt"),
 							value: areaOfExpertise.auditInfo.updatedAtFormatted,
 						},
 					]
@@ -78,10 +78,8 @@ export function AreaOfExpertisePage({
 				areaOfExpertiseDetailQuery.error instanceof WebApiError &&
 				areaOfExpertiseDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("academic.areaOfExpertisePage.dialog.notFound.title")}
-						description={t(
-							"academic.areaOfExpertisePage.dialog.notFound.description",
-						)}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -99,9 +97,7 @@ export function AreaOfExpertisePage({
 			) : areaOfExpertiseDetailQuery.isLoading ? (
 				<EntityPageFieldsGridSkeleton />
 			) : (
-				<NotFoundState
-					title={t("academic.areaOfExpertisePage.dialog.notFound.title")}
-				/>
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</EntityPageShell>
 	);

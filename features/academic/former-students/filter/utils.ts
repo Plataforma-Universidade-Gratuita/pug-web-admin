@@ -222,12 +222,12 @@ export function filterFormerStudents(
 
 export function getStudentEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("academic.formerStudentPage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("academic.formerStudentPage.empty.filteredDescription", {
+			? t("common.empty.filteredDescription", {
 					value: query,
 				})
-			: t("academic.formerStudentPage.empty.defaultDescription"),
+			: t("common.empty.defaultDescription"),
 	};
 }
 

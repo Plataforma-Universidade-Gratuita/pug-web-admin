@@ -96,8 +96,8 @@ export function CitiesPage() {
 		if (activeQuery.isError) {
 			return (
 				<SomeErrorState
-					title={t("geo.cityPage.table.error.title")}
-					description={t("geo.cityPage.table.error.description")}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						void activeQuery.refetch();
 					}}

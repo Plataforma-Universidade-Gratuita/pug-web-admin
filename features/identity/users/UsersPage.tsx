@@ -133,8 +133,8 @@ export function UsersPage() {
 		if (activeQuery.isError) {
 			return (
 				<SomeErrorState
-					title={t("identity.userPage.table.error.title")}
-					description={t("identity.userPage.table.error.description")}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						void activeQuery.refetch();
 					}}

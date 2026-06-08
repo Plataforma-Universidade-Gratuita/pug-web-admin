@@ -58,8 +58,8 @@ export function EnrollmentEditorForm({
 		) {
 			return (
 				<NotFoundState
-					title={t("project.enrollmentPage.update.notFound.title")}
-					description={t("project.enrollmentPage.update.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -104,11 +104,7 @@ export function EnrollmentEditorForm({
 	}
 
 	if (!canRenderForm) {
-		return (
-			<NotFoundState
-				title={t("project.enrollmentPage.update.notFound.title")}
-			/>
-		);
+		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
 	const options = enrollment
@@ -145,7 +141,7 @@ export function EnrollmentEditorForm({
 					</div>
 
 					<div className="grid gap-2">
-						<Label>{t("project.enrollmentPage.editor.fields.student")}</Label>
+						<Label>{t("common.fields.formerStudent")}</Label>
 						<Controller
 							control={form.control}
 							name="formerStudentId"
@@ -154,15 +150,11 @@ export function EnrollmentEditorForm({
 									options={formerStudentOptions}
 									value={field.value}
 									onValueChange={field.onChange}
-									placeholder={t(
-										"project.enrollmentPage.editor.fields.studentPlaceholder",
-									)}
+									placeholder={t("common.fields.formerStudentPlaceholder")}
 									searchPlaceholder={t(
-										"project.enrollmentPage.editor.fields.studentSearchPlaceholder",
+										"common.fields.formerStudentSearchPlaceholder",
 									)}
-									emptyMessage={t(
-										"project.enrollmentPage.editor.fields.studentEmptyMessage",
-									)}
+									emptyMessage={t("common.fields.formerStudentEmptyMessage")}
 								/>
 							)}
 						/>
@@ -253,7 +245,7 @@ export function EnrollmentEditorForm({
 					>
 						<AccordionItem value="linked-student">
 							<AccordionTrigger>
-								{t("project.enrollmentPage.dialog.linkedStudent.overhead")}
+								{t("common.linkedFormerStudent.overhead")}
 							</AccordionTrigger>
 							<AccordionContent>
 								<FormerStudentOwnDetailsContent

@@ -31,7 +31,7 @@ export function AttendanceOwnDetailsContent({
 			},
 			{
 				id: "studentId",
-				label: t("project.attendancePage.dialog.fields.studentId"),
+				label: t("common.fields.formerStudentId"),
 				value: attendance.formerStudentId,
 			},
 			{

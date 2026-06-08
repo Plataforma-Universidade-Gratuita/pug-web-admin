@@ -145,7 +145,7 @@ export function FormerStudentsPageDialogs({
 			{...(pendingDeleteRecord
 				? {
 						deleteDialog: {
-							actionLabel: t("common.table.actions.delete"),
+							actionLabel: t("table.actions.delete"),
 							description: t(
 								"academic.formerStudentPage.delete.confirm.description",
 								{
@@ -165,8 +165,8 @@ export function FormerStudentsPageDialogs({
 						statusDialog: {
 							actionLabel: t(
 								pendingStatusRecord.active
-									? "common.table.actions.reactivate"
-									: "common.table.actions.deactivate",
+									? "table.actions.reactivate"
+									: "table.actions.deactivate",
 							),
 							description: t(
 								pendingStatusRecord.active

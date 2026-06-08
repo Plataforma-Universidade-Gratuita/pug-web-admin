@@ -80,10 +80,8 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 				formerStudentDetailQuery.error instanceof WebApiError &&
 				formerStudentDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("academic.formerStudentPage.dialog.notFound.title")}
-						description={t(
-							"academic.formerStudentPage.dialog.notFound.description",
-						)}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -151,9 +149,7 @@ export function FormerStudentPage({ formerStudentId }: FormerStudentPageProps) {
 					) : null}
 				</div>
 			) : (
-				<NotFoundState
-					title={t("academic.formerStudentPage.dialog.notFound.title")}
-				/>
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</EntityPageShell>
 	);

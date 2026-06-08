@@ -181,7 +181,7 @@ export function createAttendanceColumns(
 		{
 			accessorFn: row => row.status.status,
 			id: "status",
-			header: t("common.fields.status"),
+			header: t("table.columns.status"),
 			cell: ({ row }) => (
 				<Badge
 					tone={getAttendanceStatusTone(row.original.status.status)}
@@ -207,17 +207,17 @@ export function createAttendanceColumns(
 		{
 			accessorFn: row => row.project.name,
 			id: "project",
-			header: t("common.fields.project"),
+			header: t("table.columns.project"),
 		},
 		{
 			accessorFn: row => row.student.account.name,
 			id: "student",
-			header: t("project.attendancePage.table.columns.student"),
+			header: t("table.columns.formerStudent"),
 		},
 		{
 			accessorFn: row => row.student.account.email,
 			id: "email",
-			header: t("project.attendancePage.table.columns.email"),
+			header: t("table.columns.email"),
 		},
 		{
 			accessorFn: row => row.student.academicRegistration,
@@ -250,12 +250,12 @@ export function createAttendanceColumns(
 		{
 			accessorFn: row => row.attendanceInfo.auditInfo.createdAtFormatted,
 			id: "createdAt",
-			header: t("common.fields.createdAt"),
+			header: t("table.columns.createdAt"),
 		},
 		{
 			accessorFn: row => row.attendanceInfo.auditInfo.updatedAtFormatted,
 			id: "updatedAt",
-			header: t("common.fields.updatedAt"),
+			header: t("table.columns.updatedAt"),
 		},
 	];
 }

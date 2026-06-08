@@ -43,8 +43,8 @@ export function StaffPage({ staffId }: StaffPageProps) {
 				staffDetailQuery.error instanceof WebApiError &&
 				staffDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("partner.staffPage.dialog.notFound.title")}
-						description={t("partner.staffPage.dialog.notFound.description")}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -75,7 +75,7 @@ export function StaffPage({ staffId }: StaffPageProps) {
 					</div>
 				</div>
 			) : (
-				<NotFoundState title={t("partner.staffPage.dialog.notFound.title")} />
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</EntityPageShell>
 	);

@@ -61,8 +61,8 @@ export function StaffEditorForm({
 		if (staffError instanceof WebApiError && staffError.status === 404) {
 			return (
 				<NotFoundState
-					title={t("partner.staffPage.update.notFound.title")}
-					description={t("partner.staffPage.update.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -80,8 +80,8 @@ export function StaffEditorForm({
 		if (userError instanceof WebApiError && userError.status === 404) {
 			return (
 				<NotFoundState
-					title={t("common.linkedUser.notFound.title")}
-					description={t("common.linkedUser.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -106,9 +106,7 @@ export function StaffEditorForm({
 	}
 
 	if (!canRenderForm || (!isUpdateMode && !staff)) {
-		return (
-			<NotFoundState title={t("partner.staffPage.update.notFound.title")} />
-		);
+		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
 	const hasCpfValue = (watchedCpf ?? "").trim().length > 0;

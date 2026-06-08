@@ -101,7 +101,7 @@ export function createAccountColumns(
 		createTableTextColumn<AccountSearchResponse>({
 			id: "id",
 			accessorKey: "id",
-			header: t("common.fields.id"),
+			header: t("table.columns.id"),
 			text: row => row.id,
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			maxWidth: TABLE_IDENTIFIER_TEXT_WIDTH,
@@ -109,18 +109,18 @@ export function createAccountColumns(
 		{
 			accessorFn: row => row.user.name,
 			id: "name",
-			header: t("identity.accountPage.table.columns.name"),
+			header: t("table.columns.name"),
 			cell: ({ row }) => row.original.user.name,
 		},
 		{
 			accessorKey: "email",
-			header: t("common.fields.email"),
+			header: t("table.columns.email"),
 			cell: ({ row }) => row.original.email,
 		},
 		{
 			accessorKey: "accountType",
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
-			header: t("common.fields.accountType"),
+			header: t("table.columns.accountType"),
 			cell: ({ row }) => {
 				const label = getAccountTypeLabel(t, row.original.accountType);
 
@@ -141,13 +141,13 @@ export function createAccountColumns(
 		},
 		createDateTimeColumn<AccountSearchResponse>({
 			id: "createdAt",
-			header: t("common.fields.createdAt"),
+			header: t("table.columns.createdAt"),
 			value: row => row.auditInfo.createdAt,
 			formattedValue: row => row.auditInfo.createdAtFormatted,
 		}),
 		createDateTimeColumn<AccountSearchResponse>({
 			id: "updatedAt",
-			header: t("common.fields.updatedAt"),
+			header: t("table.columns.updatedAt"),
 			value: row => row.auditInfo.updatedAt,
 			formattedValue: row => row.auditInfo.updatedAtFormatted,
 		}),
@@ -352,19 +352,17 @@ export function filterAccountsByFrontendFilters(
 
 export function getAccountEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("identity.accountPage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("identity.accountPage.empty.filteredDescription", { value: query })
-			: t("identity.accountPage.empty.defaultDescription"),
+			? t("common.empty.filteredDescription", { value: query })
+			: t("common.empty.defaultDescription"),
 	};
 }
 
 export function getAccountsListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.accountPage.feedback.listError.title"),
-		fallbackDescription: t(
-			"identity.accountPage.feedback.listError.description",
-		),
+		fallbackTitle: t("common.errors.listLoad.title"),
+		fallbackDescription: t("common.errors.listLoad.description"),
 	});
 }
 
@@ -373,10 +371,8 @@ export function getAccountDetailErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.accountPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"identity.accountPage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }
 

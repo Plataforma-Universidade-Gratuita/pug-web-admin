@@ -41,7 +41,7 @@ export function createAdminColumns(
 	return [
 		createActiveBadgeColumn<AdminSearchResponse>({
 			id: "active",
-			header: t("common.fields.status"),
+			header: t("table.columns.status"),
 			value: row => row.account.active,
 			activeLabel: t("identity.adminPage.table.active.yes"),
 			inactiveLabel: t("identity.adminPage.table.active.no"),
@@ -50,7 +50,7 @@ export function createAdminColumns(
 		createTableTextColumn<AdminSearchResponse>({
 			id: "id",
 			accessorFn: row => row.account.id,
-			header: t("common.fields.id"),
+			header: t("table.columns.id"),
 			text: row => row.account.id,
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			maxWidth: TABLE_IDENTIFIER_TEXT_WIDTH,
@@ -58,19 +58,19 @@ export function createAdminColumns(
 		{
 			accessorFn: row => row.account.user.name,
 			id: "name",
-			header: t("identity.adminPage.table.columns.name"),
+			header: t("table.columns.name"),
 			cell: ({ row }) => row.original.account.user.name,
 		},
 		{
 			accessorFn: row => row.account.email,
 			id: "email",
-			header: t("common.fields.email"),
+			header: t("table.columns.email"),
 			cell: ({ row }) => row.original.account.email,
 		},
 		{
 			accessorFn: row => row.campus.campus,
 			id: "campus",
-			header: t("common.fields.campus"),
+			header: t("table.columns.campus"),
 			cell: ({ row }) => row.original.campus.campusFormatted,
 		},
 		{
@@ -80,13 +80,13 @@ export function createAdminColumns(
 		},
 		createDateTimeColumn<AdminSearchResponse>({
 			id: "createdAt",
-			header: t("common.fields.createdAt"),
+			header: t("table.columns.createdAt"),
 			value: row => row.account.auditInfo.createdAt,
 			formattedValue: row => row.account.auditInfo.createdAtFormatted,
 		}),
 		createDateTimeColumn<AdminSearchResponse>({
 			id: "updatedAt",
-			header: t("common.fields.updatedAt"),
+			header: t("table.columns.updatedAt"),
 			value: row => row.account.auditInfo.updatedAt,
 			formattedValue: row => row.account.auditInfo.updatedAtFormatted,
 		}),
@@ -205,26 +205,24 @@ export function filterAdminsByFrontendFilters(
 
 export function getAdminEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("identity.adminPage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("identity.adminPage.empty.filteredDescription", { value: query })
-			: t("identity.adminPage.empty.defaultDescription"),
+			? t("common.empty.filteredDescription", { value: query })
+			: t("common.empty.defaultDescription"),
 	};
 }
 
 export function getAdminsListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.adminPage.feedback.listError.title"),
-		fallbackDescription: t("identity.adminPage.feedback.listError.description"),
+		fallbackTitle: t("common.errors.listLoad.title"),
+		fallbackDescription: t("common.errors.listLoad.description"),
 	});
 }
 
 export function getAdminDetailErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.adminPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"identity.adminPage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }
 

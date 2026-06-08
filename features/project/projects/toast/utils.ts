@@ -15,10 +15,8 @@ export function getProjectDetailErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.projectPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"project.projectPage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }
 

@@ -12,7 +12,7 @@ export function DeleteRowAction({ onClick, label }: RowActionClickProps) {
 	return (
 		<DropdownMenuDangerItem
 			icon={Trash2}
-			label={label ?? t("common.table.actions.delete")}
+			label={label ?? t("table.actions.delete")}
 			onClick={onClick}
 		/>
 	);

@@ -76,8 +76,8 @@ export function UserDetailsContent({
 		return userDetailQuery.error instanceof WebApiError &&
 			userDetailQuery.error.status === 404 ? (
 			<NotFoundState
-				title={t("identity.userPage.dialog.notFound.title")}
-				description={t("identity.userPage.dialog.notFound.description")}
+				title={t("common.notFound.title")}
+				description={t("common.notFound.description")}
 			/>
 		) : (
 			<SomeErrorState
@@ -103,5 +103,5 @@ export function UserDetailsContent({
 		return <EntityPageFieldsGridSkeleton columns={columns} />;
 	}
 
-	return <NotFoundState title={t("identity.userPage.dialog.notFound.title")} />;
+	return <NotFoundState title={t("common.notFound.title")} />;
 }

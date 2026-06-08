@@ -66,15 +66,13 @@ export function EnrollmentsFiltersDrawer({
 
 			<AsyncComboboxFilterField
 				multiple
-				label={t("project.enrollmentPage.filters.student.label")}
+				label={t("common.fields.formerStudent")}
 				options={formerStudentOptions}
 				values={filters.formerStudentIds}
 				onValuesChange={value => onFilterChange("formerStudentIds", value)}
-				placeholder={t("project.enrollmentPage.filters.student.placeholder")}
-				searchPlaceholder={t(
-					"project.enrollmentPage.filters.student.searchPlaceholder",
-				)}
-				emptyMessage={t("project.enrollmentPage.filters.student.emptyMessage")}
+				placeholder={t("common.fields.formerStudentPlaceholder")}
+				searchPlaceholder={t("common.fields.formerStudentSearchPlaceholder")}
+				emptyMessage={t("common.fields.formerStudentEmptyMessage")}
 				isError={Boolean(formerStudentsError)}
 				errorTitle={t("common.loadErrors.formerStudents.title")}
 				errorDescription={t("common.loadErrors.formerStudents.description")}
@@ -91,10 +89,8 @@ export function EnrollmentsFiltersDrawer({
 						onFilterChange("statuses", value as EnrollmentStatus[])
 					}
 					placeholder={t("common.placeholders.select")}
-					searchPlaceholder={t(
-						"project.enrollmentPage.filters.status.searchPlaceholder",
-					)}
-					emptyMessage={t("project.enrollmentPage.filters.status.emptyMessage")}
+					searchPlaceholder={t("common.filters.status.searchPlaceholder")}
+					emptyMessage={t("common.filters.status.emptyMessage")}
 				/>
 			</div>
 

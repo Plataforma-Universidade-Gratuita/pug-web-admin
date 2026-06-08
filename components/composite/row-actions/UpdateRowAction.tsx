@@ -12,7 +12,7 @@ export function UpdateRowAction({ onClick, label }: RowActionClickProps) {
 	return (
 		<DropdownMenuItem
 			icon={PenSquare}
-			label={label ?? t("common.table.actions.update")}
+			label={label ?? t("table.actions.update")}
 			onClick={onClick}
 		/>
 	);

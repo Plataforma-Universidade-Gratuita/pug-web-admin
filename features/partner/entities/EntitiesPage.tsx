@@ -396,7 +396,7 @@ export function EntitiesPage() {
 					name: pendingDeleteEntity?.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("common.table.actions.delete")}
+				actionLabel={t("table.actions.delete")}
 				onAction={handleDeleteConfirm}
 			/>
 		</ServicePageShell>

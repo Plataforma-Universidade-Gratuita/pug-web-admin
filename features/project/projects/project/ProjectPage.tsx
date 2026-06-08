@@ -62,8 +62,8 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 				projectDetailQuery.error instanceof WebApiError &&
 				projectDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("project.projectPage.dialog.notFound.title")}
-						description={t("project.projectPage.dialog.notFound.description")}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -140,7 +140,7 @@ export function ProjectPage({ projectId }: ProjectPageProps) {
 			) : projectDetailQuery.isLoading ? (
 				<EntityPageFieldsGridSkeleton count={12} />
 			) : (
-				<NotFoundState title={t("project.projectPage.dialog.notFound.title")} />
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</EntityPageShell>
 	);

@@ -12,7 +12,7 @@ export function DeactivateRowAction({ onClick, label }: RowActionClickProps) {
 	return (
 		<DropdownMenuWarningItem
 			icon={ShieldX}
-			label={label ?? t("common.table.actions.deactivate")}
+			label={label ?? t("table.actions.deactivate")}
 			onClick={onClick}
 		/>
 	);

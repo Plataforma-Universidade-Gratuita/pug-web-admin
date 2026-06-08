@@ -185,10 +185,10 @@ export function filterProjectsByFrontendFilters(
 
 export function getProjectEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("project.projectPage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("project.projectPage.empty.filteredDescription", { value: query })
-			: t("project.projectPage.empty.defaultDescription"),
+			? t("common.empty.filteredDescription", { value: query })
+			: t("common.empty.defaultDescription"),
 	};
 }
 

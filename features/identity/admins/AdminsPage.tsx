@@ -208,8 +208,8 @@ export function AdminsPage() {
 		if (adminsSearchQuery.isError) {
 			return (
 				<SomeErrorState
-					title={t("identity.adminPage.table.error.title")}
-					description={t("identity.adminPage.table.error.description")}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						void adminsSearchQuery.refetch();
 					}}
@@ -419,7 +419,7 @@ export function AdminsPage() {
 				{...(pendingDeleteRecord
 					? {
 							deleteDialog: {
-								actionLabel: t("common.table.actions.delete"),
+								actionLabel: t("table.actions.delete"),
 								description: t(
 									"identity.adminPage.delete.confirm.description",
 									{
@@ -443,8 +443,8 @@ export function AdminsPage() {
 							statusDialog: {
 								actionLabel: t(
 									pendingStatusRecord.active
-										? "common.table.actions.reactivate"
-										: "common.table.actions.deactivate",
+										? "table.actions.reactivate"
+										: "table.actions.deactivate",
 								),
 								description: t(
 									pendingStatusRecord.active

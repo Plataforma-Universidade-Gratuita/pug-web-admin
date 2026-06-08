@@ -21,7 +21,7 @@ export function StaffPageDialogs({
 			{...(pendingDeleteRecord
 				? {
 						deleteDialog: {
-							actionLabel: t("common.table.actions.delete"),
+							actionLabel: t("table.actions.delete"),
 							description: t("partner.staffPage.delete.confirm.description", {
 								name: pendingDeleteRecord.account.user.name,
 							}),
@@ -38,8 +38,8 @@ export function StaffPageDialogs({
 						statusDialog: {
 							actionLabel: t(
 								pendingStatusRecord.active
-									? "common.table.actions.reactivate"
-									: "common.table.actions.deactivate",
+									? "table.actions.reactivate"
+									: "table.actions.deactivate",
 							),
 							description: t(
 								pendingStatusRecord.active

@@ -47,16 +47,6 @@
                     "description": "The area of expertise could not be loaded right now.",
                     "title": "Unable to load area of expertise"
                 },
-                "fields": {
-                    "createdAt": "Created at",
-                    "id": "Identifier",
-                    "name": "Area of expertise",
-                    "updatedAt": "Updated at"
-                },
-                "notFound": {
-                    "description": "The requested area of expertise could not be found.",
-                    "title": "Area of expertise not found"
-                },
                 "titleFallback": "Area-of-expertise details"
             },
             "duplicate": {
@@ -95,21 +85,6 @@
                     "nameTooLong": "Name must be 150 characters or fewer."
                 }
             },
-            "empty": {
-                "defaultDescription": "The area-of-expertise directory is currently empty.",
-                "filteredDescription": "No area of expertise matches \"{{value}}\".",
-                "title": "No areas of expertise found"
-            },
-            "feedback": {
-                "detailError": {
-                    "description": "The area of expertise could not be loaded right now.",
-                    "title": "Unable to load area-of-expertise details"
-                },
-                "listError": {
-                    "description": "The area-of-expertise directory could not be loaded right now.",
-                    "title": "Unable to load areas of expertise"
-                }
-            },
             "filters": {
                 "endDate": {
                     "label": "End date",
@@ -122,18 +97,6 @@
             },
             "loading": {
                 "list": "Loading areas of expertise"
-            },
-            "table": {
-                "columns": {
-                    "createdAt": "Created at",
-                    "id": "Identifier",
-                    "name": "Area of expertise",
-                    "updatedAt": "Updated at"
-                },
-                "error": {
-                    "description": "The area-of-expertise directory could not be loaded right now.",
-                    "title": "Unable to load areas of expertise"
-                }
             },
             "title": "Areas of expertise",
             "update": {
@@ -154,10 +117,6 @@
                 "loadError": {
                     "description": "The area of expertise could not be loaded right now.",
                     "title": "Unable to load area-of-expertise editor"
-                },
-                "notFound": {
-                    "description": "The requested area of expertise could not be found.",
-                    "title": "Area of expertise not found"
                 },
                 "overhead": "Edit area of expertise",
                 "titleFallback": "Edit area of expertise"
@@ -209,15 +168,8 @@
                     "description": "The course could not be loaded right now.",
                     "title": "Unable to load course"
                 },
-                "fields": {
-                    "name": "Course"
-                },
                 "linkedAreaOfExpertise": {
                     "overhead": "Linked area of expertise"
-                },
-                "notFound": {
-                    "description": "The requested course could not be found.",
-                    "title": "Course not found"
                 },
                 "titleFallback": "Course details"
             },
@@ -238,64 +190,20 @@
             "editor": {
                 "fields": {
                     "name": "Course",
-                    "namePlaceholder": "Enter the course name",
-                    "school": "Area of expertise"
+                    "namePlaceholder": "Enter the course name"
                 },
                 "loading": "Loading course editor",
                 "resetConfirm": {
                     "description": "This will discard the unsaved changes in the current drawer.",
                     "title": "Reset course changes?"
                 },
-                "schoolLoadError": {
-                    "description": "The areas directory could not be loaded right now.",
-                    "title": "Unable to load areas"
-                },
                 "validation": {
                     "name": "Enter a name.",
-                    "nameTooLong": "Name must be 150 characters or fewer.",
-                    "school": "Select an area."
-                }
-            },
-            "empty": {
-                "defaultDescription": "The course directory is currently empty.",
-                "filteredDescription": "No course matches \"{{value}}\".",
-                "title": "No courses found"
-            },
-            "feedback": {
-                "detailError": {
-                    "description": "The course could not be loaded right now.",
-                    "title": "Unable to load course details"
-                },
-                "listError": {
-                    "description": "The course directory could not be loaded right now.",
-                    "title": "Unable to load courses"
-                },
-                "schoolsError": {
-                    "description": "The areas directory could not be loaded right now.",
-                    "title": "Unable to load areas"
-                }
-            },
-            "filters": {
-                "school": {
-                    "error": {
-                        "description": "The areas directory could not be loaded right now.",
-                        "title": "Unable to load areas"
-                    },
-                    "label": "Area of expertise"
+                    "nameTooLong": "Name must be 150 characters or fewer."
                 }
             },
             "loading": {
                 "list": "Loading courses"
-            },
-            "table": {
-                "columns": {
-                    "name": "Course",
-                    "school": "Area of expertise"
-                },
-                "error": {
-                    "description": "The course directory could not be loaded right now.",
-                    "title": "Unable to load courses"
-                }
             },
             "title": "Courses",
             "update": {
@@ -312,10 +220,6 @@
                 "loadError": {
                     "description": "The course could not be loaded right now.",
                     "title": "Unable to load course editor"
-                },
-                "notFound": {
-                    "description": "The requested course could not be found.",
-                    "title": "Course not found"
                 },
                 "overhead": "Edit course",
                 "titleFallback": "Edit course"
@@ -395,10 +299,6 @@
                     "requiredHours": "Required hours",
                     "startDate": "Start date",
                     "updatedAt": "Updated at"
-                },
-                "notFound": {
-                    "description": "The requested former-student record could not be found.",
-                    "title": "Former student not found"
                 },
                 "overhead": "Former-student details",
                 "titleFallback": "Former-student details"
@@ -501,23 +401,10 @@
                     }
                 }
             },
-            "empty": {
-                "defaultDescription": "The former-student directory is currently empty.",
-                "filteredDescription": "No former student matches \"{{value}}\".",
-                "title": "No former students found"
-            },
             "feedback": {
                 "coursesError": {
                     "description": "The course directory could not be loaded right now.",
                     "title": "Unable to load courses"
-                },
-                "detailError": {
-                    "description": "The former-student record could not be loaded right now.",
-                    "title": "Unable to load former-student details"
-                },
-                "listError": {
-                    "description": "The former-student directory could not be loaded right now.",
-                    "title": "Unable to load former students"
                 }
             },
             "filters": {
@@ -605,17 +492,11 @@
                     "campus": "Campus",
                     "concluded": "Concluded",
                     "course": "Course",
-                    "email": "Email",
-                    "name": "Name",
                     "progress": "Progress"
                 },
                 "concluded": {
                     "no": "No",
                     "yes": "Yes"
-                },
-                "error": {
-                    "description": "The former-student directory could not be loaded right now.",
-                    "title": "Unable to load former students"
                 }
             },
             "title": "Former students",
@@ -637,10 +518,6 @@
                 "loadError": {
                     "description": "The former-student record could not be loaded right now.",
                     "title": "Unable to load former-student editor"
-                },
-                "notFound": {
-                    "description": "The requested former-student record could not be found.",
-                    "title": "Former student not found"
                 },
                 "overhead": "Edit former student",
                 "titleFallback": "Edit former student"
@@ -696,7 +573,7 @@
                         "title": "Track projects and participation"
                     },
                     "session": {
-                        "description": "Update admins, former students, staff, schools, courses, and linked accounts in one place.",
+                        "description": "Update admins, former students, staff, areas of expertise, courses, and linked accounts in one place.",
                         "title": "Maintain service records"
                     }
                 },
@@ -768,11 +645,27 @@
             "undo": "Undo"
         },
         "cancel": "Cancel",
+        "empty": {
+            "defaultDescription": "No records are available yet.",
+            "filteredDescription": "No records match the current filters: {{value}}.",
+            "title": "No records found"
+        },
+        "errors": {
+            "detailLoad": {
+                "description": "The selected record could not be loaded right now.",
+                "title": "Unable to load record"
+            },
+            "listLoad": {
+                "description": "The current directory could not be loaded right now.",
+                "title": "Unable to load records"
+            }
+        },
         "fields": {
             "accountType": "Account type",
             "active": "Active",
+            "areaOfExpertise": "Area of expertise",
             "campus": "Campus",
-            "city": "City",
+            "course": "Course",
             "cpf": "CPF",
             "createdAt": "Created at",
             "email": "Email",
@@ -780,11 +673,15 @@
             "entityEmptyMessage": "No entities found.",
             "entityPlaceholder": "Select an entity",
             "entitySearchPlaceholder": "Search entities...",
+            "formerStudent": "Former student",
+            "formerStudentEmptyMessage": "No former students found.",
+            "formerStudentId": "Former student id",
+            "formerStudentPlaceholder": "Select a former student",
+            "formerStudentSearchPlaceholder": "Search former students...",
             "id": "Identifier",
             "name": "Name",
             "project": "Project",
             "projectEmptyMessage": "No projects found.",
-            "projectId": "Project id",
             "projectPlaceholder": "Select a project",
             "projectSearchPlaceholder": "Search projects...",
             "status": "Status",
@@ -831,6 +728,10 @@
                 "label": "Start date",
                 "placeholder": "Select a start date"
             },
+            "status": {
+                "emptyMessage": "No statuses found.",
+                "searchPlaceholder": "Search statuses..."
+            },
             "title": "Refine directory"
         },
         "linkedAccount": {
@@ -840,18 +741,21 @@
             },
             "overhead": "Linked account"
         },
+        "linkedFormerStudent": {
+            "overhead": "Linked former student"
+        },
         "linkedUser": {
             "error": {
                 "description": "The linked user could not be loaded right now.",
                 "title": "Unable to load linked user"
             },
-            "notFound": {
-                "description": "The linked user could not be found.",
-                "title": "Linked user not found"
-            },
             "overhead": "Linked user"
         },
         "loadErrors": {
+            "areasOfExpertise": {
+                "description": "The area-of-expertise directory could not be loaded right now.",
+                "title": "Unable to load areas of expertise"
+            },
             "entities": {
                 "description": "The entity directory could not be loaded right now.",
                 "title": "Unable to load entities"
@@ -871,6 +775,10 @@
                 "title": "Metadata coming soon"
             },
             "trigger": "Metadata"
+        },
+        "notFound": {
+            "description": "The requested record could not be found.",
+            "title": "Record not found"
         },
         "placeholders": {
             "noResults": "No results found.",
@@ -905,14 +813,12 @@
             "active": "Active",
             "inactive": "Inactive"
         },
-        "table": {
-            "actions": {
-                "deactivate": "Deactivate",
-                "delete": "Delete",
-                "duplicate": "Duplicate",
-                "reactivate": "Reactivate",
-                "update": "Update",
-                "viewDetails": "View details"
+        "validation": {
+            "areaOfExpertise": {
+                "required": "Select an area of expertise."
+            },
+            "formerStudent": {
+                "required": "Select a former student."
             }
         }
     },
@@ -938,9 +844,6 @@
                 "noContent": {
                     "description": "There is no content to show in this area yet."
                 },
-                "notFound": {
-                    "description": "The requested record could not be found."
-                },
                 "someError": {
                     "refresh": "Refresh"
                 }
@@ -960,17 +863,6 @@
             },
             "previousPage": "Go to previous page",
             "total": "{{count}} records"
-        },
-        "table": {
-            "actions": "Actions",
-            "empty": {
-                "title": "No records found"
-            },
-            "openRowActions": "Open row actions",
-            "scroll": {
-                "horizontal": "Scroll table horizontally",
-                "vertical": "Scroll table vertically"
-            }
         }
     },
     "geo": {
@@ -985,26 +877,7 @@
                     "ibgeCode": "IBGE code",
                     "name": "City name"
                 },
-                "notFound": {
-                    "description": "The requested city record could not be found.",
-                    "title": "City not found"
-                },
                 "titleFallback": "City details"
-            },
-            "empty": {
-                "defaultDescription": "The city catalog is currently empty.",
-                "filteredDescription": "No city matches \"{{value}}\".",
-                "title": "No cities found"
-            },
-            "feedback": {
-                "detailError": {
-                    "description": "The city record could not be loaded right now.",
-                    "title": "Unable to load city details"
-                },
-                "listError": {
-                    "description": "The city catalog could not be loaded right now.",
-                    "title": "Unable to load cities"
-                }
             },
             "filters": {
                 "backend": {
@@ -1012,8 +885,7 @@
                     "clearConfirm": {
                         "description": "This will remove the applied filters from the city table."
                     }
-                },
-                "frontend": {}
+                }
             },
             "loading": {
                 "list": "Loading city catalog"
@@ -1021,10 +893,6 @@
             "table": {
                 "columns": {
                     "ibgeCode": "IBGE code"
-                },
-                "error": {
-                    "description": "The city catalog could not be loaded right now.",
-                    "title": "Unable to load cities"
                 }
             },
             "title": "Cities"
@@ -1139,35 +1007,16 @@
                     "description": "The account record could not be loaded right now.",
                     "title": "Unable to load account"
                 },
-                "notFound": {
-                    "description": "The requested account record could not be found.",
-                    "title": "Account not found"
-                },
                 "titleFallback": "Account details"
-            },
-            "empty": {
-                "defaultDescription": "The account catalog is currently empty.",
-                "filteredDescription": "No account matches \"{{value}}\".",
-                "title": "No accounts found"
-            },
-            "feedback": {
-                "detailError": {
-                    "description": "The account record could not be loaded right now.",
-                    "title": "Unable to load account details"
-                },
-                "listError": {
-                    "description": "The account catalog could not be loaded right now.",
-                    "title": "Unable to load accounts"
-                }
             },
             "filters": {
                 "accountType": {
                     "options": {
                         "ADMIN": "Admin",
                         "all": "All account types",
-                        "FORMER_STUDENT": "Former Student",
+                        "FORMER_STUDENT": "Former student",
                         "PARTNER": "Partner",
-                        "STUDENT": "Student"
+                        "STUDENT": "Former student"
                     }
                 }
             },
@@ -1177,15 +1026,6 @@
             "metadata": {
                 "empty": {
                     "description": "Service provenance, freshness, and request metadata will live here."
-                }
-            },
-            "table": {
-                "columns": {
-                    "name": "Name"
-                },
-                "error": {
-                    "description": "The account catalog could not be loaded right now.",
-                    "title": "Unable to load accounts"
                 }
             },
             "title": "Accounts"
@@ -1256,10 +1096,6 @@
                     "grantedAt": "Granted at",
                     "userId": "User identifier"
                 },
-                "notFound": {
-                    "description": "The requested administrator assignment could not be found.",
-                    "title": "Administrator not found"
-                },
                 "titleFallback": "Administrator details"
             },
             "duplicate": {
@@ -1272,21 +1108,6 @@
                         "description": "{{name}} was duplicated successfully.",
                         "title": "Administrator duplicated"
                     }
-                }
-            },
-            "empty": {
-                "defaultDescription": "The administrator directory is currently empty.",
-                "filteredDescription": "No administrator matches \"{{value}}\".",
-                "title": "No administrators found"
-            },
-            "feedback": {
-                "detailError": {
-                    "description": "The administrator record could not be loaded right now.",
-                    "title": "Unable to load administrator details"
-                },
-                "listError": {
-                    "description": "The administrator directory could not be loaded right now.",
-                    "title": "Unable to load administrators"
                 }
             },
             "filters": {
@@ -1323,12 +1144,7 @@
                     "yes": "Active"
                 },
                 "columns": {
-                    "grantedAt": "Granted at",
-                    "name": "User"
-                },
-                "error": {
-                    "description": "The administrator directory could not be loaded right now.",
-                    "title": "Unable to load administrators"
+                    "grantedAt": "Granted at"
                 }
             },
             "title": "Admins",
@@ -1367,10 +1183,6 @@
                     "title": "Unable to load administrator editor"
                 },
                 "loading": "Loading administrator editor",
-                "notFound": {
-                    "description": "The requested administrator assignment could not be found.",
-                    "title": "Administrator not found"
-                },
                 "overhead": "Edit administrator",
                 "resetConfirm": {
                     "description": "This will discard the unsaved administrator changes in the current drawer.",
@@ -1408,26 +1220,7 @@
                     "description": "The user record could not be loaded right now.",
                     "title": "Unable to load user"
                 },
-                "notFound": {
-                    "description": "The requested user record could not be found.",
-                    "title": "User not found"
-                },
                 "titleFallback": "User details"
-            },
-            "empty": {
-                "defaultDescription": "The user catalog is currently empty.",
-                "filteredDescription": "No user matches \"{{value}}\".",
-                "title": "No users found"
-            },
-            "feedback": {
-                "detailError": {
-                    "description": "The user record could not be loaded right now.",
-                    "title": "Unable to load user details"
-                },
-                "listError": {
-                    "description": "The user catalog could not be loaded right now.",
-                    "title": "Unable to load users"
-                }
             },
             "filters": {
                 "backend": {
@@ -1440,15 +1233,6 @@
             },
             "loading": {
                 "list": "Loading user catalog"
-            },
-            "table": {
-                "columns": {
-                    "name": "User"
-                },
-                "error": {
-                    "description": "The user catalog could not be loaded right now.",
-                    "title": "Unable to load users"
-                }
             },
             "title": "Users"
         }
@@ -1481,10 +1265,10 @@
         "navigation": "Primary navigation",
         "paths": {
             "academic": {
+                "areaOfExpertise": "Areas of expertise",
                 "course": "Courses",
-                "root": "Academic",
-                "school": "Areas of expertise",
-                "student": "Former students"
+                "formerStudent": "Former students",
+                "root": "Academic"
             },
             "geo": {
                 "city": "Cities",
@@ -1566,10 +1350,6 @@
                     "cnpj": "CNPJ",
                     "name": "Entity name"
                 },
-                "notFound": {
-                    "description": "The requested entity record could not be found.",
-                    "title": "Entity not found"
-                },
                 "titleFallback": "Entity details",
                 "values": {
                     "noAddress": "No address provided"
@@ -1623,19 +1403,10 @@
                     "nameTooLong": "Name must be 150 characters or fewer."
                 }
             },
-            "empty": {
-                "defaultDescription": "The entity directory is currently empty.",
-                "filteredDescription": "No entity matches \"{{value}}\".",
-                "title": "No entities found"
-            },
             "feedback": {
                 "citiesError": {
                     "description": "The city catalog could not be loaded right now.",
                     "title": "Unable to load cities"
-                },
-                "detailError": {
-                    "description": "The entity record could not be loaded right now.",
-                    "title": "Unable to load entity details"
                 }
             },
             "filters": {
@@ -1663,8 +1434,7 @@
                 "columns": {
                     "address": "Address",
                     "city": "City",
-                    "cnpj": "CNPJ",
-                    "name": "Entity"
+                    "cnpj": "CNPJ"
                 }
             },
             "title": "Entities",
@@ -1682,10 +1452,6 @@
                 "loadError": {
                     "description": "The entity record could not be loaded right now.",
                     "title": "Unable to load entity editor"
-                },
-                "notFound": {
-                    "description": "The requested entity record could not be found.",
-                    "title": "Entity not found"
                 },
                 "overhead": "Edit entity",
                 "titleFallback": "Edit entity"
@@ -1760,10 +1526,6 @@
                     "description": "The staff record could not be loaded right now.",
                     "title": "Unable to load staff member"
                 },
-                "notFound": {
-                    "description": "The requested staff record could not be found.",
-                    "title": "Staff member not found"
-                },
                 "titleFallback": "Staff details"
             },
             "duplicate": {
@@ -1817,26 +1579,12 @@
                     }
                 }
             },
-            "empty": {
-                "defaultDescription": "The staff directory is currently empty.",
-                "filteredDescription": "No staff member matches \"{{value}}\".",
-                "title": "No staff found"
-            },
             "feedback": {
                 "citiesError": {
                     "description": "The city catalog could not be loaded right now.",
                     "title": "Unable to load cities"
-                },
-                "detailError": {
-                    "description": "The staff record could not be loaded right now.",
-                    "title": "Unable to load staff details"
-                },
-                "listError": {
-                    "description": "The staff directory could not be loaded right now.",
-                    "title": "Unable to load staff"
                 }
             },
-            "filters": {},
             "loading": {
                 "list": "Loading staff"
             },
@@ -1863,14 +1611,8 @@
                 },
                 "columns": {
                     "createdAt": "Created at",
-                    "email": "Email",
                     "id": "ID",
-                    "name": "Staff member",
                     "updatedAt": "Updated at"
-                },
-                "error": {
-                    "description": "The staff directory could not be loaded right now.",
-                    "title": "Unable to load staff"
                 }
             },
             "title": "Staff",
@@ -1888,10 +1630,6 @@
                 "loadError": {
                     "description": "The staff record could not be loaded right now.",
                     "title": "Unable to load staff editor"
-                },
-                "notFound": {
-                    "description": "The requested staff record could not be found.",
-                    "title": "Staff member not found"
                 },
                 "overhead": "Edit staff member",
                 "titleFallback": "Edit staff member"
@@ -1921,7 +1659,7 @@
             },
             "delete": {
                 "confirm": {
-                    "description": "Delete attendance {{id}} for {{student}} in {{project}}.",
+                    "description": "Delete attendance {{id}} for {{formerStudent}} in {{project}}.",
                     "title": "Delete attendance"
                 },
                 "feedback": {
@@ -1930,12 +1668,12 @@
                         "title": "Unable to delete attendance"
                     },
                     "success": {
-                        "description": "Attendance {{id}} for {{student}} in {{project}} was deleted.",
+                        "description": "Attendance {{id}} for {{formerStudent}} in {{project}} was deleted.",
                         "title": "Attendance deleted"
                     }
                 },
                 "undo": {
-                    "description": "Attendance {{id}} for {{student}} in {{project}} will be deleted unless you undo this action.",
+                    "description": "Attendance {{id}} for {{formerStudent}} in {{project}} will be deleted unless you undo this action.",
                     "title": "Attendance scheduled for deletion"
                 }
             },
@@ -1950,18 +1688,10 @@
                     "id": "Attendance id",
                     "projectId": "Project id",
                     "qrValidationHash": "QR validation hash",
-                    "studentId": "Student id",
                     "validatedAt": "Validated at"
                 },
                 "linkedProject": {
                     "overhead": "Linked project"
-                },
-                "linkedStudent": {
-                    "overhead": "Linked former student"
-                },
-                "notFound": {
-                    "description": "The requested attendance record could not be found.",
-                    "title": "Attendance not found"
                 },
                 "overhead": "Attendance details",
                 "qrCodeDialog": {
@@ -1993,11 +1723,7 @@
                 },
                 "fields": {
                     "duration": "Duration",
-                    "durationPlaceholder": "Enter the recorded duration",
-                    "student": "Student",
-                    "studentEmptyMessage": "No students found.",
-                    "studentPlaceholder": "Select a student",
-                    "studentSearchPlaceholder": "Search students..."
+                    "durationPlaceholder": "Enter the recorded duration"
                 },
                 "loading": "Loading attendance editor",
                 "tabs": {
@@ -2011,29 +1737,13 @@
                     },
                     "project": {
                         "required": "Select a project."
-                    },
-                    "student": {
-                        "required": "Select a student."
                     }
                 }
-            },
-            "empty": {
-                "defaultDescription": "No attendance records are available yet.",
-                "filteredDescription": "No attendance records match the current filters: {{value}}.",
-                "title": "No attendance records found"
             },
             "feedback": {
                 "adminsError": {
                     "description": "The admin directory could not be loaded right now.",
                     "title": "Unable to load admins"
-                },
-                "detailError": {
-                    "description": "The selected attendance record could not be loaded right now.",
-                    "title": "Unable to load attendance"
-                },
-                "listError": {
-                    "description": "The attendance directory could not be loaded right now.",
-                    "title": "Unable to load attendances"
                 }
             },
             "filters": {
@@ -2044,16 +1754,6 @@
                 "durationTo": {
                     "label": "Max duration",
                     "placeholder": "Filter by maximum duration"
-                },
-                "status": {
-                    "emptyMessage": "No statuses found.",
-                    "searchPlaceholder": "Search statuses..."
-                },
-                "student": {
-                    "emptyMessage": "No students found.",
-                    "label": "Student",
-                    "placeholder": "Select a student",
-                    "searchPlaceholder": "Search students..."
                 },
                 "summary": {
                     "auditDate": "audit dates",
@@ -2078,7 +1778,7 @@
             },
             "markAbsent": {
                 "confirm": {
-                    "description": "Mark {{student}} as absent in {{project}}.",
+                    "description": "Mark {{formerStudent}} as absent in {{project}}.",
                     "title": "Mark attendance as absent"
                 },
                 "feedback": {
@@ -2087,14 +1787,14 @@
                         "title": "Unable to mark attendance as absent"
                     },
                     "success": {
-                        "description": "{{student}} was marked absent in {{project}}.",
+                        "description": "{{formerStudent}} was marked absent in {{project}}.",
                         "title": "Attendance marked absent"
                     }
                 }
             },
             "markPresent": {
                 "confirm": {
-                    "description": "Mark {{student}} as present in {{project}}.",
+                    "description": "Mark {{formerStudent}} as present in {{project}}.",
                     "title": "Mark attendance as present"
                 },
                 "feedback": {
@@ -2103,7 +1803,7 @@
                         "title": "Unable to mark attendance as present"
                     },
                     "success": {
-                        "description": "{{student}} was marked present in {{project}}.",
+                        "description": "{{formerStudent}} was marked present in {{project}}.",
                         "title": "Attendance marked present"
                     }
                 }
@@ -2131,16 +1831,10 @@
                 },
                 "columns": {
                     "duration": "Duration",
-                    "email": "Email",
                     "id": "Attendance id",
                     "registration": "Registration",
-                    "student": "Student",
                     "validatedAt": "Validated",
                     "validatedBy": "Validated by"
-                },
-                "error": {
-                    "description": "The attendance directory could not be loaded right now.",
-                    "title": "Unable to load attendances"
                 },
                 "values": {
                     "notValidated": "Not validated"
@@ -2162,10 +1856,6 @@
                     "description": "The attendance record could not be loaded right now.",
                     "title": "Unable to load attendance editor"
                 },
-                "notFound": {
-                    "description": "The requested attendance record could not be found.",
-                    "title": "Attendance not found"
-                },
                 "overhead": "Update attendance",
                 "titleFallback": "Update attendance"
             }
@@ -2173,7 +1863,7 @@
         "enrollmentPage": {
             "accept": {
                 "confirm": {
-                    "description": "Approve {{student}} for {{project}}.",
+                    "description": "Approve {{formerStudent}} for {{project}}.",
                     "title": "Approve enrollment"
                 },
                 "feedback": {
@@ -2182,14 +1872,14 @@
                         "title": "Unable to approve enrollment"
                     },
                     "success": {
-                        "description": "{{student}} is now approved for {{project}}.",
+                        "description": "{{formerStudent}} is now approved for {{project}}.",
                         "title": "Enrollment approved"
                     }
                 }
             },
             "cancel": {
                 "confirm": {
-                    "description": "Cancel the enrollment for {{student}} in {{project}}.",
+                    "description": "Cancel the enrollment for {{formerStudent}} in {{project}}.",
                     "title": "Cancel enrollment"
                 },
                 "feedback": {
@@ -2198,14 +1888,14 @@
                         "title": "Unable to cancel enrollment"
                     },
                     "success": {
-                        "description": "{{student}} was canceled from {{project}}.",
+                        "description": "{{formerStudent}} was canceled from {{project}}.",
                         "title": "Enrollment canceled"
                     }
                 }
             },
             "complete": {
                 "confirm": {
-                    "description": "Mark {{student}} as completed in {{project}}.",
+                    "description": "Mark {{formerStudent}} as completed in {{project}}.",
                     "title": "Complete enrollment"
                 },
                 "feedback": {
@@ -2214,7 +1904,7 @@
                         "title": "Unable to complete enrollment"
                     },
                     "success": {
-                        "description": "{{student}} completed {{project}}.",
+                        "description": "{{formerStudent}} completed {{project}}.",
                         "title": "Enrollment completed"
                     }
                 }
@@ -2236,7 +1926,7 @@
             },
             "delete": {
                 "confirm": {
-                    "description": "Delete the enrollment record for {{student}} in {{project}}.",
+                    "description": "Delete the enrollment record for {{formerStudent}} in {{project}}.",
                     "title": "Delete enrollment"
                 },
                 "feedback": {
@@ -2245,16 +1935,16 @@
                         "title": "Unable to delete enrollment"
                     },
                     "success": {
-                        "description": "The enrollment record for {{student}} in {{project}} was deleted.",
+                        "description": "The enrollment record for {{formerStudent}} in {{project}} was deleted.",
                         "title": "Enrollment deleted"
                     }
                 },
                 "undo": {
-                    "description": "The enrollment record for {{student}} in {{project}} will be deleted unless you undo this action.",
+                    "description": "The enrollment record for {{formerStudent}} in {{project}} will be deleted unless you undo this action.",
                     "title": "Enrollment scheduled for deletion"
                 }
             },
-            "description": "Review project enrollments, linked students, lifecycle dates, and final status transitions.",
+            "description": "Review project enrollments, linked former students, lifecycle dates, and final status transitions.",
             "dialog": {
                 "error": {
                     "description": "The enrollment details could not be loaded right now.",
@@ -2263,18 +1953,10 @@
                 "fields": {
                     "acceptedAt": "Accepted at",
                     "closingStatusAt": "Closed at",
-                    "projectId": "Project id",
-                    "studentId": "Student id"
+                    "projectId": "Project id"
                 },
                 "linkedProject": {
                     "overhead": "Linked project"
-                },
-                "linkedStudent": {
-                    "overhead": "Linked former student"
-                },
-                "notFound": {
-                    "description": "The requested enrollment record could not be found.",
-                    "title": "Enrollment not found"
                 },
                 "overhead": "Enrollment details",
                 "titleFallback": "Enrollment details",
@@ -2284,30 +1966,16 @@
                 }
             },
             "editor": {
-                "fields": {
-                    "student": "Former student",
-                    "studentEmptyMessage": "No former students found.",
-                    "studentPlaceholder": "Select a former student",
-                    "studentSearchPlaceholder": "Search former students..."
-                },
                 "loading": "Loading enrollment editor",
                 "tabs": {
                     "enrollment": "Enrollment",
                     "linked": "Linked"
                 },
                 "validation": {
-                    "formerStudent": {
-                        "required": "Select a former student."
-                    },
                     "project": {
                         "required": "Select a project."
                     }
                 }
-            },
-            "empty": {
-                "defaultDescription": "No enrollment records are available yet.",
-                "filteredDescription": "No enrollments match the current filters: {{value}}.",
-                "title": "No enrollments found"
             },
             "feedback": {
                 "createError": {
@@ -2318,24 +1986,12 @@
                     "description": "The enrollment record could not be deleted right now.",
                     "title": "Unable to delete enrollment"
                 },
-                "detailError": {
-                    "description": "The selected enrollment could not be loaded right now.",
-                    "title": "Unable to load enrollment"
-                },
-                "listError": {
-                    "description": "The enrollment directory could not be loaded right now.",
-                    "title": "Unable to load enrollments"
-                },
                 "updateError": {
                     "description": "The enrollment could not be updated right now.",
                     "title": "Unable to update enrollment"
                 }
             },
             "filters": {
-                "frontStatus": {
-                    "emptyMessage": "No statuses found.",
-                    "searchPlaceholder": "Search statuses..."
-                },
                 "periodFrom": {
                     "label": "Period start",
                     "placeholder": "Select a period start date"
@@ -2343,16 +1999,6 @@
                 "periodTo": {
                     "label": "Period end",
                     "placeholder": "Select a period end date"
-                },
-                "status": {
-                    "emptyMessage": "No statuses found.",
-                    "searchPlaceholder": "Search statuses..."
-                },
-                "student": {
-                    "emptyMessage": "No students found.",
-                    "label": "Student",
-                    "placeholder": "Select a student",
-                    "searchPlaceholder": "Search students..."
                 },
                 "summary": {
                     "auditDate": "audit date",
@@ -2372,7 +2018,7 @@
             },
             "reject": {
                 "confirm": {
-                    "description": "Reject {{student}} from {{project}}.",
+                    "description": "Reject {{formerStudent}} from {{project}}.",
                     "title": "Reject enrollment"
                 },
                 "feedback": {
@@ -2381,14 +2027,14 @@
                         "title": "Unable to reject enrollment"
                     },
                     "success": {
-                        "description": "{{student}} was rejected from {{project}}.",
+                        "description": "{{formerStudent}} was rejected from {{project}}.",
                         "title": "Enrollment rejected"
                     }
                 }
             },
             "remove": {
                 "confirm": {
-                    "description": "Mark {{student}} as removed from {{project}}.",
+                    "description": "Mark {{formerStudent}} as removed from {{project}}.",
                     "title": "Remove enrollment"
                 },
                 "feedback": {
@@ -2397,7 +2043,7 @@
                         "title": "Unable to remove enrollment"
                     },
                     "success": {
-                        "description": "{{student}} was marked as removed from {{project}}.",
+                        "description": "{{formerStudent}} was marked as removed from {{project}}.",
                         "title": "Enrollment removed"
                     }
                 }
@@ -2428,14 +2074,7 @@
                 "columns": {
                     "acceptedAt": "Accepted",
                     "closingStatusAt": "Closed",
-                    "email": "Email",
-                    "registration": "Registration",
-                    "student": "Student",
-                    "studentId": "Student id"
-                },
-                "error": {
-                    "description": "The enrollment directory could not be loaded right now.",
-                    "title": "Unable to load enrollments"
+                    "registration": "Registration"
                 },
                 "values": {
                     "notAccepted": "Not accepted",
@@ -2457,10 +2096,6 @@
                 "loadError": {
                     "description": "The enrollment editor could not be loaded right now.",
                     "title": "Unable to load enrollment editor"
-                },
-                "notFound": {
-                    "description": "The requested enrollment could not be found.",
-                    "title": "Enrollment not found"
                 },
                 "overhead": "Update enrollment",
                 "titleFallback": "Update enrollment"
@@ -2572,10 +2207,6 @@
                 "linkedEntity": {
                     "overhead": "Linked entity"
                 },
-                "notFound": {
-                    "description": "The requested project record could not be found.",
-                    "title": "Project not found"
-                },
                 "titleFallback": "Project details",
                 "values": {
                     "noDescription": "No description recorded.",
@@ -2647,11 +2278,6 @@
                     }
                 }
             },
-            "empty": {
-                "defaultDescription": "No project records are available yet.",
-                "filteredDescription": "No projects match the current filters: {{value}}.",
-                "title": "No projects found"
-            },
             "feedback": {
                 "adminsError": {
                     "description": "The admin directory could not be loaded right now.",
@@ -2660,10 +2286,6 @@
                 "areasOfExpertiseError": {
                     "description": "The linked areas of expertise could not be loaded right now.",
                     "title": "Unable to load project areas of expertise"
-                },
-                "detailError": {
-                    "description": "The selected project could not be loaded right now.",
-                    "title": "Unable to load project"
                 }
             },
             "filters": {
@@ -2766,9 +2388,7 @@
                     "closedAt": "Closed",
                     "completedHours": "Completed hours",
                     "description": "Description",
-                    "id": "Project id",
                     "maxParticipants": "Max participants",
-                    "name": "Name",
                     "offeredHours": "Offered hours"
                 }
             },
@@ -2788,13 +2408,41 @@
                     "description": "The project record could not be loaded right now.",
                     "title": "Unable to load project editor"
                 },
-                "notFound": {
-                    "description": "The requested project record could not be found.",
-                    "title": "Project not found"
-                },
                 "overhead": "Edit project",
                 "titleFallback": "Edit project"
             }
+        }
+    },
+    "table": {
+        "actions": {
+            "deactivate": "Deactivate",
+            "delete": "Delete",
+            "duplicate": "Duplicate",
+            "openRowActions": "Open row actions",
+            "reactivate": "Reactivate",
+            "update": "Update",
+            "viewDetails": "View details"
+        },
+        "columns": {
+            "actions": "Actions",
+            "areaOfExpertise": "Area of expertise",
+            "city": "City",
+            "course": "Course",
+            "createdAt": "Created at",
+            "email": "Email",
+            "entity": "Entity",
+            "formerStudent": "Former student",
+            "formerStudentId": "Former student id",
+            "id": "Identifier",
+            "name": "Name",
+            "project": "Project",
+            "projectId": "Project id",
+            "status": "Status",
+            "updatedAt": "Updated at"
+        },
+        "scroll": {
+            "horizontal": "Scroll table horizontally",
+            "vertical": "Scroll table vertically"
         }
     }
 }

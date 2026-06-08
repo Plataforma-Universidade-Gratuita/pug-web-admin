@@ -26,7 +26,7 @@ export function EnrollmentOwnDetailsContent({
 			},
 			{
 				id: "formerStudentId",
-				label: t("project.enrollmentPage.dialog.fields.studentId"),
+				label: t("common.fields.formerStudentId"),
 				value: enrollment.formerStudentId,
 			},
 			{

@@ -86,9 +86,7 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 				title={t("project.enrollmentPage.dialog.titleFallback")}
 				description={t("project.enrollmentPage.description")}
 			>
-				<NotFoundState
-					title={t("project.enrollmentPage.dialog.notFound.title")}
-				/>
+				<NotFoundState title={t("common.notFound.title")} />
 			</EntityPageShell>
 		);
 	}
@@ -112,10 +110,8 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 				enrollmentDetailQuery.error instanceof WebApiError &&
 				enrollmentDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("project.enrollmentPage.dialog.notFound.title")}
-						description={t(
-							"project.enrollmentPage.dialog.notFound.description",
-						)}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -141,7 +137,7 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 					{formerStudent ? (
 						<div className="grid gap-3">
 							<p className="ty-overhead">
-								{t("project.enrollmentPage.dialog.linkedStudent.overhead")}
+								{t("common.linkedFormerStudent.overhead")}
 							</p>
 							<FormerStudentOwnDetailsContent
 								formerStudent={formerStudent}
@@ -185,9 +181,7 @@ export function EnrollmentPage({ enrollmentId }: EnrollmentPageProps) {
 					) : null}
 				</div>
 			) : (
-				<NotFoundState
-					title={t("project.enrollmentPage.dialog.notFound.title")}
-				/>
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</EntityPageShell>
 	);

@@ -68,8 +68,8 @@ export function CityPage({ cityId }: CityPageProps) {
 				cityDetailQuery.error instanceof WebApiError &&
 				cityDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("geo.cityPage.dialog.notFound.title")}
-						description={t("geo.cityPage.dialog.notFound.description")}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -85,7 +85,7 @@ export function CityPage({ cityId }: CityPageProps) {
 			) : cityDetailQuery.isLoading ? (
 				<EntityPageFieldsGridSkeleton />
 			) : (
-				<NotFoundState title={t("geo.cityPage.dialog.notFound.title")} />
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</EntityPageShell>
 	);

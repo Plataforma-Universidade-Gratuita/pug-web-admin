@@ -11,12 +11,12 @@ export function createCityColumns(t: TFunction): ColumnDef<CityResponse>[] {
 		createTableTextColumn<CityResponse>({
 			id: "id",
 			accessorKey: "id",
-			header: t("common.fields.id"),
+			header: t("table.columns.id"),
 			text: row => row.id,
 		}),
 		{
 			accessorKey: "name",
-			header: t("common.fields.city"),
+			header: t("table.columns.city"),
 			cell: ({ row }) => row.original.name,
 		},
 		{
@@ -65,25 +65,25 @@ export function getCitiesEmptyStateCopy(
 	const activeFilterValue = frontendQuery || backendNameFilter;
 
 	return {
-		title: t("geo.cityPage.empty.title"),
+		title: t("common.empty.title"),
 		description: activeFilterValue
-			? t("geo.cityPage.empty.filteredDescription", {
+			? t("common.empty.filteredDescription", {
 					value: activeFilterValue,
 				})
-			: t("geo.cityPage.empty.defaultDescription"),
+			: t("common.empty.defaultDescription"),
 	};
 }
 
 export function getCitiesListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("geo.cityPage.feedback.listError.title"),
-		fallbackDescription: t("geo.cityPage.feedback.listError.description"),
+		fallbackTitle: t("common.errors.listLoad.title"),
+		fallbackDescription: t("common.errors.listLoad.description"),
 	});
 }
 
 export function getCityDetailErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("geo.cityPage.feedback.detailError.title"),
-		fallbackDescription: t("geo.cityPage.feedback.detailError.description"),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }

@@ -60,8 +60,8 @@ export function AttendanceEditorForm({
 		) {
 			return (
 				<NotFoundState
-					title={t("project.attendancePage.update.notFound.title")}
-					description={t("project.attendancePage.update.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -106,11 +106,7 @@ export function AttendanceEditorForm({
 	}
 
 	if (!canRenderForm) {
-		return (
-			<NotFoundState
-				title={t("project.attendancePage.update.notFound.title")}
-			/>
-		);
+		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
 	const editorSection = (
@@ -143,7 +139,7 @@ export function AttendanceEditorForm({
 					</div>
 
 					<div className="grid gap-2">
-						<Label>{t("project.attendancePage.editor.fields.student")}</Label>
+						<Label>{t("common.fields.formerStudent")}</Label>
 						<Controller
 							control={form.control}
 							name="formerStudentId"
@@ -152,15 +148,11 @@ export function AttendanceEditorForm({
 									options={formerStudentOptions}
 									value={field.value}
 									onValueChange={field.onChange}
-									placeholder={t(
-										"project.attendancePage.editor.fields.studentPlaceholder",
-									)}
+									placeholder={t("common.fields.formerStudentPlaceholder")}
 									searchPlaceholder={t(
-										"project.attendancePage.editor.fields.studentSearchPlaceholder",
+										"common.fields.formerStudentSearchPlaceholder",
 									)}
-									emptyMessage={t(
-										"project.attendancePage.editor.fields.studentEmptyMessage",
-									)}
+									emptyMessage={t("common.fields.formerStudentEmptyMessage")}
 								/>
 							)}
 						/>
@@ -270,7 +262,7 @@ export function AttendanceEditorForm({
 					>
 						<AccordionItem value="linked-student">
 							<AccordionTrigger>
-								{t("project.attendancePage.dialog.linkedStudent.overhead")}
+								{t("common.linkedFormerStudent.overhead")}
 							</AccordionTrigger>
 							<AccordionContent>
 								<FormerStudentOwnDetailsContent

@@ -45,8 +45,8 @@ export function CoursePage({ courseId }: CoursePageProps) {
 				courseDetailQuery.error instanceof WebApiError &&
 				courseDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("academic.coursePage.dialog.notFound.title")}
-						description={t("academic.coursePage.dialog.notFound.description")}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -72,7 +72,7 @@ export function CoursePage({ courseId }: CoursePageProps) {
 			) : courseDetailQuery.isLoading ? (
 				<EntityPageFieldsGridSkeleton />
 			) : (
-				<NotFoundState title={t("academic.coursePage.dialog.notFound.title")} />
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</EntityPageShell>
 	);

@@ -78,10 +78,8 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 				attendanceDetailQuery.error instanceof WebApiError &&
 				attendanceDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("project.attendancePage.dialog.notFound.title")}
-						description={t(
-							"project.attendancePage.dialog.notFound.description",
-						)}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -107,7 +105,7 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 					{formerStudent ? (
 						<div className="grid gap-3">
 							<p className="ty-overhead">
-								{t("project.attendancePage.dialog.linkedStudent.overhead")}
+								{t("common.linkedFormerStudent.overhead")}
 							</p>
 							<FormerStudentOwnDetailsContent
 								formerStudent={formerStudent}
@@ -141,9 +139,7 @@ export function AttendancePage({ attendanceId }: AttendancePageProps) {
 					) : null}
 				</div>
 			) : (
-				<NotFoundState
-					title={t("project.attendancePage.dialog.notFound.title")}
-				/>
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</EntityPageShell>
 	);

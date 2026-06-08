@@ -58,8 +58,8 @@ export function ProjectsEditorForm({
 		if (projectError instanceof WebApiError && projectError.status === 404) {
 			return (
 				<NotFoundState
-					title={t("project.projectPage.update.notFound.title")}
-					description={t("project.projectPage.update.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -96,9 +96,7 @@ export function ProjectsEditorForm({
 	}
 
 	if (!canRenderForm) {
-		return (
-			<NotFoundState title={t("project.projectPage.update.notFound.title")} />
-		);
+		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
 	const projectSection = (

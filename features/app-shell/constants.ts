@@ -57,12 +57,12 @@ export const SIDEBAR_NAV_GROUPS: readonly MenuGroupChild[] = [
 			},
 			{
 				href: "/academic/areas-of-expertise",
-				label: "Navbar.paths.academic.school",
+				label: "Navbar.paths.academic.areaOfExpertise",
 				Icon: Building2,
 			},
 			{
 				href: "/academic/former-students",
-				label: "Navbar.paths.academic.student",
+				label: "Navbar.paths.academic.formerStudent",
 				Icon: Users,
 			},
 		],
@@ -167,10 +167,10 @@ export const APP_ROUTE_LABELS: RouteLabelMap = {
 	"/academic": "Navbar.paths.academic.root",
 	"/academic/courses": "Navbar.paths.academic.course",
 	"/academic/courses/[courseId]": "academic.coursePage.dialog.titleFallback",
-	"/academic/areas-of-expertise": "Navbar.paths.academic.school",
+	"/academic/areas-of-expertise": "Navbar.paths.academic.areaOfExpertise",
 	"/academic/areas-of-expertise/[areaOfExpertiseId]":
 		"academic.areaOfExpertisePage.dialog.titleFallback",
-	"/academic/former-students": "Navbar.paths.academic.student",
+	"/academic/former-students": "Navbar.paths.academic.formerStudent",
 	"/academic/former-students/[formerStudentId]":
 		"academic.formerStudentPage.dialog.titleFallback",
 	"/geo": "Navbar.paths.geo.root",

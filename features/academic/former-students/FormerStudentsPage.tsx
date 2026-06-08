@@ -264,8 +264,8 @@ export function FormerStudentsPage() {
 		if (formerStudentsQuery.isError) {
 			return (
 				<SomeErrorState
-					title={t("academic.formerStudentPage.table.error.title")}
-					description={t("academic.formerStudentPage.table.error.description")}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						void formerStudentsQuery.refetch();
 					}}

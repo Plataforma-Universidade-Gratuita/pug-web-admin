@@ -80,12 +80,8 @@ export function EnrollmentsPageFilters({
 							onFrontendStatusesChange(value as EnrollmentStatus[])
 						}
 						placeholder={t("common.placeholders.select")}
-						searchPlaceholder={t(
-							"project.enrollmentPage.filters.frontStatus.searchPlaceholder",
-						)}
-						emptyMessage={t(
-							"project.enrollmentPage.filters.frontStatus.emptyMessage",
-						)}
+						searchPlaceholder={t("common.filters.status.searchPlaceholder")}
+						emptyMessage={t("common.filters.status.emptyMessage")}
 						maxVisibleValues={1}
 					/>
 				</div>
@@ -141,12 +137,12 @@ export function EnrollmentsPageDialogs({
 					pendingDeleteEnrollment
 						? t("project.enrollmentPage.delete.confirm.description", {
 								project: pendingDeleteEnrollment.project.name,
-								student: pendingDeleteEnrollment.student.account.name,
+								formerStudent: pendingDeleteEnrollment.student.account.name,
 							})
 						: ""
 				}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("common.table.actions.delete")}
+				actionLabel={t("table.actions.delete")}
 				onAction={onDeleteConfirm}
 			/>
 
@@ -174,7 +170,8 @@ export function EnrollmentsPageDialogs({
 								`project.enrollmentPage.${pendingStatusAction.action}.confirm.description`,
 								{
 									project: pendingStatusAction.enrollment.project.name,
-									student: pendingStatusAction.enrollment.student.account.name,
+									formerStudent:
+										pendingStatusAction.enrollment.student.account.name,
 								},
 							)
 						: ""

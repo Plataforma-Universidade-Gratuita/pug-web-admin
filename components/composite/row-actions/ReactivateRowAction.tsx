@@ -12,7 +12,7 @@ export function ReactivateRowAction({ onClick, label }: RowActionClickProps) {
 	return (
 		<DropdownMenuSuccessItem
 			icon={ShieldCheck}
-			label={label ?? t("common.table.actions.reactivate")}
+			label={label ?? t("table.actions.reactivate")}
 			onClick={onClick}
 		/>
 	);

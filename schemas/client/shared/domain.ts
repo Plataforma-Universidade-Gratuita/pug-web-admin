@@ -92,26 +92,37 @@ export function createPasswordFieldSchema(
 	requiredMessage: string,
 	invalidMessage: string,
 ) {
-	return z.string().superRefine((value, ctx) => {
-		const trimmed = value.trim();
+	return z.preprocess(
+		value => {
+			if (typeof value !== "string") return value;
 
-		if (trimmed.length === 0) {
-			if (required) {
-				ctx.addIssue({
-					code: "custom",
-					message: requiredMessage,
-				});
-			}
-			return;
-		}
+			const trimmed = value.trim();
 
-		if (trimmed.length < 8 || trimmed.length > 255) {
-			ctx.addIssue({
-				code: "custom",
-				message: invalidMessage,
-			});
-		}
-	});
+			return trimmed.length === 0 ? null : trimmed;
+		},
+		z
+			.string()
+			.nullable()
+			.superRefine((value, ctx) => {
+				if (value === null) {
+					if (required) {
+						ctx.addIssue({
+							code: "custom",
+							message: requiredMessage,
+						});
+					}
+
+					return;
+				}
+
+				if (value.length < 8 || value.length > 255) {
+					ctx.addIssue({
+						code: "custom",
+						message: invalidMessage,
+					});
+				}
+			}),
+	);
 }
 
 export function createCpfFieldSchema(

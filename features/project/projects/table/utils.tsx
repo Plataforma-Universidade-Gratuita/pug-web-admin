@@ -104,7 +104,7 @@ export function createProjectColumns(
 		{
 			accessorFn: row => row.status.status,
 			id: "status",
-			header: t("common.fields.status"),
+			header: t("table.columns.status"),
 			cell: ({ row }) => (
 				<Badge
 					tone={getProjectStatusTone(row.original.status.status)}
@@ -118,14 +118,14 @@ export function createProjectColumns(
 		createTableTextColumn<ProjectResponse>({
 			id: "id",
 			accessorKey: "id",
-			header: t("project.projectPage.table.columns.id"),
+			header: t("table.columns.id"),
 			text: row => row.id,
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			maxWidth: TABLE_IDENTIFIER_TEXT_WIDTH,
 		}),
 		{
 			accessorKey: "name",
-			header: t("project.projectPage.table.columns.name"),
+			header: t("table.columns.name"),
 		},
 		{
 			accessorKey: "description",
@@ -141,12 +141,12 @@ export function createProjectColumns(
 		{
 			accessorFn: row => row.entity.name,
 			id: "entity",
-			header: t("common.fields.entity"),
+			header: t("table.columns.entity"),
 		},
 		{
 			accessorFn: row => row.projectInfo.createdBy.name,
 			id: "createdBy",
-			header: t("common.fields.email"),
+			header: t("table.columns.email"),
 		},
 		{
 			accessorFn: row => row.projectInfo.offeredHours ?? "-",
@@ -175,13 +175,13 @@ export function createProjectColumns(
 		},
 		createDateTimeColumn<ProjectResponse>({
 			id: "createdAt",
-			header: t("common.fields.createdAt"),
+			header: t("table.columns.createdAt"),
 			value: row => row.projectInfo.auditInfo.createdAt,
 			formattedValue: row => row.projectInfo.auditInfo.createdAtFormatted,
 		}),
 		createDateTimeColumn<ProjectResponse>({
 			id: "updatedAt",
-			header: t("common.fields.updatedAt"),
+			header: t("table.columns.updatedAt"),
 			value: row => row.projectInfo.auditInfo.updatedAt,
 			formattedValue: row => row.projectInfo.auditInfo.updatedAtFormatted,
 		}),

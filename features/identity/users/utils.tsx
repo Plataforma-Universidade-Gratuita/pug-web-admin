@@ -22,30 +22,30 @@ export function createUserColumns(t: TFunction): ColumnDef<UserResponse>[] {
 		createTableTextColumn<UserResponse>({
 			id: "id",
 			accessorKey: "id",
-			header: t("common.fields.id"),
+			header: t("table.columns.id"),
 			text: row => row.id,
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 			maxWidth: TABLE_TRUNCATED_COLUMN_WIDTH,
 		}),
 		{
 			accessorKey: "name",
-			header: t("identity.userPage.table.columns.name"),
+			header: t("table.columns.name"),
 			cell: ({ row }) => row.original.name,
 		},
 		{
 			accessorKey: "cpf",
-			header: t("common.fields.cpf"),
+			header: t("table.columns.cpf"),
 			cell: ({ row }) => row.original.cpfFormatted,
 		},
 		createDateTimeColumn<UserResponse>({
 			id: "createdAt",
-			header: t("common.fields.createdAt"),
+			header: t("table.columns.createdAt"),
 			value: row => row.auditInfo.createdAt,
 			formattedValue: row => row.auditInfo.createdAtFormatted,
 		}),
 		createDateTimeColumn<UserResponse>({
 			id: "updatedAt",
-			header: t("common.fields.updatedAt"),
+			header: t("table.columns.updatedAt"),
 			value: row => row.auditInfo.updatedAt,
 			formattedValue: row => row.auditInfo.updatedAtFormatted,
 		}),
@@ -163,25 +163,23 @@ export function filterUsersByFrontendFilters(
 
 export function getUserEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("identity.userPage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("identity.userPage.empty.filteredDescription", { value: query })
-			: t("identity.userPage.empty.defaultDescription"),
+			? t("common.empty.filteredDescription", { value: query })
+			: t("common.empty.defaultDescription"),
 	};
 }
 
 export function getUsersListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.userPage.feedback.listError.title"),
-		fallbackDescription: t("identity.userPage.feedback.listError.description"),
+		fallbackTitle: t("common.errors.listLoad.title"),
+		fallbackDescription: t("common.errors.listLoad.description"),
 	});
 }
 
 export function getUserDetailErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.userPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"identity.userPage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }

@@ -99,10 +99,8 @@ export function AreasOfExpertisePage() {
 		if (areasOfExpertiseQuery.isError) {
 			return (
 				<SomeErrorState
-					title={t("academic.areaOfExpertisePage.table.error.title")}
-					description={t(
-						"academic.areaOfExpertisePage.table.error.description",
-					)}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						void areasOfExpertiseQuery.refetch();
 					}}
@@ -324,7 +322,7 @@ export function AreasOfExpertisePage() {
 					},
 				)}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("common.table.actions.delete")}
+				actionLabel={t("table.actions.delete")}
 				onAction={handleDeleteConfirm}
 			/>
 		</ServicePageShell>

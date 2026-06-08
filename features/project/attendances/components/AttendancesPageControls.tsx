@@ -91,12 +91,8 @@ export function AttendancesPageFilters({
 							)
 						}
 						placeholder={t("common.placeholders.select")}
-						searchPlaceholder={t(
-							"project.attendancePage.filters.status.searchPlaceholder",
-						)}
-						emptyMessage={t(
-							"project.attendancePage.filters.status.emptyMessage",
-						)}
+						searchPlaceholder={t("common.filters.status.searchPlaceholder")}
+						emptyMessage={t("common.filters.status.emptyMessage")}
 						maxVisibleValues={1}
 					/>
 				</div>
@@ -164,10 +160,10 @@ export function AttendancesPageDialogs({
 				description={t("project.attendancePage.delete.confirm.description", {
 					id: pendingDeleteAttendance?.id ?? "",
 					project: pendingDeleteAttendance?.project.name ?? "",
-					student: pendingDeleteAttendance?.student.account.name ?? "",
+					formerStudent: pendingDeleteAttendance?.student.account.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("common.table.actions.delete")}
+				actionLabel={t("table.actions.delete")}
 				onAction={onDeleteConfirm}
 			/>
 
@@ -192,7 +188,8 @@ export function AttendancesPageDialogs({
 								`project.attendancePage.${pendingValidation.action}.confirm.description`,
 								{
 									project: pendingValidation.attendance.project.name,
-									student: pendingValidation.attendance.student.account.name,
+									formerStudent:
+										pendingValidation.attendance.student.account.name,
 								},
 							)
 						: ""

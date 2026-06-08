@@ -391,7 +391,7 @@ export function HomeCommandCenterPage() {
 
 		const recentFormerStudents = formerStudentItems.map(item => ({
 			id: `former-student-${item.accountId}`,
-			module: t("Navbar.paths.academic.student"),
+			module: t("Navbar.paths.academic.formerStudent"),
 			record: item.user?.name ?? item.academicRegistration,
 			action: t("home.dashboard.recent.updated"),
 			when: item.auditInfo.updatedAtFormatted,
@@ -414,7 +414,7 @@ export function HomeCommandCenterPage() {
 			.map(item => ({
 				id: `upcoming-student-${item.accountId}`,
 				href: `/academic/former-students/${item.accountId}`,
-				badge: t("Navbar.paths.academic.student"),
+				badge: t("Navbar.paths.academic.formerStudent"),
 				tone:
 					item.period.remainingDays <= 0
 						? ("danger" as const)

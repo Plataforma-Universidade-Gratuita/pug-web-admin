@@ -8,10 +8,8 @@ export function getEnrollmentsListErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.enrollmentPage.feedback.listError.title"),
-		fallbackDescription: t(
-			"project.enrollmentPage.feedback.listError.description",
-		),
+		fallbackTitle: t("common.errors.listLoad.title"),
+		fallbackDescription: t("common.errors.listLoad.description"),
 	});
 }
 
@@ -20,10 +18,8 @@ export function getEnrollmentDetailErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.enrollmentPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"project.enrollmentPage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }
 

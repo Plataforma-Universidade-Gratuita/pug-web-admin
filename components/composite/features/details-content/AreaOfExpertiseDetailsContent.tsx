@@ -21,7 +21,7 @@ export function AreaOfExpertiseDetailsContent({
 		const baseFields: EntityPageField[] = [
 			{
 				id: "id",
-				label: t("academic.areaOfExpertisePage.dialog.fields.id"),
+				label: t("common.fields.id"),
 				value: areaOfExpertise.id,
 			},
 		];
@@ -30,12 +30,12 @@ export function AreaOfExpertiseDetailsContent({
 			baseFields.push(
 				{
 					id: "createdAt",
-					label: t("academic.areaOfExpertisePage.dialog.fields.createdAt"),
+					label: t("common.fields.createdAt"),
 					value: areaOfExpertise.auditInfo.createdAtFormatted,
 				},
 				{
 					id: "updatedAt",
-					label: t("academic.areaOfExpertisePage.dialog.fields.updatedAt"),
+					label: t("common.fields.updatedAt"),
 					value: areaOfExpertise.auditInfo.updatedAtFormatted,
 				},
 			);
@@ -48,7 +48,7 @@ export function AreaOfExpertiseDetailsContent({
 		return [
 			{
 				id: "name",
-				label: t("academic.areaOfExpertisePage.dialog.fields.name"),
+				label: t("common.fields.areaOfExpertise"),
 				value: areaOfExpertise.name,
 			},
 			...baseFields,

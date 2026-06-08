@@ -19,9 +19,9 @@ export function createEnrollmentEditorFormSchema(
 			t("project.enrollmentPage.editor.validation.project.required"),
 		),
 		formerStudentId: createRequiredTrimmedStringSchema(
-			t("project.enrollmentPage.editor.validation.formerStudent.required"),
+			t("common.validation.formerStudent.required"),
 			50,
-			t("project.enrollmentPage.editor.validation.formerStudent.required"),
+			t("common.validation.formerStudent.required"),
 		),
 		status: statusSchema,
 	});

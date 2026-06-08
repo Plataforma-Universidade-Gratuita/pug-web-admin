@@ -45,15 +45,13 @@ export function CoursesFiltersDrawer({
 		>
 			{areasOfExpertiseError ? (
 				<SomeErrorState
-					title={t("academic.coursePage.filters.school.error.title")}
-					description={t(
-						"academic.coursePage.filters.school.error.description",
-					)}
+					title={t("common.loadErrors.areasOfExpertise.title")}
+					description={t("common.loadErrors.areasOfExpertise.description")}
 					onRefresh={onRefreshAreasOfExpertise}
 				/>
 			) : (
 				<div className="grid gap-2">
-					<Label>{t("academic.coursePage.filters.school.label")}</Label>
+					<Label>{t("common.fields.areaOfExpertise")}</Label>
 					<Combobox
 						multiple
 						options={areaOfExpertiseOptions}

@@ -33,10 +33,7 @@ export function createAttendanceEditorFormSchema(
 				? z
 						.string()
 						.trim()
-						.min(
-							1,
-							t("project.attendancePage.editor.validation.student.required"),
-						)
+						.min(1, t("common.validation.formerStudent.required"))
 				: z.string(),
 		status: AttendanceStatusEnum,
 	});

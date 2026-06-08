@@ -100,7 +100,7 @@ export function createStaffColumns(
 	return [
 		createActiveBadgeColumn<StaffSearchResponse>({
 			id: "active",
-			header: t("common.fields.status"),
+			header: t("table.columns.status"),
 			value: row => row.account.active,
 			activeLabel: t("partner.staffPage.table.active.yes"),
 			inactiveLabel: t("partner.staffPage.table.active.no"),
@@ -117,19 +117,19 @@ export function createStaffColumns(
 		{
 			accessorFn: row => row.account.user.name,
 			id: "name",
-			header: t("partner.staffPage.table.columns.name"),
+			header: t("table.columns.name"),
 			cell: ({ row }) => row.original.account.user.name,
 		},
 		{
 			accessorFn: row => row.account.email,
 			id: "email",
-			header: t("partner.staffPage.table.columns.email"),
+			header: t("table.columns.email"),
 			cell: ({ row }) => row.original.account.email,
 		},
 		{
 			accessorFn: row => row.entity.name,
 			id: "entity",
-			header: t("common.fields.entity"),
+			header: t("table.columns.entity"),
 			cell: ({ row }) => row.original.entity.name,
 		},
 		createDateTimeColumn<StaffSearchResponse>({
@@ -291,10 +291,10 @@ export function filterStaffByFrontendQuery(
 
 export function getStaffEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("partner.staffPage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("partner.staffPage.empty.filteredDescription", { value: query })
-			: t("partner.staffPage.empty.defaultDescription"),
+			? t("common.empty.filteredDescription", { value: query })
+			: t("common.empty.defaultDescription"),
 	};
 }
 
@@ -418,17 +418,15 @@ export function getStaffActiveOptionClassName(value: string) {
 
 export function getStaffListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.staffPage.feedback.listError.title"),
-		fallbackDescription: t("partner.staffPage.feedback.listError.description"),
+		fallbackTitle: t("common.errors.listLoad.title"),
+		fallbackDescription: t("common.errors.listLoad.description"),
 	});
 }
 
 export function getStaffDetailErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.staffPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"partner.staffPage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }
 

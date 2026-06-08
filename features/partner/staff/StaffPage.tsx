@@ -222,8 +222,8 @@ export function StaffPage() {
 		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
-					title={t("partner.staffPage.table.error.title")}
-					description={t("partner.staffPage.table.error.description")}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						if (staffPagination.isAll) {
 							void Promise.all([staffQuery.refetch(), usersQuery.refetch()]);

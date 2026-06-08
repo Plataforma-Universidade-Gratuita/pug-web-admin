@@ -228,8 +228,8 @@ export function useEnrollmentsPage() {
 		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
-					title={t("project.enrollmentPage.table.error.title")}
-					description={t("project.enrollmentPage.table.error.description")}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						if (enrollmentsPagination.isAll) {
 							void enrollmentsQuery.refetch();
@@ -325,7 +325,7 @@ export function useEnrollmentsPage() {
 			title: t("project.enrollmentPage.delete.undo.title"),
 			description: t("project.enrollmentPage.delete.undo.description", {
 				project: enrollment.project.name,
-				student: enrollment.student.account.name,
+				formerStudent: enrollment.student.account.name,
 			}),
 			undoLabel: t("common.actions.undo"),
 			onCommit: () => {
@@ -343,7 +343,7 @@ export function useEnrollmentsPage() {
 										"project.enrollmentPage.delete.feedback.success.description",
 										{
 											project: enrollment.project.name,
-											student: enrollment.student.account.name,
+											formerStudent: enrollment.student.account.name,
 										},
 									),
 								},
@@ -385,7 +385,7 @@ export function useEnrollmentsPage() {
 								`project.enrollmentPage.${current.action}.feedback.success.description`,
 								{
 									project: current.enrollment.project.name,
-									student: current.enrollment.student.account.name,
+									formerStudent: current.enrollment.student.account.name,
 								},
 							),
 						},

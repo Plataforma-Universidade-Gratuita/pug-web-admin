@@ -196,12 +196,12 @@ export function filterEnrollmentsByFrontendFilters(
 
 export function getEnrollmentEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("project.enrollmentPage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("project.enrollmentPage.empty.filteredDescription", {
+			? t("common.empty.filteredDescription", {
 					value: query,
 				})
-			: t("project.enrollmentPage.empty.defaultDescription"),
+			: t("common.empty.defaultDescription"),
 	};
 }
 

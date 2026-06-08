@@ -14,11 +14,11 @@ export interface AdminTokenValidationResult {
 
 export interface LoginFormValues {
 	email: string;
-	password: string;
+	password: string | null;
 }
 
 export interface WireCredentialsFormValues {
 	email: string;
-	password: string;
+	password: string | null;
 	confirmPassword: string;
 }

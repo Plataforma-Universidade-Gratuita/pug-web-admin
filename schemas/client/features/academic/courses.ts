@@ -13,6 +13,6 @@ export function createCourseEditorFormSchema(t: TFunction) {
 		areaOfExpertiseId: z
 			.string()
 			.trim()
-			.min(1, t("academic.coursePage.editor.validation.school")),
+			.min(1, t("common.validation.areaOfExpertise.required")),
 	});
 }

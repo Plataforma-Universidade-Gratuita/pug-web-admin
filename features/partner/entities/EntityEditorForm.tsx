@@ -39,8 +39,8 @@ export function EntityEditorForm({
 		if (entityError instanceof WebApiError && entityError.status === 404) {
 			return (
 				<NotFoundState
-					title={t("partner.entityPage.update.notFound.title")}
-					description={t("partner.entityPage.update.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -65,9 +65,7 @@ export function EntityEditorForm({
 	}
 
 	if (!canRenderForm) {
-		return (
-			<NotFoundState title={t("partner.entityPage.update.notFound.title")} />
-		);
+		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
 	return (

@@ -30,7 +30,7 @@ export function createCourseColumns(t: TFunction): ColumnDef<CourseResponse>[] {
 	return [
 		{
 			accessorKey: "id",
-			header: t("common.fields.id"),
+			header: t("table.columns.id"),
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 			cell: ({ row }) =>
 				TableText({
@@ -41,23 +41,23 @@ export function createCourseColumns(t: TFunction): ColumnDef<CourseResponse>[] {
 		},
 		{
 			accessorKey: "name",
-			header: t("academic.coursePage.table.columns.name"),
+			header: t("table.columns.course"),
 		},
 		{
 			accessorFn: row => row.areaOfExpertise.name,
 			id: "areaOfExpertise",
-			header: t("academic.coursePage.table.columns.school"),
+			header: t("table.columns.areaOfExpertise"),
 		},
 		{
 			accessorFn: row => row.auditInfo.createdAt,
 			id: "createdAt",
-			header: t("common.fields.createdAt"),
+			header: t("table.columns.createdAt"),
 			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
 		},
 		{
 			accessorFn: row => row.auditInfo.updatedAt,
 			id: "updatedAt",
-			header: t("common.fields.updatedAt"),
+			header: t("table.columns.updatedAt"),
 			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
 		},
 	];
@@ -138,40 +138,34 @@ export function filterCourses(
 
 export function getCourseEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("academic.coursePage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("academic.coursePage.empty.filteredDescription", { value: query })
-			: t("academic.coursePage.empty.defaultDescription"),
+			? t("common.empty.filteredDescription", { value: query })
+			: t("common.empty.defaultDescription"),
 	};
 }
 
 export function getCoursesListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.coursePage.feedback.listError.title"),
-		fallbackDescription: t(
-			"academic.coursePage.feedback.listError.description",
-		),
+		fallbackTitle: t("common.errors.listLoad.title"),
+		fallbackDescription: t("common.errors.listLoad.description"),
 	});
 }
 
 export function getCourseDetailErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.coursePage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"academic.coursePage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }
 
-export function getCourseSchoolsErrorToastContent(
+export function getCourseAreasOfExpertiseErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.coursePage.feedback.schoolsError.title"),
-		fallbackDescription: t(
-			"academic.coursePage.feedback.schoolsError.description",
-		),
+		fallbackTitle: t("common.loadErrors.areasOfExpertise.title"),
+		fallbackDescription: t("common.loadErrors.areasOfExpertise.description"),
 	});
 }
 

@@ -12,7 +12,7 @@ export function DuplicateRowAction({ onClick, label }: RowActionClickProps) {
 	return (
 		<DropdownMenuItem
 			icon={CopyPlus}
-			label={label ?? t("common.table.actions.duplicate")}
+			label={label ?? t("table.actions.duplicate")}
 			onClick={onClick}
 		/>
 	);

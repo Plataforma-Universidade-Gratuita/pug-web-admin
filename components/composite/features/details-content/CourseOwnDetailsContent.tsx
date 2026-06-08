@@ -42,7 +42,7 @@ export function CourseOwnDetailsContent({
 		return [
 			{
 				id: "name",
-				label: t("academic.coursePage.dialog.fields.name"),
+				label: t("common.fields.course"),
 				value: course.name,
 			},
 			...baseFields,

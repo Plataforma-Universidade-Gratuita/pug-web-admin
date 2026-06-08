@@ -102,8 +102,8 @@ export function AccountDetailsContent({
 		return accountDetailQuery.error instanceof WebApiError &&
 			accountDetailQuery.error.status === 404 ? (
 			<NotFoundState
-				title={t("identity.accountPage.dialog.notFound.title")}
-				description={t("identity.accountPage.dialog.notFound.description")}
+				title={t("common.notFound.title")}
+				description={t("common.notFound.description")}
 			/>
 		) : (
 			<SomeErrorState
@@ -134,7 +134,5 @@ export function AccountDetailsContent({
 		return <EntityPageFieldsGridSkeleton />;
 	}
 
-	return (
-		<NotFoundState title={t("identity.accountPage.dialog.notFound.title")} />
-	);
+	return <NotFoundState title={t("common.notFound.title")} />;
 }

@@ -4,10 +4,8 @@ import { getApiErrorToastContent } from "@/utils";
 
 export function getStudentsListErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.formerStudentPage.feedback.listError.title"),
-		fallbackDescription: t(
-			"academic.formerStudentPage.feedback.listError.description",
-		),
+		fallbackTitle: t("common.errors.listLoad.title"),
+		fallbackDescription: t("common.errors.listLoad.description"),
 	});
 }
 
@@ -16,10 +14,8 @@ export function getStudentDetailErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.formerStudentPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"academic.formerStudentPage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }
 

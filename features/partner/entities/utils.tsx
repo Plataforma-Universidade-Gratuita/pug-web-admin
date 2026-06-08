@@ -70,14 +70,14 @@ export function createEntityColumns(t: TFunction): ColumnDef<EntityTableRow>[] {
 		createTableTextColumn<EntityTableRow>({
 			id: "id",
 			accessorKey: "id",
-			header: t("common.fields.id"),
+			header: t("table.columns.id"),
 			text: row => row.id,
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			maxWidth: TABLE_IDENTIFIER_TEXT_WIDTH,
 		}),
 		{
 			accessorKey: "name",
-			header: t("partner.entityPage.table.columns.name"),
+			header: t("table.columns.name"),
 		},
 		{
 			accessorFn: row => row.cnpj,
@@ -99,13 +99,13 @@ export function createEntityColumns(t: TFunction): ColumnDef<EntityTableRow>[] {
 		}),
 		createDateTimeColumn<EntityTableRow>({
 			id: "createdAt",
-			header: t("common.fields.createdAt"),
+			header: t("table.columns.createdAt"),
 			value: row => row.auditInfo.createdAt,
 			formattedValue: row => row.auditInfo.createdAtFormatted,
 		}),
 		createDateTimeColumn<EntityTableRow>({
 			id: "updatedAt",
-			header: t("common.fields.updatedAt"),
+			header: t("table.columns.updatedAt"),
 			value: row => row.auditInfo.updatedAt,
 			formattedValue: row => row.auditInfo.updatedAtFormatted,
 		}),
@@ -240,10 +240,10 @@ export function filterEntitiesByBackendFilters(
 
 export function getEntityEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("partner.entityPage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("partner.entityPage.empty.filteredDescription", { value: query })
-			: t("partner.entityPage.empty.defaultDescription"),
+			? t("common.empty.filteredDescription", { value: query })
+			: t("common.empty.defaultDescription"),
 	};
 }
 
@@ -256,10 +256,8 @@ export function getEntitiesListErrorToastContent(t: TFunction, error: unknown) {
 
 export function getEntityDetailErrorToastContent(t: TFunction, error: unknown) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.entityPage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"partner.entityPage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }
 

@@ -42,7 +42,7 @@ import {
 	getCourseCreateErrorToastContent,
 	getCourseDetailErrorToastContent,
 	getCourseDuplicateErrorToastContent,
-	getCourseSchoolsErrorToastContent,
+	getCourseAreasOfExpertiseErrorToastContent,
 	getCourseUpdateErrorToastContent,
 	getEmptyCourseEditorFormValues,
 	toCourseCreateRequest,
@@ -165,7 +165,7 @@ export function CourseEditorDrawer({
 			key: "course-editor-areas-of-expertise",
 			error: areasOfExpertiseQuery.error,
 			errorUpdatedAt: areasOfExpertiseQuery.errorUpdatedAt,
-			getContent: error => getCourseSchoolsErrorToastContent(t, error),
+			getContent: error => getCourseAreasOfExpertiseErrorToastContent(t, error),
 			isError: areasOfExpertiseQuery.isError,
 		},
 	]);

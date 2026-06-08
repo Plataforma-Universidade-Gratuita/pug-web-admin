@@ -111,9 +111,7 @@ export function NotFoundState({
 			className={className}
 			icon={<SearchX className="h-5 w-5 text-[color:var(--twc-muted)]" />}
 			title={title}
-			description={
-				description ?? t("components.emptyState.presets.notFound.description")
-			}
+			description={description ?? t("common.notFound.description")}
 			{...props}
 		/>
 	);

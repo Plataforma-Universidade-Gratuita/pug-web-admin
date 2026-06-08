@@ -102,8 +102,8 @@ export function EntityDetailsContent({
 		return entityDetailQuery.error instanceof WebApiError &&
 			entityDetailQuery.error.status === 404 ? (
 			<NotFoundState
-				title={t("partner.entityPage.dialog.notFound.title")}
-				description={t("partner.entityPage.dialog.notFound.description")}
+				title={t("common.notFound.title")}
+				description={t("common.notFound.description")}
 			/>
 		) : (
 			<SomeErrorState
@@ -129,7 +129,5 @@ export function EntityDetailsContent({
 		return <EntityPageFieldsGridSkeleton columns={columns} />;
 	}
 
-	return (
-		<NotFoundState title={t("partner.entityPage.dialog.notFound.title")} />
-	);
+	return <NotFoundState title={t("common.notFound.title")} />;
 }

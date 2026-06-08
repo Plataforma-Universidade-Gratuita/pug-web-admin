@@ -60,12 +60,13 @@ export function WireCredentialsDialog({
 
 	function onSubmit(values: WireCredentialsFormValues) {
 		setError(null);
+		const password = values.password?.trim() ?? "";
 
 		startTransition(async () => {
 			try {
 				await wireCredentials({
 					email: values.email.trim(),
-					password: values.password.trim(),
+					password,
 				});
 
 				writePasswordWiredCookie(true);

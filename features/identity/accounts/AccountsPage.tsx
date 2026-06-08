@@ -147,8 +147,8 @@ export function AccountsPage() {
 		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
-					title={t("identity.accountPage.table.error.title")}
-					description={t("identity.accountPage.table.error.description")}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						if (accountsPagination.isAll) {
 							void Promise.all([accountsQuery.refetch(), usersQuery.refetch()]);

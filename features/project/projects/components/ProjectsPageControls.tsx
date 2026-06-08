@@ -162,7 +162,7 @@ export function ProjectsPageDialogs({
 					name: pendingDeleteProject?.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("common.table.actions.delete")}
+				actionLabel={t("table.actions.delete")}
 				onAction={onDeleteConfirm}
 			/>
 

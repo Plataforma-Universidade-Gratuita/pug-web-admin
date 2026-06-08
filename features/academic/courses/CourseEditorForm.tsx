@@ -37,8 +37,8 @@ export function CourseEditorForm({
 		if (courseError instanceof WebApiError && courseError.status === 404) {
 			return (
 				<NotFoundState
-					title={t("academic.coursePage.update.notFound.title")}
-					description={t("academic.coursePage.update.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -55,19 +55,15 @@ export function CourseEditorForm({
 	if (areasOfExpertiseError) {
 		return (
 			<SomeErrorState
-				title={t("academic.coursePage.editor.schoolLoadError.title")}
-				description={t(
-					"academic.coursePage.editor.schoolLoadError.description",
-				)}
+				title={t("common.loadErrors.areasOfExpertise.title")}
+				description={t("common.loadErrors.areasOfExpertise.description")}
 				onRefresh={onRefreshAreasOfExpertise}
 			/>
 		);
 	}
 
 	if (!canRenderForm) {
-		return (
-			<NotFoundState title={t("academic.coursePage.update.notFound.title")} />
-		);
+		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
 	return (
@@ -97,7 +93,7 @@ export function CourseEditorForm({
 
 			<div className="grid gap-2">
 				<Label htmlFor="course-area-of-expertise">
-					{t("academic.coursePage.editor.fields.school")}
+					{t("common.fields.areaOfExpertise")}
 				</Label>
 				<Controller
 					control={form.control}

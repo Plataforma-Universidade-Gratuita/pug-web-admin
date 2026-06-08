@@ -59,8 +59,8 @@ export function AdminEditorContent({
 		if (adminError instanceof WebApiError && adminError.status === 404) {
 			return (
 				<NotFoundState
-					title={t("identity.adminPage.update.notFound.title")}
-					description={t("identity.adminPage.update.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -107,8 +107,8 @@ export function AdminEditorContent({
 		) {
 			return (
 				<NotFoundState
-					title={t("common.linkedUser.notFound.title")}
-					description={t("common.linkedUser.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -123,9 +123,7 @@ export function AdminEditorContent({
 	}
 
 	if (!canRenderForm || (!isCreateMode && !admin)) {
-		return (
-			<NotFoundState title={t("identity.adminPage.update.notFound.title")} />
-		);
+		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
 	const accountTypeLabel = isCreateMode

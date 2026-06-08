@@ -30,10 +30,8 @@ export function AreaOfExpertiseEditorForm({
 		) {
 			return (
 				<NotFoundState
-					title={t("academic.areaOfExpertisePage.update.notFound.title")}
-					description={t(
-						"academic.areaOfExpertisePage.update.notFound.description",
-					)}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -50,11 +48,7 @@ export function AreaOfExpertiseEditorForm({
 	}
 
 	if (!canRenderForm) {
-		return (
-			<NotFoundState
-				title={t("academic.areaOfExpertisePage.update.notFound.title")}
-			/>
-		);
+		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
 	return (

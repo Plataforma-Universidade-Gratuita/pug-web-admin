@@ -72,10 +72,8 @@ export function FormerStudentEditorForm({
 		) {
 			return (
 				<NotFoundState
-					title={t("academic.formerStudentPage.update.notFound.title")}
-					description={t(
-						"academic.formerStudentPage.update.notFound.description",
-					)}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -95,8 +93,8 @@ export function FormerStudentEditorForm({
 		if (userError instanceof WebApiError && userError.status === 404) {
 			return (
 				<NotFoundState
-					title={t("common.linkedUser.notFound.title")}
-					description={t("common.linkedUser.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -117,8 +115,8 @@ export function FormerStudentEditorForm({
 		) {
 			return (
 				<NotFoundState
-					title={t("identity.accountPage.dialog.notFound.title")}
-					description={t("identity.accountPage.dialog.notFound.description")}
+					title={t("common.notFound.title")}
+					description={t("common.notFound.description")}
 				/>
 			);
 		}
@@ -148,11 +146,7 @@ export function FormerStudentEditorForm({
 		!canRenderForm ||
 		(!isUpdateMode && !formerStudent && mode !== "create")
 	) {
-		return (
-			<NotFoundState
-				title={t("academic.formerStudentPage.update.notFound.title")}
-			/>
-		);
+		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
 	const hasCpfValue = (watchedCpf ?? "").trim().length > 0;

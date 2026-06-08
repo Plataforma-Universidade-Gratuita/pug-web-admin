@@ -94,8 +94,8 @@ export function AdminPage({ adminId }: AdminPageProps) {
 				adminDetailQuery.error instanceof WebApiError &&
 				adminDetailQuery.error.status === 404 ? (
 					<NotFoundState
-						title={t("identity.adminPage.dialog.notFound.title")}
-						description={t("identity.adminPage.dialog.notFound.description")}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -125,7 +125,7 @@ export function AdminPage({ adminId }: AdminPageProps) {
 			) : adminDetailQuery.isLoading ? (
 				<EntityPageFieldsGridSkeleton />
 			) : (
-				<NotFoundState title={t("identity.adminPage.dialog.notFound.title")} />
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</EntityPageShell>
 	);

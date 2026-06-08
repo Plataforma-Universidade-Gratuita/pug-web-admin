@@ -15,7 +15,7 @@ export function ViewDetailsRowAction({ href, label }: RowActionNavigateProps) {
 	return (
 		<DropdownMenuInfoItem
 			icon={ArrowUpRight}
-			label={label ?? t("common.table.actions.viewDetails")}
+			label={label ?? t("table.actions.viewDetails")}
 			onClick={() => {
 				router.push(href);
 			}}

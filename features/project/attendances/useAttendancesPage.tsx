@@ -234,8 +234,8 @@ export function useAttendancesPage() {
 		if (activeQueryIsError) {
 			return (
 				<SomeErrorState
-					title={t("project.attendancePage.table.error.title")}
-					description={t("project.attendancePage.table.error.description")}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						if (attendancesPagination.isAll) {
 							void attendancesQuery.refetch();
@@ -336,7 +336,7 @@ export function useAttendancesPage() {
 			description: t("project.attendancePage.delete.undo.description", {
 				id: attendance.id,
 				project: attendance.project.name,
-				student: attendance.student.account.name,
+				formerStudent: attendance.student.account.name,
 			}),
 			undoLabel: t("common.actions.undo"),
 			onCommit: () => {
@@ -352,7 +352,7 @@ export function useAttendancesPage() {
 										{
 											id: attendance.id,
 											project: attendance.project.name,
-											student: attendance.student.account.name,
+											formerStudent: attendance.student.account.name,
 										},
 									),
 								},
@@ -397,7 +397,7 @@ export function useAttendancesPage() {
 								`project.attendancePage.${currentAction.action}.feedback.success.description`,
 								{
 									project: currentAction.attendance.project.name,
-									student: currentAction.attendance.student.account.name,
+									formerStudent: currentAction.attendance.student.account.name,
 								},
 							),
 						},

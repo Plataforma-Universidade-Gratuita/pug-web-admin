@@ -26,7 +26,7 @@ export function createAreaOfExpertiseColumns(
 	return [
 		{
 			accessorKey: "id",
-			header: t("academic.areaOfExpertisePage.table.columns.id"),
+			header: t("table.columns.id"),
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
 			cell: ({ row }) =>
 				TableText({
@@ -37,18 +37,18 @@ export function createAreaOfExpertiseColumns(
 		},
 		{
 			accessorKey: "name",
-			header: t("academic.areaOfExpertisePage.table.columns.name"),
+			header: t("table.columns.areaOfExpertise"),
 		},
 		{
 			accessorFn: row => row.auditInfo.createdAt,
 			id: "createdAt",
-			header: t("academic.areaOfExpertisePage.table.columns.createdAt"),
+			header: t("table.columns.createdAt"),
 			cell: ({ row }) => row.original.auditInfo.createdAtFormatted,
 		},
 		{
 			accessorFn: row => row.auditInfo.updatedAt,
 			id: "updatedAt",
-			header: t("academic.areaOfExpertisePage.table.columns.updatedAt"),
+			header: t("table.columns.updatedAt"),
 			cell: ({ row }) => row.original.auditInfo.updatedAtFormatted,
 		},
 	];
@@ -106,12 +106,12 @@ export function filterAreasOfExpertise(
 
 export function getAreaOfExpertiseEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("academic.areaOfExpertisePage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("academic.areaOfExpertisePage.empty.filteredDescription", {
+			? t("common.empty.filteredDescription", {
 					value: query,
 				})
-			: t("academic.areaOfExpertisePage.empty.defaultDescription"),
+			: t("common.empty.defaultDescription"),
 	};
 }
 
@@ -120,10 +120,8 @@ export function getAreasOfExpertiseListErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.areaOfExpertisePage.feedback.listError.title"),
-		fallbackDescription: t(
-			"academic.areaOfExpertisePage.feedback.listError.description",
-		),
+		fallbackTitle: t("common.errors.listLoad.title"),
+		fallbackDescription: t("common.errors.listLoad.description"),
 	});
 }
 
@@ -132,10 +130,8 @@ export function getAreaOfExpertiseDetailErrorToastContent(
 	error: unknown,
 ) {
 	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.areaOfExpertisePage.feedback.detailError.title"),
-		fallbackDescription: t(
-			"academic.areaOfExpertisePage.feedback.detailError.description",
-		),
+		fallbackTitle: t("common.errors.detailLoad.title"),
+		fallbackDescription: t("common.errors.detailLoad.description"),
 	});
 }
 

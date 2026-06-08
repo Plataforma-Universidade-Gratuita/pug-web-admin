@@ -26,7 +26,7 @@ import {
 	getCourseEmptyStateCopy,
 	getCourseFilterSummary,
 	getCourseDuplicateErrorToastContent,
-	getCourseSchoolsErrorToastContent,
+	getCourseAreasOfExpertiseErrorToastContent,
 	getCoursesListErrorToastContent,
 } from "@/features/academic/courses/utils";
 import {
@@ -126,8 +126,8 @@ export function CoursesPage() {
 		if (coursesQuery.isError) {
 			return (
 				<SomeErrorState
-					title={t("academic.coursePage.table.error.title")}
-					description={t("academic.coursePage.table.error.description")}
+					title={t("common.errors.listLoad.title")}
+					description={t("common.errors.listLoad.description")}
 					onRefresh={() => {
 						void coursesQuery.refetch();
 					}}
@@ -155,7 +155,7 @@ export function CoursesPage() {
 			key: "course-areas-of-expertise",
 			error: areasOfExpertiseQuery.error,
 			errorUpdatedAt: areasOfExpertiseQuery.errorUpdatedAt,
-			getContent: error => getCourseSchoolsErrorToastContent(t, error),
+			getContent: error => getCourseAreasOfExpertiseErrorToastContent(t, error),
 			isError: areasOfExpertiseQuery.isError,
 		},
 	]);
@@ -342,7 +342,7 @@ export function CoursesPage() {
 					name: pendingDeleteCourse?.name ?? "",
 				})}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("common.table.actions.delete")}
+				actionLabel={t("table.actions.delete")}
 				onAction={handleDeleteConfirm}
 			/>
 		</ServicePageShell>

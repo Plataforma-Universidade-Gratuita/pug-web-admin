@@ -208,10 +208,10 @@ export function filterAttendancesByFrontendFilters(
 
 export function getAttendanceEmptyStateCopy(t: TFunction, query: string) {
 	return {
-		title: t("project.attendancePage.empty.title"),
+		title: t("common.empty.title"),
 		description: query
-			? t("project.attendancePage.empty.filteredDescription", { value: query })
-			: t("project.attendancePage.empty.defaultDescription"),
+			? t("common.empty.filteredDescription", { value: query })
+			: t("common.empty.defaultDescription"),
 	};
 }
 

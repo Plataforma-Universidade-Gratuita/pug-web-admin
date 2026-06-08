@@ -107,12 +107,12 @@ export function createFormerStudentColumns(
 		{
 			accessorFn: row => row.user?.name ?? row.accountId,
 			id: "name",
-			header: t("academic.formerStudentPage.table.columns.name"),
+			header: t("table.columns.name"),
 		},
 		{
 			accessorFn: row => row.account?.email ?? "",
 			id: "email",
-			header: t("academic.formerStudentPage.table.columns.email"),
+			header: t("table.columns.email"),
 		},
 		{
 			accessorKey: "academicRegistration",

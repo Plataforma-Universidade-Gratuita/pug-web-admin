@@ -157,7 +157,7 @@ export function Table<TData extends object>({
 										})}
 										{hasRowActions ? (
 											<th
-												aria-label={t("components.table.actions")}
+												aria-label={t("table.columns.actions")}
 												className="table-header-cell table-header-cell-actions"
 												scope="col"
 											/>
@@ -189,7 +189,7 @@ export function Table<TData extends object>({
 						onPointerDown={handleVerticalTrackPointerDown}
 					>
 						<button
-							aria-label={t("components.table.scroll.vertical")}
+							aria-label={t("table.scroll.vertical")}
 							className="table-scrollbar-thumb table-scrollbar-thumb-vertical"
 							style={{
 								transform: `translateY(${verticalScrollbarMetrics.thumbOffsetPx}px)`,
@@ -214,7 +214,7 @@ export function Table<TData extends object>({
 						onPointerDown={handleHorizontalTrackPointerDown}
 					>
 						<button
-							aria-label={t("components.table.scroll.horizontal")}
+							aria-label={t("table.scroll.horizontal")}
 							className="table-scrollbar-thumb table-scrollbar-thumb-horizontal"
 							style={{
 								transform: `translateX(${horizontalScrollbarMetrics.thumbOffsetPx}px)`,

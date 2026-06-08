@@ -55,7 +55,7 @@ export function LoginForm() {
 		schemaFactory: createLoginFormSchema,
 		defaultValues: {
 			email: "",
-			password: "",
+			password: null,
 		},
 	});
 

@@ -57,7 +57,7 @@ export function RowActionsCell<TData extends object>({
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<button
-					aria-label={t("components.table.openRowActions")}
+					aria-label={t("table.actions.openRowActions")}
 					className="table-row-action-button"
 					type="button"
 				>

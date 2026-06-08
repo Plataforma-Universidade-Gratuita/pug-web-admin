@@ -33,8 +33,8 @@ export function AdminUserTab({
 				linkedUserError instanceof WebApiError &&
 				linkedUserError.status === 404 ? (
 					<NotFoundState
-						title={t("common.linkedUser.notFound.title")}
-						description={t("common.linkedUser.notFound.description")}
+						title={t("common.notFound.title")}
+						description={t("common.notFound.description")}
 					/>
 				) : (
 					<SomeErrorState
@@ -55,7 +55,7 @@ export function AdminUserTab({
 					</div>
 				</>
 			) : (
-				<NotFoundState title={t("common.linkedUser.notFound.title")} />
+				<NotFoundState title={t("common.notFound.title")} />
 			)}
 		</div>
 	);

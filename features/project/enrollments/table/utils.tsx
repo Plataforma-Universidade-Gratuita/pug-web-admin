@@ -218,7 +218,7 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.status.status,
 			id: "status",
-			header: t("common.fields.status"),
+			header: t("table.columns.status"),
 			cell: ({ row }) => (
 				<Badge
 					tone={getEnrollmentStatusTone(row.original.status.status)}
@@ -232,7 +232,7 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.project.id,
 			id: "projectId",
-			header: t("common.fields.projectId"),
+			header: t("table.columns.projectId"),
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			cell: ({ row }) => (
 				<TableText
@@ -245,12 +245,12 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.project.name,
 			id: "project",
-			header: t("common.fields.project"),
+			header: t("table.columns.project"),
 		},
 		{
 			accessorFn: row => row.student.account.id,
 			id: "formerStudentId",
-			header: t("project.enrollmentPage.table.columns.studentId"),
+			header: t("table.columns.formerStudentId"),
 			size: TABLE_IDENTIFIER_TEXT_WIDTH,
 			cell: ({ row }) => (
 				<TableText
@@ -263,12 +263,12 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.student.account.name,
 			id: "formerStudent",
-			header: t("project.enrollmentPage.table.columns.student"),
+			header: t("table.columns.formerStudent"),
 		},
 		{
 			accessorFn: row => row.student.account.email,
 			id: "email",
-			header: t("project.enrollmentPage.table.columns.email"),
+			header: t("table.columns.email"),
 		},
 		{
 			accessorFn: row => row.student.academicRegistration,
@@ -278,7 +278,7 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.student.campus.campusFormatted,
 			id: "campus",
-			header: t("common.fields.campus"),
+			header: t("table.columns.campus"),
 		},
 		{
 			accessorFn: row => row.enrollmentInfo.acceptedAtFormatted,
@@ -301,12 +301,12 @@ export function createEnrollmentColumns(
 		{
 			accessorFn: row => row.enrollmentInfo.auditInfo.createdAtFormatted,
 			id: "createdAt",
-			header: t("common.fields.createdAt"),
+			header: t("table.columns.createdAt"),
 		},
 		{
 			accessorFn: row => row.enrollmentInfo.auditInfo.updatedAtFormatted,
 			id: "updatedAt",
-			header: t("common.fields.updatedAt"),
+			header: t("table.columns.updatedAt"),
 		},
 	];
 }
