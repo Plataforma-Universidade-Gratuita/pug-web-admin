@@ -38,10 +38,12 @@ export function AreaOfExpertiseEditorForm({
 
 		return (
 			<SomeErrorState
-				title={t("academic.areaOfExpertisePage.update.loadError.title")}
-				description={t(
-					"academic.areaOfExpertisePage.update.loadError.description",
-				)}
+				title={t("common.errors.editorLoad.title", {
+					object: t("common.objects.areaOfExpertise"),
+				})}
+				description={t("common.errors.editorLoad.description", {
+					object: t("common.objects.areaOfExpertise"),
+				})}
 				onRefresh={onRefreshAreaOfExpertise}
 			/>
 		);

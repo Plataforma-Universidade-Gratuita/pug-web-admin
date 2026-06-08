@@ -33,6 +33,11 @@ import {
 	getAreasOfExpertiseListErrorToastContent,
 } from "@/features/academic/areas-of-expertise/utils";
 import {
+	getCrudDeleteConfirmCopy,
+	getCrudDeleteUndoToastContent,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
+import {
 	useDeferredUndoAction,
 	useQueryErrorToasts,
 	useServicePageEditorState,
@@ -95,6 +100,15 @@ export function AreasOfExpertisePage() {
 		() => getAreaOfExpertiseEmptyStateCopy(t, filterSummary),
 		[filterSummary, t],
 	);
+	const deleteConfirmCopy = useMemo(
+		() =>
+			getCrudDeleteConfirmCopy(
+				t,
+				t("common.objects.areaOfExpertise"),
+				pendingDeleteAreaOfExpertise?.name ?? "",
+			),
+		[pendingDeleteAreaOfExpertise?.name, t],
+	);
 	const tableEmptyState = useMemo(() => {
 		if (areasOfExpertiseQuery.isError) {
 			return (
@@ -148,17 +162,12 @@ export function AreasOfExpertisePage() {
 			},
 			{
 				onSuccess: createdAreaOfExpertise => {
-					toast.success(
-						t("academic.areaOfExpertisePage.duplicate.feedback.success.title"),
-						{
-							description: t(
-								"academic.areaOfExpertisePage.duplicate.feedback.success.description",
-								{
-									name: createdAreaOfExpertise.name,
-								},
-							),
-						},
+					const { title, description } = getCrudSuccessToastContent(
+						t,
+						"duplicate",
+						createdAreaOfExpertise.name,
 					);
+					toast.success(title, { description });
 				},
 				onError: error => {
 					const { title, description } =
@@ -179,11 +188,7 @@ export function AreasOfExpertisePage() {
 
 		schedule({
 			key: areaOfExpertise.id,
-			title: t("academic.areaOfExpertisePage.delete.undo.title"),
-			description: t("academic.areaOfExpertisePage.delete.undo.description", {
-				name: areaOfExpertise.name,
-			}),
-			undoLabel: t("academic.areaOfExpertisePage.delete.undo.action"),
+			...getCrudDeleteUndoToastContent(t, areaOfExpertise.name),
 			onCommit: () => {
 				removeAreaOfExpertiseMutation.mutate(
 					{
@@ -191,17 +196,12 @@ export function AreasOfExpertisePage() {
 					},
 					{
 						onSuccess: () => {
-							toast.success(
-								t("academic.areaOfExpertisePage.delete.feedback.success.title"),
-								{
-									description: t(
-										"academic.areaOfExpertisePage.delete.feedback.success.description",
-										{
-											name: areaOfExpertise.name,
-										},
-									),
-								},
+							const { title, description } = getCrudSuccessToastContent(
+								t,
+								"delete",
+								areaOfExpertise.name,
 							);
+							toast.success(title, { description });
 
 							editorState.clearIfMatches(areaOfExpertise.id);
 						},
@@ -314,13 +314,8 @@ export function AreasOfExpertisePage() {
 					}
 				}}
 				variant="danger"
-				title={t("academic.areaOfExpertisePage.delete.confirm.title")}
-				description={t(
-					"academic.areaOfExpertisePage.delete.confirm.description",
-					{
-						name: pendingDeleteAreaOfExpertise?.name ?? "",
-					},
-				)}
+				title={deleteConfirmCopy.title}
+				description={deleteConfirmCopy.description}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("table.actions.delete")}
 				onAction={handleDeleteConfirm}

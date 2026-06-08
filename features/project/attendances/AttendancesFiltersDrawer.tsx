@@ -73,9 +73,9 @@ export function AttendancesFiltersDrawer({
 				options={formerStudentOptions}
 				values={filters.formerStudentIds}
 				onValuesChange={value => onFilterChange("formerStudentIds", value)}
-				placeholder={t("common.fields.formerStudentPlaceholder")}
-				searchPlaceholder={t("common.fields.formerStudentSearchPlaceholder")}
-				emptyMessage={t("common.fields.formerStudentEmptyMessage")}
+				placeholder={t("common.placeholders.select")}
+				searchPlaceholder={t("common.placeholders.search")}
+				emptyMessage={t("common.placeholders.noResults")}
 				isError={Boolean(formerStudentsError)}
 				errorTitle={t("common.loadErrors.formerStudents.title")}
 				errorDescription={t("common.loadErrors.formerStudents.description")}
@@ -92,8 +92,8 @@ export function AttendancesFiltersDrawer({
 						onFilterChange("statuses", value as AttendanceStatus[])
 					}
 					placeholder={t("common.placeholders.select")}
-					searchPlaceholder={t("common.filters.status.searchPlaceholder")}
-					emptyMessage={t("common.filters.status.emptyMessage")}
+					searchPlaceholder={t("common.placeholders.search")}
+					emptyMessage={t("common.placeholders.noResults")}
 				/>
 			</div>
 
@@ -104,12 +104,8 @@ export function AttendancesFiltersDrawer({
 				values={filters.validatedByIds}
 				onValuesChange={value => onFilterChange("validatedByIds", value)}
 				placeholder={t("common.placeholders.select")}
-				searchPlaceholder={t(
-					"project.attendancePage.filters.validator.searchPlaceholder",
-				)}
-				emptyMessage={t(
-					"project.attendancePage.filters.validator.emptyMessage",
-				)}
+				searchPlaceholder={t("common.placeholders.search")}
+				emptyMessage={t("common.placeholders.noResults")}
 				isError={Boolean(validatorsError)}
 				errorTitle={t("project.attendancePage.filters.validator.error.title")}
 				errorDescription={t(

@@ -9,6 +9,7 @@ import {
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/features/constants";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/identity/admins/constants";
 import {
+	getCrudErrorToastContent,
 	matchesAnyDateRange,
 	toSearchDateOffsetDateTime,
 } from "@/features/utils";
@@ -247,33 +248,33 @@ export function getLinkedAdminAccountErrorToastContent(
 }
 
 export function getAdminUpdateErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.adminPage.update.feedback.error.title"),
-		fallbackDescription: t(
-			"identity.adminPage.update.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"update",
+		t("common.objects.administrator"),
+	);
 }
 
 export function getAdminCreateErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.adminPage.create.feedback.error.title"),
-		fallbackDescription: t(
-			"identity.adminPage.create.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"create",
+		t("common.objects.administrator"),
+	);
 }
 
 export function getAdminDuplicateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.adminPage.duplicate.feedback.error.title"),
-		fallbackDescription: t(
-			"identity.adminPage.duplicate.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"duplicate",
+		t("common.objects.administrator"),
+	);
 }
 
 export function getAdminSetActiveErrorToastContent(
@@ -296,12 +297,12 @@ export function getAdminSetActiveErrorToastContent(
 }
 
 export function getAdminDeleteErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("identity.adminPage.delete.feedback.error.title"),
-		fallbackDescription: t(
-			"identity.adminPage.delete.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"delete",
+		t("common.objects.administrator"),
+	);
 }
 
 export function getAdminCampusOptions(t: TFunction) {

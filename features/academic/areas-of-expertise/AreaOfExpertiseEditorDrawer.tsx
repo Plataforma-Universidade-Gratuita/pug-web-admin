@@ -30,6 +30,7 @@ import {
 	toAreaOfExpertiseCreateRequest,
 	toAreaOfExpertiseUpdateRequest,
 } from "@/features/academic/areas-of-expertise/utils";
+import { getCrudSuccessToastContent } from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -181,23 +182,12 @@ export function AreaOfExpertiseEditorDrawer({
 				},
 				{
 					onSuccess: areaOfExpertise => {
-						toast.success(
-							t(
-								isCreateMode
-									? "academic.areaOfExpertisePage.create.feedback.success.title"
-									: "academic.areaOfExpertisePage.duplicate.feedback.success.title",
-							),
-							{
-								description: t(
-									isCreateMode
-										? "academic.areaOfExpertisePage.create.feedback.success.description"
-										: "academic.areaOfExpertisePage.duplicate.feedback.success.description",
-									{
-										name: areaOfExpertise.name,
-									},
-								),
-							},
+						const { title, description } = getCrudSuccessToastContent(
+							t,
+							isCreateMode ? "create" : "duplicate",
+							areaOfExpertise.name,
 						);
+						toast.success(title, { description });
 						closeDrawer();
 					},
 					onError: error => {
@@ -222,17 +212,12 @@ export function AreaOfExpertiseEditorDrawer({
 			},
 			{
 				onSuccess: areaOfExpertise => {
-					toast.success(
-						t("academic.areaOfExpertisePage.update.feedback.success.title"),
-						{
-							description: t(
-								"academic.areaOfExpertisePage.update.feedback.success.description",
-								{
-									name: areaOfExpertise.name,
-								},
-							),
-						},
+					const { title, description } = getCrudSuccessToastContent(
+						t,
+						"update",
+						areaOfExpertise.name,
 					);
+					toast.success(title, { description });
 					closeDrawer();
 				},
 				onError: error => {
@@ -250,7 +235,9 @@ export function AreaOfExpertiseEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("academic.areaOfExpertisePage.editor.loading")}
+				loadingLabel={t("common.editor.loading", {
+					object: t("common.objects.areaOfExpertise"),
+				})}
 			>
 				<DrawerContent>
 					<DrawerHeader overhead={drawerOverhead}>
@@ -283,7 +270,7 @@ export function AreaOfExpertiseEditorDrawer({
 							disabled={!form.formState.isDirty || isSubmitPending}
 							onClick={openResetConfirm}
 						>
-							{t("academic.areaOfExpertisePage.editor.actions.reset")}
+							{t("common.actions.resetChanges")}
 						</Button>
 						<Button
 							usage="success"
@@ -304,12 +291,12 @@ export function AreaOfExpertiseEditorDrawer({
 			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-				title={t("academic.areaOfExpertisePage.editor.resetConfirm.title")}
-				description={t(
-					"academic.areaOfExpertisePage.editor.resetConfirm.description",
-				)}
+				title={t("common.resetConfirm.title", {
+					object: t("common.objects.areaOfExpertise"),
+				})}
+				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("academic.areaOfExpertisePage.editor.actions.reset")}
+				actionLabel={t("common.actions.resetChanges")}
 				onAction={resetForm}
 			/>
 		</>

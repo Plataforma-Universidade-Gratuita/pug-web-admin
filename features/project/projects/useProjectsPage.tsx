@@ -22,7 +22,11 @@ import {
 	getProjectStatusActionErrorToastContent,
 	getProjectStatusOptions,
 } from "@/features/project/projects/utils";
-import { appendCopyToText } from "@/features/utils";
+import {
+	appendCopyToText,
+	getCrudDeleteUndoToastContent,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
 import {
 	useDeferredUndoAction,
 	useDraftFilters,
@@ -286,17 +290,12 @@ export function useProjectsPage() {
 			},
 			{
 				onSuccess: createdProject => {
-					toast.success(
-						t("project.projectPage.duplicate.feedback.success.title"),
-						{
-							description: t(
-								"project.projectPage.duplicate.feedback.success.description",
-								{
-									name: createdProject.name,
-								},
-							),
-						},
+					const { title, description } = getCrudSuccessToastContent(
+						t,
+						"duplicate",
+						createdProject.name,
 					);
+					toast.success(title, { description });
 				},
 				onError: error => {
 					const { title, description } = getProjectDuplicateErrorToastContent(
@@ -319,11 +318,7 @@ export function useProjectsPage() {
 
 		schedule({
 			key: project.id,
-			title: t("project.projectPage.delete.undo.title"),
-			description: t("project.projectPage.delete.undo.description", {
-				name: project.name,
-			}),
-			undoLabel: t("common.actions.undo"),
+			...getCrudDeleteUndoToastContent(t, project.name),
 			onCommit: () => {
 				removeProjectMutation.mutate(
 					{
@@ -331,17 +326,12 @@ export function useProjectsPage() {
 					},
 					{
 						onSuccess: () => {
-							toast.success(
-								t("project.projectPage.delete.feedback.success.title"),
-								{
-									description: t(
-										"project.projectPage.delete.feedback.success.description",
-										{
-											name: project.name,
-										},
-									),
-								},
+							const { title, description } = getCrudSuccessToastContent(
+								t,
+								"delete",
+								project.name,
 							);
+							toast.success(title, { description });
 
 							editorState.clearIfMatches(project.id);
 						},

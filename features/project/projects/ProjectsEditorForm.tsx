@@ -66,8 +66,12 @@ export function ProjectsEditorForm({
 
 		return (
 			<SomeErrorState
-				title={t("project.projectPage.update.loadError.title")}
-				description={t("project.projectPage.update.loadError.description")}
+				title={t("common.errors.editorLoad.title", {
+					object: t("common.objects.project"),
+				})}
+				description={t("common.errors.editorLoad.description", {
+					object: t("common.objects.project"),
+				})}
 				onRefresh={onRefreshProject}
 			/>
 		);
@@ -136,9 +140,9 @@ export function ProjectsEditorForm({
 								options={entityOptions}
 								value={field.value}
 								onValueChange={field.onChange}
-								placeholder={t("common.fields.entityPlaceholder")}
-								searchPlaceholder={t("common.fields.entitySearchPlaceholder")}
-								emptyMessage={t("common.fields.entityEmptyMessage")}
+								placeholder={t("common.placeholders.select")}
+								searchPlaceholder={t("common.placeholders.search")}
+								emptyMessage={t("common.placeholders.noResults")}
 							/>
 						)}
 					/>
@@ -161,15 +165,9 @@ export function ProjectsEditorForm({
 							options={areaOfExpertiseOptions}
 							values={field.value}
 							onValuesChange={field.onChange}
-							placeholder={t(
-								"project.projectPage.editor.fields.areasOfExpertisePlaceholder",
-							)}
-							searchPlaceholder={t(
-								"project.projectPage.editor.fields.areasOfExpertiseSearchPlaceholder",
-							)}
-							emptyMessage={t(
-								"project.projectPage.editor.fields.areasOfExpertiseEmptyMessage",
-							)}
+							placeholder={t("common.placeholders.select")}
+							searchPlaceholder={t("common.placeholders.search")}
+							emptyMessage={t("common.placeholders.noResults")}
 						/>
 					)}
 				/>

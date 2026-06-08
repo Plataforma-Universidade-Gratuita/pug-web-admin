@@ -68,8 +68,12 @@ export function AttendanceEditorForm({
 
 		return (
 			<SomeErrorState
-				title={t("project.attendancePage.update.loadError.title")}
-				description={t("project.attendancePage.update.loadError.description")}
+				title={t("common.errors.editorLoad.title", {
+					object: t("common.objects.attendance"),
+				})}
+				description={t("common.errors.editorLoad.description", {
+					object: t("common.objects.attendance"),
+				})}
 				onRefresh={onRefreshAttendance}
 			/>
 		);
@@ -123,11 +127,9 @@ export function AttendanceEditorForm({
 									options={projectOptions}
 									value={field.value}
 									onValueChange={field.onChange}
-									placeholder={t("common.fields.projectPlaceholder")}
-									searchPlaceholder={t(
-										"common.fields.projectSearchPlaceholder",
-									)}
-									emptyMessage={t("common.fields.projectEmptyMessage")}
+									placeholder={t("common.placeholders.select")}
+									searchPlaceholder={t("common.placeholders.search")}
+									emptyMessage={t("common.placeholders.noResults")}
 								/>
 							)}
 						/>
@@ -148,11 +150,9 @@ export function AttendanceEditorForm({
 									options={formerStudentOptions}
 									value={field.value}
 									onValueChange={field.onChange}
-									placeholder={t("common.fields.formerStudentPlaceholder")}
-									searchPlaceholder={t(
-										"common.fields.formerStudentSearchPlaceholder",
-									)}
-									emptyMessage={t("common.fields.formerStudentEmptyMessage")}
+									placeholder={t("common.placeholders.select")}
+									searchPlaceholder={t("common.placeholders.search")}
+									emptyMessage={t("common.placeholders.noResults")}
 								/>
 							)}
 						/>
@@ -195,7 +195,7 @@ export function AttendanceEditorForm({
 							>
 								<SelectTrigger
 									className="w-full"
-									placeholder={t("common.fields.statusPlaceholder")}
+									placeholder={t("common.placeholders.select")}
 								/>
 								<SelectContent>
 									{statusOptions.map(option => (

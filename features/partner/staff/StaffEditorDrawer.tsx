@@ -35,6 +35,7 @@ import {
 	toStaffCreateRequest,
 	toStaffUpdateRequest,
 } from "@/features/partner/staff/utils";
+import { getCrudSuccessToastContent } from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -231,23 +232,12 @@ export function StaffEditorDrawer({
 				},
 				{
 					onSuccess: () => {
-						toast.success(
-							t(
-								isCreateMode
-									? "partner.staffPage.create.feedback.success.title"
-									: "partner.staffPage.duplicate.feedback.success.title",
-							),
-							{
-								description: t(
-									isCreateMode
-										? "partner.staffPage.create.feedback.success.description"
-										: "partner.staffPage.duplicate.feedback.success.description",
-									{
-										name: values.name.trim(),
-									},
-								),
-							},
+						const { title, description } = getCrudSuccessToastContent(
+							t,
+							isCreateMode ? "create" : "duplicate",
+							values.name.trim(),
 						);
+						toast.success(title, { description });
 						closeDrawer();
 					},
 					onError: error => {
@@ -272,14 +262,12 @@ export function StaffEditorDrawer({
 			},
 			{
 				onSuccess: () => {
-					toast.success(t("partner.staffPage.update.feedback.success.title"), {
-						description: t(
-							"partner.staffPage.update.feedback.success.description",
-							{
-								name: values.name.trim(),
-							},
-						),
-					});
+					const { title, description } = getCrudSuccessToastContent(
+						t,
+						"update",
+						values.name.trim(),
+					);
+					toast.success(title, { description });
 					closeDrawer();
 				},
 				onError: error => {
@@ -299,7 +287,9 @@ export function StaffEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("partner.staffPage.editor.loading")}
+				loadingLabel={t("common.editor.loading", {
+					object: t("common.objects.staffMember"),
+				})}
 			>
 				<DrawerContent>
 					<DrawerHeader overhead={drawerOverhead}>
@@ -363,8 +353,10 @@ export function StaffEditorDrawer({
 			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-				title={t("partner.staffPage.editor.resetConfirm.title")}
-				description={t("partner.staffPage.editor.resetConfirm.description")}
+				title={t("common.resetConfirm.title", {
+					object: t("common.objects.staffMember"),
+				})}
+				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("common.actions.resetChanges")}
 				onAction={resetForm}

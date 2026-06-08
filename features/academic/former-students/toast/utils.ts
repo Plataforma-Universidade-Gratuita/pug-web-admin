@@ -1,5 +1,6 @@
 import type { TFunction } from "i18next";
 
+import { getCrudErrorToastContent } from "@/features/utils";
 import { getApiErrorToastContent } from "@/utils";
 
 export function getStudentsListErrorToastContent(t: TFunction, error: unknown) {
@@ -35,50 +36,48 @@ export function getStudentCreateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.formerStudentPage.create.feedback.error.title"),
-		fallbackDescription: t(
-			"academic.formerStudentPage.create.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"create",
+		t("common.objects.formerStudent"),
+	);
 }
 
 export function getStudentDuplicateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t(
-			"academic.formerStudentPage.duplicate.feedback.error.title",
-		),
-		fallbackDescription: t(
-			"academic.formerStudentPage.duplicate.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"duplicate",
+		t("common.objects.formerStudent"),
+	);
 }
 
 export function getStudentUpdateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.formerStudentPage.update.feedback.error.title"),
-		fallbackDescription: t(
-			"academic.formerStudentPage.update.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"update",
+		t("common.objects.formerStudent"),
+	);
 }
 
 export function getStudentDeleteErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.formerStudentPage.delete.feedback.error.title"),
-		fallbackDescription: t(
-			"academic.formerStudentPage.delete.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"delete",
+		t("common.objects.formerStudent"),
+	);
 }
 
 export function getStudentSetActiveErrorToastContent(

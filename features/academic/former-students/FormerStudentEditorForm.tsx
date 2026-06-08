@@ -80,10 +80,12 @@ export function FormerStudentEditorForm({
 
 		return (
 			<SomeErrorState
-				title={t("academic.formerStudentPage.update.loadError.title")}
-				description={t(
-					"academic.formerStudentPage.update.loadError.description",
-				)}
+				title={t("common.errors.editorLoad.title", {
+					object: t("common.objects.formerStudent"),
+				})}
+				description={t("common.errors.editorLoad.description", {
+					object: t("common.objects.formerStudent"),
+				})}
 				onRefresh={onRefreshFormerStudent}
 			/>
 		);

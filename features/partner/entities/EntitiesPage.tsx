@@ -34,6 +34,11 @@ import {
 	mapEntitySearchResponsesToTableRows,
 } from "@/features/partner/entities/utils";
 import {
+	getCrudDeleteConfirmCopy,
+	getCrudDeleteUndoToastContent,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
+import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
@@ -156,6 +161,17 @@ export function EntitiesPage() {
 		() => getEntityEmptyStateCopy(t, filterSummary),
 		[filterSummary, t],
 	);
+	const deleteConfirmCopy = useMemo(
+		() =>
+			pendingDeleteEntity
+				? getCrudDeleteConfirmCopy(
+						t,
+						t("common.objects.entity"),
+						pendingDeleteEntity.name,
+					)
+				: null,
+		[pendingDeleteEntity, t],
+	);
 	const tableEmptyState = useMemo(() => {
 		if (entitiesQuery.isError) {
 			return (
@@ -246,11 +262,7 @@ export function EntitiesPage() {
 
 		schedule({
 			key: entity.id,
-			title: t("partner.entityPage.delete.undo.title"),
-			description: t("partner.entityPage.delete.undo.description", {
-				name: entity.name,
-			}),
-			undoLabel: t("common.actions.undo"),
+			...getCrudDeleteUndoToastContent(t, entity.name),
 			onCommit: () => {
 				removeEntityMutation.mutate(
 					{
@@ -258,17 +270,12 @@ export function EntitiesPage() {
 					},
 					{
 						onSuccess: () => {
-							toast.success(
-								t("partner.entityPage.delete.feedback.success.title"),
-								{
-									description: t(
-										"partner.entityPage.delete.feedback.success.description",
-										{
-											name: entity.name,
-										},
-									),
-								},
+							const { title, description } = getCrudSuccessToastContent(
+								t,
+								"delete",
+								entity.name,
 							);
+							toast.success(title, { description });
 
 							editorState.clearIfMatches(entity.id);
 						},
@@ -391,10 +398,8 @@ export function EntitiesPage() {
 					}
 				}}
 				variant="danger"
-				title={t("partner.entityPage.delete.confirm.title")}
-				description={t("partner.entityPage.delete.confirm.description", {
-					name: pendingDeleteEntity?.name ?? "",
-				})}
+				title={deleteConfirmCopy?.title ?? ""}
+				description={deleteConfirmCopy?.description ?? ""}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("table.actions.delete")}
 				onAction={handleDeleteConfirm}

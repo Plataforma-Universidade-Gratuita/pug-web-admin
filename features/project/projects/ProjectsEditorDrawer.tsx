@@ -33,6 +33,7 @@ import {
 	toProjectCreateRequest,
 	toProjectUpdateRequest,
 } from "@/features/project/projects/utils";
+import { getCrudSuccessToastContent } from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -240,23 +241,12 @@ export function ProjectsEditorDrawer({
 				{
 					onSuccess: project => {
 						const finishSuccess = () => {
-							toast.success(
-								t(
-									isCreateMode
-										? "project.projectPage.create.feedback.success.title"
-										: "project.projectPage.duplicate.feedback.success.title",
-								),
-								{
-									description: t(
-										isCreateMode
-											? "project.projectPage.create.feedback.success.description"
-											: "project.projectPage.duplicate.feedback.success.description",
-										{
-											name: project.name,
-										},
-									),
-								},
+							const { title, description } = getCrudSuccessToastContent(
+								t,
+								isCreateMode ? "create" : "duplicate",
+								project.name,
 							);
+							toast.success(title, { description });
 							closeDrawer();
 						};
 
@@ -310,17 +300,12 @@ export function ProjectsEditorDrawer({
 						},
 						{
 							onSuccess: () => {
-								toast.success(
-									t("project.projectPage.update.feedback.success.title"),
-									{
-										description: t(
-											"project.projectPage.update.feedback.success.description",
-											{
-												name: project.name,
-											},
-										),
-									},
+								const { title, description } = getCrudSuccessToastContent(
+									t,
+									"update",
+									project.name,
 								);
+								toast.success(title, { description });
 								closeDrawer();
 							},
 							onError: error => {
@@ -348,7 +333,9 @@ export function ProjectsEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("project.projectPage.editor.loading")}
+				loadingLabel={t("common.editor.loading", {
+					object: t("common.objects.project"),
+				})}
 			>
 				<DrawerContent>
 					<DrawerHeader overhead={drawerOverhead}>
@@ -393,7 +380,7 @@ export function ProjectsEditorDrawer({
 							disabled={!form.formState.isDirty || isSubmitPending}
 							onClick={openResetConfirm}
 						>
-							{t("project.projectPage.editor.actions.reset")}
+							{t("common.actions.resetChanges")}
 						</Button>
 						<Button
 							usage="success"
@@ -414,10 +401,12 @@ export function ProjectsEditorDrawer({
 			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-				title={t("project.projectPage.editor.resetConfirm.title")}
-				description={t("project.projectPage.editor.resetConfirm.description")}
+				title={t("common.resetConfirm.title", {
+					object: t("common.objects.project"),
+				})}
+				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("project.projectPage.editor.actions.reset")}
+				actionLabel={t("common.actions.resetChanges")}
 				onAction={resetForm}
 			/>
 		</>

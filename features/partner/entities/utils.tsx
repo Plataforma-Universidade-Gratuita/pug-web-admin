@@ -10,6 +10,7 @@ import {
 	TABLE_IDENTIFIER_TEXT_WIDTH,
 } from "@/features/partner/entities/constants";
 import {
+	getCrudErrorToastContent,
 	matchesAnyDateRange,
 	normalizeDigits,
 	toSearchDateOffsetDateTime,
@@ -271,42 +272,42 @@ export function getEntityCitiesErrorToastContent(t: TFunction, error: unknown) {
 }
 
 export function getEntityCreateErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.entityPage.create.feedback.error.title"),
-		fallbackDescription: t(
-			"partner.entityPage.create.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"create",
+		t("common.objects.entity"),
+	);
 }
 
 export function getEntityDuplicateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.entityPage.duplicate.feedback.error.title"),
-		fallbackDescription: t(
-			"partner.entityPage.duplicate.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"duplicate",
+		t("common.objects.entity"),
+	);
 }
 
 export function getEntityUpdateErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.entityPage.update.feedback.error.title"),
-		fallbackDescription: t(
-			"partner.entityPage.update.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"update",
+		t("common.objects.entity"),
+	);
 }
 
 export function getEntityDeleteErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.entityPage.delete.feedback.error.title"),
-		fallbackDescription: t(
-			"partner.entityPage.delete.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"delete",
+		t("common.objects.entity"),
+	);
 }
 
 export function getEmptyEntityEditorFormValues(): EntityEditorFormValues {

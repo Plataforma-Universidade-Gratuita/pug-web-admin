@@ -31,6 +31,7 @@ import {
 	toFormerStudentCreateRequest,
 	toFormerStudentUpdateRequest,
 } from "@/features/academic/former-students/utils";
+import { getCrudSuccessToastContent } from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -228,23 +229,12 @@ export function FormerStudentEditorDrawer({
 				},
 				{
 					onSuccess: () => {
-						toast.success(
-							t(
-								isCreateMode
-									? "academic.formerStudentPage.create.feedback.success.title"
-									: "academic.formerStudentPage.duplicate.feedback.success.title",
-							),
-							{
-								description: t(
-									isCreateMode
-										? "academic.formerStudentPage.create.feedback.success.description"
-										: "academic.formerStudentPage.duplicate.feedback.success.description",
-									{
-										name: values.name,
-									},
-								),
-							},
+						const { title, description } = getCrudSuccessToastContent(
+							t,
+							isCreateMode ? "create" : "duplicate",
+							values.name,
 						);
+						toast.success(title, { description });
 						closeDrawer();
 					},
 					onError: error => {
@@ -269,17 +259,12 @@ export function FormerStudentEditorDrawer({
 			},
 			{
 				onSuccess: () => {
-					toast.success(
-						t("academic.formerStudentPage.update.feedback.success.title"),
-						{
-							description: t(
-								"academic.formerStudentPage.update.feedback.success.description",
-								{
-									name: values.name,
-								},
-							),
-						},
+					const { title, description } = getCrudSuccessToastContent(
+						t,
+						"update",
+						values.name,
 					);
+					toast.success(title, { description });
 					closeDrawer();
 				},
 				onError: error => {
@@ -299,7 +284,9 @@ export function FormerStudentEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("academic.formerStudentPage.editor.loading")}
+				loadingLabel={t("common.editor.loading", {
+					object: t("common.objects.formerStudent"),
+				})}
 			>
 				<DrawerContent>
 					<DrawerHeader overhead={drawerOverhead}>
@@ -347,7 +334,7 @@ export function FormerStudentEditorDrawer({
 							disabled={!form.formState.isDirty || isSubmitPending}
 							onClick={openResetConfirm}
 						>
-							{t("academic.formerStudentPage.editor.actions.reset")}
+							{t("common.actions.resetChanges")}
 						</Button>
 						<Button
 							usage="success"
@@ -368,12 +355,12 @@ export function FormerStudentEditorDrawer({
 			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-				title={t("academic.formerStudentPage.editor.resetConfirm.title")}
-				description={t(
-					"academic.formerStudentPage.editor.resetConfirm.description",
-				)}
+				title={t("common.resetConfirm.title", {
+					object: t("common.objects.formerStudent"),
+				})}
+				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("academic.formerStudentPage.editor.actions.reset")}
+				actionLabel={t("common.actions.resetChanges")}
 				onAction={resetForm}
 			/>
 		</>

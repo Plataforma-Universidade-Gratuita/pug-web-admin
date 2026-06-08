@@ -1,5 +1,6 @@
 import type { TFunction } from "i18next";
 
+import { getCrudErrorToastContent } from "@/features/utils";
 import type { ProjectStatusAction } from "@/types/client";
 import { getApiErrorToastContent } from "@/utils";
 
@@ -60,48 +61,48 @@ export function getProjectCreateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.projectPage.create.feedback.error.title"),
-		fallbackDescription: t(
-			"project.projectPage.create.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"create",
+		t("common.objects.project"),
+	);
 }
 
 export function getProjectDuplicateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.projectPage.duplicate.feedback.error.title"),
-		fallbackDescription: t(
-			"project.projectPage.duplicate.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"duplicate",
+		t("common.objects.project"),
+	);
 }
 
 export function getProjectUpdateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.projectPage.update.feedback.error.title"),
-		fallbackDescription: t(
-			"project.projectPage.update.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"update",
+		t("common.objects.project"),
+	);
 }
 
 export function getProjectDeleteErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("project.projectPage.delete.feedback.error.title"),
-		fallbackDescription: t(
-			"project.projectPage.delete.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"delete",
+		t("common.objects.project"),
+	);
 }
 
 export function getProjectStatusActionErrorToastContent(

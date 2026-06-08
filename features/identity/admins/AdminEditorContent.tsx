@@ -67,8 +67,12 @@ export function AdminEditorContent({
 
 		return (
 			<SomeErrorState
-				title={t("identity.adminPage.update.loadError.title")}
-				description={t("identity.adminPage.update.loadError.description")}
+				title={t("common.errors.editorLoad.title", {
+					object: t("common.objects.administrator"),
+				})}
+				description={t("common.errors.editorLoad.description", {
+					object: t("common.objects.administrator"),
+				})}
 				onRefresh={onRefreshAdmin}
 			/>
 		);

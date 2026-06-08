@@ -101,11 +101,9 @@ export function ProjectsFiltersDrawer({
 				options={creatorOptions}
 				values={createdByIds}
 				onValuesChange={value => onCreatedByIdsChange(value)}
-				placeholder={t("project.projectPage.filters.createdBy.placeholder")}
-				searchPlaceholder={t(
-					"project.projectPage.filters.createdBy.searchPlaceholder",
-				)}
-				emptyMessage={t("project.projectPage.filters.createdBy.emptyMessage")}
+				placeholder={t("common.placeholders.select")}
+				searchPlaceholder={t("common.placeholders.search")}
+				emptyMessage={t("common.placeholders.noResults")}
 				isError={Boolean(creatorsError)}
 				errorTitle={t("project.projectPage.filters.createdBy.error.title")}
 				errorDescription={t(

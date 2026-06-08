@@ -1,4 +1,9 @@
+import type { TFunction } from "i18next";
+
 import type { SearchDateBoundary } from "@/types/client";
+import { getApiErrorToastContent } from "@/utils";
+
+type CrudFeedbackAction = "create" | "update" | "duplicate" | "delete";
 
 export function appendCopyToText(value: string) {
 	return `${value} Copy`;
@@ -51,6 +56,58 @@ export function appendCopyToEmail(
 
 export function normalizeDigits(value: string) {
 	return value.replace(/\D+/g, "");
+}
+
+export function getCrudErrorToastContent(
+	t: TFunction,
+	error: unknown,
+	action: CrudFeedbackAction,
+	object: string,
+) {
+	return getApiErrorToastContent(error, {
+		fallbackTitle: t(`common.feedback.${action}.error.title`),
+		fallbackDescription: t(`common.feedback.${action}.error.description`, {
+			object,
+		}),
+	});
+}
+
+export function getCrudSuccessToastContent(
+	t: TFunction,
+	action: CrudFeedbackAction,
+	name: string,
+) {
+	return {
+		title: t(`common.feedback.${action}.success.title`),
+		description: t(`common.feedback.${action}.success.description`, {
+			name,
+		}),
+	};
+}
+
+export function getCrudDeleteConfirmCopy(
+	t: TFunction,
+	object: string,
+	name: string,
+) {
+	return {
+		title: t("common.feedback.delete.confirm.title", {
+			object,
+		}),
+		description: t("common.feedback.delete.confirm.description", {
+			name,
+		}),
+	};
+}
+
+export function getCrudDeleteUndoToastContent(t: TFunction, name: string) {
+	return {
+		title: t("common.feedback.delete.undo.title"),
+		description: t("common.feedback.delete.undo.description", {
+			name,
+		}),
+		undoLabel: t("common.feedback.delete.undo.action"),
+	};
 }
 
 function setBoundaryHours(date: Date, boundary: SearchDateBoundary) {

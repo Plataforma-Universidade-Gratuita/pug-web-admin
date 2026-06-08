@@ -34,6 +34,10 @@ import {
 	getStudentsListErrorToastContent,
 } from "@/features/academic/former-students/utils";
 import {
+	getCrudDeleteUndoToastContent,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
+import {
 	useActivatableRecordActions,
 	useDraftFilters,
 	useQueryErrorToasts,
@@ -122,21 +126,18 @@ export function FormerStudentsPage() {
 		getDeleteErrorToastContent: error =>
 			getStudentDeleteErrorToastContent(t, error),
 		getDeleteSuccessToastContent: formerStudent => ({
-			title: t("academic.formerStudentPage.delete.feedback.success.title"),
-			description: t(
-				"academic.formerStudentPage.delete.feedback.success.description",
-				{
-					name: formerStudent.user?.name ?? formerStudent.accountId,
-				},
+			...getCrudSuccessToastContent(
+				t,
+				"delete",
+				formerStudent.user?.name ?? formerStudent.accountId,
 			),
 		}),
 		getDeleteUndoToastContent: formerStudent => ({
 			key: formerStudent.accountId,
-			title: t("academic.formerStudentPage.delete.undo.title"),
-			description: t("academic.formerStudentPage.delete.undo.description", {
-				name: formerStudent.user?.name ?? formerStudent.accountId,
-			}),
-			undoLabel: t("common.actions.undo"),
+			...getCrudDeleteUndoToastContent(
+				t,
+				formerStudent.user?.name ?? formerStudent.accountId,
+			),
 		}),
 		getDeleteVariables: formerStudent => ({
 			accountId: formerStudent.accountId,
@@ -337,17 +338,12 @@ export function FormerStudentsPage() {
 				},
 				{
 					onSuccess: () => {
-						toast.success(
-							t("academic.formerStudentPage.duplicate.feedback.success.title"),
-							{
-								description: t(
-									"academic.formerStudentPage.duplicate.feedback.success.description",
-									{
-										name: linkedUser.name,
-									},
-								),
-							},
+						const { title, description } = getCrudSuccessToastContent(
+							t,
+							"duplicate",
+							linkedUser.name,
 						);
+						toast.success(title, { description });
 					},
 					onError: error => {
 						const { title, description } = getStudentDuplicateErrorToastContent(

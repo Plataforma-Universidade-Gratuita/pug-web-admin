@@ -47,8 +47,12 @@ export function EntityEditorForm({
 
 		return (
 			<SomeErrorState
-				title={t("partner.entityPage.update.loadError.title")}
-				description={t("partner.entityPage.update.loadError.description")}
+				title={t("common.errors.editorLoad.title", {
+					object: t("common.objects.entity"),
+				})}
+				description={t("common.errors.editorLoad.description", {
+					object: t("common.objects.entity"),
+				})}
 				onRefresh={onRefreshEntity}
 			/>
 		);
@@ -165,15 +169,9 @@ export function EntityEditorForm({
 							options={cityOptions}
 							value={field.value}
 							onValueChange={field.onChange}
-							placeholder={t(
-								"partner.entityPage.editor.fields.cityPlaceholder",
-							)}
-							searchPlaceholder={t(
-								"partner.entityPage.editor.fields.citySearchPlaceholder",
-							)}
-							emptyMessage={t(
-								"partner.entityPage.editor.fields.cityEmptyMessage",
-							)}
+							placeholder={t("common.placeholders.select")}
+							searchPlaceholder={t("common.placeholders.search")}
+							emptyMessage={t("common.placeholders.noResults")}
 						/>
 					)}
 				/>

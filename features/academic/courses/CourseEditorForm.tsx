@@ -45,8 +45,12 @@ export function CourseEditorForm({
 
 		return (
 			<SomeErrorState
-				title={t("academic.coursePage.update.loadError.title")}
-				description={t("academic.coursePage.update.loadError.description")}
+				title={t("common.errors.editorLoad.title", {
+					object: t("common.objects.course"),
+				})}
+				description={t("common.errors.editorLoad.description", {
+					object: t("common.objects.course"),
+				})}
 				onRefresh={onRefreshCourse}
 			/>
 		);

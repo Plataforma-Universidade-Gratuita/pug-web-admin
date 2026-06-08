@@ -80,8 +80,8 @@ export function EnrollmentsPageFilters({
 							onFrontendStatusesChange(value as EnrollmentStatus[])
 						}
 						placeholder={t("common.placeholders.select")}
-						searchPlaceholder={t("common.filters.status.searchPlaceholder")}
-						emptyMessage={t("common.filters.status.emptyMessage")}
+						searchPlaceholder={t("common.placeholders.search")}
+						emptyMessage={t("common.placeholders.noResults")}
 						maxVisibleValues={1}
 					/>
 				</div>

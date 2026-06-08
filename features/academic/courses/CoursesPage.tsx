@@ -30,6 +30,11 @@ import {
 	getCoursesListErrorToastContent,
 } from "@/features/academic/courses/utils";
 import {
+	getCrudDeleteConfirmCopy,
+	getCrudDeleteUndoToastContent,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
+import {
 	useDeferredUndoAction,
 	useDraftFilters,
 	useQueryErrorToasts,
@@ -122,6 +127,15 @@ export function CoursesPage() {
 		() => getCourseEmptyStateCopy(t, filterSummary),
 		[filterSummary, t],
 	);
+	const deleteConfirmCopy = useMemo(
+		() =>
+			getCrudDeleteConfirmCopy(
+				t,
+				t("common.objects.course"),
+				pendingDeleteCourse?.name ?? "",
+			),
+		[pendingDeleteCourse?.name, t],
+	);
 	const tableEmptyState = useMemo(() => {
 		if (coursesQuery.isError) {
 			return (
@@ -176,17 +190,12 @@ export function CoursesPage() {
 			},
 			{
 				onSuccess: createdCourse => {
-					toast.success(
-						t("academic.coursePage.duplicate.feedback.success.title"),
-						{
-							description: t(
-								"academic.coursePage.duplicate.feedback.success.description",
-								{
-									name: createdCourse.name,
-								},
-							),
-						},
+					const { title, description } = getCrudSuccessToastContent(
+						t,
+						"duplicate",
+						createdCourse.name,
 					);
+					toast.success(title, { description });
 				},
 				onError: error => {
 					const { title, description } = getCourseDuplicateErrorToastContent(
@@ -209,11 +218,7 @@ export function CoursesPage() {
 
 		schedule({
 			key: course.id,
-			title: t("academic.coursePage.delete.undo.title"),
-			description: t("academic.coursePage.delete.undo.description", {
-				name: course.name,
-			}),
-			undoLabel: t("common.actions.undo"),
+			...getCrudDeleteUndoToastContent(t, course.name),
 			onCommit: () => {
 				removeCourseMutation.mutate(
 					{
@@ -221,17 +226,12 @@ export function CoursesPage() {
 					},
 					{
 						onSuccess: () => {
-							toast.success(
-								t("academic.coursePage.delete.feedback.success.title"),
-								{
-									description: t(
-										"academic.coursePage.delete.feedback.success.description",
-										{
-											name: course.name,
-										},
-									),
-								},
+							const { title, description } = getCrudSuccessToastContent(
+								t,
+								"delete",
+								course.name,
 							);
+							toast.success(title, { description });
 
 							editorState.clearIfMatches(course.id);
 						},
@@ -337,10 +337,8 @@ export function CoursesPage() {
 					}
 				}}
 				variant="danger"
-				title={t("academic.coursePage.delete.confirm.title")}
-				description={t("academic.coursePage.delete.confirm.description", {
-					name: pendingDeleteCourse?.name ?? "",
-				})}
+				title={deleteConfirmCopy.title}
+				description={deleteConfirmCopy.description}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("table.actions.delete")}
 				onAction={handleDeleteConfirm}

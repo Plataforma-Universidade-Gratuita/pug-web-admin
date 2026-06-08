@@ -24,6 +24,7 @@ import {
 	toAdminCreateRequest,
 	toAdminUpdateRequest,
 } from "@/features/identity/admins/utils";
+import { getCrudSuccessToastContent } from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -219,17 +220,12 @@ export function AdminsUpdateDrawer({
 				},
 				{
 					onSuccess: () => {
-						toast.success(
-							t("identity.adminPage.create.feedback.success.title"),
-							{
-								description: t(
-									"identity.adminPage.create.feedback.success.description",
-									{
-										name: values.name.trim(),
-									},
-								),
-							},
+						const { title, description } = getCrudSuccessToastContent(
+							t,
+							"create",
+							values.name.trim(),
 						);
+						toast.success(title, { description });
 						closeDrawer();
 					},
 					onError: error => {
@@ -255,14 +251,12 @@ export function AdminsUpdateDrawer({
 			},
 			{
 				onSuccess: () => {
-					toast.success(t("identity.adminPage.update.feedback.success.title"), {
-						description: t(
-							"identity.adminPage.update.feedback.success.description",
-							{
-								name: values.name.trim(),
-							},
-						),
-					});
+					const { title, description } = getCrudSuccessToastContent(
+						t,
+						"update",
+						values.name.trim(),
+					);
+					toast.success(title, { description });
 					closeDrawer();
 				},
 				onError: error => {
@@ -282,7 +276,9 @@ export function AdminsUpdateDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("identity.adminPage.update.loading")}
+				loadingLabel={t("common.editor.loading", {
+					object: t("common.objects.administrator"),
+				})}
 				overhead={drawerOverhead}
 				title={linkedUserQuery.data?.name ?? drawerTitleFallback}
 				bodyClassName="grid gap-6"
@@ -342,8 +338,10 @@ export function AdminsUpdateDrawer({
 			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-				title={t("identity.adminPage.update.resetConfirm.title")}
-				description={t("identity.adminPage.update.resetConfirm.description")}
+				title={t("common.resetConfirm.title", {
+					object: t("common.objects.administrator"),
+				})}
+				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("common.actions.resetChanges")}
 				onAction={resetForm}

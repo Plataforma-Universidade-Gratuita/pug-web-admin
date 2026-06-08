@@ -3,6 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { RecordActionDialogs } from "@/components/composite";
+import { getCrudDeleteConfirmCopy } from "@/features/utils";
 import type { StaffPageDialogsProps } from "@/types/client";
 
 export function StaffPageDialogs({
@@ -14,6 +15,13 @@ export function StaffPageDialogs({
 	pendingStatusRecord,
 }: StaffPageDialogsProps) {
 	const { t } = useTranslation();
+	const deleteConfirmCopy = pendingDeleteRecord
+		? getCrudDeleteConfirmCopy(
+				t,
+				t("common.objects.staffMember"),
+				pendingDeleteRecord.account.user.name,
+			)
+		: null;
 
 	return (
 		<RecordActionDialogs
@@ -22,13 +30,11 @@ export function StaffPageDialogs({
 				? {
 						deleteDialog: {
 							actionLabel: t("table.actions.delete"),
-							description: t("partner.staffPage.delete.confirm.description", {
-								name: pendingDeleteRecord.account.user.name,
-							}),
+							description: deleteConfirmCopy?.description ?? "",
 							onAction: onDeleteConfirm,
 							onOpenChange: onDeleteOpenChange,
 							open: true,
-							title: t("partner.staffPage.delete.confirm.title"),
+							title: deleteConfirmCopy?.title ?? "",
 							variant: "danger" as const,
 						},
 					}

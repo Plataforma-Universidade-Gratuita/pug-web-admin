@@ -9,6 +9,7 @@ import {
 import { Combobox, Label } from "@/components/primitives";
 import { ProjectsFiltersDrawer } from "@/features/project/projects/ProjectsFiltersDrawer";
 import { getProjectStatusDialogVariant } from "@/features/project/projects/components/utils";
+import { getCrudDeleteConfirmCopy } from "@/features/utils";
 import type { ProjectResponse, ProjectStatus } from "@/types/api";
 import type {
 	ComboboxOption,
@@ -150,6 +151,13 @@ export function ProjectsPageDialogs({
 	onStatusConfirm: () => void;
 }) {
 	const { t } = useTranslation();
+	const deleteConfirmCopy = pendingDeleteProject
+		? getCrudDeleteConfirmCopy(
+				t,
+				t("common.objects.project"),
+				pendingDeleteProject.name,
+			)
+		: null;
 
 	return (
 		<>
@@ -157,10 +165,8 @@ export function ProjectsPageDialogs({
 				open={pendingDeleteProject !== null}
 				onOpenChange={onDeleteOpenChange}
 				variant="danger"
-				title={t("project.projectPage.delete.confirm.title")}
-				description={t("project.projectPage.delete.confirm.description", {
-					name: pendingDeleteProject?.name ?? "",
-				})}
+				title={deleteConfirmCopy?.title ?? ""}
+				description={deleteConfirmCopy?.description ?? ""}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("table.actions.delete")}
 				onAction={onDeleteConfirm}

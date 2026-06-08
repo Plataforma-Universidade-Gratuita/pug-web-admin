@@ -4,6 +4,7 @@ import type { TFunction } from "i18next";
 import { TableText } from "@/components/primitives";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/features/constants";
 import {
+	getCrudErrorToastContent,
 	matchesAnyDateRange,
 	toSearchDateOffsetDateTime,
 } from "@/features/utils";
@@ -170,42 +171,42 @@ export function getCourseAreasOfExpertiseErrorToastContent(
 }
 
 export function getCourseCreateErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.coursePage.create.feedback.error.title"),
-		fallbackDescription: t(
-			"academic.coursePage.create.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"create",
+		t("common.objects.course"),
+	);
 }
 
 export function getCourseDuplicateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.coursePage.duplicate.feedback.error.title"),
-		fallbackDescription: t(
-			"academic.coursePage.duplicate.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"duplicate",
+		t("common.objects.course"),
+	);
 }
 
 export function getCourseUpdateErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.coursePage.update.feedback.error.title"),
-		fallbackDescription: t(
-			"academic.coursePage.update.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"update",
+		t("common.objects.course"),
+	);
 }
 
 export function getCourseDeleteErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("academic.coursePage.delete.feedback.error.title"),
-		fallbackDescription: t(
-			"academic.coursePage.delete.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"delete",
+		t("common.objects.course"),
+	);
 }
 
 export function getEmptyCourseEditorFormValues(): CourseEditorFormValues {

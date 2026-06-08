@@ -32,6 +32,11 @@ import {
 	getAdminsListErrorToastContent,
 } from "@/features/identity/admins/utils";
 import {
+	getCrudDeleteConfirmCopy,
+	getCrudDeleteUndoToastContent,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
+import {
 	useActivatableRecordActions,
 	useDraftFilters,
 	useQueryErrorToasts,
@@ -122,18 +127,11 @@ export function AdminsPage() {
 		getDeleteErrorToastContent: error =>
 			getAdminDeleteErrorToastContent(t, error),
 		getDeleteSuccessToastContent: admin => ({
-			title: t("identity.adminPage.delete.feedback.success.title"),
-			description: t("identity.adminPage.delete.feedback.success.description", {
-				name: admin.account.user.name,
-			}),
+			...getCrudSuccessToastContent(t, "delete", admin.account.user.name),
 		}),
 		getDeleteUndoToastContent: admin => ({
 			key: admin.account.id,
-			title: t("identity.adminPage.delete.undo.title"),
-			description: t("identity.adminPage.delete.undo.description", {
-				name: admin.account.user.name,
-			}),
-			undoLabel: t("common.actions.undo"),
+			...getCrudDeleteUndoToastContent(t, admin.account.user.name),
 		}),
 		getDeleteVariables: admin => ({
 			accountId: admin.account.id,
@@ -203,6 +201,17 @@ export function AdminsPage() {
 	const emptyStateCopy = useMemo(
 		() => getAdminEmptyStateCopy(t, filterSummary),
 		[filterSummary, t],
+	);
+	const deleteConfirmCopy = useMemo(
+		() =>
+			pendingDeleteRecord
+				? getCrudDeleteConfirmCopy(
+						t,
+						t("common.objects.administrator"),
+						pendingDeleteRecord.account.user.name,
+					)
+				: null,
+		[pendingDeleteRecord, t],
 	);
 	const tableEmptyState = useMemo(() => {
 		if (adminsSearchQuery.isError) {
@@ -290,21 +299,12 @@ export function AdminsPage() {
 				},
 				{
 					onSuccess: () => {
-						toast.success(
-							t("identity.adminPage.duplicate.feedback.success.title"),
-							{
-								description: t(
-									"identity.adminPage.duplicate.feedback.success.description",
-									{
-										name: linkedUser.name,
-										email: appendCopyToEmail(
-											admin.account.email,
-											(accountsQuery.data ?? []).map(account => account.email),
-										),
-									},
-								),
-							},
+						const { title, description } = getCrudSuccessToastContent(
+							t,
+							"duplicate",
+							linkedUser.name,
 						);
+						toast.success(title, { description });
 					},
 					onError: error => {
 						const { title, description } = getAdminDuplicateErrorToastContent(
@@ -420,12 +420,7 @@ export function AdminsPage() {
 					? {
 							deleteDialog: {
 								actionLabel: t("table.actions.delete"),
-								description: t(
-									"identity.adminPage.delete.confirm.description",
-									{
-										name: pendingDeleteRecord.account.user.name,
-									},
-								),
+								description: deleteConfirmCopy?.description ?? "",
 								onAction: confirmDelete,
 								onOpenChange: open => {
 									if (!open) {
@@ -433,7 +428,7 @@ export function AdminsPage() {
 									}
 								},
 								open: true,
-								title: t("identity.adminPage.delete.confirm.title"),
+								title: deleteConfirmCopy?.title ?? "",
 								variant: "danger" as const,
 							},
 						}

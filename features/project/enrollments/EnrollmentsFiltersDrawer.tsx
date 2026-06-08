@@ -70,9 +70,9 @@ export function EnrollmentsFiltersDrawer({
 				options={formerStudentOptions}
 				values={filters.formerStudentIds}
 				onValuesChange={value => onFilterChange("formerStudentIds", value)}
-				placeholder={t("common.fields.formerStudentPlaceholder")}
-				searchPlaceholder={t("common.fields.formerStudentSearchPlaceholder")}
-				emptyMessage={t("common.fields.formerStudentEmptyMessage")}
+				placeholder={t("common.placeholders.select")}
+				searchPlaceholder={t("common.placeholders.search")}
+				emptyMessage={t("common.placeholders.noResults")}
 				isError={Boolean(formerStudentsError)}
 				errorTitle={t("common.loadErrors.formerStudents.title")}
 				errorDescription={t("common.loadErrors.formerStudents.description")}
@@ -89,8 +89,8 @@ export function EnrollmentsFiltersDrawer({
 						onFilterChange("statuses", value as EnrollmentStatus[])
 					}
 					placeholder={t("common.placeholders.select")}
-					searchPlaceholder={t("common.filters.status.searchPlaceholder")}
-					emptyMessage={t("common.filters.status.emptyMessage")}
+					searchPlaceholder={t("common.placeholders.search")}
+					emptyMessage={t("common.placeholders.noResults")}
 				/>
 			</div>
 

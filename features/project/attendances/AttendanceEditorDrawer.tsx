@@ -271,7 +271,9 @@ export function AttendanceEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("project.attendancePage.editor.loading")}
+				loadingLabel={t("common.editor.loading", {
+					object: t("common.objects.attendance"),
+				})}
 				overhead={drawerOverhead}
 				title={drawerTitle}
 				footer={
@@ -282,7 +284,7 @@ export function AttendanceEditorDrawer({
 							onClick={openResetConfirm}
 							disabled={isSubmitPending}
 						>
-							{t("common.reset")}
+							{t("common.actions.resetChanges")}
 						</Button>
 
 						<Button
@@ -343,10 +345,12 @@ export function AttendanceEditorDrawer({
 			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-				title={t("common.resetConfirm.title")}
+				title={t("common.resetConfirm.title", {
+					object: t("common.objects.attendance"),
+				})}
 				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("project.attendancePage.editor.actions.reset")}
+				actionLabel={t("common.actions.resetChanges")}
 				onAction={resetForm}
 			/>
 		</>

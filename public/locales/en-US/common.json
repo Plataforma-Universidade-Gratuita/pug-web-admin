@@ -6,40 +6,9 @@
                     "save": "Create area of expertise",
                     "savePending": "Creating area of expertise..."
                 },
-                "feedback": {
-                    "error": {
-                        "description": "The area of expertise could not be created right now.",
-                        "title": "Unable to create area of expertise"
-                    },
-                    "success": {
-                        "description": "{{name}} was created successfully.",
-                        "title": "Area of expertise created"
-                    }
-                },
                 "open": "Add area of expertise",
                 "overhead": "New area of expertise",
                 "titleFallback": "Add area of expertise"
-            },
-            "delete": {
-                "confirm": {
-                    "description": "{{name}} will be removed after the undo window expires.",
-                    "title": "Delete this area of expertise?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The area of expertise could not be deleted right now.",
-                        "title": "Unable to delete area of expertise"
-                    },
-                    "success": {
-                        "description": "{{name}} was removed from the directory.",
-                        "title": "Area of expertise deleted"
-                    }
-                },
-                "undo": {
-                    "action": "Undo",
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Area-of-expertise deletion scheduled"
-                }
             },
             "description": "Browse areas of expertise used across academic records, course classification, and linked workflows.",
             "dialog": {
@@ -54,31 +23,13 @@
                     "save": "Create duplicate",
                     "savePending": "Creating duplicate..."
                 },
-                "feedback": {
-                    "error": {
-                        "description": "The area-of-expertise duplicate could not be created right now.",
-                        "title": "Unable to duplicate area of expertise"
-                    },
-                    "success": {
-                        "description": "{{name}} was duplicated successfully.",
-                        "title": "Area of expertise duplicated"
-                    }
-                },
                 "overhead": "Duplicate area of expertise",
                 "titleFallback": "Duplicate area of expertise"
             },
             "editor": {
-                "actions": {
-                    "reset": "Reset form"
-                },
                 "fields": {
                     "name": "Area of expertise",
                     "namePlaceholder": "Enter the area of expertise name"
-                },
-                "loading": "Loading area-of-expertise editor",
-                "resetConfirm": {
-                    "description": "This will discard the unsaved changes in the current drawer.",
-                    "title": "Reset area-of-expertise changes?"
                 },
                 "validation": {
                     "name": "Enter a name.",
@@ -104,20 +55,6 @@
                     "save": "Save changes",
                     "savePending": "Saving changes..."
                 },
-                "feedback": {
-                    "error": {
-                        "description": "The area of expertise could not be updated right now.",
-                        "title": "Unable to save area-of-expertise changes"
-                    },
-                    "success": {
-                        "description": "{{name}} was updated successfully.",
-                        "title": "Area of expertise updated"
-                    }
-                },
-                "loadError": {
-                    "description": "The area of expertise could not be loaded right now.",
-                    "title": "Unable to load area-of-expertise editor"
-                },
                 "overhead": "Edit area of expertise",
                 "titleFallback": "Edit area of expertise"
             }
@@ -128,39 +65,9 @@
                     "save": "Create course",
                     "savePending": "Creating course..."
                 },
-                "feedback": {
-                    "error": {
-                        "description": "The course could not be created right now.",
-                        "title": "Unable to create course"
-                    },
-                    "success": {
-                        "description": "{{name}} was created successfully.",
-                        "title": "Course created"
-                    }
-                },
                 "open": "Add course",
                 "overhead": "New course",
                 "titleFallback": "Add course"
-            },
-            "delete": {
-                "confirm": {
-                    "description": "{{name}} will be removed after the undo window expires.",
-                    "title": "Delete this course?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The course could not be deleted right now.",
-                        "title": "Unable to delete course"
-                    },
-                    "success": {
-                        "description": "{{name}} was removed from the directory.",
-                        "title": "Course deleted"
-                    }
-                },
-                "undo": {
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Course deletion scheduled"
-                }
             },
             "description": "Service directory for academic courses managed by the platform.",
             "dialog": {
@@ -174,16 +81,6 @@
                 "titleFallback": "Course details"
             },
             "duplicate": {
-                "feedback": {
-                    "error": {
-                        "description": "The course duplicate could not be created right now.",
-                        "title": "Unable to duplicate course"
-                    },
-                    "success": {
-                        "description": "{{name}} was duplicated successfully.",
-                        "title": "Course duplicated"
-                    }
-                },
                 "overhead": "Duplicate course",
                 "titleFallback": "Duplicate course"
             },
@@ -191,11 +88,6 @@
                 "fields": {
                     "name": "Course",
                     "namePlaceholder": "Enter the course name"
-                },
-                "loading": "Loading course editor",
-                "resetConfirm": {
-                    "description": "This will discard the unsaved changes in the current drawer.",
-                    "title": "Reset course changes?"
                 },
                 "validation": {
                     "name": "Enter a name.",
@@ -207,20 +99,6 @@
             },
             "title": "Courses",
             "update": {
-                "feedback": {
-                    "error": {
-                        "description": "The course could not be updated right now.",
-                        "title": "Unable to save course changes"
-                    },
-                    "success": {
-                        "description": "{{name}} was updated successfully.",
-                        "title": "Course updated"
-                    }
-                },
-                "loadError": {
-                    "description": "The course could not be loaded right now.",
-                    "title": "Unable to load course editor"
-                },
                 "overhead": "Edit course",
                 "titleFallback": "Edit course"
             }
@@ -230,16 +108,6 @@
                 "actions": {
                     "save": "Create former student",
                     "savePending": "Creating former student..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former-student record could not be created right now.",
-                        "title": "Unable to create former student"
-                    },
-                    "success": {
-                        "description": "{{name}} was created successfully.",
-                        "title": "Former student created"
-                    }
                 },
                 "open": "Add former student",
                 "overhead": "New former student",
@@ -259,26 +127,6 @@
                         "description": "{{name}} is now inactive.",
                         "title": "Former student deactivated"
                     }
-                }
-            },
-            "delete": {
-                "confirm": {
-                    "description": "{{name}} will be removed from the former-student directory after the undo window expires.",
-                    "title": "Delete this former student?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former-student record could not be deleted right now.",
-                        "title": "Unable to delete former student"
-                    },
-                    "success": {
-                        "description": "{{name}} was removed from the former-student directory.",
-                        "title": "Former student deleted"
-                    }
-                },
-                "undo": {
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Former-student deletion scheduled"
                 }
             },
             "description": "Browse former-student records, academic progress, linked accounts, and completion timelines.",
@@ -308,23 +156,10 @@
                     "save": "Create duplicate",
                     "savePending": "Creating duplicate..."
                 },
-                "feedback": {
-                    "error": {
-                        "description": "The former-student duplicate could not be created right now.",
-                        "title": "Unable to duplicate former student"
-                    },
-                    "success": {
-                        "description": "{{name}} was duplicated successfully.",
-                        "title": "Former student duplicated"
-                    }
-                },
                 "overhead": "Duplicate former student",
                 "titleFallback": "Duplicate former student"
             },
             "editor": {
-                "actions": {
-                    "reset": "Reset form"
-                },
                 "courseLoadError": {
                     "description": "The course directory could not be loaded right now.",
                     "title": "Unable to load courses"
@@ -335,9 +170,6 @@
                     "campus": "Campus",
                     "campusPlaceholder": "Select a campus",
                     "course": "Course",
-                    "courseEmptyMessage": "No courses found.",
-                    "coursePlaceholder": "Select a course",
-                    "courseSearchPlaceholder": "Search courses...",
                     "cpf": "CPF",
                     "cpfCreateOption": "Use {{value}}",
                     "cpfEmpty": "No CPF found.",
@@ -353,11 +185,6 @@
                     "requiredHoursPlaceholder": "Enter the required hours",
                     "startDate": "Start date",
                     "startDatePlaceholder": "Select a start date"
-                },
-                "loading": "Loading former-student editor",
-                "resetConfirm": {
-                    "description": "This will discard the unsaved changes in the current drawer.",
-                    "title": "Reset former-student changes?"
                 },
                 "sections": {
                     "academic": "Academic",
@@ -412,26 +239,17 @@
                     "placeholder": "Filter by academic registration"
                 },
                 "areaOfExpertise": {
-                    "emptyMessage": "No areas of expertise found.",
-                    "label": "Area of expertise",
-                    "placeholder": "Select areas of expertise",
-                    "searchPlaceholder": "Search areas of expertise..."
+                    "label": "Area of expertise"
                 },
                 "campus": {
-                    "emptyMessage": "No campuses found.",
-                    "label": "Campus",
-                    "placeholder": "Select campuses",
-                    "searchPlaceholder": "Search campuses..."
+                    "label": "Campus"
                 },
                 "course": {
-                    "emptyMessage": "No courses found.",
                     "error": {
                         "description": "The course directory could not be loaded right now.",
                         "title": "Unable to load courses"
                     },
-                    "label": "Course",
-                    "placeholder": "Select courses",
-                    "searchPlaceholder": "Search courses..."
+                    "label": "Course"
                 },
                 "frontendAcademicRegistration": {
                     "label": "Academic registration",
@@ -504,20 +322,6 @@
                 "actions": {
                     "save": "Save changes",
                     "savePending": "Saving changes..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former-student record could not be updated right now.",
-                        "title": "Unable to save former-student changes"
-                    },
-                    "success": {
-                        "description": "{{name}} was updated successfully.",
-                        "title": "Former student updated"
-                    }
-                },
-                "loadError": {
-                    "description": "The former-student record could not be loaded right now.",
-                    "title": "Unable to load former-student editor"
                 },
                 "overhead": "Edit former student",
                 "titleFallback": "Edit former student"
@@ -645,6 +449,9 @@
             "undo": "Undo"
         },
         "cancel": "Cancel",
+        "editor": {
+            "loading": "Loading {{object}} editor"
+        },
         "empty": {
             "defaultDescription": "No records are available yet.",
             "filteredDescription": "No records match the current filters: {{value}}.",
@@ -655,9 +462,64 @@
                 "description": "The selected record could not be loaded right now.",
                 "title": "Unable to load record"
             },
+            "editorLoad": {
+                "description": "The {{object}} could not be loaded right now.",
+                "title": "Unable to load {{object}} editor"
+            },
             "listLoad": {
                 "description": "The current directory could not be loaded right now.",
                 "title": "Unable to load records"
+            }
+        },
+        "feedback": {
+            "create": {
+                "error": {
+                    "description": "The {{object}} could not be created right now.",
+                    "title": "Unable to create"
+                },
+                "success": {
+                    "description": "{{name}} was created successfully.",
+                    "title": "Created"
+                }
+            },
+            "delete": {
+                "confirm": {
+                    "description": "{{name}} will be removed after the undo window expires.",
+                    "title": "Delete this {{object}}?"
+                },
+                "error": {
+                    "description": "The {{object}} could not be deleted right now.",
+                    "title": "Unable to delete"
+                },
+                "success": {
+                    "description": "{{name}} was removed from the directory.",
+                    "title": "Deleted"
+                },
+                "undo": {
+                    "action": "Undo",
+                    "description": "{{name}} will be deleted unless you undo this action.",
+                    "title": "Deletion scheduled"
+                }
+            },
+            "duplicate": {
+                "error": {
+                    "description": "The {{object}} duplicate could not be created right now.",
+                    "title": "Unable to duplicate"
+                },
+                "success": {
+                    "description": "{{name}} was duplicated successfully.",
+                    "title": "Duplicate created"
+                }
+            },
+            "update": {
+                "error": {
+                    "description": "The {{object}} could not be updated right now.",
+                    "title": "Unable to save changes"
+                },
+                "success": {
+                    "description": "{{name}} was updated successfully.",
+                    "title": "Updated"
+                }
             }
         },
         "fields": {
@@ -670,22 +532,12 @@
             "createdAt": "Created at",
             "email": "Email",
             "entity": "Entity",
-            "entityEmptyMessage": "No entities found.",
-            "entityPlaceholder": "Select an entity",
-            "entitySearchPlaceholder": "Search entities...",
             "formerStudent": "Former student",
-            "formerStudentEmptyMessage": "No former students found.",
             "formerStudentId": "Former student id",
-            "formerStudentPlaceholder": "Select a former student",
-            "formerStudentSearchPlaceholder": "Search former students...",
             "id": "Identifier",
             "name": "Name",
             "project": "Project",
-            "projectEmptyMessage": "No projects found.",
-            "projectPlaceholder": "Select a project",
-            "projectSearchPlaceholder": "Search projects...",
             "status": "Status",
-            "statusPlaceholder": "Select a status",
             "updatedAt": "Updated at"
         },
         "filters": {
@@ -727,10 +579,6 @@
             "startDate": {
                 "label": "Start date",
                 "placeholder": "Select a start date"
-            },
-            "status": {
-                "emptyMessage": "No statuses found.",
-                "searchPlaceholder": "Search statuses..."
             },
             "title": "Refine directory"
         },
@@ -780,6 +628,17 @@
             "description": "The requested record could not be found.",
             "title": "Record not found"
         },
+        "objects": {
+            "administrator": "administrator",
+            "areaOfExpertise": "area of expertise",
+            "attendance": "attendance",
+            "course": "course",
+            "enrollment": "enrollment",
+            "entity": "entity",
+            "formerStudent": "former student",
+            "project": "project",
+            "staffMember": "staff member"
+        },
         "placeholders": {
             "noResults": "No results found.",
             "search": "Search...",
@@ -788,7 +647,7 @@
         "reset": "Reset form",
         "resetConfirm": {
             "description": "This will discard the unsaved changes in the current drawer.",
-            "title": "Reset current changes?"
+            "title": "Reset {{object}} changes?"
         },
         "selectors": {
             "language": {
@@ -1036,16 +895,6 @@
                     "save": "Create administrator",
                     "savePending": "Creating administrator..."
                 },
-                "feedback": {
-                    "error": {
-                        "description": "The administrator could not be created right now.",
-                        "title": "Unable to create administrator"
-                    },
-                    "success": {
-                        "description": "{{name}} was created successfully.",
-                        "title": "Administrator created"
-                    }
-                },
                 "open": "Add admin",
                 "overhead": "New administrator",
                 "titleFallback": "Add administrator"
@@ -1066,26 +915,6 @@
                     }
                 }
             },
-            "delete": {
-                "confirm": {
-                    "description": "{{name}} will be removed from the administrator directory after the undo window expires.",
-                    "title": "Delete this administrator assignment?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The administrator could not be deleted right now.",
-                        "title": "Unable to delete administrator"
-                    },
-                    "success": {
-                        "description": "{{name}} was removed from the administrator directory.",
-                        "title": "Administrator deleted"
-                    }
-                },
-                "undo": {
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Administrator deletion scheduled"
-                }
-            },
             "description": "Browse administrator assignments, linked accounts, and related user records.",
             "dialog": {
                 "error": {
@@ -1097,18 +926,6 @@
                     "userId": "User identifier"
                 },
                 "titleFallback": "Administrator details"
-            },
-            "duplicate": {
-                "feedback": {
-                    "error": {
-                        "description": "The administrator duplicate could not be created right now.",
-                        "title": "Unable to duplicate administrator"
-                    },
-                    "success": {
-                        "description": "{{name}} was duplicated successfully.",
-                        "title": "Administrator duplicated"
-                    }
-                }
             },
             "filters": {
                 "campus": {
@@ -1157,16 +974,6 @@
                     "description": "The linked account record could not be found.",
                     "title": "Linked account not found"
                 },
-                "feedback": {
-                    "error": {
-                        "description": "The administrator could not be updated right now.",
-                        "title": "Unable to save administrator changes"
-                    },
-                    "success": {
-                        "description": "{{name}} was updated successfully.",
-                        "title": "Administrator updated"
-                    }
-                },
                 "fields": {
                     "accountId": "Identifier",
                     "cpfCreateOption": "Use {{value}}",
@@ -1178,16 +985,7 @@
                     "namePlaceholder": "Enter the user's name",
                     "userId": "User identifier"
                 },
-                "loadError": {
-                    "description": "The administrator record could not be loaded right now.",
-                    "title": "Unable to load administrator editor"
-                },
-                "loading": "Loading administrator editor",
                 "overhead": "Edit administrator",
-                "resetConfirm": {
-                    "description": "This will discard the unsaved administrator changes in the current drawer.",
-                    "title": "Reset administrator changes?"
-                },
                 "tabs": {
                     "access": "Access",
                     "profile": "Profile",
@@ -1304,39 +1102,9 @@
                     "save": "Create entity",
                     "savePending": "Creating entity..."
                 },
-                "feedback": {
-                    "error": {
-                        "description": "The entity could not be created right now.",
-                        "title": "Unable to create entity"
-                    },
-                    "success": {
-                        "description": "{{name}} was created successfully.",
-                        "title": "Entity created"
-                    }
-                },
                 "open": "Add entity",
                 "overhead": "Create entity",
                 "titleFallback": "New entity"
-            },
-            "delete": {
-                "confirm": {
-                    "description": "{{name}} will be scheduled for permanent removal.",
-                    "title": "Delete this entity?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The entity could not be deleted right now.",
-                        "title": "Unable to delete entity"
-                    },
-                    "success": {
-                        "description": "{{name}} was deleted successfully.",
-                        "title": "Entity deleted"
-                    }
-                },
-                "undo": {
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Entity deletion scheduled"
-                }
             },
             "description": "Service directory for partner organizations and the cities they operate in.",
             "dialog": {
@@ -1356,16 +1124,6 @@
                 }
             },
             "duplicate": {
-                "feedback": {
-                    "error": {
-                        "description": "The entity duplicate could not be created right now.",
-                        "title": "Unable to duplicate entity"
-                    },
-                    "success": {
-                        "description": "{{name}} was duplicated successfully.",
-                        "title": "Entity duplicated"
-                    }
-                },
                 "overhead": "Duplicate entity",
                 "titleFallback": "Duplicate entity"
             },
@@ -1378,17 +1136,9 @@
                     "address": "Address",
                     "addressPlaceholder": "Optional address",
                     "city": "City",
-                    "cityEmptyMessage": "No cities found.",
-                    "cityPlaceholder": "Select a city",
-                    "citySearchPlaceholder": "Search cities",
                     "cnpj": "CNPJ",
                     "cnpjPlaceholder": "00.000.000/0000-00",
                     "name": "Entity name"
-                },
-                "loading": "Loading entity editor",
-                "resetConfirm": {
-                    "description": "This will discard the unsaved entity changes in the current drawer.",
-                    "title": "Reset entity changes?"
                 },
                 "validation": {
                     "address": {
@@ -1411,14 +1161,11 @@
             },
             "filters": {
                 "city": {
-                    "emptyMessage": "No cities found.",
                     "error": {
                         "description": "The city catalog could not be loaded right now.",
                         "title": "Unable to load cities"
                     },
-                    "label": "City",
-                    "placeholder": "Select a city",
-                    "searchPlaceholder": "Search cities"
+                    "label": "City"
                 },
                 "frontend": {
                     "cnpj": {
@@ -1439,20 +1186,6 @@
             },
             "title": "Entities",
             "update": {
-                "feedback": {
-                    "error": {
-                        "description": "The entity could not be updated right now.",
-                        "title": "Unable to save entity changes"
-                    },
-                    "success": {
-                        "description": "{{name}} was updated successfully.",
-                        "title": "Entity updated"
-                    }
-                },
-                "loadError": {
-                    "description": "The entity record could not be loaded right now.",
-                    "title": "Unable to load entity editor"
-                },
                 "overhead": "Edit entity",
                 "titleFallback": "Edit entity"
             }
@@ -1466,16 +1199,6 @@
                 "actions": {
                     "save": "Create staff member",
                     "savePending": "Creating staff member..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The staff member could not be created right now.",
-                        "title": "Unable to create staff member"
-                    },
-                    "success": {
-                        "description": "{{name}} was created successfully.",
-                        "title": "Staff member created"
-                    }
                 },
                 "open": "Add staff member",
                 "overhead": "Create staff member",
@@ -1497,26 +1220,6 @@
                     }
                 }
             },
-            "delete": {
-                "confirm": {
-                    "description": "{{name}} will be scheduled for permanent removal.",
-                    "title": "Delete this staff member?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The staff member could not be deleted right now.",
-                        "title": "Unable to delete staff member"
-                    },
-                    "success": {
-                        "description": "{{name}} was deleted successfully.",
-                        "title": "Staff member deleted"
-                    }
-                },
-                "undo": {
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Staff deletion scheduled"
-                }
-            },
             "description": "Service directory for partner staff linked to each partner entity and city.",
             "dialog": {
                 "entity": {
@@ -1529,16 +1232,6 @@
                 "titleFallback": "Staff details"
             },
             "duplicate": {
-                "feedback": {
-                    "error": {
-                        "description": "The staff duplicate could not be created right now.",
-                        "title": "Unable to duplicate staff member"
-                    },
-                    "success": {
-                        "description": "{{name}} was duplicated successfully.",
-                        "title": "Staff member duplicated"
-                    }
-                },
                 "overhead": "Duplicate staff member",
                 "titleFallback": "Duplicate staff member"
             },
@@ -1550,11 +1243,6 @@
                     "cpfPlaceholder": "Enter the CPF",
                     "cpfSearchPlaceholder": "Search or create a CPF",
                     "name": "Name"
-                },
-                "loading": "Loading staff editor",
-                "resetConfirm": {
-                    "description": "This will discard the unsaved staff changes in the current drawer.",
-                    "title": "Reset staff changes?"
                 },
                 "sections": {
                     "linkedEntity": "Linked entity",
@@ -1617,20 +1305,6 @@
             },
             "title": "Staff",
             "update": {
-                "feedback": {
-                    "error": {
-                        "description": "The staff member could not be updated right now.",
-                        "title": "Unable to save staff changes"
-                    },
-                    "success": {
-                        "description": "{{name}} was updated successfully.",
-                        "title": "Staff member updated"
-                    }
-                },
-                "loadError": {
-                    "description": "The staff record could not be loaded right now.",
-                    "title": "Unable to load staff editor"
-                },
                 "overhead": "Edit staff member",
                 "titleFallback": "Edit staff member"
             }
@@ -1718,14 +1392,10 @@
                 }
             },
             "editor": {
-                "actions": {
-                    "reset": "Reset form"
-                },
                 "fields": {
                     "duration": "Duration",
                     "durationPlaceholder": "Enter the recorded duration"
                 },
-                "loading": "Loading attendance editor",
                 "tabs": {
                     "attendance": "Attendance",
                     "linked": "Linked"
@@ -1764,13 +1434,11 @@
                     "validators": "validators"
                 },
                 "validator": {
-                    "emptyMessage": "No validators found.",
                     "error": {
                         "description": "The validator directory could not be loaded right now.",
                         "title": "Unable to load validators"
                     },
-                    "label": "Validated by",
-                    "searchPlaceholder": "Search validators..."
+                    "label": "Validated by"
                 }
             },
             "loading": {
@@ -1851,10 +1519,6 @@
                         "description": "Attendance {{id}} was updated successfully.",
                         "title": "Attendance updated"
                     }
-                },
-                "loadError": {
-                    "description": "The attendance record could not be loaded right now.",
-                    "title": "Unable to load attendance editor"
                 },
                 "overhead": "Update attendance",
                 "titleFallback": "Update attendance"
@@ -1966,7 +1630,6 @@
                 }
             },
             "editor": {
-                "loading": "Loading enrollment editor",
                 "tabs": {
                     "enrollment": "Enrollment",
                     "linked": "Linked"
@@ -2093,10 +1756,6 @@
                         "title": "Enrollment updated"
                     }
                 },
-                "loadError": {
-                    "description": "The enrollment editor could not be loaded right now.",
-                    "title": "Unable to load enrollment editor"
-                },
                 "overhead": "Update enrollment",
                 "titleFallback": "Update enrollment"
             }
@@ -2143,39 +1802,9 @@
                     "save": "Create project",
                     "savePending": "Creating project..."
                 },
-                "feedback": {
-                    "error": {
-                        "description": "The project could not be created right now.",
-                        "title": "Unable to create project"
-                    },
-                    "success": {
-                        "description": "{{name}} was created successfully.",
-                        "title": "Project created"
-                    }
-                },
                 "open": "Create project",
                 "overhead": "New project",
                 "titleFallback": "New project"
-            },
-            "delete": {
-                "confirm": {
-                    "description": "Delete {{name}} permanently from the project directory.",
-                    "title": "Delete project"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The project could not be deleted right now.",
-                        "title": "Unable to delete project"
-                    },
-                    "success": {
-                        "description": "{{name}} was deleted successfully.",
-                        "title": "Project deleted"
-                    }
-                },
-                "undo": {
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Project scheduled for deletion"
-                }
             },
             "description": "Manage project records, workload, ownership, and current delivery status.",
             "dialog": {
@@ -2215,32 +1844,16 @@
                 }
             },
             "duplicate": {
-                "feedback": {
-                    "error": {
-                        "description": "The project copy could not be created right now.",
-                        "title": "Unable to duplicate project"
-                    },
-                    "success": {
-                        "description": "{{name}} was duplicated successfully.",
-                        "title": "Project duplicated"
-                    }
-                },
                 "overhead": "Duplicate project",
                 "titleFallback": "Duplicate project"
             },
             "editor": {
-                "actions": {
-                    "reset": "Reset form"
-                },
                 "areasOfExpertiseLoadError": {
                     "description": "The areas of expertise directory could not be loaded right now.",
                     "title": "Unable to load areas of expertise"
                 },
                 "fields": {
                     "areasOfExpertise": "Areas of expertise",
-                    "areasOfExpertiseEmptyMessage": "No areas of expertise found.",
-                    "areasOfExpertisePlaceholder": "Select areas",
-                    "areasOfExpertiseSearchPlaceholder": "Search areas...",
                     "description": "Description",
                     "descriptionPlaceholder": "Outline the project's scope and expected delivery.",
                     "maxParticipants": "Max participants",
@@ -2249,11 +1862,6 @@
                     "namePlaceholder": "Enter the project name",
                     "offeredHours": "Offered hours",
                     "offeredHoursPlaceholder": "Enter the offered workload"
-                },
-                "loading": "Loading project editor",
-                "resetConfirm": {
-                    "description": "Discard the current changes and reload the last saved values.",
-                    "title": "Reset project form"
                 },
                 "tabs": {
                     "linked": "Linked"
@@ -2290,14 +1898,11 @@
             },
             "filters": {
                 "createdBy": {
-                    "emptyMessage": "No admins found.",
                     "error": {
                         "description": "The admin directory could not be loaded right now.",
                         "title": "Unable to load admins"
                     },
-                    "label": "Created by",
-                    "placeholder": "Select an admin",
-                    "searchPlaceholder": "Search admins..."
+                    "label": "Created by"
                 },
                 "description": {
                     "label": "Description pattern",
@@ -2394,20 +1999,6 @@
             },
             "title": "Projects",
             "update": {
-                "feedback": {
-                    "error": {
-                        "description": "The project could not be updated right now.",
-                        "title": "Unable to save project changes"
-                    },
-                    "success": {
-                        "description": "{{name}} was updated successfully.",
-                        "title": "Project updated"
-                    }
-                },
-                "loadError": {
-                    "description": "The project record could not be loaded right now.",
-                    "title": "Unable to load project editor"
-                },
                 "overhead": "Edit project",
                 "titleFallback": "Edit project"
             }

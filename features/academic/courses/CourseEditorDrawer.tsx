@@ -17,6 +17,7 @@ import {
 	Footer,
 	toast,
 } from "@/components/primitives";
+import { getCrudSuccessToastContent } from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -194,23 +195,12 @@ export function CourseEditorDrawer({
 				},
 				{
 					onSuccess: course => {
-						toast.success(
-							t(
-								isCreateMode
-									? "academic.coursePage.create.feedback.success.title"
-									: "academic.coursePage.duplicate.feedback.success.title",
-							),
-							{
-								description: t(
-									isCreateMode
-										? "academic.coursePage.create.feedback.success.description"
-										: "academic.coursePage.duplicate.feedback.success.description",
-									{
-										name: course.name,
-									},
-								),
-							},
+						const { title, description } = getCrudSuccessToastContent(
+							t,
+							isCreateMode ? "create" : "duplicate",
+							course.name,
 						);
+						toast.success(title, { description });
 						closeDrawer();
 					},
 					onError: error => {
@@ -235,17 +225,12 @@ export function CourseEditorDrawer({
 			},
 			{
 				onSuccess: course => {
-					toast.success(
-						t("academic.coursePage.update.feedback.success.title"),
-						{
-							description: t(
-								"academic.coursePage.update.feedback.success.description",
-								{
-									name: course.name,
-								},
-							),
-						},
+					const { title, description } = getCrudSuccessToastContent(
+						t,
+						"update",
+						course.name,
 					);
+					toast.success(title, { description });
 					closeDrawer();
 				},
 				onError: error => {
@@ -265,7 +250,9 @@ export function CourseEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("academic.coursePage.editor.loading")}
+				loadingLabel={t("common.editor.loading", {
+					object: t("common.objects.course"),
+				})}
 			>
 				<DrawerContent>
 					<DrawerHeader overhead={drawerOverhead}>
@@ -326,8 +313,10 @@ export function CourseEditorDrawer({
 			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-				title={t("academic.coursePage.editor.resetConfirm.title")}
-				description={t("academic.coursePage.editor.resetConfirm.description")}
+				title={t("common.resetConfirm.title", {
+					object: t("common.objects.course"),
+				})}
+				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("common.actions.resetChanges")}
 				onAction={resetForm}

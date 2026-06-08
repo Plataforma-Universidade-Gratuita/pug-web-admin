@@ -79,15 +79,9 @@ export function FormerStudentAcademicSection({
 							options={courseOptions}
 							value={field.value}
 							onValueChange={field.onChange}
-							placeholder={t(
-								"academic.formerStudentPage.editor.fields.coursePlaceholder",
-							)}
-							searchPlaceholder={t(
-								"academic.formerStudentPage.editor.fields.courseSearchPlaceholder",
-							)}
-							emptyMessage={t(
-								"academic.formerStudentPage.editor.fields.courseEmptyMessage",
-							)}
+							placeholder={t("common.placeholders.select")}
+							searchPlaceholder={t("common.placeholders.search")}
+							emptyMessage={t("common.placeholders.noResults")}
 						/>
 					)}
 				/>

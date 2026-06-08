@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { RecordActionDialogs, TextFieldFilter } from "@/components/composite";
 import { FormerStudentsFiltersDrawer } from "@/features/academic/former-students/FormerStudentsFiltersDrawer";
+import { getCrudDeleteConfirmCopy } from "@/features/utils";
 import type {
 	ComboboxOption,
 	FormerStudentDirectoryItem,
@@ -138,6 +139,13 @@ export function FormerStudentsPageDialogs({
 	onStatusConfirm: () => void;
 }) {
 	const { t } = useTranslation();
+	const deleteConfirmCopy = pendingDeleteRecord
+		? getCrudDeleteConfirmCopy(
+				t,
+				t("common.objects.formerStudent"),
+				pendingDeleteRecord.user?.name ?? "",
+			)
+		: null;
 
 	return (
 		<RecordActionDialogs
@@ -146,16 +154,11 @@ export function FormerStudentsPageDialogs({
 				? {
 						deleteDialog: {
 							actionLabel: t("table.actions.delete"),
-							description: t(
-								"academic.formerStudentPage.delete.confirm.description",
-								{
-									name: pendingDeleteRecord.user?.name ?? "",
-								},
-							),
+							description: deleteConfirmCopy?.description ?? "",
 							onAction: onDeleteConfirm,
 							onOpenChange: onDeleteOpenChange,
 							open: true,
-							title: t("academic.formerStudentPage.delete.confirm.title"),
+							title: deleteConfirmCopy?.title ?? "",
 							variant: "danger" as const,
 						},
 					}

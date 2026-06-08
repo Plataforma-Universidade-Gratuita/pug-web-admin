@@ -32,6 +32,7 @@ import {
 	toEntityCreateRequest,
 	toEntityUpdateRequest,
 } from "@/features/partner/entities/utils";
+import { getCrudSuccessToastContent } from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -196,23 +197,12 @@ export function EntityEditorDrawer({
 				},
 				{
 					onSuccess: entity => {
-						toast.success(
-							t(
-								isCreateMode
-									? "partner.entityPage.create.feedback.success.title"
-									: "partner.entityPage.duplicate.feedback.success.title",
-							),
-							{
-								description: t(
-									isCreateMode
-										? "partner.entityPage.create.feedback.success.description"
-										: "partner.entityPage.duplicate.feedback.success.description",
-									{
-										name: entity.name,
-									},
-								),
-							},
+						const { title, description } = getCrudSuccessToastContent(
+							t,
+							isCreateMode ? "create" : "duplicate",
+							entity.name,
 						);
+						toast.success(title, { description });
 						closeDrawer();
 					},
 					onError: error => {
@@ -237,14 +227,12 @@ export function EntityEditorDrawer({
 			},
 			{
 				onSuccess: entity => {
-					toast.success(t("partner.entityPage.update.feedback.success.title"), {
-						description: t(
-							"partner.entityPage.update.feedback.success.description",
-							{
-								name: entity.name,
-							},
-						),
-					});
+					const { title, description } = getCrudSuccessToastContent(
+						t,
+						"update",
+						entity.name,
+					);
+					toast.success(title, { description });
 					closeDrawer();
 				},
 				onError: error => {
@@ -264,7 +252,9 @@ export function EntityEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("partner.entityPage.editor.loading")}
+				loadingLabel={t("common.editor.loading", {
+					object: t("common.objects.entity"),
+				})}
 			>
 				<DrawerContent>
 					<DrawerHeader overhead={drawerOverhead}>
@@ -321,8 +311,10 @@ export function EntityEditorDrawer({
 			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-				title={t("partner.entityPage.editor.resetConfirm.title")}
-				description={t("partner.entityPage.editor.resetConfirm.description")}
+				title={t("common.resetConfirm.title", {
+					object: t("common.objects.entity"),
+				})}
+				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
 				actionLabel={t("common.actions.resetChanges")}
 				onAction={resetForm}

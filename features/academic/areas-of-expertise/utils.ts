@@ -4,6 +4,7 @@ import type { TFunction } from "i18next";
 import { TableText } from "@/components/primitives";
 import { TABLE_TRUNCATED_COLUMN_WIDTH } from "@/features/constants";
 import {
+	getCrudErrorToastContent,
 	matchesAnyDateRange,
 	toSearchDateOffsetDateTime,
 } from "@/features/utils";
@@ -139,56 +140,48 @@ export function getAreaOfExpertiseCreateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t(
-			"academic.areaOfExpertisePage.create.feedback.error.title",
-		),
-		fallbackDescription: t(
-			"academic.areaOfExpertisePage.create.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"create",
+		t("common.objects.areaOfExpertise"),
+	);
 }
 
 export function getAreaOfExpertiseDuplicateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t(
-			"academic.areaOfExpertisePage.duplicate.feedback.error.title",
-		),
-		fallbackDescription: t(
-			"academic.areaOfExpertisePage.duplicate.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"duplicate",
+		t("common.objects.areaOfExpertise"),
+	);
 }
 
 export function getAreaOfExpertiseUpdateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t(
-			"academic.areaOfExpertisePage.update.feedback.error.title",
-		),
-		fallbackDescription: t(
-			"academic.areaOfExpertisePage.update.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"update",
+		t("common.objects.areaOfExpertise"),
+	);
 }
 
 export function getAreaOfExpertiseDeleteErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t(
-			"academic.areaOfExpertisePage.delete.feedback.error.title",
-		),
-		fallbackDescription: t(
-			"academic.areaOfExpertisePage.delete.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"delete",
+		t("common.objects.areaOfExpertise"),
+	);
 }
 
 export function getEmptyAreaOfExpertiseEditorFormValues(): AreaOfExpertiseEditorFormValues {

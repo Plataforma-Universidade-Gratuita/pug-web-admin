@@ -11,6 +11,7 @@ import { getAccountOptionClassName } from "@/features/identity/accounts/utils";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/partner/staff/constants";
 import {
 	appendCopyToEmail,
+	getCrudErrorToastContent,
 	matchesAnyDateRange,
 	normalizeDigits,
 	toSearchDateOffsetDateTime,
@@ -470,33 +471,33 @@ export function getStaffCitiesErrorToastContent(t: TFunction, error: unknown) {
 }
 
 export function getStaffCreateErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.staffPage.create.feedback.error.title"),
-		fallbackDescription: t(
-			"partner.staffPage.create.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"create",
+		t("common.objects.staffMember"),
+	);
 }
 
 export function getStaffUpdateErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.staffPage.update.feedback.error.title"),
-		fallbackDescription: t(
-			"partner.staffPage.update.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"update",
+		t("common.objects.staffMember"),
+	);
 }
 
 export function getStaffDuplicateErrorToastContent(
 	t: TFunction,
 	error: unknown,
 ) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.staffPage.duplicate.feedback.error.title"),
-		fallbackDescription: t(
-			"partner.staffPage.duplicate.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"duplicate",
+		t("common.objects.staffMember"),
+	);
 }
 
 export function getStaffSetActiveErrorToastContent(
@@ -519,10 +520,10 @@ export function getStaffSetActiveErrorToastContent(
 }
 
 export function getStaffDeleteErrorToastContent(t: TFunction, error: unknown) {
-	return getApiErrorToastContent(error, {
-		fallbackTitle: t("partner.staffPage.delete.feedback.error.title"),
-		fallbackDescription: t(
-			"partner.staffPage.delete.feedback.error.description",
-		),
-	});
+	return getCrudErrorToastContent(
+		t,
+		error,
+		"delete",
+		t("common.objects.staffMember"),
+	);
 }

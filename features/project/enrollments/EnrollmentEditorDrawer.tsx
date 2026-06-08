@@ -296,7 +296,9 @@ export function EnrollmentEditorDrawer({
 				open={open}
 				onOpenChange={handleDrawerOpenChange}
 				isLoading={isDrawerLoading}
-				loadingLabel={t("project.enrollmentPage.editor.loading")}
+				loadingLabel={t("common.editor.loading", {
+					object: t("common.objects.enrollment"),
+				})}
 				overhead={drawerOverhead}
 				title={drawerTitle}
 				footer={
@@ -374,10 +376,12 @@ export function EnrollmentEditorDrawer({
 			<ResetChangesDialog
 				open={isResetConfirmOpen}
 				onOpenChange={setIsResetConfirmOpen}
-				title={t("common.resetConfirm.title")}
+				title={t("common.resetConfirm.title", {
+					object: t("common.objects.enrollment"),
+				})}
 				description={t("common.resetConfirm.description")}
 				cancelLabel={t("common.cancel")}
-				actionLabel={t("common.reset")}
+				actionLabel={t("common.actions.resetChanges")}
 				onAction={resetForm}
 			/>
 		</>

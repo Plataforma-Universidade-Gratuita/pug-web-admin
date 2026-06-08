@@ -31,6 +31,10 @@ import {
 	appendCopyToEmail,
 } from "@/features/partner/staff/utils";
 import {
+	getCrudDeleteUndoToastContent,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
+import {
 	useActivatableRecordActions,
 	useDraftFilters,
 	useQueryErrorToasts,
@@ -118,18 +122,11 @@ export function StaffPage() {
 		getDeleteErrorToastContent: error =>
 			getStaffDeleteErrorToastContent(t, error),
 		getDeleteSuccessToastContent: staff => ({
-			title: t("partner.staffPage.delete.feedback.success.title"),
-			description: t("partner.staffPage.delete.feedback.success.description", {
-				name: staff.account.user.name,
-			}),
+			...getCrudSuccessToastContent(t, "delete", staff.account.user.name),
 		}),
 		getDeleteUndoToastContent: staff => ({
 			key: staff.account.id,
-			title: t("partner.staffPage.delete.undo.title"),
-			description: t("partner.staffPage.delete.undo.description", {
-				name: staff.account.user.name,
-			}),
-			undoLabel: t("common.actions.undo"),
+			...getCrudDeleteUndoToastContent(t, staff.account.user.name),
 		}),
 		getDeleteVariables: staff => ({
 			accountId: staff.account.id,
@@ -326,17 +323,12 @@ export function StaffPage() {
 				},
 				{
 					onSuccess: () => {
-						toast.success(
-							t("partner.staffPage.duplicate.feedback.success.title"),
-							{
-								description: t(
-									"partner.staffPage.duplicate.feedback.success.description",
-									{
-										name: linkedUser.name,
-									},
-								),
-							},
+						const { title, description } = getCrudSuccessToastContent(
+							t,
+							"duplicate",
+							linkedUser.name,
 						);
+						toast.success(title, { description });
 					},
 					onError: error => {
 						const { title, description } = getStaffDuplicateErrorToastContent(

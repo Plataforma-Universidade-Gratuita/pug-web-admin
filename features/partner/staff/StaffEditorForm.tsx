@@ -69,8 +69,12 @@ export function StaffEditorForm({
 
 		return (
 			<SomeErrorState
-				title={t("partner.staffPage.update.loadError.title")}
-				description={t("partner.staffPage.update.loadError.description")}
+				title={t("common.errors.editorLoad.title", {
+					object: t("common.objects.staffMember"),
+				})}
+				description={t("common.errors.editorLoad.description", {
+					object: t("common.objects.staffMember"),
+				})}
 				onRefresh={onRefreshStaff}
 			/>
 		);
@@ -218,9 +222,9 @@ export function StaffEditorForm({
 								options={entityOptions}
 								value={field.value}
 								onValueChange={field.onChange}
-								placeholder={t("common.fields.entityPlaceholder")}
-								searchPlaceholder={t("common.fields.entitySearchPlaceholder")}
-								emptyMessage={t("common.fields.entityEmptyMessage")}
+								placeholder={t("common.placeholders.select")}
+								searchPlaceholder={t("common.placeholders.search")}
+								emptyMessage={t("common.placeholders.noResults")}
 							/>
 						)}
 					/>

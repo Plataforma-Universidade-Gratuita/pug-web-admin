@@ -51,11 +51,9 @@ export function EntitiesFiltersDrawer({
 				options={cityOptions}
 				values={cityIdsFilter}
 				onValuesChange={onCityIdsChange}
-				placeholder={t("partner.entityPage.filters.city.placeholder")}
-				searchPlaceholder={t(
-					"partner.entityPage.filters.city.searchPlaceholder",
-				)}
-				emptyMessage={t("partner.entityPage.filters.city.emptyMessage")}
+				placeholder={t("common.placeholders.select")}
+				searchPlaceholder={t("common.placeholders.search")}
+				emptyMessage={t("common.placeholders.noResults")}
 				disabled={isCitiesLoading}
 				isError={Boolean(citiesError)}
 				errorTitle={t("partner.entityPage.filters.city.error.title")}

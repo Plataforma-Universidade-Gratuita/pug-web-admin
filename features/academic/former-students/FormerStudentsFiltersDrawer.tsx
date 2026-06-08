@@ -151,15 +151,9 @@ export function FormerStudentsFiltersDrawer({
 							options={campusOptions}
 							values={campi}
 							onValuesChange={value => onCampiChange(value as typeof campi)}
-							placeholder={t(
-								"academic.formerStudentPage.filters.campus.placeholder",
-							)}
-							searchPlaceholder={t(
-								"academic.formerStudentPage.filters.campus.searchPlaceholder",
-							)}
-							emptyMessage={t(
-								"academic.formerStudentPage.filters.campus.emptyMessage",
-							)}
+							placeholder={t("common.placeholders.select")}
+							searchPlaceholder={t("common.placeholders.search")}
+							emptyMessage={t("common.placeholders.noResults")}
 						/>
 					</div>
 
@@ -179,15 +173,9 @@ export function FormerStudentsFiltersDrawer({
 								options={courseOptions}
 								values={courseIds}
 								onValuesChange={onCourseIdsChange}
-								placeholder={t(
-									"academic.formerStudentPage.filters.course.placeholder",
-								)}
-								searchPlaceholder={t(
-									"academic.formerStudentPage.filters.course.searchPlaceholder",
-								)}
-								emptyMessage={t(
-									"academic.formerStudentPage.filters.course.emptyMessage",
-								)}
+								placeholder={t("common.placeholders.select")}
+								searchPlaceholder={t("common.placeholders.search")}
+								emptyMessage={t("common.placeholders.noResults")}
 								disabled={isCoursesLoading}
 							/>
 
@@ -199,15 +187,9 @@ export function FormerStudentsFiltersDrawer({
 								options={areaOfExpertiseOptions}
 								values={areaOfExpertiseIds}
 								onValuesChange={onAreaOfExpertiseIdsChange}
-								placeholder={t(
-									"academic.formerStudentPage.filters.areaOfExpertise.placeholder",
-								)}
-								searchPlaceholder={t(
-									"academic.formerStudentPage.filters.areaOfExpertise.searchPlaceholder",
-								)}
-								emptyMessage={t(
-									"academic.formerStudentPage.filters.areaOfExpertise.emptyMessage",
-								)}
+								placeholder={t("common.placeholders.select")}
+								searchPlaceholder={t("common.placeholders.search")}
+								emptyMessage={t("common.placeholders.noResults")}
 								disabled={isAreasOfExpertiseLoading}
 							/>
 						</>
