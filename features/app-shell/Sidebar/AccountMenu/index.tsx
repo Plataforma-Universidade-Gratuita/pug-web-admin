@@ -31,9 +31,9 @@ import type { SidebarProps } from "@/types/client";
 import type { LogoutScope } from "@/types/client";
 
 const { admins: adminsApi, auth: authApi, users: usersApi } = web.identity;
-const { adminKeys, useCurrentAdminQuery } = adminsApi;
+const { useCurrentAdminQuery } = adminsApi;
 const { logout, logoutAll } = authApi;
-const { userKeys, useCurrentUserQuery } = usersApi;
+const { useCurrentUserQuery } = usersApi;
 
 export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 	const queryClient = useQueryClient();
@@ -52,14 +52,12 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 	const profileError = adminQuery.error ?? userQuery.error;
 
 	async function finalizeLogout(successMessage: string) {
-		await queryClient.invalidateQueries({ queryKey: adminKeys.all });
-		await queryClient.invalidateQueries({ queryKey: userKeys.all });
+		await queryClient.cancelQueries();
 		queryClient.clear();
 		setIsLogoutDialogOpen(false);
 		setOpen(false);
 		toast.success(successMessage);
 		router.replace(LOGIN_ROUTE);
-		router.refresh();
 	}
 
 	function handleOpenLogoutDialog() {

@@ -446,6 +446,7 @@
             "createDuplicate": "Create duplicate",
             "resetChanges": "Reset changes",
             "saveChanges": "Save changes",
+            "saveChangesPending": "Saving changes...",
             "undo": "Undo"
         },
         "cancel": "Cancel",
@@ -931,7 +932,7 @@
                 "campus": {
                     "options": {
                         "all": "All campuses",
-                        "JARAGUA_DO_SUL": "JaraguÃ¡ do Sul",
+                        "JARAGUA_DO_SUL": "Jaraguá do Sul",
                         "JOINVILLE": "Joinville"
                     }
                 }
@@ -2016,7 +2017,10 @@
         },
         "columns": {
             "actions": "Actions",
+            "accountActive": "Active",
+            "accountType": "Account type",
             "areaOfExpertise": "Area of expertise",
+            "campus": "Campus",
             "city": "City",
             "course": "Course",
             "createdAt": "Created at",

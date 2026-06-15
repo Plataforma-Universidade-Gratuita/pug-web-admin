@@ -92,7 +92,7 @@ export function createAccountColumns(
 	return [
 		createActiveBadgeColumn<AccountSearchResponse>({
 			id: "active",
-			header: t("identity.accountPage.table.columns.active"),
+			header: t("table.columns.accountActive"),
 			value: row => row.active,
 			activeLabel: t("common.status.active"),
 			inactiveLabel: t("common.status.inactive"),

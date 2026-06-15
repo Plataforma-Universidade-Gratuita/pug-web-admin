@@ -290,7 +290,7 @@ export function AdminsPage() {
 					body: {
 						cpfString: linkedUser.cpf,
 						name: linkedUser.name,
-						emailString: appendCopyToEmail(
+						email: appendCopyToEmail(
 							admin.account.email,
 							(accountsQuery.data ?? []).map(account => account.email),
 						),

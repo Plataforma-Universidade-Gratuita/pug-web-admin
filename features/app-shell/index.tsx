@@ -63,17 +63,19 @@ export function Navbar({ children }: NavbarProps) {
 					<Sidebar collapsed={collapsed} />
 				</div>
 				<main className="navbar-content">
-					<ScrollArea
-						className="navbar-content-scroll"
-						viewportClassName="navbar-content-scroll-viewport"
-					>
-						<div className="navbar-content-inner">
-							<div className="space-y-6">
-								<RouteBreadcrumbs />
-								{children}
+					{requiresPasswordWiring ? null : (
+						<ScrollArea
+							className="navbar-content-scroll"
+							viewportClassName="navbar-content-scroll-viewport"
+						>
+							<div className="navbar-content-inner">
+								<div className="space-y-6">
+									<RouteBreadcrumbs />
+									{children}
+								</div>
 							</div>
-						</div>
-					</ScrollArea>
+						</ScrollArea>
+					)}
 				</main>
 			</div>
 			<WireCredentialsDialog

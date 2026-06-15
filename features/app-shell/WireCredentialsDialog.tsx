@@ -23,7 +23,6 @@ import {
 	Label,
 	toast,
 } from "@/components/primitives";
-import { writePasswordWiredCookie } from "@/features/app-shell/utils";
 import { useLocalizedZodForm } from "@/hooks";
 import { createWireCredentialsFormSchema } from "@/schemas/client";
 import type {
@@ -94,7 +93,6 @@ export function WireCredentialsDialog({
 					password,
 				});
 
-				writePasswordWiredCookie(true);
 				await queryClient.invalidateQueries();
 				onWired();
 				reset();

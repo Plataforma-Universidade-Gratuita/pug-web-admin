@@ -40,13 +40,13 @@ export const AdminComplexSearchRequestSchema = z.object({
 export const AdminCreateRequestSchema = z.object({
 	cpfString: z.string(),
 	name: z.string(),
-	emailString: z.string(),
+	email: z.string(),
 	campus: CampusResponseSchema.shape.campus,
 });
 
 export const AdminUpdateRequestSchema = z.object({
 	name: z.string(),
-	emailString: z.string(),
+	email: z.string(),
 	campus: CampusResponseSchema.shape.campus,
 });
 

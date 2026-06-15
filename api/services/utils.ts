@@ -90,7 +90,15 @@ async function handleError(response: Response): Promise<never> {
 	} catch (error) {
 		if (error instanceof ApiError) throw error;
 		console.error("Failed to parse API error envelope:", error);
-		throw new Error(`HTTP ${response.status}`);
+		throw new ApiError(
+			response.status,
+			{
+				code: `HTTP_${response.status}`,
+				message: `HTTP ${response.status}`,
+				details: null,
+			},
+			null,
+		);
 	}
 }
 

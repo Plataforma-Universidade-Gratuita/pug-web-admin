@@ -89,7 +89,17 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 		try {
 			const body = await parseRouteBody(request, CredentialsRequestSchema);
 			await auth.wireCredentials(body);
-			return routeNoContent();
+			const refreshToken = await getServerCookie(REFRESH_TOKEN_COOKIE);
+			if (!refreshToken) {
+				return routeNoContent();
+			}
+
+			const tokens = await auth.refresh({ refreshToken });
+			if (!validateAdminToken(tokens.token).isValid) {
+				return routeError(new Error("Forbidden"), { clearSession: true });
+			}
+
+			return applySessionCookies(routeNoContent(), tokens);
 		} catch (error) {
 			return routeError(error);
 		}

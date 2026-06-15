@@ -3,9 +3,15 @@
  * the root features barrel because this client boundary must stay explicit for
  * Next.js server build collection.
  */
+import { cookies } from "next/headers";
+
 import { Navbar } from "@/features/app-shell";
+import { PASSWORD_WIRED_COOKIE } from "@/constants";
 import type { AppLayoutProps } from "@/types/client";
 
-export default function AppLayout({ children }: AppLayoutProps) {
-	return <Navbar>{children}</Navbar>;
+export default async function AppLayout({ children }: AppLayoutProps) {
+	const jar = await cookies();
+	const passwordWired = jar.get(PASSWORD_WIRED_COOKIE)?.value !== "false";
+
+	return <Navbar>{passwordWired ? children : null}</Navbar>;
 }

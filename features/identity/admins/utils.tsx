@@ -344,7 +344,7 @@ export function toAdminUpdateRequest(
 ): AdminUpdateRequest {
 	return {
 		name: values.name.trim(),
-		emailString: values.email.trim(),
+		email: values.email.trim(),
 		campus: values.campus,
 	};
 }
@@ -364,7 +364,7 @@ export function toAdminCreateRequest(
 	return {
 		cpfString: normalizeCpf(values.cpf.trim()),
 		name: values.name.trim(),
-		emailString: values.email.trim(),
+		email: values.email.trim(),
 		campus: values.campus,
 	};
 }
