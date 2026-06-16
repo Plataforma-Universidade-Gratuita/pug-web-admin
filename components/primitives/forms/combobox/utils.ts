@@ -9,6 +9,7 @@ export function getSearchableComboboxText(option: ComboboxOption) {
 		[
 			option.value,
 			typeof option.label === "string" ? option.label : "",
+			typeof option.description === "string" ? option.description : "",
 			option.searchText ?? "",
 			...(option.keywords ?? []),
 		].join(" "),
