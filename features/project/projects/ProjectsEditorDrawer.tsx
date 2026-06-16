@@ -423,5 +423,3 @@ export function ProjectsEditorDrawer({
 		</>
 	);
 }
-
-

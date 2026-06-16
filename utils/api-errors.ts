@@ -4,7 +4,7 @@ import type {
 	ApiErrorToastContent,
 	ApiErrorToastOptions,
 } from "@/types/client";
-import {normalizePathSegments} from "@/utils/utils";
+import { normalizePathSegments } from "@/utils/utils";
 
 function isMeaningfulMessage(message: string | undefined): message is string {
 	if (!message) return false;
@@ -48,33 +48,33 @@ export function getApiErrorFieldErrors(error: unknown) {
 }
 
 export function hasNestedFieldValue(value: unknown, path: string): boolean {
-    if (!path) {
-        return false;
-    }
+	if (!path) {
+		return false;
+	}
 
-    const segments = normalizePathSegments(path);
-    let current: unknown = value;
+	const segments = normalizePathSegments(path);
+	let current: unknown = value;
 
-    for (const segment of segments) {
-        if (Array.isArray(current)) {
-            const index = Number(segment);
-            if (!Number.isInteger(index) || index < 0 || index >= current.length) {
-                return false;
-            }
-            current = current[index];
-            continue;
-        }
+	for (const segment of segments) {
+		if (Array.isArray(current)) {
+			const index = Number(segment);
+			if (!Number.isInteger(index) || index < 0 || index >= current.length) {
+				return false;
+			}
+			current = current[index];
+			continue;
+		}
 
-        if (current == null || typeof current !== "object") {
-            return false;
-        }
+		if (current == null || typeof current !== "object") {
+			return false;
+		}
 
-        if (!(segment in current)) {
-            return false;
-        }
+		if (!(segment in current)) {
+			return false;
+		}
 
-        current = (current as Record<string, unknown>)[segment];
-    }
+		current = (current as Record<string, unknown>)[segment];
+	}
 
-    return true;
+	return true;
 }

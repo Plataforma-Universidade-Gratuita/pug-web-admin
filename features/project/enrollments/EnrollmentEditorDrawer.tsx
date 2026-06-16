@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 
+import { useQuery } from "@tanstack/react-query";
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -10,7 +11,6 @@ import { ResetChangesDialog } from "@/components/composite";
 import { ServicePageEditorDrawer } from "@/components/composite";
 import { Button, Footer, toast } from "@/components/primitives";
 import { EnrollmentEditorForm } from "@/features/project/enrollments/EnrollmentEditorForm";
-import { applyApiFieldErrors } from "@/features/utils";
 import {
 	buildEnrollmentFormerStudentOptions,
 	buildEnrollmentProjectOptions,
@@ -26,6 +26,7 @@ import {
 	parseEnrollmentCompositeKey,
 	resolveEnrollmentStatusAction,
 } from "@/features/project/enrollments/utils";
+import { applyApiFieldErrors } from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -37,18 +38,28 @@ import type {
 	EnrollmentEditorFormValues,
 } from "@/types/client";
 
-const { formerStudents: formerStudentsApi } = web.academic;
+const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;
-const { enrollments: enrollmentsApi, projects: projectsApi } = web.project;
+const {
+	enrollments: enrollmentsApi,
+	projectAreasOfExpertise: projectAreasOfExpertiseApi,
+	projects: projectsApi,
+} = web.project;
+const { useCoursesQuery } = coursesApi;
 const { useFormerStudentsQuery } = formerStudentsApi;
 const { useAccountsQuery } = accountsApi;
 const { useUsersQuery } = usersApi;
+const { listProjectsByAreaOfExpertise } = projectAreasOfExpertiseApi;
 const {
 	useCreateEnrollmentMutation,
 	useEnrollmentStatusMutation,
 	useEnrollmentDetailQuery,
 } = enrollmentsApi;
 const { useProjectsQuery, useProjectDetailQuery } = projectsApi;
+
+function isSelectableEnrollmentProject(status: string) {
+	return status !== "COMPLETED" && status !== "CANCELED";
+}
 
 export function EnrollmentEditorDrawer({
 	enrollmentId,
@@ -71,6 +82,7 @@ export function EnrollmentEditorDrawer({
 		[enrollmentId],
 	);
 	const accountsQuery = useAccountsQuery();
+	const coursesQuery = useCoursesQuery();
 	const usersQuery = useUsersQuery();
 	const projectsQuery = useProjectsQuery();
 	const formerStudentsQuery = useFormerStudentsQuery();
@@ -102,10 +114,6 @@ export function EnrollmentEditorDrawer({
 			),
 		[formerStudentsQuery.data],
 	);
-	const projectOptions = useMemo(
-		() => buildEnrollmentProjectOptions(projectsQuery.data ?? []),
-		[projectsQuery.data],
-	);
 	const formerStudentOptions = useMemo(
 		() =>
 			buildEnrollmentFormerStudentOptions(
@@ -122,6 +130,7 @@ export function EnrollmentEditorDrawer({
 		defaultValues: emptyValues,
 		mode: "onChange",
 	});
+	const selectedFormerStudentId = form.watch("formerStudentId");
 	const loadedFormValues = useMemo(() => {
 		if (isCreateMode) {
 			return emptyValues;
@@ -152,12 +161,56 @@ export function EnrollmentEditorDrawer({
 	const canRenderForm = isCreateMode
 		? true
 		: Boolean(enrollmentDetailQuery.data);
+	const courseById = useMemo(
+		() => new Map((coursesQuery.data ?? []).map(course => [course.id, course])),
+		[coursesQuery.data],
+	);
+	const selectedFormerStudent = useMemo(
+		() =>
+			selectedFormerStudentId
+				? (formerStudentById.get(selectedFormerStudentId) ?? null)
+				: null,
+		[formerStudentById, selectedFormerStudentId],
+	);
+	const selectedAreaOfExpertiseId = selectedFormerStudent
+		? (courseById.get(selectedFormerStudent.courseId)?.areaOfExpertise.id ??
+			null)
+		: null;
+	const projectsByAreaQuery = useQuery({
+		queryKey: ["project", "projects", "by-area", selectedAreaOfExpertiseId],
+		queryFn: () => listProjectsByAreaOfExpertise(selectedAreaOfExpertiseId!),
+		enabled: isCreateMode && selectedAreaOfExpertiseId !== null,
+	});
+	const projectOptions = useMemo(() => {
+		if (!isCreateMode) {
+			return buildEnrollmentProjectOptions(projectsQuery.data ?? []);
+		}
+
+		if (!selectedFormerStudentId) {
+			return [];
+		}
+
+		return buildEnrollmentProjectOptions(
+			(projectsByAreaQuery.data ?? []).filter(project =>
+				isSelectableEnrollmentProject(project.status.status),
+			),
+		);
+	}, [
+		isCreateMode,
+		projectsByAreaQuery.data,
+		projectsQuery.data,
+		selectedFormerStudentId,
+	]);
 	const isDrawerLoading =
 		open &&
-		(projectsQuery.isLoading ||
+		(coursesQuery.isLoading ||
+			projectsQuery.isLoading ||
 			formerStudentsQuery.isLoading ||
 			accountsQuery.isLoading ||
 			usersQuery.isLoading ||
+			(isCreateMode &&
+				selectedFormerStudentId !== "" &&
+				projectsByAreaQuery.isLoading) ||
 			(!isCreateMode &&
 				(enrollmentDetailQuery.isLoading || projectDetailQuery.isLoading)));
 	const isSubmitPending = createMutation.isPending || updateMutation.isPending;
@@ -193,10 +246,14 @@ export function EnrollmentEditorDrawer({
 		},
 		{
 			key: "enrollment-editor-projects",
-			error: projectsQuery.error,
-			errorUpdatedAt: projectsQuery.errorUpdatedAt,
+			error: isCreateMode ? projectsByAreaQuery.error : projectsQuery.error,
+			errorUpdatedAt: isCreateMode
+				? projectsByAreaQuery.errorUpdatedAt
+				: projectsQuery.errorUpdatedAt,
 			getContent: error => getEnrollmentProjectsErrorToastContent(t, error),
-			isError: projectsQuery.isError,
+			isError: isCreateMode
+				? projectsByAreaQuery.isError
+				: projectsQuery.isError,
 		},
 		{
 			key: "enrollment-editor-students",
@@ -349,7 +406,15 @@ export function EnrollmentEditorDrawer({
 						projectDetailQuery.isError ? projectDetailQuery.error : null
 					}
 					projectOptions={projectOptions}
-					projectsError={projectsQuery.isError ? projectsQuery.error : null}
+					projectsError={
+						isCreateMode
+							? projectsByAreaQuery.isError
+								? projectsByAreaQuery.error
+								: null
+							: projectsQuery.isError
+								? projectsQuery.error
+								: null
+					}
 					formerStudent={
 						enrollmentDetailQuery.data
 							? (formerStudentById.get(
@@ -368,6 +433,11 @@ export function EnrollmentEditorDrawer({
 						void projectDetailQuery.refetch();
 					}}
 					onRefreshProjects={() => {
+						if (isCreateMode && selectedAreaOfExpertiseId) {
+							void projectsByAreaQuery.refetch();
+							return;
+						}
+
 						void projectsQuery.refetch();
 					}}
 					onRefreshFormerStudent={() => {
@@ -390,5 +460,3 @@ export function EnrollmentEditorDrawer({
 		</>
 	);
 }
-
-

@@ -123,7 +123,9 @@ export function createAccountColumns(
 			meta: {
 				align: "center",
 			},
-			header: () => <div className="table-badge-cell">{t("table.columns.accountType")}</div>,
+			header: () => (
+				<div className="table-badge-cell">{t("table.columns.accountType")}</div>
+			),
 			cell: ({ row }) => {
 				const label = getAccountTypeLabel(t, row.original.accountType);
 

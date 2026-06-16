@@ -1,3 +1,4 @@
+import { parseEnrollmentCompositeKey } from "@/features/project/enrollments/utils";
 import type {
 	AttendanceCreateRequest,
 	AttendanceResponse,
@@ -8,6 +9,7 @@ import type { AttendanceEditorFormValues } from "@/types/client";
 export function getEmptyAttendanceEditorFormValues(): AttendanceEditorFormValues {
 	return {
 		duration: "",
+		enrollmentId: "",
 		projectId: "",
 		formerStudentId: "",
 		status: "WAITING",
@@ -19,6 +21,7 @@ export function buildAttendanceUpdateFormValues(
 ): AttendanceEditorFormValues {
 	return {
 		duration: String(attendance.qrValidationInfo.duration),
+		enrollmentId: "",
 		projectId: attendance.projectId,
 		formerStudentId: attendance.formerStudentId,
 		status: attendance.status.status,
@@ -28,10 +31,12 @@ export function buildAttendanceUpdateFormValues(
 export function toAttendanceCreateRequest(
 	values: AttendanceEditorFormValues,
 ): AttendanceCreateRequest {
+	const identifier = parseEnrollmentCompositeKey(values.enrollmentId);
+
 	return {
 		duration: Number(values.duration),
-		projectId: values.projectId,
-		formerStudentId: values.formerStudentId,
+		projectId: identifier?.projectId ?? "",
+		formerStudentId: identifier?.formerStudentId ?? "",
 	};
 }
 

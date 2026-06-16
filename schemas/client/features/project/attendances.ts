@@ -18,23 +18,12 @@ export function createAttendanceEditorFormSchema(
 						false,
 					)
 				: z.string(),
-		projectId:
+		enrollmentId:
 			mode === "create"
-				? z
-						.string()
-						.trim()
-						.min(
-							1,
-							t("project.attendancePage.editor.validation.project.required"),
-						)
+				? z.string().trim().min(1, t("common.validation.enrollment.required"))
 				: z.string(),
-		formerStudentId:
-			mode === "create"
-				? z
-						.string()
-						.trim()
-						.min(1, t("common.validation.formerStudent.required"))
-				: z.string(),
+		projectId: mode === "create" ? z.string() : z.string(),
+		formerStudentId: mode === "create" ? z.string() : z.string(),
 		status: AttendanceStatusEnum,
 	});
 }

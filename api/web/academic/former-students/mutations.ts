@@ -114,16 +114,18 @@ function patchLinkedAccountCaches(
 					}
 				: current,
 	);
-	queryClient.setQueryData<AccountResponse[]>(accountKeys.list(), current =>
-		current?.map(account =>
-			account.id === accountId
-				? {
-						...account,
-						email,
-						auditInfo: createAuditInfo(account.auditInfo),
-					}
-				: account,
-		) ?? current,
+	queryClient.setQueryData<AccountResponse[]>(
+		accountKeys.list(),
+		current =>
+			current?.map(account =>
+				account.id === accountId
+					? {
+							...account,
+							email,
+							auditInfo: createAuditInfo(account.auditInfo),
+						}
+					: account,
+			) ?? current,
 	);
 }
 
@@ -136,7 +138,9 @@ function getLinkedUserId(queryClient: QueryClient, accountId: string) {
 		return directAccount.userId;
 	}
 
-	const accounts = queryClient.getQueryData<AccountResponse[]>(accountKeys.list());
+	const accounts = queryClient.getQueryData<AccountResponse[]>(
+		accountKeys.list(),
+	);
 	return accounts?.find(account => account.id === accountId)?.userId;
 }
 
@@ -161,18 +165,20 @@ function patchLinkedUserCaches(
 					}
 				: current,
 	);
-	queryClient.setQueryData<UserResponse[]>(userKeys.list(), current =>
-		current?.map(user =>
-			user.id === userId
-				? {
-						...user,
-						cpf: options.cpf,
-						cpfFormatted: formatCpf(options.cpf),
-						name: options.name,
-						auditInfo: createAuditInfo(user.auditInfo),
-					}
-				: user,
-		) ?? current,
+	queryClient.setQueryData<UserResponse[]>(
+		userKeys.list(),
+		current =>
+			current?.map(user =>
+				user.id === userId
+					? {
+							...user,
+							cpf: options.cpf,
+							cpfFormatted: formatCpf(options.cpf),
+							name: options.name,
+							auditInfo: createAuditInfo(user.auditInfo),
+						}
+					: user,
+			) ?? current,
 	);
 }
 
@@ -211,7 +217,9 @@ function hasRemainingAccountsForUser(
 	userId: string,
 	removedAccountId: string,
 ) {
-	const accounts = queryClient.getQueryData<AccountResponse[]>(accountKeys.list());
+	const accounts = queryClient.getQueryData<AccountResponse[]>(
+		accountKeys.list(),
+	);
 
 	return (
 		accounts?.some(
@@ -253,7 +261,11 @@ export function useCreateFormerStudentMutation() {
 		},
 		onSuccess: ({ body, formerStudent }) => {
 			writeFormerStudentCaches(queryClient, formerStudent);
-			patchLinkedAccountCaches(queryClient, formerStudent.accountId, body.email);
+			patchLinkedAccountCaches(
+				queryClient,
+				formerStudent.accountId,
+				body.email,
+			);
 			const userId = getLinkedUserId(queryClient, formerStudent.accountId);
 			if (userId) {
 				patchLinkedUserCaches(queryClient, userId, {

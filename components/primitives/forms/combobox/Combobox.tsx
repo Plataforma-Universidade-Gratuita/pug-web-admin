@@ -144,9 +144,7 @@ export function Combobox({
 				},
 			});
 
-			setVisibleSelectionCount(
-				nextVisibleCount === 0 ? 1 : nextVisibleCount,
-			);
+			setVisibleSelectionCount(nextVisibleCount === 0 ? 1 : nextVisibleCount);
 		};
 
 		measureVisibleCount();
@@ -262,9 +260,7 @@ export function Combobox({
 						className={clsx("combobox-trigger", className)}
 					>
 						{multiple ? (
-							<div
-								className="flex w-0 min-w-0 flex-1 items-center gap-1 overflow-hidden"
-							>
+							<div className="flex w-0 min-w-0 flex-1 items-center gap-1 overflow-hidden">
 								{selectedOptions.length > 0 ? (
 									<>
 										<div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden">
@@ -278,7 +274,7 @@ export function Combobox({
 															tone={selectionTone}
 															variant="primary"
 															className={clsx(
-																"min-h-5 min-w-0 max-w-full px-2 py-0.5",
+																"min-h-5 max-w-full min-w-0 px-2 py-0.5",
 																index === visibleOptions.length - 1
 																	? "w-full"
 																	: null,
@@ -373,7 +369,7 @@ export function Combobox({
 				<div
 					ref={measurementRef}
 					aria-hidden="true"
-					className="pointer-events-none absolute left-0 top-0 -z-10 flex gap-1 whitespace-nowrap"
+					className="pointer-events-none absolute top-0 left-0 -z-10 flex gap-1 whitespace-nowrap"
 					style={{ visibility: "hidden" }}
 				>
 					{selectedOptions.map(option => (

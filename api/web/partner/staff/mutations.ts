@@ -241,7 +241,7 @@ export function useUpdateStaffMutation() {
 			writeStaffCaches(queryClient, staff);
 			writeAccountCaches(queryClient, {
 				...staff.account,
-				email: variables.body.emailString,
+				email: variables.body.email,
 				auditInfo: createAuditInfo(staff.account.auditInfo),
 			});
 

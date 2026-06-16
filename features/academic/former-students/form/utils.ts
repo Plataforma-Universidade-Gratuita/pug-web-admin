@@ -1,3 +1,4 @@
+import { appendCopyToEmail } from "@/features/utils";
 import type {
 	AccountResponse,
 	FormerStudentCreateRequest,
@@ -6,7 +7,6 @@ import type {
 	UserResponse,
 } from "@/types/api";
 import type { FormerStudentEditorFormValues } from "@/types/client";
-import { appendCopyToEmail } from "@/features/utils";
 
 import { toFormerStudentCreateCpf } from "../filter/utils";
 

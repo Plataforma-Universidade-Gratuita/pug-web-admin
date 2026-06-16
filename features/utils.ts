@@ -1,5 +1,5 @@
-import type { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
+import type { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 
 import type { SearchDateBoundary } from "@/types/client";
 import {
@@ -10,10 +10,7 @@ import {
 
 type CrudFeedbackAction = "create" | "update" | "duplicate" | "delete";
 
-export function appendCopyToText(
-	value: string,
-	existingValues: string[] = [],
-) {
+export function appendCopyToText(value: string, existingValues: string[] = []) {
 	const trimmedValue = value.trim();
 	const match = trimmedValue.match(/^(.*?)( Copy(?:\d+)?)$/);
 	const normalizedExistingValues = new Set(

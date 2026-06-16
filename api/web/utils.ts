@@ -26,7 +26,10 @@ export class WebApiError extends Error {
 	get fieldErrors(): Record<string, string[]> {
 		if (!this.details) return {};
 		return Object.fromEntries(
-			this.details.map(field => [field.field, field.errors.map(error => error.message)]),
+			this.details.map(field => [
+				field.field,
+				field.errors.map(error => error.message),
+			]),
 		);
 	}
 }

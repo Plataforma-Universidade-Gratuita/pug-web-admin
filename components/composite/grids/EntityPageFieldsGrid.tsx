@@ -32,7 +32,7 @@ export function EntityPageFieldsGrid({
 							{field.value}
 						</div>
 					) : (
-						<p className="ty-sm-semibold min-w-0 break-words text-base">
+						<p className="ty-sm-semibold min-w-0 text-base break-words">
 							{field.value}
 						</p>
 					)}

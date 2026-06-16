@@ -36,17 +36,18 @@ export function AttendanceEditorForm({
 	attendance,
 	attendanceError,
 	canRenderForm,
+	enrollmentOptions,
+	enrollmentsError,
 	form,
 	formerStudent,
 	formerStudentError,
-	formerStudentOptions,
 	mode,
 	onRefreshAttendance,
+	onRefreshEnrollments,
 	onRefreshFormerStudent,
 	onRefreshProjects,
 	project,
 	projectError,
-	projectOptions,
 	projectsError,
 }: AttendanceEditorFormProps) {
 	const { t } = useTranslation();
@@ -89,6 +90,20 @@ export function AttendanceEditorForm({
 		);
 	}
 
+	if (isCreateMode && enrollmentsError) {
+		return (
+			<SomeErrorState
+				title={t("common.errors.editorLoad.title", {
+					object: t("common.objects.attendance"),
+				})}
+				description={t("common.errors.editorLoad.description", {
+					object: t("common.objects.attendance"),
+				})}
+				onRefresh={onRefreshEnrollments}
+			/>
+		);
+	}
+
 	if (!isCreateMode && projectError) {
 		return (
 			<SomeErrorState
@@ -118,13 +133,13 @@ export function AttendanceEditorForm({
 			{isCreateMode ? (
 				<>
 					<div className="grid gap-2">
-						<Label>{t("common.fields.project")}</Label>
+						<Label>{t("common.fields.enrollment")}</Label>
 						<Controller
 							control={form.control}
-							name="projectId"
+							name="enrollmentId"
 							render={({ field }) => (
 								<Combobox
-									options={projectOptions}
+									options={enrollmentOptions}
 									value={field.value}
 									onValueChange={field.onChange}
 									placeholder={t("common.placeholders.select")}
@@ -133,32 +148,9 @@ export function AttendanceEditorForm({
 								/>
 							)}
 						/>
-						{form.formState.errors.projectId ? (
+						{form.formState.errors.enrollmentId ? (
 							<p className="field-error">
-								{form.formState.errors.projectId.message}
-							</p>
-						) : null}
-					</div>
-
-					<div className="grid gap-2">
-						<Label>{t("common.fields.formerStudent")}</Label>
-						<Controller
-							control={form.control}
-							name="formerStudentId"
-							render={({ field }) => (
-								<Combobox
-									options={formerStudentOptions}
-									value={field.value}
-									onValueChange={field.onChange}
-									placeholder={t("common.placeholders.select")}
-									searchPlaceholder={t("common.placeholders.search")}
-									emptyMessage={t("common.placeholders.noResults")}
-								/>
-							)}
-						/>
-						{form.formState.errors.formerStudentId ? (
-							<p className="field-error">
-								{form.formState.errors.formerStudentId.message}
+								{form.formState.errors.enrollmentId.message}
 							</p>
 						) : null}
 					</div>

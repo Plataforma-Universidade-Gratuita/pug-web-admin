@@ -107,7 +107,9 @@ export function createProjectColumns(
 			meta: {
 				align: "center",
 			},
-			header: () => <div className="table-badge-cell">{t("table.columns.status")}</div>,
+			header: () => (
+				<div className="table-badge-cell">{t("table.columns.status")}</div>
+			),
 			cell: ({ row }) => (
 				<div className="table-badge-cell">
 					<Badge

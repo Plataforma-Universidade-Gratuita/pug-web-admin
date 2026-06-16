@@ -8,18 +8,19 @@ import * as web from "@/api/web";
 import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import {
-    buildProjectCreatorOptions,
-    buildProjectEntityOptions,
-    createProjectColumns,
-    filterProjectsByBackendFilters,
-    filterProjectsByFrontendFilters,
-    getProjectEmptyStateCopy,
-    getProjectEntitiesErrorToastContent,
-    getProjectFilterSummary,
-    getProjectsListErrorToastContent,
-    getProjectDuplicateErrorToastContent,
-    getProjectStatusActionErrorToastContent,
-    getProjectStatusOptions, getProjectDeleteErrorToastContent,
+	buildProjectCreatorOptions,
+	buildProjectEntityOptions,
+	createProjectColumns,
+	filterProjectsByBackendFilters,
+	filterProjectsByFrontendFilters,
+	getProjectEmptyStateCopy,
+	getProjectEntitiesErrorToastContent,
+	getProjectFilterSummary,
+	getProjectsListErrorToastContent,
+	getProjectDuplicateErrorToastContent,
+	getProjectStatusActionErrorToastContent,
+	getProjectStatusOptions,
+	getProjectDeleteErrorToastContent,
 } from "@/features/project/projects/utils";
 import {
 	appendCopyToText,
@@ -289,8 +290,9 @@ export function useProjectsPage() {
 		);
 
 		try {
-			const linkedAreasOfExpertise =
-				await listAreasOfExpertiseByProject(project.id);
+			const linkedAreasOfExpertise = await listAreasOfExpertiseByProject(
+				project.id,
+			);
 			const createdProject = await createProjectMutation.mutateAsync({
 				body: {
 					description: project.description,

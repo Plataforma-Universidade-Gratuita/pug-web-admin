@@ -78,11 +78,11 @@ export interface ComboboxProps {
 }
 
 export interface VisibleSelectionCountInput {
-    availableWidth: number;
-    itemWidths: number[];
-    gap: number;
-    getSummaryWidth: (remainingCount: number) => number;
-    maxVisibleValues?: number;
+	availableWidth: number;
+	itemWidths: number[];
+	gap: number;
+	getSummaryWidth: (remainingCount: number) => number;
+	maxVisibleValues?: number | undefined;
 }
 
 export interface CpfFormFieldExistingUser {

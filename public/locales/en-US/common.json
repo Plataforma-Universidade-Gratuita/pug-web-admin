@@ -533,6 +533,7 @@
             "cpf": "CPF",
             "createdAt": "Created at",
             "email": "Email",
+            "enrollment": "Enrollment",
             "entity": "Entity",
             "formerStudent": "Former student",
             "formerStudentId": "Former student id",
@@ -2018,9 +2019,9 @@
             "viewDetails": "View details"
         },
         "columns": {
-            "actions": "Actions",
             "accountActive": "Active",
             "accountType": "Account type",
+            "actions": "Actions",
             "areaOfExpertise": "Area of expertise",
             "campus": "Campus",
             "city": "City",

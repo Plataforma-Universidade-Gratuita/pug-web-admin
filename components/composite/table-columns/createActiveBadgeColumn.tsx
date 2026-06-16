@@ -21,9 +21,7 @@ export function createActiveBadgeColumn<TData extends object>({
 		meta: {
 			align: "center",
 		},
-		header: () => (
-			<div className="table-badge-cell">{header}</div>
-		),
+		header: () => <div className="table-badge-cell">{header}</div>,
 		...(size !== undefined ? { size } : {}),
 		cell: ({ row }) => {
 			const isActive = value(row.original);

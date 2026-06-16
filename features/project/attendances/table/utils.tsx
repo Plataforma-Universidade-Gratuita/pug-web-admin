@@ -3,9 +3,11 @@ import type { TFunction } from "i18next";
 
 import { Badge, TableText } from "@/components/primitives";
 import { TABLE_IDENTIFIER_TEXT_WIDTH } from "@/features/project/attendances/constants";
+import { createEnrollmentCompositeKey } from "@/features/project/enrollments/utils";
 import type {
 	AccountResponse,
 	AttendanceResponse,
+	EnrollmentResponse,
 	AttendanceStatus,
 	FormerStudentResponse,
 	ProjectResponse,
@@ -90,6 +92,55 @@ export function buildAttendanceFormerStudentOptions(
 				description: account?.email ?? formerStudent.academicRegistration,
 				keywords: [formerStudent.academicRegistration],
 			};
+		});
+}
+
+export function buildAttendanceEnrollmentOptions(
+	enrollments: EnrollmentResponse[],
+	projectById: Map<string, ProjectResponse>,
+	formerStudentById: Map<string, FormerStudentResponse>,
+	accountById: Map<string, AccountResponse>,
+	userById: Map<string, UserResponse>,
+): ComboboxOption[] {
+	return [...enrollments]
+		.sort((left, right) => {
+			const leftStudent = formerStudentById.get(left.formerStudentId);
+			const rightStudent = formerStudentById.get(right.formerStudentId);
+
+			return compareNormalizedText(
+				getFormerStudentUser(leftStudent, accountById, userById)?.name ??
+					leftStudent?.academicRegistration ??
+					left.formerStudentId,
+				getFormerStudentUser(rightStudent, accountById, userById)?.name ??
+					rightStudent?.academicRegistration ??
+					right.formerStudentId,
+			);
+		})
+		.flatMap(enrollment => {
+			const project = projectById.get(enrollment.projectId);
+			const formerStudent = formerStudentById.get(enrollment.formerStudentId);
+			const user = getFormerStudentUser(formerStudent, accountById, userById);
+
+			if (!project || !formerStudent) {
+				return [];
+			}
+
+			return [
+				{
+					value: createEnrollmentCompositeKey(
+						enrollment.projectId,
+						enrollment.formerStudentId,
+					),
+					label: user?.name ?? formerStudent.academicRegistration,
+					description: project.name,
+					searchText: project.name,
+					keywords: [
+						formerStudent.academicRegistration,
+						project.name,
+						user?.name ?? "",
+					],
+				},
+			];
 		});
 }
 
@@ -184,7 +235,9 @@ export function createAttendanceColumns(
 			meta: {
 				align: "center",
 			},
-			header: () => <div className="table-badge-cell">{t("table.columns.status")}</div>,
+			header: () => (
+				<div className="table-badge-cell">{t("table.columns.status")}</div>
+			),
 			cell: ({ row }) => (
 				<div className="table-badge-cell">
 					<Badge
@@ -240,7 +293,7 @@ export function createAttendanceColumns(
 			header: t("project.attendancePage.table.columns.validatedBy"),
 			cell: ({ row }) =>
 				row.original.attendanceInfo.validatedBy
-					? row.original.validator.name
+					? row.original?.validator?.name
 					: t("project.attendancePage.table.values.notValidated"),
 		},
 		{

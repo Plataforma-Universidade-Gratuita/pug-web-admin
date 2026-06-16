@@ -147,6 +147,7 @@ export function buildEnrollmentFormerStudentOptions(
 	userById: Map<string, UserResponse>,
 ): ComboboxOption[] {
 	return [...formerStudents]
+		.filter(formerStudent => !formerStudent.counterpartHours.concluded)
 		.sort((left, right) =>
 			compareNormalizedText(
 				getFormerStudentUser(left, accountById, userById)?.name ??
@@ -221,7 +222,9 @@ export function createEnrollmentColumns(
 			meta: {
 				align: "center",
 			},
-			header: () => <div className="table-badge-cell">{t("table.columns.status")}</div>,
+			header: () => (
+				<div className="table-badge-cell">{t("table.columns.status")}</div>
+			),
 			cell: ({ row }) => (
 				<div className="table-badge-cell">
 					<Badge

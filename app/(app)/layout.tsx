@@ -5,8 +5,8 @@
  */
 import { cookies } from "next/headers";
 
-import { Navbar } from "@/features/app-shell";
 import { PASSWORD_WIRED_COOKIE } from "@/constants";
+import { Navbar } from "@/features/app-shell";
 import type { AppLayoutProps } from "@/types/client";
 
 export default async function AppLayout({ children }: AppLayoutProps) {

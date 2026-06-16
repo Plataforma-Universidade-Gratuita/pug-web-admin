@@ -3,13 +3,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { CircleAlert } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import {
 	Controller,
 	useWatch,
 	type FieldValues,
 	type Path,
 } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import {
 	formatCpfValue,

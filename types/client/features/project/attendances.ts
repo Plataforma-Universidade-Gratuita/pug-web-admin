@@ -39,6 +39,7 @@ export interface AttendanceComplexSearchFilters {
 
 export interface AttendanceEditorFormValues {
 	duration: string;
+	enrollmentId: string;
 	projectId: string;
 	formerStudentId: string;
 	status: AttendanceStatus;
@@ -68,17 +69,18 @@ export interface AttendanceEditorFormProps {
 	attendance: AttendanceResponse | null;
 	attendanceError: unknown;
 	canRenderForm: boolean;
+	enrollmentOptions: ComboboxOption[];
+	enrollmentsError: unknown;
 	formerStudent: FormerStudentResponse | null;
 	formerStudentError: unknown;
 	form: UseFormReturn<AttendanceEditorFormValues>;
 	mode: AttendanceEditorMode;
 	onRefreshAttendance: () => void;
+	onRefreshEnrollments: () => void;
 	onRefreshFormerStudent: () => void;
 	onRefreshProjects: () => void;
-	formerStudentOptions: ComboboxOption[];
 	project: ProjectResponse | null;
 	projectError: unknown;
-	projectOptions: ComboboxOption[];
 	projectsError: unknown;
 }
 

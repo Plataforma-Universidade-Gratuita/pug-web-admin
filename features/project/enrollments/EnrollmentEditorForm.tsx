@@ -114,11 +114,43 @@ export function EnrollmentEditorForm({
 	const options = enrollment
 		? getEditableEnrollmentStatusOptions(t, enrollment.status.status)
 		: [];
+	const selectedFormerStudentId = form.watch("formerStudentId");
+	const isProjectDisabled = isCreateMode && !selectedFormerStudentId;
 
 	const editorSection = (
 		<section className="grid gap-4">
 			{isCreateMode ? (
 				<>
+					<div className="grid gap-2">
+						<Label>{t("common.fields.formerStudent")}</Label>
+						<Controller
+							control={form.control}
+							name="formerStudentId"
+							render={({ field }) => (
+								<Combobox
+									options={formerStudentOptions}
+									value={field.value}
+									onValueChange={nextValue => {
+										field.onChange(nextValue);
+										form.setValue("projectId", "", {
+											shouldDirty: true,
+											shouldTouch: true,
+											shouldValidate: true,
+										});
+									}}
+									placeholder={t("common.placeholders.select")}
+									searchPlaceholder={t("common.placeholders.search")}
+									emptyMessage={t("common.placeholders.noResults")}
+								/>
+							)}
+						/>
+						{form.formState.errors.formerStudentId ? (
+							<p className="field-error">
+								{form.formState.errors.formerStudentId.message}
+							</p>
+						) : null}
+					</div>
+
 					<div className="grid gap-2">
 						<Label>{t("common.fields.project")}</Label>
 						<Controller
@@ -132,35 +164,13 @@ export function EnrollmentEditorForm({
 									placeholder={t("common.placeholders.select")}
 									searchPlaceholder={t("common.placeholders.search")}
 									emptyMessage={t("common.placeholders.noResults")}
+									disabled={isProjectDisabled}
 								/>
 							)}
 						/>
 						{form.formState.errors.projectId ? (
 							<p className="field-error">
 								{form.formState.errors.projectId.message}
-							</p>
-						) : null}
-					</div>
-
-					<div className="grid gap-2">
-						<Label>{t("common.fields.formerStudent")}</Label>
-						<Controller
-							control={form.control}
-							name="formerStudentId"
-							render={({ field }) => (
-								<Combobox
-									options={formerStudentOptions}
-									value={field.value}
-									onValueChange={field.onChange}
-									placeholder={t("common.placeholders.select")}
-									searchPlaceholder={t("common.placeholders.search")}
-									emptyMessage={t("common.placeholders.noResults")}
-								/>
-							)}
-						/>
-						{form.formState.errors.formerStudentId ? (
-							<p className="field-error">
-								{form.formState.errors.formerStudentId.message}
 							</p>
 						) : null}
 					</div>

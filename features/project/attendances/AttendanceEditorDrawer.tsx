@@ -10,10 +10,8 @@ import { ResetChangesDialog } from "@/components/composite";
 import { ServicePageEditorDrawer } from "@/components/composite";
 import { Button, Footer, toast } from "@/components/primitives";
 import { AttendanceEditorForm } from "@/features/project/attendances/AttendanceEditorForm";
-import { applyApiFieldErrors } from "@/features/utils";
 import {
-	buildAttendanceFormerStudentOptions,
-	buildAttendanceProjectOptions,
+	buildAttendanceEnrollmentOptions,
 	buildAttendanceUpdateFormValues,
 	createAttendanceEditorFormSchema,
 	getAttendanceCreateErrorToastContent,
@@ -25,6 +23,7 @@ import {
 	toAttendanceCreateRequest,
 	toAttendanceValidateRequest,
 } from "@/features/project/attendances/utils";
+import { applyApiFieldErrors } from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -38,7 +37,11 @@ import type {
 
 const { formerStudents: formerStudentsApi } = web.academic;
 const { accounts: accountsApi, users: usersApi } = web.identity;
-const { attendances: attendancesApi, projects: projectsApi } = web.project;
+const {
+	attendances: attendancesApi,
+	enrollments: enrollmentsApi,
+	projects: projectsApi,
+} = web.project;
 const { useFormerStudentDetailQuery, useFormerStudentsQuery } =
 	formerStudentsApi;
 const { useAccountsQuery } = accountsApi;
@@ -48,6 +51,7 @@ const {
 	useValidateAttendanceMutation,
 	useAttendanceDetailQuery,
 } = attendancesApi;
+const { useEnrollmentsQuery } = enrollmentsApi;
 const { useProjectDetailQuery, useProjectsQuery } = projectsApi;
 
 export function AttendanceEditorDrawer({
@@ -67,6 +71,7 @@ export function AttendanceEditorDrawer({
 		onDrawerOpenChange: onOpenChange,
 	});
 	const projectsQuery = useProjectsQuery();
+	const enrollmentsQuery = useEnrollmentsQuery();
 	const formerStudentsQuery = useFormerStudentsQuery();
 	const accountsQuery = useAccountsQuery();
 	const usersQuery = useUsersQuery();
@@ -91,18 +96,37 @@ export function AttendanceEditorDrawer({
 		() => new Map((usersQuery.data ?? []).map(user => [user.id, user])),
 		[usersQuery.data],
 	);
-	const projectOptions = useMemo(
-		() => buildAttendanceProjectOptions(projectsQuery.data ?? []),
+	const projectById = useMemo(
+		() =>
+			new Map((projectsQuery.data ?? []).map(project => [project.id, project])),
 		[projectsQuery.data],
 	);
-	const formerStudentOptions = useMemo(
+	const formerStudentById = useMemo(
 		() =>
-			buildAttendanceFormerStudentOptions(
-				formerStudentsQuery.data ?? [],
+			new Map(
+				(formerStudentsQuery.data ?? []).map(formerStudent => [
+					formerStudent.accountId,
+					formerStudent,
+				]),
+			),
+		[formerStudentsQuery.data],
+	);
+	const enrollmentOptions = useMemo(
+		() =>
+			buildAttendanceEnrollmentOptions(
+				enrollmentsQuery.data ?? [],
+				projectById,
+				formerStudentById,
 				accountById,
 				userById,
 			),
-		[accountById, formerStudentsQuery.data, userById],
+		[
+			accountById,
+			enrollmentsQuery.data,
+			formerStudentById,
+			projectById,
+			userById,
+		],
 	);
 	const emptyValues = useMemo(() => getEmptyAttendanceEditorFormValues(), []);
 	const form = useLocalizedZodForm<AttendanceEditorFormValues>({
@@ -137,7 +161,8 @@ export function AttendanceEditorDrawer({
 	}, [attendanceDetailQuery.data, isCreateMode, loadedFormValues, mode]);
 	const isDrawerLoading =
 		open &&
-		(projectsQuery.isLoading ||
+		(enrollmentsQuery.isLoading ||
+			projectsQuery.isLoading ||
 			formerStudentsQuery.isLoading ||
 			accountsQuery.isLoading ||
 			usersQuery.isLoading ||
@@ -168,6 +193,13 @@ export function AttendanceEditorDrawer({
 			errorUpdatedAt: attendanceDetailQuery.errorUpdatedAt,
 			getContent: error => getAttendanceDetailErrorToastContent(t, error),
 			isError: attendanceDetailQuery.isError,
+		},
+		{
+			key: "attendance-editor-enrollments",
+			error: enrollmentsQuery.error,
+			errorUpdatedAt: enrollmentsQuery.errorUpdatedAt,
+			getContent: error => getAttendanceCreateErrorToastContent(t, error),
+			isError: isCreateMode && enrollmentsQuery.isError,
 		},
 		{
 			key: "attendance-editor-projects",
@@ -317,6 +349,12 @@ export function AttendanceEditorDrawer({
 						attendanceDetailQuery.isError ? attendanceDetailQuery.error : null
 					}
 					canRenderForm={canRenderForm}
+					enrollmentOptions={enrollmentOptions}
+					enrollmentsError={
+						isCreateMode && enrollmentsQuery.isError
+							? enrollmentsQuery.error
+							: null
+					}
 					form={form}
 					formerStudent={formerStudentDetailQuery.data ?? null}
 					formerStudentError={
@@ -324,10 +362,12 @@ export function AttendanceEditorDrawer({
 							? formerStudentDetailQuery.error
 							: null
 					}
-					formerStudentOptions={formerStudentOptions}
 					mode={mode}
 					onRefreshAttendance={() => {
 						void attendanceDetailQuery.refetch();
+					}}
+					onRefreshEnrollments={() => {
+						void enrollmentsQuery.refetch();
 					}}
 					onRefreshFormerStudent={() => {
 						void formerStudentDetailQuery.refetch();
@@ -340,7 +380,6 @@ export function AttendanceEditorDrawer({
 					projectError={
 						projectDetailQuery.isError ? projectDetailQuery.error : null
 					}
-					projectOptions={projectOptions}
 					projectsError={projectsQuery.isError ? projectsQuery.error : null}
 				/>
 			</ServicePageEditorDrawer>
@@ -359,5 +398,3 @@ export function AttendanceEditorDrawer({
 		</>
 	);
 }
-
-

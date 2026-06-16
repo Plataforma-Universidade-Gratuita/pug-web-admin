@@ -1,4 +1,7 @@
-import type {ComboboxOption, VisibleSelectionCountInput} from "@/types/client";
+import type {
+	ComboboxOption,
+	VisibleSelectionCountInput,
+} from "@/types/client";
 import { normalizeTextForSearch } from "@/utils";
 
 export function getSearchableComboboxText(option: ComboboxOption) {
@@ -42,8 +45,7 @@ export function getVisibleSelectionCount({
 			break;
 		}
 
-		const nextWidth =
-			usedWidth + (index > 0 ? gap : 0) + itemWidth;
+		const nextWidth = usedWidth + (index > 0 ? gap : 0) + itemWidth;
 		const remainingCount = itemWidths.length - (index + 1);
 		const summaryWidth =
 			remainingCount > 0 ? gap + getSummaryWidth(remainingCount) : 0;

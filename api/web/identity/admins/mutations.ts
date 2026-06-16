@@ -313,7 +313,7 @@ export function useCreateAdminMutation() {
 				admin.accountResponse.userId,
 			);
 			const nextUser = buildNextUserRecord(admin, {
-				cpf: body.cpfString,
+				cpf: body.cpf,
 				name: body.name,
 				...(existingUser ? { existing: existingUser } : {}),
 			});
