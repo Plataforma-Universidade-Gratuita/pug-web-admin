@@ -32,3 +32,11 @@ export function compareNormalizedText(a: string, b: string) {
 		},
 	);
 }
+
+export function normalizePathSegments(path: string): string[] {
+    return path
+        .replace(/\[(\d+)\]/g, ".$1")
+        .split(".")
+        .map(segment => segment.trim())
+        .filter(Boolean);
+}

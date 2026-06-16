@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 
@@ -31,7 +31,10 @@ import {
 	toFormerStudentCreateRequest,
 	toFormerStudentUpdateRequest,
 } from "@/features/academic/former-students/utils";
-import { getCrudSuccessToastContent } from "@/features/utils";
+import {
+	applyApiFieldErrors,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -238,6 +241,7 @@ export function FormerStudentEditorDrawer({
 						closeDrawer();
 					},
 					onError: error => {
+						applyApiFieldErrors(form, error);
 						const { title, description } = isCreateMode
 							? getStudentCreateErrorToastContent(t, error)
 							: getStudentDuplicateErrorToastContent(t, error);
@@ -268,6 +272,7 @@ export function FormerStudentEditorDrawer({
 					closeDrawer();
 				},
 				onError: error => {
+					applyApiFieldErrors(form, error);
 					const { title, description } = getStudentUpdateErrorToastContent(
 						t,
 						error,
@@ -366,3 +371,5 @@ export function FormerStudentEditorDrawer({
 		</>
 	);
 }
+
+

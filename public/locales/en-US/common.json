@@ -444,6 +444,7 @@
         },
         "actions": {
             "createDuplicate": "Create duplicate",
+            "createDuplicatePending": "Creating duplicate...",
             "resetChanges": "Reset changes",
             "saveChanges": "Save changes",
             "saveChangesPending": "Saving changes...",

@@ -187,8 +187,20 @@ export function EntityEditorForm({
 				<Input
 					id="entity-address"
 					{...form.register("address")}
+					aria-describedby={
+						form.formState.errors.address ? "entity-address-error" : undefined
+					}
+					aria-invalid={form.formState.errors.address ? "true" : "false"}
 					placeholder={t("partner.entityPage.editor.fields.addressPlaceholder")}
 				/>
+				{form.formState.errors.address ? (
+					<p
+						id="entity-address-error"
+						className="field-error"
+					>
+						{form.formState.errors.address.message}
+					</p>
+				) : null}
 			</div>
 
 			{!isCreateMode && entity ? (

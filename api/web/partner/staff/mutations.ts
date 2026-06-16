@@ -222,8 +222,8 @@ export function useCreateStaffMutation() {
 			const existingUser = getCachedUser(queryClient, staff.account.userId);
 			writeUserCaches(queryClient, {
 				id: staff.account.userId,
-				cpf: body.cpfString,
-				cpfFormatted: formatCpf(body.cpfString),
+				cpf: body.cpf,
+				cpfFormatted: formatCpf(body.cpf),
 				name: body.name,
 				auditInfo: createAuditInfo(existingUser?.auditInfo),
 			});

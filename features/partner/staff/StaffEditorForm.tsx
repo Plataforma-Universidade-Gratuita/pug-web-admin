@@ -109,7 +109,7 @@ export function StaffEditorForm({
 		);
 	}
 
-	if (!canRenderForm || (!isUpdateMode && !staff)) {
+	if (!canRenderForm || (mode === "duplicate" && !staff)) {
 		return <NotFoundState title={t("common.notFound.title")} />;
 	}
 
@@ -144,6 +144,7 @@ export function StaffEditorForm({
 						form={form}
 						existingUsers={existingUsers}
 						label={t("partner.staffPage.editor.fields.cpf")}
+						tooltipContent={t("identity.adminPage.update.fields.cpfHelp")}
 						placeholder={t("partner.staffPage.editor.fields.cpfPlaceholder")}
 						searchPlaceholder={t(
 							"partner.staffPage.editor.fields.cpfSearchPlaceholder",

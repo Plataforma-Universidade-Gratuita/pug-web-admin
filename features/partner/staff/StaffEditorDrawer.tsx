@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 
@@ -35,7 +35,10 @@ import {
 	toStaffCreateRequest,
 	toStaffUpdateRequest,
 } from "@/features/partner/staff/utils";
-import { getCrudSuccessToastContent } from "@/features/utils";
+import {
+	applyApiFieldErrors,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -241,6 +244,7 @@ export function StaffEditorDrawer({
 						closeDrawer();
 					},
 					onError: error => {
+						applyApiFieldErrors(form, error);
 						const { title, description } = isCreateMode
 							? getStaffCreateErrorToastContent(t, error)
 							: getStaffDuplicateErrorToastContent(t, error);
@@ -271,6 +275,7 @@ export function StaffEditorDrawer({
 					closeDrawer();
 				},
 				onError: error => {
+					applyApiFieldErrors(form, error);
 					const { title, description } = getStaffUpdateErrorToastContent(
 						t,
 						error,
@@ -364,3 +369,5 @@ export function StaffEditorDrawer({
 		</>
 	);
 }
+
+

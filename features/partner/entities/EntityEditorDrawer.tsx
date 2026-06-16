@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo } from "react";
 
@@ -32,7 +32,10 @@ import {
 	toEntityCreateRequest,
 	toEntityUpdateRequest,
 } from "@/features/partner/entities/utils";
-import { getCrudSuccessToastContent } from "@/features/utils";
+import {
+	applyApiFieldErrors,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -206,6 +209,7 @@ export function EntityEditorDrawer({
 						closeDrawer();
 					},
 					onError: error => {
+						applyApiFieldErrors(form, error);
 						const { title, description } = isCreateMode
 							? getEntityCreateErrorToastContent(t, error)
 							: getEntityDuplicateErrorToastContent(t, error);
@@ -236,6 +240,7 @@ export function EntityEditorDrawer({
 					closeDrawer();
 				},
 				onError: error => {
+					applyApiFieldErrors(form, error);
 					const { title, description } = getEntityUpdateErrorToastContent(
 						t,
 						error,
@@ -322,3 +327,5 @@ export function EntityEditorDrawer({
 		</>
 	);
 }
+
+

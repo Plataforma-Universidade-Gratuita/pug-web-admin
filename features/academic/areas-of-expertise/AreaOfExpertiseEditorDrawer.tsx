@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 
@@ -30,7 +30,10 @@ import {
 	toAreaOfExpertiseCreateRequest,
 	toAreaOfExpertiseUpdateRequest,
 } from "@/features/academic/areas-of-expertise/utils";
-import { getCrudSuccessToastContent } from "@/features/utils";
+import {
+	applyApiFieldErrors,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -191,6 +194,7 @@ export function AreaOfExpertiseEditorDrawer({
 						closeDrawer();
 					},
 					onError: error => {
+						applyApiFieldErrors(form, error);
 						const { title, description } = isCreateMode
 							? getAreaOfExpertiseCreateErrorToastContent(t, error)
 							: getAreaOfExpertiseDuplicateErrorToastContent(t, error);
@@ -221,6 +225,7 @@ export function AreaOfExpertiseEditorDrawer({
 					closeDrawer();
 				},
 				onError: error => {
+					applyApiFieldErrors(form, error);
 					const { title, description } =
 						getAreaOfExpertiseUpdateErrorToastContent(t, error);
 					toast.danger(title, { description });
@@ -302,3 +307,5 @@ export function AreaOfExpertiseEditorDrawer({
 		</>
 	);
 }
+
+

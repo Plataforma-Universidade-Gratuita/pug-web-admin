@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 
@@ -10,6 +10,7 @@ import { ResetChangesDialog } from "@/components/composite";
 import { ServicePageEditorDrawer } from "@/components/composite";
 import { Button, Footer, toast } from "@/components/primitives";
 import { AttendanceEditorForm } from "@/features/project/attendances/AttendanceEditorForm";
+import { applyApiFieldErrors } from "@/features/utils";
 import {
 	buildAttendanceFormerStudentOptions,
 	buildAttendanceProjectOptions,
@@ -221,6 +222,7 @@ export function AttendanceEditorDrawer({
 						closeDrawer();
 					},
 					onError: error => {
+						applyApiFieldErrors(form, error);
 						const { title, description } = getAttendanceCreateErrorToastContent(
 							t,
 							error,
@@ -255,6 +257,7 @@ export function AttendanceEditorDrawer({
 					closeDrawer();
 				},
 				onError: error => {
+					applyApiFieldErrors(form, error);
 					const { title, description } = getAttendanceUpdateErrorToastContent(
 						t,
 						error,
@@ -356,3 +359,5 @@ export function AttendanceEditorDrawer({
 		</>
 	);
 }
+
+

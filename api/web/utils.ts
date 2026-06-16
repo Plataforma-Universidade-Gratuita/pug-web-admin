@@ -1,32 +1,85 @@
 import { z } from "zod";
 
 import { JSON_HEADERS } from "@/constants";
+import { ApiEnvelopeErrorSchema, ApiErrorSchema } from "@/schemas/api";
+import type { ApiErrorBody, FieldError } from "@/types/api";
 
 export class WebApiError extends Error {
 	public readonly status: number;
 	public readonly code: string | undefined;
+	public readonly details: FieldError[] | null;
+	public readonly correlationId: string | null;
 
-	constructor(status: number, message: string, code?: string) {
-		super(message);
+	constructor(
+		status: number,
+		body: Pick<ApiErrorBody, "code" | "message" | "details">,
+		correlationId: string | null = null,
+	) {
+		super(body.message);
 		this.name = "WebApiError";
 		this.status = status;
-		this.code = code;
+		this.code = body.code;
+		this.details = body.details ?? null;
+		this.correlationId = correlationId;
+	}
+
+	get fieldErrors(): Record<string, string[]> {
+		if (!this.details) return {};
+		return Object.fromEntries(
+			this.details.map(field => [field.field, field.errors.map(error => error.message)]),
+		);
 	}
 }
 
 async function parseWebApiError(response: Response): Promise<never> {
-	let message = `HTTP ${response.status}`;
-	let code: string | undefined;
-
 	try {
 		const json = await response.json();
-		if (typeof json?.message === "string") message = json.message;
-		if (typeof json?.code === "string") code = json.code;
-	} catch {
-		// Fall back to the status text when no JSON error body is available.
+		const envelopeResult = ApiEnvelopeErrorSchema.safeParse(json);
+		if (envelopeResult.success) {
+			throw new WebApiError(
+				response.status,
+				envelopeResult.data.error,
+				envelopeResult.data.correlationId,
+			);
+		}
+
+		const rawErrorResult = z
+			.object({
+				code: ApiErrorSchema.shape.code,
+				message: ApiErrorSchema.shape.message,
+				details: ApiErrorSchema.shape.details,
+				correlationId: z.string().nullable().optional(),
+			})
+			.safeParse(json);
+		if (rawErrorResult.success) {
+			throw new WebApiError(
+				response.status,
+				{
+					code: rawErrorResult.data.code,
+					message: rawErrorResult.data.message,
+					details: rawErrorResult.data.details ?? null,
+				},
+				rawErrorResult.data.correlationId ?? null,
+			);
+		}
+	} catch (error) {
+		if (error instanceof WebApiError) {
+			throw error;
+		}
+
+		// Fall back to a minimal HTTP-shaped error when no valid envelope is available.
+		throw new WebApiError(response.status, {
+			code: `HTTP_${response.status}`,
+			message: `HTTP ${response.status}`,
+			details: null,
+		});
 	}
 
-	throw new WebApiError(response.status, message, code);
+	throw new WebApiError(response.status, {
+		code: `HTTP_${response.status}`,
+		message: `HTTP ${response.status}`,
+		details: null,
+	});
 }
 
 function resolveClientLocaleHeader(): string | undefined {

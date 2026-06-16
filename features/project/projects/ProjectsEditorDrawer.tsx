@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 
@@ -33,7 +33,10 @@ import {
 	toProjectCreateRequest,
 	toProjectUpdateRequest,
 } from "@/features/project/projects/utils";
-import { getCrudSuccessToastContent } from "@/features/utils";
+import {
+	applyApiFieldErrors,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -263,6 +266,7 @@ export function ProjectsEditorDrawer({
 							{
 								onSuccess: finishSuccess,
 								onError: error => {
+									applyApiFieldErrors(form, error);
 									const { title, description } = isCreateMode
 										? getProjectCreateErrorToastContent(t, error)
 										: getProjectDuplicateErrorToastContent(t, error);
@@ -272,6 +276,7 @@ export function ProjectsEditorDrawer({
 						);
 					},
 					onError: error => {
+						applyApiFieldErrors(form, error);
 						const { title, description } = isCreateMode
 							? getProjectCreateErrorToastContent(t, error)
 							: getProjectDuplicateErrorToastContent(t, error);
@@ -309,6 +314,7 @@ export function ProjectsEditorDrawer({
 								closeDrawer();
 							},
 							onError: error => {
+								applyApiFieldErrors(form, error);
 								const { title, description } =
 									getProjectUpdateErrorToastContent(t, error);
 								toast.danger(title, { description });
@@ -317,6 +323,7 @@ export function ProjectsEditorDrawer({
 					);
 				},
 				onError: error => {
+					applyApiFieldErrors(form, error);
 					const { title, description } = getProjectUpdateErrorToastContent(
 						t,
 						error,
@@ -412,3 +419,5 @@ export function ProjectsEditorDrawer({
 		</>
 	);
 }
+
+

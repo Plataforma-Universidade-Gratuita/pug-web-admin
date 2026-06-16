@@ -1,7 +1,12 @@
+import type { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 import type { TFunction } from "i18next";
 
 import type { SearchDateBoundary } from "@/types/client";
-import { getApiErrorToastContent } from "@/utils";
+import {
+	getApiErrorFieldErrors,
+	getApiErrorToastContent,
+	hasNestedFieldValue,
+} from "@/utils";
 
 type CrudFeedbackAction = "create" | "update" | "duplicate" | "delete";
 
@@ -108,6 +113,30 @@ export function getCrudDeleteUndoToastContent(t: TFunction, name: string) {
 		}),
 		undoLabel: t("common.feedback.delete.undo.action"),
 	};
+}
+
+export function applyApiFieldErrors<TValues extends FieldValues>(
+	form: UseFormReturn<TValues>,
+	error: unknown,
+): boolean {
+	const fieldErrors = getApiErrorFieldErrors(error);
+	const formValues = form.getValues();
+	let hasAppliedErrors = false;
+
+	for (const [field, messages] of Object.entries(fieldErrors)) {
+		const message = messages.find(Boolean);
+		if (!message || !hasNestedFieldValue(formValues, field)) {
+			continue;
+		}
+
+		form.setError(field as FieldPath<TValues>, {
+			type: "server",
+			message,
+		});
+		hasAppliedErrors = true;
+	}
+
+	return hasAppliedErrors;
 }
 
 function setBoundaryHours(date: Date, boundary: SearchDateBoundary) {

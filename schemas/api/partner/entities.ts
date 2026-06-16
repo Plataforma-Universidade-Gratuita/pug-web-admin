@@ -42,7 +42,7 @@ export const EntityComplexSearchResponseSchema = z.object({
 });
 
 export const EntityCreateRequestSchema = z.object({
-	cnpjString: z.string(),
+	cnpj: z.string(),
 	name: z.string(),
 	cityId: z.string(),
 	address: z.string(),

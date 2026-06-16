@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 
@@ -17,7 +17,10 @@ import {
 	Footer,
 	toast,
 } from "@/components/primitives";
-import { getCrudSuccessToastContent } from "@/features/utils";
+import {
+	applyApiFieldErrors,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -204,6 +207,7 @@ export function CourseEditorDrawer({
 						closeDrawer();
 					},
 					onError: error => {
+						applyApiFieldErrors(form, error);
 						const { title, description } = isCreateMode
 							? getCourseCreateErrorToastContent(t, error)
 							: getCourseDuplicateErrorToastContent(t, error);
@@ -234,6 +238,7 @@ export function CourseEditorDrawer({
 					closeDrawer();
 				},
 				onError: error => {
+					applyApiFieldErrors(form, error);
 					const { title, description } = getCourseUpdateErrorToastContent(
 						t,
 						error,
@@ -324,3 +329,5 @@ export function CourseEditorDrawer({
 		</>
 	);
 }
+
+

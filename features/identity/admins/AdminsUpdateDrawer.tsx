@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 
@@ -24,7 +24,10 @@ import {
 	toAdminCreateRequest,
 	toAdminUpdateRequest,
 } from "@/features/identity/admins/utils";
-import { getCrudSuccessToastContent } from "@/features/utils";
+import {
+	applyApiFieldErrors,
+	getCrudSuccessToastContent,
+} from "@/features/utils";
 import {
 	useDrawerResetConfirm,
 	useHydratedFormOnOpen,
@@ -229,6 +232,7 @@ export function AdminsUpdateDrawer({
 						closeDrawer();
 					},
 					onError: error => {
+						applyApiFieldErrors(form, error);
 						const { title, description } = getAdminCreateErrorToastContent(
 							t,
 							error,
@@ -260,6 +264,7 @@ export function AdminsUpdateDrawer({
 					closeDrawer();
 				},
 				onError: error => {
+					applyApiFieldErrors(form, error);
 					const { title, description } = getAdminUpdateErrorToastContent(
 						t,
 						error,
@@ -349,3 +354,5 @@ export function AdminsUpdateDrawer({
 		</>
 	);
 }
+
+

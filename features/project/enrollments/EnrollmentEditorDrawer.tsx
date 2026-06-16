@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo } from "react";
 
@@ -10,6 +10,7 @@ import { ResetChangesDialog } from "@/components/composite";
 import { ServicePageEditorDrawer } from "@/components/composite";
 import { Button, Footer, toast } from "@/components/primitives";
 import { EnrollmentEditorForm } from "@/features/project/enrollments/EnrollmentEditorForm";
+import { applyApiFieldErrors } from "@/features/utils";
 import {
 	buildEnrollmentFormerStudentOptions,
 	buildEnrollmentProjectOptions,
@@ -243,6 +244,7 @@ export function EnrollmentEditorDrawer({
 						closeDrawer();
 					},
 					onError: error => {
+						applyApiFieldErrors(form, error);
 						const { title, description } = getEnrollmentCreateErrorToastContent(
 							t,
 							error,
@@ -279,6 +281,7 @@ export function EnrollmentEditorDrawer({
 					closeDrawer();
 				},
 				onError: error => {
+					applyApiFieldErrors(form, error);
 					const { title, description } = getEnrollmentUpdateErrorToastContent(
 						t,
 						error,
@@ -387,3 +390,5 @@ export function EnrollmentEditorDrawer({
 		</>
 	);
 }
+
+

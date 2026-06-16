@@ -345,7 +345,7 @@ export function toEntityCreateRequest(
 	values: EntityEditorFormValues,
 ): EntityCreateRequest {
 	return {
-		cnpjString: normalizeCnpj(values.cnpj),
+		cnpj: normalizeCnpj(values.cnpj),
 		name: values.name.trim(),
 		cityId: values.cityId,
 		address: values.address.trim(),
