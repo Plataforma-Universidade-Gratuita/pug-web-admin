@@ -93,7 +93,6 @@ export function AttendancesPageFilters({
 						placeholder={t("common.placeholders.select")}
 						searchPlaceholder={t("common.placeholders.search")}
 						emptyMessage={t("common.placeholders.noResults")}
-						maxVisibleValues={1}
 					/>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import clsx from "clsx";
 import { ChevronDown, Search, X } from "lucide-react";
@@ -15,6 +15,7 @@ import {
 	getSearchableComboboxText,
 	buildVisibleSelections,
 	getComboboxSelectedLabel,
+	getVisibleSelectionCount,
 } from "@/components/primitives/forms/combobox/utils";
 import type { ComboboxProps } from "@/types/client";
 import { normalizeTextForSearch } from "@/utils";
@@ -39,7 +40,7 @@ export function Combobox({
 	canCreateValue,
 	disabled = false,
 	className,
-	maxVisibleValues = 2,
+	maxVisibleValues,
 	selectionTone = "brand",
 }: ComboboxProps) {
 	const [open, setOpen] = useState(false);
@@ -48,8 +49,11 @@ export function Combobox({
 	const [internalValues, setInternalValues] = useState(defaultValues ?? []);
 	const triggerButtonRef = useRef<HTMLButtonElement | null>(null);
 	const scrollRef = useRef<HTMLDivElement | null>(null);
+	const measurementRef = useRef<HTMLDivElement | null>(null);
+	const summaryMeasurementRef = useRef<HTMLSpanElement | null>(null);
 	const selectedValue = value ?? internalValue;
 	const selectedValues = values ?? internalValues;
+	const [visibleSelectionCount, setVisibleSelectionCount] = useState(0);
 
 	const selectedOption = options.find(option => option.value === selectedValue);
 	const selectedOptions = useMemo(
@@ -64,9 +68,9 @@ export function Combobox({
 	);
 	const { visibleOptions, remainingCount } = buildVisibleSelections(
 		selectedOptions,
-		maxVisibleValues,
+		visibleSelectionCount,
 	);
-	const hiddenOptions = selectedOptions.slice(maxVisibleValues);
+	const hiddenOptions = selectedOptions.slice(visibleSelectionCount);
 	const filteredOptions = useMemo(() => {
 		const normalizedQuery = normalizeTextForSearch(query.trim());
 		if (!normalizedQuery) return options;
@@ -82,6 +86,86 @@ export function Combobox({
 		(canCreateValue
 			? canCreateValue(creatableValue, options)
 			: !options.some(option => option.value === creatableValue));
+
+	useLayoutEffect(() => {
+		if (!multiple) {
+			return;
+		}
+
+		const triggerButtonElement = triggerButtonRef.current;
+		const measurementElement = measurementRef.current;
+		const summaryMeasurementElement = summaryMeasurementRef.current;
+
+		if (
+			!triggerButtonElement ||
+			!measurementElement ||
+			!summaryMeasurementElement
+		) {
+			return;
+		}
+
+		const measureVisibleCount = () => {
+			if (selectedOptions.length === 0) {
+				setVisibleSelectionCount(0);
+				return;
+			}
+
+			if (selectedOptions.length === 1) {
+				setVisibleSelectionCount(1);
+				return;
+			}
+
+			const badgeWidths = Array.from(
+				measurementElement.querySelectorAll<HTMLElement>(
+					"[data-combobox-measure-badge='true']",
+				),
+			).map(node => node.offsetWidth);
+
+			const measurementStyles = window.getComputedStyle(measurementElement);
+			const gapValue =
+				measurementStyles.columnGap || measurementStyles.gap || "0";
+			const gap = Number.parseFloat(gapValue) || 0;
+			const triggerStyles = window.getComputedStyle(triggerButtonElement);
+			const paddingLeft =
+				Number.parseFloat(triggerStyles.paddingLeft || "0") || 0;
+			const paddingRight =
+				Number.parseFloat(triggerStyles.paddingRight || "0") || 0;
+			const nextVisibleCount = getVisibleSelectionCount({
+				availableWidth:
+					triggerButtonElement.clientWidth - paddingLeft - paddingRight,
+				itemWidths: badgeWidths,
+				gap,
+				maxVisibleValues,
+				getSummaryWidth: remainingCount => {
+					summaryMeasurementElement.textContent = `+${remainingCount}`;
+					return summaryMeasurementElement.parentElement instanceof HTMLElement
+						? summaryMeasurementElement.parentElement.offsetWidth
+						: summaryMeasurementElement.offsetWidth;
+				},
+			});
+
+			setVisibleSelectionCount(
+				nextVisibleCount === 0 ? 1 : nextVisibleCount,
+			);
+		};
+
+		measureVisibleCount();
+
+		if (typeof ResizeObserver === "undefined") {
+			return;
+		}
+
+		const resizeObserver = new ResizeObserver(() => {
+			measureVisibleCount();
+		});
+
+		resizeObserver.observe(triggerButtonElement);
+		resizeObserver.observe(measurementElement);
+
+		return () => {
+			resizeObserver.disconnect();
+		};
+	}, [maxVisibleValues, multiple, selectedOptions]);
 
 	function handleValueChange(nextValue: string) {
 		if (value === undefined) setInternalValue(nextValue);
@@ -178,21 +262,34 @@ export function Combobox({
 						className={clsx("combobox-trigger", className)}
 					>
 						{multiple ? (
-							<div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden">
+							<div
+								className="flex w-0 min-w-0 flex-1 items-center gap-1 overflow-hidden"
+							>
 								{selectedOptions.length > 0 ? (
 									<>
-										<div className="flex min-w-0 flex-wrap gap-1">
-											{visibleOptions.map(option => (
-												<Badge
+										<div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden">
+											{visibleOptions.map((option, index) => (
+												<Tooltip
 													key={option.value}
-													tone={selectionTone}
-													variant="primary"
-													className="min-h-5 max-w-full px-2 py-0.5"
+													content={option.label}
 												>
-													<span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
-														{option.label}
+													<span className="min-w-0 flex-1 basis-0 overflow-hidden">
+														<Badge
+															tone={selectionTone}
+															variant="primary"
+															className={clsx(
+																"min-h-5 min-w-0 max-w-full px-2 py-0.5",
+																index === visibleOptions.length - 1
+																	? "w-full"
+																	: null,
+															)}
+														>
+															<span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+																{option.label}
+															</span>
+														</Badge>
 													</span>
-												</Badge>
+												</Tooltip>
 											))}
 										</div>
 										{remainingCount > 0 ? (
@@ -271,6 +368,34 @@ export function Combobox({
 					</span>
 				</div>
 			</div>
+
+			{multiple && selectedOptions.length > 0 ? (
+				<div
+					ref={measurementRef}
+					aria-hidden="true"
+					className="pointer-events-none absolute left-0 top-0 -z-10 flex gap-1 whitespace-nowrap"
+					style={{ visibility: "hidden" }}
+				>
+					{selectedOptions.map(option => (
+						<Badge
+							key={option.value}
+							tone={selectionTone}
+							variant="primary"
+							className="min-h-5 px-2 py-0.5"
+							data-combobox-measure-badge="true"
+						>
+							<span className="whitespace-nowrap">{option.label}</span>
+						</Badge>
+					))}
+					<Badge
+						tone="neutral"
+						variant="secondary"
+						className="min-h-5 px-2 py-0.5"
+					>
+						<span ref={summaryMeasurementRef}>+0</span>
+					</Badge>
+				</div>
+			) : null}
 
 			<PopoverContent
 				align="start"

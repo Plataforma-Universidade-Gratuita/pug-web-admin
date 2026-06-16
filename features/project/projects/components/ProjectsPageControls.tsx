@@ -93,7 +93,6 @@ export function ProjectsPageFilters({
 						onFrontendStatusesChange(value as ProjectStatus[])
 					}
 					placeholder="Select..."
-					maxVisibleValues={1}
 				/>
 			</div>
 

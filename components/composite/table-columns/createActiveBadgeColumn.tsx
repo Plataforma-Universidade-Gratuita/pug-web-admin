@@ -18,13 +18,18 @@ export function createActiveBadgeColumn<TData extends object>({
 	return {
 		accessorFn: value,
 		id,
-		header: () => <div className="flex w-full justify-center">{header}</div>,
+		meta: {
+			align: "center",
+		},
+		header: () => (
+			<div className="table-badge-cell">{header}</div>
+		),
 		...(size !== undefined ? { size } : {}),
 		cell: ({ row }) => {
 			const isActive = value(row.original);
 
 			return (
-				<div className="flex w-full justify-center">
+				<div className="table-badge-cell">
 					<Badge
 						className="min-h-5 px-2 py-0.5"
 						tone={isActive ? activeTone : inactiveTone}

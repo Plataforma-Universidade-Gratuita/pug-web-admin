@@ -120,12 +120,15 @@ export function createAccountColumns(
 		{
 			accessorKey: "accountType",
 			size: TABLE_TRUNCATED_COLUMN_WIDTH,
-			header: t("table.columns.accountType"),
+			meta: {
+				align: "center",
+			},
+			header: () => <div className="table-badge-cell">{t("table.columns.accountType")}</div>,
 			cell: ({ row }) => {
 				const label = getAccountTypeLabel(t, row.original.accountType);
 
 				return (
-					<div className="flex w-full justify-center">
+					<div className="table-badge-cell">
 						<Badge
 							className="min-h-5 max-w-full overflow-hidden px-2 py-0.5 text-ellipsis whitespace-nowrap"
 							tone={getAccountTypeTone(row.original.accountType)}

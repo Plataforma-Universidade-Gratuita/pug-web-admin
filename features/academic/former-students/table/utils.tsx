@@ -151,9 +151,16 @@ export function createFormerStudentColumns(
 		{
 			accessorFn: row => row.counterpartHours.concluded,
 			id: "concluded",
-			header: t("academic.formerStudentPage.table.columns.concluded"),
+			meta: {
+				align: "center",
+			},
+			header: () => (
+				<div className="table-badge-cell">
+					{t("academic.formerStudentPage.table.columns.concluded")}
+				</div>
+			),
 			cell: ({ row }) => (
-				<div className="flex w-full justify-center">
+				<div className="table-badge-cell">
 					<Badge
 						className="min-h-5 px-2 py-0.5"
 						tone={

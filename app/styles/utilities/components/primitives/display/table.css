@@ -165,6 +165,10 @@
 		white-space: nowrap;
 	}
 
+	.table-header-cell-center {
+		text-align: center;
+	}
+
 	.table-header-cell-actions {
 		width: 4rem;
 		min-width: 4rem;
@@ -190,6 +194,12 @@
 		color: inherit;
 		cursor: pointer;
 		transition: color var(--twc-duration-normal) var(--twc-ease-standard);
+	}
+
+	.table-sort-button-center {
+		display: flex;
+		width: 100%;
+		justify-content: center;
 	}
 
 	.table-sort-button:hover {
@@ -239,6 +249,22 @@
 		line-height: var(--twc-leading-normal);
 		color: var(--twc-text);
 		white-space: nowrap;
+	}
+
+	.table-body-cell-center {
+		text-align: center;
+	}
+
+	.table-badge-cell {
+		display: flex;
+		width: 100%;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.table-badge-cell > span {
+		width: 100% !important;
 	}
 
 	.table-body-cell-actions {

@@ -77,6 +77,14 @@ export interface ComboboxProps {
 	selectionTone?: MultiSelectSelectionTone;
 }
 
+export interface VisibleSelectionCountInput {
+    availableWidth: number;
+    itemWidths: number[];
+    gap: number;
+    getSummaryWidth: (remainingCount: number) => number;
+    maxVisibleValues?: number;
+}
+
 export interface CpfFormFieldExistingUser {
 	cpf: string;
 	cpfFormatted: string;

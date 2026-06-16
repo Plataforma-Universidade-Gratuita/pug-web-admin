@@ -19,6 +19,15 @@ import { TableBody } from "./components/TableBody";
 import { useTableScrollbars } from "./useTableScrollbars";
 import { compareTableValues, getTableColumnStyle } from "./utils";
 
+function isCenterAligned(meta: unknown) {
+	return (
+		typeof meta === "object" &&
+		meta !== null &&
+		"align" in meta &&
+		meta.align === "center"
+	);
+}
+
 export function Table<TData extends object>({
 	data,
 	columns,
@@ -130,7 +139,11 @@ export function Table<TData extends object>({
 											return (
 												<th
 													key={header.id}
-													className="table-header-cell"
+													className={clsx(
+														"table-header-cell",
+														isCenterAligned(header.column.columnDef.meta) &&
+															"table-header-cell-center",
+													)}
 													scope="col"
 													style={getTableColumnStyle(
 														header.column.columnDef.size,
@@ -139,7 +152,11 @@ export function Table<TData extends object>({
 													{header.isPlaceholder ? null : header.column.getCanSort() ? (
 														<button
 															type="button"
-															className="table-sort-button"
+															className={clsx(
+																"table-sort-button",
+																isCenterAligned(header.column.columnDef.meta) &&
+																	"table-sort-button-center",
+															)}
 															onClick={header.column.getToggleSortingHandler()}
 														>
 															<span className="table-sort-label">

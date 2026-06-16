@@ -181,15 +181,20 @@ export function createAttendanceColumns(
 		{
 			accessorFn: row => row.status.status,
 			id: "status",
-			header: t("table.columns.status"),
+			meta: {
+				align: "center",
+			},
+			header: () => <div className="table-badge-cell">{t("table.columns.status")}</div>,
 			cell: ({ row }) => (
-				<Badge
-					tone={getAttendanceStatusTone(row.original.status.status)}
-					variant="primary"
-					className="min-h-5 px-2 py-0.5"
-				>
-					{row.original.status.statusFormatted}
-				</Badge>
+				<div className="table-badge-cell">
+					<Badge
+						tone={getAttendanceStatusTone(row.original.status.status)}
+						variant="primary"
+						className="min-h-5 px-2 py-0.5"
+					>
+						{row.original.status.statusFormatted}
+					</Badge>
+				</div>
 			),
 		},
 		{

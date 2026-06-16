@@ -60,12 +60,14 @@
 	.select-trigger-shell,
 	.combobox-trigger-shell {
 		position: relative;
+		min-width: 0;
 		width: 100%;
 	}
 
 	.select-trigger,
 	.combobox-trigger {
-		display: inline-flex;
+		display: flex;
+		min-width: 0;
 		width: 100%;
 		align-items: center;
 		border: 1px solid var(--twc-border-2);

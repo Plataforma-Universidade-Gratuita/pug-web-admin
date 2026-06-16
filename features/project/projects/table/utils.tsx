@@ -104,15 +104,20 @@ export function createProjectColumns(
 		{
 			accessorFn: row => row.status.status,
 			id: "status",
-			header: t("table.columns.status"),
+			meta: {
+				align: "center",
+			},
+			header: () => <div className="table-badge-cell">{t("table.columns.status")}</div>,
 			cell: ({ row }) => (
-				<Badge
-					tone={getProjectStatusTone(row.original.status.status)}
-					variant="primary"
-					className="min-h-5 px-2 py-0.5"
-				>
-					{getProjectStatusLabel(t, row.original.status.status)}
-				</Badge>
+				<div className="table-badge-cell">
+					<Badge
+						tone={getProjectStatusTone(row.original.status.status)}
+						variant="primary"
+						className="min-h-5 px-2 py-0.5"
+					>
+						{getProjectStatusLabel(t, row.original.status.status)}
+					</Badge>
+				</div>
 			),
 		},
 		createTableTextColumn<ProjectResponse>({

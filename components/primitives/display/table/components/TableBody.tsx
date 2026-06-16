@@ -1,12 +1,22 @@
 "use client";
 
 import { flexRender, type Column, type Row } from "@tanstack/react-table";
+import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 
 import { NoContentState, Skeleton } from "@/components/primitives";
 
 import { getTableColumnStyle } from "../utils";
 import { RowActionsCell } from "./RowActionsCell";
+
+function isCenterAligned(meta: unknown) {
+	return (
+		typeof meta === "object" &&
+		meta !== null &&
+		"align" in meta &&
+		meta.align === "center"
+	);
+}
 
 export function TableBody<TData extends object>({
 	rows,
@@ -62,7 +72,11 @@ export function TableBody<TData extends object>({
 							{row.getVisibleCells().map(cell => (
 								<td
 									key={cell.id}
-									className="table-body-cell"
+									className={clsx(
+										"table-body-cell",
+										isCenterAligned(cell.column.columnDef.meta) &&
+											"table-body-cell-center",
+									)}
 									style={getTableColumnStyle(cell.column.columnDef.size)}
 								>
 									{flexRender(cell.column.columnDef.cell, cell.getContext())}
