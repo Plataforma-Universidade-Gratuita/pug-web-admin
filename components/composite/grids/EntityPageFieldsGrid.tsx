@@ -1,3 +1,5 @@
+import { isValidElement } from "react";
+
 import clsx from "clsx";
 
 import { Card, Skeleton } from "@/components/primitives";
@@ -22,10 +24,18 @@ export function EntityPageFieldsGrid({
 			{fields.map(field => (
 				<Card
 					key={field.id}
-					className="grid gap-2 p-4"
+					className="grid min-w-0 gap-2 p-4"
 				>
 					<p className="ty-helper">{field.label}</p>
-					<p className="ty-sm-semibold text-base break-words">{field.value}</p>
+					{isValidElement(field.value) ? (
+						<div className="ty-sm-semibold min-w-0 text-base">
+							{field.value}
+						</div>
+					) : (
+						<p className="ty-sm-semibold min-w-0 break-words text-base">
+							{field.value}
+						</p>
+					)}
 				</Card>
 			))}
 		</div>

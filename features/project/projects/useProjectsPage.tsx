@@ -8,19 +8,18 @@ import * as web from "@/api/web";
 import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
 import { DEFAULT_SERVICE_PAGE_SIZE } from "@/constants";
 import {
-	buildProjectCreatorOptions,
-	buildProjectEntityOptions,
-	createProjectColumns,
-	filterProjectsByBackendFilters,
-	filterProjectsByFrontendFilters,
-	getProjectDeleteErrorToastContent,
-	getProjectDuplicateErrorToastContent,
-	getProjectEmptyStateCopy,
-	getProjectEntitiesErrorToastContent,
-	getProjectFilterSummary,
-	getProjectsListErrorToastContent,
-	getProjectStatusActionErrorToastContent,
-	getProjectStatusOptions,
+    buildProjectCreatorOptions,
+    buildProjectEntityOptions,
+    createProjectColumns,
+    filterProjectsByBackendFilters,
+    filterProjectsByFrontendFilters,
+    getProjectEmptyStateCopy,
+    getProjectEntitiesErrorToastContent,
+    getProjectFilterSummary,
+    getProjectsListErrorToastContent,
+    getProjectDuplicateErrorToastContent,
+    getProjectStatusActionErrorToastContent,
+    getProjectStatusOptions, getProjectDeleteErrorToastContent,
 } from "@/features/project/projects/utils";
 import {
 	appendCopyToText,
@@ -42,7 +41,10 @@ import type {
 } from "@/types/client";
 
 const { entities: entitiesApi } = web.partner;
-const { projects: projectsApi } = web.project;
+const {
+	projectAreasOfExpertise: projectAreasOfExpertiseApi,
+	projects: projectsApi,
+} = web.project;
 const { useEntitiesQuery } = entitiesApi;
 const {
 	useCreateProjectMutation,
@@ -50,7 +52,9 @@ const {
 	useRemoveProjectMutation,
 	useProjectsQuery,
 	useProjectsSearchQuery,
+	useSetProjectAreasOfExpertiseMutation,
 } = projectsApi;
+const { listAreasOfExpertiseByProject } = projectAreasOfExpertiseApi;
 
 export function useProjectsPage() {
 	const { t } = useTranslation();
@@ -106,6 +110,8 @@ export function useProjectsPage() {
 	const createProjectMutation = useCreateProjectMutation();
 	const removeProjectMutation = useRemoveProjectMutation();
 	const projectStatusMutation = useProjectStatusMutation();
+	const setProjectAreasOfExpertiseMutation =
+		useSetProjectAreasOfExpertiseMutation();
 	const { schedule } = useDeferredUndoAction();
 	const activeQueryError = projectsPagination.isAll
 		? projectsQuery.error
@@ -277,13 +283,15 @@ export function useProjectsPage() {
 		setFiltersOpen(false);
 	}
 
-	function handleDuplicate(project: ProjectResponse) {
+	async function handleDuplicate(project: ProjectResponse) {
 		const existingProjectNames = (projectsQuery.data ?? []).map(
 			currentProject => currentProject.name,
 		);
 
-		createProjectMutation.mutate(
-			{
+		try {
+			const linkedAreasOfExpertise =
+				await listAreasOfExpertiseByProject(project.id);
+			const createdProject = await createProjectMutation.mutateAsync({
 				body: {
 					description: project.description,
 					entityId: project.entity.id,
@@ -291,25 +299,30 @@ export function useProjectsPage() {
 					name: appendCopyToText(project.name, existingProjectNames),
 					offeredHours: project.projectInfo.offeredHours ?? 0,
 				},
-			},
-			{
-				onSuccess: createdProject => {
-					const { title, description } = getCrudSuccessToastContent(
-						t,
-						"duplicate",
-						createdProject.name,
-					);
-					toast.success(title, { description });
-				},
-				onError: error => {
-					const { title, description } = getProjectDuplicateErrorToastContent(
-						t,
-						error,
-					);
-					toast.danger(title, { description });
-				},
-			},
-		);
+			});
+
+			if (linkedAreasOfExpertise.length > 0) {
+				await setProjectAreasOfExpertiseMutation.mutateAsync({
+					projectId: createdProject.id,
+					areaOfExpertiseIds: linkedAreasOfExpertise.map(
+						areaOfExpertise => areaOfExpertise.id,
+					),
+				});
+			}
+
+			const { title, description } = getCrudSuccessToastContent(
+				t,
+				"duplicate",
+				createdProject.name,
+			);
+			toast.success(title, { description });
+		} catch (error) {
+			const { title, description } = getProjectDuplicateErrorToastContent(
+				t,
+				error,
+			);
+			toast.danger(title, { description });
+		}
 	}
 
 	function handleDeleteConfirm() {

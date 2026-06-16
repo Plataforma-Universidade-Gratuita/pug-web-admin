@@ -65,6 +65,6 @@ export const AttendanceComplexSearchResponseSchema = z.object({
 	student: FormerStudentSimpleComplexSearchResponseSchema,
 	status: AttendanceStatusResponseSchema,
 	attendanceInfo: AttendanceInfoResponseSchema,
-	validator: AccountSimpleComplexSearchResponseSchema,
+	validator: AccountSimpleComplexSearchResponseSchema.nullable(),
 	qrValidationInfo: QrValidationInfoResponseSchema,
 });

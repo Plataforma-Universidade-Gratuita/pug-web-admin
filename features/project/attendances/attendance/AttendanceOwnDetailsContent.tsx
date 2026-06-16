@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { EntityPageFieldsGrid } from "@/components/composite";
-import { Badge } from "@/components/primitives";
+import { Badge, Tooltip } from "@/components/primitives";
 import { getAttendanceStatusTone } from "@/features/project/attendances/utils";
 import type { AttendanceResponse } from "@/types/api";
 
@@ -55,7 +55,13 @@ export function AttendanceOwnDetailsContent({
 			{
 				id: "qrValidationHash",
 				label: t("project.attendancePage.dialog.fields.qrValidationHash"),
-				value: attendance.qrValidationInfo.qrValidationHash,
+				value: (
+					<Tooltip content={attendance.qrValidationInfo.qrValidationHash}>
+						<span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+							{attendance.qrValidationInfo.qrValidationHash}
+						</span>
+					</Tooltip>
+				),
 			},
 			{
 				id: "validatedAt",

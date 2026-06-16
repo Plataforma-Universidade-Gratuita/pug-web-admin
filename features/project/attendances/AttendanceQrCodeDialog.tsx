@@ -67,7 +67,7 @@ export function AttendanceQrCodeDialog({
 						{t("project.attendancePage.dialog.qrCodeDialog.title")}
 					</DialogTitle>
 				</DialogHeader>
-				<DialogBody className="grid gap-4">
+				<DialogBody className="grid gap-4 p-4">
 					<div className="border-border mx-auto flex w-fit items-center justify-center rounded-md border bg-white p-4 shadow-sm">
 						{hash ? (
 							<QRCode
