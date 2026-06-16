@@ -278,13 +278,17 @@ export function useProjectsPage() {
 	}
 
 	function handleDuplicate(project: ProjectResponse) {
+		const existingProjectNames = (projectsQuery.data ?? []).map(
+			currentProject => currentProject.name,
+		);
+
 		createProjectMutation.mutate(
 			{
 				body: {
 					description: project.description,
 					entityId: project.entity.id,
 					maxParticipants: project.projectInfo.maxParticipants,
-					name: appendCopyToText(project.name),
+					name: appendCopyToText(project.name, existingProjectNames),
 					offeredHours: project.projectInfo.offeredHours ?? 0,
 				},
 			},

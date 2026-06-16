@@ -50,11 +50,12 @@ export function buildProjectUpdateFormValues(
 
 export function buildProjectDuplicateFormValues(
 	project: ProjectResponse,
+	existingProjectNames: string[] = [],
 	areaOfExpertiseIds: string[] = [],
 ): ProjectEditorFormValues {
 	return {
 		...buildProjectUpdateFormValues(project, areaOfExpertiseIds),
-		name: appendCopyToText(project.name),
+		name: appendCopyToText(project.name, existingProjectNames),
 	};
 }
 

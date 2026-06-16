@@ -10,8 +10,46 @@ import {
 
 type CrudFeedbackAction = "create" | "update" | "duplicate" | "delete";
 
-export function appendCopyToText(value: string) {
-	return `${value} Copy`;
+export function appendCopyToText(
+	value: string,
+	existingValues: string[] = [],
+) {
+	const trimmedValue = value.trim();
+	const match = trimmedValue.match(/^(.*?)( Copy(?:\d+)?)$/);
+	const normalizedExistingValues = new Set(
+		existingValues.map(currentValue => currentValue.trim().toLowerCase()),
+	);
+
+	if (!match) {
+		const candidate = `${trimmedValue} Copy`;
+		if (!normalizedExistingValues.has(candidate.toLowerCase())) {
+			return candidate;
+		}
+
+		let nextNumber = 2;
+		while (true) {
+			const numberedCandidate = `${trimmedValue} Copy${nextNumber}`;
+			if (!normalizedExistingValues.has(numberedCandidate.toLowerCase())) {
+				return numberedCandidate;
+			}
+			nextNumber += 1;
+		}
+	}
+
+	const baseValue = match[1]?.trimEnd() ?? trimmedValue;
+	const currentSuffix = trimmedValue.slice(baseValue.length);
+	let nextNumber =
+		currentSuffix === " Copy"
+			? 2
+			: (Number(currentSuffix.slice(" Copy".length)) || 1) + 1;
+
+	while (true) {
+		const candidate = `${baseValue} Copy${nextNumber}`;
+		if (!normalizedExistingValues.has(candidate.toLowerCase())) {
+			return candidate;
+		}
+		nextNumber += 1;
+	}
 }
 
 export function appendCopyToEmail(

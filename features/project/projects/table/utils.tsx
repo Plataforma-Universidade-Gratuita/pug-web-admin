@@ -146,7 +146,7 @@ export function createProjectColumns(
 		{
 			accessorFn: row => row.projectInfo.createdBy.name,
 			id: "createdBy",
-			header: t("table.columns.email"),
+			header: t("project.projectPage.table.columns.createdBy"),
 		},
 		{
 			accessorFn: row => row.projectInfo.offeredHours ?? "-",

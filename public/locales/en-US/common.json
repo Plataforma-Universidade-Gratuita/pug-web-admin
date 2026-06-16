@@ -1994,6 +1994,7 @@
                 "columns": {
                     "closedAt": "Closed",
                     "completedHours": "Completed hours",
+                    "createdBy": "Creator",
                     "description": "Description",
                     "maxParticipants": "Max participants",
                     "offeredHours": "Offered hours"

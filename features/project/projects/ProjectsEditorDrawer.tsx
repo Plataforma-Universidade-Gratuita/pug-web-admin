@@ -59,6 +59,7 @@ const {
 	useUpdateProjectMutation,
 	useProjectAreasOfExpertiseQuery,
 	useProjectDetailQuery,
+	useProjectsQuery,
 } = projectsApi;
 
 export function ProjectsEditorDrawer({
@@ -82,6 +83,7 @@ export function ProjectsEditorDrawer({
 	const areasOfExpertiseQuery = useAreasOfExpertiseQuery();
 	const entitiesQuery = useEntitiesQuery();
 	const projectDetailQuery = useProjectDetailQuery(projectId);
+	const projectsQuery = useProjectsQuery();
 	const projectAreasOfExpertiseQuery = useProjectAreasOfExpertiseQuery(
 		isCreateMode ? null : projectId,
 	);
@@ -116,6 +118,7 @@ export function ProjectsEditorDrawer({
 		return isDuplicateMode
 			? buildProjectDuplicateFormValues(
 					projectDetailQuery.data,
+					(projectsQuery.data ?? []).map(project => project.name),
 					projectAreasOfExpertiseQuery.data?.map(
 						areaOfExpertise => areaOfExpertise.id,
 					) ?? [],
@@ -132,6 +135,7 @@ export function ProjectsEditorDrawer({
 		isDuplicateMode,
 		projectAreasOfExpertiseQuery.data,
 		projectDetailQuery.data,
+		projectsQuery.data,
 	]);
 	const hydrationKey = useMemo(() => {
 		if (isCreateMode) {
