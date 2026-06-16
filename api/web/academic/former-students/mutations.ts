@@ -26,6 +26,39 @@ const { accounts, users } = identity;
 const { accountKeys } = accounts;
 const { userKeys } = users;
 
+function formatCpf(value: string) {
+	const digits = value.replace(/\D+/g, "").slice(0, 11);
+
+	if (digits.length !== 11) {
+		return value;
+	}
+
+	return digits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
+
+function createAuditInfo<
+	TAuditInfo extends AccountResponse["auditInfo"] | UserResponse["auditInfo"],
+>(existing?: TAuditInfo) {
+	const now = new Date();
+	const timestamp = now.toISOString();
+	const formattedTimestamp = now.toLocaleString("en-US");
+
+	if (!existing) {
+		return {
+			createdAt: timestamp,
+			createdAtFormatted: formattedTimestamp,
+			updatedAt: timestamp,
+			updatedAtFormatted: formattedTimestamp,
+		} as TAuditInfo;
+	}
+
+	return {
+		...existing,
+		updatedAt: timestamp,
+		updatedAtFormatted: formattedTimestamp,
+	} as TAuditInfo;
+}
+
 function upsertListItem<TItem>(
 	items: TItem[] | undefined,
 	nextItem: TItem,
@@ -65,6 +98,84 @@ function writeFormerStudentCaches(
 	);
 }
 
+function patchLinkedAccountCaches(
+	queryClient: QueryClient,
+	accountId: string,
+	email: string,
+) {
+	queryClient.setQueryData<AccountResponse | undefined>(
+		accountKeys.detail(accountId),
+		current =>
+			current
+				? {
+						...current,
+						email,
+						auditInfo: createAuditInfo(current.auditInfo),
+					}
+				: current,
+	);
+	queryClient.setQueryData<AccountResponse[]>(accountKeys.list(), current =>
+		current?.map(account =>
+			account.id === accountId
+				? {
+						...account,
+						email,
+						auditInfo: createAuditInfo(account.auditInfo),
+					}
+				: account,
+		) ?? current,
+	);
+}
+
+function getLinkedUserId(queryClient: QueryClient, accountId: string) {
+	const directAccount = queryClient.getQueryData<AccountResponse>(
+		accountKeys.detail(accountId),
+	);
+
+	if (directAccount) {
+		return directAccount.userId;
+	}
+
+	const accounts = queryClient.getQueryData<AccountResponse[]>(accountKeys.list());
+	return accounts?.find(account => account.id === accountId)?.userId;
+}
+
+function patchLinkedUserCaches(
+	queryClient: QueryClient,
+	userId: string,
+	options: {
+		cpf: string;
+		name: string;
+	},
+) {
+	queryClient.setQueryData<UserResponse | undefined>(
+		userKeys.detail(userId),
+		current =>
+			current
+				? {
+						...current,
+						cpf: options.cpf,
+						cpfFormatted: formatCpf(options.cpf),
+						name: options.name,
+						auditInfo: createAuditInfo(current.auditInfo),
+					}
+				: current,
+	);
+	queryClient.setQueryData<UserResponse[]>(userKeys.list(), current =>
+		current?.map(user =>
+			user.id === userId
+				? {
+						...user,
+						cpf: options.cpf,
+						cpfFormatted: formatCpf(options.cpf),
+						name: options.name,
+						auditInfo: createAuditInfo(user.auditInfo),
+					}
+				: user,
+		) ?? current,
+	);
+}
+
 function refreshFormerStudentDirectoryCaches(queryClient: QueryClient) {
 	void queryClient.invalidateQueries({
 		queryKey: keys.list(),
@@ -95,6 +206,20 @@ function patchAccountCaches(
 	);
 }
 
+function hasRemainingAccountsForUser(
+	queryClient: QueryClient,
+	userId: string,
+	removedAccountId: string,
+) {
+	const accounts = queryClient.getQueryData<AccountResponse[]>(accountKeys.list());
+
+	return (
+		accounts?.some(
+			account => account.id !== removedAccountId && account.userId === userId,
+		) ?? false
+	);
+}
+
 function removeFormerStudentCaches(
 	queryClient: QueryClient,
 	{ accountId, userId }: RemoveFormerStudentMutationVariables,
@@ -109,20 +234,33 @@ function removeFormerStudentCaches(
 		removeListItem(current, accountId, item => item.id),
 	);
 	queryClient.removeQueries({ queryKey: accountKeys.detail(accountId) });
-	queryClient.setQueryData<UserResponse[]>(userKeys.list(), current =>
-		removeListItem(current, userId, item => item.id),
-	);
-	queryClient.removeQueries({ queryKey: userKeys.detail(userId) });
+
+	if (!hasRemainingAccountsForUser(queryClient, userId, accountId)) {
+		queryClient.setQueryData<UserResponse[]>(userKeys.list(), current =>
+			removeListItem(current, userId, item => item.id),
+		);
+		queryClient.removeQueries({ queryKey: userKeys.detail(userId) });
+	}
 }
 
 export function useCreateFormerStudentMutation() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: ({ body }: FormerStudentCreateMutationVariables) =>
-			create(body),
-		onSuccess: formerStudent => {
+		mutationFn: async ({ body }: FormerStudentCreateMutationVariables) => {
+			const formerStudent = await create(body);
+			return { body, formerStudent };
+		},
+		onSuccess: ({ body, formerStudent }) => {
 			writeFormerStudentCaches(queryClient, formerStudent);
+			patchLinkedAccountCaches(queryClient, formerStudent.accountId, body.email);
+			const userId = getLinkedUserId(queryClient, formerStudent.accountId);
+			if (userId) {
+				patchLinkedUserCaches(queryClient, userId, {
+					cpf: body.cpf,
+					name: body.name,
+				});
+			}
 			refreshFormerStudentDirectoryCaches(queryClient);
 		},
 	});
@@ -134,8 +272,20 @@ export function useUpdateFormerStudentMutation() {
 	return useMutation({
 		mutationFn: ({ id, body }: FormerStudentUpdateMutationVariables) =>
 			update(id, body),
-		onSuccess: formerStudent => {
+		onSuccess: (formerStudent, variables) => {
 			writeFormerStudentCaches(queryClient, formerStudent);
+			patchLinkedAccountCaches(
+				queryClient,
+				formerStudent.accountId,
+				variables.body.email,
+			);
+			const userId = getLinkedUserId(queryClient, formerStudent.accountId);
+			if (userId) {
+				patchLinkedUserCaches(queryClient, userId, {
+					cpf: variables.body.cpf,
+					name: variables.body.name,
+				});
+			}
 			refreshFormerStudentDirectoryCaches(queryClient);
 		},
 	});

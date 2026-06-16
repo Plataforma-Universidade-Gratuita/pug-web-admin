@@ -163,7 +163,6 @@ export function AdminEditorContent({
 							form={form}
 							existingUsers={existingUsers}
 							label={t("common.fields.cpf")}
-							tooltipContent={t("identity.adminPage.update.fields.cpfHelp")}
 							placeholder={t("identity.adminPage.update.fields.cpfPlaceholder")}
 							searchPlaceholder={t(
 								"identity.adminPage.update.fields.cpfSearchPlaceholder",

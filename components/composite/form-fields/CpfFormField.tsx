@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { CircleAlert } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
 	Controller,
 	useWatch,
@@ -53,6 +54,7 @@ export function CpfFormField<
 	createOptionLabel,
 	onExistingUserChange,
 }: CpfFormFieldProps<TValues>) {
+	const { t } = useTranslation();
 	const [createdUsers, setCreatedUsers] = useState<CpfFormFieldExistingUser[]>(
 		[],
 	);
@@ -68,6 +70,8 @@ export function CpfFormField<
 		() => findExistingUserByCpf(availableUsers, watchedCpf ?? ""),
 		[availableUsers, watchedCpf],
 	);
+	const effectiveTooltipContent =
+		tooltipContent ?? t("identity.adminPage.update.fields.cpfHelp");
 	const cpfOptions = useMemo(() => {
 		const options: ComboboxOption[] = availableUsers.map(user => ({
 			value: user.cpfFormatted,
@@ -136,11 +140,11 @@ export function CpfFormField<
 		<div className="grid gap-2">
 			<div className="flex items-center gap-2">
 				<Label htmlFor={id}>{label}</Label>
-				{tooltipContent ? (
+				{effectiveTooltipContent ? (
 					<Icon
 						icon={CircleAlert}
 						className="text-[color:var(--twc-muted)]"
-						tooltipContent={tooltipContent}
+						tooltipContent={effectiveTooltipContent}
 					/>
 				) : null}
 			</div>

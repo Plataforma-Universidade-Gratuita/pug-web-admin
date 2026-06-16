@@ -11,7 +11,7 @@ import {
 	ServicePageShell,
 	ServicePageTableSection,
 } from "@/components/composite";
-import { NoContentState, SomeErrorState, toast } from "@/components/primitives";
+import { NoContentState, SomeErrorState } from "@/components/primitives";
 import { FormerStudentEditorDrawer } from "@/features/academic/former-students/FormerStudentEditorDrawer";
 import { FormerStudentsRowActions } from "@/features/academic/former-students/FormerStudentsRowActions";
 import {
@@ -22,12 +22,10 @@ import {
 	buildFormerStudentAreaOfExpertiseOptions,
 	buildFormerStudentCourseOptions,
 	buildFormerStudentDirectoryItems,
-	appendCopyToEmail,
 	createFormerStudentColumns,
 	filterFormerStudents,
 	getStudentCoursesErrorToastContent,
 	getStudentDeleteErrorToastContent,
-	getStudentDuplicateErrorToastContent,
 	getStudentEmptyStateCopy,
 	getStudentFilterSummary,
 	getStudentSetActiveErrorToastContent,
@@ -50,17 +48,15 @@ import type {
 } from "@/types/client";
 
 const { courses: coursesApi, formerStudents: formerStudentsApi } = web.academic;
-const { accounts: accountsApi, users: usersApi } = web.identity;
 const { useCoursesQuery } = coursesApi;
 const {
-	get: getFormerStudent,
-	useCreateFormerStudentMutation,
 	useRemoveFormerStudentMutation,
 	useSetFormerStudentActiveMutation,
 	useFormerStudentsQuery,
 } = formerStudentsApi;
-const { get: getAccount, useAccountsQuery } = accountsApi;
-const { get: getUser, useUsersQuery } = usersApi;
+const { accounts: accountsApi, users: usersApi } = web.identity;
+const { useAccountsQuery } = accountsApi;
+const { useUsersQuery } = usersApi;
 
 export function FormerStudentsPage() {
 	const { t } = useTranslation();
@@ -107,7 +103,6 @@ export function FormerStudentsPage() {
 	const coursesQuery = useCoursesQuery();
 	const accountsQuery = useAccountsQuery();
 	const usersQuery = useUsersQuery();
-	const createFormerStudentMutation = useCreateFormerStudentMutation();
 	const removeFormerStudentMutation = useRemoveFormerStudentMutation();
 	const setFormerStudentActiveMutation = useSetFormerStudentActiveMutation();
 	const {
@@ -311,56 +306,8 @@ export function FormerStudentsPage() {
 		setFiltersOpen(false);
 	}
 
-	async function handleDuplicate(formerStudent: FormerStudentDirectoryItem) {
-		try {
-			const formerStudentDetail = await getFormerStudent(
-				formerStudent.accountId,
-			);
-			const linkedAccount = await getAccount(formerStudent.accountId);
-			const linkedUser = await getUser(linkedAccount.userId);
-
-			createFormerStudentMutation.mutate(
-				{
-					body: {
-						cpf: linkedUser.cpf,
-						name: linkedUser.name,
-						email: appendCopyToEmail(
-							linkedAccount.email,
-							(accountsQuery.data ?? []).map(account => account.email),
-						),
-						academicRegistration: formerStudentDetail.academicRegistration,
-						campus: formerStudentDetail.campus.campus,
-						courseId: formerStudentDetail.courseId,
-						requiredHours: formerStudentDetail.counterpartHours.requiredHours,
-						startDate: formerStudentDetail.period.startDate,
-						dueDate: formerStudentDetail.period.dueDate,
-					},
-				},
-				{
-					onSuccess: () => {
-						const { title, description } = getCrudSuccessToastContent(
-							t,
-							"duplicate",
-							linkedUser.name,
-						);
-						toast.success(title, { description });
-					},
-					onError: error => {
-						const { title, description } = getStudentDuplicateErrorToastContent(
-							t,
-							error,
-						);
-						toast.danger(title, { description });
-					},
-				},
-			);
-		} catch (error) {
-			const { title, description } = getStudentDuplicateErrorToastContent(
-				t,
-				error,
-			);
-			toast.danger(title, { description });
-		}
+	function handleDuplicate(formerStudent: FormerStudentDirectoryItem) {
+		editorState.openEditor(formerStudent.accountId, "duplicate");
 	}
 
 	return (

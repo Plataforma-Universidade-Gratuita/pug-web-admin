@@ -144,7 +144,6 @@ export function StaffEditorForm({
 						form={form}
 						existingUsers={existingUsers}
 						label={t("partner.staffPage.editor.fields.cpf")}
-						tooltipContent={t("identity.adminPage.update.fields.cpfHelp")}
 						placeholder={t("partner.staffPage.editor.fields.cpfPlaceholder")}
 						searchPlaceholder={t(
 							"partner.staffPage.editor.fields.cpfSearchPlaceholder",

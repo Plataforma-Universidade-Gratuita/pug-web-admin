@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { Save } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -20,6 +20,7 @@ import {
 import { FormerStudentEditorForm } from "@/features/academic/former-students/FormerStudentEditorForm";
 import {
 	buildFormerStudentCourseOptions,
+	buildFormerStudentDuplicateFormValues,
 	buildFormerStudentFormValues,
 	createFormerStudentEditorFormSchema,
 	getEmptyFormerStudentEditorFormValues,
@@ -112,15 +113,22 @@ export function FormerStudentEditorDrawer({
 			return null;
 		}
 
-		return buildFormerStudentFormValues(
-			formerStudentDetailQuery.data,
-			accountDetailQuery.data ?? null,
-			userDetailQuery.data ?? null,
-		);
+		return isDuplicateMode
+			? buildFormerStudentDuplicateFormValues(
+					formerStudentDetailQuery.data,
+					accountDetailQuery.data ?? null,
+					userDetailQuery.data ?? null,
+				)
+			: buildFormerStudentFormValues(
+					formerStudentDetailQuery.data,
+					accountDetailQuery.data ?? null,
+					userDetailQuery.data ?? null,
+				);
 	}, [
 		accountDetailQuery.data,
 		emptyValues,
 		formerStudentDetailQuery.data,
+		isDuplicateMode,
 		isCreateMode,
 		userDetailQuery.data,
 	]);
@@ -214,6 +222,14 @@ export function FormerStudentEditorDrawer({
 		loadedValues: loadedFormValues,
 		open,
 	});
+
+	useEffect(() => {
+		if (!open || !isDuplicateMode || !loadedFormValues) {
+			return;
+		}
+
+		void form.trigger("academicRegistration");
+	}, [form, isDuplicateMode, loadedFormValues, open]);
 
 	function closeDrawer() {
 		onOpenChange(false);
