@@ -1,6 +1,6 @@
 "use client";
 
-import { Ban, Check, CheckCheck, UserMinus, XCircle } from "lucide-react";
+import { Check, CheckCheck, UserMinus, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { DeleteRowAction, ViewDetailsRowAction } from "@/components/composite";
@@ -37,16 +37,6 @@ export function EnrollmentsRowActions({
 						label={t("project.enrollmentPage.table.actions.reject")}
 						onClick={() => onStatusAction(enrollment, "reject")}
 					/>
-					<DropdownMenuWarningItem
-						icon={Ban}
-						label={t("project.enrollmentPage.table.actions.cancel")}
-						onClick={() => onStatusAction(enrollment, "cancel")}
-					/>
-					<DropdownMenuDangerItem
-						icon={UserMinus}
-						label={t("project.enrollmentPage.table.actions.remove")}
-						onClick={() => onStatusAction(enrollment, "remove")}
-					/>
 				</>
 			) : null}
 
@@ -57,11 +47,6 @@ export function EnrollmentsRowActions({
 						icon={CheckCheck}
 						label={t("project.enrollmentPage.table.actions.complete")}
 						onClick={() => onStatusAction(enrollment, "complete")}
-					/>
-					<DropdownMenuWarningItem
-						icon={Ban}
-						label={t("project.enrollmentPage.table.actions.cancel")}
-						onClick={() => onStatusAction(enrollment, "cancel")}
 					/>
 					<DropdownMenuDangerItem
 						icon={UserMinus}

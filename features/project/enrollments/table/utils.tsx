@@ -115,9 +115,9 @@ export function getEditableEnrollmentStatusOptions(
 	const nextStatuses = (() => {
 		switch (currentStatus) {
 			case "PENDING":
-				return ["PENDING", "APPROVED", "REJECTED", "CANCELED", "REMOVED"];
+				return ["PENDING", "APPROVED", "REJECTED"];
 			case "APPROVED":
-				return ["APPROVED", "COMPLETED", "CANCELED", "REMOVED"];
+				return ["APPROVED", "COMPLETED", "REMOVED"];
 			default:
 				return [currentStatus];
 		}
