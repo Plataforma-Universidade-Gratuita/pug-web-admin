@@ -362,7 +362,7 @@ export function toAdminCreateRequest(
 	}
 
 	return {
-		cpfString: normalizeCpf(values.cpf.trim()),
+		cpf: normalizeCpf(values.cpf.trim()),
 		name: values.name.trim(),
 		email: values.email.trim(),
 		campus: values.campus,

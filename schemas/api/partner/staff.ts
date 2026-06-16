@@ -32,14 +32,14 @@ export const StaffComplexSearchResponseSchema = z.object({
 });
 
 export const StaffCreateRequestSchema = z.object({
-	cpfString: z.string(),
+	cpf: z.string(),
 	name: z.string(),
-	emailString: z.string(),
+	email: z.string(),
 	entityId: z.string(),
 });
 
 export const StaffUpdateRequestSchema = z.object({
 	name: z.string(),
-	emailString: z.string(),
+	email: z.string(),
 	entityId: z.string(),
 });

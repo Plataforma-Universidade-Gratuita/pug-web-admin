@@ -288,7 +288,7 @@ export function AdminsPage() {
 			createAdminMutation.mutate(
 				{
 					body: {
-						cpfString: linkedUser.cpf,
+						cpf: linkedUser.cpf,
 						name: linkedUser.name,
 						email: appendCopyToEmail(
 							admin.account.email,

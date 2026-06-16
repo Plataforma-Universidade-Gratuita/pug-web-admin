@@ -312,9 +312,9 @@ export function StaffPage() {
 			createStaffMutation.mutate(
 				{
 					body: {
-						cpfString: linkedUser.cpf,
+						cpf: linkedUser.cpf,
 						name: linkedUser.name,
-						emailString: appendCopyToEmail(
+						email: appendCopyToEmail(
 							staff.account.email,
 							(accountsQuery.data ?? []).map(account => account.email),
 						),

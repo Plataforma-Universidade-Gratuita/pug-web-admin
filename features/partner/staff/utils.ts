@@ -384,9 +384,9 @@ export function toStaffCreateRequest(
 	}
 
 	return {
-		cpfString: normalizeCpf(values.cpf.trim()),
+		cpf: normalizeCpf(values.cpf.trim()),
 		name: values.name.trim(),
-		emailString: values.email.trim(),
+		email: values.email.trim(),
 		entityId: values.entityId,
 	};
 }
@@ -396,7 +396,7 @@ export function toStaffUpdateRequest(
 ): StaffUpdateRequest {
 	return {
 		name: values.name.trim(),
-		emailString: values.email.trim(),
+		email: values.email.trim(),
 		entityId: values.entityId,
 	};
 }
