@@ -21,8 +21,21 @@ export function routeNoContent(init?: ResponseInit): NextResponse {
 
 async function refreshSession() {
 	const refreshToken = await getServerCookie(REFRESH_TOKEN_COOKIE);
-	if (!refreshToken) return null;
+	if (!refreshToken) {
+		return { status: "unauthorized" } as const;
+	}
+
 	return refreshAdminSession(refreshToken);
+}
+
+function routeSessionRefreshUnavailable(): NextResponse {
+	return NextResponse.json(
+		{
+			code: "SESSION_REFRESH_UNAVAILABLE",
+			message: "Session refresh is temporarily unavailable.",
+		},
+		{ status: 503 },
+	);
 }
 
 export async function routeWithAuthRetry<T>(
@@ -37,15 +50,24 @@ export async function routeWithAuthRetry<T>(
 			return routeError(error);
 		}
 
-		const tokens = await refreshSession();
-		if (!tokens) return routeError(error, { clearSession: true });
+		const refreshResult = await refreshSession();
+		if (refreshResult.status === "unauthorized") {
+			return routeError(error, { clearSession: true });
+		}
+		if (refreshResult.status === "unavailable") {
+			return routeSessionRefreshUnavailable();
+		}
 
 		try {
-			const retriedData = await handler(tokens.token);
+			const retriedData = await handler(refreshResult.tokens.token);
 			const response = routeData(schema.parse(retriedData));
-			return applySessionCookies(response, tokens);
+			return applySessionCookies(response, refreshResult.tokens);
 		} catch (retryError) {
-			return routeError(retryError, { clearSession: true });
+			if (retryError instanceof ApiError && retryError.status === 401) {
+				return routeError(retryError, { clearSession: true });
+			}
+
+			return routeError(retryError);
 		}
 	}
 }
@@ -61,15 +83,24 @@ export async function routeVoidWithAuthRetry(
 			return routeError(error);
 		}
 
-		const tokens = await refreshSession();
-		if (!tokens) return routeError(error, { clearSession: true });
+		const refreshResult = await refreshSession();
+		if (refreshResult.status === "unauthorized") {
+			return routeError(error, { clearSession: true });
+		}
+		if (refreshResult.status === "unavailable") {
+			return routeSessionRefreshUnavailable();
+		}
 
 		try {
-			await handler(tokens.token);
+			await handler(refreshResult.tokens.token);
 			const response = routeNoContent();
-			return applySessionCookies(response, tokens);
+			return applySessionCookies(response, refreshResult.tokens);
 		} catch (retryError) {
-			return routeError(retryError, { clearSession: true });
+			if (retryError instanceof ApiError && retryError.status === 401) {
+				return routeError(retryError, { clearSession: true });
+			}
+
+			return routeError(retryError);
 		}
 	}
 }

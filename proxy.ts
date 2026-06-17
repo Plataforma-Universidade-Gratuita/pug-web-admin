@@ -26,6 +26,19 @@ export async function proxy(request: NextRequest) {
 			return NextResponse.redirect(new URL(HOME_ROUTE, request.url));
 		}
 
+		if (refreshToken) {
+			const refreshResult = await refreshAdminSession(refreshToken);
+			if (refreshResult.status === "success") {
+				const response = NextResponse.redirect(
+					new URL(HOME_ROUTE, request.url),
+				);
+				return applySessionCookies(response, refreshResult.tokens);
+			}
+			if (refreshResult.status === "unauthorized") {
+				return clearSessionCookies(NextResponse.next());
+			}
+		}
+
 		return NextResponse.next();
 	}
 
@@ -38,18 +51,27 @@ export async function proxy(request: NextRequest) {
 	}
 
 	if (refreshToken) {
-		const tokens = await refreshAdminSession(refreshToken);
-		if (tokens) {
+		const refreshResult = await refreshAdminSession(refreshToken);
+		if (refreshResult.status === "success") {
 			const response = NextResponse.redirect(request.url);
-			return applySessionCookies(response, tokens);
+			return applySessionCookies(response, refreshResult.tokens);
 		}
+		if (refreshResult.status === "unauthorized") {
+			return clearAndRedirect(request);
+		}
+
+		return redirectToLogin(request);
 	}
 
 	return clearAndRedirect(request);
 }
 
+function redirectToLogin(request: NextRequest): NextResponse {
+	return NextResponse.redirect(new URL(LOGIN_ROUTE, request.url));
+}
+
 function clearAndRedirect(request: NextRequest): NextResponse {
-	const response = NextResponse.redirect(new URL(LOGIN_ROUTE, request.url));
+	const response = redirectToLogin(request);
 	return clearSessionCookies(response);
 }
 

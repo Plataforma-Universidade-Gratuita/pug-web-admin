@@ -84,7 +84,20 @@ async function resolveLocaleHeader(): Promise<string | undefined> {
 
 async function handleError(response: Response): Promise<never> {
 	try {
-		const json = await response.json();
+		const bodyText = await response.text();
+		if (!bodyText.trim()) {
+			throw new ApiError(
+				response.status,
+				{
+					code: `HTTP_${response.status}`,
+					message: `HTTP ${response.status}`,
+					details: null,
+				},
+				null,
+			);
+		}
+
+		const json = JSON.parse(bodyText);
 		const envelope = ApiEnvelopeErrorSchema.parse(json);
 		throw new ApiError(response.status, envelope.error, envelope.correlationId);
 	} catch (error) {

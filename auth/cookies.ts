@@ -56,8 +56,19 @@ export function applySessionCookies(
 }
 
 export function clearSessionCookies(response: NextResponse): NextResponse {
-	response.cookies.delete(ACCESS_TOKEN_COOKIE);
-	response.cookies.delete(REFRESH_TOKEN_COOKIE);
-	response.cookies.delete(PASSWORD_WIRED_COOKIE);
+	response.cookies.set(ACCESS_TOKEN_COOKIE, "", {
+		...sessionCookieOptions(0),
+		httpOnly: true,
+		maxAge: 0,
+	});
+	response.cookies.set(REFRESH_TOKEN_COOKIE, "", {
+		...sessionCookieOptions(0),
+		httpOnly: true,
+		maxAge: 0,
+	});
+	response.cookies.set(PASSWORD_WIRED_COOKIE, "", {
+		...sessionCookieOptions(0),
+		maxAge: 0,
+	});
 	return response;
 }

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { LOGIN_ROUTE } from "@/constants";
 import { JSON_HEADERS } from "@/constants";
 import { ApiEnvelopeErrorSchema, ApiErrorSchema } from "@/schemas/api";
 import type { ApiErrorBody, FieldError } from "@/types/api";
@@ -34,11 +35,30 @@ export class WebApiError extends Error {
 	}
 }
 
+let isHandlingExpiredSession = false;
+
+function handleExpiredSession(status: number) {
+	if (typeof window === "undefined") return;
+	if (status !== 401 && status !== 403) return;
+	if (isHandlingExpiredSession) return;
+	if (window.location.pathname === LOGIN_ROUTE) return;
+
+	isHandlingExpiredSession = true;
+
+	void fetch("/api/v1/auth/logout", {
+		method: "POST",
+		credentials: "include",
+	}).finally(() => {
+		window.location.replace(LOGIN_ROUTE);
+	});
+}
+
 async function parseWebApiError(response: Response): Promise<never> {
 	try {
 		const json = await response.json();
 		const envelopeResult = ApiEnvelopeErrorSchema.safeParse(json);
 		if (envelopeResult.success) {
+			handleExpiredSession(response.status);
 			throw new WebApiError(
 				response.status,
 				envelopeResult.data.error,
@@ -55,6 +75,7 @@ async function parseWebApiError(response: Response): Promise<never> {
 			})
 			.safeParse(json);
 		if (rawErrorResult.success) {
+			handleExpiredSession(response.status);
 			throw new WebApiError(
 				response.status,
 				{
@@ -71,6 +92,7 @@ async function parseWebApiError(response: Response): Promise<never> {
 		}
 
 		// Fall back to a minimal HTTP-shaped error when no valid envelope is available.
+		handleExpiredSession(response.status);
 		throw new WebApiError(response.status, {
 			code: `HTTP_${response.status}`,
 			message: `HTTP ${response.status}`,
@@ -78,6 +100,7 @@ async function parseWebApiError(response: Response): Promise<never> {
 		});
 	}
 
+	handleExpiredSession(response.status);
 	throw new WebApiError(response.status, {
 		code: `HTTP_${response.status}`,
 		message: `HTTP ${response.status}`,

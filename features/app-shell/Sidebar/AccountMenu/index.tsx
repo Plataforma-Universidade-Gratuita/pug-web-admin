@@ -2,8 +2,6 @@
 
 import { useState, useTransition } from "react";
 
-import { useRouter } from "next/navigation";
-
 import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import { LogOut, UserRound } from "lucide-react";
@@ -37,7 +35,6 @@ const { useCurrentUserQuery } = usersApi;
 
 export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 	const queryClient = useQueryClient();
-	const router = useRouter();
 	const { t } = useTranslation();
 	const [open, setOpen] = useState(false);
 	const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
@@ -57,7 +54,7 @@ export function AccountMenu({ collapsed }: Pick<SidebarProps, "collapsed">) {
 		setIsLogoutDialogOpen(false);
 		setOpen(false);
 		toast.success(successMessage);
-		router.replace(LOGIN_ROUTE);
+		window.location.replace(LOGIN_ROUTE);
 	}
 
 	function handleOpenLogoutDialog() {

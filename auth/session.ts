@@ -9,24 +9,39 @@ import type { TokenResponse } from "@/types/api";
  */
 import { validateAdminToken } from "./utils";
 
+export type SessionRefreshResult =
+	| { status: "success"; tokens: TokenResponse }
+	| { status: "unauthorized" }
+	| { status: "unavailable" };
+
 export async function refreshAdminSession(
 	refreshToken: string,
-): Promise<TokenResponse | null> {
+): Promise<SessionRefreshResult> {
 	try {
 		const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
 			method: "POST",
 			headers: JSON_HEADERS,
 			body: JSON.stringify(RefreshRequestSchema.parse({ refreshToken })),
+			cache: "no-store",
 		});
-		if (!response.ok) return null;
+		if (!response.ok) {
+			if (response.status === 401 || response.status === 403) {
+				return { status: "unauthorized" };
+			}
+
+			return { status: "unavailable" };
+		}
 
 		const json = await response.json();
 		const envelope = RefreshSessionEnvelopeSchema.parse(json);
 		const tokens = envelope.data;
 
-		if (!validateAdminToken(tokens.token).isValid) return null;
-		return tokens;
+		if (!validateAdminToken(tokens.token).isValid) {
+			return { status: "unauthorized" };
+		}
+
+		return { status: "success", tokens };
 	} catch {
-		return null;
+		return { status: "unavailable" };
 	}
 }

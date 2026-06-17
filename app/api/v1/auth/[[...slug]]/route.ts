@@ -1,4 +1,5 @@
 import { auth } from "@/api/services";
+import { ApiError } from "@/api/utils";
 import {
 	parseRouteBody,
 	routeData,
@@ -21,6 +22,12 @@ import {
 	TokenResponseSchema,
 } from "@/schemas/api";
 import type { AppRouteSlugContext } from "@/types/client";
+
+function isUnauthorizedError(error: unknown): boolean {
+	return (
+		error instanceof ApiError && (error.status === 401 || error.status === 403)
+	);
+}
 
 async function resolveLogoutRefreshToken(
 	request: Request,
@@ -63,7 +70,9 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 				data,
 			);
 		} catch (error) {
-			return routeError(error, { clearSession: true });
+			return routeError(error, {
+				clearSession: isUnauthorizedError(error),
+			});
 		}
 	}
 	if (slug.length === 1 && slug[0] === "logout") {
@@ -76,14 +85,14 @@ export async function POST(request: Request, { params }: AppRouteSlugContext) {
 			await auth.logout({ refreshToken });
 			return clearSessionCookies(routeNoContent());
 		} catch (error) {
-			return routeError(error);
+			return clearSessionCookies(routeError(error));
 		}
 	}
 	if (slug.length === 1 && slug[0] === "logout-all") {
 		const response = await routeVoidWithAuthRetry(token =>
 			auth.logoutAll(token),
 		);
-		return clearSessionCookies(response);
+		return response.ok ? clearSessionCookies(response) : response;
 	}
 	if (slug.length === 1 && slug[0] === "wire-credentials") {
 		try {
