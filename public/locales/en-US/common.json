@@ -1,2043 +1,2043 @@
 {
-    "academic": {
-        "areaOfExpertisePage": {
-            "create": {
-                "actions": {
-                    "save": "Create area of expertise",
-                    "savePending": "Creating area of expertise..."
-                },
-                "open": "Add area of expertise",
-                "overhead": "New area of expertise",
-                "titleFallback": "Add area of expertise"
-            },
-            "description": "Browse areas of expertise used across academic records, course classification, and linked workflows.",
-            "dialog": {
-                "error": {
-                    "description": "The area of expertise could not be loaded right now.",
-                    "title": "Unable to load area of expertise"
-                },
-                "titleFallback": "Area-of-expertise details"
-            },
-            "duplicate": {
-                "actions": {
-                    "save": "Create duplicate",
-                    "savePending": "Creating duplicate..."
-                },
-                "overhead": "Duplicate area of expertise",
-                "titleFallback": "Duplicate area of expertise"
-            },
-            "editor": {
-                "fields": {
-                    "name": "Area of expertise",
-                    "namePlaceholder": "Enter the area of expertise name"
-                },
-                "validation": {
-                    "name": "Enter a name.",
-                    "nameTooLong": "Name must be 150 characters or fewer."
-                }
-            },
-            "filters": {
-                "endDate": {
-                    "label": "End date",
-                    "placeholder": "Select an end date"
-                },
-                "startDate": {
-                    "label": "Start date",
-                    "placeholder": "Select a start date"
-                }
-            },
-            "loading": {
-                "list": "Loading areas of expertise"
-            },
-            "title": "Areas of expertise",
-            "update": {
-                "actions": {
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
-                "overhead": "Edit area of expertise",
-                "titleFallback": "Edit area of expertise"
-            }
-        },
-        "coursePage": {
-            "create": {
-                "actions": {
-                    "save": "Create course",
-                    "savePending": "Creating course..."
-                },
-                "open": "Add course",
-                "overhead": "New course",
-                "titleFallback": "Add course"
-            },
-            "description": "Service directory for academic courses managed by the platform.",
-            "dialog": {
-                "error": {
-                    "description": "The course could not be loaded right now.",
-                    "title": "Unable to load course"
-                },
-                "linkedAreaOfExpertise": {
-                    "overhead": "Linked area of expertise"
-                },
-                "titleFallback": "Course details"
-            },
-            "duplicate": {
-                "overhead": "Duplicate course",
-                "titleFallback": "Duplicate course"
-            },
-            "editor": {
-                "fields": {
-                    "name": "Course",
-                    "namePlaceholder": "Enter the course name"
-                },
-                "validation": {
-                    "name": "Enter a name.",
-                    "nameTooLong": "Name must be 150 characters or fewer."
-                }
-            },
-            "loading": {
-                "list": "Loading courses"
-            },
-            "title": "Courses",
-            "update": {
-                "overhead": "Edit course",
-                "titleFallback": "Edit course"
-            }
-        },
-        "formerStudentPage": {
-            "create": {
-                "actions": {
-                    "save": "Create former student",
-                    "savePending": "Creating former student..."
-                },
-                "open": "Add former student",
-                "overhead": "New former student",
-                "titleFallback": "Add former student"
-            },
-            "deactivate": {
-                "confirm": {
-                    "description": "{{name}} will be marked as inactive until reactivated.",
-                    "title": "Deactivate this former student?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former-student record could not be deactivated right now.",
-                        "title": "Unable to deactivate former student"
-                    },
-                    "success": {
-                        "description": "{{name}} is now inactive.",
-                        "title": "Former student deactivated"
-                    }
-                }
-            },
-            "description": "Browse former-student records, academic progress, linked accounts, and completion timelines.",
-            "dialog": {
-                "error": {
-                    "description": "The former-student record could not be loaded right now.",
-                    "title": "Unable to load former student"
-                },
-                "fields": {
-                    "academicRegistration": "Academic registration",
-                    "accountId": "Account id",
-                    "campus": "Campus",
-                    "completedHours": "Completed hours",
-                    "createdAt": "Created at",
-                    "dueDate": "Due date",
-                    "missingHours": "Missing hours",
-                    "remainingDays": "Remaining days",
-                    "requiredHours": "Required hours",
-                    "startDate": "Start date",
-                    "updatedAt": "Updated at"
-                },
-                "overhead": "Former-student details",
-                "titleFallback": "Former-student details"
-            },
-            "duplicate": {
-                "actions": {
-                    "save": "Create duplicate",
-                    "savePending": "Creating duplicate..."
-                },
-                "overhead": "Duplicate former student",
-                "titleFallback": "Duplicate former student"
-            },
-            "editor": {
-                "courseLoadError": {
-                    "description": "The course directory could not be loaded right now.",
-                    "title": "Unable to load courses"
-                },
-                "fields": {
-                    "academicRegistration": "Academic registration",
-                    "academicRegistrationPlaceholder": "Enter the academic registration",
-                    "campus": "Campus",
-                    "campusPlaceholder": "Select a campus",
-                    "course": "Course",
-                    "cpf": "CPF",
-                    "cpfCreateOption": "Use {{value}}",
-                    "cpfEmpty": "No CPF found.",
-                    "cpfPlaceholder": "Select an existing CPF or enter a new one",
-                    "cpfSearchPlaceholder": "Search or create a CPF",
-                    "dueDate": "Due date",
-                    "dueDatePlaceholder": "Select a due date",
-                    "email": "Email",
-                    "emailPlaceholder": "Enter the account email",
-                    "name": "Name",
-                    "namePlaceholder": "Enter the user's name",
-                    "requiredHours": "Required hours",
-                    "requiredHoursPlaceholder": "Enter the required hours",
-                    "startDate": "Start date",
-                    "startDatePlaceholder": "Select a start date"
-                },
-                "sections": {
-                    "academic": "Academic",
-                    "linkedCourse": "Linked course"
-                },
-                "tabs": {
-                    "academic": "Academic",
-                    "linked": "Linked"
-                },
-                "validation": {
-                    "academicRegistration": {
-                        "required": "Enter an academic registration.",
-                        "tooLong": "Academic registration must be 15 characters or fewer."
-                    },
-                    "course": {
-                        "required": "Select a course."
-                    },
-                    "cpf": {
-                        "invalid": "Enter a valid CPF.",
-                        "required": "Enter a CPF."
-                    },
-                    "dueDate": {
-                        "range": "Due date must be on or after the start date.",
-                        "required": "Select a due date."
-                    },
-                    "email": {
-                        "invalid": "Enter a valid email.",
-                        "required": "Enter an email.",
-                        "tooLong": "Email must be 255 characters or fewer."
-                    },
-                    "name": {
-                        "required": "Enter a name.",
-                        "tooLong": "Name must be 255 characters or fewer."
-                    },
-                    "requiredHours": {
-                        "invalid": "Enter a valid number greater than zero.",
-                        "required": "Enter the required hours."
-                    },
-                    "startDate": {
-                        "required": "Select a start date."
-                    }
-                }
-            },
-            "feedback": {
-                "coursesError": {
-                    "description": "The course directory could not be loaded right now.",
-                    "title": "Unable to load courses"
-                }
-            },
-            "filters": {
-                "academicRegistration": {
-                    "placeholder": "Filter by academic registration"
-                },
-                "areaOfExpertise": {
-                    "label": "Area of expertise"
-                },
-                "campus": {
-                    "label": "Campus"
-                },
-                "course": {
-                    "error": {
-                        "description": "The course directory could not be loaded right now.",
-                        "title": "Unable to load courses"
-                    },
-                    "label": "Course"
-                },
-                "frontendAcademicRegistration": {
-                    "label": "Academic registration",
-                    "placeholder": "Filter current results by academic registration"
-                },
-                "includeConcluded": {
-                    "description": "Keep concluded former students in the current results.",
-                    "label": "Include concluded former students",
-                    "off": "Hiding concluded former students"
-                },
-                "periodFrom": {
-                    "label": "Period start",
-                    "placeholder": "Select a period start date"
-                },
-                "periodTo": {
-                    "label": "Period end",
-                    "placeholder": "Select a period end date"
-                },
-                "tabs": {
-                    "academic": "Academic",
-                    "identity": "Identity",
-                    "status": "Status"
-                }
-            },
-            "loading": {
-                "list": "Loading former students"
-            },
-            "metadata": {
-                "empty": {
-                    "description": "Service provenance, freshness, and request metadata will live here."
-                }
-            },
-            "reactivate": {
-                "confirm": {
-                    "description": "{{name}} will regain active former-student status.",
-                    "title": "Reactivate this former student?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The former-student record could not be reactivated right now.",
-                        "title": "Unable to reactivate former student"
-                    },
-                    "success": {
-                        "description": "{{name}} is now active again.",
-                        "title": "Former student reactivated"
-                    }
-                }
-            },
-            "table": {
-                "active": {
-                    "no": "Inactive",
-                    "yes": "Active"
-                },
-                "columns": {
-                    "academicRegistration": "Academic registration",
-                    "active": "Active",
-                    "areaOfExpertise": "Area of expertise",
-                    "campus": "Campus",
-                    "concluded": "Concluded",
-                    "course": "Course",
-                    "progress": "Progress"
-                },
-                "concluded": {
-                    "no": "No",
-                    "yes": "Yes"
-                }
-            },
-            "title": "Former students",
-            "update": {
-                "actions": {
-                    "save": "Save changes",
-                    "savePending": "Saving changes..."
-                },
-                "overhead": "Edit former student",
-                "titleFallback": "Edit former student"
-            }
-        },
-        "modulePage": {
-            "description": "Academic reference and workflow services for areas of expertise, courses, and former students.",
-            "title": "Academic services"
-        }
-    },
-    "AlertDialog": {
-        "overhead": {
-            "danger": "Destructive Action",
-            "success": "Positive Action",
-            "warning": "Cautionary Action"
-        }
-    },
-    "auth": {
-        "login": {
-            "brand": {
-                "name": "PUG Web Admin",
-                "subtitle": "Academic backoffice"
-            },
-            "feedback": {
-                "error": "Unable to sign in right now.",
-                "success": "Signed in successfully."
-            },
-            "form": {
-                "description": "Enter your administrator credentials to access the academic backoffice and operational overview.",
-                "fields": {
-                    "email": {
-                        "label": "Email",
-                        "placeholder": "admin@pug.edu.br"
-                    },
-                    "password": {
-                        "label": "Password",
-                        "placeholder": "Enter your password"
-                    }
-                },
-                "submit": "Continue",
-                "submitPending": "Signing in...",
-                "title": "Login"
-            },
-            "hero": {
-                "badge": "Protected access",
-                "highlights": {
-                    "adminOnly": {
-                        "description": "Open the operational overview and keep track of what needs attention across the admin area.",
-                        "title": "Review the operational overview"
-                    },
-                    "refresh": {
-                        "description": "Monitor projects, enrollments, and attendance from the same backoffice flow.",
-                        "title": "Track projects and participation"
-                    },
-                    "session": {
-                        "description": "Update admins, former students, staff, areas of expertise, courses, and linked accounts in one place.",
-                        "title": "Maintain service records"
-                    }
-                },
-                "title": "Sign in to manage the academic backoffice and monitor the operational overview."
-            },
-            "validation": {
-                "email": "Enter a valid email address.",
-                "password": "Use at least 8 characters.",
-                "passwordRequired": "Enter your password or leave it empty."
-            },
-            "wireCredentials": {
-                "actions": {
-                    "dismiss": "Later",
-                    "pending": "Saving password...",
-                    "submit": "Set password"
-                },
-                "description": "This account still needs its first password. Until that is done, most areas of the app will stay blocked.",
-                "feedback": {
-                    "error": "Unable to set the password right now.",
-                    "success": "Password set successfully."
-                },
-                "fields": {
-                    "confirmPassword": {
-                        "label": "Confirm password",
-                        "placeholder": "Repeat the password"
-                    },
-                    "email": {
-                        "label": "Email",
-                        "placeholder": "Enter the account email"
-                    },
-                    "password": {
-                        "label": "Password",
-                        "placeholder": "Create a password"
-                    }
-                },
-                "overhead": "Credential wiring required",
-                "reopen": "Set password",
-                "title": "Finish account setup",
-                "validation": {
-                    "confirmPassword": {
-                        "match": "Passwords must match.",
-                        "required": "Confirm the password."
-                    },
-                    "email": {
-                        "invalid": "Enter a valid email address.",
-                        "required": "Enter the account email.",
-                        "tooLong": "Email must be at most 254 characters."
-                    },
-                    "password": {
-                        "invalid": "Use a password between 8 and 255 characters.",
-                        "required": "Enter a password."
-                    }
-                }
-            }
-        }
-    },
-    "common": {
-        "accountMenu": {
-            "error": {
-                "description": "The current account summary could not be loaded right now.",
-                "retry": "Try again",
-                "title": "Unable to load account summary"
-            }
-        },
-        "actions": {
-            "createDuplicate": "Create duplicate",
-            "createDuplicatePending": "Creating duplicate...",
-            "resetChanges": "Reset changes",
-            "saveChanges": "Save changes",
-            "saveChangesPending": "Saving changes...",
-            "undo": "Undo"
-        },
-        "cancel": "Cancel",
-        "editor": {
-            "loading": "Loading {{object}} editor"
-        },
-        "empty": {
-            "defaultDescription": "No records are available yet.",
-            "filteredDescription": "No records match the current filters: {{value}}.",
-            "title": "No records found"
-        },
-        "errors": {
-            "detailLoad": {
-                "description": "The selected record could not be loaded right now.",
-                "title": "Unable to load record"
-            },
-            "editorLoad": {
-                "description": "The {{object}} could not be loaded right now.",
-                "title": "Unable to load {{object}} editor"
-            },
-            "listLoad": {
-                "description": "The current directory could not be loaded right now.",
-                "title": "Unable to load records"
-            }
-        },
-        "feedback": {
-            "create": {
-                "error": {
-                    "description": "The {{object}} could not be created right now.",
-                    "title": "Unable to create"
-                },
-                "success": {
-                    "description": "{{name}} was created successfully.",
-                    "title": "Created"
-                }
-            },
-            "delete": {
-                "confirm": {
-                    "description": "{{name}} will be removed after the undo window expires.",
-                    "title": "Delete this {{object}}?"
-                },
-                "error": {
-                    "description": "The {{object}} could not be deleted right now.",
-                    "title": "Unable to delete"
-                },
-                "success": {
-                    "description": "{{name}} was removed from the directory.",
-                    "title": "Deleted"
-                },
-                "undo": {
-                    "action": "Undo",
-                    "description": "{{name}} will be deleted unless you undo this action.",
-                    "title": "Deletion scheduled"
-                }
-            },
-            "duplicate": {
-                "error": {
-                    "description": "The {{object}} duplicate could not be created right now.",
-                    "title": "Unable to duplicate"
-                },
-                "success": {
-                    "description": "{{name}} was duplicated successfully.",
-                    "title": "Duplicate created"
-                }
-            },
-            "update": {
-                "error": {
-                    "description": "The {{object}} could not be updated right now.",
-                    "title": "Unable to save changes"
-                },
-                "success": {
-                    "description": "{{name}} was updated successfully.",
-                    "title": "Updated"
-                }
-            }
-        },
-        "fields": {
-            "accountType": "Account type",
-            "active": "Active",
-            "areaOfExpertise": "Area of expertise",
-            "campus": "Campus",
-            "course": "Course",
-            "cpf": "CPF",
-            "createdAt": "Created at",
-            "email": "Email",
-            "enrollment": "Enrollment",
-            "entity": "Entity",
-            "formerStudent": "Former student",
-            "formerStudentId": "Former student id",
-            "id": "Identifier",
-            "name": "Name",
-            "project": "Project",
-            "status": "Status",
-            "updatedAt": "Updated at"
-        },
-        "filters": {
-            "active": "Filters active",
-            "activeOnly": {
-                "description": "Hide inactive records from the current results.",
-                "label": "Show only active records",
-                "off": "Including inactive records"
-            },
-            "apply": "Apply filters",
-            "clear": "Clear filters",
-            "clearConfirm": {
-                "description": "This will clear the current filters.",
-                "title": "Clear filters?"
-            },
-            "cpf": {
-                "label": "CPF",
-                "placeholder": "Filter by CPF"
-            },
-            "email": {
-                "label": "Email",
-                "placeholder": "Filter by email"
-            },
-            "endDate": {
-                "label": "End date",
-                "placeholder": "Select an end date"
-            },
-            "label": "Filters",
-            "more": "More filters",
-            "name": {
-                "label": "Name",
-                "placeholder": "Filter by name"
-            },
-            "overhead": "Filters",
-            "search": {
-                "label": "Search",
-                "placeholder": "Filter current results"
-            },
-            "startDate": {
-                "label": "Start date",
-                "placeholder": "Select a start date"
-            },
-            "title": "Refine directory"
-        },
-        "linkedAccount": {
-            "error": {
-                "description": "The linked account record could not be loaded right now.",
-                "title": "Unable to load linked account"
-            },
-            "overhead": "Linked account"
-        },
-        "linkedFormerStudent": {
-            "overhead": "Linked former student"
-        },
-        "linkedUser": {
-            "error": {
-                "description": "The linked user could not be loaded right now.",
-                "title": "Unable to load linked user"
-            },
-            "overhead": "Linked user"
-        },
-        "loadErrors": {
-            "areasOfExpertise": {
-                "description": "The area-of-expertise directory could not be loaded right now.",
-                "title": "Unable to load areas of expertise"
-            },
-            "entities": {
-                "description": "The entity directory could not be loaded right now.",
-                "title": "Unable to load entities"
-            },
-            "formerStudents": {
-                "description": "The former-student directory could not be loaded right now.",
-                "title": "Unable to load former students"
-            },
-            "projects": {
-                "description": "The project directory could not be loaded right now.",
-                "title": "Unable to load projects"
-            }
-        },
-        "metadata": {
-            "empty": {
-                "description": "Service provenance, freshness, and request metadata will live here.",
-                "title": "Metadata coming soon"
-            },
-            "trigger": "Metadata"
-        },
-        "notFound": {
-            "description": "The requested record could not be found.",
-            "title": "Record not found"
-        },
-        "objects": {
-            "administrator": "administrator",
-            "areaOfExpertise": "area of expertise",
-            "attendance": "attendance",
-            "course": "course",
-            "enrollment": "enrollment",
-            "entity": "entity",
-            "formerStudent": "former student",
-            "project": "project",
-            "staffMember": "staff member"
-        },
-        "placeholders": {
-            "noResults": "No results found.",
-            "search": "Search...",
-            "select": "Select..."
-        },
-        "reset": "Reset form",
-        "resetConfirm": {
-            "description": "This will discard the unsaved changes in the current drawer.",
-            "title": "Reset {{object}} changes?"
-        },
-        "selectors": {
-            "language": {
-                "options": {
-                    "en-US": "English",
-                    "pt-BR": "Portuguese"
-                },
-                "short": {
-                    "en-US": "EN",
-                    "pt-BR": "PT"
-                }
-            },
-            "theme": {
-                "options": {
-                    "dark": "Dark",
-                    "light": "Light",
-                    "system": "System"
-                }
-            }
-        },
-        "status": {
-            "active": "Active",
-            "inactive": "Inactive"
-        },
-        "validation": {
-            "areaOfExpertise": {
-                "required": "Select an area of expertise."
-            },
-            "formerStudent": {
-                "required": "Select a former student."
-            }
-        }
-    },
-    "components": {
-        "datePicker": {
-            "calendarLabel": "Date picker calendar",
-            "clear": "Clear selection",
-            "monthNavigation": "Month navigation",
-            "nextMonth": "Go to next month",
-            "openPicker": "Open date picker",
-            "placeholder": "Select date",
-            "previousMonth": "Go to previous month",
-            "today": "Today"
-        },
-        "dialog": {
-            "close": "Close dialog"
-        },
-        "drawer": {
-            "close": "Close drawer"
-        },
-        "emptyState": {
-            "presets": {
-                "noContent": {
-                    "description": "There is no content to show in this area yet."
-                },
-                "someError": {
-                    "refresh": "Refresh"
-                }
-            }
-        },
-        "pagination": {
-            "firstPage": "Go to first page",
-            "lastPage": "Go to last page",
-            "nextPage": "Go to next page",
-            "page": "Page {{page}} of {{totalPages}}",
-            "pageSize": {
-                "options": {
-                    "all": "All",
-                    "number": "{{value}} per page"
-                },
-                "placeholder": "Page size"
-            },
-            "previousPage": "Go to previous page",
-            "total": "{{count}} records"
-        }
-    },
-    "geo": {
-        "cityPage": {
-            "description": "Browse the city directory used across academic, identity, partner, and project workflows.",
-            "dialog": {
-                "error": {
-                    "description": "The city record could not be loaded right now.",
-                    "title": "Unable to load city"
-                },
-                "fields": {
-                    "ibgeCode": "IBGE code",
-                    "name": "City name"
-                },
-                "titleFallback": "City details"
-            },
-            "filters": {
-                "backend": {
-                    "clear": "Clear filters",
-                    "clearConfirm": {
-                        "description": "This will remove the applied filters from the city table."
-                    }
-                }
-            },
-            "loading": {
-                "list": "Loading city catalog"
-            },
-            "table": {
-                "columns": {
-                    "ibgeCode": "IBGE code"
-                }
-            },
-            "title": "Cities"
-        },
-        "modulePage": {
-            "description": "Centralized geographic reference data used across the platform.",
-            "title": "Geographic services"
-        }
-    },
-    "home": {
-        "dashboard": {
-            "description": "Daily operational overview across enrollments, attendances, former students, and projects.",
-            "exceptions": {
-                "dueSoonFormerStudents": "Former students near deadline",
-                "nearLimitProjects": "Projects near completion",
-                "pendingEnrollments": "Pending enrollments",
-                "waitingAttendances": "Attendances waiting for validation"
-            },
-            "hero": {
-                "actions": {
-                    "attendances": "Review attendances",
-                    "enrollments": "Review enrollments"
-                },
-                "badge": "Operations overview",
-                "description": "Focus on pending validations, near-deadline records, and projects approaching completion.",
-                "title": "Items needing attention: {{count}}"
-            },
-            "metrics": {
-                "activeFormerStudents": "Active former students",
-                "activeProjects": "Active projects",
-                "pendingEnrollments": "Pending enrollments",
-                "waitingAttendances": "Waiting attendances"
-            },
-            "priority": {
-                "badges": {
-                    "dueSoonFormerStudent": "Due soon",
-                    "nearLimitProject": "Near completion",
-                    "pendingEnrollment": "Pending enrollment",
-                    "waitingAttendance": "Waiting attendance"
-                },
-                "descriptions": {
-                    "attendance": "Attendance awaiting validation for {{project}}.",
-                    "enrollment": "Pending enrollment for {{project}}.",
-                    "formerStudent": "{{course}} closes in {{days}}.",
-                    "project": "{{entity}} is at {{progress}} of offered hours."
-                }
-            },
-            "pulse": {
-                "concludedStudents": "Concluded former students",
-                "processedEnrollments": "Processed enrollments",
-                "projectProgress": "Average project completion",
-                "validationCoverage": "Attendance validation coverage"
-            },
-            "recent": {
-                "updated": "Updated"
-            },
-            "sections": {
-                "exceptions": {
-                    "description": "Counts that usually deserve quick follow-up.",
-                    "title": "Exceptions"
-                },
-                "priority": {
-                    "description": "Records that are most likely to require action next.",
-                    "empty": "No priority items right now.",
-                    "title": "Needs attention"
-                },
-                "pulse": {
-                    "description": "Quick health indicators across the current workload.",
-                    "title": "Operational pulse"
-                },
-                "recent": {
-                    "columns": {
-                        "action": "Action",
-                        "module": "Module",
-                        "record": "Record",
-                        "when": "When"
-                    },
-                    "description": "Latest updates across the main operational modules.",
-                    "empty": "No recent changes available.",
-                    "title": "Recent changes"
-                },
-                "sharedError": "Unable to load this overview right now.",
-                "shortcuts": {
-                    "activeProjects": "Open projects",
-                    "description": "Jump straight into the main operational directories.",
-                    "formerStudents": "Open former students",
-                    "pendingEnrollments": "Open enrollments",
-                    "title": "Shortcuts",
-                    "waitingAttendances": "Open attendances"
-                },
-                "upcoming": {
-                    "description": "Items likely to become urgent soon.",
-                    "empty": "No upcoming deadlines right now.",
-                    "title": "Upcoming deadlines"
-                }
-            },
-            "title": "Command center",
-            "upcoming": {
-                "formerStudentDescription": "{{course}} closes in {{days}}.",
-                "projectDescription": "{{entity}} is at {{progress}} of offered hours."
-            },
-            "values": {
-                "unknownCourse": "Unknown course"
-            }
-        }
-    },
-    "identity": {
-        "accountPage": {
-            "description": "Browse account records, linked users, and identity relationships across the platform.",
-            "dialog": {
-                "error": {
-                    "description": "The account record could not be loaded right now.",
-                    "title": "Unable to load account"
-                },
-                "titleFallback": "Account details"
-            },
-            "filters": {
-                "accountType": {
-                    "options": {
-                        "ADMIN": "Admin",
-                        "all": "All account types",
-                        "FORMER_STUDENT": "Former student",
-                        "PARTNER": "Partner",
-                        "STUDENT": "Former student"
-                    }
-                }
-            },
-            "loading": {
-                "list": "Loading account catalog"
-            },
-            "metadata": {
-                "empty": {
-                    "description": "Service provenance, freshness, and request metadata will live here."
-                }
-            },
-            "title": "Accounts"
-        },
-        "adminPage": {
-            "create": {
-                "actions": {
-                    "save": "Create administrator",
-                    "savePending": "Creating administrator..."
-                },
-                "open": "Add admin",
-                "overhead": "New administrator",
-                "titleFallback": "Add administrator"
-            },
-            "deactivate": {
-                "confirm": {
-                    "description": "{{name}} will lose active administrator access until reactivated.",
-                    "title": "Deactivate this administrator?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The administrator could not be deactivated right now.",
-                        "title": "Unable to deactivate administrator"
-                    },
-                    "success": {
-                        "description": "{{name}} is now inactive.",
-                        "title": "Administrator deactivated"
-                    }
-                }
-            },
-            "description": "Browse administrator assignments, linked accounts, and related user records.",
-            "dialog": {
-                "error": {
-                    "description": "The administrator record could not be loaded right now.",
-                    "title": "Unable to load administrator details"
-                },
-                "fields": {
-                    "grantedAt": "Granted at",
-                    "userId": "User identifier"
-                },
-                "titleFallback": "Administrator details"
-            },
-            "filters": {
-                "campus": {
-                    "options": {
-                        "all": "All campuses",
-                        "JARAGUA_DO_SUL": "Jaraguá do Sul",
-                        "JOINVILLE": "Joinville"
-                    }
-                }
-            },
-            "loading": {
-                "list": "Loading administrators"
-            },
-            "reactivate": {
-                "confirm": {
-                    "description": "{{name}} will regain active administrator access immediately.",
-                    "title": "Reactivate this administrator?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The administrator could not be reactivated right now.",
-                        "title": "Unable to reactivate administrator"
-                    },
-                    "success": {
-                        "description": "{{name}} is active again.",
-                        "title": "Administrator reactivated"
-                    }
-                }
-            },
-            "table": {
-                "active": {
-                    "no": "Inactive",
-                    "yes": "Active"
-                },
-                "columns": {
-                    "grantedAt": "Granted at"
-                }
-            },
-            "title": "Admins",
-            "update": {
-                "accountLoadError": {
-                    "description": "The linked account record could not be loaded right now.",
-                    "title": "Unable to load linked account"
-                },
-                "accountNotFound": {
-                    "description": "The linked account record could not be found.",
-                    "title": "Linked account not found"
-                },
-                "fields": {
-                    "accountId": "Identifier",
-                    "cpfCreateOption": "Use {{value}}",
-                    "cpfEmpty": "No CPF found.",
-                    "cpfHelp": "Selecting an existing CPF links this administrator to that existing user. Entering a new CPF creates a new linked user.",
-                    "cpfPlaceholder": "Select an existing CPF or enter a new one",
-                    "cpfSearchPlaceholder": "Search or create a CPF",
-                    "grantedAt": "Granted at",
-                    "namePlaceholder": "Enter the user's name",
-                    "userId": "User identifier"
-                },
-                "overhead": "Edit administrator",
-                "tabs": {
-                    "access": "Access",
-                    "profile": "Profile",
-                    "user": "Linked user"
-                },
-                "titleFallback": "Edit administrator",
-                "validation": {
-                    "cpf": {
-                        "invalid": "Enter a valid CPF.",
-                        "required": "Enter a CPF."
-                    },
-                    "email": {
-                        "invalid": "Enter a valid email address.",
-                        "required": "Enter an email address.",
-                        "tooLong": "Email must be 254 characters or fewer."
-                    },
-                    "name": "Enter a name.",
-                    "nameTooLong": "Name must be 255 characters or fewer."
-                }
-            }
-        },
-        "modulePage": {
-            "description": "Centralized identity records and administrator workflows used across the platform.",
-            "title": "Identity services"
-        },
-        "userPage": {
-            "description": "Browse user records shared across platform workflows and service modules.",
-            "dialog": {
-                "error": {
-                    "description": "The user record could not be loaded right now.",
-                    "title": "Unable to load user"
-                },
-                "titleFallback": "User details"
-            },
-            "filters": {
-                "backend": {
-                    "clear": "Clear filters",
-                    "clearConfirm": {
-                        "description": "This will remove the applied filters from the users table.",
-                        "title": "Clear filters?"
-                    }
-                }
-            },
-            "loading": {
-                "list": "Loading user catalog"
-            },
-            "title": "Users"
-        }
-    },
-    "modulePages": {
-        "comingSoon": {
-            "availablePages": "Available pages",
-            "description": "This page will provide shortcuts, insights, and tools for {{moduleName}} management.",
-            "title": "Module overview coming soon"
-        }
-    },
-    "Navbar": {
-        "account": {
-            "fallback": "Unavailable",
-            "label": "Account",
-            "logout": "Log out",
-            "logoutAllDevices": "Sign out everywhere",
-            "logoutAllPending": "Signing out everywhere...",
-            "logoutAllSuccess": "Signed out on all devices.",
-            "logoutCancel": "Stay signed in",
-            "logoutCurrentDevice": "Sign out here",
-            "logoutCurrentPending": "Signing out here...",
-            "logoutCurrentSuccess": "Signed out on this device.",
-            "logoutDialogDescription": "End this session on the current device or revoke access on every device where this account is signed in.",
-            "logoutDialogTitle": "Choose how to sign out",
-            "logoutError": "Unable to sign out right now."
-        },
-        "collapse": "Collapse sidebar",
-        "expand": "Expand sidebar",
-        "navigation": "Primary navigation",
-        "paths": {
-            "academic": {
-                "areaOfExpertise": "Areas of expertise",
-                "course": "Courses",
-                "formerStudent": "Former students",
-                "root": "Academic"
-            },
-            "geo": {
-                "city": "Cities",
-                "root": "Geo"
-            },
-            "home": "Home",
-            "identity": {
-                "account": "Accounts",
-                "admin": "Admins",
-                "root": "Identity",
-                "user": "Users"
-            },
-            "partner": {
-                "entity": "Entities",
-                "root": "Partner",
-                "staff": "Staff"
-            },
-            "project": {
-                "attendance": "Attendance",
-                "enrollment": "Enrollment",
-                "project": "Projects",
-                "root": "Project"
-            },
-            "unknown": "Unknown"
-        },
-        "subtitle": "Operational workspace",
-        "title": "PUG Web Admin"
-    },
-    "partner": {
-        "entityPage": {
-            "create": {
-                "actions": {
-                    "save": "Create entity",
-                    "savePending": "Creating entity..."
-                },
-                "open": "Add entity",
-                "overhead": "Create entity",
-                "titleFallback": "New entity"
-            },
-            "description": "Service directory for partner organizations and the cities they operate in.",
-            "dialog": {
-                "error": {
-                    "description": "The entity record could not be loaded right now.",
-                    "title": "Unable to load entity"
-                },
-                "fields": {
-                    "address": "Address",
-                    "city": "City name",
-                    "cnpj": "CNPJ",
-                    "name": "Entity name"
-                },
-                "titleFallback": "Entity details",
-                "values": {
-                    "noAddress": "No address provided"
-                }
-            },
-            "duplicate": {
-                "overhead": "Duplicate entity",
-                "titleFallback": "Duplicate entity"
-            },
-            "editor": {
-                "cityLoadError": {
-                    "description": "The city catalog for this form could not be loaded right now.",
-                    "title": "Unable to load cities"
-                },
-                "fields": {
-                    "address": "Address",
-                    "addressPlaceholder": "Optional address",
-                    "city": "City",
-                    "cnpj": "CNPJ",
-                    "cnpjPlaceholder": "00.000.000/0000-00",
-                    "name": "Entity name"
-                },
-                "validation": {
-                    "address": {
-                        "tooLong": "Address must be 254 characters or fewer."
-                    },
-                    "city": "Select a city.",
-                    "cnpj": {
-                        "invalid": "Enter a valid CNPJ.",
-                        "required": "Enter a CNPJ."
-                    },
-                    "name": "Enter a name.",
-                    "nameTooLong": "Name must be 150 characters or fewer."
-                }
-            },
-            "feedback": {
-                "citiesError": {
-                    "description": "The city catalog could not be loaded right now.",
-                    "title": "Unable to load cities"
-                }
-            },
-            "filters": {
-                "city": {
-                    "error": {
-                        "description": "The city catalog could not be loaded right now.",
-                        "title": "Unable to load cities"
-                    },
-                    "label": "City"
-                },
-                "frontend": {
-                    "cnpj": {
-                        "label": "CNPJ",
-                        "placeholder": "Filter by CNPJ"
-                    }
-                }
-            },
-            "loading": {
-                "list": "Loading entities"
-            },
-            "table": {
-                "columns": {
-                    "address": "Address",
-                    "city": "City",
-                    "cnpj": "CNPJ"
-                }
-            },
-            "title": "Entities",
-            "update": {
-                "overhead": "Edit entity",
-                "titleFallback": "Edit entity"
-            }
-        },
-        "modulePage": {
-            "description": "Partner directories and operational records for entities and staff members.",
-            "title": "Partner services"
-        },
-        "staffPage": {
-            "create": {
-                "actions": {
-                    "save": "Create staff member",
-                    "savePending": "Creating staff member..."
-                },
-                "open": "Add staff member",
-                "overhead": "Create staff member",
-                "titleFallback": "New staff member"
-            },
-            "deactivate": {
-                "confirm": {
-                    "description": "{{name}} will lose access to the partner staff workspace until reactivated.",
-                    "title": "Deactivate this staff member?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The staff member could not be deactivated right now.",
-                        "title": "Unable to deactivate staff member"
-                    },
-                    "success": {
-                        "description": "{{name}} was deactivated successfully.",
-                        "title": "Staff member deactivated"
-                    }
-                }
-            },
-            "description": "Service directory for partner staff linked to each partner entity and city.",
-            "dialog": {
-                "entity": {
-                    "overhead": "Linked entity"
-                },
-                "error": {
-                    "description": "The staff record could not be loaded right now.",
-                    "title": "Unable to load staff member"
-                },
-                "titleFallback": "Staff details"
-            },
-            "duplicate": {
-                "overhead": "Duplicate staff member",
-                "titleFallback": "Duplicate staff member"
-            },
-            "editor": {
-                "fields": {
-                    "cpf": "CPF",
-                    "cpfCreateOption": "Create {{value}}",
-                    "cpfEmpty": "No CPF found.",
-                    "cpfPlaceholder": "Enter the CPF",
-                    "cpfSearchPlaceholder": "Search or create a CPF",
-                    "name": "Name"
-                },
-                "sections": {
-                    "linkedEntity": "Linked entity",
-                    "organization": "Organization"
-                },
-                "validation": {
-                    "cpf": {
-                        "invalid": "Enter a valid CPF.",
-                        "required": "Enter a CPF."
-                    },
-                    "email": {
-                        "invalid": "Enter a valid email address.",
-                        "required": "Enter an email address.",
-                        "tooLong": "Email must be 254 characters or fewer."
-                    },
-                    "entity": {
-                        "required": "Select an entity."
-                    },
-                    "name": {
-                        "required": "Enter a name.",
-                        "tooLong": "Name must be 255 characters or fewer."
-                    }
-                }
-            },
-            "feedback": {
-                "citiesError": {
-                    "description": "The city catalog could not be loaded right now.",
-                    "title": "Unable to load cities"
-                }
-            },
-            "loading": {
-                "list": "Loading staff"
-            },
-            "reactivate": {
-                "confirm": {
-                    "description": "{{name}} will regain access to the partner staff workspace.",
-                    "title": "Reactivate this staff member?"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The staff member could not be reactivated right now.",
-                        "title": "Unable to reactivate staff member"
-                    },
-                    "success": {
-                        "description": "{{name}} was reactivated successfully.",
-                        "title": "Staff member reactivated"
-                    }
-                }
-            },
-            "table": {
-                "active": {
-                    "no": "Inactive",
-                    "yes": "Active"
-                },
-                "columns": {
-                    "createdAt": "Created at",
-                    "id": "ID",
-                    "updatedAt": "Updated at"
-                }
-            },
-            "title": "Staff",
-            "update": {
-                "overhead": "Edit staff member",
-                "titleFallback": "Edit staff member"
-            }
-        }
-    },
-    "project": {
-        "attendancePage": {
-            "create": {
-                "actions": {
-                    "save": "Create attendance",
-                    "savePending": "Creating attendance..."
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The attendance record could not be created right now.",
-                        "title": "Unable to create attendance"
-                    },
-                    "success": {
-                        "description": "Attendance {{id}} was created successfully.",
-                        "title": "Attendance created"
-                    }
-                },
-                "open": "Create attendance",
-                "overhead": "New attendance",
-                "titleFallback": "New attendance"
-            },
-            "delete": {
-                "confirm": {
-                    "description": "Delete attendance {{id}} for {{formerStudent}} in {{project}}.",
-                    "title": "Delete attendance"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The attendance record could not be deleted right now.",
-                        "title": "Unable to delete attendance"
-                    },
-                    "success": {
-                        "description": "Attendance {{id}} for {{formerStudent}} in {{project}} was deleted.",
-                        "title": "Attendance deleted"
-                    }
-                },
-                "undo": {
-                    "description": "Attendance {{id}} for {{formerStudent}} in {{project}} will be deleted unless you undo this action.",
-                    "title": "Attendance scheduled for deletion"
-                }
-            },
-            "description": "Track attendance records, validation state, workload, and who validated each entry.",
-            "dialog": {
-                "error": {
-                    "description": "The attendance details could not be loaded right now.",
-                    "title": "Unable to load attendance details"
-                },
-                "fields": {
-                    "duration": "Duration",
-                    "id": "Attendance id",
-                    "projectId": "Project id",
-                    "qrValidationHash": "QR validation hash",
-                    "validatedAt": "Validated at"
-                },
-                "linkedProject": {
-                    "overhead": "Linked project"
-                },
-                "overhead": "Attendance details",
-                "qrCodeDialog": {
-                    "copy": {
-                        "action": "Copy hash",
-                        "feedback": {
-                            "error": {
-                                "description": "The QR validation hash could not be copied right now.",
-                                "title": "Unable to copy QR hash"
-                            },
-                            "success": {
-                                "description": "The QR validation hash is ready to paste.",
-                                "title": "QR hash copied"
-                            }
-                        }
-                    },
-                    "hashLabel": "QR validation hash",
-                    "overhead": "Attendance QR code",
-                    "title": "Attendance QR code"
-                },
-                "titleFallback": "Attendance details",
-                "values": {
-                    "notValidated": "Not validated yet"
-                }
-            },
-            "editor": {
-                "fields": {
-                    "duration": "Duration",
-                    "durationPlaceholder": "Enter the recorded duration"
-                },
-                "tabs": {
-                    "attendance": "Attendance",
-                    "linked": "Linked"
-                },
-                "validation": {
-                    "duration": {
-                        "invalid": "Enter a number greater than zero.",
-                        "required": "Enter the recorded duration."
-                    }
-                }
-            },
-            "feedback": {
-                "adminsError": {
-                    "description": "The admin directory could not be loaded right now.",
-                    "title": "Unable to load admins"
-                }
-            },
-            "filters": {
-                "durationFrom": {
-                    "label": "Min duration",
-                    "placeholder": "Filter by minimum duration"
-                },
-                "durationTo": {
-                    "label": "Max duration",
-                    "placeholder": "Filter by maximum duration"
-                },
-                "summary": {
-                    "auditDate": "audit dates",
-                    "duration": "duration",
-                    "formerStudents": "former students",
-                    "projects": "projects",
-                    "statuses": "statuses",
-                    "validators": "validators"
-                },
-                "validator": {
-                    "error": {
-                        "description": "The validator directory could not be loaded right now.",
-                        "title": "Unable to load validators"
-                    },
-                    "label": "Validated by"
-                }
-            },
-            "loading": {
-                "list": "Loading attendances"
-            },
-            "markAbsent": {
-                "confirm": {
-                    "description": "Mark {{formerStudent}} as absent in {{project}}.",
-                    "title": "Mark attendance as absent"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The attendance record could not be marked as absent right now.",
-                        "title": "Unable to mark attendance as absent"
-                    },
-                    "success": {
-                        "description": "{{formerStudent}} was marked absent in {{project}}.",
-                        "title": "Attendance marked absent"
-                    }
-                }
-            },
-            "markPresent": {
-                "confirm": {
-                    "description": "Mark {{formerStudent}} as present in {{project}}.",
-                    "title": "Mark attendance as present"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The attendance record could not be marked as present right now.",
-                        "title": "Unable to mark attendance as present"
-                    },
-                    "success": {
-                        "description": "{{formerStudent}} was marked present in {{project}}.",
-                        "title": "Attendance marked present"
-                    }
-                }
-            },
-            "metadata": {
-                "empty": {
-                    "description": "Service provenance, freshness, and request metadata will live here."
-                }
-            },
-            "status": {
-                "options": {
-                    "ABSENT": "Absent",
-                    "PRESENT": "Present",
-                    "WAITING": "Waiting"
-                }
-            },
-            "table": {
-                "actions": {
-                    "delete": "Delete",
-                    "markAbsent": "Mark absent",
-                    "markPresent": "Mark present",
-                    "update": "Update",
-                    "viewDetails": "View details",
-                    "viewQrCode": "View QR code"
-                },
-                "columns": {
-                    "duration": "Duration",
-                    "id": "Attendance id",
-                    "registration": "Registration",
-                    "validatedAt": "Validated",
-                    "validatedBy": "Validated by"
-                },
-                "values": {
-                    "notValidated": "Not validated"
-                }
-            },
-            "title": "Attendances",
-            "update": {
-                "feedback": {
-                    "error": {
-                        "description": "The attendance record could not be updated right now.",
-                        "title": "Unable to save attendance changes"
-                    },
-                    "success": {
-                        "description": "Attendance {{id}} was updated successfully.",
-                        "title": "Attendance updated"
-                    }
-                },
-                "overhead": "Update attendance",
-                "titleFallback": "Update attendance"
-            }
-        },
-        "enrollmentPage": {
-            "accept": {
-                "confirm": {
-                    "description": "Approve {{formerStudent}} for {{project}}.",
-                    "title": "Approve enrollment"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The enrollment could not be approved right now.",
-                        "title": "Unable to approve enrollment"
-                    },
-                    "success": {
-                        "description": "{{formerStudent}} is now approved for {{project}}.",
-                        "title": "Enrollment approved"
-                    }
-                }
-            },
-            "cancel": {
-                "confirm": {
-                    "description": "Cancel the enrollment for {{formerStudent}} in {{project}}.",
-                    "title": "Cancel enrollment"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The enrollment could not be canceled right now.",
-                        "title": "Unable to cancel enrollment"
-                    },
-                    "success": {
-                        "description": "{{formerStudent}} was canceled from {{project}}.",
-                        "title": "Enrollment canceled"
-                    }
-                }
-            },
-            "complete": {
-                "confirm": {
-                    "description": "Mark {{formerStudent}} as completed in {{project}}.",
-                    "title": "Complete enrollment"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The enrollment could not be completed right now.",
-                        "title": "Unable to complete enrollment"
-                    },
-                    "success": {
-                        "description": "{{formerStudent}} completed {{project}}.",
-                        "title": "Enrollment completed"
-                    }
-                }
-            },
-            "create": {
-                "actions": {
-                    "save": "Create enrollment",
-                    "savePending": "Creating enrollment..."
-                },
-                "feedback": {
-                    "success": {
-                        "description": "The enrollment was created successfully.",
-                        "title": "Enrollment created"
-                    }
-                },
-                "overhead": "New enrollment",
-                "titleFallback": "New enrollment",
-                "trigger": "Create enrollment"
-            },
-            "delete": {
-                "confirm": {
-                    "description": "Delete the enrollment record for {{formerStudent}} in {{project}}.",
-                    "title": "Delete enrollment"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The enrollment record could not be deleted right now.",
-                        "title": "Unable to delete enrollment"
-                    },
-                    "success": {
-                        "description": "The enrollment record for {{formerStudent}} in {{project}} was deleted.",
-                        "title": "Enrollment deleted"
-                    }
-                },
-                "undo": {
-                    "description": "The enrollment record for {{formerStudent}} in {{project}} will be deleted unless you undo this action.",
-                    "title": "Enrollment scheduled for deletion"
-                }
-            },
-            "description": "Review project enrollments, linked former students, lifecycle dates, and final status transitions.",
-            "dialog": {
-                "error": {
-                    "description": "The enrollment details could not be loaded right now.",
-                    "title": "Unable to load enrollment details"
-                },
-                "fields": {
-                    "acceptedAt": "Accepted at",
-                    "closingStatusAt": "Closed at",
-                    "projectId": "Project id"
-                },
-                "linkedProject": {
-                    "overhead": "Linked project"
-                },
-                "overhead": "Enrollment details",
-                "titleFallback": "Enrollment details",
-                "values": {
-                    "notAccepted": "Not accepted yet",
-                    "open": "Open"
-                }
-            },
-            "editor": {
-                "tabs": {
-                    "enrollment": "Enrollment",
-                    "linked": "Linked"
-                },
-                "validation": {
-                    "project": {
-                        "required": "Select a project."
-                    }
-                }
-            },
-            "feedback": {
-                "createError": {
-                    "description": "The enrollment could not be created right now.",
-                    "title": "Unable to create enrollment"
-                },
-                "deleteError": {
-                    "description": "The enrollment record could not be deleted right now.",
-                    "title": "Unable to delete enrollment"
-                },
-                "updateError": {
-                    "description": "The enrollment could not be updated right now.",
-                    "title": "Unable to update enrollment"
-                }
-            },
-            "filters": {
-                "periodFrom": {
-                    "label": "Period start",
-                    "placeholder": "Select a period start date"
-                },
-                "periodTo": {
-                    "label": "Period end",
-                    "placeholder": "Select a period end date"
-                },
-                "summary": {
-                    "auditDate": "audit date",
-                    "formerStudents": "former students",
-                    "period": "period",
-                    "projects": "projects",
-                    "statuses": "statuses"
-                }
-            },
-            "loading": {
-                "list": "Loading enrollments"
-            },
-            "metadata": {
-                "empty": {
-                    "description": "Service provenance, freshness, and request metadata will live here."
-                }
-            },
-            "reject": {
-                "confirm": {
-                    "description": "Reject {{formerStudent}} from {{project}}.",
-                    "title": "Reject enrollment"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The enrollment could not be rejected right now.",
-                        "title": "Unable to reject enrollment"
-                    },
-                    "success": {
-                        "description": "{{formerStudent}} was rejected from {{project}}.",
-                        "title": "Enrollment rejected"
-                    }
-                }
-            },
-            "remove": {
-                "confirm": {
-                    "description": "Mark {{formerStudent}} as removed from {{project}}.",
-                    "title": "Remove enrollment"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The enrollment could not be marked as removed right now.",
-                        "title": "Unable to remove enrollment"
-                    },
-                    "success": {
-                        "description": "{{formerStudent}} was marked as removed from {{project}}.",
-                        "title": "Enrollment removed"
-                    }
-                }
-            },
-            "status": {
-                "options": {
-                    "APPROVED": "Approved",
-                    "CANCELED": "Canceled",
-                    "COMPLETED": "Completed",
-                    "EXITED": "Exited",
-                    "ON_HOLD": "On hold",
-                    "PENDING": "Pending",
-                    "REJECTED": "Rejected",
-                    "REMOVED": "Removed"
-                }
-            },
-            "table": {
-                "actions": {
-                    "accept": "Accept",
-                    "cancel": "Cancel",
-                    "complete": "Complete",
-                    "delete": "Delete",
-                    "reject": "Reject",
-                    "remove": "Mark removed",
-                    "update": "Update",
-                    "viewDetails": "View details"
-                },
-                "columns": {
-                    "acceptedAt": "Accepted",
-                    "closingStatusAt": "Closed",
-                    "registration": "Registration"
-                },
-                "values": {
-                    "notAccepted": "Not accepted",
-                    "open": "Open"
-                }
-            },
-            "title": "Enrollments",
-            "update": {
-                "actions": {
-                    "save": "Update enrollment",
-                    "savePending": "Updating enrollment..."
-                },
-                "feedback": {
-                    "success": {
-                        "description": "The enrollment was updated successfully.",
-                        "title": "Enrollment updated"
-                    }
-                },
-                "overhead": "Update enrollment",
-                "titleFallback": "Update enrollment"
-            }
-        },
-        "modulePage": {
-            "description": "Centralized project delivery data for projects, enrollments, and attendance workflows.",
-            "title": "Project services"
-        },
-        "projectPage": {
-            "cancel": {
-                "confirm": {
-                    "description": "Cancel {{name}} and close the project record.",
-                    "title": "Cancel project"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The project could not be canceled right now.",
-                        "title": "Unable to cancel project"
-                    },
-                    "success": {
-                        "description": "{{name}} was canceled successfully.",
-                        "title": "Project canceled"
-                    }
-                }
-            },
-            "complete": {
-                "confirm": {
-                    "description": "Mark {{name}} as completed and close the project.",
-                    "title": "Complete project"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The project could not be completed right now.",
-                        "title": "Unable to complete project"
-                    },
-                    "success": {
-                        "description": "{{name}} was marked as completed.",
-                        "title": "Project completed"
-                    }
-                }
-            },
-            "create": {
-                "actions": {
-                    "save": "Create project",
-                    "savePending": "Creating project..."
-                },
-                "open": "Create project",
-                "overhead": "New project",
-                "titleFallback": "New project"
-            },
-            "description": "Manage project records, workload, ownership, and current delivery status.",
-            "dialog": {
-                "areasOfExpertiseError": {
-                    "description": "The linked areas of expertise could not be loaded right now.",
-                    "title": "Unable to load areas of expertise"
-                },
-                "error": {
-                    "description": "The project details could not be loaded right now.",
-                    "title": "Unable to load project details"
-                },
-                "fields": {
-                    "closedAt": "Closed at",
-                    "completedHours": "Completed hours",
-                    "createdBy": "Created by",
-                    "description": "Description",
-                    "id": "Project id",
-                    "maxParticipants": "Max participants",
-                    "name": "Name",
-                    "offeredHours": "Offered hours"
-                },
-                "linkedAreasOfExpertise": {
-                    "empty": {
-                        "description": "No areas of expertise are linked to this project.",
-                        "title": "No linked areas"
-                    },
-                    "overhead": "Linked areas of expertise"
-                },
-                "linkedEntity": {
-                    "overhead": "Linked entity"
-                },
-                "titleFallback": "Project details",
-                "values": {
-                    "noDescription": "No description recorded.",
-                    "open": "Open",
-                    "unlimited": "Unlimited"
-                }
-            },
-            "duplicate": {
-                "overhead": "Duplicate project",
-                "titleFallback": "Duplicate project"
-            },
-            "editor": {
-                "areasOfExpertiseLoadError": {
-                    "description": "The areas of expertise directory could not be loaded right now.",
-                    "title": "Unable to load areas of expertise"
-                },
-                "fields": {
-                    "areasOfExpertise": "Areas of expertise",
-                    "description": "Description",
-                    "descriptionPlaceholder": "Outline the project's scope and expected delivery.",
-                    "maxParticipants": "Max participants",
-                    "maxParticipantsPlaceholder": "Leave blank for unlimited capacity",
-                    "name": "Name",
-                    "namePlaceholder": "Enter the project name",
-                    "offeredHours": "Offered hours",
-                    "offeredHoursPlaceholder": "Enter the offered workload"
-                },
-                "tabs": {
-                    "linked": "Linked"
-                },
-                "validation": {
-                    "description": {
-                        "tooLong": "Description must be 4000 characters or fewer."
-                    },
-                    "entity": {
-                        "required": "Select an entity."
-                    },
-                    "maxParticipants": {
-                        "invalid": "Enter zero or a positive number."
-                    },
-                    "name": {
-                        "required": "Enter the project name.",
-                        "tooLong": "Name must be 150 characters or fewer."
-                    },
-                    "offeredHours": {
-                        "invalid": "Enter zero or a positive number.",
-                        "required": "Enter the offered workload."
-                    }
-                }
-            },
-            "feedback": {
-                "adminsError": {
-                    "description": "The admin directory could not be loaded right now.",
-                    "title": "Unable to load admins"
-                },
-                "areasOfExpertiseError": {
-                    "description": "The linked areas of expertise could not be loaded right now.",
-                    "title": "Unable to load project areas of expertise"
-                }
-            },
-            "filters": {
-                "createdBy": {
-                    "error": {
-                        "description": "The admin directory could not be loaded right now.",
-                        "title": "Unable to load admins"
-                    },
-                    "label": "Created by"
-                },
-                "description": {
-                    "label": "Description pattern",
-                    "placeholder": "Filter by project description on the server"
-                },
-                "maxOfferedHours": {
-                    "label": "Max offered hours",
-                    "placeholder": "Filter by the maximum offered hours"
-                },
-                "minOfferedHours": {
-                    "label": "Min offered hours",
-                    "placeholder": "Filter by the minimum offered hours"
-                }
-            },
-            "hold": {
-                "confirm": {
-                    "description": "Place {{name}} on hold until work can resume.",
-                    "title": "Put project on hold"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The project could not be placed on hold right now.",
-                        "title": "Unable to hold project"
-                    },
-                    "success": {
-                        "description": "{{name}} is now on hold.",
-                        "title": "Project on hold"
-                    }
-                }
-            },
-            "loading": {
-                "list": "Loading projects"
-            },
-            "retake": {
-                "confirm": {
-                    "description": "Reopen {{name}} and move it back to the planned stage.",
-                    "title": "Retake project"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The project could not be reopened right now.",
-                        "title": "Unable to retake project"
-                    },
-                    "success": {
-                        "description": "{{name}} was moved back to planning.",
-                        "title": "Project reopened"
-                    }
-                }
-            },
-            "start": {
-                "confirm": {
-                    "description": "Start execution for {{name}}.",
-                    "title": "Start project"
-                },
-                "feedback": {
-                    "error": {
-                        "description": "The project could not be started right now.",
-                        "title": "Unable to start project"
-                    },
-                    "success": {
-                        "description": "{{name}} is now in progress.",
-                        "title": "Project started"
-                    }
-                }
-            },
-            "status": {
-                "options": {
-                    "CANCELED": "Canceled",
-                    "COMPLETED": "Completed",
-                    "IN_PROGRESS": "In progress",
-                    "ON_HOLD": "On hold",
-                    "PLANNED": "Planned"
-                }
-            },
-            "table": {
-                "actions": {
-                    "cancel": "Cancel",
-                    "complete": "Complete",
-                    "delete": "Delete",
-                    "duplicate": "Duplicate",
-                    "hold": "Hold",
-                    "retake": "Retake",
-                    "start": "Start",
-                    "update": "Update",
-                    "viewDetails": "View details"
-                },
-                "columns": {
-                    "closedAt": "Closed",
-                    "completedHours": "Completed hours",
-                    "createdBy": "Creator",
-                    "description": "Description",
-                    "maxParticipants": "Max participants",
-                    "offeredHours": "Offered hours"
-                }
-            },
-            "title": "Projects",
-            "update": {
-                "overhead": "Edit project",
-                "titleFallback": "Edit project"
-            }
-        }
-    },
-    "table": {
-        "actions": {
-            "deactivate": "Deactivate",
-            "delete": "Delete",
-            "duplicate": "Duplicate",
-            "openRowActions": "Open row actions",
-            "reactivate": "Reactivate",
-            "update": "Update",
-            "viewDetails": "View details"
-        },
-        "columns": {
-            "accountActive": "Active",
-            "accountType": "Account type",
-            "actions": "Actions",
-            "areaOfExpertise": "Area of expertise",
-            "campus": "Campus",
-            "city": "City",
-            "course": "Course",
-            "createdAt": "Created at",
-            "email": "Email",
-            "entity": "Entity",
-            "formerStudent": "Former student",
-            "formerStudentId": "Former student id",
-            "id": "Identifier",
-            "name": "Name",
-            "project": "Project",
-            "projectId": "Project id",
-            "status": "Status",
-            "updatedAt": "Updated at"
-        },
-        "scroll": {
-            "horizontal": "Scroll table horizontally",
-            "vertical": "Scroll table vertically"
-        }
-    }
+	"academic": {
+		"areaOfExpertisePage": {
+			"create": {
+				"actions": {
+					"save": "Create area of expertise",
+					"savePending": "Creating area of expertise..."
+				},
+				"open": "Add area of expertise",
+				"overhead": "New area of expertise",
+				"titleFallback": "Add area of expertise"
+			},
+			"description": "Browse areas of expertise used across academic records, course classification, and linked workflows.",
+			"dialog": {
+				"error": {
+					"description": "The area of expertise could not be loaded right now.",
+					"title": "Unable to load area of expertise"
+				},
+				"titleFallback": "Area-of-expertise details"
+			},
+			"duplicate": {
+				"actions": {
+					"save": "Create duplicate",
+					"savePending": "Creating duplicate..."
+				},
+				"overhead": "Duplicate area of expertise",
+				"titleFallback": "Duplicate area of expertise"
+			},
+			"editor": {
+				"fields": {
+					"name": "Area of expertise",
+					"namePlaceholder": "Enter the area of expertise name"
+				},
+				"validation": {
+					"name": "Enter a name.",
+					"nameTooLong": "Name must be 150 characters or fewer."
+				}
+			},
+			"filters": {
+				"endDate": {
+					"label": "End date",
+					"placeholder": "Select an end date"
+				},
+				"startDate": {
+					"label": "Start date",
+					"placeholder": "Select a start date"
+				}
+			},
+			"loading": {
+				"list": "Loading areas of expertise"
+			},
+			"title": "Areas of expertise",
+			"update": {
+				"actions": {
+					"save": "Save changes",
+					"savePending": "Saving changes..."
+				},
+				"overhead": "Edit area of expertise",
+				"titleFallback": "Edit area of expertise"
+			}
+		},
+		"coursePage": {
+			"create": {
+				"actions": {
+					"save": "Create course",
+					"savePending": "Creating course..."
+				},
+				"open": "Add course",
+				"overhead": "New course",
+				"titleFallback": "Add course"
+			},
+			"description": "Service directory for academic courses managed by the platform.",
+			"dialog": {
+				"error": {
+					"description": "The course could not be loaded right now.",
+					"title": "Unable to load course"
+				},
+				"linkedAreaOfExpertise": {
+					"overhead": "Linked area of expertise"
+				},
+				"titleFallback": "Course details"
+			},
+			"duplicate": {
+				"overhead": "Duplicate course",
+				"titleFallback": "Duplicate course"
+			},
+			"editor": {
+				"fields": {
+					"name": "Course",
+					"namePlaceholder": "Enter the course name"
+				},
+				"validation": {
+					"name": "Enter a name.",
+					"nameTooLong": "Name must be 150 characters or fewer."
+				}
+			},
+			"loading": {
+				"list": "Loading courses"
+			},
+			"title": "Courses",
+			"update": {
+				"overhead": "Edit course",
+				"titleFallback": "Edit course"
+			}
+		},
+		"formerStudentPage": {
+			"create": {
+				"actions": {
+					"save": "Create former student",
+					"savePending": "Creating former student..."
+				},
+				"open": "Add former student",
+				"overhead": "New former student",
+				"titleFallback": "Add former student"
+			},
+			"deactivate": {
+				"confirm": {
+					"description": "{{name}} will be marked as inactive until reactivated.",
+					"title": "Deactivate this former student?"
+				},
+				"feedback": {
+					"error": {
+						"description": "The former-student record could not be deactivated right now.",
+						"title": "Unable to deactivate former student"
+					},
+					"success": {
+						"description": "{{name}} is now inactive.",
+						"title": "Former student deactivated"
+					}
+				}
+			},
+			"description": "Browse former-student records, academic progress, linked accounts, and completion timelines.",
+			"dialog": {
+				"error": {
+					"description": "The former-student record could not be loaded right now.",
+					"title": "Unable to load former student"
+				},
+				"fields": {
+					"academicRegistration": "Academic registration",
+					"accountId": "Account id",
+					"campus": "Campus",
+					"completedHours": "Completed hours",
+					"createdAt": "Created at",
+					"dueDate": "Due date",
+					"missingHours": "Missing hours",
+					"remainingDays": "Remaining days",
+					"requiredHours": "Required hours",
+					"startDate": "Start date",
+					"updatedAt": "Updated at"
+				},
+				"overhead": "Former-student details",
+				"titleFallback": "Former-student details"
+			},
+			"duplicate": {
+				"actions": {
+					"save": "Create duplicate",
+					"savePending": "Creating duplicate..."
+				},
+				"overhead": "Duplicate former student",
+				"titleFallback": "Duplicate former student"
+			},
+			"editor": {
+				"courseLoadError": {
+					"description": "The course directory could not be loaded right now.",
+					"title": "Unable to load courses"
+				},
+				"fields": {
+					"academicRegistration": "Academic registration",
+					"academicRegistrationPlaceholder": "Enter the academic registration",
+					"campus": "Campus",
+					"campusPlaceholder": "Select a campus",
+					"course": "Course",
+					"cpf": "CPF",
+					"cpfCreateOption": "Use {{value}}",
+					"cpfEmpty": "No CPF found.",
+					"cpfPlaceholder": "Select an existing CPF or enter a new one",
+					"cpfSearchPlaceholder": "Search or create a CPF",
+					"dueDate": "Due date",
+					"dueDatePlaceholder": "Select a due date",
+					"email": "Email",
+					"emailPlaceholder": "Enter the account email",
+					"name": "Name",
+					"namePlaceholder": "Enter the user's name",
+					"requiredHours": "Required hours",
+					"requiredHoursPlaceholder": "Enter the required hours",
+					"startDate": "Start date",
+					"startDatePlaceholder": "Select a start date"
+				},
+				"sections": {
+					"academic": "Academic",
+					"linkedCourse": "Linked course"
+				},
+				"tabs": {
+					"academic": "Academic",
+					"linked": "Linked"
+				},
+				"validation": {
+					"academicRegistration": {
+						"required": "Enter an academic registration.",
+						"tooLong": "Academic registration must be 15 characters or fewer."
+					},
+					"course": {
+						"required": "Select a course."
+					},
+					"cpf": {
+						"invalid": "Enter a valid CPF.",
+						"required": "Enter a CPF."
+					},
+					"dueDate": {
+						"range": "Due date must be on or after the start date.",
+						"required": "Select a due date."
+					},
+					"email": {
+						"invalid": "Enter a valid email.",
+						"required": "Enter an email.",
+						"tooLong": "Email must be 255 characters or fewer."
+					},
+					"name": {
+						"required": "Enter a name.",
+						"tooLong": "Name must be 255 characters or fewer."
+					},
+					"requiredHours": {
+						"invalid": "Enter a valid number greater than zero.",
+						"required": "Enter the required hours."
+					},
+					"startDate": {
+						"required": "Select a start date."
+					}
+				}
+			},
+			"feedback": {
+				"coursesError": {
+					"description": "The course directory could not be loaded right now.",
+					"title": "Unable to load courses"
+				}
+			},
+			"filters": {
+				"academicRegistration": {
+					"placeholder": "Filter by academic registration"
+				},
+				"areaOfExpertise": {
+					"label": "Area of expertise"
+				},
+				"campus": {
+					"label": "Campus"
+				},
+				"course": {
+					"error": {
+						"description": "The course directory could not be loaded right now.",
+						"title": "Unable to load courses"
+					},
+					"label": "Course"
+				},
+				"frontendAcademicRegistration": {
+					"label": "Academic registration",
+					"placeholder": "Filter current results by academic registration"
+				},
+				"includeConcluded": {
+					"description": "Keep concluded former students in the current results.",
+					"label": "Include concluded former students",
+					"off": "Hiding concluded former students"
+				},
+				"periodFrom": {
+					"label": "Period start",
+					"placeholder": "Select a period start date"
+				},
+				"periodTo": {
+					"label": "Period end",
+					"placeholder": "Select a period end date"
+				},
+				"tabs": {
+					"academic": "Academic",
+					"identity": "Identity",
+					"status": "Status"
+				}
+			},
+			"loading": {
+				"list": "Loading former students"
+			},
+			"metadata": {
+				"empty": {
+					"description": "Service provenance, freshness, and request metadata will live here."
+				}
+			},
+			"reactivate": {
+				"confirm": {
+					"description": "{{name}} will regain active former-student status.",
+					"title": "Reactivate this former student?"
+				},
+				"feedback": {
+					"error": {
+						"description": "The former-student record could not be reactivated right now.",
+						"title": "Unable to reactivate former student"
+					},
+					"success": {
+						"description": "{{name}} is now active again.",
+						"title": "Former student reactivated"
+					}
+				}
+			},
+			"table": {
+				"active": {
+					"no": "Inactive",
+					"yes": "Active"
+				},
+				"columns": {
+					"academicRegistration": "Academic registration",
+					"active": "Active",
+					"areaOfExpertise": "Area of expertise",
+					"campus": "Campus",
+					"concluded": "Concluded",
+					"course": "Course",
+					"progress": "Progress"
+				},
+				"concluded": {
+					"no": "No",
+					"yes": "Yes"
+				}
+			},
+			"title": "Former students",
+			"update": {
+				"actions": {
+					"save": "Save changes",
+					"savePending": "Saving changes..."
+				},
+				"overhead": "Edit former student",
+				"titleFallback": "Edit former student"
+			}
+		},
+		"modulePage": {
+			"description": "Academic reference and workflow services for areas of expertise, courses, and former students.",
+			"title": "Academic services"
+		}
+	},
+	"AlertDialog": {
+		"overhead": {
+			"danger": "Destructive Action",
+			"success": "Positive Action",
+			"warning": "Cautionary Action"
+		}
+	},
+	"auth": {
+		"login": {
+			"brand": {
+				"name": "PUG Web Admin",
+				"subtitle": "Academic backoffice"
+			},
+			"feedback": {
+				"error": "Unable to sign in right now.",
+				"success": "Signed in successfully."
+			},
+			"form": {
+				"description": "Enter your administrator credentials to access the academic backoffice and operational overview.",
+				"fields": {
+					"email": {
+						"label": "Email",
+						"placeholder": "admin@pug.edu.br"
+					},
+					"password": {
+						"label": "Password",
+						"placeholder": "Enter your password"
+					}
+				},
+				"submit": "Continue",
+				"submitPending": "Signing in...",
+				"title": "Login"
+			},
+			"hero": {
+				"badge": "Protected access",
+				"highlights": {
+					"adminOnly": {
+						"description": "Open the operational overview and keep track of what needs attention across the admin area.",
+						"title": "Review the operational overview"
+					},
+					"refresh": {
+						"description": "Monitor projects, enrollments, and attendance from the same backoffice flow.",
+						"title": "Track projects and participation"
+					},
+					"session": {
+						"description": "Update admins, former students, staff, areas of expertise, courses, and linked accounts in one place.",
+						"title": "Maintain service records"
+					}
+				},
+				"title": "Sign in to manage the academic backoffice and monitor the operational overview."
+			},
+			"validation": {
+				"email": "Enter a valid email address.",
+				"password": "Use at least 8 characters.",
+				"passwordRequired": "Enter your password or leave it empty."
+			},
+			"wireCredentials": {
+				"actions": {
+					"dismiss": "Later",
+					"pending": "Saving password...",
+					"submit": "Set password"
+				},
+				"description": "This account still needs its first password. Until that is done, most areas of the app will stay blocked.",
+				"feedback": {
+					"error": "Unable to set the password right now.",
+					"success": "Password set successfully."
+				},
+				"fields": {
+					"confirmPassword": {
+						"label": "Confirm password",
+						"placeholder": "Repeat the password"
+					},
+					"email": {
+						"label": "Email",
+						"placeholder": "Enter the account email"
+					},
+					"password": {
+						"label": "Password",
+						"placeholder": "Create a password"
+					}
+				},
+				"overhead": "Credential wiring required",
+				"reopen": "Set password",
+				"title": "Finish account setup",
+				"validation": {
+					"confirmPassword": {
+						"match": "Passwords must match.",
+						"required": "Confirm the password."
+					},
+					"email": {
+						"invalid": "Enter a valid email address.",
+						"required": "Enter the account email.",
+						"tooLong": "Email must be at most 254 characters."
+					},
+					"password": {
+						"invalid": "Use a password between 8 and 255 characters.",
+						"required": "Enter a password."
+					}
+				}
+			}
+		}
+	},
+	"common": {
+		"accountMenu": {
+			"error": {
+				"description": "The current account summary could not be loaded right now.",
+				"retry": "Try again",
+				"title": "Unable to load account summary"
+			}
+		},
+		"actions": {
+			"createDuplicate": "Create duplicate",
+			"createDuplicatePending": "Creating duplicate...",
+			"resetChanges": "Reset changes",
+			"saveChanges": "Save changes",
+			"saveChangesPending": "Saving changes...",
+			"undo": "Undo"
+		},
+		"cancel": "Cancel",
+		"editor": {
+			"loading": "Loading {{object}} editor"
+		},
+		"empty": {
+			"defaultDescription": "No records are available yet.",
+			"filteredDescription": "No records match the current filters: {{value}}.",
+			"title": "No records found"
+		},
+		"errors": {
+			"detailLoad": {
+				"description": "The selected record could not be loaded right now.",
+				"title": "Unable to load record"
+			},
+			"editorLoad": {
+				"description": "The {{object}} could not be loaded right now.",
+				"title": "Unable to load {{object}} editor"
+			},
+			"listLoad": {
+				"description": "The current directory could not be loaded right now.",
+				"title": "Unable to load records"
+			}
+		},
+		"feedback": {
+			"create": {
+				"error": {
+					"description": "The {{object}} could not be created right now.",
+					"title": "Unable to create"
+				},
+				"success": {
+					"description": "{{name}} was created successfully.",
+					"title": "Created"
+				}
+			},
+			"delete": {
+				"confirm": {
+					"description": "{{name}} will be removed after the undo window expires.",
+					"title": "Delete this {{object}}?"
+				},
+				"error": {
+					"description": "The {{object}} could not be deleted right now.",
+					"title": "Unable to delete"
+				},
+				"success": {
+					"description": "{{name}} was removed from the directory.",
+					"title": "Deleted"
+				},
+				"undo": {
+					"action": "Undo",
+					"description": "{{name}} will be deleted unless you undo this action.",
+					"title": "Deletion scheduled"
+				}
+			},
+			"duplicate": {
+				"error": {
+					"description": "The {{object}} duplicate could not be created right now.",
+					"title": "Unable to duplicate"
+				},
+				"success": {
+					"description": "{{name}} was duplicated successfully.",
+					"title": "Duplicate created"
+				}
+			},
+			"update": {
+				"error": {
+					"description": "The {{object}} could not be updated right now.",
+					"title": "Unable to save changes"
+				},
+				"success": {
+					"description": "{{name}} was updated successfully.",
+					"title": "Updated"
+				}
+			}
+		},
+		"fields": {
+			"accountType": "Account type",
+			"active": "Active",
+			"areaOfExpertise": "Area of expertise",
+			"campus": "Campus",
+			"course": "Course",
+			"cpf": "CPF",
+			"createdAt": "Created at",
+			"email": "Email",
+			"enrollment": "Enrollment",
+			"entity": "Entity",
+			"formerStudent": "Former student",
+			"formerStudentId": "Former student id",
+			"id": "Identifier",
+			"name": "Name",
+			"project": "Project",
+			"status": "Status",
+			"updatedAt": "Updated at"
+		},
+		"filters": {
+			"active": "Filters active",
+			"activeOnly": {
+				"description": "Hide inactive records from the current results.",
+				"label": "Show only active records",
+				"off": "Including inactive records"
+			},
+			"apply": "Apply filters",
+			"clear": "Clear filters",
+			"clearConfirm": {
+				"description": "This will clear the current filters.",
+				"title": "Clear filters?"
+			},
+			"cpf": {
+				"label": "CPF",
+				"placeholder": "Filter by CPF"
+			},
+			"email": {
+				"label": "Email",
+				"placeholder": "Filter by email"
+			},
+			"endDate": {
+				"label": "End date",
+				"placeholder": "Select an end date"
+			},
+			"label": "Filters",
+			"more": "More filters",
+			"name": {
+				"label": "Name",
+				"placeholder": "Filter by name"
+			},
+			"overhead": "Filters",
+			"search": {
+				"label": "Search",
+				"placeholder": "Filter current results"
+			},
+			"startDate": {
+				"label": "Start date",
+				"placeholder": "Select a start date"
+			},
+			"title": "Refine directory"
+		},
+		"linkedAccount": {
+			"error": {
+				"description": "The linked account record could not be loaded right now.",
+				"title": "Unable to load linked account"
+			},
+			"overhead": "Linked account"
+		},
+		"linkedFormerStudent": {
+			"overhead": "Linked former student"
+		},
+		"linkedUser": {
+			"error": {
+				"description": "The linked user could not be loaded right now.",
+				"title": "Unable to load linked user"
+			},
+			"overhead": "Linked user"
+		},
+		"loadErrors": {
+			"areasOfExpertise": {
+				"description": "The area-of-expertise directory could not be loaded right now.",
+				"title": "Unable to load areas of expertise"
+			},
+			"entities": {
+				"description": "The entity directory could not be loaded right now.",
+				"title": "Unable to load entities"
+			},
+			"formerStudents": {
+				"description": "The former-student directory could not be loaded right now.",
+				"title": "Unable to load former students"
+			},
+			"projects": {
+				"description": "The project directory could not be loaded right now.",
+				"title": "Unable to load projects"
+			}
+		},
+		"metadata": {
+			"empty": {
+				"description": "Service provenance, freshness, and request metadata will live here.",
+				"title": "Metadata coming soon"
+			},
+			"trigger": "Metadata"
+		},
+		"notFound": {
+			"description": "The requested record could not be found.",
+			"title": "Record not found"
+		},
+		"objects": {
+			"administrator": "administrator",
+			"areaOfExpertise": "area of expertise",
+			"attendance": "attendance",
+			"course": "course",
+			"enrollment": "enrollment",
+			"entity": "entity",
+			"formerStudent": "former student",
+			"project": "project",
+			"staffMember": "staff member"
+		},
+		"placeholders": {
+			"noResults": "No results found.",
+			"search": "Search...",
+			"select": "Select..."
+		},
+		"reset": "Reset form",
+		"resetConfirm": {
+			"description": "This will discard the unsaved changes in the current drawer.",
+			"title": "Reset {{object}} changes?"
+		},
+		"selectors": {
+			"language": {
+				"options": {
+					"en-US": "English",
+					"pt-BR": "Portuguese"
+				},
+				"short": {
+					"en-US": "EN",
+					"pt-BR": "PT"
+				}
+			},
+			"theme": {
+				"options": {
+					"dark": "Dark",
+					"light": "Light",
+					"system": "System"
+				}
+			}
+		},
+		"status": {
+			"active": "Active",
+			"inactive": "Inactive"
+		},
+		"validation": {
+			"areaOfExpertise": {
+				"required": "Select an area of expertise."
+			},
+			"formerStudent": {
+				"required": "Select a former student."
+			}
+		}
+	},
+	"components": {
+		"datePicker": {
+			"calendarLabel": "Date picker calendar",
+			"clear": "Clear selection",
+			"monthNavigation": "Month navigation",
+			"nextMonth": "Go to next month",
+			"openPicker": "Open date picker",
+			"placeholder": "Select date",
+			"previousMonth": "Go to previous month",
+			"today": "Today"
+		},
+		"dialog": {
+			"close": "Close dialog"
+		},
+		"drawer": {
+			"close": "Close drawer"
+		},
+		"emptyState": {
+			"presets": {
+				"noContent": {
+					"description": "There is no content to show in this area yet."
+				},
+				"someError": {
+					"refresh": "Refresh"
+				}
+			}
+		},
+		"pagination": {
+			"firstPage": "Go to first page",
+			"lastPage": "Go to last page",
+			"nextPage": "Go to next page",
+			"page": "Page {{page}} of {{totalPages}}",
+			"pageSize": {
+				"options": {
+					"all": "All",
+					"number": "{{value}} per page"
+				},
+				"placeholder": "Page size"
+			},
+			"previousPage": "Go to previous page",
+			"total": "{{count}} records"
+		}
+	},
+	"geo": {
+		"cityPage": {
+			"description": "Browse the city directory used across academic, identity, partner, and project workflows.",
+			"dialog": {
+				"error": {
+					"description": "The city record could not be loaded right now.",
+					"title": "Unable to load city"
+				},
+				"fields": {
+					"ibgeCode": "IBGE code",
+					"name": "City name"
+				},
+				"titleFallback": "City details"
+			},
+			"filters": {
+				"backend": {
+					"clear": "Clear filters",
+					"clearConfirm": {
+						"description": "This will remove the applied filters from the city table."
+					}
+				}
+			},
+			"loading": {
+				"list": "Loading city catalog"
+			},
+			"table": {
+				"columns": {
+					"ibgeCode": "IBGE code"
+				}
+			},
+			"title": "Cities"
+		},
+		"modulePage": {
+			"description": "Centralized geographic reference data used across the platform.",
+			"title": "Geographic services"
+		}
+	},
+	"home": {
+		"dashboard": {
+			"description": "Daily operational overview across enrollments, attendances, former students, and projects.",
+			"exceptions": {
+				"dueSoonFormerStudents": "Former students near deadline",
+				"nearLimitProjects": "Projects near completion",
+				"pendingEnrollments": "Pending enrollments",
+				"waitingAttendances": "Attendances waiting for validation"
+			},
+			"hero": {
+				"actions": {
+					"attendances": "Review attendances",
+					"enrollments": "Review enrollments"
+				},
+				"badge": "Operations overview",
+				"description": "Focus on pending validations, near-deadline records, and projects approaching completion.",
+				"title": "Items needing attention: {{count}}"
+			},
+			"metrics": {
+				"activeFormerStudents": "Active former students",
+				"activeProjects": "Active projects",
+				"pendingEnrollments": "Pending enrollments",
+				"waitingAttendances": "Waiting attendances"
+			},
+			"priority": {
+				"badges": {
+					"dueSoonFormerStudent": "Due soon",
+					"nearLimitProject": "Near completion",
+					"pendingEnrollment": "Pending enrollment",
+					"waitingAttendance": "Waiting attendance"
+				},
+				"descriptions": {
+					"attendance": "Attendance awaiting validation for {{project}}.",
+					"enrollment": "Pending enrollment for {{project}}.",
+					"formerStudent": "{{course}} closes in {{days}}.",
+					"project": "{{entity}} is at {{progress}} of offered hours."
+				}
+			},
+			"pulse": {
+				"concludedStudents": "Concluded former students",
+				"processedEnrollments": "Processed enrollments",
+				"projectProgress": "Average project completion",
+				"validationCoverage": "Attendance validation coverage"
+			},
+			"recent": {
+				"updated": "Updated"
+			},
+			"sections": {
+				"exceptions": {
+					"description": "Counts that usually deserve quick follow-up.",
+					"title": "Exceptions"
+				},
+				"priority": {
+					"description": "Records that are most likely to require action next.",
+					"empty": "No priority items right now.",
+					"title": "Needs attention"
+				},
+				"pulse": {
+					"description": "Quick health indicators across the current workload.",
+					"title": "Operational pulse"
+				},
+				"recent": {
+					"columns": {
+						"action": "Action",
+						"module": "Module",
+						"record": "Record",
+						"when": "When"
+					},
+					"description": "Latest updates across the main operational modules.",
+					"empty": "No recent changes available.",
+					"title": "Recent changes"
+				},
+				"sharedError": "Unable to load this overview right now.",
+				"shortcuts": {
+					"activeProjects": "Open projects",
+					"description": "Jump straight into the main operational directories.",
+					"formerStudents": "Open former students",
+					"pendingEnrollments": "Open enrollments",
+					"title": "Shortcuts",
+					"waitingAttendances": "Open attendances"
+				},
+				"upcoming": {
+					"description": "Items likely to become urgent soon.",
+					"empty": "No upcoming deadlines right now.",
+					"title": "Upcoming deadlines"
+				}
+			},
+			"title": "Command center",
+			"upcoming": {
+				"formerStudentDescription": "{{course}} closes in {{days}}.",
+				"projectDescription": "{{entity}} is at {{progress}} of offered hours."
+			},
+			"values": {
+				"unknownCourse": "Unknown course"
+			}
+		}
+	},
+	"identity": {
+		"accountPage": {
+			"description": "Browse account records, linked users, and identity relationships across the platform.",
+			"dialog": {
+				"error": {
+					"description": "The account record could not be loaded right now.",
+					"title": "Unable to load account"
+				},
+				"titleFallback": "Account details"
+			},
+			"filters": {
+				"accountType": {
+					"options": {
+						"ADMIN": "Admin",
+						"all": "All account types",
+						"FORMER_STUDENT": "Former student",
+						"PARTNER": "Partner",
+						"STUDENT": "Former student"
+					}
+				}
+			},
+			"loading": {
+				"list": "Loading account catalog"
+			},
+			"metadata": {
+				"empty": {
+					"description": "Service provenance, freshness, and request metadata will live here."
+				}
+			},
+			"title": "Accounts"
+		},
+		"adminPage": {
+			"create": {
+				"actions": {
+					"save": "Create administrator",
+					"savePending": "Creating administrator..."
+				},
+				"open": "Add admin",
+				"overhead": "New administrator",
+				"titleFallback": "Add administrator"
+			},
+			"deactivate": {
+				"confirm": {
+					"description": "{{name}} will lose active administrator access until reactivated.",
+					"title": "Deactivate this administrator?"
+				},
+				"feedback": {
+					"error": {
+						"description": "The administrator could not be deactivated right now.",
+						"title": "Unable to deactivate administrator"
+					},
+					"success": {
+						"description": "{{name}} is now inactive.",
+						"title": "Administrator deactivated"
+					}
+				}
+			},
+			"description": "Browse administrator assignments, linked accounts, and related user records.",
+			"dialog": {
+				"error": {
+					"description": "The administrator record could not be loaded right now.",
+					"title": "Unable to load administrator details"
+				},
+				"fields": {
+					"grantedAt": "Granted at",
+					"userId": "User identifier"
+				},
+				"titleFallback": "Administrator details"
+			},
+			"filters": {
+				"campus": {
+					"options": {
+						"all": "All campuses",
+						"JARAGUA_DO_SUL": "Jaraguá do Sul",
+						"JOINVILLE": "Joinville"
+					}
+				}
+			},
+			"loading": {
+				"list": "Loading administrators"
+			},
+			"reactivate": {
+				"confirm": {
+					"description": "{{name}} will regain active administrator access immediately.",
+					"title": "Reactivate this administrator?"
+				},
+				"feedback": {
+					"error": {
+						"description": "The administrator could not be reactivated right now.",
+						"title": "Unable to reactivate administrator"
+					},
+					"success": {
+						"description": "{{name}} is active again.",
+						"title": "Administrator reactivated"
+					}
+				}
+			},
+			"table": {
+				"active": {
+					"no": "Inactive",
+					"yes": "Active"
+				},
+				"columns": {
+					"grantedAt": "Granted at"
+				}
+			},
+			"title": "Admins",
+			"update": {
+				"accountLoadError": {
+					"description": "The linked account record could not be loaded right now.",
+					"title": "Unable to load linked account"
+				},
+				"accountNotFound": {
+					"description": "The linked account record could not be found.",
+					"title": "Linked account not found"
+				},
+				"fields": {
+					"accountId": "Identifier",
+					"cpfCreateOption": "Use {{value}}",
+					"cpfEmpty": "No CPF found.",
+					"cpfHelp": "Selecting an existing CPF links this administrator to that existing user. Entering a new CPF creates a new linked user.",
+					"cpfPlaceholder": "Select an existing CPF or enter a new one",
+					"cpfSearchPlaceholder": "Search or create a CPF",
+					"grantedAt": "Granted at",
+					"namePlaceholder": "Enter the user's name",
+					"userId": "User identifier"
+				},
+				"overhead": "Edit administrator",
+				"tabs": {
+					"access": "Access",
+					"profile": "Profile",
+					"user": "Linked user"
+				},
+				"titleFallback": "Edit administrator",
+				"validation": {
+					"cpf": {
+						"invalid": "Enter a valid CPF.",
+						"required": "Enter a CPF."
+					},
+					"email": {
+						"invalid": "Enter a valid email address.",
+						"required": "Enter an email address.",
+						"tooLong": "Email must be 254 characters or fewer."
+					},
+					"name": "Enter a name.",
+					"nameTooLong": "Name must be 255 characters or fewer."
+				}
+			}
+		},
+		"modulePage": {
+			"description": "Centralized identity records and administrator workflows used across the platform.",
+			"title": "Identity services"
+		},
+		"userPage": {
+			"description": "Browse user records shared across platform workflows and service modules.",
+			"dialog": {
+				"error": {
+					"description": "The user record could not be loaded right now.",
+					"title": "Unable to load user"
+				},
+				"titleFallback": "User details"
+			},
+			"filters": {
+				"backend": {
+					"clear": "Clear filters",
+					"clearConfirm": {
+						"description": "This will remove the applied filters from the users table.",
+						"title": "Clear filters?"
+					}
+				}
+			},
+			"loading": {
+				"list": "Loading user catalog"
+			},
+			"title": "Users"
+		}
+	},
+	"modulePages": {
+		"comingSoon": {
+			"availablePages": "Available pages",
+			"description": "This page will provide shortcuts, insights, and tools for {{moduleName}} management.",
+			"title": "Module overview coming soon"
+		}
+	},
+	"Navbar": {
+		"account": {
+			"fallback": "Unavailable",
+			"label": "Account",
+			"logout": "Log out",
+			"logoutAllDevices": "Sign out everywhere",
+			"logoutAllPending": "Signing out everywhere...",
+			"logoutAllSuccess": "Signed out on all devices.",
+			"logoutCancel": "Stay signed in",
+			"logoutCurrentDevice": "Sign out here",
+			"logoutCurrentPending": "Signing out here...",
+			"logoutCurrentSuccess": "Signed out on this device.",
+			"logoutDialogDescription": "End this session on the current device or revoke access on every device where this account is signed in.",
+			"logoutDialogTitle": "Choose how to sign out",
+			"logoutError": "Unable to sign out right now."
+		},
+		"collapse": "Collapse sidebar",
+		"expand": "Expand sidebar",
+		"navigation": "Primary navigation",
+		"paths": {
+			"academic": {
+				"areaOfExpertise": "Areas of expertise",
+				"course": "Courses",
+				"formerStudent": "Former students",
+				"root": "Academic"
+			},
+			"geo": {
+				"city": "Cities",
+				"root": "Geo"
+			},
+			"home": "Home",
+			"identity": {
+				"account": "Accounts",
+				"admin": "Admins",
+				"root": "Identity",
+				"user": "Users"
+			},
+			"partner": {
+				"entity": "Entities",
+				"root": "Partner",
+				"staff": "Staff"
+			},
+			"project": {
+				"attendance": "Attendance",
+				"enrollment": "Enrollment",
+				"project": "Projects",
+				"root": "Project"
+			},
+			"unknown": "Unknown"
+		},
+		"subtitle": "Operational workspace",
+		"title": "PUG Web Admin"
+	},
+	"partner": {
+		"entityPage": {
+			"create": {
+				"actions": {
+					"save": "Create entity",
+					"savePending": "Creating entity..."
+				},
+				"open": "Add entity",
+				"overhead": "Create entity",
+				"titleFallback": "New entity"
+			},
+			"description": "Service directory for partner organizations and the cities they operate in.",
+			"dialog": {
+				"error": {
+					"description": "The entity record could not be loaded right now.",
+					"title": "Unable to load entity"
+				},
+				"fields": {
+					"address": "Address",
+					"city": "City name",
+					"cnpj": "CNPJ",
+					"name": "Entity name"
+				},
+				"titleFallback": "Entity details",
+				"values": {
+					"noAddress": "No address provided"
+				}
+			},
+			"duplicate": {
+				"overhead": "Duplicate entity",
+				"titleFallback": "Duplicate entity"
+			},
+			"editor": {
+				"cityLoadError": {
+					"description": "The city catalog for this form could not be loaded right now.",
+					"title": "Unable to load cities"
+				},
+				"fields": {
+					"address": "Address",
+					"addressPlaceholder": "Optional address",
+					"city": "City",
+					"cnpj": "CNPJ",
+					"cnpjPlaceholder": "00.000.000/0000-00",
+					"name": "Entity name"
+				},
+				"validation": {
+					"address": {
+						"tooLong": "Address must be 254 characters or fewer."
+					},
+					"city": "Select a city.",
+					"cnpj": {
+						"invalid": "Enter a valid CNPJ.",
+						"required": "Enter a CNPJ."
+					},
+					"name": "Enter a name.",
+					"nameTooLong": "Name must be 150 characters or fewer."
+				}
+			},
+			"feedback": {
+				"citiesError": {
+					"description": "The city catalog could not be loaded right now.",
+					"title": "Unable to load cities"
+				}
+			},
+			"filters": {
+				"city": {
+					"error": {
+						"description": "The city catalog could not be loaded right now.",
+						"title": "Unable to load cities"
+					},
+					"label": "City"
+				},
+				"frontend": {
+					"cnpj": {
+						"label": "CNPJ",
+						"placeholder": "Filter by CNPJ"
+					}
+				}
+			},
+			"loading": {
+				"list": "Loading entities"
+			},
+			"table": {
+				"columns": {
+					"address": "Address",
+					"city": "City",
+					"cnpj": "CNPJ"
+				}
+			},
+			"title": "Entities",
+			"update": {
+				"overhead": "Edit entity",
+				"titleFallback": "Edit entity"
+			}
+		},
+		"modulePage": {
+			"description": "Partner directories and operational records for entities and staff members.",
+			"title": "Partner services"
+		},
+		"staffPage": {
+			"create": {
+				"actions": {
+					"save": "Create staff member",
+					"savePending": "Creating staff member..."
+				},
+				"open": "Add staff member",
+				"overhead": "Create staff member",
+				"titleFallback": "New staff member"
+			},
+			"deactivate": {
+				"confirm": {
+					"description": "{{name}} will lose access to the partner staff workspace until reactivated.",
+					"title": "Deactivate this staff member?"
+				},
+				"feedback": {
+					"error": {
+						"description": "The staff member could not be deactivated right now.",
+						"title": "Unable to deactivate staff member"
+					},
+					"success": {
+						"description": "{{name}} was deactivated successfully.",
+						"title": "Staff member deactivated"
+					}
+				}
+			},
+			"description": "Service directory for partner staff linked to each partner entity and city.",
+			"dialog": {
+				"entity": {
+					"overhead": "Linked entity"
+				},
+				"error": {
+					"description": "The staff record could not be loaded right now.",
+					"title": "Unable to load staff member"
+				},
+				"titleFallback": "Staff details"
+			},
+			"duplicate": {
+				"overhead": "Duplicate staff member",
+				"titleFallback": "Duplicate staff member"
+			},
+			"editor": {
+				"fields": {
+					"cpf": "CPF",
+					"cpfCreateOption": "Create {{value}}",
+					"cpfEmpty": "No CPF found.",
+					"cpfPlaceholder": "Enter the CPF",
+					"cpfSearchPlaceholder": "Search or create a CPF",
+					"name": "Name"
+				},
+				"sections": {
+					"linkedEntity": "Linked entity",
+					"organization": "Organization"
+				},
+				"validation": {
+					"cpf": {
+						"invalid": "Enter a valid CPF.",
+						"required": "Enter a CPF."
+					},
+					"email": {
+						"invalid": "Enter a valid email address.",
+						"required": "Enter an email address.",
+						"tooLong": "Email must be 254 characters or fewer."
+					},
+					"entity": {
+						"required": "Select an entity."
+					},
+					"name": {
+						"required": "Enter a name.",
+						"tooLong": "Name must be 255 characters or fewer."
+					}
+				}
+			},
+			"feedback": {
+				"citiesError": {
+					"description": "The city catalog could not be loaded right now.",
+					"title": "Unable to load cities"
+				}
+			},
+			"loading": {
+				"list": "Loading staff"
+			},
+			"reactivate": {
+				"confirm": {
+					"description": "{{name}} will regain access to the partner staff workspace.",
+					"title": "Reactivate this staff member?"
+				},
+				"feedback": {
+					"error": {
+						"description": "The staff member could not be reactivated right now.",
+						"title": "Unable to reactivate staff member"
+					},
+					"success": {
+						"description": "{{name}} was reactivated successfully.",
+						"title": "Staff member reactivated"
+					}
+				}
+			},
+			"table": {
+				"active": {
+					"no": "Inactive",
+					"yes": "Active"
+				},
+				"columns": {
+					"createdAt": "Created at",
+					"id": "ID",
+					"updatedAt": "Updated at"
+				}
+			},
+			"title": "Staff",
+			"update": {
+				"overhead": "Edit staff member",
+				"titleFallback": "Edit staff member"
+			}
+		}
+	},
+	"project": {
+		"attendancePage": {
+			"create": {
+				"actions": {
+					"save": "Create attendance",
+					"savePending": "Creating attendance..."
+				},
+				"feedback": {
+					"error": {
+						"description": "The attendance record could not be created right now.",
+						"title": "Unable to create attendance"
+					},
+					"success": {
+						"description": "Attendance {{id}} was created successfully.",
+						"title": "Attendance created"
+					}
+				},
+				"open": "Create attendance",
+				"overhead": "New attendance",
+				"titleFallback": "New attendance"
+			},
+			"delete": {
+				"confirm": {
+					"description": "Delete attendance {{id}} for {{formerStudent}} in {{project}}.",
+					"title": "Delete attendance"
+				},
+				"feedback": {
+					"error": {
+						"description": "The attendance record could not be deleted right now.",
+						"title": "Unable to delete attendance"
+					},
+					"success": {
+						"description": "Attendance {{id}} for {{formerStudent}} in {{project}} was deleted.",
+						"title": "Attendance deleted"
+					}
+				},
+				"undo": {
+					"description": "Attendance {{id}} for {{formerStudent}} in {{project}} will be deleted unless you undo this action.",
+					"title": "Attendance scheduled for deletion"
+				}
+			},
+			"description": "Track attendance records, validation state, workload, and who validated each entry.",
+			"dialog": {
+				"error": {
+					"description": "The attendance details could not be loaded right now.",
+					"title": "Unable to load attendance details"
+				},
+				"fields": {
+					"duration": "Duration",
+					"id": "Attendance id",
+					"projectId": "Project id",
+					"qrValidationHash": "QR validation hash",
+					"validatedAt": "Validated at"
+				},
+				"linkedProject": {
+					"overhead": "Linked project"
+				},
+				"overhead": "Attendance details",
+				"qrCodeDialog": {
+					"copy": {
+						"action": "Copy hash",
+						"feedback": {
+							"error": {
+								"description": "The QR validation hash could not be copied right now.",
+								"title": "Unable to copy QR hash"
+							},
+							"success": {
+								"description": "The QR validation hash is ready to paste.",
+								"title": "QR hash copied"
+							}
+						}
+					},
+					"hashLabel": "QR validation hash",
+					"overhead": "Attendance QR code",
+					"title": "Attendance QR code"
+				},
+				"titleFallback": "Attendance details",
+				"values": {
+					"notValidated": "Not validated yet"
+				}
+			},
+			"editor": {
+				"fields": {
+					"duration": "Duration",
+					"durationPlaceholder": "Enter the recorded duration"
+				},
+				"tabs": {
+					"attendance": "Attendance",
+					"linked": "Linked"
+				},
+				"validation": {
+					"duration": {
+						"invalid": "Enter a number greater than zero.",
+						"required": "Enter the recorded duration."
+					}
+				}
+			},
+			"feedback": {
+				"adminsError": {
+					"description": "The admin directory could not be loaded right now.",
+					"title": "Unable to load admins"
+				}
+			},
+			"filters": {
+				"durationFrom": {
+					"label": "Min duration",
+					"placeholder": "Filter by minimum duration"
+				},
+				"durationTo": {
+					"label": "Max duration",
+					"placeholder": "Filter by maximum duration"
+				},
+				"summary": {
+					"auditDate": "audit dates",
+					"duration": "duration",
+					"formerStudents": "former students",
+					"projects": "projects",
+					"statuses": "statuses",
+					"validators": "validators"
+				},
+				"validator": {
+					"error": {
+						"description": "The validator directory could not be loaded right now.",
+						"title": "Unable to load validators"
+					},
+					"label": "Validated by"
+				}
+			},
+			"loading": {
+				"list": "Loading attendances"
+			},
+			"markAbsent": {
+				"confirm": {
+					"description": "Mark {{formerStudent}} as absent in {{project}}.",
+					"title": "Mark attendance as absent"
+				},
+				"feedback": {
+					"error": {
+						"description": "The attendance record could not be marked as absent right now.",
+						"title": "Unable to mark attendance as absent"
+					},
+					"success": {
+						"description": "{{formerStudent}} was marked absent in {{project}}.",
+						"title": "Attendance marked absent"
+					}
+				}
+			},
+			"markPresent": {
+				"confirm": {
+					"description": "Mark {{formerStudent}} as present in {{project}}.",
+					"title": "Mark attendance as present"
+				},
+				"feedback": {
+					"error": {
+						"description": "The attendance record could not be marked as present right now.",
+						"title": "Unable to mark attendance as present"
+					},
+					"success": {
+						"description": "{{formerStudent}} was marked present in {{project}}.",
+						"title": "Attendance marked present"
+					}
+				}
+			},
+			"metadata": {
+				"empty": {
+					"description": "Service provenance, freshness, and request metadata will live here."
+				}
+			},
+			"status": {
+				"options": {
+					"ABSENT": "Absent",
+					"PRESENT": "Present",
+					"WAITING": "Waiting"
+				}
+			},
+			"table": {
+				"actions": {
+					"delete": "Delete",
+					"markAbsent": "Mark absent",
+					"markPresent": "Mark present",
+					"update": "Update",
+					"viewDetails": "View details",
+					"viewQrCode": "View QR code"
+				},
+				"columns": {
+					"duration": "Duration",
+					"id": "Attendance id",
+					"registration": "Registration",
+					"validatedAt": "Validated",
+					"validatedBy": "Validated by"
+				},
+				"values": {
+					"notValidated": "Not validated"
+				}
+			},
+			"title": "Attendances",
+			"update": {
+				"feedback": {
+					"error": {
+						"description": "The attendance record could not be updated right now.",
+						"title": "Unable to save attendance changes"
+					},
+					"success": {
+						"description": "Attendance {{id}} was updated successfully.",
+						"title": "Attendance updated"
+					}
+				},
+				"overhead": "Update attendance",
+				"titleFallback": "Update attendance"
+			}
+		},
+		"enrollmentPage": {
+			"accept": {
+				"confirm": {
+					"description": "Approve {{formerStudent}} for {{project}}.",
+					"title": "Approve enrollment"
+				},
+				"feedback": {
+					"error": {
+						"description": "The enrollment could not be approved right now.",
+						"title": "Unable to approve enrollment"
+					},
+					"success": {
+						"description": "{{formerStudent}} is now approved for {{project}}.",
+						"title": "Enrollment approved"
+					}
+				}
+			},
+			"cancel": {
+				"confirm": {
+					"description": "Cancel the enrollment for {{formerStudent}} in {{project}}.",
+					"title": "Cancel enrollment"
+				},
+				"feedback": {
+					"error": {
+						"description": "The enrollment could not be canceled right now.",
+						"title": "Unable to cancel enrollment"
+					},
+					"success": {
+						"description": "{{formerStudent}} was canceled from {{project}}.",
+						"title": "Enrollment canceled"
+					}
+				}
+			},
+			"complete": {
+				"confirm": {
+					"description": "Mark {{formerStudent}} as completed in {{project}}.",
+					"title": "Complete enrollment"
+				},
+				"feedback": {
+					"error": {
+						"description": "The enrollment could not be completed right now.",
+						"title": "Unable to complete enrollment"
+					},
+					"success": {
+						"description": "{{formerStudent}} completed {{project}}.",
+						"title": "Enrollment completed"
+					}
+				}
+			},
+			"create": {
+				"actions": {
+					"save": "Create enrollment",
+					"savePending": "Creating enrollment..."
+				},
+				"feedback": {
+					"success": {
+						"description": "The enrollment was created successfully.",
+						"title": "Enrollment created"
+					}
+				},
+				"overhead": "New enrollment",
+				"titleFallback": "New enrollment",
+				"trigger": "Create enrollment"
+			},
+			"delete": {
+				"confirm": {
+					"description": "Delete the enrollment record for {{formerStudent}} in {{project}}.",
+					"title": "Delete enrollment"
+				},
+				"feedback": {
+					"error": {
+						"description": "The enrollment record could not be deleted right now.",
+						"title": "Unable to delete enrollment"
+					},
+					"success": {
+						"description": "The enrollment record for {{formerStudent}} in {{project}} was deleted.",
+						"title": "Enrollment deleted"
+					}
+				},
+				"undo": {
+					"description": "The enrollment record for {{formerStudent}} in {{project}} will be deleted unless you undo this action.",
+					"title": "Enrollment scheduled for deletion"
+				}
+			},
+			"description": "Review project enrollments, linked former students, lifecycle dates, and final status transitions.",
+			"dialog": {
+				"error": {
+					"description": "The enrollment details could not be loaded right now.",
+					"title": "Unable to load enrollment details"
+				},
+				"fields": {
+					"acceptedAt": "Accepted at",
+					"closingStatusAt": "Closed at",
+					"projectId": "Project id"
+				},
+				"linkedProject": {
+					"overhead": "Linked project"
+				},
+				"overhead": "Enrollment details",
+				"titleFallback": "Enrollment details",
+				"values": {
+					"notAccepted": "Not accepted yet",
+					"open": "Open"
+				}
+			},
+			"editor": {
+				"tabs": {
+					"enrollment": "Enrollment",
+					"linked": "Linked"
+				},
+				"validation": {
+					"project": {
+						"required": "Select a project."
+					}
+				}
+			},
+			"feedback": {
+				"createError": {
+					"description": "The enrollment could not be created right now.",
+					"title": "Unable to create enrollment"
+				},
+				"deleteError": {
+					"description": "The enrollment record could not be deleted right now.",
+					"title": "Unable to delete enrollment"
+				},
+				"updateError": {
+					"description": "The enrollment could not be updated right now.",
+					"title": "Unable to update enrollment"
+				}
+			},
+			"filters": {
+				"periodFrom": {
+					"label": "Period start",
+					"placeholder": "Select a period start date"
+				},
+				"periodTo": {
+					"label": "Period end",
+					"placeholder": "Select a period end date"
+				},
+				"summary": {
+					"auditDate": "audit date",
+					"formerStudents": "former students",
+					"period": "period",
+					"projects": "projects",
+					"statuses": "statuses"
+				}
+			},
+			"loading": {
+				"list": "Loading enrollments"
+			},
+			"metadata": {
+				"empty": {
+					"description": "Service provenance, freshness, and request metadata will live here."
+				}
+			},
+			"reject": {
+				"confirm": {
+					"description": "Reject {{formerStudent}} from {{project}}.",
+					"title": "Reject enrollment"
+				},
+				"feedback": {
+					"error": {
+						"description": "The enrollment could not be rejected right now.",
+						"title": "Unable to reject enrollment"
+					},
+					"success": {
+						"description": "{{formerStudent}} was rejected from {{project}}.",
+						"title": "Enrollment rejected"
+					}
+				}
+			},
+			"remove": {
+				"confirm": {
+					"description": "Mark {{formerStudent}} as removed from {{project}}.",
+					"title": "Remove enrollment"
+				},
+				"feedback": {
+					"error": {
+						"description": "The enrollment could not be marked as removed right now.",
+						"title": "Unable to remove enrollment"
+					},
+					"success": {
+						"description": "{{formerStudent}} was marked as removed from {{project}}.",
+						"title": "Enrollment removed"
+					}
+				}
+			},
+			"status": {
+				"options": {
+					"APPROVED": "Approved",
+					"CANCELED": "Canceled",
+					"COMPLETED": "Completed",
+					"EXITED": "Exited",
+					"ON_HOLD": "On hold",
+					"PENDING": "Pending",
+					"REJECTED": "Rejected",
+					"REMOVED": "Removed"
+				}
+			},
+			"table": {
+				"actions": {
+					"accept": "Accept",
+					"cancel": "Cancel",
+					"complete": "Complete",
+					"delete": "Delete",
+					"reject": "Reject",
+					"remove": "Mark removed",
+					"update": "Update",
+					"viewDetails": "View details"
+				},
+				"columns": {
+					"acceptedAt": "Accepted",
+					"closingStatusAt": "Closed",
+					"registration": "Registration"
+				},
+				"values": {
+					"notAccepted": "Not accepted",
+					"open": "Open"
+				}
+			},
+			"title": "Enrollments",
+			"update": {
+				"actions": {
+					"save": "Update enrollment",
+					"savePending": "Updating enrollment..."
+				},
+				"feedback": {
+					"success": {
+						"description": "The enrollment was updated successfully.",
+						"title": "Enrollment updated"
+					}
+				},
+				"overhead": "Update enrollment",
+				"titleFallback": "Update enrollment"
+			}
+		},
+		"modulePage": {
+			"description": "Centralized project delivery data for projects, enrollments, and attendance workflows.",
+			"title": "Project services"
+		},
+		"projectPage": {
+			"cancel": {
+				"confirm": {
+					"description": "Cancel {{name}} and close the project record.",
+					"title": "Cancel project"
+				},
+				"feedback": {
+					"error": {
+						"description": "The project could not be canceled right now.",
+						"title": "Unable to cancel project"
+					},
+					"success": {
+						"description": "{{name}} was canceled successfully.",
+						"title": "Project canceled"
+					}
+				}
+			},
+			"complete": {
+				"confirm": {
+					"description": "Mark {{name}} as completed and close the project.",
+					"title": "Complete project"
+				},
+				"feedback": {
+					"error": {
+						"description": "The project could not be completed right now.",
+						"title": "Unable to complete project"
+					},
+					"success": {
+						"description": "{{name}} was marked as completed.",
+						"title": "Project completed"
+					}
+				}
+			},
+			"create": {
+				"actions": {
+					"save": "Create project",
+					"savePending": "Creating project..."
+				},
+				"open": "Create project",
+				"overhead": "New project",
+				"titleFallback": "New project"
+			},
+			"description": "Manage project records, workload, ownership, and current delivery status.",
+			"dialog": {
+				"areasOfExpertiseError": {
+					"description": "The linked areas of expertise could not be loaded right now.",
+					"title": "Unable to load areas of expertise"
+				},
+				"error": {
+					"description": "The project details could not be loaded right now.",
+					"title": "Unable to load project details"
+				},
+				"fields": {
+					"closedAt": "Closed at",
+					"completedHours": "Completed hours",
+					"createdBy": "Created by",
+					"description": "Description",
+					"id": "Project id",
+					"maxParticipants": "Max participants",
+					"name": "Name",
+					"offeredHours": "Offered hours"
+				},
+				"linkedAreasOfExpertise": {
+					"empty": {
+						"description": "No areas of expertise are linked to this project.",
+						"title": "No linked areas"
+					},
+					"overhead": "Linked areas of expertise"
+				},
+				"linkedEntity": {
+					"overhead": "Linked entity"
+				},
+				"titleFallback": "Project details",
+				"values": {
+					"noDescription": "No description recorded.",
+					"open": "Open",
+					"unlimited": "Unlimited"
+				}
+			},
+			"duplicate": {
+				"overhead": "Duplicate project",
+				"titleFallback": "Duplicate project"
+			},
+			"editor": {
+				"areasOfExpertiseLoadError": {
+					"description": "The areas of expertise directory could not be loaded right now.",
+					"title": "Unable to load areas of expertise"
+				},
+				"fields": {
+					"areasOfExpertise": "Areas of expertise",
+					"description": "Description",
+					"descriptionPlaceholder": "Outline the project's scope and expected delivery.",
+					"maxParticipants": "Max participants",
+					"maxParticipantsPlaceholder": "Leave blank for unlimited capacity",
+					"name": "Name",
+					"namePlaceholder": "Enter the project name",
+					"offeredHours": "Offered hours",
+					"offeredHoursPlaceholder": "Enter the offered workload"
+				},
+				"tabs": {
+					"linked": "Linked"
+				},
+				"validation": {
+					"description": {
+						"tooLong": "Description must be 4000 characters or fewer."
+					},
+					"entity": {
+						"required": "Select an entity."
+					},
+					"maxParticipants": {
+						"invalid": "Enter zero or a positive number."
+					},
+					"name": {
+						"required": "Enter the project name.",
+						"tooLong": "Name must be 150 characters or fewer."
+					},
+					"offeredHours": {
+						"invalid": "Enter zero or a positive number.",
+						"required": "Enter the offered workload."
+					}
+				}
+			},
+			"feedback": {
+				"adminsError": {
+					"description": "The admin directory could not be loaded right now.",
+					"title": "Unable to load admins"
+				},
+				"areasOfExpertiseError": {
+					"description": "The linked areas of expertise could not be loaded right now.",
+					"title": "Unable to load project areas of expertise"
+				}
+			},
+			"filters": {
+				"createdBy": {
+					"error": {
+						"description": "The admin directory could not be loaded right now.",
+						"title": "Unable to load admins"
+					},
+					"label": "Created by"
+				},
+				"description": {
+					"label": "Description pattern",
+					"placeholder": "Filter by project description on the server"
+				},
+				"maxOfferedHours": {
+					"label": "Max offered hours",
+					"placeholder": "Filter by the maximum offered hours"
+				},
+				"minOfferedHours": {
+					"label": "Min offered hours",
+					"placeholder": "Filter by the minimum offered hours"
+				}
+			},
+			"hold": {
+				"confirm": {
+					"description": "Place {{name}} on hold until work can resume.",
+					"title": "Put project on hold"
+				},
+				"feedback": {
+					"error": {
+						"description": "The project could not be placed on hold right now.",
+						"title": "Unable to hold project"
+					},
+					"success": {
+						"description": "{{name}} is now on hold.",
+						"title": "Project on hold"
+					}
+				}
+			},
+			"loading": {
+				"list": "Loading projects"
+			},
+			"retake": {
+				"confirm": {
+					"description": "Reopen {{name}} and move it back to the planned stage.",
+					"title": "Retake project"
+				},
+				"feedback": {
+					"error": {
+						"description": "The project could not be reopened right now.",
+						"title": "Unable to retake project"
+					},
+					"success": {
+						"description": "{{name}} was moved back to planning.",
+						"title": "Project reopened"
+					}
+				}
+			},
+			"start": {
+				"confirm": {
+					"description": "Start execution for {{name}}.",
+					"title": "Start project"
+				},
+				"feedback": {
+					"error": {
+						"description": "The project could not be started right now.",
+						"title": "Unable to start project"
+					},
+					"success": {
+						"description": "{{name}} is now in progress.",
+						"title": "Project started"
+					}
+				}
+			},
+			"status": {
+				"options": {
+					"CANCELED": "Canceled",
+					"COMPLETED": "Completed",
+					"IN_PROGRESS": "In progress",
+					"ON_HOLD": "On hold",
+					"PLANNED": "Planned"
+				}
+			},
+			"table": {
+				"actions": {
+					"cancel": "Cancel",
+					"complete": "Complete",
+					"delete": "Delete",
+					"duplicate": "Duplicate",
+					"hold": "Hold",
+					"retake": "Retake",
+					"start": "Start",
+					"update": "Update",
+					"viewDetails": "View details"
+				},
+				"columns": {
+					"closedAt": "Closed",
+					"completedHours": "Completed hours",
+					"createdBy": "Creator",
+					"description": "Description",
+					"maxParticipants": "Max participants",
+					"offeredHours": "Offered hours"
+				}
+			},
+			"title": "Projects",
+			"update": {
+				"overhead": "Edit project",
+				"titleFallback": "Edit project"
+			}
+		}
+	},
+	"table": {
+		"actions": {
+			"deactivate": "Deactivate",
+			"delete": "Delete",
+			"duplicate": "Duplicate",
+			"openRowActions": "Open row actions",
+			"reactivate": "Reactivate",
+			"update": "Update",
+			"viewDetails": "View details"
+		},
+		"columns": {
+			"accountActive": "Active",
+			"accountType": "Account type",
+			"actions": "Actions",
+			"areaOfExpertise": "Area of expertise",
+			"campus": "Campus",
+			"city": "City",
+			"course": "Course",
+			"createdAt": "Created at",
+			"email": "Email",
+			"entity": "Entity",
+			"formerStudent": "Former student",
+			"formerStudentId": "Former student id",
+			"id": "Identifier",
+			"name": "Name",
+			"project": "Project",
+			"projectId": "Project id",
+			"status": "Status",
+			"updatedAt": "Updated at"
+		},
+		"scroll": {
+			"horizontal": "Scroll table horizontally",
+			"vertical": "Scroll table vertically"
+		}
+	}
 }

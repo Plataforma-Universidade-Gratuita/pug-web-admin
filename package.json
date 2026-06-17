@@ -12,7 +12,7 @@
 		"start": "next start",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"format": "prettier --write . && npm run lint:fix && tsc --noEmit && npm run trans",
+		"format": "npm run trans && prettier --write . && npm run lint:fix && tsc --noEmit",
 		"format:check": "prettier --check . && npm run lint",
 		"verify": "npm run format:check && tsc --noEmit && npm run trans && npm run build"
 	},
