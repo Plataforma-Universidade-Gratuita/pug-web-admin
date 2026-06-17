@@ -1,3 +1,4 @@
+import { API_ROUTE_BASES } from "@/api/services/constants";
 import { API_BASE_URL, JSON_HEADERS } from "@/constants";
 import { RefreshRequestSchema } from "@/schemas/api";
 import { RefreshSessionEnvelopeSchema } from "@/schemas/client";
@@ -18,12 +19,15 @@ export async function refreshAdminSession(
 	refreshToken: string,
 ): Promise<SessionRefreshResult> {
 	try {
-		const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
-			method: "POST",
-			headers: JSON_HEADERS,
-			body: JSON.stringify(RefreshRequestSchema.parse({ refreshToken })),
-			cache: "no-store",
-		});
+		const response = await fetch(
+			`${API_BASE_URL}${API_ROUTE_BASES.identity.auth}/refresh`,
+			{
+				method: "POST",
+				headers: JSON_HEADERS,
+				body: JSON.stringify(RefreshRequestSchema.parse({ refreshToken })),
+				cache: "no-store",
+			},
+		);
 		if (!response.ok) {
 			if (response.status === 401 || response.status === 403) {
 				return { status: "unauthorized" };
