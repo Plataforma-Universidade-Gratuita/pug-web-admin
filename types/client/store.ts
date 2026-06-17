@@ -1,4 +1,4 @@
-import type { ServicePageSizeOption } from "@/types/client/service-pages";
+import type { ServicePageSizeOption } from "@/types/client/components/composite/features/service-pages/index";
 
 export interface AppShellStoreState {
 	collapsed: boolean;

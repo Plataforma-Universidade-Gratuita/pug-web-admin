@@ -7,7 +7,7 @@ import type {
 	FormerStudentResponse,
 	ProjectResponse,
 } from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/forms";
+import type { ComboboxOption } from "@/types/client/components/primitives/forms/combobox";
 
 export interface EnrollmentPageProps {
 	enrollmentId: string;

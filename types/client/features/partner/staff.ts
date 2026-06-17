@@ -9,7 +9,7 @@ import type {
 	StaffUpdateRequest,
 	UserResponse,
 } from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/forms";
+import type { ComboboxOption } from "@/types/client/components/primitives/forms/combobox";
 
 export type StaffEditorMode = "create" | "duplicate" | "update";
 
