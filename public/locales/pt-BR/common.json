@@ -1,1 +1,2034 @@
-{}
+﻿{
+	"academic": {
+		"areaOfExpertisePage": {
+			"create": {
+				"actions": {
+					"save": "Criar área de conhecimento",
+					"savePending": "Criando área de conhecimento..."
+				},
+				"open": "Adicionar área de conhecimento",
+				"overhead": "Nova área de conhecimento",
+				"titleFallback": "Adicionar área de conhecimento"
+			},
+			"description": "Consulte as áreas de conhecimento utilizadas nos registros acadêmicos, na classificação de cursos e nos fluxos vinculados.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar a área de conhecimento no momento.",
+					"title": "Não foi possível carregar a área de conhecimento"
+				},
+				"titleFallback": "Detalhes da área de conhecimento"
+			},
+			"duplicate": {
+				"actions": {
+					"save": "Criar duplicata",
+					"savePending": "Criando duplicata..."
+				},
+				"overhead": "Duplicar área de conhecimento",
+				"titleFallback": "Duplicar área de conhecimento"
+			},
+			"editor": {
+				"fields": {
+					"name": "Área de conhecimento",
+					"namePlaceholder": "Informe o nome da área de conhecimento"
+				},
+				"validation": {
+					"name": "Informe um nome.",
+					"nameTooLong": "O nome deve conter no máximo 150 caracteres."
+				}
+			},
+			"filters": {
+				"endDate": {
+					"label": "Data de término",
+					"placeholder": "Selecione uma data de término"
+				},
+				"startDate": {
+					"label": "Data de início",
+					"placeholder": "Selecione uma data de início"
+				}
+			},
+			"loading": {
+				"list": "Carregando áreas de conhecimento"
+			},
+			"title": "Áreas de conhecimento",
+			"update": {
+				"actions": {
+					"save": "Salvar alterações",
+					"savePending": "Salvando alterações..."
+				},
+				"overhead": "Editar área de conhecimento",
+				"titleFallback": "Editar área de conhecimento"
+			}
+		},
+		"coursePage": {
+			"create": {
+				"actions": {
+					"save": "Criar curso",
+					"savePending": "Criando curso..."
+				},
+				"open": "Adicionar curso",
+				"overhead": "Novo curso",
+				"titleFallback": "Adicionar curso"
+			},
+			"description": "Catálogo de cursos acadêmicos gerenciados pela plataforma.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar o curso no momento.",
+					"title": "Não foi possível carregar o curso"
+				},
+				"linkedAreaOfExpertise": {
+					"overhead": "Área de conhecimento vinculada"
+				},
+				"titleFallback": "Detalhes do curso"
+			},
+			"duplicate": {
+				"overhead": "Duplicar curso",
+				"titleFallback": "Duplicar curso"
+			},
+			"editor": {
+				"fields": {
+					"name": "Curso",
+					"namePlaceholder": "Informe o nome do curso"
+				},
+				"validation": {
+					"name": "Informe um nome.",
+					"nameTooLong": "O nome deve conter no máximo 150 caracteres."
+				}
+			},
+			"loading": {
+				"list": "Carregando cursos"
+			},
+			"title": "Cursos",
+			"update": {
+				"overhead": "Editar curso",
+				"titleFallback": "Editar curso"
+			}
+		},
+		"formerStudentPage": {
+			"create": {
+				"actions": {
+					"save": "Criar egresso",
+					"savePending": "Criando egresso..."
+				},
+				"open": "Adicionar egresso",
+				"overhead": "Novo egresso",
+				"titleFallback": "Adicionar egresso"
+			},
+			"deactivate": {
+				"confirm": {
+					"description": "{{name}} será marcado como inativo até ser reativado.",
+					"title": "Desativar este egresso?"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível desativar o registro do egresso no momento.",
+						"title": "Não foi possível desativar o egresso"
+					},
+					"success": {
+						"description": "{{name}} agora está inativo.",
+						"title": "Egresso desativado"
+					}
+				}
+			},
+			"description": "Consulte registros de egressos, progresso acadêmico, contas vinculadas e prazos de conclusão.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar o registro do egresso no momento.",
+					"title": "Não foi possível carregar o egresso"
+				},
+				"fields": {
+					"academicRegistration": "Matrícula acadêmica",
+					"accountId": "ID da conta",
+					"campus": "Campus",
+					"completedHours": "Horas concluídas",
+					"createdAt": "Criado em",
+					"dueDate": "Data limite",
+					"missingHours": "Horas pendentes",
+					"remainingDays": "Dias restantes",
+					"requiredHours": "Horas obrigatórias",
+					"startDate": "Data de início",
+					"updatedAt": "Atualizado em"
+				},
+				"overhead": "Detalhes do egresso",
+				"titleFallback": "Detalhes do egresso"
+			},
+			"duplicate": {
+				"actions": {
+					"save": "Criar duplicata",
+					"savePending": "Criando duplicata..."
+				},
+				"overhead": "Duplicar egresso",
+				"titleFallback": "Duplicar egresso"
+			},
+			"editor": {
+				"courseLoadError": {
+					"description": "Não foi possível carregar o catálogo de cursos no momento.",
+					"title": "Não foi possível carregar os cursos"
+				},
+				"fields": {
+					"academicRegistration": "Matrícula acadêmica",
+					"academicRegistrationPlaceholder": "Informe a matrícula acadêmica",
+					"campus": "Campus",
+					"campusPlaceholder": "Selecione um campus",
+					"course": "Curso",
+					"cpf": "CPF",
+					"cpfCreateOption": "Usar {{value}}",
+					"cpfEmpty": "Nenhum CPF encontrado.",
+					"cpfPlaceholder": "Selecione um CPF existente ou informe um novo",
+					"cpfSearchPlaceholder": "Pesquisar ou criar CPF",
+					"dueDate": "Data limite",
+					"dueDatePlaceholder": "Selecione uma data limite",
+					"email": "E-mail",
+					"emailPlaceholder": "Informe o e-mail da conta",
+					"name": "Nome",
+					"namePlaceholder": "Informe o nome do usuário",
+					"requiredHours": "Horas obrigatórias",
+					"requiredHoursPlaceholder": "Informe a carga horária obrigatória",
+					"startDate": "Data de início",
+					"startDatePlaceholder": "Selecione uma data de início"
+				},
+				"sections": {
+					"academic": "Acadêmico",
+					"linkedCourse": "Curso vinculado"
+				},
+				"tabs": {
+					"academic": "Acadêmico",
+					"linked": "Vinculado"
+				},
+				"validation": {
+					"academicRegistration": {
+						"required": "Informe uma matrícula acadêmica.",
+						"tooLong": "A matrícula acadêmica deve conter no máximo 15 caracteres."
+					},
+					"course": {
+						"required": "Selecione um curso."
+					},
+					"cpf": {
+						"invalid": "Informe um CPF válido.",
+						"required": "Informe um CPF."
+					},
+					"dueDate": {
+						"range": "A data limite deve ser igual ou posterior à data de início.",
+						"required": "Selecione uma data limite."
+					},
+					"email": {
+						"invalid": "Informe um e-mail válido.",
+						"required": "Informe um e-mail.",
+						"tooLong": "O e-mail deve conter no máximo 255 caracteres."
+					},
+					"name": {
+						"required": "Informe um nome.",
+						"tooLong": "O nome deve conter no máximo 255 caracteres."
+					},
+					"requiredHours": {
+						"invalid": "Informe um número válido maior que zero.",
+						"required": "Informe a carga horária obrigatória."
+					},
+					"startDate": {
+						"required": "Selecione uma data de início."
+					}
+				}
+			},
+			"feedback": {
+				"coursesError": {
+					"description": "Não foi possível carregar o catálogo de cursos no momento.",
+					"title": "Não foi possível carregar os cursos"
+				}
+			},
+			"filters": {
+				"academicRegistration": {
+					"placeholder": "Filtrar por matrícula acadêmica"
+				},
+				"areaOfExpertise": {
+					"label": "Área de conhecimento"
+				},
+				"campus": {
+					"label": "Campus"
+				},
+				"course": {
+					"error": {
+						"description": "Não foi possível carregar o catálogo de cursos no momento.",
+						"title": "Não foi possível carregar os cursos"
+					},
+					"label": "Curso"
+				},
+				"frontendAcademicRegistration": {
+					"label": "Matrícula acadêmica",
+					"placeholder": "Filtrar resultados atuais por matrícula acadêmica"
+				},
+				"includeConcluded": {
+					"description": "Manter egressos concluídos nos resultados atuais.",
+					"label": "Incluir egressos concluídos",
+					"off": "Ocultando egressos concluídos"
+				},
+				"periodFrom": {
+					"label": "Início do período",
+					"placeholder": "Selecione a data inicial do período"
+				},
+				"periodTo": {
+					"label": "Fim do período",
+					"placeholder": "Selecione a data final do período"
+				},
+				"tabs": {
+					"academic": "Acadêmico",
+					"identity": "Identidade",
+					"status": "Status"
+				}
+			},
+			"loading": {
+				"list": "Carregando egressos"
+			},
+			"metadata": {
+				"empty": {
+					"description": "Informações de origem do serviço, atualização e metadados de requisição serão exibidas aqui."
+				}
+			},
+			"reactivate": {
+				"confirm": {
+					"description": "{{name}} recuperará o status ativo de egresso.",
+					"title": "Reativar este egresso?"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível reativar o registro do egresso no momento.",
+						"title": "Não foi possível reativar o egresso"
+					},
+					"success": {
+						"description": "{{name}} está ativo novamente.",
+						"title": "Egresso reativado"
+					}
+				}
+			},
+			"table": {
+				"active": {
+					"no": "Inativo",
+					"yes": "Ativo"
+				},
+				"columns": {
+					"academicRegistration": "Matrícula acadêmica",
+					"active": "Ativo",
+					"areaOfExpertise": "Área de conhecimento",
+					"campus": "Campus",
+					"concluded": "Concluído",
+					"course": "Curso",
+					"progress": "Progresso"
+				},
+				"concluded": {
+					"no": "Não",
+					"yes": "Sim"
+				}
+			},
+			"title": "Egressos",
+			"update": {
+				"actions": {
+					"save": "Salvar alterações",
+					"savePending": "Salvando alterações..."
+				},
+				"overhead": "Editar egresso",
+				"titleFallback": "Editar egresso"
+			}
+		},
+		"modulePage": {
+			"description": "Serviços acadêmicos de referência e fluxo para áreas de conhecimento, cursos e egressos.",
+			"title": "Serviços acadêmicos"
+		}
+	},
+	"AlertDialog": {
+		"overhead": {
+			"danger": "Ação destrutiva",
+			"success": "Ação concluída",
+			"warning": "Ação de atenção"
+		}
+	},
+	"auth": {
+		"login": {
+			"brand": {
+				"name": "PUG Web Admin",
+				"subtitle": "Backoffice acadêmico"
+			},
+			"feedback": {
+				"error": "Não foi possível realizar o login no momento.",
+				"success": "Login realizado com sucesso."
+			},
+			"form": {
+				"description": "Informe suas credenciais de administrador para acessar o backoffice acadêmico e a visão operacional.",
+				"fields": {
+					"email": {
+						"label": "E-mail",
+						"placeholder": "[admin@pug.edu.br](mailto:admin@pug.edu.br)"
+					},
+					"password": {
+						"label": "Senha",
+						"placeholder": "Informe sua senha"
+					}
+				},
+				"submit": "Continuar",
+				"submitPending": "Entrando...",
+				"title": "Login"
+			},
+			"hero": {
+				"badge": "Acesso protegido",
+				"highlights": {
+					"adminOnly": {
+						"description": "Acesse a visão operacional e acompanhe os itens que exigem atenção na área administrativa.",
+						"title": "Visualizar a visão operacional"
+					},
+					"refresh": {
+						"description": "Monitore projetos, inscrições e presenças em um único fluxo administrativo.",
+						"title": "Acompanhar projetos e participações"
+					},
+					"session": {
+						"description": "Gerencie administradores, egressos, colaboradores, áreas de conhecimento, cursos e contas vinculadas em um único local.",
+						"title": "Manter registros do sistema"
+					}
+				},
+				"title": "Entre para gerenciar o backoffice acadêmico e acompanhar a visão operacional."
+			},
+			"validation": {
+				"email": "Informe um endereço de e-mail válido.",
+				"password": "Utilize pelo menos 8 caracteres.",
+				"passwordRequired": "Informe sua senha ou deixe o campo em branco."
+			},
+			"wireCredentials": {
+				"actions": {
+					"dismiss": "Depois",
+					"pending": "Salvando senha...",
+					"submit": "Definir senha"
+				},
+				"description": "Esta conta ainda precisa definir sua primeira senha. Até que isso seja feito, grande parte do sistema permanecerá bloqueada.",
+				"feedback": {
+					"error": "Não foi possível definir a senha no momento.",
+					"success": "Senha definida com sucesso."
+				},
+				"fields": {
+					"confirmPassword": {
+						"label": "Confirmar senha",
+						"placeholder": "Repita a senha"
+					},
+					"email": {
+						"label": "E-mail",
+						"placeholder": "Informe o e-mail da conta"
+					},
+					"password": {
+						"label": "Senha",
+						"placeholder": "Crie uma senha"
+					}
+				},
+				"overhead": "Configuração de credenciais necessária",
+				"reopen": "Definir senha",
+				"title": "Concluir configuração da conta",
+				"validation": {
+					"confirmPassword": {
+						"match": "As senhas devem coincidir.",
+						"required": "Confirme a senha."
+					},
+					"email": {
+						"invalid": "Informe um endereço de e-mail válido.",
+						"required": "Informe o e-mail da conta.",
+						"tooLong": "O e-mail deve conter no máximo 254 caracteres."
+					},
+					"password": {
+						"invalid": "Utilize uma senha entre 8 e 255 caracteres.",
+						"required": "Informe uma senha."
+					}
+				}
+			}
+		}
+	},
+	"common": {
+		"accountMenu": {
+			"error": {
+				"description": "Não foi possível carregar o resumo da conta no momento.",
+				"retry": "Tentar novamente",
+				"title": "Não foi possível carregar o resumo da conta"
+			}
+		},
+		"actions": {
+			"createDuplicate": "Criar duplicata",
+			"createDuplicatePending": "Criando duplicata...",
+			"resetChanges": "Redefinir alterações",
+			"saveChanges": "Salvar alterações",
+			"saveChangesPending": "Salvando alterações...",
+			"undo": "Desfazer"
+		},
+		"cancel": "Cancelar",
+		"editor": {
+			"loading": "Carregando editor de {{object}}"
+		},
+		"empty": {
+			"defaultDescription": "Ainda não há registros disponíveis.",
+			"filteredDescription": "Nenhum registro corresponde aos filtros atuais: {{value}}.",
+			"title": "Nenhum registro encontrado"
+		},
+		"errors": {
+			"detailLoad": {
+				"description": "Não foi possível carregar o registro selecionado no momento.",
+				"title": "Não foi possível carregar o registro"
+			},
+			"editorLoad": {
+				"description": "Não foi possível carregar {{object}} no momento.",
+				"title": "Não foi possível carregar o editor de {{object}}"
+			},
+			"listLoad": {
+				"description": "Não foi possível carregar o diretório atual no momento.",
+				"title": "Não foi possível carregar os registros"
+			}
+		},
+		"feedback": {
+			"create": {
+				"error": {
+					"description": "Não foi possível criar {{object}} no momento.",
+					"title": "Não foi possível criar"
+				},
+				"success": {
+					"description": "{{name}} foi criado com sucesso.",
+					"title": "Criado"
+				}
+			},
+			"delete": {
+				"confirm": {
+					"description": "{{name}} será removido após o período disponível para desfazer a ação.",
+					"title": "Excluir este(a) {{object}}?"
+				},
+				"error": {
+					"description": "Não foi possível excluir {{object}} no momento.",
+					"title": "Não foi possível excluir"
+				},
+				"success": {
+					"description": "{{name}} foi removido do diretório.",
+					"title": "Excluído"
+				},
+				"undo": {
+					"action": "Desfazer",
+					"description": "{{name}} será excluído caso esta ação não seja desfeita.",
+					"title": "Exclusão agendada"
+				}
+			},
+			"duplicate": {
+				"error": {
+					"description": "Não foi possível criar uma duplicata de {{object}} no momento.",
+					"title": "Não foi possível duplicar"
+				},
+				"success": {
+					"description": "{{name}} foi duplicado com sucesso.",
+					"title": "Duplicata criada"
+				}
+			},
+			"update": {
+				"error": {
+					"description": "Não foi possível atualizar {{object}} no momento.",
+					"title": "Não foi possível salvar as alterações"
+				},
+				"success": {
+					"description": "{{name}} foi atualizado com sucesso.",
+					"title": "Atualizado"
+				}
+			}
+		},
+		"fields": {
+			"accountType": "Tipo de conta",
+			"active": "Ativo",
+			"areaOfExpertise": "Área de conhecimento",
+			"campus": "Campus",
+			"course": "Curso",
+			"cpf": "CPF",
+			"createdAt": "Criado em",
+			"email": "E-mail",
+			"enrollment": "Inscrição",
+			"entity": "Entidade",
+			"formerStudent": "Egresso",
+			"formerStudentId": "ID do egresso",
+			"id": "Identificador",
+			"name": "Nome",
+			"project": "Projeto",
+			"status": "Status",
+			"updatedAt": "Atualizado em"
+		},
+		"filters": {
+			"active": "Filtros ativos",
+			"activeOnly": {
+				"description": "Ocultar registros inativos dos resultados atuais.",
+				"label": "Exibir apenas registros ativos",
+				"off": "Incluindo registros inativos"
+			},
+			"apply": "Aplicar filtros",
+			"clear": "Limpar filtros",
+			"clearConfirm": {
+				"description": "Isso removerá os filtros aplicados atualmente.",
+				"title": "Limpar filtros?"
+			},
+			"cpf": {
+				"label": "CPF",
+				"placeholder": "Filtrar por CPF"
+			},
+			"email": {
+				"label": "E-mail",
+				"placeholder": "Filtrar por e-mail"
+			},
+			"endDate": {
+				"label": "Data de término",
+				"placeholder": "Selecione uma data de término"
+			},
+			"label": "Filtros",
+			"more": "Mais filtros",
+			"name": {
+				"label": "Nome",
+				"placeholder": "Filtrar por nome"
+			},
+			"overhead": "Filtros",
+			"search": {
+				"label": "Pesquisar",
+				"placeholder": "Filtrar resultados atuais"
+			},
+			"startDate": {
+				"label": "Data de início",
+				"placeholder": "Selecione uma data de início"
+			},
+			"title": "Refinar diretório"
+		},
+		"linkedAccount": {
+			"error": {
+				"description": "Não foi possível carregar a conta vinculada no momento.",
+				"title": "Não foi possível carregar a conta vinculada"
+			},
+			"overhead": "Conta vinculada"
+		},
+		"linkedFormerStudent": {
+			"overhead": "Egresso vinculado"
+		},
+		"linkedUser": {
+			"error": {
+				"description": "Não foi possível carregar o usuário vinculado no momento.",
+				"title": "Não foi possível carregar o usuário vinculado"
+			},
+			"overhead": "Usuário vinculado"
+		},
+		"loadErrors": {
+			"areasOfExpertise": {
+				"description": "Não foi possível carregar o diretório de áreas de conhecimento no momento.",
+				"title": "Não foi possível carregar as áreas de conhecimento"
+			},
+			"entities": {
+				"description": "Não foi possível carregar o diretório de entidades no momento.",
+				"title": "Não foi possível carregar as entidades"
+			},
+			"formerStudents": {
+				"description": "Não foi possível carregar o diretório de egressos no momento.",
+				"title": "Não foi possível carregar os egressos"
+			},
+			"projects": {
+				"description": "Não foi possível carregar o diretório de projetos no momento.",
+				"title": "Não foi possível carregar os projetos"
+			}
+		},
+		"metadata": {
+			"empty": {
+				"description": "Informações de origem do serviço, atualização e metadados de requisição serão exibidas aqui.",
+				"title": "Metadados em breve"
+			},
+			"trigger": "Metadados"
+		},
+		"notFound": {
+			"description": "O registro solicitado não foi encontrado.",
+			"title": "Registro não encontrado"
+		},
+		"objects": {
+			"administrator": "administrador",
+			"areaOfExpertise": "área de conhecimento",
+			"attendance": "presença",
+			"course": "curso",
+			"enrollment": "inscrição",
+			"entity": "entidade",
+			"formerStudent": "egresso",
+			"project": "projeto",
+			"staffMember": "colaborador"
+		},
+		"placeholders": {
+			"noResults": "Nenhum resultado encontrado.",
+			"search": "Pesquisar...",
+			"select": "Selecionar..."
+		},
+		"reset": "Redefinir formulário",
+		"resetConfirm": {
+			"description": "Isso descartará as alterações não salvas no painel atual.",
+			"title": "Redefinir alterações de {{object}}?"
+		},
+		"selectors": {
+			"language": {
+				"options": {
+					"en-US": "Inglês",
+					"pt-BR": "Português"
+				},
+				"short": {
+					"en-US": "EN",
+					"pt-BR": "PT"
+				}
+			},
+			"theme": {
+				"options": {
+					"dark": "Escuro",
+					"light": "Claro",
+					"system": "Sistema"
+				}
+			}
+		},
+		"status": {
+			"active": "Ativo",
+			"inactive": "Inativo"
+		},
+		"validation": {
+			"areaOfExpertise": {
+				"required": "Selecione uma área de conhecimento."
+			},
+			"formerStudent": {
+				"required": "Selecione um egresso."
+			}
+		}
+	},
+	"components": {
+		"datePicker": {
+			"calendarLabel": "Calendário de seleção de data",
+			"clear": "Limpar seleção",
+			"monthNavigation": "Navegação de meses",
+			"nextMonth": "Ir para o próximo mês",
+			"openPicker": "Abrir seletor de data",
+			"placeholder": "Selecione uma data",
+			"previousMonth": "Ir para o mês anterior",
+			"today": "Hoje"
+		},
+		"dialog": {
+			"close": "Fechar diálogo"
+		},
+		"drawer": {
+			"close": "Fechar painel"
+		},
+		"emptyState": {
+			"presets": {
+				"noContent": {
+					"description": "Ainda não há conteúdo para exibir nesta área."
+				},
+				"someError": {
+					"refresh": "Atualizar"
+				}
+			}
+		},
+		"pagination": {
+			"firstPage": "Ir para a primeira página",
+			"lastPage": "Ir para a última página",
+			"nextPage": "Ir para a próxima página",
+			"page": "Página {{page}} de {{totalPages}}",
+			"pageSize": {
+				"options": {
+					"all": "Todos",
+					"number": "{{value}} por página"
+				},
+				"placeholder": "Itens por página"
+			},
+			"previousPage": "Ir para a página anterior",
+			"total": "{{count}} registros"
+		}
+	},
+	"geo": {
+		"cityPage": {
+			"description": "Consulte o catálogo de cidades utilizado nos fluxos acadêmicos, de identidade, parceiros e projetos.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar o registro da cidade no momento.",
+					"title": "Não foi possível carregar a cidade"
+				},
+				"fields": {
+					"ibgeCode": "Código IBGE",
+					"name": "Nome da cidade"
+				},
+				"titleFallback": "Detalhes da cidade"
+			},
+			"filters": {
+				"backend": {
+					"clear": "Limpar filtros",
+					"clearConfirm": {
+						"description": "Isso removerá os filtros aplicados da tabela de cidades."
+					}
+				}
+			},
+			"loading": {
+				"list": "Carregando catálogo de cidades"
+			},
+			"table": {
+				"columns": {
+					"ibgeCode": "Código IBGE"
+				}
+			},
+			"title": "Cidades"
+		},
+		"modulePage": {
+			"description": "Dados geográficos de referência centralizados utilizados em toda a plataforma.",
+			"title": "Serviços geográficos"
+		}
+	},
+	"home": {
+		"dashboard": {
+			"description": "Visão operacional diária de inscrições, presenças, egressos e projetos.",
+			"exceptions": {
+				"dueSoonFormerStudents": "Egressos próximos do prazo final",
+				"nearLimitProjects": "Projetos próximos da conclusão",
+				"pendingEnrollments": "Inscrições pendentes",
+				"waitingAttendances": "Presenças aguardando validação"
+			},
+			"hero": {
+				"actions": {
+					"attendances": "Revisar presenças",
+					"enrollments": "Revisar inscrições"
+				},
+				"badge": "Visão operacional",
+				"description": "Concentre-se em validações pendentes, registros próximos do prazo e projetos em fase final de execução.",
+				"title": "Itens que exigem atenção: {{count}}"
+			},
+			"metrics": {
+				"activeFormerStudents": "Egressos ativos",
+				"activeProjects": "Projetos ativos",
+				"pendingEnrollments": "Inscrições pendentes",
+				"waitingAttendances": "Presenças aguardando validação"
+			},
+			"priority": {
+				"badges": {
+					"dueSoonFormerStudent": "Próximo do prazo",
+					"nearLimitProject": "Próximo da conclusão",
+					"pendingEnrollment": "Inscrição pendente",
+					"waitingAttendance": "Validação pendente"
+				},
+				"descriptions": {
+					"attendance": "Presença aguardando validação para {{project}}.",
+					"enrollment": "Inscrição pendente para {{project}}.",
+					"formerStudent": "{{course}} encerra em {{days}}.",
+					"project": "{{entity}} atingiu {{progress}} da carga horária ofertada."
+				}
+			},
+			"pulse": {
+				"concludedStudents": "Egressos concluídos",
+				"processedEnrollments": "Inscrições processadas",
+				"projectProgress": "Média de conclusão dos projetos",
+				"validationCoverage": "Cobertura de validação das presenças"
+			},
+			"recent": {
+				"updated": "Atualizado"
+			},
+			"sections": {
+				"exceptions": {
+					"description": "Indicadores que normalmente exigem acompanhamento rápido.",
+					"title": "Exceções"
+				},
+				"priority": {
+					"description": "Registros com maior probabilidade de exigir ação imediata.",
+					"empty": "Nenhum item prioritário no momento.",
+					"title": "Necessita atenção"
+				},
+				"pulse": {
+					"description": "Indicadores rápidos da saúde operacional atual.",
+					"title": "Pulso operacional"
+				},
+				"recent": {
+					"columns": {
+						"action": "Ação",
+						"module": "Módulo",
+						"record": "Registro",
+						"when": "Quando"
+					},
+					"description": "Atualizações mais recentes dos principais módulos operacionais.",
+					"empty": "Nenhuma alteração recente disponível.",
+					"title": "Alterações recentes"
+				},
+				"sharedError": "Não foi possível carregar esta visão geral no momento.",
+				"shortcuts": {
+					"activeProjects": "Abrir projetos",
+					"description": "Acesse rapidamente os principais diretórios operacionais.",
+					"formerStudents": "Abrir egressos",
+					"pendingEnrollments": "Abrir inscrições",
+					"title": "Atalhos",
+					"waitingAttendances": "Abrir presenças"
+				},
+				"upcoming": {
+					"description": "Itens que podem se tornar urgentes em breve.",
+					"empty": "Nenhum prazo próximo no momento.",
+					"title": "Próximos prazos"
+				}
+			},
+			"title": "Central de operações",
+			"upcoming": {
+				"formerStudentDescription": "{{course}} encerra em {{days}}.",
+				"projectDescription": "{{entity}} atingiu {{progress}} da carga horária ofertada."
+			},
+			"values": {
+				"unknownCourse": "Curso não informado"
+			}
+		}
+	},
+	"identity": {
+		"accountPage": {
+			"description": "Consulte registros de contas, usuários vinculados e relacionamentos de identidade da plataforma.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar a conta no momento.",
+					"title": "Não foi possível carregar a conta"
+				},
+				"titleFallback": "Detalhes da conta"
+			},
+			"filters": {
+				"accountType": {
+					"options": {
+						"ADMIN": "Administrador",
+						"all": "Todos os tipos de conta",
+						"FORMER_STUDENT": "Egresso",
+						"PARTNER": "Parceiro",
+						"STUDENT": "Aluno"
+					}
+				}
+			},
+			"loading": {
+				"list": "Carregando catálogo de contas"
+			},
+			"metadata": {
+				"empty": {
+					"description": "Informações de origem do serviço, atualização e metadados de requisição serão exibidas aqui."
+				}
+			},
+			"title": "Contas"
+		},
+		"adminPage": {
+			"create": {
+				"actions": {
+					"save": "Criar administrador",
+					"savePending": "Criando administrador..."
+				},
+				"open": "Adicionar administrador",
+				"overhead": "Novo administrador",
+				"titleFallback": "Adicionar administrador"
+			},
+			"deactivate": {
+				"confirm": {
+					"description": "{{name}} perderá o acesso administrativo ativo até ser reativado.",
+					"title": "Desativar este administrador?"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível desativar o administrador no momento.",
+						"title": "Não foi possível desativar o administrador"
+					},
+					"success": {
+						"description": "{{name}} agora está inativo.",
+						"title": "Administrador desativado"
+					}
+				}
+			},
+			"description": "Consulte administradores, contas vinculadas e registros de usuários relacionados.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar o registro do administrador no momento.",
+					"title": "Não foi possível carregar os detalhes do administrador"
+				},
+				"fields": {
+					"grantedAt": "Concedido em",
+					"userId": "Identificador do usuário"
+				},
+				"titleFallback": "Detalhes do administrador"
+			},
+			"filters": {
+				"campus": {
+					"options": {
+						"all": "Todos os campi",
+						"JARAGUA_DO_SUL": "Jaraguá do Sul",
+						"JOINVILLE": "Joinville"
+					}
+				}
+			},
+			"loading": {
+				"list": "Carregando administradores"
+			},
+			"reactivate": {
+				"confirm": {
+					"description": "{{name}} recuperará imediatamente o acesso administrativo ativo.",
+					"title": "Reativar este administrador?"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível reativar o administrador no momento.",
+						"title": "Não foi possível reativar o administrador"
+					},
+					"success": {
+						"description": "{{name}} está ativo novamente.",
+						"title": "Administrador reativado"
+					}
+				}
+			},
+			"table": {
+				"active": {
+					"no": "Inativo",
+					"yes": "Ativo"
+				},
+				"columns": {
+					"grantedAt": "Concedido em"
+				}
+			},
+			"title": "Administradores",
+			"update": {
+				"accountLoadError": {
+					"description": "Não foi possível carregar a conta vinculada no momento.",
+					"title": "Não foi possível carregar a conta vinculada"
+				},
+				"accountNotFound": {
+					"description": "A conta vinculada não foi encontrada.",
+					"title": "Conta vinculada não encontrada"
+				},
+				"fields": {
+					"accountId": "Identificador",
+					"cpfCreateOption": "Usar {{value}}",
+					"cpfEmpty": "Nenhum CPF encontrado.",
+					"cpfHelp": "Selecionar um CPF existente vincula este administrador a um usuário já existente. Informar um novo CPF cria um novo usuário vinculado.",
+					"cpfPlaceholder": "Selecione um CPF existente ou informe um novo",
+					"cpfSearchPlaceholder": "Pesquisar ou criar CPF",
+					"grantedAt": "Concedido em",
+					"namePlaceholder": "Informe o nome do usuário",
+					"userId": "Identificador do usuário"
+				},
+				"overhead": "Editar administrador",
+				"tabs": {
+					"access": "Acesso",
+					"profile": "Perfil",
+					"user": "Usuário vinculado"
+				},
+				"titleFallback": "Editar administrador",
+				"validation": {
+					"cpf": {
+						"invalid": "Informe um CPF válido.",
+						"required": "Informe um CPF."
+					},
+					"email": {
+						"invalid": "Informe um endereço de e-mail válido.",
+						"required": "Informe um endereço de e-mail.",
+						"tooLong": "O e-mail deve conter no máximo 254 caracteres."
+					},
+					"name": "Informe um nome.",
+					"nameTooLong": "O nome deve conter no máximo 255 caracteres."
+				}
+			}
+		},
+		"modulePage": {
+			"description": "Registros de identidade centralizados e fluxos administrativos utilizados em toda a plataforma.",
+			"title": "Serviços de identidade"
+		},
+		"userPage": {
+			"description": "Consulte registros de usuários compartilhados entre os módulos e fluxos da plataforma.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar o usuário no momento.",
+					"title": "Não foi possível carregar o usuário"
+				},
+				"titleFallback": "Detalhes do usuário"
+			},
+			"filters": {
+				"backend": {
+					"clear": "Limpar filtros",
+					"clearConfirm": {
+						"description": "Isso removerá os filtros aplicados da tabela de usuários.",
+						"title": "Limpar filtros?"
+					}
+				}
+			},
+			"loading": {
+				"list": "Carregando catálogo de usuários"
+			},
+			"title": "Usuários"
+		}
+	},
+	"modulePages": {
+		"comingSoon": {
+			"availablePages": "Páginas disponíveis",
+			"description": "Esta página fornecerá atalhos, indicadores e ferramentas para o gerenciamento de {{moduleName}}.",
+			"title": "Visão geral do módulo em breve"
+		}
+	},
+	"Navbar": {
+		"account": {
+			"fallback": "Indisponível",
+			"label": "Conta",
+			"logout": "Sair",
+			"logoutAllDevices": "Sair de todos os dispositivos",
+			"logoutAllPending": "Encerrando sessões em todos os dispositivos...",
+			"logoutAllSuccess": "Sessão encerrada em todos os dispositivos.",
+			"logoutCancel": "Permanecer conectado",
+			"logoutCurrentDevice": "Sair deste dispositivo",
+			"logoutCurrentPending": "Encerrando sessão...",
+			"logoutCurrentSuccess": "Sessão encerrada neste dispositivo.",
+			"logoutDialogDescription": "Encerre esta sessão no dispositivo atual ou revogue o acesso em todos os dispositivos onde esta conta está conectada.",
+			"logoutDialogTitle": "Escolha como deseja sair",
+			"logoutError": "Não foi possível encerrar a sessão no momento."
+		},
+		"collapse": "Recolher barra lateral",
+		"expand": "Expandir barra lateral",
+		"navigation": "Navegação principal",
+		"paths": {
+			"academic": {
+				"areaOfExpertise": "Áreas de conhecimento",
+				"course": "Cursos",
+				"formerStudent": "Egressos",
+				"root": "Acadêmico"
+			},
+			"geo": {
+				"city": "Cidades",
+				"root": "Geográfico"
+			},
+			"home": "Início",
+			"identity": {
+				"account": "Contas",
+				"admin": "Administradores",
+				"root": "Identidade",
+				"user": "Usuários"
+			},
+			"partner": {
+				"entity": "Entidades",
+				"root": "Parceiros",
+				"staff": "Colaboradores"
+			},
+			"project": {
+				"attendance": "Presenças",
+				"enrollment": "Inscrições",
+				"project": "Projetos",
+				"root": "Projetos"
+			},
+			"unknown": "Desconhecido"
+		},
+		"subtitle": "Área operacional",
+		"title": "PUG Web Admin"
+	},
+	"partner": {
+		"entityPage": {
+			"create": {
+				"actions": {
+					"save": "Criar entidade",
+					"savePending": "Criando entidade..."
+				},
+				"open": "Adicionar entidade",
+				"overhead": "Nova entidade",
+				"titleFallback": "Nova entidade"
+			},
+			"description": "Diretório de organizações parceiras e das cidades onde atuam.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar o registro da entidade no momento.",
+					"title": "Não foi possível carregar a entidade"
+				},
+				"fields": {
+					"address": "Endereço",
+					"city": "Cidade",
+					"cnpj": "CNPJ",
+					"name": "Nome da entidade"
+				},
+				"titleFallback": "Detalhes da entidade",
+				"values": {
+					"noAddress": "Nenhum endereço informado"
+				}
+			},
+			"duplicate": {
+				"overhead": "Duplicar entidade",
+				"titleFallback": "Duplicar entidade"
+			},
+			"editor": {
+				"cityLoadError": {
+					"description": "Não foi possível carregar o catálogo de cidades para este formulário no momento.",
+					"title": "Não foi possível carregar as cidades"
+				},
+				"fields": {
+					"address": "Endereço",
+					"addressPlaceholder": "Endereço opcional",
+					"city": "Cidade",
+					"cnpj": "CNPJ",
+					"cnpjPlaceholder": "00.000.000/0000-00",
+					"name": "Nome da entidade"
+				},
+				"validation": {
+					"address": {
+						"tooLong": "O endereço deve conter no máximo 254 caracteres."
+					},
+					"city": "Selecione uma cidade.",
+					"cnpj": {
+						"invalid": "Informe um CNPJ válido.",
+						"required": "Informe um CNPJ."
+					},
+					"name": {
+						"required": "Informe um nome.",
+						"tooLong": "O nome deve conter no máximo 150 caracteres."
+					}
+				}
+			},
+			"feedback": {
+				"citiesError": {
+					"description": "Não foi possível carregar o catálogo de cidades no momento.",
+					"title": "Não foi possível carregar as cidades"
+				}
+			},
+			"filters": {
+				"city": {
+					"error": {
+						"description": "Não foi possível carregar o catálogo de cidades no momento.",
+						"title": "Não foi possível carregar as cidades"
+					},
+					"label": "Cidade"
+				},
+				"frontend": {
+					"cnpj": {
+						"label": "CNPJ",
+						"placeholder": "Filtrar por CNPJ"
+					}
+				}
+			},
+			"loading": {
+				"list": "Carregando entidades"
+			},
+			"table": {
+				"columns": {
+					"address": "Endereço",
+					"city": "Cidade",
+					"cnpj": "CNPJ"
+				}
+			},
+			"title": "Entidades",
+			"update": {
+				"overhead": "Editar entidade",
+				"titleFallback": "Editar entidade"
+			}
+		},
+		"modulePage": {
+			"description": "Diretórios de parceiros e registros operacionais de entidades e colaboradores.",
+			"title": "Serviços de parceiros"
+		},
+		"staffPage": {
+			"create": {
+				"actions": {
+					"save": "Criar colaborador",
+					"savePending": "Criando colaborador..."
+				},
+				"open": "Adicionar colaborador",
+				"overhead": "Novo colaborador",
+				"titleFallback": "Novo colaborador"
+			},
+			"deactivate": {
+				"confirm": {
+					"description": "{{name}} perderá o acesso ao ambiente de colaboradores parceiros até ser reativado.",
+					"title": "Desativar este colaborador?"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível desativar o colaborador no momento.",
+						"title": "Não foi possível desativar o colaborador"
+					},
+					"success": {
+						"description": "{{name}} foi desativado com sucesso.",
+						"title": "Colaborador desativado"
+					}
+				}
+			},
+			"description": "Diretório de colaboradores vinculados às entidades parceiras e respectivas cidades.",
+			"dialog": {
+				"entity": {
+					"overhead": "Entidade vinculada"
+				},
+				"error": {
+					"description": "Não foi possível carregar o registro do colaborador no momento.",
+					"title": "Não foi possível carregar o colaborador"
+				},
+				"titleFallback": "Detalhes do colaborador"
+			},
+			"duplicate": {
+				"overhead": "Duplicar colaborador",
+				"titleFallback": "Duplicar colaborador"
+			},
+			"editor": {
+				"fields": {
+					"cpf": "CPF",
+					"cpfCreateOption": "Criar {{value}}",
+					"cpfEmpty": "Nenhum CPF encontrado.",
+					"cpfPlaceholder": "Informe o CPF",
+					"cpfSearchPlaceholder": "Pesquisar ou criar CPF",
+					"name": "Nome"
+				},
+				"sections": {
+					"linkedEntity": "Entidade vinculada",
+					"organization": "Organização"
+				},
+				"validation": {
+					"cpf": {
+						"invalid": "Informe um CPF válido.",
+						"required": "Informe um CPF."
+					},
+					"email": {
+						"invalid": "Informe um endereço de e-mail válido.",
+						"required": "Informe um endereço de e-mail.",
+						"tooLong": "O e-mail deve conter no máximo 254 caracteres."
+					},
+					"entity": {
+						"required": "Selecione uma entidade."
+					},
+					"name": {
+						"required": "Informe um nome.",
+						"tooLong": "O nome deve conter no máximo 255 caracteres."
+					}
+				}
+			},
+			"feedback": {
+				"citiesError": {
+					"description": "Não foi possível carregar o catálogo de cidades no momento.",
+					"title": "Não foi possível carregar as cidades"
+				}
+			},
+			"loading": {
+				"list": "Carregando colaboradores"
+			},
+			"reactivate": {
+				"confirm": {
+					"description": "{{name}} recuperará o acesso ao ambiente de colaboradores parceiros.",
+					"title": "Reativar este colaborador?"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível reativar o colaborador no momento.",
+						"title": "Não foi possível reativar o colaborador"
+					},
+					"success": {
+						"description": "{{name}} foi reativado com sucesso.",
+						"title": "Colaborador reativado"
+					}
+				}
+			},
+			"table": {
+				"active": {
+					"no": "Inativo",
+					"yes": "Ativo"
+				},
+				"columns": {
+					"createdAt": "Criado em",
+					"id": "ID",
+					"updatedAt": "Atualizado em"
+				}
+			},
+			"title": "Colaboradores",
+			"update": {
+				"overhead": "Editar colaborador",
+				"titleFallback": "Editar colaborador"
+			}
+		}
+	},
+	"project": {
+		"attendancePage": {
+			"create": {
+				"actions": {
+					"save": "Criar presença",
+					"savePending": "Criando presença..."
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível criar o registro de presença no momento.",
+						"title": "Não foi possível criar a presença"
+					},
+					"success": {
+						"description": "A presença {{id}} foi criada com sucesso.",
+						"title": "Presença criada"
+					}
+				},
+				"open": "Criar presença",
+				"overhead": "Nova presença",
+				"titleFallback": "Nova presença"
+			},
+			"delete": {
+				"confirm": {
+					"description": "Excluir a presença {{id}} de {{formerStudent}} no projeto {{project}}.",
+					"title": "Excluir presença"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível excluir o registro de presença no momento.",
+						"title": "Não foi possível excluir a presença"
+					},
+					"success": {
+						"description": "A presença {{id}} de {{formerStudent}} no projeto {{project}} foi excluída.",
+						"title": "Presença excluída"
+					}
+				},
+				"undo": {
+					"description": "A presença {{id}} de {{formerStudent}} no projeto {{project}} será excluída caso a ação não seja desfeita.",
+					"title": "Exclusão de presença agendada"
+				}
+			},
+			"description": "Acompanhe registros de presença, status de validação, carga horária e responsáveis pela validação.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar os detalhes da presença no momento.",
+					"title": "Não foi possível carregar os detalhes da presença"
+				},
+				"fields": {
+					"duration": "Duração",
+					"id": "ID da presença",
+					"projectId": "ID do projeto",
+					"qrValidationHash": "Hash de validação QR",
+					"validatedAt": "Validado em"
+				},
+				"linkedProject": {
+					"overhead": "Projeto vinculado"
+				},
+				"overhead": "Detalhes da presença",
+				"qrCodeDialog": {
+					"copy": {
+						"action": "Copiar hash",
+						"feedback": {
+							"error": {
+								"description": "Não foi possível copiar o hash de validação QR no momento.",
+								"title": "Não foi possível copiar o hash QR"
+							},
+							"success": {
+								"description": "O hash de validação QR está pronto para ser colado.",
+								"title": "Hash QR copiado"
+							}
+						}
+					},
+					"hashLabel": "Hash de validação QR",
+					"overhead": "QR Code da presença",
+					"title": "QR Code da presença"
+				},
+				"titleFallback": "Detalhes da presença",
+				"values": {
+					"notValidated": "Ainda não validado"
+				}
+			},
+			"editor": {
+				"fields": {
+					"duration": "Duração",
+					"durationPlaceholder": "Informe a duração registrada"
+				},
+				"tabs": {
+					"attendance": "Presença",
+					"linked": "Vinculado"
+				},
+				"validation": {
+					"duration": {
+						"invalid": "Informe um número maior que zero.",
+						"required": "Informe a duração registrada."
+					},
+					"project": {
+						"required": "Selecione um projeto."
+					}
+				}
+			},
+			"feedback": {
+				"adminsError": {
+					"description": "Não foi possível carregar o diretório de administradores no momento.",
+					"title": "Não foi possível carregar os administradores"
+				}
+			},
+			"filters": {
+				"durationFrom": {
+					"label": "Duração mínima",
+					"placeholder": "Filtrar por duração mínima"
+				},
+				"durationTo": {
+					"label": "Duração máxima",
+					"placeholder": "Filtrar por duração máxima"
+				},
+				"summary": {
+					"auditDate": "datas de auditoria",
+					"duration": "duração",
+					"formerStudents": "egressos",
+					"projects": "projetos",
+					"statuses": "status",
+					"validators": "validadores"
+				},
+				"validator": {
+					"error": {
+						"description": "Não foi possível carregar o diretório de validadores no momento.",
+						"title": "Não foi possível carregar os validadores"
+					},
+					"label": "Validado por"
+				}
+			},
+			"loading": {
+				"list": "Carregando presenças"
+			},
+			"markAbsent": {
+				"confirm": {
+					"description": "Marcar {{formerStudent}} como ausente em {{project}}.",
+					"title": "Marcar presença como ausente"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível marcar a presença como ausente no momento.",
+						"title": "Não foi possível marcar a presença como ausente"
+					},
+					"success": {
+						"description": "{{formerStudent}} foi marcado como ausente em {{project}}.",
+						"title": "Presença marcada como ausente"
+					}
+				}
+			},
+			"markPresent": {
+				"confirm": {
+					"description": "Marcar {{formerStudent}} como presente em {{project}}.",
+					"title": "Marcar presença como presente"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível marcar a presença como presente no momento.",
+						"title": "Não foi possível marcar a presença como presente"
+					},
+					"success": {
+						"description": "{{formerStudent}} foi marcado como presente em {{project}}.",
+						"title": "Presença marcada como presente"
+					}
+				}
+			},
+			"metadata": {
+				"empty": {
+					"description": "Informações de origem do serviço, atualização e metadados de requisição serão exibidas aqui."
+				}
+			},
+			"status": {
+				"options": {
+					"ABSENT": "Ausente",
+					"PRESENT": "Presente",
+					"WAITING": "Aguardando"
+				}
+			},
+			"table": {
+				"actions": {
+					"delete": "Excluir",
+					"markAbsent": "Marcar ausência",
+					"markPresent": "Marcar presença",
+					"update": "Editar",
+					"viewDetails": "Ver detalhes",
+					"viewQrCode": "Ver QR Code"
+				},
+				"columns": {
+					"duration": "Duração",
+					"id": "ID da presença",
+					"registration": "Matrícula",
+					"validatedAt": "Validado em",
+					"validatedBy": "Validado por"
+				},
+				"values": {
+					"notValidated": "Não validado"
+				}
+			},
+			"title": "Presenças"
+		},
+		"enrollmentPage": {
+			"accept": {
+				"confirm": {
+					"description": "Aprovar {{formerStudent}} para {{project}}.",
+					"title": "Aprovar inscrição"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível aprovar a inscrição no momento.",
+						"title": "Não foi possível aprovar a inscrição"
+					},
+					"success": {
+						"description": "{{formerStudent}} foi aprovado para {{project}}.",
+						"title": "Inscrição aprovada"
+					}
+				}
+			},
+			"cancel": {
+				"confirm": {
+					"description": "Cancelar a inscrição de {{formerStudent}} em {{project}}.",
+					"title": "Cancelar inscrição"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível cancelar a inscrição no momento.",
+						"title": "Não foi possível cancelar a inscrição"
+					},
+					"success": {
+						"description": "{{formerStudent}} teve sua inscrição cancelada em {{project}}.",
+						"title": "Inscrição cancelada"
+					}
+				}
+			},
+			"complete": {
+				"confirm": {
+					"description": "Marcar {{formerStudent}} como concluído em {{project}}.",
+					"title": "Concluir inscrição"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível concluir a inscrição no momento.",
+						"title": "Não foi possível concluir a inscrição"
+					},
+					"success": {
+						"description": "{{formerStudent}} concluiu {{project}}.",
+						"title": "Inscrição concluída"
+					}
+				}
+			},
+			"create": {
+				"actions": {
+					"save": "Criar inscrição",
+					"savePending": "Criando inscrição..."
+				},
+				"feedback": {
+					"success": {
+						"description": "A inscrição foi criada com sucesso.",
+						"title": "Inscrição criada"
+					}
+				},
+				"overhead": "Nova inscrição",
+				"titleFallback": "Nova inscrição",
+				"trigger": "Criar inscrição"
+			},
+			"delete": {
+				"confirm": {
+					"description": "Excluir o registro de inscrição de {{formerStudent}} em {{project}}.",
+					"title": "Excluir inscrição"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível excluir o registro de inscrição no momento.",
+						"title": "Não foi possível excluir a inscrição"
+					},
+					"success": {
+						"description": "O registro de inscrição de {{formerStudent}} em {{project}} foi excluído.",
+						"title": "Inscrição excluída"
+					}
+				},
+				"undo": {
+					"description": "O registro de inscrição de {{formerStudent}} em {{project}} será excluído caso a ação não seja desfeita.",
+					"title": "Inscrição agendada para exclusão"
+				}
+			},
+			"description": "Gerencie inscrições em projetos, egressos vinculados, períodos e transições de status.",
+			"dialog": {
+				"error": {
+					"description": "Não foi possível carregar os detalhes da inscrição no momento.",
+					"title": "Não foi possível carregar os detalhes da inscrição"
+				},
+				"fields": {
+					"acceptedAt": "Aprovado em",
+					"closingStatusAt": "Encerrado em",
+					"projectId": "ID do projeto"
+				},
+				"linkedProject": {
+					"overhead": "Projeto vinculado"
+				},
+				"overhead": "Detalhes da inscrição",
+				"titleFallback": "Detalhes da inscrição",
+				"values": {
+					"notAccepted": "Ainda não aprovado",
+					"open": "Aberto"
+				}
+			},
+			"editor": {
+				"tabs": {
+					"enrollment": "Inscrição",
+					"linked": "Vinculado"
+				},
+				"validation": {
+					"project": {
+						"required": "Selecione um projeto."
+					}
+				}
+			},
+			"feedback": {
+				"createError": {
+					"description": "Não foi possível criar a inscrição no momento.",
+					"title": "Não foi possível criar a inscrição"
+				},
+				"deleteError": {
+					"description": "Não foi possível excluir o registro de inscrição no momento.",
+					"title": "Não foi possível excluir a inscrição"
+				},
+				"updateError": {
+					"description": "Não foi possível atualizar a inscrição no momento.",
+					"title": "Não foi possível atualizar a inscrição"
+				}
+			},
+			"filters": {
+				"periodFrom": {
+					"label": "Início do período",
+					"placeholder": "Selecione a data inicial do período"
+				},
+				"periodTo": {
+					"label": "Fim do período",
+					"placeholder": "Selecione a data final do período"
+				},
+				"summary": {
+					"auditDate": "data de auditoria",
+					"formerStudents": "egressos",
+					"period": "período",
+					"projects": "projetos",
+					"statuses": "status"
+				}
+			},
+			"loading": {
+				"list": "Carregando inscrições"
+			},
+			"metadata": {
+				"empty": {
+					"description": "Informações de origem do serviço, atualização e metadados de requisição serão exibidas aqui."
+				}
+			},
+			"reject": {
+				"confirm": {
+					"description": "Rejeitar {{formerStudent}} para {{project}}.",
+					"title": "Rejeitar inscrição"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível rejeitar a inscrição no momento.",
+						"title": "Não foi possível rejeitar a inscrição"
+					},
+					"success": {
+						"description": "{{formerStudent}} foi rejeitado para {{project}}.",
+						"title": "Inscrição rejeitada"
+					}
+				}
+			},
+			"remove": {
+				"confirm": {
+					"description": "Marcar {{formerStudent}} como removido de {{project}}.",
+					"title": "Remover inscrição"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível marcar a inscrição como removida no momento.",
+						"title": "Não foi possível remover a inscrição"
+					},
+					"success": {
+						"description": "{{formerStudent}} foi marcado como removido de {{project}}.",
+						"title": "Inscrição removida"
+					}
+				}
+			},
+			"status": {
+				"options": {
+					"APPROVED": "Aprovado",
+					"CANCELED": "Cancelado",
+					"COMPLETED": "Concluído",
+					"EXITED": "Desistente",
+					"ON_HOLD": "Em espera",
+					"PENDING": "Pendente",
+					"REJECTED": "Rejeitado",
+					"REMOVED": "Removido"
+				}
+			},
+			"table": {
+				"actions": {
+					"accept": "Aprovar",
+					"cancel": "Cancelar",
+					"complete": "Concluir",
+					"delete": "Excluir",
+					"reject": "Rejeitar",
+					"remove": "Marcar como removido",
+					"update": "Editar",
+					"viewDetails": "Ver detalhes"
+				},
+				"columns": {
+					"acceptedAt": "Aprovado em",
+					"closingStatusAt": "Encerrado em",
+					"registration": "Matrícula"
+				},
+				"values": {
+					"notAccepted": "Não aprovado",
+					"open": "Aberto"
+				}
+			},
+			"title": "Inscrições",
+			"update": {
+				"actions": {
+					"save": "Atualizar inscrição",
+					"savePending": "Atualizando inscrição..."
+				},
+				"feedback": {
+					"success": {
+						"description": "A inscrição foi atualizada com sucesso.",
+						"title": "Inscrição atualizada"
+					}
+				},
+				"overhead": "Atualizar inscrição",
+				"titleFallback": "Atualizar inscrição"
+			}
+		},
+		"modulePage": {
+			"description": "Dados centralizados de execução de projetos, inscrições e presenças.",
+			"title": "Serviços de projetos"
+		},
+		"projectPage": {
+			"cancel": {
+				"confirm": {
+					"description": "Cancelar {{name}} e encerrar o registro do projeto.",
+					"title": "Cancelar projeto"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível cancelar o projeto no momento.",
+						"title": "Não foi possível cancelar o projeto"
+					},
+					"success": {
+						"description": "{{name}} foi cancelado com sucesso.",
+						"title": "Projeto cancelado"
+					}
+				}
+			},
+			"complete": {
+				"confirm": {
+					"description": "Marcar {{name}} como concluído e encerrar o projeto.",
+					"title": "Concluir projeto"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível concluir o projeto no momento.",
+						"title": "Não foi possível concluir o projeto"
+					},
+					"success": {
+						"description": "{{name}} foi marcado como concluído.",
+						"title": "Projeto concluído"
+					}
+				}
+			},
+			"create": {
+				"actions": {
+					"save": "Criar projeto",
+					"savePending": "Criando projeto..."
+				},
+				"open": "Criar projeto",
+				"overhead": "Novo projeto",
+				"titleFallback": "Novo projeto"
+			},
+			"description": "Gerencie projetos, carga horária, responsáveis e status de execução.",
+			"dialog": {
+				"areasOfExpertiseError": {
+					"description": "Não foi possível carregar as áreas de conhecimento vinculadas no momento.",
+					"title": "Não foi possível carregar as áreas de conhecimento"
+				},
+				"error": {
+					"description": "Não foi possível carregar os detalhes do projeto no momento.",
+					"title": "Não foi possível carregar os detalhes do projeto"
+				},
+				"fields": {
+					"closedAt": "Encerrado em",
+					"completedHours": "Horas concluídas",
+					"createdBy": "Criado por",
+					"description": "Descrição",
+					"id": "ID do projeto",
+					"maxParticipants": "Máximo de participantes",
+					"name": "Nome",
+					"offeredHours": "Horas ofertadas"
+				},
+				"linkedAreasOfExpertise": {
+					"empty": {
+						"description": "Nenhuma área de conhecimento está vinculada a este projeto.",
+						"title": "Nenhuma área vinculada"
+					},
+					"overhead": "Áreas de conhecimento vinculadas"
+				},
+				"linkedEntity": {
+					"overhead": "Entidade vinculada"
+				},
+				"titleFallback": "Detalhes do projeto",
+				"values": {
+					"noDescription": "Nenhuma descrição informada.",
+					"open": "Aberto",
+					"unlimited": "Ilimitado"
+				}
+			},
+			"duplicate": {
+				"overhead": "Duplicar projeto",
+				"titleFallback": "Duplicar projeto"
+			},
+			"editor": {
+				"areasOfExpertiseLoadError": {
+					"description": "Não foi possível carregar o diretório de áreas de conhecimento no momento.",
+					"title": "Não foi possível carregar as áreas de conhecimento"
+				},
+				"fields": {
+					"areasOfExpertise": "Áreas de conhecimento",
+					"description": "Descrição",
+					"descriptionPlaceholder": "Descreva o escopo e os resultados esperados do projeto.",
+					"maxParticipants": "Máximo de participantes",
+					"maxParticipantsPlaceholder": "Deixe em branco para capacidade ilimitada",
+					"name": "Nome",
+					"namePlaceholder": "Informe o nome do projeto",
+					"offeredHours": "Horas ofertadas",
+					"offeredHoursPlaceholder": "Informe a carga horária ofertada"
+				},
+				"tabs": {
+					"linked": "Vinculado"
+				},
+				"validation": {
+					"description": {
+						"tooLong": "A descrição deve conter no máximo 4000 caracteres."
+					},
+					"entity": {
+						"required": "Selecione uma entidade."
+					},
+					"maxParticipants": {
+						"invalid": "Informe zero ou um número positivo."
+					},
+					"name": {
+						"required": "Informe o nome do projeto.",
+						"tooLong": "O nome deve conter no máximo 150 caracteres."
+					},
+					"offeredHours": {
+						"invalid": "Informe zero ou um número positivo.",
+						"required": "Informe a carga horária ofertada."
+					}
+				}
+			},
+			"feedback": {
+				"adminsError": {
+					"description": "Não foi possível carregar o diretório de administradores no momento.",
+					"title": "Não foi possível carregar os administradores"
+				},
+				"areasOfExpertiseError": {
+					"description": "Não foi possível carregar as áreas de conhecimento vinculadas no momento.",
+					"title": "Não foi possível carregar as áreas de conhecimento do projeto"
+				}
+			},
+			"filters": {
+				"createdBy": {
+					"error": {
+						"description": "Não foi possível carregar o diretório de administradores no momento.",
+						"title": "Não foi possível carregar os administradores"
+					},
+					"label": "Criado por"
+				},
+				"description": {
+					"label": "Padrão da descrição",
+					"placeholder": "Filtrar pela descrição do projeto no servidor"
+				},
+				"maxOfferedHours": {
+					"label": "Máximo de horas ofertadas",
+					"placeholder": "Filtrar pela carga horária máxima ofertada"
+				},
+				"minOfferedHours": {
+					"label": "Mínimo de horas ofertadas",
+					"placeholder": "Filtrar pela carga horária mínima ofertada"
+				}
+			},
+			"hold": {
+				"confirm": {
+					"description": "Colocar {{name}} em espera até que a execução possa ser retomada.",
+					"title": "Suspender projeto"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível colocar o projeto em espera no momento.",
+						"title": "Não foi possível suspender o projeto"
+					},
+					"success": {
+						"description": "{{name}} está agora em espera.",
+						"title": "Projeto em espera"
+					}
+				}
+			},
+			"loading": {
+				"list": "Carregando projetos"
+			},
+			"retake": {
+				"confirm": {
+					"description": "Reabrir {{name}} e retorná-lo para a fase de planejamento.",
+					"title": "Reabrir projeto"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível reabrir o projeto no momento.",
+						"title": "Não foi possível reabrir o projeto"
+					},
+					"success": {
+						"description": "{{name}} retornou para a fase de planejamento.",
+						"title": "Projeto reaberto"
+					}
+				}
+			},
+			"start": {
+				"confirm": {
+					"description": "Iniciar a execução de {{name}}.",
+					"title": "Iniciar projeto"
+				},
+				"feedback": {
+					"error": {
+						"description": "Não foi possível iniciar o projeto no momento.",
+						"title": "Não foi possível iniciar o projeto"
+					},
+					"success": {
+						"description": "{{name}} está agora em andamento.",
+						"title": "Projeto iniciado"
+					}
+				}
+			},
+			"status": {
+				"options": {
+					"CANCELED": "Cancelado",
+					"COMPLETED": "Concluído",
+					"IN_PROGRESS": "Em andamento",
+					"ON_HOLD": "Em espera",
+					"PLANNED": "Planejado"
+				}
+			},
+			"table": {
+				"actions": {
+					"cancel": "Cancelar",
+					"complete": "Concluir",
+					"delete": "Excluir",
+					"duplicate": "Duplicar",
+					"hold": "Suspender",
+					"retake": "Reabrir",
+					"start": "Iniciar",
+					"update": "Editar",
+					"viewDetails": "Ver detalhes"
+				},
+				"columns": {
+					"closedAt": "Encerrado em",
+					"completedHours": "Horas concluídas",
+					"createdBy": "Criado por",
+					"description": "Descrição",
+					"maxParticipants": "Máximo de participantes",
+					"offeredHours": "Horas ofertadas"
+				}
+			},
+			"title": "Projetos",
+			"update": {
+				"overhead": "Editar projeto",
+				"titleFallback": "Editar projeto"
+			}
+		}
+	},
+	"table": {
+		"actions": {
+			"deactivate": "Desativar",
+			"delete": "Excluir",
+			"duplicate": "Duplicar",
+			"openRowActions": "Abrir ações da linha",
+			"reactivate": "Reativar",
+			"update": "Editar",
+			"viewDetails": "Ver detalhes"
+		},
+		"columns": {
+			"accountActive": "Ativo",
+			"accountType": "Tipo de conta",
+			"actions": "Ações",
+			"areaOfExpertise": "Área de conhecimento",
+			"campus": "Campus",
+			"city": "Cidade",
+			"course": "Curso",
+			"createdAt": "Criado em",
+			"email": "E-mail",
+			"entity": "Entidade",
+			"formerStudent": "Egresso",
+			"formerStudentId": "ID do egresso",
+			"id": "Identificador",
+			"name": "Nome",
+			"project": "Projeto",
+			"projectId": "ID do projeto",
+			"status": "Status",
+			"updatedAt": "Atualizado em"
+		},
+		"scroll": {
+			"horizontal": "Rolar tabela horizontalmente",
+			"vertical": "Rolar tabela verticalmente"
+		}
+	}
+}
