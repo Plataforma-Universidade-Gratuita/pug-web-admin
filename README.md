@@ -128,9 +128,9 @@ Create local environment configuration from [.env.example](.env.example), or set
 
 Repository-defined values:
 
-| Variable | Default / source | Purpose |
-| --- | --- | --- |
-| `NEXT_PUBLIC_API_URL` | `.env.example` -> `http://localhost:8080` | backend base URL |
+| Variable              | Default / source                                       | Purpose           |
+| --------------------- | ------------------------------------------------------ | ----------------- |
+| `NEXT_PUBLIC_API_URL` | `.env.example` -> `http://localhost:8080`              | backend base URL  |
 | `NEXT_PUBLIC_APP_URL` | used in `app/layout.tsx`; not listed in `.env.example` | metadata base URL |
 
 Mock-oriented environment file:
@@ -204,4 +204,3 @@ pug-web-admin/
 - [Architecture notes](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/ARCHITECTURE.md)
 - [Development notes](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/DEVELOPMENT.md)
 - [CI/CD notes](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/CICD.md)
-
