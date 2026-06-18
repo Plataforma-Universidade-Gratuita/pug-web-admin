@@ -126,7 +126,7 @@ Create local environment configuration from [.env.example](.env.example), or set
 
 ### Environment variables
 
-Discovered in the current codebase:
+Repository-defined values:
 
 | Variable | Default / source | Purpose |
 | --- | --- | --- |
@@ -164,9 +164,9 @@ npm run start
 - **Initial stable release:** this README documents the current `pug-web-admin` repository as release `1.0.0`
 - **Main delivered modules/features:** protected admin shell, command-center home dashboard, typed local API proxy layer, typed backend integration, and domain workspaces for academic, geo, identity, partner, and project
 - **Known limitations visible in the repo:**
-  - a dedicated automated test suite was not found in the current codebase
+  - a dedicated automated test suite is not part of the repository
   - `app/(app)/docs` exists as a route-group directory, but route files were not found there
-  - `dev:mock` switches environment values, but a mock API bootstrap was not found in this repository
+  - `dev:mock` switches environment values, but a mock API bootstrap was not included here
 - **Compatibility/runtime expectations:**
   - Node.js `22` is the safest local choice because it matches CI
   - the application expects a backend reachable through `NEXT_PUBLIC_API_URL`
@@ -200,8 +200,8 @@ pug-web-admin/
 
 ## 🔗 Links to deeper documentation
 
-- [Expanded workspace documentation](../pug-docs/pug-web-admin/README.md)
-- [Architecture notes](../pug-docs/pug-web-admin/ARCHITECTURE.md)
-- [Development notes](../pug-docs/pug-web-admin/DEVELOPMENT.md)
-- [CI/CD notes](../pug-docs/pug-web-admin/CICD.md)
+- [Expanded workspace documentation](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/README.md)
+- [Architecture notes](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/ARCHITECTURE.md)
+- [Development notes](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/DEVELOPMENT.md)
+- [CI/CD notes](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/CICD.md)
 
