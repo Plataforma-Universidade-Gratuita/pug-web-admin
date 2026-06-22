@@ -38,6 +38,8 @@ export function ProjectsPage() {
 		activeQueryIsLoading,
 		tableEmptyState,
 		hasAnyFilters,
+		areaOfExpertiseOptions,
+		areasOfExpertiseQuery,
 		totalElements,
 		totalPages,
 		projectsPagination,
@@ -113,6 +115,15 @@ export function ProjectsPage() {
 						void entitiesQuery.refetch();
 					}}
 					onStatusesChange={value => setDraftFilter("statuses", value)}
+					areaOfExpertiseOptions={areaOfExpertiseOptions}
+					areasOfExpertiseError={areasOfExpertiseQuery.isError}
+					onAreaOfExpertiseIdsChange={value =>
+						setDraftFilter("areaOfExpertiseIds", value)
+					}
+					onAvailableChange={value => setDraftFilter("available", value)}
+					onRefreshAreasOfExpertise={() => {
+						void areasOfExpertiseQuery.refetch();
+					}}
 				/>
 			</ServicePageHeader>
 

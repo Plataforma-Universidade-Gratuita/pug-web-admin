@@ -48,6 +48,7 @@ export const ProjectUpdateRequestSchema = z.object({
 export const ProjectInfoResponseSchema = z.object({
 	createdBy: AccountSimpleComplexSearchResponseSchema,
 	maxParticipants: z.number().nullable(),
+	currentParticipants: z.number().nullable(),
 	offeredHours: z.number().nullable(),
 	completedHours: z.number().nullable(),
 	closedAt: z.string().nullable(),
@@ -67,11 +68,13 @@ export const ProjectResponseSchema = z.object({
 export const ProjectComplexSearchRequestSchema = z.object({
 	name: z.string().optional(),
 	entityIds: z.array(z.string()).optional(),
+	areaOfExpertiseIds: z.array(z.string()).optional(),
 	description: z.string().optional(),
 	createdByIds: z.array(z.string()).optional(),
 	dateFrom: z.string().optional(),
 	dateTo: z.string().optional(),
 	statuses: z.array(ProjectStatusEnum).optional(),
+	available: z.boolean().optional(),
 	maxOfferedHours: z.number().optional(),
 	minOfferedHours: z.number().optional(),
 });

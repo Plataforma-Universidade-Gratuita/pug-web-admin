@@ -48,6 +48,11 @@ export function WireCredentialsDialog({
 	const currentAdminQuery = useCurrentAdminQuery();
 	const currentEmail =
 		currentAdminQuery.data?.accountResponse.email?.trim() ?? "";
+	const resetValues = {
+		email: currentEmail,
+		password: "",
+		confirmPassword: "",
+	};
 	const {
 		register,
 		handleSubmit,
@@ -56,11 +61,7 @@ export function WireCredentialsDialog({
 		formState: { errors },
 	} = useLocalizedZodForm<WireCredentialsFormValues>({
 		schemaFactory: createWireCredentialsFormSchema,
-		defaultValues: {
-			email: "",
-			password: "",
-			confirmPassword: "",
-		},
+		defaultValues: resetValues,
 	});
 
 	useEffect(() => {
@@ -95,7 +96,7 @@ export function WireCredentialsDialog({
 
 				await queryClient.invalidateQueries();
 				onWired();
-				reset();
+				reset(resetValues);
 				toast.success(t("auth.login.wireCredentials.feedback.success"));
 				router.refresh();
 			} catch (submitError) {
@@ -141,7 +142,7 @@ export function WireCredentialsDialog({
 					noValidate
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<div className="space-y-4 px-6">
+					<div className="px-6 py-4">
 						<div className="grid gap-4">
 							<div>
 								<Label htmlFor="wire-email">
@@ -250,7 +251,7 @@ export function WireCredentialsDialog({
 							className="ml-auto"
 							disabled={isPending}
 							onClick={() => {
-								reset();
+								reset(resetValues);
 								setError(null);
 								onOpenChange(false);
 							}}

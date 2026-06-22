@@ -354,7 +354,7 @@
 				"fields": {
 					"email": {
 						"label": "E-mail",
-						"placeholder": "[admin@pug.edu.br](mailto:admin@pug.edu.br)"
+						"placeholder": "admin@catolicasc.org.br"
 					},
 					"password": {
 						"label": "Senha",
@@ -1897,6 +1897,13 @@
 				}
 			},
 			"filters": {
+				"areaOfExpertise": {
+					"label": "Áreas de conhecimento"
+				},
+				"available": {
+					"description": "Filtrar apenas por projetos que ainda não atingiram a capacidade máxima.",
+					"label": "Apenas disponíveis"
+				},
 				"createdBy": {
 					"error": {
 						"description": "Não foi possível carregar o diretório de administradores no momento.",
@@ -1993,6 +2000,7 @@
 					"closedAt": "Encerrado em",
 					"completedHours": "Horas concluídas",
 					"createdBy": "Criado por",
+					"currentParticipants": "Participantes atuais",
 					"description": "Descrição",
 					"maxParticipants": "Máximo de participantes",
 					"offeredHours": "Horas ofertadas"

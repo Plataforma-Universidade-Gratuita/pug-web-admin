@@ -44,6 +44,11 @@ export function ProjectsPageFilters({
 	onRefreshCreators,
 	onRefreshEntities,
 	onStatusesChange,
+	areaOfExpertiseOptions,
+	areasOfExpertiseError,
+	onAreaOfExpertiseIdsChange,
+	onAvailableChange,
+	onRefreshAreasOfExpertise,
 }: {
 	querySearch: string;
 	onQuerySearchChange: (value: string) => void;
@@ -71,6 +76,11 @@ export function ProjectsPageFilters({
 	onRefreshCreators: () => void;
 	onRefreshEntities: () => void;
 	onStatusesChange: (value: ProjectStatus[]) => void;
+	areaOfExpertiseOptions: ComboboxOption[];
+	areasOfExpertiseError: boolean;
+	onAreaOfExpertiseIdsChange: (value: string[]) => void;
+	onAvailableChange: (value: boolean) => void;
+	onRefreshAreasOfExpertise: () => void;
 }) {
 	const { t } = useTranslation();
 
@@ -126,6 +136,13 @@ export function ProjectsPageFilters({
 				maxOfferedHours={draftFilters.maxOfferedHours}
 				minOfferedHours={draftFilters.minOfferedHours}
 				name={draftFilters.name}
+				areaOfExpertiseIds={draftFilters.areaOfExpertiseIds}
+				areaOfExpertiseOptions={areaOfExpertiseOptions}
+				areasOfExpertiseError={areasOfExpertiseError}
+				available={draftFilters.available}
+				onAreaOfExpertiseIdsChange={onAreaOfExpertiseIdsChange}
+				onAvailableChange={onAvailableChange}
+				onRefreshAreasOfExpertise={onRefreshAreasOfExpertise}
 			/>
 		</>
 	);

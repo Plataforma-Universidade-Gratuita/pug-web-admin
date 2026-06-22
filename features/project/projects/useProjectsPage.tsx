@@ -21,6 +21,7 @@ import {
 	getProjectStatusActionErrorToastContent,
 	getProjectStatusOptions,
 	getProjectDeleteErrorToastContent,
+	buildProjectAreaOfExpertiseOptions,
 } from "@/features/project/projects/utils";
 import {
 	appendCopyToText,
@@ -72,9 +73,11 @@ export function useProjectsPage() {
 		() => ({
 			name: "",
 			entityIds: [],
+			areaOfExpertiseIds: [],
 			description: "",
 			createdByIds: [],
 			statuses: [],
+			available: false,
 			maxOfferedHours: "",
 			minOfferedHours: "",
 			dateFrom: "",
@@ -114,6 +117,7 @@ export function useProjectsPage() {
 	const setProjectAreasOfExpertiseMutation =
 		useSetProjectAreasOfExpertiseMutation();
 	const { schedule } = useDeferredUndoAction();
+	const { useAreasOfExpertiseQuery } = web.academic.areasOfExpertise;
 	const activeQueryError = projectsPagination.isAll
 		? projectsQuery.error
 		: projectsSearchQuery.error;
@@ -151,6 +155,21 @@ export function useProjectsPage() {
 					)
 				: [],
 		[projectsQuery.data],
+	);
+	const areasOfExpertiseQuery = useAreasOfExpertiseQuery();
+	const areaOfExpertiseOptions = useMemo(
+		() => buildProjectAreaOfExpertiseOptions(areasOfExpertiseQuery.data ?? []),
+		[areasOfExpertiseQuery.data],
+	);
+	const areaOfExpertiseById = useMemo(
+		() =>
+			new Map(
+				(areasOfExpertiseQuery.data ?? []).map(areaOfExpertise => [
+					areaOfExpertise.id,
+					areaOfExpertise,
+				]),
+			),
+		[areasOfExpertiseQuery.data],
 	);
 	const statusOptions = useMemo(() => getProjectStatusOptions(t), [t]);
 	const backendFilteredAllProjects = useMemo(
@@ -194,13 +213,16 @@ export function useProjectsPage() {
 				description: appliedFilters.description,
 				entityById,
 				entityIds: appliedFilters.entityIds,
+				areaOfExpertiseById,
+				areaOfExpertiseIds: appliedFilters.areaOfExpertiseIds,
 				maxOfferedHours: appliedFilters.maxOfferedHours,
 				minOfferedHours: appliedFilters.minOfferedHours,
 				name: appliedFilters.name,
 				query: deferredQuerySearch,
 				statuses: appliedFilters.statuses,
+				available: appliedFilters.available,
 			}),
-		[appliedFilters, deferredQuerySearch, entityById, t],
+		[appliedFilters, deferredQuerySearch, areaOfExpertiseById, entityById, t],
 	);
 	const emptyStateCopy = useMemo(
 		() => getProjectEmptyStateCopy(t, filterSummary),
@@ -431,6 +453,8 @@ export function useProjectsPage() {
 		tableEmptyState,
 		hasAnyFilters,
 		totalElements,
+		areasOfExpertiseQuery,
+		areaOfExpertiseOptions,
 		totalPages,
 		projectsPagination,
 		pendingDeleteProject,

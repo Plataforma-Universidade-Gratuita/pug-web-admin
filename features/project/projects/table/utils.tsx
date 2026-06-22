@@ -173,6 +173,11 @@ export function createProjectColumns(
 			header: t("project.projectPage.table.columns.maxParticipants"),
 		},
 		{
+			accessorFn: row => row.projectInfo.currentParticipants ?? 0,
+			id: "currentParticipants",
+			header: t("project.projectPage.table.columns.currentParticipants"),
+		},
+		{
 			accessorFn: row =>
 				row.projectInfo.closedAt
 					? row.projectInfo.closedAtFormatted

@@ -36,10 +36,15 @@ export function buildProjectComplexSearchRequest(
 	return {
 		name: filters.name.trim() || undefined,
 		entityIds: filters.entityIds.length > 0 ? filters.entityIds : undefined,
+		areaOfExpertiseIds:
+			filters.areaOfExpertiseIds.length > 0
+				? filters.areaOfExpertiseIds
+				: undefined,
 		description: filters.description.trim() || undefined,
 		createdByIds:
 			filters.createdByIds.length > 0 ? filters.createdByIds : undefined,
 		statuses: filters.statuses.length > 0 ? filters.statuses : undefined,
+		available: filters.available ? true : undefined,
 		maxOfferedHours: parseOptionalPositiveNumber(filters.maxOfferedHours),
 		minOfferedHours: parseOptionalPositiveNumber(filters.minOfferedHours),
 		dateFrom: toSearchDateOffsetDateTime(filters.dateFrom, "start"),
@@ -63,6 +68,8 @@ export function filterProjectsByBackendFilters(
 	const hasName = Boolean(normalizedName);
 	const hasStatuses = filters.statuses.length > 0;
 	const hasDateRange = Boolean(filters.dateFrom || filters.dateTo);
+	const hasAreaOfExpertiseIds = filters.areaOfExpertiseIds.length > 0;
+	const hasAvailable = filters.available;
 
 	if (
 		!hasName &&
@@ -72,7 +79,9 @@ export function filterProjectsByBackendFilters(
 		!hasStatuses &&
 		!hasMaxOfferedHours &&
 		!hasMinOfferedHours &&
-		!hasDateRange
+		!hasDateRange &&
+		!hasAreaOfExpertiseIds &&
+		!hasAvailable
 	) {
 		return projects;
 	}
@@ -140,6 +149,15 @@ export function filterProjectsByBackendFilters(
 			)
 		) {
 			return false;
+		}
+
+		if (hasAvailable) {
+			const maxParticipants = project.projectInfo.maxParticipants;
+			const currentParticipants = project.projectInfo.currentParticipants ?? 0;
+
+			if (maxParticipants !== null && currentParticipants >= maxParticipants) {
+				return false;
+			}
 		}
 
 		return true;

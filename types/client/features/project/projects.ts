@@ -1,6 +1,7 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import type {
+	AreaOfExpertiseResponse,
 	EntityResponse,
 	ProjectCreateRequest,
 	ProjectResponse,
@@ -31,9 +32,11 @@ export type ProjectStatusAction =
 export interface ProjectComplexSearchFilters {
 	name: string;
 	entityIds: string[];
+	areaOfExpertiseIds: string[];
 	description: string;
 	createdByIds: string[];
 	statuses: ProjectStatus[];
+	available: boolean;
 	maxOfferedHours: string;
 	minOfferedHours: string;
 	dateFrom: string;
@@ -106,6 +109,13 @@ export interface ProjectsFiltersDrawerProps {
 	entitiesError: boolean;
 	entityIds: string[];
 	entityOptions: ComboboxOption[];
+	areaOfExpertiseIds: string[];
+	areaOfExpertiseOptions: ComboboxOption[];
+	areasOfExpertiseError: boolean;
+	available: boolean;
+	onAreaOfExpertiseIdsChange: (value: string[]) => void;
+	onAvailableChange: (value: boolean) => void;
+	onRefreshAreasOfExpertise: () => void;
 	hasActiveFilters: boolean;
 	onApply: () => void;
 	onCreatedByIdsChange: (value: string[]) => void;
@@ -146,6 +156,9 @@ export interface ProjectFilterArgs {
 	description: string;
 	entityById: Map<string, EntityResponse>;
 	entityIds: string[];
+	areaOfExpertiseById: Map<string, AreaOfExpertiseResponse>;
+	areaOfExpertiseIds: string[];
+	available: boolean;
 	maxOfferedHours: string;
 	minOfferedHours: string;
 	name: string;

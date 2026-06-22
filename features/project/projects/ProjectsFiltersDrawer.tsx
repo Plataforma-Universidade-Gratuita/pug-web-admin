@@ -10,7 +10,7 @@ import {
 } from "@/components/composite";
 import { ServicePageFiltersDrawer } from "@/components/composite";
 import { NumberFieldFilter, TextFieldFilter } from "@/components/composite";
-import { Combobox, Label } from "@/components/primitives";
+import { Checkbox, Combobox, Label } from "@/components/primitives";
 import { getProjectStatusOptions } from "@/features/project/projects/utils";
 import type { ProjectStatus } from "@/types/api";
 import type { ProjectsFiltersDrawerProps } from "@/types/client";
@@ -45,6 +45,13 @@ export function ProjectsFiltersDrawer({
 	maxOfferedHours,
 	minOfferedHours,
 	name,
+	areaOfExpertiseIds,
+	areaOfExpertiseOptions,
+	areasOfExpertiseError,
+	available,
+	onAreaOfExpertiseIdsChange,
+	onAvailableChange,
+	onRefreshAreasOfExpertise,
 }: ProjectsFiltersDrawerProps) {
 	const { t } = useTranslation();
 	const statusOptions = useMemo(() => getProjectStatusOptions(t), [t]);
@@ -86,6 +93,21 @@ export function ProjectsFiltersDrawer({
 				errorTitle={t("common.loadErrors.entities.title")}
 				errorDescription={t("common.loadErrors.entities.description")}
 				onRefreshError={onRefreshEntities}
+			/>
+
+			<AsyncComboboxFilterField
+				multiple
+				label={t("project.projectPage.filters.areaOfExpertise.label")}
+				options={areaOfExpertiseOptions}
+				values={areaOfExpertiseIds}
+				onValuesChange={value => onAreaOfExpertiseIdsChange(value)}
+				placeholder={t("common.placeholders.select")}
+				searchPlaceholder={t("common.placeholders.search")}
+				emptyMessage={t("common.placeholders.noResults")}
+				isError={Boolean(areasOfExpertiseError)}
+				errorTitle={t("common.loadErrors.areasOfExpertise.title")}
+				errorDescription={t("common.loadErrors.areasOfExpertise.description")}
+				onRefreshError={onRefreshAreasOfExpertise}
 			/>
 
 			<TextFieldFilter
@@ -150,6 +172,13 @@ export function ProjectsFiltersDrawer({
 				endValue={dateTo}
 				onEndValueChange={onDateToChange}
 				endPlaceholder={t("common.filters.endDate.placeholder")}
+			/>
+
+			<Checkbox
+				checked={available}
+				onCheckedChange={checked => onAvailableChange(Boolean(checked))}
+				label={t("project.projectPage.filters.available.label")}
+				description={t("project.projectPage.filters.available.description")}
 			/>
 		</ServicePageFiltersDrawer>
 	);
