@@ -16,5 +16,4 @@ jobs:
       azure_container_app: pug-web-admin-qa
       image_name: pug-web-admin
       image_tag_alias: qa
-      next_public_api_url: ${{ vars.NEXT_PUBLIC_API_URL }}
     secrets: inherit
