@@ -1,0 +1,20 @@
+name: Deploy QA
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy-container-app.yml
+    with:
+      environment_name: qa
+      azure_resource_group: rg-pug-qa
+      azure_container_app: pug-web-admin-qa
+      image_name: pug-web-admin
+      image_tag_alias: qa
+      next_public_api_url: ${{ vars.NEXT_PUBLIC_API_URL }}
+    secrets: inherit
