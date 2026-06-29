@@ -135,7 +135,7 @@ export function mapEntitiesToTableRows(
 		cnpj: entity.cnpj,
 		cnpjFormatted: entity.cnpjFormatted,
 		name: entity.name,
-		address: entity.address,
+		address: entity.address ?? "",
 		cityId: entity.cityId,
 		cityLabel: cityById.get(entity.cityId)?.name ?? entity.cityId,
 		auditInfo: entity.auditInfo,
@@ -150,18 +150,11 @@ export function mapEntitySearchResponsesToTableRows(
 		cnpj: entity.cnpj,
 		cnpjFormatted: entity.cnpjFormatted,
 		name: entity.name,
-		address: entity.address,
+		address: entity.address ?? "",
 		cityId: entity.city.id,
 		cityLabel: entity.city.name,
 		auditInfo: entity.auditInfo,
 	}));
-}
-
-export function resolveEntityCityLabel(
-	cityById: Map<string, CityResponse>,
-	cityId: string,
-) {
-	return cityById.get(cityId)?.name ?? cityId;
 }
 
 export function filterEntitiesByFrontendQuery(
@@ -326,7 +319,7 @@ export function buildEntityUpdateFormValues(
 		cnpj: entity.cnpj,
 		name: entity.name,
 		cityId: entity.cityId,
-		address: entity.address,
+		address: entity.address ?? "",
 	};
 }
 
@@ -337,7 +330,7 @@ export function buildEntityDuplicateFormValues(
 		cnpj: "",
 		name: entity.name,
 		cityId: entity.cityId,
-		address: entity.address,
+		address: entity.address ?? "",
 	};
 }
 

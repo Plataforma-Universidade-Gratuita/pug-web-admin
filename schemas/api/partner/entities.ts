@@ -17,7 +17,7 @@ export const EntityResponseSchema = z.object({
 	cnpj: z.string(),
 	cnpjFormatted: z.string(),
 	name: z.string(),
-	address: z.string(),
+	address: z.string().nullable().optional(),
 	cityId: z.string(),
 	auditInfo: AuditInfoResponseSchema,
 });
@@ -25,7 +25,7 @@ export const EntityResponseSchema = z.object({
 export const EntityComplexSearchRequestSchema = z.object({
 	name: z.string().optional(),
 	cnpj: z.string().optional(),
-	address: z.string().optional(),
+	address: z.string().nullable().optional(),
 	cityIds: z.array(z.string()).optional(),
 	dateFrom: z.iso.datetime({ offset: true }).optional(),
 	dateTo: z.iso.datetime({ offset: true }).optional(),
@@ -36,7 +36,7 @@ export const EntityComplexSearchResponseSchema = z.object({
 	cnpj: z.string(),
 	cnpjFormatted: z.string(),
 	name: z.string(),
-	address: z.string(),
+	address: z.string().nullable().optional(),
 	city: CityResponseSchema,
 	auditInfo: AuditInfoResponseSchema,
 });
@@ -45,11 +45,11 @@ export const EntityCreateRequestSchema = z.object({
 	cnpj: z.string(),
 	name: z.string(),
 	cityId: z.string(),
-	address: z.string(),
+	address: z.string().nullable().optional(),
 });
 
 export const EntityUpdateRequestSchema = z.object({
 	name: z.string(),
 	cityId: z.string(),
-	address: z.string(),
+	address: z.string().nullable().optional(),
 });
