@@ -6,7 +6,7 @@
 
 ## 🚀 Release 1.0.0
 
-Release `1.0.0` marks the current stable admin-console surface implemented in the repository. This version provides protected route handling, session refresh behavior, domain workspaces for the main PUG modules, typed client/server API layers, translation tooling, and image/verification workflows for CI.
+Release `1.0.0` marks the current stable admin-console surface implemented in the repository. This version provides protected route handling, session refresh behavior, domain workspaces for the main PUG modules, typed client/server API layers, translation tooling, container image publishing, and Azure Container Apps deployment workflows.
 
 Main capabilities present in this release:
 
@@ -14,7 +14,7 @@ Main capabilities present in this release:
 - module coverage for academic, geo, identity, partner, and project
 - browser-facing `/api/v1/*` proxy routes with centralized auth retry behavior
 - typed frontend data layer built on React Query and Zod
-- container build and GitHub Actions verify/build/publish workflows
+- container build, verification, GHCR publishing, and Azure Container Apps deployment workflows
 
 ## ✨ Features
 
@@ -92,6 +92,7 @@ Important architectural properties:
 - the local `/api/v1/*` layer centralizes retry and error shaping
 - React Query is the primary client caching and query orchestration layer
 - Zod is used across route handlers and API utilities instead of trusting raw JSON
+- `NEXT_PUBLIC_API_URL` is baked into the Docker image during the frontend build/publish flow
 
 ## 🧰 Tech stack
 
@@ -105,6 +106,8 @@ Important architectural properties:
 - **Containerization:** Docker multi-stage build on `node:22-alpine`
 - **Verification/tooling:** ESLint, Prettier, TypeScript compiler, translation scripts
 - **CI/CD tooling:** GitHub Actions
+- **Registry:** GitHub Container Registry / GHCR
+- **Deployment target:** Azure Container Apps
 
 ## ▶️ Getting started
 
@@ -112,7 +115,7 @@ Important architectural properties:
 
 - Node.js `22` recommended to match CI
 - npm
-- a reachable backend at `NEXT_PUBLIC_API_URL` such as `pug-service` or `pug-mocks`
+- a reachable backend at `NEXT_PUBLIC_API_URL`, such as `pug-service` or `pug-mocks`
 
 ### Setup
 
@@ -163,6 +166,7 @@ npm run start
 
 - **Initial stable release:** this README documents the current `pug-web-admin` repository as release `1.0.0`
 - **Main delivered modules/features:** protected admin shell, command-center home dashboard, typed local API proxy layer, typed backend integration, and domain workspaces for academic, geo, identity, partner, and project
+- **CI/CD capabilities:** verification, image build validation, GHCR publishing, and QA deployment through Azure Container Apps
 - **Known limitations visible in the repo:**
   - a dedicated automated test suite is not part of the repository
   - `app/(app)/docs` exists as a route-group directory, but route files were not found there
