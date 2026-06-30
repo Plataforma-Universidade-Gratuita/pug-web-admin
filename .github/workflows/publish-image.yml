@@ -108,6 +108,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ steps.image.outputs.tags }}
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
           provenance: false
           sbom: false
           cache-from: type=gha
