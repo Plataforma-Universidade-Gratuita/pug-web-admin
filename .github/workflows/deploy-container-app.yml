@@ -12,10 +12,7 @@ on:
       azure_container_app:
         required: true
         type: string
-      image_name:
-        required: true
-        type: string
-      image_tag_alias:
+      image:
         required: true
         type: string
 
@@ -27,50 +24,11 @@ jobs:
 
     permissions:
       contents: read
-      packages: write
 
     env:
       REGISTRY_SERVER: ghcr.io
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Prepare image metadata
-        id: image
-        run: |
-          OWNER_LOWER=$(echo "${GITHUB_REPOSITORY_OWNER}" | tr '[:upper:]' '[:lower:]')
-          SHORT_SHA="${GITHUB_SHA::12}"
-          IMAGE="${REGISTRY_SERVER}/${OWNER_LOWER}/${{ inputs.image_name }}"
-
-          echo "sha_tag=$IMAGE:sha-$SHORT_SHA" >> "$GITHUB_OUTPUT"
-          echo "alias_tag=$IMAGE:${{ inputs.image_tag_alias }}" >> "$GITHUB_OUTPUT"
-
-      - name: Log in to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          platforms: linux/amd64,linux/arm64
-          build-args: |
-            NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
-          tags: |
-            ${{ steps.image.outputs.sha_tag }}
-            ${{ steps.image.outputs.alias_tag }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
       - name: Azure login
         uses: azure/login@v2
         with:
@@ -93,7 +51,7 @@ jobs:
           az containerapp update \
             --name "${{ inputs.azure_container_app }}" \
             --resource-group "${{ inputs.azure_resource_group }}" \
-            --image "${{ steps.image.outputs.sha_tag }}" \
+            --image "${{ inputs.image }}" \
             --set-env-vars \
               NODE_ENV=production \
               NEXT_TELEMETRY_DISABLED=1 \
@@ -109,4 +67,5 @@ jobs:
             --query properties.configuration.ingress.fqdn \
             --output tsv)
 
+          echo "Image: ${{ inputs.image }}"
           echo "URL: https://$FQDN"
