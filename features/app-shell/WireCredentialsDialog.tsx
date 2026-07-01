@@ -5,7 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { useQueryClient } from "@tanstack/react-query";
-import { KeyRound } from "lucide-react";
+import { CircleHelp, KeyRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import * as web from "@/api/web";
@@ -29,8 +29,6 @@ import type {
 	WireCredentialsDialogProps,
 	WireCredentialsFormValues,
 } from "@/types/client";
-
-import { evaluateWireCredentialsPasswordRequirements } from "./wire-credentials-utils";
 
 const { auth: authApi } = web.identity;
 const { admins: adminsApi } = web.identity;
@@ -60,15 +58,11 @@ export function WireCredentialsDialog({
 		handleSubmit,
 		reset,
 		setValue,
-		watch,
 		formState: { errors },
 	} = useLocalizedZodForm<WireCredentialsFormValues>({
 		schemaFactory: createWireCredentialsFormSchema,
 		defaultValues: resetValues,
 	});
-	const passwordValue = watch("password") ?? "";
-	const passwordRequirements =
-		evaluateWireCredentialsPasswordRequirements(passwordValue);
 
 	useEffect(() => {
 		if (!currentEmail) {
@@ -134,7 +128,7 @@ export function WireCredentialsDialog({
 				}
 			}}
 		>
-			<AlertDialogContent className="sm:max-w-[42rem]">
+			<AlertDialogContent className="sm:max-w-[38rem]">
 				<AlertDialogHeader overhead={t("auth.login.wireCredentials.overhead")}>
 					<AlertDialogTitle>
 						{t("auth.login.wireCredentials.title")}
@@ -182,9 +176,55 @@ export function WireCredentialsDialog({
 								) : null}
 							</div>
 							<div>
-								<Label htmlFor="wire-password">
-									{t("auth.login.wireCredentials.fields.password.label")}
-								</Label>
+								<div className="mb-2 flex items-center gap-2">
+									<Label
+										htmlFor="wire-password"
+										className="mb-0"
+									>
+										{t("auth.login.wireCredentials.fields.password.label")}
+									</Label>
+									<Icon
+										icon={CircleHelp}
+										size={14}
+										className="text-muted-foreground"
+										tooltipContent={
+											<div className="max-w-56 space-y-1">
+												<p className="font-medium">
+													{t(
+														"auth.login.wireCredentials.passwordChecklist.title",
+													)}
+												</p>
+												<ul className="space-y-0.5 text-xs">
+													<li>
+														{t(
+															"auth.login.wireCredentials.passwordChecklist.minLength",
+														)}
+													</li>
+													<li>
+														{t(
+															"auth.login.wireCredentials.passwordChecklist.uppercase",
+														)}
+													</li>
+													<li>
+														{t(
+															"auth.login.wireCredentials.passwordChecklist.lowercase",
+														)}
+													</li>
+													<li>
+														{t(
+															"auth.login.wireCredentials.passwordChecklist.number",
+														)}
+													</li>
+													<li>
+														{t(
+															"auth.login.wireCredentials.passwordChecklist.specialSymbol",
+														)}
+													</li>
+												</ul>
+											</div>
+										}
+									/>
+								</div>
 								<Input
 									id="wire-password"
 									type="password"
@@ -203,74 +243,6 @@ export function WireCredentialsDialog({
 										"auth.login.wireCredentials.fields.password.placeholder",
 									)}
 								/>
-								<div className="border-border bg-surface-1 mt-3 rounded-md border p-3">
-									<p className="ty-caption text-foreground mb-2">
-										{t("auth.login.wireCredentials.passwordChecklist.title")}
-									</p>
-									<ul className="space-y-2">
-										{[
-											[
-												"hasMinimumLength",
-												t(
-													"auth.login.wireCredentials.passwordChecklist.minLength",
-												),
-											],
-											[
-												"hasUppercaseLetter",
-												t(
-													"auth.login.wireCredentials.passwordChecklist.uppercase",
-												),
-											],
-											[
-												"hasLowercaseLetter",
-												t(
-													"auth.login.wireCredentials.passwordChecklist.lowercase",
-												),
-											],
-											[
-												"hasNumber",
-												t(
-													"auth.login.wireCredentials.passwordChecklist.number",
-												),
-											],
-											[
-												"hasSpecialSymbol",
-												t(
-													"auth.login.wireCredentials.passwordChecklist.specialSymbol",
-												),
-											],
-										].map(([key, label]) => {
-											const isSatisfied =
-												passwordRequirements[
-													key as keyof typeof passwordRequirements
-												];
-
-											return (
-												<li
-													key={String(key)}
-													className="flex items-center gap-2"
-												>
-													<span
-														className={`h-2.5 w-2.5 rounded-full ${
-															isSatisfied
-																? "bg-emerald-500 dark:bg-emerald-400"
-																: "bg-border"
-														}`}
-													/>
-													<span
-														className={`ty-caption ${
-															isSatisfied
-																? "text-emerald-700 dark:text-emerald-300"
-																: "text-muted-foreground"
-														}`}
-													>
-														{label}
-													</span>
-												</li>
-											);
-										})}
-									</ul>
-								</div>
 								{errors.password ? (
 									<p
 										id="wire-password-error"
