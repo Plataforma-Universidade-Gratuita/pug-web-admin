@@ -33,7 +33,7 @@ export async function list(
 ): Promise<EntityResponse[]> {
 	return zfetch(
 		`${API_ROUTE_BASES.partner.entities}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		{ method: "GET" },
 		z.array(EntityResponseSchema),

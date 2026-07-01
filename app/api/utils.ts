@@ -105,6 +105,18 @@ export async function routeVoidWithAuthRetry(
 	}
 }
 
+export function getRepeatedQueryParams(
+	request: Request,
+	name: string,
+): string[] | undefined {
+	const values = new URL(request.url).searchParams
+		.getAll(name)
+		.flatMap(value => value.split(","))
+		.map(value => value.trim())
+		.filter(Boolean);
+
+	return values.length > 0 ? values : undefined;
+}
 export async function parseRouteBody<T>(
 	request: Request,
 	schema: z.ZodType<T>,

@@ -38,7 +38,7 @@ export async function getMe(): Promise<AdminResponse> {
 export async function list(ids?: string[]): Promise<AdminResponse[]> {
 	return webFetch(
 		`${WEB_API_ROUTE_BASES.identity.admins}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		z.array(AdminResponseSchema),
 	);

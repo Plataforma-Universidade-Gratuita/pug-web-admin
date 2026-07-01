@@ -31,7 +31,7 @@ export async function get(id: string): Promise<ProjectResponse> {
 
 export async function list(ids?: string[]): Promise<ProjectResponse[]> {
 	return webFetch(
-		`${WEB_API_ROUTE_BASES.project.projects}${qs({ ids: ids?.join(",") })}`,
+		`${WEB_API_ROUTE_BASES.project.projects}${qs({ ids })}`,
 		z.array(ProjectResponseSchema),
 	);
 }

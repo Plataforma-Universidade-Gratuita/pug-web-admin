@@ -38,7 +38,7 @@ export async function getMe(): Promise<FormerStudentResponse> {
 export async function list(ids?: string[]): Promise<FormerStudentResponse[]> {
 	return webFetch(
 		`${WEB_API_ROUTE_BASES.academic.formerStudents}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		z.array(FormerStudentResponseSchema),
 	);

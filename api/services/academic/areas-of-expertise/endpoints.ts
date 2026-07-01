@@ -36,7 +36,7 @@ export async function list(
 ): Promise<AreaOfExpertiseResponse[]> {
 	return zfetch(
 		`${API_ROUTE_BASES.academic.areasOfExpertise}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		{ method: "GET" },
 		z.array(AreaOfExpertiseResponseSchema),

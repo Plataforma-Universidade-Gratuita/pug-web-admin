@@ -46,7 +46,7 @@ export async function list(
 ): Promise<FormerStudentResponse[]> {
 	return zfetch(
 		`${API_ROUTE_BASES.academic.formerStudents}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		{ method: "GET" },
 		z.array(FormerStudentResponseSchema),

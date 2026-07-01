@@ -32,7 +32,7 @@ export async function getMe(): Promise<UserResponse> {
 export async function list(ids?: string[]): Promise<UserResponse[]> {
 	return webFetch(
 		`${WEB_API_ROUTE_BASES.identity.users}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		z.array(UserResponseSchema),
 	);

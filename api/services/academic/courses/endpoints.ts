@@ -33,7 +33,7 @@ export async function list(
 ): Promise<CourseResponse[]> {
 	return zfetch(
 		`${API_ROUTE_BASES.academic.courses}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		{ method: "GET" },
 		z.array(CourseResponseSchema),

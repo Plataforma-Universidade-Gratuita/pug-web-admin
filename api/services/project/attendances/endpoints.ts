@@ -35,7 +35,7 @@ export async function list(
 	ids?: string[],
 ): Promise<AttendanceResponse[]> {
 	return zfetch(
-		`${API_ROUTE_BASES.project.attendances}${qs({ ids: ids?.join(",") })}`,
+		`${API_ROUTE_BASES.project.attendances}${qs({ ids })}`,
 		{ method: "GET" },
 		z.array(AttendanceResponseSchema),
 		token,

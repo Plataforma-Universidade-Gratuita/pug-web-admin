@@ -38,7 +38,7 @@ export async function list(
 ): Promise<UserResponse[]> {
 	return zfetch(
 		`${API_ROUTE_BASES.identity.users}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		{ method: "GET" },
 		z.array(UserResponseSchema),

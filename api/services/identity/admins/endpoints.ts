@@ -43,7 +43,7 @@ export async function list(
 ): Promise<AdminResponse[]> {
 	return zfetch(
 		`${API_ROUTE_BASES.identity.admins}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		{ method: "GET" },
 		z.array(AdminResponseSchema),

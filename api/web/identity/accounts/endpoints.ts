@@ -33,7 +33,7 @@ export async function getMe(): Promise<AccountResponse> {
 export async function list(ids?: string[]): Promise<AccountResponse[]> {
 	return webFetch(
 		`${WEB_API_ROUTE_BASES.identity.accounts}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		z.array(AccountResponseSchema),
 	);

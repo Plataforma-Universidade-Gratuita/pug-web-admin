@@ -43,7 +43,7 @@ export async function list(
 ): Promise<StaffResponse[]> {
 	return zfetch(
 		`${API_ROUTE_BASES.partner.staff}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		{ method: "GET" },
 		z.array(StaffResponseSchema),

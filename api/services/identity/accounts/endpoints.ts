@@ -42,7 +42,7 @@ export async function list(
 ): Promise<AccountResponse[]> {
 	return zfetch(
 		`${API_ROUTE_BASES.identity.accounts}${qs({
-			ids: ids?.join(","),
+			ids,
 		})}`,
 		{ method: "GET" },
 		z.array(AccountResponseSchema),

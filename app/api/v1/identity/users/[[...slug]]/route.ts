@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { users } from "@/api/services";
 import {
+	getRepeatedQueryParams,
 	parseRouteBody,
 	routeError,
 	routeWithAuthRetry,
@@ -17,11 +18,7 @@ import type { AppRouteSlugContext } from "@/types/client";
 export async function GET(request: Request, { params }: AppRouteSlugContext) {
 	const { slug = [] } = await params;
 	if (slug.length === 0) {
-		const ids =
-			new URL(request.url).searchParams
-				.get("ids")
-				?.split(",")
-				.filter(Boolean) ?? undefined;
+		const ids = getRepeatedQueryParams(request, "ids");
 		return routeWithAuthRetry(
 			token => users.list(token, ids),
 			z.array(UserResponseSchema),
