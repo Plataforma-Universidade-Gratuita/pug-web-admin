@@ -414,6 +414,14 @@
 					}
 				},
 				"overhead": "Configuração de credenciais necessária",
+				"passwordChecklist": {
+					"lowercase": "Uma letra minúscula",
+					"minLength": "Pelo menos 8 caracteres",
+					"number": "Um número",
+					"specialSymbol": "Um símbolo especial",
+					"title": "Sua senha precisa ter:",
+					"uppercase": "Uma letra maiúscula"
+				},
 				"reopen": "Definir senha",
 				"title": "Concluir configuração da conta",
 				"validation": {
@@ -427,7 +435,7 @@
 						"tooLong": "O e-mail deve conter no máximo 254 caracteres."
 					},
 					"password": {
-						"invalid": "Utilize uma senha entre 8 e 255 caracteres.",
+						"invalid": "A senha não atende aos requisitos exigidos.",
 						"required": "Informe uma senha."
 					}
 				}

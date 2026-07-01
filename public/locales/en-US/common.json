@@ -414,6 +414,14 @@
 					}
 				},
 				"overhead": "Credential wiring required",
+				"passwordChecklist": {
+					"lowercase": "An uncapitalized letter",
+					"minLength": "At least 8 characters",
+					"number": "A number",
+					"specialSymbol": "A special symbol",
+					"title": "Your password must include:",
+					"uppercase": "A capitalized letter"
+				},
 				"reopen": "Set password",
 				"title": "Finish account setup",
 				"validation": {
@@ -427,7 +435,7 @@
 						"tooLong": "Email must be at most 254 characters."
 					},
 					"password": {
-						"invalid": "Use a password between 8 and 255 characters.",
+						"invalid": "Password does not meet the required format.",
 						"required": "Enter a password."
 					}
 				}

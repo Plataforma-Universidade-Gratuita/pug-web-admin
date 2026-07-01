@@ -30,6 +30,8 @@ import type {
 	WireCredentialsFormValues,
 } from "@/types/client";
 
+import { evaluateWireCredentialsPasswordRequirements } from "./wire-credentials-utils";
+
 const { auth: authApi } = web.identity;
 const { admins: adminsApi } = web.identity;
 const { wireCredentials } = authApi;
@@ -58,11 +60,15 @@ export function WireCredentialsDialog({
 		handleSubmit,
 		reset,
 		setValue,
+		watch,
 		formState: { errors },
 	} = useLocalizedZodForm<WireCredentialsFormValues>({
 		schemaFactory: createWireCredentialsFormSchema,
 		defaultValues: resetValues,
 	});
+	const passwordValue = watch("password") ?? "";
+	const passwordRequirements =
+		evaluateWireCredentialsPasswordRequirements(passwordValue);
 
 	useEffect(() => {
 		if (!currentEmail) {
@@ -197,6 +203,74 @@ export function WireCredentialsDialog({
 										"auth.login.wireCredentials.fields.password.placeholder",
 									)}
 								/>
+								<div className="border-border bg-surface-1 mt-3 rounded-md border p-3">
+									<p className="ty-caption text-foreground mb-2">
+										{t("auth.login.wireCredentials.passwordChecklist.title")}
+									</p>
+									<ul className="space-y-2">
+										{[
+											[
+												"hasMinimumLength",
+												t(
+													"auth.login.wireCredentials.passwordChecklist.minLength",
+												),
+											],
+											[
+												"hasUppercaseLetter",
+												t(
+													"auth.login.wireCredentials.passwordChecklist.uppercase",
+												),
+											],
+											[
+												"hasLowercaseLetter",
+												t(
+													"auth.login.wireCredentials.passwordChecklist.lowercase",
+												),
+											],
+											[
+												"hasNumber",
+												t(
+													"auth.login.wireCredentials.passwordChecklist.number",
+												),
+											],
+											[
+												"hasSpecialSymbol",
+												t(
+													"auth.login.wireCredentials.passwordChecklist.specialSymbol",
+												),
+											],
+										].map(([key, label]) => {
+											const isSatisfied =
+												passwordRequirements[
+													key as keyof typeof passwordRequirements
+												];
+
+											return (
+												<li
+													key={String(key)}
+													className="flex items-center gap-2"
+												>
+													<span
+														className={`h-2.5 w-2.5 rounded-full ${
+															isSatisfied
+																? "bg-emerald-500 dark:bg-emerald-400"
+																: "bg-border"
+														}`}
+													/>
+													<span
+														className={`ty-caption ${
+															isSatisfied
+																? "text-emerald-700 dark:text-emerald-300"
+																: "text-muted-foreground"
+														}`}
+													>
+														{label}
+													</span>
+												</li>
+											);
+										})}
+									</ul>
+								</div>
 								{errors.password ? (
 									<p
 										id="wire-password-error"
