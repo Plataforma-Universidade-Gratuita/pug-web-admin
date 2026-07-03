@@ -39,10 +39,7 @@ export function getTableScrollbarMetrics({
 		trackSize,
 	);
 	const maxThumbOffset = Math.max(trackSize - thumbSizePx, 0);
-	const thumbOffsetPx =
-		maxScrollOffset === 0
-			? 0
-			: (scrollOffset / maxScrollOffset) * maxThumbOffset;
+	const thumbOffsetPx = (scrollOffset / maxScrollOffset) * maxThumbOffset;
 
 	return {
 		isScrollable: true,
