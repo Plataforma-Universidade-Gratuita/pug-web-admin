@@ -1,5 +1,12 @@
 "use client";
 
+/*
+ * Copyright (c) 2026 Mateus Fernandes and Plataforma Universidade Gratuita.
+ * All rights reserved.
+ *
+ * This source code is proprietary and confidential. Unauthorized use,
+ * copying, modification, distribution, or deployment is prohibited.
+ */
 import * as RadixSwitch from "@radix-ui/react-switch";
 import clsx from "clsx";
 

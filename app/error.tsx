@@ -1,5 +1,12 @@
 "use client";
 
+/*
+ * Copyright (c) 2026 Mateus Fernandes and Plataforma Universidade Gratuita.
+ * All rights reserved.
+ *
+ * This source code is proprietary and confidential. Unauthorized use,
+ * copying, modification, distribution, or deployment is prohibited.
+ */
 import { FloatingPageSelectors } from "@/components/composite";
 import { Button } from "@/components/primitives";
 import type { RouteBoundaryPageProps } from "@/types/client";

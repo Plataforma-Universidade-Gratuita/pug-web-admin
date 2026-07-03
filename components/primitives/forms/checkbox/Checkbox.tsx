@@ -1,5 +1,12 @@
 "use client";
 
+/*
+ * Copyright (c) 2026 Mateus Fernandes and Plataforma Universidade Gratuita.
+ * All rights reserved.
+ *
+ * This source code is proprietary and confidential. Unauthorized use,
+ * copying, modification, distribution, or deployment is prohibited.
+ */
 import * as RadixCheckbox from "@radix-ui/react-checkbox";
 import clsx from "clsx";
 import { Check } from "lucide-react";

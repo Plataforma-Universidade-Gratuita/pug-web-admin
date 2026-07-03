@@ -1,4 +1,11 @@
 /*
+ * Copyright (c) 2026 Mateus Fernandes and Plataforma Universidade Gratuita.
+ * All rights reserved.
+ *
+ * This source code is proprietary and confidential. Unauthorized use,
+ * copying, modification, distribution, or deployment is prohibited.
+ */
+/*
  * Exception: the app shell layout imports Navbar directly instead of through
  * the root features barrel because this client boundary must stay explicit for
  * Next.js server build collection.
