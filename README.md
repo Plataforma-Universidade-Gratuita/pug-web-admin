@@ -208,3 +208,12 @@ pug-web-admin/
 - [Architecture notes](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/ARCHITECTURE.md)
 - [Development notes](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/DEVELOPMENT.md)
 - [CI/CD notes](https://github.com/Plataforma-Universidade-Gratuita/pug-docs/blob/main/pug-web-admin/CICD.md)
+
+## License
+
+This repository contains proprietary software. All rights are reserved.
+
+No use, copying, modification, distribution, hosting, sublicensing, or commercial
+use is permitted without prior express written permission from the copyright holder.
+
+See [LICENSE](./LICENSE).
